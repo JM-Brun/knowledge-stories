@@ -136,8 +136,8 @@ Une première tranche de l'expérience a été intégrée au brouillon :
 
 **Ce qui reste à faire avant de considérer l'expérience comme aboutie :**
 
-- ajouter une comparaison récursive chiffrée (avec profondeur, seuil de base et nombre de feuilles explicitement définis) ;
-- rendre visible au lecteur le contrôle indépendant du produit, pas seulement l'effectuer en interne ;
+- la comparaison récursive chiffrée est maintenant présente : profondeur, complétion à la puissance de deux et nombre de feuilles sont affichés ; le modèle est explicitement limité à des blocs d’un chiffre et ne prétend pas représenter les seuils d’une bibliothèque réelle ;
+- le contrôle indépendant du produit est maintenant annoncé visiblement au lecteur ;
 - auditer l'accessibilité réelle au clavier et avec lecteur d'écran, ainsi que le rendu mobile ;
 - enrichir la comparaison des modèles de complexité et vérifier les transitions pédagogiques ;
 - effectuer une inspection directe et côte à côte du billet de référence avant toute affirmation de supériorité ;
