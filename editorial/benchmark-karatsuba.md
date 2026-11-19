@@ -110,6 +110,19 @@ Un futur audit côte à côte doit évaluer le billet de référence et Knowledg
 | Autonomie | L'article se comprend-il sans ses projets sources ? | Références publiques et explications complètes |
 | Fiabilité | Les exemples et composants résistent-ils aux cas limites ? | Tests automatisés et revue humaine |
 
+## Avancement technique — 20 novembre 2026
+
+Une première tranche d'interactivité a été implémentée sur la branche `feat/karatsuba-interactive-explorer` :
+
+- composant Astro autonome avec saisie de deux entiers (jusqu'à 40 chiffres), découpage dynamique, calcul de (p), (q), (r), reconstruction du terme croisé et recomposition ;
+- calcul exact fondé sur `BigInt`, extrait dans un module testable ;
+- vérification indépendante du produit final ;
+- tableau illustrant (4^d) contre (3^d), explicitement présenté comme un modèle de comptage et non comme une mesure de performance ;
+- tests Node.js couvrant l'exemple de l'article, des longueurs différentes, zéro, les grands entiers et les entrées négatives ;
+- exécution des tests ajoutée à la CI avant les contrôles Astro et le build.
+
+Cette tranche ne constitue pas encore une multiplication Karatsuba récursive complète : elle expose et vérifie une étape de découpage. Le composant est conditionné à l'article Karatsuba ; l'article reste en brouillon et n'est donc pas publié. Les résultats de CI et le rendu navigateur restent à examiner avant toute fusion.
+
 ## Décision éditoriale actuelle
 
 Le premier brouillon Karatsuba est une base de contenu, pas encore une réponse supérieure au billet de référence. Il lui manque notamment :
