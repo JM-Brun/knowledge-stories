@@ -28,6 +28,6 @@ test("supports the full 18-digit input limit exactly", () => {
 });
 
 test("rejects invalid input", () => {
-  assert.throws(() => calculateKaratsubaStep("-2", "4"), /positive integers/);
+  assert.throws(() => calculateKaratsubaStep("-2", "4"), /non-negative integers/);
   assert.throws(() => calculateKaratsubaStep("1234567890123456789", "1"), /18 digits/);
 });
