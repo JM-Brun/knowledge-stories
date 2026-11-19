@@ -56,11 +56,10 @@
 
   document.querySelectorAll<HTMLElement>("[data-karatsuba-lab]").forEach((root) => {
     const fields = {
-      x: root.querySelector<HTMLInputElement>('[data-number="x"]'),
-      y: root.querySelector<HTMLInputElement>('[data-number="y"]'),
+      x: root.querySelector<HTMLInputElement>('[data-number="x"]')!,
+      y: root.querySelector<HTMLInputElement>('[data-number="y"]')!,
     };
-    const error = root.querySelector<HTMLParagraphElement>("[data-error]");
-    if (!fields.x || !fields.y || !error) return;
+    const error = root.querySelector<HTMLParagraphElement>("[data-error]")!;
 
     const update = () => {
       const rawX = fields.x.value.replace(/[\s\u00a0]/g, "");
