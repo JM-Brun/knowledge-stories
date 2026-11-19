@@ -25,6 +25,14 @@ sources:
     url: "https://courses.grainger.illinois.edu/CS173/fa2024/ALL-lectures/Lectures/algorithms4.html"
     kind: "secondary"
     accessed: 2026-11-20
+  - title: "Integer multiplication below n log n — OpenAI preprint"
+    url: "https://github.com/openai/math/tree/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026"
+    kind: "primary"
+    accessed: 2026-11-20
+  - title: "On the recently proposed o(n log n) integer multiplication algorithm — David Harvey"
+    url: "https://web.maths.unsw.edu.au/~davidharvey/research/nlogn/index.html"
+    kind: "secondary"
+    accessed: 2026-11-20
 relatedArticles: []
 ---
 
