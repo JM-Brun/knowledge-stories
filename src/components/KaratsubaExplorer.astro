@@ -73,14 +73,16 @@ const title = "Expérimenter la multiplication de Karatsuba";
 <script>
   import { calculateKaratsubaSplit } from "../lib/karatsuba.js";
 
-  const root = document.querySelector(".karatsuba-explorer");
+  const root = document.querySelector<HTMLElement>(".karatsuba-explorer");
   if (root) {
-    const inputX = root.querySelector('[data-operand="x"]');
-    const inputY = root.querySelector('[data-operand="y"]');
-    const error = root.querySelector("[data-error]");
-    const results = root.querySelector("[data-results]");
-    const set = (selector, value) => {
-      const node = root.querySelector(selector);
+    const inputX = root.querySelector<HTMLInputElement>('[data-operand="x"]');
+    const inputY = root.querySelector<HTMLInputElement>('[data-operand="y"]');
+    const error = root.querySelector<HTMLElement>("[data-error]");
+    const results = root.querySelector<HTMLElement>("[data-results]");
+    if (!inputX || !inputY || !error || !results) throw new Error("Karatsuba explorer markup is incomplete.");
+
+    const set = (selector: string, value: string) => {
+      const node = root.querySelector<HTMLElement>(selector);
       if (node) node.textContent = value;
     };
 
@@ -96,7 +98,7 @@ const title = "Expérimenter la multiplication de Karatsuba";
 
       const calculation = calculateKaratsubaSplit(rawX, rawY);
       const { splitDigits: m, base, a, b, c, d, highProduct: p, lowProduct: q, sumProduct: r, crossTerm: cross, product: result, verified } = calculation;
-      const formatBig = (value) => new Intl.NumberFormat("fr-FR").format(value);
+      const formatBig = (value: bigint) => new Intl.NumberFormat("fr-FR").format(value);
 
       error.hidden = true;
       results.hidden = false;
