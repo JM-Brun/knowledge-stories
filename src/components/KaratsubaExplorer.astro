@@ -1,0 +1,160 @@
+---
+const title = "Expérimenter la multiplication de Karatsuba";
+---
+
+<section class="karatsuba-explorer" aria-labelledby="karatsuba-explorer-title">
+  <div class="explorer-heading">
+    <p class="explorer-kicker">À vous de jouer · calcul exact</p>
+    <h2 id="karatsuba-explorer-title">{title}</h2>
+    <p>Modifiez les deux nombres : le découpage, les trois multiplications et la recomposition sont recalculés à chaque changement.</p>
+  </div>
+
+  <div class="operands">
+    <label>
+      Premier nombre
+      <input data-operand="x" type="text" inputmode="numeric" autocomplete="off" value="1234" aria-describedby="karatsuba-input-help" />
+    </label>
+    <span class="operator" aria-hidden="true">×</span>
+    <label>
+      Second nombre
+      <input data-operand="y" type="text" inputmode="numeric" autocomplete="off" value="5678" aria-describedby="karatsuba-input-help" />
+    </label>
+  </div>
+  <p id="karatsuba-input-help" class="input-help">Entiers positifs ou nuls, jusqu’à 40 chiffres. Les espaces et séparateurs ne sont pas acceptés.</p>
+
+  <p class="error" data-error role="alert" hidden></p>
+
+  <div class="calculation" data-results aria-live="polite" aria-atomic="true">
+    <div class="split-grid">
+      <div class="split-card">
+        <span class="step-label">01 · Découper</span>
+        <p data-split-x></p>
+        <p data-split-y></p>
+        <small data-base></small>
+      </div>
+      <div class="split-card">
+        <span class="step-label">02 · Trois produits</span>
+        <p data-p></p>
+        <p data-q></p>
+        <p data-r></p>
+      </div>
+    </div>
+    <div class="cross-term">
+      <span class="step-label">03 · Retrouver les produits croisés</span>
+      <strong data-cross></strong>
+      <p>Le produit des sommes contient les deux produits croisés, auxquels on retire les deux produits déjà connus.</p>
+    </div>
+    <div class="final-result">
+      <span class="step-label">04 · Recomposer</span>
+      <strong data-result></strong>
+      <p data-recomposition></p>
+      <span class="verification" data-verification></span>
+    </div>
+  </div>
+
+  <div class="recurrence">
+    <div>
+      <span class="step-label">Pourquoi trois au lieu de quatre ?</span>
+      <h3>La différence se répète à chaque niveau</h3>
+      <p>Dans le modèle idéal où chaque appel divise la taille par deux, voici le nombre de multiplications de blocs au dernier niveau après plusieurs découpages. Ce tableau illustre la récurrence ; il ne mesure ni un temps d’exécution ni les coûts d’une bibliothèque réelle.</p>
+    </div>
+    <div class="count-table" role="table" aria-label="Nombre de sous-multiplications selon la profondeur">
+      <div role="row" class="count-head"><span role="columnheader">Profondeur</span><span role="columnheader">Classique · 4ⁿ</span><span role="columnheader">Karatsuba · 3ⁿ</span></div>
+      {Array.from({ length: 5 }, (_, index) => index + 1).map((depth) => (
+        <div role="row" class="count-row">
+          <span role="cell">{depth}</span><span role="cell">{4 ** depth}</span><span role="cell">{3 ** depth}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+  <noscript><p>Cette expérience nécessite JavaScript. L’explication et l’exemple calculé dans l’article restent disponibles sans interaction.</p></noscript>
+</section>
+
+<script>
+  const root = document.querySelector(".karatsuba-explorer");
+  if (root) {
+    const inputX = root.querySelector('[data-operand="x"]');
+    const inputY = root.querySelector('[data-operand="y"]');
+    const error = root.querySelector("[data-error]");
+    const results = root.querySelector("[data-results]");
+    const format = (value) => new Intl.NumberFormat("fr-FR").format(value);
+    const set = (selector, value) => {
+      const node = root.querySelector(selector);
+      if (node) node.textContent = value;
+    };
+
+    const update = () => {
+      const rawX = inputX.value.trim();
+      const rawY = inputY.value.trim();
+      if (!/^\\d{1,40}$/.test(rawX) || !/^\\d{1,40}$/.test(rawY)) {
+        error.textContent = "Saisissez deux entiers (0 à 40 chiffres chacun), sans séparateur.";
+        error.hidden = false;
+        results.hidden = true;
+        return;
+      }
+
+      const x = BigInt(rawX);
+      const y = BigInt(rawY);
+      const digits = Math.max(rawX.length, rawY.length);
+      const m = Math.ceil(digits / 2);
+      const base = 10n ** BigInt(m);
+      const a = x / base;
+      const b = x % base;
+      const c = y / base;
+      const d = y % base;
+      const p = a * c;
+      const q = b * d;
+      const r = (a + b) * (c + d);
+      const cross = r - p - q;
+      const result = p * base * base + cross * base + q;
+      const reference = x * y;
+
+      error.hidden = true;
+      results.hidden = false;
+      set("[data-split-x]", `x = ${format(a)} × ${format(base)} + ${format(b)}`);
+      set("[data-split-y]", `y = ${format(c)} × ${format(base)} + ${format(d)}`);
+      set("[data-base]", `Base de découpage : 10^${m} = ${format(base)}`);
+      set("[data-p]", `p = a × c = ${format(p)}`);
+      set("[data-q]", `q = b × d = ${format(q)}`);
+      set("[data-r]", `r = (a + b)(c + d) = ${format(r)}`);
+      set("[data-cross]", `r − p − q = ${format(cross)}`);
+      set("[data-result]", format(result));
+      set("[data-recomposition]", `p × 10^${2 * m} + (r − p − q) × 10^${m} + q`);
+      set("[data-verification]", result === reference ? "✓ Vérification indépendante : le produit direct donne le même résultat." : "Erreur de calcul : les deux méthodes divergent.");
+    };
+
+    inputX.addEventListener("input", update);
+    inputY.addEventListener("input", update);
+    update();
+  }
+</script>
+
+<style>
+  .karatsuba-explorer{margin:3.5rem 0;padding:clamp(1.25rem,4vw,2.5rem);background:#eae6dc;border:1px solid #d9d5ca;color:#22241f;font-family:"DM Sans",sans-serif}
+  .explorer-heading{max-width:620px}
+  .explorer-kicker,.step-label{display:block;font:500 .68rem "DM Mono",monospace;letter-spacing:.09em;text-transform:uppercase;color:#a5422d}
+  .explorer-heading h2{font:500 clamp(1.8rem,4vw,2.6rem)/1.05 "Newsreader",Georgia,serif;letter-spacing:-.03em;margin:.8rem 0}
+  .explorer-heading>p:last-child,.recurrence p{font-size:.9rem;line-height:1.65;color:#626259}
+  .operands{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:1rem;align-items:end;margin:2rem 0 .5rem}
+  .operands label{display:grid;gap:.55rem;font-size:.75rem;font-weight:700}
+  .operands input{width:100%;min-width:0;padding:.8rem;border:1px solid #c9c3b7;background:#f8f6f0;color:#22241f;font:1.1rem "DM Mono",monospace;border-radius:2px}
+  .operands input:focus-visible{outline:3px solid #bd4b32;outline-offset:2px}
+  .operator{font:1.5rem "DM Mono",monospace;padding-bottom:.75rem}
+  .input-help,.error{font-size:.75rem;color:#626259}
+  .error{color:#a12d20;font-weight:700}
+  .calculation{display:grid;gap:.8rem;margin-top:1.5rem}
+  .split-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+  .split-card,.cross-term,.final-result{padding:1.2rem;background:#f4f1e9;border:1px solid #d9d5ca;min-width:0}
+  .split-card p,.cross-term p,.final-result p{font: .86rem/1.6 "DM Mono",monospace;overflow-wrap:anywhere;margin:.65rem 0 0}
+  .split-card small{display:block;color:#77776d;font-size:.72rem;margin-top:.7rem}
+  .cross-term strong,.final-result strong{display:block;font:500 clamp(1.35rem,4vw,2rem) "Newsreader",Georgia,serif;margin-top:.75rem;overflow-wrap:anywhere}
+  .cross-term p,.final-result p{font-family:"DM Sans",sans-serif;color:#626259}
+  .verification{display:block;margin-top:1rem;color:#315b43;font-size:.78rem;font-weight:700;line-height:1.5}
+  .recurrence{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start;margin-top:2.5rem;padding-top:2rem;border-top:1px solid #d0cabe}
+  .recurrence h3{font:500 1.5rem/1.1 "Newsreader",Georgia,serif;margin:.7rem 0}
+  .count-table{font: .78rem "DM Mono",monospace}
+  .count-head,.count-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;padding:.65rem .4rem;border-bottom:1px solid #d0cabe}
+  .count-head{font-size:.65rem;color:#77776d}
+  .count-row span:last-child{font-weight:700;color:#a5422d}
+  @media(max-width:600px){.split-grid,.recurrence{grid-template-columns:1fr}.operands{gap:.55rem}.operands input{font-size:.9rem}.karatsuba-explorer{margin:2.5rem -1rem;padding:1.25rem}}
+</style>
