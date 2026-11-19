@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateKaratsubaStep } from "../src/scripts/karatsuba.js";
+import { calculateKaratsubaStep, getRecursiveMultiplicationCounts } from "../src/scripts/karatsuba.js";
 
 test("reproduces the article example", () => {
   const result = calculateKaratsubaStep("1234", "5678");
@@ -30,4 +30,17 @@ test("supports the full 18-digit input limit exactly", () => {
 test("rejects invalid input", () => {
   assert.throws(() => calculateKaratsubaStep("-2", "4"), /non-negative integers/);
   assert.throws(() => calculateKaratsubaStep("1234567890123456789", "1"), /18 digits/);
+});
+
+
+test("compares recursive leaf counts under an explicit balanced model", () => {
+  assert.deepEqual(getRecursiveMultiplicationCounts(1), {
+    digitCount: 1, paddedDigits: 1, depth: 0, schoolbookLeaves: 1, karatsubaLeaves: 1,
+  });
+  assert.deepEqual(getRecursiveMultiplicationCounts(4), {
+    digitCount: 4, paddedDigits: 4, depth: 2, schoolbookLeaves: 16, karatsubaLeaves: 9,
+  });
+  assert.deepEqual(getRecursiveMultiplicationCounts(18), {
+    digitCount: 18, paddedDigits: 32, depth: 5, schoolbookLeaves: 1024, karatsubaLeaves: 243,
+  });
 });
