@@ -18,7 +18,7 @@
       <input data-number="y" type="text" inputmode="numeric" value="5678" maxlength="18" autocomplete="off" aria-describedby="lab-input-help" />
     </label>
   </div>
-  <p class="lab-help" id="lab-input-help">Entiers positifs de 1 à 18 chiffres. Les espaces sont acceptés pour la lisibilité.</p>
+  <p class="lab-help" id="lab-input-help">Entiers naturels de 1 à 18 chiffres (zéro compris). Les espaces sont acceptés pour la lisibilité.</p>
   <p class="lab-error" data-error role="alert" hidden></p>
 
   <div class="lab-result" aria-live="polite" aria-atomic="true">
@@ -67,7 +67,7 @@
       const valid = (value) => /^\d{1,18}$/.test(value);
       if (!valid(rawX) || !valid(rawY)) {
         error.hidden = false;
-        error.textContent = "Saisissez deux entiers positifs comportant chacun de 1 à 18 chiffres.";
+        error.textContent = "Saisissez deux entiers naturels comportant chacun de 1 à 18 chiffres (zéro compris).";
         return;
       }
 
