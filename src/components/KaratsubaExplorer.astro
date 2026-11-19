@@ -71,6 +71,8 @@ const title = "Expérimenter la multiplication de Karatsuba";
 </section>
 
 <script>
+  import { calculateKaratsubaSplit } from "../lib/karatsuba.js";
+
   const root = document.querySelector(".karatsuba-explorer");
   if (root) {
     const inputX = root.querySelector('[data-operand="x"]');
@@ -93,34 +95,22 @@ const title = "Expérimenter la multiplication de Karatsuba";
         return;
       }
 
-      const x = BigInt(rawX);
-      const y = BigInt(rawY);
-      const digits = Math.max(rawX.length, rawY.length);
-      const m = Math.ceil(digits / 2);
-      const base = 10n ** BigInt(m);
-      const a = x / base;
-      const b = x % base;
-      const c = y / base;
-      const d = y % base;
-      const p = a * c;
-      const q = b * d;
-      const r = (a + b) * (c + d);
-      const cross = r - p - q;
-      const result = p * base * base + cross * base + q;
-      const reference = x * y;
+      const calculation = calculateKaratsubaSplit(rawX, rawY);
+      const { splitDigits: m, base, a, b, c, d, highProduct: p, lowProduct: q, sumProduct: r, crossTerm: cross, product: result, verified } = calculation;
+      const formatBig = (value) => new Intl.NumberFormat("fr-FR").format(value);
 
       error.hidden = true;
       results.hidden = false;
-      set("[data-split-x]", `x = ${format(a)} × ${format(base)} + ${format(b)}`);
-      set("[data-split-y]", `y = ${format(c)} × ${format(base)} + ${format(d)}`);
-      set("[data-base]", `Base de découpage : 10^${m} = ${format(base)}`);
-      set("[data-p]", `p = a × c = ${format(p)}`);
-      set("[data-q]", `q = b × d = ${format(q)}`);
-      set("[data-r]", `r = (a + b)(c + d) = ${format(r)}`);
-      set("[data-cross]", `r − p − q = ${format(cross)}`);
-      set("[data-result]", format(result));
+      set("[data-split-x]", `x = ${formatBig(a)} × ${formatBig(base)} + ${formatBig(b)}`);
+      set("[data-split-y]", `y = ${formatBig(c)} × ${formatBig(base)} + ${formatBig(d)}`);
+      set("[data-base]", `Base de découpage : 10^${m} = ${formatBig(base)}`);
+      set("[data-p]", `p = a × c = ${formatBig(p)}`);
+      set("[data-q]", `q = b × d = ${formatBig(q)}`);
+      set("[data-r]", `r = (a + b)(c + d) = ${formatBig(r)}`);
+      set("[data-cross]", `r − p − q = ${formatBig(cross)}`);
+      set("[data-result]", formatBig(result));
       set("[data-recomposition]", `p × 10^${2 * m} + (r − p − q) × 10^${m} + q`);
-      set("[data-verification]", result === reference ? "✓ Vérification indépendante : le produit direct donne le même résultat." : "Erreur de calcul : les deux méthodes divergent.");
+      set("[data-verification]", verified ? "✓ Vérification indépendante : le produit direct donne le même résultat." : "Erreur de calcul : les deux méthodes divergent.");
     };
 
     inputX.addEventListener("input", update);
