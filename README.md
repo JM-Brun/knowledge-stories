@@ -62,6 +62,10 @@ npm run check     # vérification Astro et TypeScript
 
 Le dépôt commence par ses fondations éditoriales et techniques. Les premiers articles pilotes seront ajoutés après constitution de dossiers documentaires vérifiés ; aucune synthèse issue d'un autre dépôt ne doit être recopiée sans réexamen des sources et des droits.
 
+## Déploiement
+
+Le workflow GitHub Actions construit et déploie le site sur GitHub Pages à chaque mise à jour de `main`. Pour l'activation initiale, sélectionner **Settings → Pages → Build and deployment → Source → GitHub Actions**. Voir [le guide de déploiement](docs/deployment.md).
+
 ## Contribuer
 
 Lire [CONTRIBUTING.md](CONTRIBUTING.md), [la charte éditoriale](editorial/editorial-charter.md) et [le workflow de publication](editorial/publication-workflow.md) avant de proposer un article.
