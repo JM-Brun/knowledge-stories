@@ -25,9 +25,9 @@ Knowledge Stories peut s'appuyer, selon le sujet, sur :
 | [Society Lab](https://github.com/JM-Brun/society-lab) | Recherche documentaire, politiques publiques, économie, société, preuves et controverses |
 | [LLM Lab](https://github.com/JM-Brun/llm-lab) | Mathématiques, informatique, IA, implémentations et expériences |
 | Wiki Knowledge | Concepts, sources, relations et synthèses transversales (dépôt privé) |
-| Career Knowledge | Compétences, technologies et connaissances professionnelles (nom et accès du dépôt à confirmer) |
+| Career Knowledge (dépôt privé) | Uniquement des connaissances techniques génériques explicitement sélectionnées et validées ; aucune donnée de profil, candidature, recherche d'emploi, évaluation personnelle ou correspondance privée n'est publiable. |
 
-Ces projets restent les propriétaires de leurs contenus canoniques. Knowledge Stories conserve ses propres textes publiables, références et décisions éditoriales. Les liens vers des dépôts privés sont des pointeurs de travail internes et ne doivent jamais devenir des dépendances de lecture pour le public.
+Ces projets restent les propriétaires de leurs contenus canoniques. Knowledge Stories conserve ses propres textes publiables, références et décisions éditoriales. Les dépôts privés (Wiki Knowledge et Career Knowledge) ne sont jamais des sources publiques directement accessibles : seule une connaissance générique explicitement sélectionnée, vérifiée et autorisée peut être reformulée ici. Aucune donnée personnelle, de carrière ou de candidature n'est réutilisée. Les liens vers des dépôts privés ne doivent jamais apparaître dans les articles ni devenir des dépendances de lecture pour le public.
 
 ## Démarrer
 
