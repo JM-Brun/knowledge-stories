@@ -1,0 +1,26 @@
+---
+import "../styles/global.css";
+interface Props { title?: string; description?: string; }
+const { title = "Knowledge Stories", description = "Des idées complexes, expliquées avec clarté, rigueur et imagination." } = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f1e9" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/knowledge-stories/" aria-label="Knowledge Stories, accueil"><span class="brand-mark">K.</span><span>knowledge stories</span></a>
+      <nav aria-label="Navigation principale"><a href="/knowledge-stories/#articles">Articles</a><a href="/knowledge-stories/about/">À propos</a><a class="nav-github" href="https://github.com/JM-Brun/knowledge-stories">GitHub ↗</a></nav>
+    </header>
+    <slot />
+    <footer class="site-footer"><a class="brand" href="/knowledge-stories/"><span class="brand-mark">K.</span><span>knowledge stories</span></a><p>Des idées complexes, expliquées avec clarté, rigueur et imagination.</p><span class="footer-meta">Recherche indépendante · Sources ouvertes · Esprit critique</span></footer>
+  </body>
+</html>
