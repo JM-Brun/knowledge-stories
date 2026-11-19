@@ -139,6 +139,26 @@ L'exposant est inférieur à 2. C'est le gain fondamental : lorsque la taille au
 
 Une autre manière de voir la différence consiste à regarder les feuilles de l'arbre récursif. Si la taille est divisée par deux à chaque niveau, il faut environ log₂(n) niveaux. Quatre appels par nœud conduisent à 4^log₂(n) = n² feuilles ; trois appels conduisent à 3^log₂(n) = n^log₂(3).
 
+## De Karatsuba aux limites théoriques actuelles
+
+Karatsuba n'est pas le dernier chapitre de cette histoire. Son apport est une idée de conception : remplacer une multiplication récursive par un petit nombre de multiplications plus petites, en acceptant davantage d'additions. D'autres algorithmes ont prolongé cette stratégie.
+
+- **Toom–Cook** généralise l'idée en découpant les nombres en davantage de blocs, puis en utilisant évaluation et interpolation.
+- **Schönhage–Strassen** exploite les transformations rapides pour obtenir une borne quasi linéaire, dans un modèle de calcul précis.
+- **Harvey et van der Hoeven (2021)** établissent une borne (O(n\log n)) pour la multiplication de deux entiers de (n) bits dans le modèle multitape considéré par leur travail.
+
+Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de (n) bits en temps
+
+```text
+O(n (log n)^(1 - κ)), avec κ = 2^(-182)
+```
+
+sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que (O(n\log n)) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
+
+Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat (O(n\log n)) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape.
+
+Cette annonce n'efface donc pas l'intérêt de Karatsuba. Elle illustre plutôt la manière dont une économie locale — ici, trois produits au lieu de quatre — peut inaugurer une longue chaîne d'idées, chacune adaptée à un modèle de calcul et à une échelle différents. Elle rappelle aussi qu'une borne asymptotique, une preuve examinée, une implémentation et un gain de performance pratique sont quatre choses distinctes.
+
 ## Ce que cette explication ne dit pas
 
 **Une meilleure complexité asymptotique ne signifie pas que Karatsuba est toujours plus rapide.** Pour de petits nombres, les multiplications classiques ont peu de surcoût. La récursion, les allocations et les additions supplémentaires peuvent coûter davantage que les multiplications économisées.
