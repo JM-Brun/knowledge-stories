@@ -3,7 +3,7 @@ const MAX_DIGITS = 18;
 export function calculateKaratsubaStep(left, right) {
   const valid = (value) => typeof value === "string" && /^\d{1,18}$/.test(value);
   if (!valid(left) || !valid(right)) {
-    throw new RangeError(`Karatsuba demo accepts positive integers with at most ${MAX_DIGITS} digits.`);
+    throw new RangeError(`Karatsuba demo accepts non-negative integers with at most ${MAX_DIGITS} digits.`);
   }
 
   const x = BigInt(left);
