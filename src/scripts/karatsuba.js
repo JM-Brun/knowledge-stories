@@ -26,3 +26,19 @@ export function calculateKaratsubaStep(left, right) {
   }
   return { x, y, a, b, c, d, base, p, q, r, cross, product };
 }
+
+
+export function getRecursiveMultiplicationCounts(digitCount) {
+  if (!Number.isInteger(digitCount) || digitCount < 1 || digitCount > MAX_DIGITS) {
+    throw new RangeError(`Digit count must be an integer between 1 and ${MAX_DIGITS}.`);
+  }
+  const paddedDigits = 2 ** Math.ceil(Math.log2(digitCount));
+  const depth = Math.log2(paddedDigits);
+  return {
+    digitCount,
+    paddedDigits,
+    depth,
+    schoolbookLeaves: 4 ** depth,
+    karatsubaLeaves: 3 ** depth,
+  };
+}
