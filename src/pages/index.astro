@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("articles", ({ data }) => data.status === "published"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featured = articles.filter((article) => article.data.featured);
+const recent = articles.filter((article) => !article.data.featured);
+---
+<BaseLayout title="Knowledge Stories" description="Des idées complexes, expliquées avec clarté, rigueur et imagination.">
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Un laboratoire éditorial</p>
+      <h1>Comprendre le monde,<br /><em>une idée à la fois.</em></h1>
+      <p class="hero-copy">Des articles pour explorer les idées complexes : une intuition, des explications, des preuves et des expériences pour aller au fond des choses.</p>
+      <a class="text-link" href="#articles">Explorer les articles <span aria-hidden="true">↘</span></a>
+      <div class="hero-note"><span class="note-line"></span><span>Recherche · Pédagogie · Visualisation</span></div>
+    </section>
+    {featured.length > 0 && <section class="section" aria-labelledby="featured-title"><div class="section-heading"><p class="eyebrow">À la une</p><h2 id="featured-title">Pour commencer</h2></div><div class="featured-grid">{featured.map((article) => <a class="feature-card" href={`/knowledge-stories/articles/${article.id}/`}><span class="card-category">{article.data.category}</span><h3>{article.data.title}</h3><p>{article.data.description}</p><span class="card-arrow" aria-hidden="true">↗</span></a>)}</div></section>}
+    <section class="section" id="articles" aria-labelledby="articles-title">
+      <div class="section-heading"><p class="eyebrow">Le journal</p><h2 id="articles-title">Les dernières histoires</h2></div>
+      {recent.length > 0 ? <div class="article-list">{recent.map((article) => <a class="article-row" href={`/knowledge-stories/articles/${article.id}/`}><span class="row-category">{article.data.category}</span><span class="row-main"><strong>{article.data.title}</strong><span>{article.data.description}</span></span><span class="row-arrow" aria-hidden="true">↗</span></a>)}</div> : <div class="empty-state"><p class="empty-title">Les premières histoires se préparent.</p><p>Chaque article part d'un sujet étudié, d'une question précise et de sources vérifiables. Les publications apparaîtront ici après validation éditoriale.</p></div>}
+    </section>
+    <section class="manifesto"><p class="eyebrow">Notre intention</p><p class="manifesto-text">Rendre les idées <em>compréhensibles</em> sans les rendre simplistes.</p></section>
+  </main>
+</BaseLayout>
