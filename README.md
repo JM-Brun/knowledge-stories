@@ -56,7 +56,7 @@ npm run check     # vérification Astro et TypeScript
 - `src/pages/` : routes du site.
 - `src/styles/` : système visuel.
 - `editorial/` : charte, workflow, contrôles et modèle d'article.
-- `docs/` : architecture et décisions techniques.
+- `docs/` : architecture, intégration inter-projets et déploiement.
 
 ## État du projet
 
@@ -68,4 +68,4 @@ Le workflow GitHub Actions construit et déploie le site sur GitHub Pages à cha
 
 ## Contribuer
 
-Lire [CONTRIBUTING.md](CONTRIBUTING.md), [la charte éditoriale](editorial/editorial-charter.md) et [le workflow de publication](editorial/publication-workflow.md) avant de proposer un article.
+Lire [CONTRIBUTING.md](CONTRIBUTING.md), [la charte éditoriale](editorial/editorial-charter.md), [le workflow de publication](editorial/publication-workflow.md) et le [contrat d'intégration inter-projets](docs/ecosystem-integration.md). Les premières pistes sont recensées dans [le backlog éditorial](editorial/pitch-backlog.md).
