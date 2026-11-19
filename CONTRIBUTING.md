@@ -10,13 +10,14 @@
 
 ## Workflow
 1. Ouvrir une issue décrivant le sujet, le public et la question à traiter.
-2. Vérifier les travaux et sources disponibles ; établir un dossier documentaire autonome.
-3. Définir le plan pédagogique et les prérequis.
-4. Rédiger l'article dans `src/content/articles/` à partir de `editorial/article-template.md`.
-5. Vérifier les affirmations, références, calculs, droits et limites.
-6. Contrôler le rendu sur mobile et desktop, au clavier et avec un lecteur d'écran lorsque pertinent.
-7. Exécuter `npm run check` et `npm run build`.
-8. Soumettre une revue éditoriale humaine. La publication n'est jamais déclenchée par la seule génération d'un brouillon.
+2. Créer une branche et proposer les changements par pull request ; éviter les modifications directes de `main`.
+3. Vérifier les travaux et sources disponibles ; établir un dossier documentaire autonome.
+4. Définir le plan pédagogique et les prérequis.
+5. Rédiger l'article dans `src/content/articles/` à partir de `editorial/article-template.md`.
+6. Vérifier les affirmations, références, calculs, droits et limites.
+7. Contrôler le rendu sur mobile et desktop, au clavier et avec un lecteur d'écran lorsque pertinent.
+8. Exécuter `npm run check` et `npm run build`.
+9. Soumettre une revue éditoriale humaine. La publication n'est jamais déclenchée par la seule génération d'un brouillon.
 
 ## Règles importantes
 - Ne jamais inventer une source, une citation, un DOI, une mesure ou un résultat.
