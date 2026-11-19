@@ -120,3 +120,27 @@ Le premier brouillon Karatsuba est une base de contenu, pas encore une réponse 
 - une comparaison directe, à refaire lorsque l'inspection complète de la page de référence sera possible.
 
 Le succès ne sera déclaré que si les gains sont démontrés sur plusieurs dimensions, sans régression sur les qualités déjà présentes.
+
+
+## État d'avancement — 20 novembre 2026
+
+Une première tranche de l'expérience a été intégrée au brouillon :
+
+- le composant `KaratsubaExplorer.astro` permet de modifier deux entiers naturels de 1 à 18 chiffres et recalcule le découpage, les trois produits, le terme croisé et la recomposition ;
+- les calculs utilisent `BigInt`, et le module partagé `src/scripts/karatsuba.js` vérifie en interne que la reconstruction est identique au produit direct ;
+- une alternative sans JavaScript est fournie dans l'article : l'exemple complet reste expliqué dans le texte ;
+- des tests Node couvrent l'exemple publié, les longueurs inégales, zéro, les valeurs à 18 chiffres et les entrées invalides ;
+- le workflow de qualité exécute désormais les tests, `astro check` et `astro build` sur chaque push.
+
+**Validation technique observée :** sur le commit `8de56421`, les tests unitaires, `astro check` et `astro build` ont tous réussi dans GitHub Actions. Le déploiement Pages a ensuite échoué avec une réponse 404 indiquant que GitHub Pages n'est pas encore activé pour le dépôt ; ce blocage de configuration ne remet pas en cause la réussite du build.
+
+**Ce qui reste à faire avant de considérer l'expérience comme aboutie :**
+
+- ajouter une comparaison récursive chiffrée (avec profondeur, seuil de base et nombre de feuilles explicitement définis) ;
+- rendre visible au lecteur le contrôle indépendant du produit, pas seulement l'effectuer en interne ;
+- auditer l'accessibilité réelle au clavier et avec lecteur d'écran, ainsi que le rendu mobile ;
+- enrichir la comparaison des modèles de complexité et vérifier les transitions pédagogiques ;
+- effectuer une inspection directe et côte à côte du billet de référence avant toute affirmation de supériorité ;
+- obtenir une revue humaine des faits, des sources et des calculs.
+
+Le statut éditorial de l'article reste **draft**. Aucune publication n'est autorisée par cette tranche.
