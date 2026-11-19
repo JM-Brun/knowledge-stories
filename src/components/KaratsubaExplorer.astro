@@ -26,6 +26,8 @@
     <strong data-result>7 006 652</strong>
   </div>
 
+  <p class="lab-verification" data-verification role="status">Vérification : le résultat reconstruit correspond au produit direct.</p>
+
   <div class="lab-steps" data-steps>
     <div class="lab-step"><span class="step-index">01</span><div><h4>Découper</h4><p data-split>1 234 = 12 × 100 + 34<br />5 678 = 56 × 100 + 78</p></div></div>
     <div class="lab-step"><span class="step-index">02</span><div><h4>Calculer trois produits</h4><p data-products>p = 12 × 56 = 672<br />q = 34 × 78 = 2 652<br />r = 46 × 134 = 6 164</p></div></div>
@@ -42,11 +44,16 @@
     </div>
     <p class="lab-footnote">Cette comparaison porte sur un niveau de découpage. En répétant la méthode récursivement, on obtient la récurrence T(n) = 3T(n/2) + O(n), dans le modèle où les deux blocs sont de taille comparable.</p>
   </div>
+  <div class="lab-recursion">
+    <h4>Et si l’on répète le découpage ?</h4>
+    <p data-recursion>Pour 4 chiffres, le modèle équilibré jusqu’à 1 chiffre donne 16 multiplications élémentaires avec la méthode scolaire, contre 9 avec Karatsuba.</p>
+    <p class="lab-footnote">Modèle théorique : on complète la longueur jusqu’à la puissance de deux supérieure ou égale, puis on découpe jusqu’à des blocs d’un chiffre. Il compte les multiplications aux feuilles, pas les additions, les coûts de gestion ni un temps d’exécution réel.</p>
+  </div>
   <noscript><p class="lab-noscript">La démonstration interactive nécessite JavaScript. L'exemple complet 1 234 × 5 678 = 7 006 652 et son calcul pas à pas sont expliqués dans le texte de l'article.</p></noscript>
 </section>
 
 <script>
-  import { calculateKaratsubaStep } from "../scripts/karatsuba.js";
+  import { calculateKaratsubaStep, getRecursiveMultiplicationCounts } from "../scripts/karatsuba.js";
 
   const format = (value: bigint) => value.toLocaleString("fr-FR");
   const setText = (root: HTMLElement, selector: string, value: string) => {
@@ -80,7 +87,9 @@
       setText(root, "[data-products]", `p = ${format(a)} × ${format(c)} = ${format(p)}\nq = ${format(b)} × ${format(d)} = ${format(q)}\nr = (${format(a)} + ${format(b)}) × (${format(c)} + ${format(d)}) = ${format(r)}`);
       setText(root, "[data-cross]", `r − p − q = ${format(r)} − ${format(p)} − ${format(q)} = ${format(cross)}`);
       setText(root, "[data-recompose]", `${format(p)} × ${format(base * base)} + ${format(cross)} × ${format(base)} + ${format(q)} = ${format(result)}`);
-      root.dataset.verified = String(result === direct);
+      const counts = getRecursiveMultiplicationCounts(Math.max(rawX.length, rawY.length));
+      setText(root, "[data-verification]", result === direct ? "Vérification réussie : le résultat reconstruit correspond au produit direct." : "Erreur : les deux méthodes ne donnent pas le même résultat.");
+      setText(root, "[data-recursion]", `Pour ${counts.digitCount} chiffre(s), complétés à ${counts.paddedDigits} blocs et découpés sur ${counts.depth} niveau(x), le modèle compte ${format(BigInt(counts.schoolbookLeaves))} multiplications élémentaires avec la méthode scolaire, contre ${format(BigInt(counts.karatsubaLeaves))} avec Karatsuba.`);
     };
 
     fields.x.addEventListener("input", update);
@@ -102,6 +111,10 @@
   .lab-times { padding-bottom: .8rem; color: var(--muted, #66685f); font-size: 1.2rem; }
   .lab-help, .lab-footnote, .lab-noscript { color: var(--muted, #66685f); font-size: .8rem; }
   .lab-error { color: #9c3028; font-size: .85rem; }
+  .lab-verification { margin: -.5rem 0 1.2rem; color: var(--muted, #66685f); font-size: .82rem; }
+  .lab-recursion { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line, #d9d4c8); }
+  .lab-recursion h4 { margin: 0 0 .45rem; font-size: .95rem; }
+  .lab-recursion p:not(.lab-footnote) { margin: 0; font-size: .88rem; line-height: 1.6; }
   .lab-result { display: grid; gap: .3rem; margin: 1.3rem 0; padding: 1rem 1.15rem; border-radius: .65rem; background: var(--ink, #252820); color: white; }
   .lab-result-label { color: #d8d8cf; }
   .lab-result strong { overflow-wrap: anywhere; font: 600 clamp(1.5rem, 4vw, 2.1rem)/1.2 var(--font-mono, monospace); }
