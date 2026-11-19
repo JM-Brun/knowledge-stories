@@ -132,7 +132,7 @@ Une première tranche de l'expérience a été intégrée au brouillon :
 - des tests Node couvrent l'exemple publié, les longueurs inégales, zéro, les valeurs à 18 chiffres et les entrées invalides ;
 - le workflow de qualité exécute désormais les tests, `astro check` et `astro build` sur chaque push.
 
-**Validation technique observée :** sur le commit `8de56421`, les tests unitaires, `astro check` et `astro build` ont tous réussi dans GitHub Actions. Le déploiement Pages a ensuite échoué avec une réponse 404 indiquant que GitHub Pages n'est pas encore activé pour le dépôt ; ce blocage de configuration ne remet pas en cause la réussite du build.
+**Validation technique observée :** sur le commit `15ec196e`, les tests unitaires, `astro check` et `astro build` ont tous réussi dans GitHub Actions. Le déploiement Pages a ensuite échoué avec une réponse 404 indiquant que GitHub Pages n'est pas encore activé pour le dépôt ; ce blocage de configuration ne remet pas en cause la réussite du build.
 
 **Ce qui reste à faire avant de considérer l'expérience comme aboutie :**
 
