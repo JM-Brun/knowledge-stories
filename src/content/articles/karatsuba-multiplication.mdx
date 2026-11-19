@@ -30,7 +30,7 @@ sources:
     kind: "primary"
     accessed: 2026-11-20
   - title: "On the recently proposed o(n log n) integer multiplication algorithm — David Harvey"
-    url: "https://web.maths.unsw.edu.au/~davidharvey/research/nlogn/index.html"
+    url: "https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf"
     kind: "secondary"
     accessed: 2026-11-20
   - title: "A simpler algorithm for integer multiplication below n log n, with a formally verified proof — Cui, Liu et Woodruff (2026)"
@@ -182,9 +182,9 @@ Le statut doit être présenté avec précision. Il s'agit d'une prépublication
 
 **Une nouvelle étape apparaît le 13 novembre 2026.** Piaoyang Cui, Yiming Liu et David P. Woodruff publient *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*. Leur construction atteint une borne de la forme
 
-\`\`\`text
+```text
 O(n (log n)^(1 - κ)), avec κ = 2^(-46)
-\`\`\`
+```
 
 et s'accompagne d'une formalisation en Lean 4. Le dépôt des auteurs fournit le papier court, le papier complet et le développement Lean. Sa documentation indique que la preuve formalisée établit la borne à partir de la construction et des définitions de machine retenues, sans prendre les résultats du préprint OpenAI ni ceux de Harvey–van der Hoeven comme hypothèses ou axiomes. Le noyau Lean et les définitions Mathlib utilisées, ainsi que les trois axiomes logiques standards de Lean, font partie de la base de confiance déclarée.
 
