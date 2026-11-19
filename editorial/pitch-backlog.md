@@ -37,3 +37,4 @@ Ce document est un carnet de propositions, pas une liste d'articles approuvés. 
 ## Critères de sélection des pilotes
 
 Les trois premiers articles devraient tester des formes de raisonnement différentes : une démonstration algorithmique, une explication conceptuelle interdisciplinaire et une analyse socio-institutionnelle. La sélection finale dépendra de la disponibilité des sources, de la qualité des preuves et de la capacité à construire une expérience pédagogique utile.
+Le benchmark de dépassement du billet de référence est documenté dans [`benchmark-karatsuba.md`](./benchmark-karatsuba.md). Il fixe les qualités à préserver, les critères de comparaison, les non-régressions et les améliorations attendues.
