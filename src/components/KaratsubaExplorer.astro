@@ -48,23 +48,24 @@
 <script>
   import { calculateKaratsubaStep } from "../scripts/karatsuba.js";
 
-  const format = (value) => BigInt(value).toLocaleString("fr-FR");
-  const setText = (root, selector, value) => {
+  const format = (value: bigint) => value.toLocaleString("fr-FR");
+  const setText = (root: HTMLElement, selector: string, value: string) => {
     const node = root.querySelector(selector);
     if (node) node.textContent = value;
   };
 
-  document.querySelectorAll("[data-karatsuba-lab]").forEach((root) => {
+  document.querySelectorAll<HTMLElement>("[data-karatsuba-lab]").forEach((root) => {
     const fields = {
-      x: root.querySelector('[data-number="x"]'),
-      y: root.querySelector('[data-number="y"]'),
+      x: root.querySelector<HTMLInputElement>('[data-number="x"]'),
+      y: root.querySelector<HTMLInputElement>('[data-number="y"]'),
     };
-    const error = root.querySelector("[data-error]");
+    const error = root.querySelector<HTMLParagraphElement>("[data-error]");
+    if (!fields.x || !fields.y || !error) return;
 
     const update = () => {
       const rawX = fields.x.value.replace(/[\s\u00a0]/g, "");
       const rawY = fields.y.value.replace(/[\s\u00a0]/g, "");
-      const valid = (value) => /^\d{1,18}$/.test(value);
+      const valid = (value: string) => /^\d{1,18}$/.test(value);
       if (!valid(rawX) || !valid(rawY)) {
         error.hidden = false;
         error.textContent = "Saisissez deux entiers naturels comportant chacun de 1 à 18 chiffres (zéro compris).";
