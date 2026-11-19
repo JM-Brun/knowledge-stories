@@ -79,7 +79,6 @@ const title = "Expérimenter la multiplication de Karatsuba";
     const inputY = root.querySelector('[data-operand="y"]');
     const error = root.querySelector("[data-error]");
     const results = root.querySelector("[data-results]");
-    const format = (value) => new Intl.NumberFormat("fr-FR").format(value);
     const set = (selector, value) => {
       const node = root.querySelector(selector);
       if (node) node.textContent = value;
@@ -88,7 +87,7 @@ const title = "Expérimenter la multiplication de Karatsuba";
     const update = () => {
       const rawX = inputX.value.trim();
       const rawY = inputY.value.trim();
-      if (!/^\\d{1,40}$/.test(rawX) || !/^\\d{1,40}$/.test(rawY)) {
+      if (!/^\d{1,40}$/.test(rawX) || !/^\d{1,40}$/.test(rawY)) {
         error.textContent = "Saisissez deux entiers (0 à 40 chiffres chacun), sans séparateur.";
         error.hidden = false;
         results.hidden = true;
