@@ -7,7 +7,7 @@ Ce document est un carnet de propositions, pas une liste d'articles approuvés. 
 - **Domaine :** mathématiques et algorithmique.
 - **Intention pédagogique :** partir de la multiplication scolaire, montrer la décomposition des nombres, faire apparaître l'astuce qui remplace quatre multiplications par trois, puis expliquer la récurrence et le coût asymptotique.
 - **Expériences possibles :** calcul pas à pas, comparaison naïf/Karatsuba, visualisation de l'arbre récursif et seuil de bascule.
-- **État documentaire :** sujet déjà travaillé dans l'écosystème de connaissances ; dossier public à reconstituer et références primaires à vérifier.
+- **État documentaire :** premier brouillon créé dans `src/content/articles/karatsuba-multiplication.md`. Références primaires et pédagogiques ajoutées ; revue indépendante encore nécessaire sur l'histoire, les variantes pratiques et la validation technique.
 - **Précaution :** la page utilisée comme inspiration éditoriale est une référence de pédagogie et de design, pas un texte à reproduire. L'article doit être rédigé indépendamment et citer ses propres sources.
 
 ## 2. Pourquoi la compression révèle-t-elle parfois la structure d'une information ?
