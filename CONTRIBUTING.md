@@ -32,3 +32,14 @@
 
 ## Qualité
 Un article est prêt lorsque son angle est clair, son raisonnement est compréhensible, ses affirmations importantes sont sourcées, ses limites sont visibles, ses médias sont utiles et accessibles, et son build passe. Le passage des contrôles techniques ne constitue pas à lui seul une validation scientifique ou pédagogique.
+
+## Vérifications locales avant revue
+
+Ouvrir les travaux en cours en brouillon. Avec Node.js 22, exécuter les mêmes commandes que le workflow de validation depuis la racine du dépôt, puis passer la PR en revue.
+
+```bash
+npm install
+npm test
+npm run check
+npm run build
+```
