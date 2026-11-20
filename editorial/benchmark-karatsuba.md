@@ -144,3 +144,17 @@ Une première tranche de l'expérience a été intégrée au brouillon :
 - obtenir une revue humaine des faits, des sources et des calculs.
 
 Le statut éditorial de l'article reste **draft**. Aucune publication n'est autorisée par cette tranche.
+
+
+## Mise à jour scientifique — 20 novembre 2026
+
+Le récit historique du brouillon doit désormais intégrer un résultat postérieur au préprint OpenAI de septembre :
+
+- Piaoyang Cui, Yiming Liu et David P. Woodruff ont publié le 13 novembre 2026 *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*.
+- Le papier annonce une borne O(n(log n)^(1−κ)) avec κ = 2^-46 pour le théorème formalisé ; le raisonnement écrit distingue une constante 2^-56 avec les constantes primitives initiales.
+- Le dépôt [lockqueue/intmul](https://github.com/lockqueue/intmul) fournit les papiers, le développement Lean 4 et une implémentation de référence en arithmétique exacte. La formalisation revendique une preuve du résultat dans le modèle TM2 de Mathlib, sans utiliser les résultats OpenAI ou Harvey–van der Hoeven comme hypothèses/axiomes ; la base de confiance et les définitions de machine doivent être citées précisément.
+- Le résultat doit être qualifié de **formellement vérifié en Lean 4**, et non simplement de « validé par la communauté » ou de « publié après revue par les pairs ». La vérification formelle contrôle le théorème encodé et ses hypothèses ; elle ne remplace pas l'examen du modèle, de l'énoncé ni la compréhension indépendante.
+- La note de David Harvey du 20 octobre 2026 reste une source historique pertinente sur le préprint OpenAI de septembre. Elle est antérieure au papier Cui–Liu–Woodruff et ne doit pas être présentée comme une évaluation de ce travail ultérieur.
+- Ne pas transformer la borne en promesse de performance pratique : la référence Python du dépôt est explicitement non optimisée et ne compte pas les mouvements de tête ; l'implémentation C/GMP compagnon porte sur le multiplicateur interne en O(n log n), pas sur l'algorithme principal sous-n log n.
+
+**Conséquence éditoriale :** le passage sur les limites théoriques a été actualisé de manière additive. Il conserve la chronologie OpenAI → commentaire Harvey → formalisation Lean ultérieure, et distingue les modèles, les statuts de preuve et les implémentations.
