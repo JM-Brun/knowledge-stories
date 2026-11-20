@@ -171,3 +171,15 @@ Le billet de Djamchid Dalili a été ouvert et son volet de récursion examiné.
 | La récursion prolonge l’exemple de départ. | Un exercice de transfert demande de prévoir la taille du troisième appel pour 9 999 × 1 234 avant d’ouvrir la réponse et de vérifier dans l’atelier. |
 
 L’exercice et la présentation sont des créations du projet. Le billet est crédité comme référence pédagogique. La revue humaine des faits et l’essai avec lecteur d’écran restent à faire.
+
+
+## Du calcul à la stratégie algorithmique — 20 novembre 2026
+
+Le billet de référence relie l’atelier à un modèle idéal de récursion, puis aux seuils pratiques. Le brouillon adopte cette transition avec un exemple de doublement (quatre à huit chiffres), une dérivation repliable du coût total et une lecture par polynômes qui explique le passage de Karatsuba à Toom–Cook. Il place les choix pratiques à la sortie de l’analyse de coût et garde les résultats de 2026 dans un approfondissement repliable.
+
+| Affirmation | Vérification ou source |
+| --- | --- |
+| Le doublement multiplie le nombre idéal de feuilles par quatre ou trois. | Profondeurs 2 et 3, donc 16 → 64 et 9 → 27. Les tailles observées dans l’atelier peuvent différer à cause des retenues. |
+| Le coût interne du niveau j est en O(n × (3/2)ʲ). | Trois fois plus d’appels, opérandes deux fois plus courts. La somme géométrique et les feuilles sont raccordées dans le texte, avec les [notes de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) comme référence. |
+| GNU MP utilise les différences signées dans Karatsuba et dispose de seuils par taille. | [Formule et gestion du signe](https://gmplib.org/manual/Karatsuba-Multiplication) et [chapitre des algorithmes de multiplication](https://gmplib.org/manual/Multiplication-Algorithms). Le texte ne donne aucune valeur de seuil universelle. |
+| Cinq données d’évaluation suffisent pour trois blocs par opérande. | Le produit de deux polynômes de degré au plus 2 a un degré au plus 4. Le manuel GNU MP documente l’interpolation et ses coûts. |
