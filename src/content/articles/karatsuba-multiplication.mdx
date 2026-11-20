@@ -41,6 +41,18 @@ sources:
     url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
     kind: "secondary"
     accessed: 2026-11-20
+  - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
+    url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
+    kind: "secondary"
+    accessed: 2026-11-20
+  - title: "Multiplication Algorithms — GNU MP 6.3.0"
+    url: "https://gmplib.org/manual/Multiplication-Algorithms"
+    kind: "documentation"
+    accessed: 2026-11-20
+  - title: "Integer multiplication in time O(n log n) — Harvey et van der Hoeven (2021)"
+    url: "https://annals.math.princeton.edu/2021/193-2/p04"
+    kind: "primary"
+    accessed: 2026-11-20
 relatedArticles: []
 ---
 
@@ -153,45 +165,61 @@ Le produit des sommes reçoit 99 + 99 = 198 d’un côté et 12 + 34 = 46 de l�
 
 </details>
 
-## Pourquoi le gain devient-il considérable ?
+## Que se passe-t-il quand on double la taille ?
 
-Notons T(n) le coût de la multiplication de deux nombres de n chiffres, ou plus généralement de n blocs dans une base fixée.
+Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage à l’arbre. Pour passer de quatre à huit chiffres, le découpage classique passe de 16 à 64 produits aux feuilles, et Karatsuba de 9 à 27. Chaque doublement répète ce contraste : **quatre fois plus de feuilles d’un côté, trois fois plus de l’autre**. La différence grandit parce qu’elle se répète à chaque étage.
 
-La méthode classique par découpage calcule quatre produits de taille approximativement n/2, auxquels s'ajoutent des opérations linéaires :
+Les feuilles comptent les petits produits. Entre les feuilles et la racine, il faut également découper les blocs, faire les additions et les soustractions, puis recomposer les résultats. À chaque étage de Karatsuba, il y a trois fois plus d’appels et les blocs sont deux fois plus courts. Le travail cumulé à l’intérieur d’un étage grandit donc d’un facteur de 3/2 si le coût par appel est proportionnel à sa taille. La somme de ces coûts a le même ordre de grandeur que le travail aux feuilles.
 
-    T(n) = 4T(n/2) + O(n)
+<details>
+<summary>Retrouver l’exposant à partir de l’arbre</summary>
 
-Cette récurrence reste quadratique : T(n) = Θ(n²).
+Pour deux opérandes de **n** chiffres en base fixe, supposons **n** puissance de deux et un découpage exactement équilibré. On note **T(n)** le coût total, en opérations élémentaires sur les chiffres. Le découpage et la recomposition coûtent O(n) à chaque appel. On obtient T(n) = 4T(n/2) + O(n) pour le découpage classique et T(n) = 3T(n/2) + O(n) pour Karatsuba.
 
-Karatsuba ne calcule que trois produits récursifs. Le découpage, les additions, les soustractions et la recomposition demandent toujours un travail linéaire :
+Pour huit chiffres, le calcul suivant normalise le travail hors sous-appels à une unité par chiffre traité à chaque nœud interne.
 
-    T(n) = 3T(n/2) + O(n)
+| Niveau | Appels | Chiffres | Travail local |
+| --- | ---: | ---: | ---: |
+| 0 | 1 | 8 | 8 unités |
+| 1 | 3 | 4 | 12 unités |
+| 2 | 9 | 2 | 18 unités |
+| 3 | 27 | 1 | 27 produits de base |
 
-Dans cette récurrence, on modélise chaque appel par trois sous-problèmes de taille moitié. Le théorème maître donne :
+À la profondeur **j**, les 3ʲ appels traitent chacun n/2ʲ chiffres. Un étage interne coûte donc O(n × (3/2)ʲ). La somme géométrique jusqu’au dernier étage interne est en O(3ᵏ), où k = log₂(n). Les 3ᵏ feuilles fournissent déjà un coût en Θ(3ᵏ) dès lors que chacun de leurs produits a un coût constant positif. Le coût total est donc en **Θ(n^log₂(3)) ≈ Θ(n^1,585)**. Le même raisonnement à quatre branches donne 4ᵏ = n² feuilles et un coût total en Θ(n²).
 
-    T(n) = Θ(n^log₂(3)) ≈ Θ(n^1,585)
+Le tableau décrit l’arbre équilibré. La retenue de l’exercice montre où le découpage par sommes peut produire un sous-problème légèrement plus grand. La variante par différences ci-dessous permet de retrouver des blocs de taille moitié pour des tailles paires.
 
-L'exposant est inférieur à 2. C'est le gain fondamental : lorsque la taille augmente, le coût de Karatsuba croît moins vite que celui de la multiplication scolaire.
+</details>
 
-Une autre manière de voir la différence consiste à regarder les feuilles de l'arbre récursif. Dans l’arbre équilibré pour n chiffres, avec n une puissance de deux, la taille est divisée par deux à chaque niveau. On atteint un chiffre au bout de log₂(n) niveaux. Quatre appels par nœud conduisent à 4^log₂(n) = n² feuilles ; trois appels conduisent à 3^log₂(n) = n^log₂(3).
+## Pourquoi une bibliothèque combine plusieurs méthodes
 
-## De Karatsuba aux limites théoriques actuelles
+Les multiplications économisées ont un prix. À petite taille, les additions, les allocations et la gestion des appels peuvent coûter plus que les produits qu’elles remplacent. La complexité asymptotique décrit comment le travail croît avec la taille. Pour déterminer un seuil de bascule, il faut mesurer une implémentation sur la machine visée.
 
-Karatsuba n'est pas le dernier chapitre de cette histoire. Son apport est une idée de conception : remplacer une multiplication récursive par un petit nombre de multiplications plus petites, en acceptant davantage d'additions. D'autres algorithmes ont prolongé cette stratégie.
+Le [manuel de GNU MP](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à des variantes de Toom et à la FFT. Les seuils sont exprimés en mots binaires, les blocs de la représentation interne appelés *limbs*. La taille relative des deux opérandes compte aussi. La documentation de FLINT donne un deuxième exemple de seuils qui varient selon les architectures.
 
-- **Toom–Cook** généralise l'idée en découpant les nombres en davantage de blocs, puis en utilisant évaluation et interpolation.
+La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Multiplication) répond directement au problème de retenue observé dans l’atelier. Le terme croisé s’écrit aussi `ad + bc = ac + bd − (a − b)(c − d)`. La valeur absolue d’une différence entre deux blocs de **m** chiffres tient sur **m** chiffres, alors que leur somme peut en prendre **m + 1**. Le calcul doit alors gérer le signe du produit des différences.
+
+## Du produit des blocs au produit de polynômes
+
+Reprenons 1 234 × 5 678. Les deux nombres s’écrivent **P(100)** et **Q(100)**, avec `P(t) = 12t + 34` et `Q(t) = 56t + 78`. On cherche le produit des deux polynômes, qui a trois coefficients. Le produit des blocs de droite donne le coefficient constant, celui des blocs de gauche donne le coefficient de t², et le produit des sommes donne la valeur en **t = 1**. En retirant les coefficients constant et de t² de cette valeur, on retrouve le coefficient du milieu. Il reste à évaluer le résultat en 100 pour retrouver le produit des entiers.
+
+La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) généralise cette démarche. Avec trois blocs, chacun des deux polynômes est de degré au plus deux et leur produit comporte au plus cinq coefficients. Cinq évaluations distinctes suffisent à reconstruire ce produit par interpolation, c’est-à-dire à retrouver ses coefficients à partir de ses valeurs. Cela remplace les neuf produits de blocs du développement direct par cinq produits sur les valeurs évaluées, au prix de davantage de travail de préparation et de recomposition.
+
 - **Schönhage–Strassen** exploite les transformations rapides pour obtenir une borne quasi linéaire, dans un modèle de calcul précis.
-- **Harvey et van der Hoeven (2021)** établissent une borne (O(n\log n)) pour la multiplication de deux entiers de (n) bits dans le modèle multitape considéré par leur travail.
+- **Harvey et van der Hoeven (2021)** établissent une borne O(n log n) pour multiplier deux entiers de n bits sur une machine de Turing à plusieurs rubans.
 
-Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de (n) bits en temps
+<details>
+<summary>Lire les résultats de 2026 et leur statut de preuve</summary>
+
+Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de n bits en temps
 
 ```text
 O(n (log n)^(1 - κ)), avec κ = 2^(-182)
 ```
 
-sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que (O(n\log n)) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
+sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que O(n log n) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
 
-Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat (O(n\log n)) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape. Cette appréciation porte sur la prépublication OpenAI de septembre : elle précède les travaux présentés ensuite.
+Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat O(n log n) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape. Cette appréciation porte sur la prépublication OpenAI de septembre : elle précède les travaux présentés ensuite.
 
 **Une nouvelle étape apparaît le 13 novembre 2026.** Piaoyang Cui, Yiming Liu et David P. Woodruff publient *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*. Leur construction atteint une borne de la forme
 
@@ -205,26 +233,17 @@ Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès
 
 Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce κ = 2^-56 avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint κ = 2^-46. Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
 
-Cette annonce n'efface donc pas l'intérêt de Karatsuba. Elle illustre plutôt la manière dont une économie locale — ici, trois produits au lieu de quatre — peut inaugurer une longue chaîne d'idées, chacune adaptée à un modèle de calcul et à une échelle différents. Elle rappelle aussi qu'une borne asymptotique, une preuve examinée, une implémentation et un gain de performance pratique sont quatre choses distinctes.
+Une borne asymptotique, une preuve examinée, une implémentation et un gain de performance mesuré répondent à quatre questions différentes. La méthode de Karatsuba permet d’observer ces distinctions à l’échelle d’un calcul complet.
 
-## Ce que cette explication ne dit pas
-
-**Une meilleure complexité asymptotique ne signifie pas que Karatsuba est toujours plus rapide.** Pour de petits nombres, les multiplications classiques ont peu de surcoût. La récursion, les allocations et les additions supplémentaires peuvent coûter davantage que les multiplications économisées.
-
-Les bibliothèques d'arithmétique utilisent donc généralement plusieurs algorithmes et des seuils de bascule. Ces seuils dépendent de l'implémentation, de la représentation des nombres, du processeur et des optimisations disponibles. La documentation de FLINT décrit des choix de seuils différents selon les architectures : il ne faut pas transformer ces valeurs en constante universelle.
-
-**La formule présentée est une version pédagogique, pas nécessairement la variante la plus efficace en pratique.** Le produit (a + b)(c + d) peut porter sur un bloc légèrement plus grand que les blocs initiaux. Des implémentations utilisent aussi une identité fondée sur les différences, avec une gestion du signe, afin de mieux contrôler la taille des opérandes intermédiaires.
-
-**Enfin, Θ(n^1,585) est une mesure de croissance, pas un temps en secondes.** Elle décrit le nombre d'opérations dans un modèle donné, lorsque la taille devient grande. Elle ne suffit pas à prédire les performances d'un programme réel sur une machine particulière.
-
-Karatsuba n'est pas non plus l'algorithme asymptotiquement le plus rapide connu pour les très grands entiers. Il constitue une étape importante dans une famille d'algorithmes qui réduisent progressivement le coût de la multiplication.
+</details>
 
 ## À retenir
 
 - En découpant deux nombres en deux blocs, le développement classique fait apparaître quatre produits partiels.
 - L'identité (a + b)(c + d) - ac - bd = ad + bc permet de reconstruire les produits croisés avec une seule multiplication auxiliaire.
 - Trois appels récursifs au lieu de quatre donnent la récurrence T(n) = 3T(n/2) + O(n), donc une complexité en Θ(n^log₂(3)).
-- Le meilleur algorithme en théorie asymptotique n'est pas nécessairement le plus rapide pour toutes les tailles : les implémentations pratiques combinent plusieurs méthodes.
+- Le passage aux polynômes explique pourquoi la même stratégie s’étend à trois blocs avec Toom–Cook.
+- Les bibliothèques choisissent une méthode selon la taille et la forme des opérandes, en tenant compte du coût de leur implémentation.
 
 ## Pour aller plus loin
 
