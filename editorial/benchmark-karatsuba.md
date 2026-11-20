@@ -183,3 +183,17 @@ Le billet de référence relie l’atelier à un modèle idéal de récursion, p
 | Le coût interne du niveau j est en O(n × (3/2)ʲ). | Trois fois plus d’appels, opérandes deux fois plus courts. La somme géométrique et les feuilles sont raccordées dans le texte, avec les [notes de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) comme référence. |
 | GNU MP utilise les différences signées dans Karatsuba et dispose de seuils par taille. | [Formule et gestion du signe](https://gmplib.org/manual/Karatsuba-Multiplication) et [chapitre des algorithmes de multiplication](https://gmplib.org/manual/Multiplication-Algorithms). Le texte ne donne aucune valeur de seuil universelle. |
 | Cinq données d’évaluation suffisent pour trois blocs par opérande. | Le produit de deux polynômes de degré au plus 2 a un degré au plus 4. Le manuel GNU MP documente l’interpolation et ses coûts. |
+
+
+## Comparaison du design éditorial — 20 novembre 2026
+
+Le billet de référence rend l’idée visible dès l’ouverture, donne accès aux sections dans un sommaire et permet de charger des exemples dans l’atelier. Knowledge Stories reprend ces fonctions avec une mise en page propre au projet.
+
+| Fonction | Choix dans Knowledge Stories |
+| --- | --- |
+| Donner à voir l’astuce | Une grille numérique à double entrée relie les quatre produits aux blocs de départ. Les deux termes croisés sont identifiés par un libellé et une couleur. La recomposition indique précisément d’où vient leur somme. |
+| Orienter la lecture | Le sommaire suit les titres de niveau 2 compilés par Astro. Il reste visible sur le côté en lecture large et revient dans le flux sur écran étroit. Un lien d’ouverture mène directement à l’atelier. |
+| Rendre les cas limites faciles à essayer | Trois boutons chargent le calcul de départ, l’exemple de retenue de l’exercice et deux opérandes de tailles inégales. Les volets repliables restent utilisables sans JavaScript et le calcul initial reste lisible. |
+| Rendre le texte et les développements lisibles | La palette du projet structure le titre, les légendes et les volets. Les contrastes des légendes de l’atelier ont été renforcés après contrôle. |
+
+L’aperçu local de l’article a été vérifié dans Chromium à 320, 390, 768 et 1 280 pixels, avec navigation au clavier, opérandes de 18 chiffres et volet de complexité ouvert. Les ancres et les trois boutons ont été exercés. La couverture, le sommaire et le résultat initial s’affichent sans JavaScript. Axe n’a détecté aucune violation dans le contenu de l’article aux largeurs de 320 et 1 280 pixels. Un essai avec lecteur d’écran et un test auprès de lecteurs restent à conduire pour évaluer la compréhension et comparer les deux articles.

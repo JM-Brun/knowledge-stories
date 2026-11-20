@@ -1,0 +1,54 @@
+---
+import { calculateKaratsubaStep } from "../scripts/karatsuba.js";
+
+const { a, b, c, d, p, q, r, cross } = calculateKaratsubaStep("1234", "5678");
+const format = (value: bigint) => value.toLocaleString("fr-FR");
+---
+<figure class="cover">
+  <table>
+    <caption>Les quatre produits de blocs</caption>
+    <thead>
+      <tr><td>×</td><th scope="col">{c}</th><th scope="col">{d}</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{a}</th>
+        <td>{format(p)}</td>
+        <td class="crossed">{format(a * d)}<small>Croisé</small></td>
+      </tr>
+      <tr>
+        <th scope="row">{b}</th>
+        <td class="crossed">{format(b * c)}<small>Croisé</small></td>
+        <td>{format(q)}</td>
+      </tr>
+    </tbody>
+  </table>
+  <figcaption>
+    <strong>Une multiplication pour les deux termes croisés</strong>
+    <span>({a} + {b}) × ({c} + {d}) − {format(p)} − {format(q)}</span>
+    <span>= {format(r)} − {format(p)} − {format(q)} = <b>{format(cross)}</b></span>
+  </figcaption>
+</figure>
+
+<style>
+  .cover {
+    margin: 0;
+    padding: clamp(1.125rem, 3vw, 2rem);
+    border: 1px solid #d9d1bd;
+    border-radius: 1rem;
+    background: #faf7ef;
+    box-shadow: 0 .75rem 2.25rem rgb(64 52 29 / .07);
+  }
+
+  table { width: 100%; border-spacing: .35rem; table-layout: fixed; font: 500 clamp(.95rem, 2vw, 1.2rem)/1.35 var(--mono); }
+  caption { margin-bottom: .65rem; text-align: left; font: 700 .83rem/1.4 "DM Sans", sans-serif; }
+  th, td { border-radius: .32rem; padding: .55rem .15rem; text-align: center; }
+  th { font-weight: 500; color: #625b4d; }
+  td { background: #ede6d6; }
+  thead td { width: 2rem; background: transparent; }
+  .crossed { background: #f2d9c8; color: #6f3325; }
+  small { display: block; font: 700 .72rem/1.35 "DM Sans", sans-serif; }
+  figcaption { display: grid; gap: .4rem; margin-top: 1rem; border-left: 2px solid #9a422d; padding-left: .8rem; }
+  figcaption strong { font: 700 .85rem/1.4 "DM Sans", sans-serif; }
+  figcaption span { font: 400 clamp(.72rem, 1.5vw, .9rem)/1.4 var(--mono); }
+</style>

@@ -1,24 +1,123 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import KaratsubaCover from "../../components/KaratsubaCover.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => data.status === "published");
   return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
 }
+
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const sections = headings.filter(({ depth }) => depth === 2);
+const hasCover = article.data.cover === "karatsuba";
+const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire", advanced: "Avancé" };
+const sourceKinds = { primary: "Source primaire", secondary: "Source secondaire", data: "Données", documentation: "Documentation" };
+const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
 ---
 <BaseLayout title={`${article.data.title} — Knowledge Stories`} description={article.data.description}>
-  <main class="article-page">
-    <header class="article-header">
-      <a class="back-link" href="/knowledge-stories/">← Tous les articles</a>
-      <p class="eyebrow">{article.data.category}</p>
-      <h1>{article.data.title}</h1>
-      <p class="article-deck">{article.data.description}</p>
-      <div class="article-meta"><span>{article.data.date.toLocaleDateString("fr-FR", { dateStyle: "long" })}</span><span>{article.data.difficulty === "introductory" ? "Introduction" : article.data.difficulty === "intermediate" ? "Intermédiaire" : "Avancé"}</span>{article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}</div>
+  <main class="story-page">
+    <header class:list={["story-header", { "with-cover": hasCover }]}>
+      <div class="story-intro">
+        <a class="back-link" href={import.meta.env.BASE_URL}>← Tous les articles</a>
+        <p class="story-category">{article.data.category}</p>
+        <h1>{article.data.title}</h1>
+        <p class="story-deck">{article.data.description}</p>
+        <div class="story-meta">
+          <time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time>
+          <span>{difficulty[article.data.difficulty]}</span>
+          {article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}
+        </div>
+        {hasCover && <a class="story-action" href="#atelier-karatsuba">Essayer la multiplication <span aria-hidden="true">↓</span></a>}
+      </div>
+      {hasCover && <KaratsubaCover />}
     </header>
-    <article class="prose"><Content /></article>
-    {article.data.sources.length > 0 && <section class="sources"><h2>Pour aller plus loin</h2><ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({source.kind})</span></li>)}</ol></section>}
+
+    <div class:list={["story-body", { "with-outline": sections.length > 0 }]}>
+      {sections.length > 0 && (
+        <nav class="story-outline" aria-label="Sommaire">
+          <p>Dans cet article</p>
+          <ul>
+            {sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}
+          </ul>
+        </nav>
+      )}
+      <div class="story-reading">
+        <article class="prose"><Content /></article>
+        {article.data.sources.length > 0 && (
+          <section class="sources" aria-labelledby="bibliographie">
+            <h2 id="bibliographie">Bibliographie</h2>
+            <ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({sourceKinds[source.kind]})</span></li>)}</ol>
+          </section>
+        )}
+      </div>
+    </div>
   </main>
 </BaseLayout>
+
+<style>
+  .story-page { max-width: 75rem; padding: 0 clamp(1rem, 4vw, 3.25rem) clamp(3rem, 8vw, 6rem); }
+
+  .story-header {
+    display: grid;
+    align-items: center;
+    gap: clamp(1.75rem, 5vw, 4rem);
+    padding: clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .story-intro, .story-reading { min-width: 0; }
+  .back-link { display: inline-block; color: #625b4d; margin-bottom: 1.75rem; }
+  .story-category { margin: 0 0 .8rem; color: #843c27; font: 500 .75rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+  .story-header h1 { max-width: 18ch; margin: 0; color: var(--ink); font: 500 clamp(2.5rem, 5.5vw, 5.2rem)/1 var(--serif); letter-spacing: -.045em; text-wrap: balance; }
+  .story-deck { max-width: 43ch; margin: 1.15rem 0; color: #514d42; font: 400 clamp(1.18rem, 2.2vw, 1.46rem)/1.45 var(--serif); text-wrap: pretty; }
+  .story-meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; color: #625b4d; font: 500 .75rem/1.4 var(--mono); }
+  .story-action {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: .7rem;
+    margin-top: 1.4rem;
+    padding: .6rem .9rem;
+    border-radius: .4rem;
+    color: #fffaf1;
+    background: #783823;
+    font: 700 .85rem/1.3 "DM Sans", sans-serif;
+    text-decoration: none;
+  }
+  .story-action:hover { background: #5e2e20; }
+  :is(.story-action, .story-outline a, .back-link):focus-visible,
+  :global(.story-reading summary:focus-visible) { outline: 2px solid #843c27; outline-offset: 3px; }
+
+  .story-body { display: grid; max-width: 67rem; margin: 0 auto; }
+  .story-reading { width: 100%; max-width: 44rem; margin-inline: auto; }
+  .story-outline { margin: 1.25rem 0 0; padding: 1rem 0; border-block: 1px solid var(--line); }
+  .story-outline p { margin: 0 0 .45rem; color: #514d42; font: 700 .75rem/1.4 "DM Sans", sans-serif; }
+  .story-outline ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .15rem .8rem; margin: 0; padding: 0; list-style: none; }
+  .story-outline a { display: flex; min-height: 1.65rem; align-items: center; color: #514d42; font: 500 .8rem/1.35 "DM Sans", sans-serif; text-decoration: none; }
+  .story-outline a:hover { color: #843c27; text-decoration: underline; text-underline-offset: .15em; }
+
+  .story-reading :global(.prose) { margin-top: clamp(1.8rem, 5vw, 3.4rem); color: #34352f; }
+  .story-reading :global(.prose > h2) { margin-top: clamp(2.8rem, 7vw, 4.25rem); scroll-margin-top: 1.5rem; font-size: clamp(1.8rem, 4vw, 2.4rem); text-wrap: balance; }
+  .story-reading :global(.prose a) { color: #843c27; }
+  .story-reading :global(.prose > details) { margin: 1.25rem 0; padding: .8rem 1rem; border: 1px solid #d9d1bd; border-radius: .5rem; background: #faf7ef; }
+  .story-reading :global(.prose > details > summary) { cursor: pointer; color: #60311f; font: 700 .9rem/1.55 "DM Sans", sans-serif; }
+  .story-reading :global(.prose > details[open] > summary) { margin-bottom: .85rem; }
+  .story-reading :global(.prose > details > :last-child) { margin-bottom: 0; }
+  .story-reading :global(.prose > details :is(th, td)) { padding: .45rem .3rem; }
+  .sources a { color: #843c27; }
+  .sources li span { color: #625b4d; }
+
+  @media (min-width: 48rem) {
+    .with-cover { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+  }
+
+  @media (min-width: 62rem) {
+    .with-outline { grid-template-columns: minmax(0, 1fr) 13rem; gap: clamp(2rem, 5vw, 4.25rem); }
+    .story-reading { grid-column: 1; grid-row: 1; }
+    .story-outline { grid-column: 2; grid-row: 1; position: sticky; top: 1.5rem; align-self: start; margin-top: 3.4rem; border: 0; border-inline-start: 1px solid var(--line); padding: .25rem 0 .25rem .95rem; }
+    .story-outline ul { grid-template-columns: 1fr; gap: .35rem; }
+    .story-outline a { min-height: 1.5rem; }
+  }
+</style>
