@@ -1,0 +1,110 @@
+---
+title: "Le paradoxe des jumeaux, chacun à sa montre"
+description: "Deux jumeaux attribuent chacun le mouvement à l’autre. Au retour, leurs montres affichent des durées différentes. Que change le point de vue ?"
+date: 2026-11-20
+category: "Physique"
+tags: ["relativité restreinte", "espace-temps", "temps propre", "simultanéité"]
+difficulty: "introductory"
+readingTime: 8
+status: "draft"
+featured: false
+cover: "jumeaux"
+sources:
+  - title: "Albert Einstein (1905), On the Electrodynamics of Moving Bodies, § 1, 3 et 4"
+    url: "https://sites.pitt.edu/~jdnorton/teaching/Einstein_graduate/pdfs/Einstein_STR_1905_English_reset.pdf"
+    kind: "primary"
+    accessed: 2026-11-20
+  - title: "Markus Pössel, The case of the travelling twins, Einstein Online"
+    url: "https://www.einstein-online.info/en/spotlight/twins/"
+    kind: "secondary"
+    accessed: 2026-11-20
+  - title: "Scott A. Hughes (2024), Accelerations and forces, MIT, cours 8.033, leçon 13"
+    url: "https://live.ocw.mit.edu/courses/8-033-introduction-to-relativity-and-spacetime-physics-fall-2024/mit8_033_f24_lec13.pdf"
+    kind: "secondary"
+    accessed: 2026-11-20
+relatedArticles: []
+---
+
+import TwinsExplorer from "../../components/TwinsExplorer.astro";
+
+Clara et Noé mettent leurs montres à zéro. Clara reste à la station, que nous appellerons « Terre » dans cette expérience de pensée. Noé embarque. Après le départ, les moteurs se taisent.
+
+> **Clara** — Tu t’éloignes à 80 % de la vitesse de la lumière.
+>
+> **Noé** — Depuis le vaisseau, c’est toi qui t’éloignes à cette vitesse.
+
+Sur ce tronçon du voyage, chacun peut aussi calculer que la montre de l’autre avance plus lentement que la sienne. Puis Noé fait demi-tour. Aux retrouvailles, ils posent leurs montres côte à côte. **Comment l’une des deux peut-elle afficher moins de temps, si leur raisonnement est réciproque ?**
+
+## Deux descriptions valables à l’aller
+
+Un **référentiel inertiel** est un système de mesure dans lequel un objet libre se déplace à vitesse constante. On peut se représenter un réseau de règles et d’horloges synchronisées, toutes au repos les unes par rapport aux autres. Quand Clara et Noé sont en mouvement uniforme l’un par rapport à l’autre, chacun peut utiliser un tel référentiel.
+
+Pour comparer le rythme des montres, chacun doit apparier des instants qui se produisent en des lieux différents. Il demande par exemple quelle heure marque la montre de l’autre quand une année s’est écoulée sur la sienne. Or Clara et Noé ont des horloges synchronisées **dans des référentiels différents**. Ils s’accordent pour dire que les montres étaient côte à côte au départ. Lorsqu’elles sont éloignées, leurs choix d’événements simultanés diffèrent. C’est ce qui permet à chacun d’attribuer à l’autre un rythme plus lent sur un tronçon à vitesse constante.
+
+## Au demi-tour, qu’indique l’accéléromètre ?
+
+Noé referme sa ceinture et rallume les moteurs. Son accéléromètre réagit. Celui de Clara, qui flotte librement dans notre modèle, reste à zéro. Même si Noé choisit des coordonnées dans lesquelles son vaisseau reste à l’origine et la station change de vitesse, le changement de coordonnées ne déplace aucun des deux instruments.
+
+L’**accélération de coordonnées**, calculée à partir des positions et des dates d’un référentiel, dépend de celui-ci. L’**accélération propre**, mesurée localement par un accéléromètre embarqué, a une intensité sur laquelle les observateurs s’accordent. La sensation de poussée à bord de Noé en est une manifestation.
+
+Clara peut décrire tout le voyage dans un même référentiel inertiel où elle est au repos. Pour rester au repos dans un référentiel inertiel sur chaque tronçon, Noé doit en utiliser un à l’aller et un autre au retour. Que devient, au moment où il change de référentiel, sa façon de dater ce qui se passe sur Terre ?
+
+## Trois façons de dater le demi-tour
+
+Dans le référentiel de Clara, le demi-tour se déroule **5 ans après le départ**, à **4 années-lumière** de la Terre. On idéalise le départ et le changement de vitesse comme instantanés. Demande-toi, avant de changer de référentiel dans l’atelier, quel sens de déplacement associera au demi-tour la date terrestre la plus tardive.
+
+<TwinsExplorer />
+
+Le diagramme garde les coordonnées de Clara à l’écran. Chaque trait pointillé relie deux événements qu’un référentiel date au même instant. À l’aller, Noé associe le demi-tour à une lecture de **1,8 an** sur la montre de Clara. Au retour, il l’associe à une lecture de **8,2 ans**. Plus tard, Clara retrouvera les deux dates dans le carnet de bord de Noé, à la même page. Elles désignent deux événements distincts de sa vie à la station. Sa montre, elle, a continué à avancer à son rythme habituel.
+
+Date attribuée et image reçue répondent à des questions différentes. En regardant la Terre au demi-tour, Noé reçoit une image émise lorsque Clara avait compté **1 an**. Dans le référentiel de Clara, ce signal a mis 4 ans pour parcourir les 4 années-lumière qui séparent le lieu d’émission du lieu de réception.
+
+<details>
+<summary>Calculer 1,8 et 8,2 ans</summary>
+
+Notons *t* et *x* le temps et la position dans les coordonnées de Clara, *u* la vitesse signée du référentiel choisi et *c* la vitesse de la lumière. La transformation de Lorentz donne la condition <code>t − ux/c² = constante</code> pour les événements simultanés dans ce référentiel.
+
+Au demi-tour, <code>t = 5 ans</code> et <code>x = 4 années-lumière</code>. Sur Terre, <code>x = 0</code>. La date terrestre simultanée est donc <code>5 − 0,8 × 4 = 1,8 an</code> à l’aller, et <code>5 + 0,8 × 4 = 8,2 ans</code> au retour. Pour Clara, <code>u = 0</code> et la date est 5 ans.
+
+</details>
+
+## Les montres aux retrouvailles
+
+Le vaisseau rejoint la station. Clara et Noé posent les deux montres sur la même table. Cette fois, aucune procédure de synchronisation à distance n’entre en jeu.
+
+Dans le référentiel de Clara, le vaisseau parcourt 4 années-lumière à **0,8 c** dans chaque sens. Clara compte 5 ans par tronçon. À cette vitesse, la montre de Noé accumule une durée égale à <code>√(1 − 0,8²) = 0,6</code> fois celle mesurée dans le référentiel de Clara. Noé compte 3 ans à l’aller et 3 ans au retour.
+
+| Lecture entre le départ et les retrouvailles | Temps écoulé |
+| --- | ---: |
+| Montre de Clara | 10 ans |
+| Montre de Noé | 6 ans |
+
+On retrouve les 10 ans depuis le vaisseau. Noé attribue **1,8 an** à la Terre pendant les 3 ans de son aller, puis **1,8 an** pendant les 3 ans de son retour. En passant du référentiel de l’aller à celui du retour, il passe de la date terrestre **1,8** à la date **8,2**, soit une différence de **6,4 ans** dans les dates qu’il assigne à distance. Il obtient **1,8 + 6,4 + 1,8 = 10 ans**. Avec un demi-tour progressif, la date qu’il assigne en prenant à chaque instant le référentiel inertiel où il est momentanément au repos varie continûment.
+
+## Ce que mesure chaque montre
+
+Sur le diagramme, le départ et les retrouvailles sont deux points communs. Le trajet de Clara est droit. Celui de Noé passe par le demi-tour. La durée enregistrée par une montre le long de son trajet dans l’espace-temps s’appelle son **temps propre**. Dans l’espace-temps plat de la relativité restreinte, le trajet inertiel qui relie deux événements séparés dans le temps maximise le temps propre entre eux.
+
+Raccourcissons le demi-tour autant que le permet notre idéalisation, en gardant les mêmes vitesses de croisière et les mêmes événements limites. Les deux montres tendent toujours vers 10 et 6 ans. La poussée permet au vaisseau de rejoindre la station. L’écart de durée se calcule sur l’ensemble des trajets.
+
+<details>
+<summary>Comparer les durées pour un trajet quelconque</summary>
+
+Dans un référentiel inertiel, une montre animée d’une vitesse *v(t)* accumule, pendant un intervalle de coordonnées <code>dt</code>, une durée propre <code>dτ = √(1 − v(t)²/c²) dt</code>. La durée totale est l’intégrale de ces contributions.
+
+Dans le référentiel où Clara est au repos, sa contribution vaut <code>dt</code> à chaque instant. Celle de Noé vaut strictement moins chaque fois que sa vitesse est non nulle. Cette comparaison suppose un espace-temps plat. La Terre réelle possède un champ gravitationnel et tourne. La station inertielle du récit isole l’effet de la relativité restreinte.
+
+</details>
+
+**Et si les deux faisaient demi-tour ?** Si Clara et Noé quittent la station en sens opposés à la même vitesse, font demi-tour au même instant **dans le référentiel de la station**, puis s’y retrouvent, quelle montre aura pris de l’avance ?
+
+<details>
+<summary>Voir la réponse</summary>
+
+Les deux afficheront **6 ans** si chacun effectue le trajet à 0,8 c avec un demi-tour à 5 ans. Dans le référentiel de la station, leurs vitesses ont la même valeur absolue à chaque instant. Leurs trajets sont symétriques et leurs temps propres égaux, bien que les deux aient accéléré.
+
+</details>
+
+## Pour aller plus loin
+
+Le § 1 de l’article d’Einstein de 1905 introduit la synchronisation des horloges par signaux lumineux. Son § 4 compare deux horloges réunies après un voyage. Le texte de Markus Pössel développe la notion de simultanéité vue du vaisseau. La leçon de Scott Hughes donne la formulation de l’accélération propre en termes de quadrivecteurs.

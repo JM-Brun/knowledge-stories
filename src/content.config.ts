@@ -13,7 +13,7 @@ const articles = defineCollection({
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
     featured: z.boolean().default(false),
-    cover: z.literal("karatsuba").optional(),
+    cover: z.enum(["karatsuba", "jumeaux"]).optional(),
     sources: z.array(z.object({
       title: z.string(),
       url: z.string().url(),
