@@ -1,0 +1,156 @@
+---
+const turn = { time: 5, distance: 4 };
+const reunion = 2 * turn.time;
+const speed = turn.distance / turn.time;
+const format = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+const x = (distance: number) => 118 + 27 * distance;
+const y = (time: number) => 319 - 27 * time;
+const frames = [
+  { id: "earth", label: "Terre", velocity: 0 },
+  { id: "outbound", label: "Vaisseau à l’aller", velocity: speed },
+  { id: "inbound", label: "Vaisseau au retour", velocity: -speed },
+].map((frame) => ({
+  ...frame,
+  earthTime: turn.time - frame.velocity * turn.distance,
+}));
+---
+
+<figure id="atelier-jumeaux" class="twins-explorer">
+  <fieldset>
+    <legend>Quel instant sur Terre est simultané au demi-tour ?</legend>
+    {frames.map(({ id, label }, index) => (
+      <>
+        <input
+          class="frame-input"
+          type="radio"
+          name="twins-frame"
+          id={`twins-${id}`}
+          value={id}
+          checked={index === 0}
+        />
+        <label class="frame-label" for={`twins-${id}`}>{label}</label>
+      </>
+    ))}
+
+    <div class="diagram">
+      <svg viewBox="0 0 326 370" role="img" aria-labelledby="twins-plot-title twins-plot-description">
+        <title id="twins-plot-title">Le voyage dans les coordonnées de la Terre</title>
+        <desc id="twins-plot-description">
+          Clara reste à la position zéro de l’an 0 à l’an 10. Noé s’éloigne jusqu’à la position
+          4 années-lumière à l’an 5, puis rejoint Clara à l’an 10. Le pointillé relie le
+          demi-tour à l’événement sur Terre qui lui est simultané dans le référentiel choisi.
+          Sa date est affichée sous le diagramme.
+        </desc>
+
+        <path class="grid" d={`M${x(4)} ${y(0)}V${y(5)} M${x(0)} ${y(10)}H${x(4)}`}/>
+        <path class="axis" d={`M${x(0)} 39 V${y(0)} H298 M${x(0) - 5} 44l5-5 5 5 M292 ${y(0) - 5}l6 5-6 5`}/>
+        <path class="earth-line" d={`M${x(0)} ${y(0)}V${y(reunion)}`}/>
+        <path class="ship-line" d={`M${x(0)} ${y(0)}L${x(turn.distance)} ${y(turn.time)}L${x(0)} ${y(reunion)}`}/>
+
+        {frames.map(({ id, earthTime }) => (
+          <g class={`state ${id}`}>
+            <line class="simultaneous" x1={x(0)} y1={y(earthTime)} x2={x(turn.distance)} y2={y(turn.time)}/>
+            <circle class="earth-event" cx={x(0)} cy={y(earthTime)} r="5"/>
+            <text class="earth-time" x={x(0) - 12} y={y(earthTime)} dominant-baseline="middle" text-anchor="end">
+              {format.format(earthTime)}
+            </text>
+          </g>
+        ))}
+
+        <g class="points">
+          <circle cx={x(0)} cy={y(0)} r="4"/>
+          <circle cx={x(0)} cy={y(reunion)} r="4"/>
+          <circle cx={x(turn.distance)} cy={y(turn.time)} r="5"/>
+        </g>
+
+        <g class="axis-labels">
+          <text x={x(0)} y="28" text-anchor="middle">Temps (ans)</text>
+          <text x={x(0) - 12} y={y(10)} dominant-baseline="middle" text-anchor="end">10</text>
+          <text x={x(0) - 12} y={y(0)} dominant-baseline="middle" text-anchor="end">0</text>
+          <text x={x(4)} y={y(0) + 17} text-anchor="middle">4</text>
+          <text x="298" y="358" text-anchor="end">Position (années-lumière)</text>
+        </g>
+
+        <g class="event-labels">
+          <text x={x(0) + 10} y={y(10)} dominant-baseline="middle">Retrouvailles</text>
+          <text x={x(4) + 10} y={y(5)} dominant-baseline="middle">Demi-tour</text>
+          <text x={x(0) + 10} y={y(0) + 17}>Départ</text>
+        </g>
+      </svg>
+
+      <div class="plot-caption">
+        <ul aria-label="Légende">
+          <li class="earth-key">Clara · Terre</li>
+          <li class="ship-key">Noé · Vaisseau</li>
+          <li class="time-key">Instants simultanés</li>
+        </ul>
+        {frames.map(({ id, earthTime }) => (
+          <p class={`state readout ${id}`}>
+            <span>Date sur la montre de Clara</span>
+            <strong>{format.format(earthTime)} {earthTime < 2 ? "an" : "ans"}</strong>
+          </p>
+        ))}
+      </div>
+    </div>
+  </fieldset>
+  <figcaption>Expérience de pensée à 0,8 c. Les axes restent ceux de la Terre.</figcaption>
+</figure>
+
+<style>
+  .twins-explorer {
+    --chart-ink: #173139;
+    --earth: #116765;
+    --ship: #a54425;
+    --simultaneous: #65478a;
+    margin: 1.6rem 0;
+    padding: clamp(.8rem, 2.5vw, 1.35rem);
+    border: 1px solid #c9d0c7;
+    border-radius: .8rem;
+    color: var(--chart-ink);
+    background: #f8faf5;
+    font: 500 .88rem/1.45 "DM Sans", sans-serif;
+    scroll-margin-top: 1.5rem;
+  }
+
+  fieldset { display: flex; flex-wrap: wrap; gap: .5rem; min-width: 0; border: 0; padding: 0; margin: 0; }
+  legend { padding: 0; margin-bottom: .8rem; font: 500 1.35rem/1.25 var(--serif); }
+  .frame-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .frame-label { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .35rem .7rem; border: 1px solid #7c8986; border-radius: .35rem; cursor: pointer; }
+  .frame-label:hover { background: #e7ede6; }
+  .frame-input:checked + .frame-label { color: #fff; border-color: var(--chart-ink); background: var(--chart-ink); }
+  .frame-input:focus-visible + .frame-label { outline: 2px solid #65478a; outline-offset: 3px; }
+
+  .diagram { flex-basis: 100%; display: grid; align-items: center; margin-top: .35rem; }
+  svg { display: block; width: min(100%, 24rem); height: auto; margin-inline: auto; font: 500 14px "DM Sans", sans-serif; }
+  .axis, .grid, .earth-line, .ship-line, .simultaneous { fill: none; }
+  .axis { stroke: #52686e; }
+  .grid { stroke: #c9d0c7; stroke-dasharray: 3 4; }
+  .earth-line { stroke: var(--earth); stroke-width: 3; }
+  .ship-line { stroke: var(--ship); stroke-width: 3; }
+  .simultaneous { stroke: var(--simultaneous); stroke-width: 2; stroke-dasharray: 5 4; }
+  .earth-event { fill: var(--simultaneous); stroke: #f8faf5; stroke-width: 1.5; }
+  .earth-time { fill: var(--simultaneous); font-weight: 700; }
+  .points, .axis-labels, .event-labels { fill: var(--chart-ink); }
+
+  .state { display: none; }
+  #twins-earth:checked ~ .diagram .earth,
+  #twins-outbound:checked ~ .diagram .outbound,
+  #twins-inbound:checked ~ .diagram .inbound { display: revert; }
+
+  .plot-caption { display: grid; align-content: center; gap: 1rem; margin: .25rem 0 .9rem; }
+  .plot-caption ul { display: flex; flex-wrap: wrap; gap: .45rem .85rem; margin: 0; padding: 0; list-style: none; }
+  .plot-caption li { display: inline-flex; align-items: center; gap: .45rem; font-size: .8rem; }
+  .plot-caption li::before { width: .85rem; border-top: 2px solid currentColor; content: ""; }
+  .earth-key { color: var(--earth); }
+  .ship-key { color: var(--ship); }
+  .time-key { color: var(--simultaneous); }
+  .plot-caption .time-key::before { border-top-style: dashed; }
+  .readout { margin: 0; padding: .65rem .85rem; border-inline-start: 2px solid var(--simultaneous); background: #efeaf5; }
+  .readout strong { display: block; color: var(--simultaneous); font: 500 1.45rem/1.2 var(--serif); }
+  figcaption { padding-top: .65rem; border-top: 1px solid #c9d0c7; color: #43575b; font-size: .77rem; }
+
+  @media (min-width: 42rem) {
+    .diagram { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: .8rem; }
+    .plot-caption ul { display: grid; }
+  }
+</style>
