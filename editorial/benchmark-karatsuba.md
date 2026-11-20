@@ -158,3 +158,16 @@ Le récit historique du brouillon doit désormais intégrer un résultat postér
 - Ne pas transformer la borne en promesse de performance pratique : la référence Python du dépôt est explicitement non optimisée et ne compte pas les mouvements de tête ; l'implémentation C/GMP compagnon porte sur le multiplicateur interne en O(n log n), pas sur l'algorithme principal sous-n log n.
 
 **Conséquence éditoriale :** le passage sur les limites théoriques a été actualisé de manière additive. Il conserve la chronologie OpenAI → commentaire Harvey → formalisation Lean ultérieure, et distingue les modèles, les statuts de preuve et les implémentations.
+
+
+## Lecture directe du billet et intégration dans l’atelier — 20 novembre 2026
+
+Le billet de Djamchid Dalili a été ouvert et son volet de récursion examiné. Son parcours passe de la multiplication posée au découpage, puis au calcul interactif exact et à un arbre des appels à ouvrir à la demande. Un graphique présente le modèle de croissance et le texte explique séparément les seuils employés en pratique. Cette consultation a porté sur le contenu rendu et l’ouverture du volet.
+
+| Observation dans le billet | Application dans Knowledge Stories |
+| --- | --- |
+| L’atelier permet d’ouvrir la récursion après avoir vu le calcul exact. | Un volet natif affiche les trois paires de blocs, leurs produits et la largeur de chaque sous-problème pour les opérandes saisis. L’exemple initial est rendu en HTML. |
+| Le graphique et sa légende isolent les hypothèses du modèle de coût. | L’atelier rapproche l’appel des sommes, susceptible de gagner un chiffre, du décompte idéal des feuilles. |
+| La récursion prolonge l’exemple de départ. | Un exercice de transfert demande de prévoir la taille du troisième appel pour 9 999 × 1 234 avant d’ouvrir la réponse et de vérifier dans l’atelier. |
+
+L’exercice et la présentation sont des créations du projet. Le billet est crédité comme référence pédagogique. La revue humaine des faits et l’essai avec lecteur d’écran restent à faire.

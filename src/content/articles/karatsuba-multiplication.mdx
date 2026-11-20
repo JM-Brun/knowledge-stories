@@ -37,6 +37,10 @@ sources:
     url: "https://github.com/lockqueue/intmul"
     kind: "primary"
     accessed: 2026-11-20
+  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
+    url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
+    kind: "secondary"
+    accessed: 2026-11-20
 relatedArticles: []
 ---
 
@@ -138,7 +142,16 @@ La démonstration ci-dessous reprend exactement la décomposition algébrique. E
 
 <KaratsubaExplorer />
 
-L'outil s'arrête volontairement à un niveau de découpage : il rend visible l'identité centrale sans faire croire qu'il mesure la vitesse d'un programme. La comparaison des coûts récursifs vient dans la section suivante.
+L’atelier effectue un découpage et affiche les trois multiplications qu’on pourrait traiter de la même façon au niveau suivant. Cette lecture du calcul s’inspire de l’atelier de [Djamchid Dalili](https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html#atelier).
+
+**À vous de prévoir.** Pour 9 999 × 1 234, les blocs de gauche et de droite comportent chacun deux chiffres. Quel appel peut recevoir un opérande de trois chiffres ? Faites une prédiction, puis vérifiez-la dans l’atelier.
+
+<details>
+<summary>Voir la réponse</summary>
+
+Le produit des sommes reçoit 99 + 99 = 198 d’un côté et 12 + 34 = 46 de l’autre. Les deux autres produits portent sur des blocs de deux chiffres. La retenue qui crée le chiffre des centaines suffit à rompre l’hypothèse de tailles exactement divisées par deux.
+
+</details>
 
 ## Pourquoi le gain devient-il considérable ?
 
@@ -154,13 +167,13 @@ Karatsuba ne calcule que trois produits récursifs. Le découpage, les additions
 
     T(n) = 3T(n/2) + O(n)
 
-À chaque niveau, les sous-problèmes sont donc trois fois plus nombreux, mais leur taille est divisée par deux. Le théorème maître donne :
+Dans cette récurrence, on modélise chaque appel par trois sous-problèmes de taille moitié. Le théorème maître donne :
 
     T(n) = Θ(n^log₂(3)) ≈ Θ(n^1,585)
 
 L'exposant est inférieur à 2. C'est le gain fondamental : lorsque la taille augmente, le coût de Karatsuba croît moins vite que celui de la multiplication scolaire.
 
-Une autre manière de voir la différence consiste à regarder les feuilles de l'arbre récursif. Si la taille est divisée par deux à chaque niveau, il faut environ log₂(n) niveaux. Quatre appels par nœud conduisent à 4^log₂(n) = n² feuilles ; trois appels conduisent à 3^log₂(n) = n^log₂(3).
+Une autre manière de voir la différence consiste à regarder les feuilles de l'arbre récursif. Dans l’arbre équilibré pour n chiffres, avec n une puissance de deux, la taille est divisée par deux à chaque niveau. On atteint un chiffre au bout de log₂(n) niveaux. Quatre appels par nœud conduisent à 4^log₂(n) = n² feuilles ; trois appels conduisent à 3^log₂(n) = n^log₂(3).
 
 ## De Karatsuba aux limites théoriques actuelles
 
