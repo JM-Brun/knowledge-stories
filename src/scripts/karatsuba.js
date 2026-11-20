@@ -27,6 +27,20 @@ export function calculateKaratsubaStep(left, right) {
   return { x, y, a, b, c, d, base, p, q, r, cross, product };
 }
 
+/** Describe the three operand pairs produced by one split, in p, q, r order. */
+export function getKaratsubaSubproblems({ x, y, a, b, c, d, p, q, r }) {
+  if (x < 10n && y < 10n) return [];
+  return [
+    { left: a, right: c, product: p },
+    { left: b, right: d, product: q },
+    { left: a + b, right: c + d, product: r },
+  ].map(({ left, right, product }) => ({
+    left,
+    right,
+    product,
+    digits: (left > right ? left : right).toString().length,
+  }));
+}
 
 export function getRecursiveMultiplicationCounts(digitCount) {
   if (!Number.isInteger(digitCount) || digitCount < 1 || digitCount > MAX_DIGITS) {

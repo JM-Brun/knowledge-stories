@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateKaratsubaStep, getRecursiveMultiplicationCounts } from "../src/scripts/karatsuba.js";
+import { calculateKaratsubaStep, getKaratsubaSubproblems, getRecursiveMultiplicationCounts } from "../src/scripts/karatsuba.js";
 
 test("reproduces the article example", () => {
   const result = calculateKaratsubaStep("1234", "5678");
@@ -43,4 +43,18 @@ test("compares recursive leaf counts under an explicit balanced model", () => {
   assert.deepEqual(getRecursiveMultiplicationCounts(18), {
     digitCount: 18, paddedDigits: 32, depth: 5, schoolbookLeaves: 1024, karatsubaLeaves: 243,
   });
+});
+
+
+test("uses the actual recursive operands, including the extra digit from a carry", () => {
+  const step = calculateKaratsubaStep("9999", "1234");
+  assert.deepEqual(getKaratsubaSubproblems(step), [
+    { left: 99n, right: 12n, product: 1188n, digits: 2 },
+    { left: 99n, right: 34n, product: 3366n, digits: 2 },
+    { left: 198n, right: 46n, product: 9108n, digits: 3 },
+  ]);
+});
+
+test("shows no child calls when both operands fit in one digit", () => {
+  assert.deepEqual(getKaratsubaSubproblems(calculateKaratsubaStep("0", "7")), []);
 });

@@ -1,4 +1,9 @@
 ---
+import { calculateKaratsubaStep, getKaratsubaSubproblems } from "../scripts/karatsuba.js";
+
+const exampleCalls = getKaratsubaSubproblems(calculateKaratsubaStep("1234", "5678"));
+const callLabels = ["Blocs de gauche", "Blocs de droite", "Sommes des blocs"];
+const format = (value: bigint) => value.toLocaleString("fr-FR");
 ---
 <section class="karatsuba-lab" data-karatsuba-lab aria-labelledby="karatsuba-lab-title">
   <div class="lab-heading">
@@ -21,39 +26,56 @@
   <p class="lab-help" id="lab-input-help">Entiers naturels de 1 à 18 chiffres (zéro compris). Les espaces sont acceptés pour la lisibilité.</p>
   <p class="lab-error" data-error role="alert" hidden></p>
 
-  <div class="lab-result" aria-live="polite" aria-atomic="true">
-    <span class="lab-result-label">Produit obtenu</span>
-    <strong data-result>7 006 652</strong>
-  </div>
-
-  <p class="lab-verification" data-verification role="status">Vérification : le résultat reconstruit correspond au produit direct.</p>
-
-  <div class="lab-steps" data-steps>
-    <div class="lab-step"><span class="step-index">01</span><div><h4>Découper</h4><p data-split>1 234 = 12 × 100 + 34<br />5 678 = 56 × 100 + 78</p></div></div>
-    <div class="lab-step"><span class="step-index">02</span><div><h4>Calculer trois produits</h4><p data-products>p = 12 × 56 = 672<br />q = 34 × 78 = 2 652<br />r = 46 × 134 = 6 164</p></div></div>
-    <div class="lab-step"><span class="step-index">03</span><div><h4>Retrouver les produits croisés</h4><p data-cross>r − p − q = 2 840</p></div></div>
-    <div class="lab-step"><span class="step-index">04</span><div><h4>Recomposer</h4><p data-recompose>672 × 10 000 + 2 840 × 100 + 2 652 = 7 006 652</p></div></div>
-  </div>
-
-  <div class="lab-comparison">
-    <h4>Où se trouve l'économie ?</h4>
-    <div class="comparison-grid">
-      <div><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small>ac · ad · bc · bd</small></div>
-      <div class="comparison-arrow" aria-hidden="true">→</div>
-      <div><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small>ac · bd · (a+b)(c+d)</small></div>
+  <div data-calculation>
+    <div class="lab-result" aria-live="polite" aria-atomic="true">
+      <span class="lab-result-label">Produit obtenu</span>
+      <strong data-result>7 006 652</strong>
     </div>
-    <p class="lab-footnote">Cette comparaison porte sur un niveau de découpage. En répétant la méthode récursivement, on obtient la récurrence T(n) = 3T(n/2) + O(n), dans le modèle où les deux blocs sont de taille comparable.</p>
-  </div>
-  <div class="lab-recursion">
-    <h4>Et si l’on répète le découpage ?</h4>
-    <p data-recursion>Pour 4 chiffres, le modèle équilibré jusqu’à 1 chiffre donne 16 multiplications élémentaires avec la méthode scolaire, contre 9 avec Karatsuba.</p>
-    <p class="lab-footnote">Modèle théorique : on complète la longueur jusqu’à la puissance de deux supérieure ou égale, puis on découpe jusqu’à des blocs d’un chiffre. Il compte les multiplications aux feuilles, pas les additions, les coûts de gestion ni un temps d’exécution réel.</p>
+
+    <p class="lab-verification" data-verification role="status">Vérification : le résultat reconstruit correspond au produit direct.</p>
+
+    <div class="lab-steps" data-steps>
+      <div class="lab-step"><span class="step-index">01</span><div><h4>Découper</h4><p data-split>1 234 = 12 × 100 + 34<br />5 678 = 56 × 100 + 78</p></div></div>
+      <div class="lab-step"><span class="step-index">02</span><div><h4>Calculer trois produits</h4><p data-products>p = 12 × 56 = 672<br />q = 34 × 78 = 2 652<br />r = 46 × 134 = 6 164</p></div></div>
+      <div class="lab-step"><span class="step-index">03</span><div><h4>Retrouver les produits croisés</h4><p data-cross>r − p − q = 2 840</p></div></div>
+      <div class="lab-step"><span class="step-index">04</span><div><h4>Recomposer</h4><p data-recompose>672 × 10 000 + 2 840 × 100 + 2 652 = 7 006 652</p></div></div>
+    </div>
+
+    <div class="lab-comparison">
+      <h4>Où se trouve l'économie ?</h4>
+      <div class="comparison-grid">
+        <div><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small>ac · ad · bc · bd</small></div>
+        <div class="comparison-arrow" aria-hidden="true">→</div>
+        <div><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small>ac · bd · (a+b)(c+d)</small></div>
+      </div>
+      <p class="lab-footnote">Cette comparaison porte sur un niveau de découpage. En répétant la méthode récursivement, on obtient la récurrence T(n) = 3T(n/2) + O(n), dans le modèle où les deux blocs sont de taille comparable.</p>
+    </div>
+    <details class="lab-recursion">
+      <summary>Que se passe-t-il au niveau suivant ?</summary>
+      <div data-subproblems>
+        <p>Chaque ligne indique les opérandes d’un appel au niveau suivant et le produit que cet appel doit renvoyer.</p>
+        <ol class="subproblems">
+          {exampleCalls.map(({ left, right, product, digits }, index) => (
+            <li>
+              <strong>{callLabels[index]}</strong>
+              <span data-call>{format(left)} × {format(right)} = {format(product)}</span>
+              <span class="call-size" data-call-size>{digits} chiffres pour le plus grand opérande</span>
+            </li>
+          ))}
+        </ol>
+        <p>Une retenue peut allonger l’une des sommes d’un chiffre. Avec 1 234 × 5 678, la somme 56 + 78 vaut 134. L’appel des sommes porte donc sur un opérande de trois chiffres, contre deux au maximum pour chacun des autres appels.</p>
+      </div>
+      <p data-base-case hidden>Les deux opérandes tiennent chacun en un chiffre. La multiplication est déjà au cas de base.</p>
+      <h4>Si chaque appel divisait la taille par deux</h4>
+      <p data-recursion>Sur 4 chiffres, après 2 niveaux de découpage, le modèle équilibré donne 16 feuilles pour le découpage classique et 9 pour Karatsuba.</p>
+      <p class="lab-footnote">On complète la longueur à la prochaine puissance de deux si nécessaire et on suppose que chaque appel divise exactement la taille par deux, jusqu’à un chiffre. Les feuilles de cet arbre idéal représentent des produits dans le modèle. Les retenues, les additions et les durées réelles restent hors du comptage.</p>
+    </details>
   </div>
   <noscript><p class="lab-noscript">La démonstration interactive nécessite JavaScript. L'exemple complet 1 234 × 5 678 = 7 006 652 et son calcul pas à pas sont expliqués dans le texte de l'article.</p></noscript>
 </section>
 
 <script>
-  import { calculateKaratsubaStep, getRecursiveMultiplicationCounts } from "../scripts/karatsuba.js";
+  import { calculateKaratsubaStep, getKaratsubaSubproblems, getRecursiveMultiplicationCounts } from "../scripts/karatsuba.js";
 
   const format = (value: bigint) => value.toLocaleString("fr-FR");
   const setText = (root: HTMLElement, selector: string, value: string) => {
@@ -67,18 +89,29 @@
       y: root.querySelector<HTMLInputElement>('[data-number="y"]')!,
     };
     const error = root.querySelector<HTMLParagraphElement>("[data-error]")!;
+    const calculation = root.querySelector<HTMLElement>("[data-calculation]")!;
+    const subproblems = root.querySelector<HTMLElement>("[data-subproblems]")!;
+    const baseCase = root.querySelector<HTMLElement>("[data-base-case]")!;
+    const callProducts = root.querySelectorAll<HTMLElement>("[data-call]");
+    const callSizes = root.querySelectorAll<HTMLElement>("[data-call-size]");
 
     const update = () => {
       const rawX = fields.x.value.replace(/[\s\u00a0]/g, "");
       const rawY = fields.y.value.replace(/[\s\u00a0]/g, "");
       const valid = (value: string) => /^\d{1,18}$/.test(value);
-      if (!valid(rawX) || !valid(rawY)) {
+      const validX = valid(rawX);
+      const validY = valid(rawY);
+      fields.x.setAttribute("aria-invalid", String(!validX));
+      fields.y.setAttribute("aria-invalid", String(!validY));
+      calculation.hidden = !validX || !validY;
+      if (calculation.hidden) {
         error.hidden = false;
         error.textContent = "Saisissez deux entiers naturels comportant chacun de 1 à 18 chiffres (zéro compris).";
         return;
       }
 
-      const { a, b, c, d, base, p, q, r, cross, product: result, x, y } = calculateKaratsubaStep(rawX, rawY);
+      const step = calculateKaratsubaStep(BigInt(rawX).toString(), BigInt(rawY).toString());
+      const { a, b, c, d, base, p, q, r, cross, product: result, x, y } = step;
       const direct = x * y;
 
       error.hidden = true;
@@ -87,9 +120,19 @@
       setText(root, "[data-products]", `p = ${format(a)} × ${format(c)} = ${format(p)}\nq = ${format(b)} × ${format(d)} = ${format(q)}\nr = (${format(a)} + ${format(b)}) × (${format(c)} + ${format(d)}) = ${format(r)}`);
       setText(root, "[data-cross]", `r − p − q = ${format(r)} − ${format(p)} − ${format(q)} = ${format(cross)}`);
       setText(root, "[data-recompose]", `${format(p)} × ${format(base * base)} + ${format(cross)} × ${format(base)} + ${format(q)} = ${format(result)}`);
-      const counts = getRecursiveMultiplicationCounts(Math.max(rawX.length, rawY.length));
+      const calls = getKaratsubaSubproblems(step);
+      subproblems.hidden = calls.length === 0;
+      baseCase.hidden = calls.length > 0;
+      calls.forEach(({ left, right, product, digits }, index) => {
+        callProducts[index].textContent = `${format(left)} × ${format(right)} = ${format(product)}`;
+        callSizes[index].textContent = `${digits} chiffre${digits > 1 ? "s" : ""} pour le plus grand opérande`;
+      });
+
+      const counts = getRecursiveMultiplicationCounts(Math.max(x.toString().length, y.toString().length));
       setText(root, "[data-verification]", result === direct ? "Vérification réussie : le résultat reconstruit correspond au produit direct." : "Erreur : les deux méthodes ne donnent pas le même résultat.");
-      setText(root, "[data-recursion]", `Pour ${counts.digitCount} chiffre(s), complétés à ${counts.paddedDigits} blocs et découpés sur ${counts.depth} niveau(x), le modèle compte ${format(BigInt(counts.schoolbookLeaves))} multiplications élémentaires avec la méthode scolaire, contre ${format(BigInt(counts.karatsubaLeaves))} avec Karatsuba.`);
+      setText(root, "[data-recursion]", counts.depth === 0
+        ? "Avec un chiffre par opérande, chaque méthode compte une seule feuille, sans découpage."
+        : `Sur ${counts.digitCount} chiffres (longueur du plus grand opérande, portée à ${counts.paddedDigits}), après ${counts.depth} niveau${counts.depth > 1 ? "x" : ""} de découpage, le modèle équilibré donne ${format(BigInt(counts.schoolbookLeaves))} feuilles pour le découpage classique et ${format(BigInt(counts.karatsubaLeaves))} pour Karatsuba.`);
     };
 
     fields.x.addEventListener("input", update);
@@ -113,7 +156,15 @@
   .lab-error { color: #9c3028; font-size: .85rem; }
   .lab-verification { margin: -.5rem 0 1.2rem; color: var(--muted, #66685f); font-size: .82rem; }
   .lab-recursion { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line, #d9d4c8); }
-  .lab-recursion h4 { margin: 0 0 .45rem; font-size: .95rem; }
+  .lab-recursion summary { cursor: pointer; font-weight: 600; }
+  .lab-recursion summary:focus-visible { outline: 3px solid var(--accent, #a85b36); outline-offset: 3px; }
+  .lab-recursion h4 { margin: 1.15rem 0 .45rem; font-size: .95rem; }
+  .lab-recursion div > p:first-child, .lab-recursion [data-base-case] { margin-top: .75rem; }
+  .subproblems { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; padding-left: 1.25rem; }
+  .subproblems li { padding-right: .4rem; overflow-wrap: anywhere; }
+  .subproblems :is(strong, span) { display: block; }
+  .subproblems [data-call] { font: .83rem/1.55 var(--font-mono, monospace); }
+  .call-size { color: var(--muted, #66685f); font-size: .8rem; }
   .lab-recursion p:not(.lab-footnote) { margin: 0; font-size: .88rem; line-height: 1.6; }
   .lab-result { display: grid; gap: .3rem; margin: 1.3rem 0; padding: 1rem 1.15rem; border-radius: .65rem; background: var(--ink, #252820); color: white; }
   .lab-result-label { color: #d8d8cf; }
@@ -131,6 +182,6 @@
   .comparison-grid small { color: var(--muted, #66685f); font: .7rem var(--font-mono, monospace); }
   .comparison-arrow { color: var(--accent, #a85b36); }
   .lab-footnote { margin-bottom: 0; line-height: 1.6; }
-  @media (max-width: 620px) { .lab-heading { display: block; } .lab-intro { margin-top: .8rem; } .lab-inputs { gap: .5rem; } .comparison-grid { gap: .35rem; } .comparison-grid > div:not(.comparison-arrow) { padding: .65rem; } }
+  @media (max-width: 620px) { .subproblems { grid-template-columns: 1fr; } .lab-heading { display: block; } .lab-intro { margin-top: .8rem; } .lab-inputs { gap: .5rem; } .comparison-grid { gap: .35rem; } .comparison-grid > div:not(.comparison-arrow) { padding: .65rem; } }
   @media (prefers-reduced-motion: reduce) { .karatsuba-lab * { scroll-behavior: auto !important; } }
 </style>
