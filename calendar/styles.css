@@ -43,7 +43,18 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content figure svg { display: block; width: 100%; height: auto; overflow: visible; }
 #quarto-content figcaption { margin: .8rem .35rem .15rem; color: #5e6f64; font-size: .88rem; line-height: 1.55; }
 #quarto-content .math.display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
-#quarto-content .math.inline { overflow-wrap: anywhere; }
+/* Avoid splitting raw TeX commands if MathJax is delayed or unavailable. */
+#quarto-content .math.inline { white-space: nowrap; }
+#quarto-content mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: .5rem 0;
+}
+#quarto-content mjx-container:not([display="true"]) {
+  max-width: 100%;
+}
 #quarto-content details { max-width: 76ch; }
 .error-figure { border-color: #cbd9ce !important; background: linear-gradient(145deg,#fffefa,#f1f5ef) !important; }
 .error-figure svg { max-height: 19rem; }
