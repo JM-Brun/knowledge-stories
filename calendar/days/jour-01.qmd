@@ -36,7 +36,7 @@ Une référence conventionnelle indique 20,00 °C. Le tableau rassemble trois re
 | **D — robuste, affichage peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Instrument supposé robuste, avec un affichage par pas de 0,5 °C dans cet exemple |
 | **E — acquisition rapide** | 19,9 °C | 20,0 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Trois instants sélectionnés parmi une acquisition à 10 Hz ; la fréquence ne se lit pas dans ces seuls nombres |
 
-Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Pour C, la moyenne des trois valeurs est égale à la référence par construction : cela ne démontre ni que le bruit est centré dans la population, ni que le capteur est peu biaisé. Pour D, le pas de 0,5 °C est une propriété supposée de l'affichage, illustrée par les valeurs choisies ; trois relevés ne suffiraient pas à caractériser la résolution d'un instrument. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
+Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Pour C, la moyenne des trois valeurs est égale à la référence par construction : cela ne démontre ni que le bruit est centré dans la population, ni que le capteur est peu biaisé. Pour D, le pas de 0,5 °C est une propriété supposée de l'affichage, illustrée par les valeurs choisies ; trois relevés ne suffiraient pas à caractériser la résolution d'un instrument. La robustesse environnementale attribuée à D est également une hypothèse du scénario, pas une propriété déduite de ces trois lectures. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
 
 Les séries A et B ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
@@ -108,8 +108,8 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
   <article class="sensor-card sensor-c" role="listitem">
     <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 52h66M20 52V17m0 35h57" stroke="currentColor" stroke-width="2"/><path d="M25 37l9-15 9 25 9-32 9 27 9-18 9 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
     <span class="sensor-kicker">Profil C</span>
-    <h4>Peu biaisé mais bruité</h4>
-    <p>La moyenne peut se rapprocher de la référence si le bruit est centré, que les mesures sont suffisamment indépendantes et que les conditions restent stables.</p>
+    <h4>Bruité, moyenne observée centrée</h4>
+    <p>Dans les trois valeurs illustratives, la moyenne coïncide avec la référence. Cela ne suffit pas à établir que le bruit est centré dans la population ni à caractériser le biais du capteur.</p>
     <p class="sensor-limit"><strong>À vérifier :</strong> le moyennage ne masque pas les événements rapides et les mesures ne dérivent pas.</p>
   </article>
   <article class="sensor-card sensor-d" role="listitem">
@@ -233,10 +233,10 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 |---|---|---|
 | **Fidélité** | Les résultats répétés sont-ils proches les uns des autres ? | Écart-type, variance ou autre mesure de dispersion, dans des conditions précisées |
 | **Répétabilité** | Sont-ils proches lorsque les conditions de répétabilité sont réunies ? | Même procédure, opérateur, système de mesure, conditions de fonctionnement et lieu, sur une courte période |
-| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen observé à la référence ; la justesse elle-même n'est pas une grandeur numérique |
+| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Estimée par le biais sur une série suffisamment représentative ; la justesse elle-même n'est pas une grandeur numérique |
 | **Exactitude** | Le résultat est-il proche de la valeur vraie du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Les trois relevés du tableau ne suffisent pas à établir à eux seuls ces conditions ni à caractériser complètement la répétabilité. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
