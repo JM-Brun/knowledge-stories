@@ -20,19 +20,15 @@ La distribution A laisse les deux issues également possibles. C rend l'une des 
 
 ## Surprise d'une issue et entropie d'une distribution
 
-La surprise associée à une issue (x) de probabilité (p(x)) est :
-
-[
-\(I(x)=-\log_2 p(x)\).
-]
+La surprise associée à une issue \(x\) de probabilité \(p(x)\) est \(I(x)=-\log_2 p(x)\).
 
 Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité (1/2) apporte 1 bit de surprise ; une issue de probabilité (1/8), 3 bits.
 
 Mais avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne :
 
-[
-\(H(X)=-\sum_x p(x)\log_2 p(x)\).
-]
+\[
+H(X)=-\sum_x p(x)\log_2 p(x).
+\]
 
 On adopte la convention \(0\log_2(0)=0\), obtenue par continuité.
 
@@ -63,32 +59,28 @@ Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont é
 
 ## Pourquoi le logarithme ?
 
-Le logarithme transforme une multiplication de probabilités en addition de surprises. Si deux événements indépendants ont des probabilités (p) et (q), la probabilité conjointe vaut (pq), et :
+Le logarithme transforme une multiplication de probabilités en addition de surprises. Si deux événements indépendants ont des probabilités \(p\) et \(q\), la probabilité conjointe vaut \(pq\), et :
 
-[
--log_2(pq)=-log_2(p)-log_2(q).
+\[
+-\log_2(pq)=-\log_2(p)-\log_2(q).
 ]
 
 Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base (e) pour les nats.
 
 ## Incertitude conditionnelle : que sait-on déjà ?
 
-L'incertitude peut diminuer lorsqu'on obtient une information. Si l'on connaît une variable (Y), l'incertitude résiduelle sur (X) est l'entropie conditionnelle :
+L'incertitude peut diminuer lorsqu'on obtient une information. Si l'on connaît une variable \(Y\), l'incertitude résiduelle sur \(X\) est l'entropie conditionnelle :
 
-[
 \[
 H(X\mid Y)=
 -\sum_{x,y}p(x,y)\log_2 p(x\mid y).
 \]
-]
 
-L'information mutuelle mesure la réduction moyenne d'incertitude apportée par (Y) sur (X) :
+L'information mutuelle mesure la réduction moyenne d'incertitude apportée par \(Y\) sur \(X\) :
 
-[
 \[
 I(X;Y)=H(X)-H(X\mid Y).
 \]
-]
 
 Elle est nulle si (X) et (Y) sont indépendantes, et positive sinon. Cette quantité permet de formaliser l'information partagée, sans pour autant établir une relation causale.
 
