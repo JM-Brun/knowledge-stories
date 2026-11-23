@@ -237,7 +237,7 @@ Pour isoler le raisonnement, supposons que **n** soit une puissance de deux et q
 
 Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite **n** chiffres. Au niveau 1, il crée **3** appels de taille **n/2** ; au niveau 2, ces appels en créent **9** de taille **n/4**. Plus généralement, au niveau **j**, il existe **3ʲ** appels, chacun traitant environ **n/2ʲ** chiffres.
 
-Pour huit chiffres, le calcul suivant normalise le travail hors sous-appels à une unité par chiffre traité à chaque nœud interne.
+Pour rendre l’écart concret, prenons **n = 8 = 2³** chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compte les appels de chaque niveau. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’un chronométrage ni d’un décompte exact des opérations machine.
 
 | Niveau | Appels | Chiffres | Travail local |
 | --- | ---: | ---: | ---: |
