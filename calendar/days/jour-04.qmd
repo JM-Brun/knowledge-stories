@@ -14,51 +14,69 @@ Pourquoi la variance de (X+Y) n'est-elle pas toujours égale à la somme des var
 
 Considérons trois couples équiprobables :
 
-[
-(X,Y)in{(1,2),(2,4),(3,6)}.
-]
+\[
+(X,Y)\in\{(1,2),(2,4),(3,6)\}.
+\]
 
-Ici, (Y=2X). Les moyennes sont (mathbb E[X]=2) et (mathbb E[Y]=4). En utilisant le diviseur (n=3) pour les variances et la covariance empiriques :
+Ici, \(Y=2X\). Les moyennes sont \(\mathbb E[X]=2\) et \(\mathbb E[Y]=4\). En utilisant le diviseur \(n=3\) pour les variances et la covariance empiriques :
 
-[
-operatorname{Var}_n(X)=rac23,quad
-operatorname{Var}_n(Y)=rac83,quad
-operatorname{Cov}_n(X,Y)=rac43.
-]
+\[
+\operatorname{Var}_n(X)=\frac23,\quad
+\operatorname{Var}_n(Y)=\frac83,\quad
+\operatorname{Cov}_n(X,Y)=\frac43.
+\]
 
 La corrélation empirique vaut 1. Les deux variables augmentent ensemble de manière parfaitement linéaire.
 
 La formule de la variance d'une somme est :
 
-[
-operatorname{Var}(X+Y)=
-operatorname{Var}(X)+operatorname{Var}(Y)+2operatorname{Cov}(X,Y).
-]
+\[
+\operatorname{Var}(X+Y)=
+\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
+\]
 
 On obtient donc :
 
-[
-operatorname{Var}_n(X+Y)=rac23+rac83+2	imesrac43=6.
-]
+\[
+\operatorname{Var}_n(X+Y)=\frac23+\frac83+2\times\frac43=6.
+\]
 
-Oublier la covariance donnerait (10/3), soit presque deux fois moins.
+Oublier la covariance donnerait \(10/3\), soit presque deux fois moins.
 
 ## Trois régimes de dépendance
 
-Pour deux variables de même variance (sigma^2), la variance de leur moyenne vaut :
+Pour deux variables de même variance \(\sigma^2\), la variance de leur moyenne vaut :
 
-[
-operatorname{Var}left(rac{X+Y}{2}ight)
-=rac{sigma^2}{2}(1+ho),
-]
+\[
+\operatorname{Var}\left(\frac{X+Y}{2}\right)
+=\frac{\sigma^2}{2}(1+\rho),
+\]
 
-où (ho) est leur corrélation, si les variances sont finies et non nulles.
+où \(\rho\) est leur corrélation, si les variances sont finies et non nulles.
 
-- Si (ho=1), les deux variables évoluent ensemble : moyenner ne réduit pas la variance.
-- Si (ho=0), la variance de la moyenne est divisée par deux.
-- Si (ho=-1), les fluctuations se compensent exactement dans ce cas idéal.
+- Si \(\rho=1\), les deux variables évoluent ensemble : moyenner ne réduit pas la variance.
+- Si \(\rho=0\), la variance de la moyenne est divisée par deux.
+- Si \(\rho=-1\), les fluctuations se compensent exactement dans ce cas idéal.
 
 La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**.
+
+<figure>
+<svg viewBox="0 0 760 245" role="img" aria-labelledby="cov-title cov-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="cov-title">Trois structures de covariance entre deux variables</title>
+  <desc id="cov-desc">Trois petits nuages de points montrent une corrélation positive, nulle et négative. Les marges peuvent avoir une dispersion comparable, mais la somme des deux variables ne présente pas la même variance.</desc>
+  <rect x="1" y="1" width="758" height="243" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g fill="#334155" font-size="13" font-weight="700" text-anchor="middle"><text x="130" y="26">Corrélation positive</text><text x="380" y="26">Corrélation nulle</text><text x="630" y="26">Corrélation négative</text></g>
+  <g stroke="#94a3b8" stroke-width="1"><rect x="25" y="38" width="210" height="165" fill="#fff"/><rect x="275" y="38" width="210" height="165" fill="#fff"/><rect x="525" y="38" width="210" height="165" fill="#fff"/></g>
+  <g fill="#0f766e">
+    <circle cx="55" cy="178" r="5"/><circle cx="82" cy="157" r="5"/><circle cx="108" cy="142" r="5"/><circle cx="135" cy="118" r="5"/><circle cx="164" cy="91" r="5"/><circle cx="202" cy="62" r="5"/>
+    <circle cx="303" cy="90" r="5"/><circle cx="335" cy="166" r="5"/><circle cx="367" cy="118" r="5"/><circle cx="400" cy="68" r="5"/><circle cx="435" cy="151" r="5"/><circle cx="462" cy="105" r="5"/>
+    <circle cx="555" cy="62" r="5"/><circle cx="582" cy="88" r="5"/><circle cx="608" cy="111" r="5"/><circle cx="635" cy="137" r="5"/><circle cx="664" cy="160" r="5"/><circle cx="702" cy="181" r="5"/>
+  </g>
+  <g stroke="#b45309" stroke-width="2" stroke-dasharray="5 4"><path d="M45 186 L215 52"/><path d="M545 52 L715 186"/></g>
+  <g fill="#475569" font-size="11" text-anchor="middle"><text x="130" y="222">Cov(X,Y) &gt; 0</text><text x="380" y="222">Cov(X,Y) ≈ 0</text><text x="630" y="222">Cov(X,Y) &lt; 0</text></g>
+</svg>
+<figcaption>La covariance déplace la variance de la somme : elle l'augmente si les variables fluctuent ensemble, la réduit si elles se compensent.</figcaption>
+</figure>
 
 ## Une visualisation mentale : erreurs communes et erreurs propres
 
@@ -70,13 +88,13 @@ La même logique s'applique à un ensemble de modèles entraînés sur des donn�
 
 ## De la somme à une combinaison pondérée
 
-Pour un vecteur aléatoire (X) et des poids (w), la variance de l'agrégat linéaire s'écrit :
+Pour un vecteur aléatoire \(X\) et des poids \(w\), la variance de l'agrégat linéaire s'écrit :
 
-[
-operatorname{Var}(w^	op X)=w^	opSigma w,
-]
+\[
+\operatorname{Var}(w^\top X)=w^\top\Sigma w,
+\]
 
-où (Sigma) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances.
+où \(\Sigma\) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances.
 
 Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs, en portefeuille financier et en agrégation de prédictions. La diversification réduit le risque lorsque les composantes ne sont pas parfaitement corrélées ; elle ne supprime pas un risque commun à toutes.
 
@@ -84,14 +102,14 @@ Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs
 
 La covariance décrit une dépendance linéaire. Elle ne résume pas toute la dépendance.
 
-Prenons (X) uniforme sur ({-1,0,1}) et (Y=X^2). On a :
+Prenons \(X\) uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\). On a :
 
-[
-mathbb E[X]=0,qquad mathbb E[Y]=rac23,qquad
-mathbb E[XY]=0.
-]
+\[
+\mathbb E[X]=0,\qquad \mathbb E[Y]=\frac23,\qquad
+\mathbb E[XY]=0.
+\]
 
-Ainsi, (operatorname{Cov}(X,Y)=0), alors que (Y) est entièrement déterminée par (X). Les variables sont dépendantes malgré une covariance nulle.
+Ainsi, \(\operatorname{Cov}(X,Y)=0\), alors que \(Y\) est entièrement déterminée par \(X\). Les variables sont dépendantes malgré une covariance nulle.
 
 ## Transfert : agréger des modèles ou des mesures
 
@@ -103,7 +121,7 @@ Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes
 
 1. Que devient la variance de la moyenne de deux variables identiques parfaitement corrélées ?
 2. Pourquoi dix capteurs soumis au même biais ne corrigent-ils pas ce biais par moyennage ?
-3. Que représente la matrice (Sigma) dans (operatorname{Var}(w^	op X)) ?
+3. Que représente la matrice \(\Sigma\) dans \(\operatorname{Var}(w^\top X)\) ?
 4. Donnez un exemple de variables dépendantes mais de covariance nulle.
 
 <details>
