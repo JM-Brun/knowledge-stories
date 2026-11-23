@@ -114,62 +114,6 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
   .sources a { color: #843c27; }
   .sources li span { color: #625b4d; }
 
-  .story-reading :global(.prose .math-display) {
-    display: grid;
-    justify-items: center;
-    gap: .38rem;
-    margin: 1.5rem 0 1.8rem;
-    padding: 1.15rem clamp(.8rem, 3vw, 1.5rem);
-    overflow-x: auto;
-    border: 1px solid #e1dacb;
-    border-radius: .65rem;
-    background: linear-gradient(135deg, #fbf8f0, #f0ecdf);
-    color: #252820;
-    font: 500 clamp(1.05rem, 2.4vw, 1.42rem)/1.55 "Newsreader", Georgia, serif;
-    font-variant-numeric: lining-nums tabular-nums;
-    text-align: center;
-  }
-  .story-reading :global(.prose .math-line) { white-space: nowrap; }
-  .story-reading :global(.prose .math-line i) { font-style: italic; }
-  .story-reading :global(.prose .math-line sup) { font-size: .68em; vertical-align: .55em; }
-  .story-reading :global(.prose .math-line strong) { color: #315d47; font-weight: 700; }
-  .story-reading :global(.prose .math-display--compact) { gap: .12rem; padding-block: .85rem; }
-  .story-reading :global(.prose .math-display--key) {
-    border-color: #c8d6c9;
-    background: linear-gradient(135deg, #f2f6ef, #e8efe5);
-  }
-  .story-reading :global(.prose .math-caption) {
-    color: #586357;
-    font: 500 .72rem/1.5 "DM Sans", sans-serif;
-    white-space: normal;
-    text-align: center;
-  }
-  .story-reading :global(.prose .math-display--worked) { align-items: start; justify-items: start; }
-  .story-reading :global(.prose .math-result) {
-    margin-top: .25rem;
-    padding-top: .35rem;
-    border-top: 1px solid #c8d6c9;
-    color: #315d47;
-    font-size: 1.25em;
-    font-weight: 700;
-  }
-  .story-reading :global(.prose .calculation-bridge) {
-    margin: 1.8rem 0;
-    padding: 1rem 1.2rem;
-    border-left: 3px solid #52745c;
-    background: #f0eee5;
-  }
-  .story-reading :global(.prose .calculation-bridge p) { margin: .2rem 0 .7rem; font: 500 .88rem/1.65 "DM Sans", sans-serif; color: #4d554b; }
-  .story-reading :global(.prose .calculation-bridge .calculation-bridge-title) {
-    color: #315d47; font-weight: 700; text-transform: uppercase; letter-spacing: .045em; font-size: .72rem;
-  }
-  .story-reading :global(.prose .calculation-bridge .math-display) { margin-block: .8rem; }
-  @media (max-width: 38rem) {
-    .story-reading :global(.prose .math-display) { justify-items: start; font-size: 1rem; }
-    .story-reading :global(.prose .math-display--worked) { font-size: .9rem; }
-    .story-reading :global(.prose .math-caption) { text-align: left; }
-  }
-
   @media (min-width: 48rem) {
     .with-cover { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
   }
