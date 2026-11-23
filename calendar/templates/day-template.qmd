@@ -56,6 +56,17 @@ Avant rédaction, noter dans le dossier éditorial (pas dans la page publique) :
 
 L'apport peut être une meilleure reconstruction pédagogique, une démonstration ou une connexion rigoureuse ; il ne doit pas être présenté comme une découverte nouvelle. Si l'article n'ajoute rien de substantiel, simplifier cette section ou assumer explicitement une synthèse plutôt que d'inventer un angle.
 
+## Mise en pratique en Data Science
+
+Choisir une situation professionnelle dans laquelle le concept change effectivement le raisonnement du data scientist. Faire apparaître :
+- la question d'analyse, de prédiction ou de décision ;
+- l'erreur plausible si le concept est ignoré ;
+- le diagnostic ou la méthode adaptée ;
+- la conséquence sur le protocole, le modèle ou l'interprétation ;
+- une limite ou une condition de validité.
+
+La section doit permettre au lecteur de décider quoi faire différemment. Un exemple métier précis, un calcul ou un protocole de validation vaut mieux qu'une liste d'applications génériques. Ajouter du code seulement s'il apporte une méthode reproductible ; ne pas forcer du code dans les sujets qui appellent plutôt un raisonnement, un diagnostic ou une décision.
+
 ## Changer d'échelle : où retrouve-t-on cette idée ?
 
 Faire un transfert explicite vers une autre discipline ou une situation de Data Science / ML. Expliquer ce qui reste invariant et ce qui change. Éviter les analogies qui suggèrent une équivalence abusive.
@@ -103,5 +114,6 @@ Donner le raisonnement, pas seulement le résultat. Signaler les conventions et 
 - L'ordre du calendrier est une progression narrative, pas une relation de prérequis.
 - La page doit rester autonome : aucun concept essentiel ne doit être accessible uniquement par un lien.
 - Vérifier le rendu Quarto, les liens, l'accessibilité clavier, les équations et l'affichage mobile.
+- Avant validation, vérifier que la page donne au lecteur une capacité professionnelle identifiable : diagnostic, méthode, interprétation ou décision, avec ses hypothèses et limites.
 - Avant validation, vérifier la carte de couverture : concepts centraux expliqués, prérequis rappelés, confusions voisines levées, transfert justifié et approfondissements proportionnés.
 - Après lecture, un lecteur doit pouvoir reformuler l'idée centrale, en reconnaître les hypothèses, suivre un raisonnement et identifier au moins une limite.

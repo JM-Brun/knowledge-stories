@@ -77,9 +77,53 @@ La transition J4 → J5 est particulièrement intéressante et mérite d'être r
 4. **J4 — harmoniser les conventions d'estimation** : diviseur n vs n−1 et notations empiriques.
 5. **J3 — renforcer le fil de la perte d'information** : garder la distinction entre distribution empirique et loi.
 
+
+## Capacités professionnelles à faire travailler
+
+Ces propositions précisent le transfert Data Science à rendre visible dans chaque journée. Elles ne sont pas encore des modifications des pages 2 à 5.
+
+### Jour 1 — Auditer une feature mesurée
+
+- Définir le mesurande et le mécanisme de production d'une variable.
+- Distinguer biais, bruit, résolution et dérive.
+- Détecter la confusion entre effet instrument et effet de groupe.
+- Choisir un split par groupes ou temporel cohérent avec le déploiement.
+- Estimer toute correction dans les seuls plis d'entraînement et quantifier son domaine de validité.
+
+### Jour 2 — Définir la population de généralisation
+
+- Écrire explicitement la population cible et l'unité d'observation.
+- Diagnostiquer couverture, auto-sélection et mécanisme de données manquantes.
+- Distinguer biais de sélection, covariate shift et changement de distribution de la cible.
+- Décider si une pondération ou une collecte complémentaire est défendable ; expliciter les hypothèses de support et de sélection nécessaires.
+- Construire une validation qui reflète la population de déploiement plutôt qu'un échantillon aléatoire artificiel.
+
+### Jour 3 — Choisir ce qu'il faut résumer et ce qu'il faut conserver
+
+- Diagnostiquer une distribution au-delà de sa moyenne : dispersion, quantiles, asymétrie, multimodalité et valeurs extrêmes.
+- Repérer quand une agrégation détruit une structure prédictive ou masque une sous-population.
+- Choisir des résumés adaptés à la question et vérifier les résultats par visualisation.
+- Comprendre pourquoi des statistiques globales similaires ne garantissent ni des données ni des relations similaires.
+
+### Jour 4 — Quantifier la dépendance dans une agrégation ou un ensemble
+
+- Calculer la variance d'une combinaison pondérée en tenant compte de la covariance.
+- Évaluer pourquoi ajouter des capteurs, mesures ou modèles corrélés apporte moins d'information indépendante qu'attendu.
+- Distinguer corrélation linéaire, dépendance générale et indépendance.
+- Interpréter la diversité d'un ensemble de modèles à partir des erreurs conjointes, pas seulement des scores individuels.
+- Éviter d'attribuer à une covariance observée une interprétation causale.
+
+### Jour 5 — Utiliser l'information sans confondre incertitude et qualité
+
+- Interpréter entropie, entropie conditionnelle et information mutuelle pour une distribution ou une variable.
+- Employer l'information mutuelle comme outil exploratoire de dépendance, sans la confondre avec causalité ni pouvoir prédictif hors échantillon.
+- Relier entropie prédictive, log-loss et calibration : une distribution concentrée n'est pas nécessairement une prévision fiable.
+- Vérifier les biais d'estimation de l'information mutuelle sur échantillon fini, notamment avec variables continues ou forte cardinalité.
+- Justifier le choix d'une métrique selon la décision et les coûts d'erreur.
+
 ## Limites de cet audit
 
 - Pas de rendu Quarto ni de capture desktop/mobile/clavier dans cette revue.
 - Les équations et valeurs ont été relues conceptuellement, mais pas toutes recalculées par un script indépendant.
 - Les URL et références n'ont pas fait l'objet d'une vérification bibliographique exhaustive.
-- Les propositions ci-dessus sont des pistes de révision ciblées, pas des modifications déjà apportées aux cinq pages.
+- La révision opérationnelle de la journée 1 est proposée dans la PR #45. Les priorités des journées 2 à 5 restent des recommandations ; elles ne sont pas encore intégrées aux pages.
