@@ -13,6 +13,18 @@ description: "Une phrase décrivant la question et l'apprentissage visé."
 
 Partir d'une situation concrète, d'un résultat contre-intuitif ou d'une décision réelle. Formuler une seule question centrale. Ne pas commencer par une définition encyclopédique.
 
+## Le périmètre conceptuel
+
+Avant de développer l'histoire, rendre lisible ce que le lecteur va apprendre. Cette carte est un outil de conception : dans la page publiée, l'intégrer naturellement au récit plutôt que l'afficher comme une liste administrative.
+
+- **Concept central** — quelle notion le lecteur doit-il comprendre en profondeur ?
+- **Prérequis** — quelles connaissances sont nécessaires, et lesquelles faut-il rappeler ?
+- **Distinctions voisines** — quels concepts proches risquent d'être confondus ?
+- **Connexions** — quelle autre notion ou discipline permet de mieux comprendre ou de transférer l'idée ?
+- **Approfondissements** — que faut-il seulement signaler pour ne pas surcharger cette journée ?
+
+Limiter le nombre de concepts centraux. Un concept central ne doit pas être simplement cité : le définir, expliquer son mécanisme, préciser ses hypothèses et limites, puis le faire travailler dans un exemple ou une question. Les notions périphériques peuvent être expliquées brièvement ou renvoyées vers une ressource complémentaire.
+
 ## Une expérience à observer
 
 Présenter un exemple minimal, reproductible et suffisamment précis pour que le lecteur puisse refaire le raisonnement. Donner les données, unités, hypothèses et conventions.
@@ -81,3 +93,5 @@ Donner le raisonnement, pas seulement le résultat. Signaler les conventions et 
 - L'ordre du calendrier est une progression narrative, pas une relation de prérequis.
 - La page doit rester autonome : aucun concept essentiel ne doit être accessible uniquement par un lien.
 - Vérifier le rendu Quarto, les liens, l'accessibilité clavier, les équations et l'affichage mobile.
+- Avant validation, vérifier la carte de couverture : concepts centraux expliqués, prérequis rappelés, confusions voisines levées, transfert justifié et approfondissements proportionnés.
+- Après lecture, un lecteur doit pouvoir reformuler l'idée centrale, en reconnaître les hypothèses, suivre un raisonnement et identifier au moins une limite.
