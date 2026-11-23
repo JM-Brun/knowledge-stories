@@ -36,7 +36,7 @@ Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois
 | **Moyenne** | **20,17 °C** | **19,03 °C** |
 | **Écart à la référence** | **+0,17 °C** | **−0,97 °C** |
 
-Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \\(n-1\\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable.
+Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable.
 
 Mais leur position par rapport à la référence est très différente. Le capteur B répète presque parfaitement une valeur décalée.
 
@@ -108,9 +108,9 @@ où :
 - \(b\) représente un décalage systématique (biais), supposé constant dans ce modèle simplifié ;
 - \(\varepsilon_i\) représente les variations aléatoires d'une observation à l'autre.
 
-La répétition aide à caractériser la partie variable. Si les erreurs aléatoires sont indépendantes, de moyenne nulle et de variance finie, la moyenne de nombreuses observations devient généralement moins variable : son écart-type décroît comme (1/\sqrt{n}).
+La répétition aide à caractériser la partie variable. Si les erreurs aléatoires sont indépendantes, de moyenne nulle et de variance finie, la moyenne de nombreuses observations devient généralement moins variable : son écart-type décroît comme \(1/\sqrt{n}\).
 
-Mais augmenter le nombre de mesures ne fait pas disparaître le terme \\(b\\). Dans ce modèle, la moyenne converge vers \(\theta+b\), pas vers \(\theta\).
+Mais augmenter le nombre de mesures ne fait pas disparaître le terme \(b\). Dans ce modèle, la moyenne converge vers \(\theta+b\), pas vers \(\theta\).
 
 C'est une distinction essentielle entre **réduire le bruit** et **corriger un biais**. Répéter mille fois une mesure affectée par le même décalage peut produire une moyenne très stable… et toujours fausse par rapport à la référence.
 
