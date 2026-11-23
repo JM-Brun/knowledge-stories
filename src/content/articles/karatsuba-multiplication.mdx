@@ -60,6 +60,7 @@ relatedArticles: []
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
+import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 
 <aside class="source-provenance">
   <strong>Source principale et filiation de cet article</strong>
@@ -154,49 +155,11 @@ Multiplions 1234 par 5678. Découpons chaque nombre après deux chiffres :
   <div className="math-line">5 678 = 56 · 100 + 78</div>
 </div>
 
-**1. Les deux produits des blocs**
+<KaratsubaWorkedComparison />
 
-<div className="math-display math-display--compact" role="math" aria-label="p égale 12 fois 56 égale 672 ; q égale 34 fois 78 égale 2652">
-  <div className="math-line"><i>p</i> = 12 · 56 = <strong>672</strong></div>
-  <div className="math-line"><i>q</i> = 34 · 78 = <strong>2 652</strong></div>
-</div>
+La lecture horizontale permet de comparer les deux stratégies à chaque étape. Les deux commencent par la même séparation des nombres et finissent par la même recomposition. La différence se situe au milieu : la méthode directe calcule séparément les deux produits croisés ; Karatsuba les retrouve à partir du produit des sommes.
 
-**2. Le produit des sommes**
-
-<div className="math-display math-display--compact" role="math" aria-label="r égale 12 plus 34 fois 56 plus 78, égale 46 fois 134, égale 6164">
-  <div className="math-line"><i>r</i> = (12 + 34)(56 + 78)</div>
-  <div className="math-line">= 46 · 134 = <strong>6 164</strong></div>
-</div>
-
-**3. Retrouver les produits croisés**
-
-<div className="math-display math-display--compact" role="math" aria-label="r moins p moins q égale 6164 moins 672 moins 2652 égale 2840">
-  <div className="math-line"><i>r</i> − <i>p</i> − <i>q</i> = 6 164 − 672 − 2 652</div>
-  <div className="math-line">= <strong>2 840</strong></div>
-</div>
-
-Nous avons donc 12 × 78 + 34 × 56 = 2840, sans avoir calculé ces deux produits séparément.
-
-**4. Recomposer le résultat**
-
-<div className="math-display math-display--worked" role="math" aria-label="Recomposition de 1234 fois 5678 en 7 millions 6 mille 652">
-  <div className="math-line">1 234 · 5 678 = 672 · 10 000 + 2 840 · 100 + 2 652</div>
-  <div className="math-line">= 6 720 000 + 284 000 + 2 652</div>
-  <div className="math-line math-result">= 7 006 652</div>
-</div>
-
-Pour voir comment les formules générales deviennent ce calcul précis, gardons en tête que la coupure se fait après deux chiffres : ici, `m = 2`, donc `10^m = 100` et `10^{2m} = 10 000`.
-
-<div className="calculation-bridge">
-  <p className="calculation-bridge-title">La formule générale, avec les valeurs de l'exemple</p>
-  <div className="math-display math-display--compact" role="math" aria-label="x y égale a c fois 10000 plus a d plus b c fois 100 plus b d">
-    <div className="math-line"><i>xy</i> = <i>ac</i> · 10 000 + (<i>ad</i> + <i>bc</i>) · 100 + <i>bd</i></div>
-    <div className="math-line">= 672 · 10 000 + 2 840 · 100 + 2 652</div>
-  </div>
-  <p>Chaque bloc a maintenant un rôle visible : <strong>672</strong> occupe la position des dizaines de milliers, <strong>2 840</strong> celle des centaines, et <strong>2 652</strong> reste dans les unités.</p>
-</div>
-
-La vérification est importante : Karatsuba ne fait pas disparaître les produits croisés. Il les reconstitue à partir d'un produit auxiliaire et des deux produits déjà calculés.
+Ici, la coupure est faite après deux chiffres : <code>m = 2</code>, donc <code>10^m = 100</code> et <code>10^(2m) = 10 000</code>. Les trois valeurs de Karatsuba sont replacées dans les mêmes positions décimales que les quatre produits de la méthode directe. L'économie ne vient pas d'une approximation : les deux colonnes donnent exactement le même entier.
 
 ## Expérimenter : changez les nombres
 
