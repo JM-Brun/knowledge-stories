@@ -71,7 +71,7 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
   <g fill="#0284c7" stroke="#ffffff" stroke-width="2"><circle cx="391" cy="351" r="7"/><circle cx="410" cy="364" r="7"/><circle cx="429" cy="377" r="7"/></g>
   <text x="120" y="444" font-size="11" fill="#64748b">A et B isolent le contraste dispersion / décalage ; C, D et E illustrent d'autres compromis.</text>
 </svg>
-<figcaption>Les cinq profils ne sont pas interchangeables : A et B ont une dispersion comparable mais des centres différents ; C est bruité, D quantifie par pas de 0,5 °C et E échantillonne plus souvent.</figcaption>
+<figcaption>Les cinq profils ne sont pas interchangeables : A et B ont une dispersion comparable mais des centres différents ; C est bruité, D illustre un affichage supposé quantifié par pas de 0,5 °C et E correspond à une acquisition plus fréquente.</figcaption>
 </figure>
 
 Le capteur B illustre le cas d'un instrument stable mais décalé : une correction ne serait pertinente qu'après vérification de sa stabilité et de son domaine de validité.
@@ -444,15 +444,36 @@ Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient 
 
 Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
 
-1. Si l'on collecte cent fois plus de mesures avec B, que devient sa moyenne attendue dans le modèle simplifié ?
+1. Si l'on multiplie par 100 le nombre de mesures collectées avec B, que devient la moyenne attendue dans le modèle simplifié ?
 2. Si l'on soustrait 0,97 °C à toutes ses mesures, a-t-on nécessairement corrigé le problème ?
 3. Si le biais varie avec la température ambiante, une correction constante suffit-elle ?
 4. Si les capteurs de certains bâtiments sont tous du même modèle, comment distinguer un effet du bâtiment d'un effet de l'instrument ?
 
 <details>
+<summary>Indice 1 — distinguer moyenne et biais</summary>
+
+Demandez-vous ce qui diminue quand on répète une mesure : la dispersion aléatoire, le décalage systématique, ou les deux ?
+
+</details>
+
+<details>
+<summary>Indice 2 — examiner la correction</summary>
+
+Une correction estimée sur une plage et dans des conditions données reste-t-elle valable si la température, le temps ou l'instrument changent ?
+
+</details>
+
+<details>
+<summary>Indice 3 — penser au protocole comparatif</summary>
+
+Pour séparer un effet « bâtiment » d'un effet « capteur », il faut que les deux facteurs puissent varier indépendamment, ou disposer d'une référence commune.
+
+</details>
+
+<details>
 <summary>Afficher la solution expliquée</summary>
 
-1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne observée tend à estimer l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Avec cent fois plus de mesures, l'écart-type de cette moyenne serait divisé par dix dans le modèle i.i.d. ; son espérance resterait décalée, et la moyenne ne convergerait pas vers 20,00 °C.
+1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne observée tend à estimer l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Si le nombre de mesures est multiplié par 100, l'écart-type de la moyenne serait divisé par dix dans le modèle i.i.d. ; son espérance resterait décalée, et la moyenne ne convergerait pas vers 20,00 °C.
 2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
 3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
 4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
