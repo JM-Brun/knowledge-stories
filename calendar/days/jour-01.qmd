@@ -175,6 +175,8 @@ La cible ci-dessous représente les résultats d'un estimateur obtenus sur de no
 
 Cette cible est pertinente ici parce qu'elle rend visible la décomposition biais–variance. Elle ne représente toutefois pas, à elle seule, la courbe du compromis biais–variance en fonction de la complexité d'un modèle : cette courbe relève d'une analyse supplémentaire, propre à l'apprentissage statistique.
 
+**Attention au vocabulaire :** le décalage \(b\) du modèle de mesure décrit un effet systématique de l'instrument. Le biais \(\mathbb{E}[\hat{\theta}]-\theta\) de la cible décrit l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Les deux notions partagent une même intuition — un décalage systématique — mais ne portent pas sur le même objet.
+
 ## Mesure-t-on toujours une chose qui existe directement ?
 
 Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
