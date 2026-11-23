@@ -83,10 +83,10 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
   <div><strong>n^1,585</strong><span>exposant de la complexité asymptotique</span></div>
 </div>
 
-<div className="term-legend" aria-label="Code couleur des formules">
-  <span><i className="legend-common" /> Produits de blocs conservés : ac et bd (p et q)</span>
-  <span><i className="legend-cross" /> Terme croisé recherché : ad + bc</span>
-  <span><i className="legend-aux" /> Produit auxiliaire : (a + b)(c + d), noté r</span>
+<div className="term-legend" aria-label="Code couleur constant dans l’article">
+  <span><i className="legend-common" /> Produits communs aux deux méthodes : <b className="term-common">ac</b> et <b className="term-common">bd</b> (p et q)</span>
+  <span><i className="legend-cross" /> Terme croisé à reconstruire : <b className="term-cross">ad + bc</b></span>
+  <span><i className="legend-aux" /> Produit auxiliaire propre à Karatsuba : <b className="term-aux">(a + b)(c + d)</b> (r)</span>
 </div>
 
 ## Construire l'intuition
@@ -138,12 +138,12 @@ Nous avons donc seulement besoin de trois multiplications :
 Le produit final se recompose ainsi :
 
 <div className="math-display math-display--key" role="math" aria-label="x y égale p fois dix puissance deux m plus r moins p moins q fois dix puissance m plus q">
-  <div className="math-line"><i>xy</i> = <span className="term-common"><i>p</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>r</i> − <i>p</i> − <i>q</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>q</i></span></div>
+  <div className="math-line"><i>xy</i> = <span className="term-common"><i>p</i></span> · 10<sup>2m</sup> + (<span className="term-aux"><i>r</i></span> − <span className="term-common"><i>p</i></span> − <span className="term-common"><i>q</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>q</i></span></div>
   <span className="math-caption">Trois produits suffisent ; les décalages et la recomposition restent des opérations linéaires.</span>
 </div>
 
 
-Les décalages de blocs et les additions/soustractions demandent un nombre d'opérations proportionnel à la taille des nombres : O(n). Les trois produits p, q et r sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
+Le calcul des blocs comporte aussi des opérations auxiliaires : deux additions pour former a + b et c + d, puis deux soustractions pour isoler le terme croisé r − p − q. La méthode directe, elle, additionne simplement ad et bc. Dans les deux cas, la recomposition finale demande les mêmes deux décalages de blocs et deux additions. Ces opérations sur les chiffres coûtent O(n) par niveau : elles sont plus nombreuses avec Karatsuba, mais restent moins coûteuses asymptotiquement que les sous-multiplications récursives. Les trois produits p, q et r sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
 
 ## Un exemple pas à pas
 

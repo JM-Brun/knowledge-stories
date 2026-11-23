@@ -28,3 +28,23 @@
   .article-page:has(.karatsuba-hero) { padding-left: 18px; padding-right: 18px; }
   .article-page:has(.karatsuba-hero) .prose { margin-top: 36px; }
 }
+
+
+/* Karatsuba: one semantic palette shared by prose, equations, legends and diagrams. */
+.article-page:has(.karatsuba-hero) {
+  --term-common: #286d61;
+  --term-common-soft: #e4f0ed;
+  --term-cross: #a65d12;
+  --term-cross-soft: #fbefd9;
+  --term-aux: #70569b;
+  --term-aux-soft: #eee9f6;
+}
+.article-page:has(.karatsuba-hero) .term-common { color: var(--term-common); font-weight: 650; }
+.article-page:has(.karatsuba-hero) .term-cross { color: var(--term-cross); font-weight: 650; }
+.article-page:has(.karatsuba-hero) .term-aux { color: var(--term-aux); font-weight: 650; }
+.article-page:has(.karatsuba-hero) .legend-common { background: var(--term-common-soft); border: 1px solid var(--term-common); }
+.article-page:has(.karatsuba-hero) .legend-cross { background: var(--term-cross-soft); border: 1px solid var(--term-cross); }
+.article-page:has(.karatsuba-hero) .legend-aux { background: var(--term-aux-soft); border: 1px solid var(--term-aux); }
+.article-page:has(.karatsuba-hero) .math-display .term-common { color: var(--term-common); }
+.article-page:has(.karatsuba-hero) .math-display .term-cross { color: var(--term-cross); }
+.article-page:has(.karatsuba-hero) .math-display .term-aux { color: var(--term-aux); }
