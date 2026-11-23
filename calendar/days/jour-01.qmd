@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 15 à 18 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **En 15 à 18 minutes** — Une comparaison de cinq profils de capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
@@ -24,64 +24,61 @@ On confond souvent trois questions :
 
 Elles sont liées, mais elles ne sont pas équivalentes.
 
-## Deux capteurs, deux qualités différentes
+## Cinq profils de capteurs, plusieurs qualités différentes
 
-Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois mesures dans les mêmes conditions.
+Une référence conventionnelle indique 20,00 °C. Le tableau rassemble trois relevés illustratifs par profil ; pour E, il s'agit de trois instants sélectionnés parmi une acquisition à 10 Hz, et non de trois mesures prises à la même cadence que les autres.
 
-| Mesure | Capteur A | Capteur B |
-|---:|---:|---:|
-| 1 | 20,2 °C | 19,0 °C |
-| 2 | 20,1 °C | 19,1 °C |
-| 3 | 20,2 °C | 19,0 °C |
-| **Moyenne** | **20,17 °C** | **19,03 °C** |
-| **Écart à la référence** | **+0,17 °C** | **−0,97 °C** |
+| Profil | Mesure 1 | Mesure 2 | Mesure 3 | Moyenne | Écart à 20,00 °C | Ce que les valeurs illustrent |
+|---|---:|---:|---:|---:|---:|---|
+| **A — stable, proche** | 20,2 °C | 20,1 °C | 20,2 °C | **20,17 °C** | **+0,17 °C** | Faible dispersion et faible décalage observé |
+| **B — stable, décalé** | 19,0 °C | 19,1 °C | 19,0 °C | **19,03 °C** | **−0,97 °C** | Même dispersion que A, mais centre nettement décalé |
+| **C — bruité, peu biaisé** | 19,2 °C | 20,7 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Moyenne proche de la référence, lectures individuelles dispersées |
+| **D — robuste, peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Pas d'indication intermédiaire : pas de finesse de lecture sous 0,5 °C dans cet exemple |
+| **E — acquisition rapide** | 19,9 °C | 20,0 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Trois instants sélectionnés parmi une acquisition à 10 Hz ; la fréquence ne se lit pas dans ces seuls nombres |
 
-Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
+Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
+
+Les séries A et B ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
 Mais leur position par rapport à la référence est très différente. Sur ces trois relevés, le capteur B produit des valeurs presque identiques mais décalées. C'est compatible avec un biais systématique ; trois répétitions ne suffisent toutefois pas à caractériser la répétabilité de l'instrument ni à établir ce biais à elles seules.
 
 ### Voir la différence : dispersion et décalage
 
-La ligne verticale représente la référence de 20,00 °C. Les points sont les trois observations de chaque capteur. L'axe horizontal représente la température mesurée.
+La ligne verticale représente la référence de 20,00 °C. Chaque ligne correspond à un profil et chaque point à un relevé. L'axe horizontal représente la température mesurée. Les profils A et B forment le seul couple construit pour comparer directement dispersion et décalage ; C, D et E illustrent respectivement le bruit, la résolution et la fréquence d'acquisition.
 
 <figure>
-<svg viewBox="0 0 760 310" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="sensor-title">Deux capteurs avec une dispersion comparable mais des décalages différents par rapport à la référence</title>
-  <desc id="sensor-desc">Le capteur A produit trois mesures proches de 20,17 degrés, à proximité de la référence de 20 degrés. Le capteur B produit trois mesures proches de 19,03 degrés, nettement à gauche de la référence. Les deux groupes ont une dispersion similaire.</desc>
-  <rect x="1" y="1" width="758" height="308" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="24" y="34" font-size="15" font-weight="700" fill="#0f172a">Mesures répétées (°C)</text>
-  <line x1="120" y1="252" x2="700" y2="252" stroke="#64748b" stroke-width="1.5"/>
-  <g fill="#475569" font-size="12" text-anchor="middle">
-    <text x="120" y="274">18,8</text><text x="265" y="274">19,2</text><text x="410" y="274">19,6</text><text x="555" y="274">20,0</text><text x="700" y="274">20,4</text>
+<svg viewBox="0 0 760 430" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="sensor-title">Cinq profils de capteurs comparés à une référence de 20 degrés</title>
+  <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C est très dispersé autour de la référence. D présente des pas de lecture de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
+  <rect x="1" y="1" width="758" height="428" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="32" font-size="15" font-weight="700" fill="#0f172a">Trois relevés par profil (°C) — exemples illustratifs</text>
+  <line x1="120" y1="382" x2="700" y2="382" stroke="#64748b" stroke-width="1.5"/>
+  <g fill="#475569" font-size="11" text-anchor="middle">
+    <text x="120" y="402">18,5</text><text x="217" y="402">19,0</text><text x="313" y="402">19,5</text><text x="410" y="402">20,0</text><text x="507" y="402">20,5</text><text x="603" y="402">21,0</text><text x="700" y="402">21,5</text>
   </g>
-  <g stroke="#cbd5e1" stroke-width="1">
-    <line x1="120" y1="76" x2="120" y2="252"/><line x1="265" y1="76" x2="265" y2="252"/><line x1="410" y1="76" x2="410" y2="252"/><line x1="700" y1="76" x2="700" y2="252"/>
+  <g stroke="#e2e8f0" stroke-width="1">
+    <line x1="120" y1="55" x2="120" y2="382"/><line x1="217" y1="55" x2="217" y2="382"/><line x1="313" y1="55" x2="313" y2="382"/><line x1="507" y1="55" x2="507" y2="382"/><line x1="603" y1="55" x2="603" y2="382"/><line x1="700" y1="55" x2="700" y2="382"/>
   </g>
-  <line x1="555" y1="63" x2="555" y2="252" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5"/>
-  <text x="565" y="58" font-size="12" font-weight="700" fill="#92400e">Référence : 20,00</text>
-  <g fill="#0f766e" stroke="#ffffff" stroke-width="2">
-    <circle cx="628" cy="111" r="8"/><circle cx="592" cy="135" r="8"/><circle cx="628" cy="159" r="8"/>
+  <line x1="410" y1="48" x2="410" y2="382" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <text x="420" y="51" font-size="12" font-weight="700" fill="#92400e">Référence : 20,00</text>
+  <g fill="#0f172a" font-size="13" font-weight="700">
+    <text x="24" y="112">A · stable</text><text x="24" y="177">B · décalé</text><text x="24" y="242">C · bruité</text><text x="24" y="307">D · peu résolu</text><text x="24" y="372">E · rapide</text>
   </g>
-  <g fill="#475569" font-size="13" font-weight="700">
-    <text x="24" y="128">Capteur A</text><text x="24" y="218">Capteur B</text>
-  </g>
-  <g fill="#b45309" stroke="#ffffff" stroke-width="2">
-    <circle cx="192" cy="201" r="8"/><circle cx="228" cy="225" r="8"/><circle cx="192" cy="237" r="8"/>
-  </g>
-  <g fill="#0f172a" font-size="12">
-    <text x="650" y="122">Moyenne ≈ 20,17</text>
-    <text x="246" y="207">Moyenne ≈ 19,03</text>
-  </g>
-  <text x="120" y="296" font-size="11" fill="#64748b">Chaque point représente une mesure ; les positions sont proportionnelles aux valeurs.</text>
+  <g fill="#0f766e" stroke="#ffffff" stroke-width="2"><circle cx="448" cy="91" r="7"/><circle cx="429" cy="104" r="7"/><circle cx="448" cy="117" r="7"/></g>
+  <g fill="#b45309" stroke="#ffffff" stroke-width="2"><circle cx="217" cy="156" r="7"/><circle cx="236" cy="169" r="7"/><circle cx="217" cy="182" r="7"/></g>
+  <g fill="#7c3aed" stroke="#ffffff" stroke-width="2"><circle cx="255" cy="221" r="7"/><circle cx="545" cy="234" r="7"/><circle cx="429" cy="247" r="7"/></g>
+  <g fill="#475569" stroke="#ffffff" stroke-width="2"><circle cx="313" cy="286" r="7"/><circle cx="410" cy="299" r="7"/><circle cx="507" cy="312" r="7"/></g>
+  <g fill="#0284c7" stroke="#ffffff" stroke-width="2"><circle cx="391" cy="351" r="7"/><circle cx="410" cy="364" r="7"/><circle cx="429" cy="377" r="7"/></g>
+  <text x="120" y="422" font-size="11" fill="#64748b">A et B isolent le contraste dispersion / décalage ; C, D et E illustrent d'autres compromis.</text>
 </svg>
-<figcaption>Même dispersion, deux moyennes : les mesures du capteur B sont regroupées loin de la référence.</figcaption>
+<figcaption>Les cinq profils ne sont pas interchangeables : A et B ont une dispersion comparable mais des centres différents ; C est bruité, D quantifie par pas de 0,5 °C et E échantillonne plus souvent.</figcaption>
 </figure>
 
 Le capteur B illustre le cas d'un instrument stable mais décalé : une correction ne serait pertinente qu'après vérification de sa stabilité et de son domaine de validité.
 
 ### Il n'existe pas de capteur optimal sur tous les critères
 
-Les deux séries précédentes isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Les profils A et B isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
 
 Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
 
@@ -148,6 +145,155 @@ La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) mérite une attention p
 Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont deux paramètres distincts : augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
 
 Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
+
+<style>
+.sensor-decision{border:1px solid #b8cbbb;border-radius:12px;padding:1rem;margin:1rem 0;background:#f5f8f5;color:#20352d}
+.sensor-decision label{display:block;margin-bottom:.5rem}
+.sensor-decision select{display:block;width:100%;max-width:100%;padding:.65rem;border:1px solid #789482;border-radius:7px;background:white;color:#20352d;font:inherit}
+.sensor-decision-result{margin-top:.9rem;padding:.8rem;background:white;border-left:4px solid #4f8064;border-radius:4px}
+.sensor-decision-result p:last-child{margin-bottom:0}
+@media (max-width:600px){.sensor-decision{padding:.75rem}.sensor-decision-result{padding:.7rem}}
+</style>
+
+### Choisir un capteur selon l'usage
+
+Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
+
+<div class="sensor-decision" id="sensor-decision">
+  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
+  <select id="sensor-use">
+    <option value="absolute">Comparer des températures absolues à une référence</option>
+    <option value="trend">Suivre une tendance sur plusieurs jours</option>
+    <option value="peak">Détecter un pic bref ou une variation rapide</option>
+    <option value="small">Détecter une très petite variation</option>
+    <option value="harsh">Mesurer dans un environnement difficile</option>
+  </select>
+  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
+    <strong>Point de départ : étalon + profil A caractérisé.</strong>
+    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
+    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
+  </div>
+  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('sensor-decision');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+  const select = root.querySelector('#sensor-use');
+  const result = root.querySelector('#sensor-use-result');
+  const guidance = {
+    absolute: {
+      title: 'Point de départ : étalon + profil A caractérisé.',
+      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
+      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
+    },
+    trend: {
+      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
+      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
+      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
+    },
+    peak: {
+      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
+      body: 'Une fréquence d’acquisition élevée aide à échantillonner les événements brefs. Elle ne suffit pas : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
+      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
+    },
+    small: {
+      title: 'Point de départ : instrument caractérisé à faible incertitude.',
+      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
+      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
+    },
+    harsh: {
+      title: 'Point de départ : profil D robuste, après qualification.',
+      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
+      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
+    }
+  };
+  select.addEventListener('change', () => {
+    const item = guidance[select.value];
+    result.replaceChildren();
+    const title = document.createElement('strong');
+    title.textContent = item.title;
+    const body = document.createElement('p');
+    body.textContent = item.body;
+    const tradeoff = document.createElement('p');
+    const label = document.createElement('strong');
+    label.textContent = 'Compromis à vérifier : ';
+    tradeoff.append(label, document.createTextNode(item.tradeoff));
+    result.append(title, body, tradeoff);
+  });
+})();
+</script>
+
+### Choisir un capteur selon l'usage
+
+Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
+
+<div class="sensor-decision" id="sensor-decision">
+  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
+  <select id="sensor-use">
+    <option value="absolute">Comparer des températures absolues à une référence</option>
+    <option value="trend">Suivre une tendance sur plusieurs jours</option>
+    <option value="peak">Détecter un pic bref ou une variation rapide</option>
+    <option value="small">Détecter une très petite variation</option>
+    <option value="harsh">Mesurer dans un environnement difficile</option>
+  </select>
+  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
+    <strong>Point de départ : étalon + profil A caractérisé.</strong>
+    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
+    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
+  </div>
+  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('sensor-decision');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+  const select = root.querySelector('#sensor-use');
+  const result = root.querySelector('#sensor-use-result');
+  const guidance = {
+    absolute: {
+      title: 'Point de départ : étalon + profil A caractérisé.',
+      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
+      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
+    },
+    trend: {
+      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
+      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
+      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
+    },
+    peak: {
+      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
+      body: 'Une fréquence d’acquisition élevée aide à échantillonner les événements brefs. Elle ne suffit pas : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
+      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
+    },
+    small: {
+      title: 'Point de départ : instrument caractérisé à faible incertitude.',
+      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
+      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
+    },
+    harsh: {
+      title: 'Point de départ : profil D robuste, après qualification.',
+      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
+      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
+    }
+  };
+  select.addEventListener('change', () => {
+    const item = guidance[select.value];
+    result.replaceChildren();
+    const title = document.createElement('strong');
+    title.textContent = item.title;
+    const body = document.createElement('p');
+    body.textContent = item.body;
+    const tradeoff = document.createElement('p');
+    const label = document.createElement('strong');
+    label.textContent = 'Compromis à vérifier : ';
+    tradeoff.append(label, document.createTextNode(item.tradeoff));
+    result.append(title, body, tradeoff);
+  });
+})();
+</script>
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
