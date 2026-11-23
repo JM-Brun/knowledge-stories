@@ -27,14 +27,28 @@ La moyenne de la population est donc :
 
 Deux enquêtes sont réalisées :
 
-- une enquête ouverte en ligne recueille 50 000 réponses, toutes dans le groupe A ;
-- une enquête stratifiée tire aléatoirement 1 000 personnes dans chaque groupe.
+- les 50 000 personnes du groupe A répondent une fois : on dispose d'un recensement de A, mais d'aucune observation de B ;
+- une enquête stratifiée tire aléatoirement, sans remise, 500 personnes dans chaque groupe, soit 1 000 au total ; les réponses sont complètes.
 
-La moyenne observée dans la première enquête est 10 si elle couvre tout le groupe A (ou son espérance est 10 sous un tirage dans A). Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. L'enquête la plus volumineuse vise ici une quantité différente, parce qu'elle ne couvre qu'une moitié de la population.
+Dans le premier dispositif, toutes les personnes de A sont observées : sa moyenne vaut donc exactement 10 pour ce groupe, sans erreur d'échantillonnage sur A. Elle ne donne toutefois aucune information directe sur B et n'est pas la moyenne de la population cible. Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. Le dispositif le plus volumineux décrit parfaitement une partie de la population, mais pas la population entière.
+
+## Préciser la quantité que l'on cherche à estimer
+
+Avant de comparer deux échantillons, il faut définir la **cible statistique** — ou *estimand*. Dans cet exemple, la cible est la moyenne de toute la population :
+
+\[
+\mu = W_A\mu_A + W_B\mu_B,
+\]
+
+où \(W_A\) et \(W_B\) sont les proportions des groupes dans la population, et \(\mu_A\), \(\mu_B\) leurs moyennes respectives. Ici, les poids valent 0,5 et les moyennes 10 et 20 : la cible vaut 15.
+
+L'enquête limitée au groupe A ne souffre pas simplement d'un échantillon « trop petit ». Elle estime correctement la moyenne de A, mais cette quantité n'est pas l'estimand choisi. C'est une distinction fondamentale : **un calcul peut être exact pour la mauvaise question**.
+
+Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple, les 500 observations de chaque strate donnent bien 1 000 réponses au total, comme l'annonce le titre. Si les fractions d'échantillonnage diffèrent, il faut appliquer les poids correspondant au plan et à la population cible ; une moyenne brute des répondants n'est pas automatiquement correcte.
 
 ## Pourquoi plus de données ne résout-il rien ici ?
 
-Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et une enquête qui recueille les 500 000 réponses uniquement dans A. La moyenne de l'enquête restera 10 : le volume augmente, mais la population cible reste couverte à moitié seulement.
+Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et un recensement de A. Sa moyenne restera 10 : le nombre de réponses augmente, mais la population cible reste couverte à moitié seulement.
 
 L'erreur ne vient pas d'une fluctuation aléatoire autour de la bonne cible. Elle vient du fait que la procédure observe une population accessible différente de la population cible.
 
@@ -54,33 +68,43 @@ Une distribution très étroite n'est donc pas nécessairement rassurante : elle
 
 On peut résumer l'intuition ainsi :
 
-| Propriété | Grand échantillon auto-sélectionné | Échantillon probabiliste stratifié |
+| Propriété | Recensement du groupe A | Échantillon probabiliste stratifié |
 |---|---|---|
 | Volume | Très élevé | Plus modeste |
 | Couverture des groupes | Groupe A seulement | A et B |
-| Cible directement décrite | Répondants du groupe A | Population, avec pondération adaptée |
-| Effet d'une hausse de taille | Réduit l'aléa dans A | Réduit généralement l'erreur d'échantillonnage |
+| Cible directement décrite | Groupe A dans son intégralité | Population, avec pondération adaptée |
+| Effet de la taille | Décrit A sans erreur d'échantillonnage ; B reste absent | Réduit généralement l'erreur d'échantillonnage, selon le plan |
 
 <figure>
 <svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sample-title">Un grand échantillon qui ne couvre qu'un groupe peut viser la mauvaise moyenne</title>
-  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. L'échantillon volumineux ne contient que A et sa moyenne attendue est 10. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
+  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. Le recensement de A donne exactement 10 pour ce groupe, mais ne renseigne pas directement B. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
   <rect x="1" y="1" width="758" height="268" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
   <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
   <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
-  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête volumineuse</text>
+  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Recensement du groupe A</text>
   <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
-  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses, toutes dans A → moyenne attendue : 10</text>
+  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses : recensement de A → moyenne exacte : 10</text>
   <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
   <rect x="24" y="202" width="350" height="28" rx="5" fill="#0f766e"/><rect x="374" y="202" width="350" height="28" rx="5" fill="#d97706"/>
-  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">1 000 dans A</text><text x="549" y="221">1 000 dans B</text></g>
+  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">500 dans A</text><text x="549" y="221">500 dans B</text></g>
   <text x="374" y="253" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Avec les poids de population : estimateur centré sur 15</text>
 </svg>
 <figcaption>La taille renseigne sur la quantité de données ; la couverture et le plan de sondage déterminent quelle population l'estimation peut représenter.</figcaption>
 </figure>
 
 Le tableau ne signifie pas qu'un échantillon stratifié est toujours représentatif. Le plan de sondage, les probabilités d'inclusion, la non-réponse et les pondérations doivent être pris en compte.
+
+### Trois sources d'erreur à ne pas confondre
+
+Dans une enquête, l'incertitude totale ne se résume pas à l'erreur d'échantillonnage. Il faut distinguer :
+
+- **Erreur d'échantillonnage** : variation due au tirage d'un échantillon plutôt que de toute la population.
+- **Erreur de couverture** : certains membres de la population cible ne peuvent pas être sélectionnés par la base de sondage.
+- **Erreur de non-réponse ou d'auto-sélection** : la participation dépend de caractéristiques liées au résultat étudié.
+
+Augmenter la taille agit principalement sur la première composante, sous des conditions données. Cela ne répare pas automatiquement les deux autres. Et dans les enquêtes réelles, ces mécanismes peuvent se cumuler.
 
 ## Le point moins visible : la sélection peut créer des relations
 
@@ -119,6 +143,18 @@ Le score obtenu sur un test tiré du même mécanisme de collecte peut alors êt
 
 </details>
 
+## Un protocole de diagnostic en pratique
+
+Pour juger si un jeu de données permet de généraliser :
+
+1. **Écrire l'estimand** : quelle population, quelle période, quelle unité et quelle quantité ?
+2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ?
+3. **Comparer observés et cible** : distributions, taux de couverture et taux de réponse par variables pertinentes.
+4. **Examiner les zones sans support** : certains profils ou groupes sont-ils totalement absents ?
+5. **Tester la sensibilité** : les conclusions changent-elles sous des hypothèses plausibles de non-réponse ou de pondération ?
+
+Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels et la population à laquelle les résultats peuvent raisonnablement être transportés.
+
 ## À retenir
 
 - Un grand échantillon peut réduire fortement l'incertitude autour d'une mauvaise cible.
@@ -128,5 +164,11 @@ Le score obtenu sur un test tiré du même mécanisme de collecte peut alors êt
 
 ## Pour aller plus loin
 
-- **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence.
+- **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence : https://openstax.org/details/books/introductory-statistics-2e
+- **Groves et al., Survey Methodology** — erreurs de couverture, non-réponse et qualité des enquêtes : https://www.wiley.com/en-us/Survey+Methodology%2C+2nd+Edition-p-9780470465462
 - **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
+
+## Connexions utiles
+
+- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : vérifier ce que les variables mesurent avant de généraliser.
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent, même après avoir constitué un échantillon pertinent.
