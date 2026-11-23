@@ -12,7 +12,7 @@ website:
         text: Le calendrier
     right:
       - text: Knowledge Stories
-        href: ../
+        href: /knowledge-stories/
   page-footer:
     left: "Knowledge Stories · Édition 2026"
     right: "Contenus pédagogiques indépendants"
