@@ -154,3 +154,22 @@ La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://git
 ### Principe éditorial
 
 Conserver le fil conducteur « phénomène → instrument/protocole → observation/incertitude → jeu de données → modèle/décision ». Chaque détail métrologique doit éclairer une décision de mesure ou une limite d'interprétation ; éviter d'ajouter des profils ou des notions qui ne renforcent pas ce raisonnement.
+
+
+### Deuxième passe — cohérence entre profils, définitions et commentaires
+
+- La galerie C ne le présente plus comme « peu biaisé » : le titre indique maintenant que seule la moyenne des trois valeurs affichées coïncide avec la référence. Le texte rappelle que cela ne caractérise pas le biais de la population.
+- La propriété de robustesse environnementale attribuée au profil D est explicitement donnée comme hypothèse du scénario, et non comme une conclusion tirée des trois lectures.
+- La définition opérationnelle de la justesse précise désormais que le biais doit être estimé sur une série suffisamment représentative ; trois valeurs illustratives ne suffisent pas.
+- Le texte sur la répétabilité rappelle que trois relevés ne démontrent pas à eux seuls que les conditions normalisées de répétabilité ont été respectées.
+
+### Points de vigilance conservés pour une validation experte
+
+- Le tableau d'arbitrage et le guide interactif donnent des orientations qualitatives, pas un dimensionnement métrologique. Une application réelle demanderait spécifications, plage, dynamique, incertitude et conditions d'environnement.
+- Le profil E à 10 Hz est une métadonnée de scénario. Les trois valeurs représentées ne permettent pas de vérifier la fréquence, le temps de réponse ou la bande passante.
+- La cible biais–variance est une illustration de distributions d'estimateurs répétées, distincte du modèle de mesure des thermomètres. Maintenir cette distinction dans toute adaptation visuelle.
+- La décomposition d'erreur de prédiction est une identité algébrique à modèle fixé et cible déterministe ; elle ne doit pas être interprétée comme une addition de variances ou comme une décomposition complète du risque d'un modèle entraîné sur des données biaisées.
+
+### Statut des validations automatisées
+
+La PR #35 a été mise à jour après sa première exécution. Les workflows de la nouvelle révision doivent être vérifiés sur le dernier SHA avant toute fusion ; les exécutions précédentes, y compris celles annulées par une nouvelle poussée, ne valident pas le contenu courant.
