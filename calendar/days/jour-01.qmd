@@ -88,13 +88,13 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
 | Profil de capteur | Ce qu'il privilégie | Ce qu'il sacrifie ou exige | Usage pour lequel il peut être pertinent |
 |---|---|---|---|
 | **Référence de laboratoire** | Faible dispersion, justesse caractérisée, traçabilité | Coût, encombrement, maintenance et parfois temps de réponse | Étalonnage et mesures de référence |
-| **Capteur A — stable et proche de la référence** | Répétabilité et faible décalage dans les conditions testées | Coût ou complexité potentiellement supérieurs à un capteur grand public | Suivi quantitatif lorsque la stabilité compte |
-| **Capteur B — stable mais décalé** | Faible dispersion, simplicité ou faible coût | Justesse : une correction et sa validation sont nécessaires | Surveillance relative si le biais est connu et stable |
+| **Capteur A — dispersion faible, décalage observé modéré** | Répétabilité et faible décalage dans les conditions testées | Coût ou complexité potentiellement supérieurs à un capteur grand public | Suivi quantitatif lorsque la stabilité compte |
+| **Capteur B — dispersion faible, décalage observé marqué** | Faible dispersion, simplicité ou faible coût | Justesse : une correction et sa validation sont nécessaires | Surveillance relative si le biais est connu et stable |
 | **Capteur C — peu biaisé mais bruité** | Moyenne proche de la référence sur de nombreuses répétitions | Forte variabilité d'une lecture à l'autre | Estimation agrégée si l'on peut répéter et moyenner sans perdre la dynamique utile |
 | **Capteur D — robuste mais peu résolu** | Résistance aux chocs, à l'humidité ou aux environnements difficiles | Capacité à distinguer de petites variations | Détection de seuils ou surveillance en conditions sévères |
 | **Capteur E — rapide mais énergivore** | Fréquence d'échantillonnage et temps de réponse | Autonomie, volume de données et coût de transmission | Détection d'événements brefs lorsque la temporalité est déterminante |
 
-Ces profils montrent plusieurs compromis indépendants :
+Ces profils montrent plusieurs compromis indépendants. Ce sont des arbitrages d'ingénierie possibles, pas des lois universelles : leur existence et leur intensité dépendent de la technologie, du dimensionnement, de l'environnement et du budget.
 
 - **Bruit–biais** : moyenner peut réduire une partie du bruit aléatoire, mais ne corrige pas un décalage systématique.
 - **Résolution–plage de mesure** : distinguer de très petites variations sur une plage étroite n'est pas la même exigence que couvrir une plage très large.
