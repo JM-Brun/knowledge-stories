@@ -19,7 +19,7 @@ export const calendarStories: ArchiveStory[] = [
   {
     title: "Une mesure précise peut-elle être fausse ?",
     description: "Distinguer répétabilité, justesse et biais à partir de deux capteurs.",
-    href: "/calendar/days/jour-01.html",
+    href: "calendar/days/jour-01.html",
     year: 2026,
     calendar: "Data Science & Machine Learning",
     day: 1,
@@ -30,7 +30,7 @@ export const calendarStories: ArchiveStory[] = [
   {
     title: "50 000 réponses valent-elles mieux que 1 000 ?",
     description: "Comprendre pourquoi la taille d'un échantillon ne corrige pas un biais de sélection.",
-    href: "/calendar/days/jour-02.html",
+    href: "calendar/days/jour-02.html",
     year: 2026,
     calendar: "Data Science & Machine Learning",
     day: 2,
@@ -41,7 +41,7 @@ export const calendarStories: ArchiveStory[] = [
   {
     title: "Trois distributions, une même moyenne",
     description: "Voir pourquoi une moyenne ne suffit pas à décrire une distribution.",
-    href: "/calendar/days/jour-03.html",
+    href: "calendar/days/jour-03.html",
     year: 2026,
     calendar: "Data Science & Machine Learning",
     day: 3,
@@ -52,7 +52,7 @@ export const calendarStories: ArchiveStory[] = [
   {
     title: "Quand la covariance change-t-elle la variance d'une somme ?",
     description: "Relier dépendance entre variables et variabilité d'une somme.",
-    href: "/calendar/days/jour-04.html",
+    href: "calendar/days/jour-04.html",
     year: 2026,
     calendar: "Data Science & Machine Learning",
     day: 4,
@@ -63,7 +63,7 @@ export const calendarStories: ArchiveStory[] = [
   {
     title: "Quelle distribution est la plus incertaine ?",
     description: "Comparer des distributions à l'aide d'une mesure d'incertitude.",
-    href: "/calendar/days/jour-05.html",
+    href: "calendar/days/jour-05.html",
     year: 2026,
     calendar: "Data Science & Machine Learning",
     day: 5,
