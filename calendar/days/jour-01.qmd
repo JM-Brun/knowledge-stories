@@ -253,76 +253,50 @@ Trois conséquences pour la Data Science :
 2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
 3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
 
-### Quand plusieurs erreurs se rencontrent
+### Quand les erreurs se combinent
 
-Une erreur présente dans les données ne reste pas nécessairement de même amplitude après le passage dans un modèle. Elle peut être atténuée ou amplifiée selon la sensibilité de la fonction de prédiction. À cela s'ajoute l'écart propre au modèle : forme fonctionnelle inadéquate, paramètres estimés imparfaitement ou variables explicatives manquantes.
+Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
 
-Notons \(x\) l'entrée idéale, \(\tilde x=x+\delta x\) la donnée observée, \(g(x)\) la relation réelle et \(f_{\hat\theta}\) le modèle ajusté. En ajoutant et en retranchant la prédiction du modèle sur l'entrée idéale, on obtient :
+Notons \(x\) l'entrée idéale, \(\tilde x\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. En ajoutant et retranchant \(f(x)\), on obtient une décomposition exacte :
 
 \[
-\underbrace{f_{\hat\theta}(\tilde x)-g(x)}_{\text{erreur totale}}
+\underbrace{f(\tilde x)-g(x)}_{\text{erreur totale}}
 =
-\underbrace{f_{\hat\theta}(\tilde x)-f_{\hat\theta}(x)}_{\text{effet de l'erreur de données}}
+\underbrace{f(\tilde x)-f(x)}_{\text{effet de l'erreur de donnée}}
 +
-\underbrace{f_{\hat\theta}(x)-g(x)}_{\text{écart de modélisation}}.
+\underbrace{f(x)-g(x)}_{\text{écart du modèle}}.
 \]
 
-Pour une perturbation faible et un modèle différentiable, le premier terme peut être approché au premier ordre :
-
-\[
-f_{\hat\theta}(x+\delta x)-f_{\hat\theta}(x)
-\approx
-\nabla_x f_{\hat\theta}(x)^\top\delta x.
-\]
-
-Le gradient mesure ici la sensibilité locale de la prédiction aux entrées. Une petite erreur de mesure peut donc avoir un effet important si le modèle est très sensible à cette variable. Cette décomposition est exacte avant approximation ; elle ne suppose pas que les deux contributions soient indépendantes. En particulier, si le modèle a été entraîné sur des données biaisées, l'erreur de données a aussi pu modifier les paramètres appris.
+Cette égalité est un outil de raisonnement, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Et si les données d'entraînement sont biaisées, elles peuvent aussi modifier les paramètres appris ; cette influence n'est pas isolée par le premier terme, qui compare ici deux entrées pour un modèle fixé.
 
 <figure class="error-figure">
-<svg viewBox="0 0 760 270" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
-  <title id="error-budget-title">Deux contributions à l'erreur de prédiction</title>
-  <desc id="error-budget-desc">Une erreur de données est transformée par la sensibilité du modèle. Elle s'ajoute à l'écart de modélisation pour former l'erreur totale. Les contributions peuvent se renforcer ou se compenser.</desc>
-  <defs>
-    <marker id="error-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#64748b" stroke-width="1.2"/></marker>
-  </defs>
-  <rect x="12" y="12" width="736" height="246" rx="14" fill="#fbfcfa" stroke="#d8e2d8"/>
-  <rect x="34" y="66" width="190" height="72" rx="10" fill="#e7f0eb" stroke="#78a58a"/>
-  <text x="129" y="91" text-anchor="middle" fill="#244637" font-size="13" font-weight="700">Erreur dans les données</text>
-  <text x="129" y="116" text-anchor="middle" fill="#315d49" font-size="19">δx</text>
-  <path d="M226 102 H276" stroke="#64748b" stroke-width="2" marker-end="url(#error-arrow)"/>
-  <rect x="286" y="66" width="190" height="72" rx="10" fill="#fff3dc" stroke="#d6a64e"/>
-  <text x="381" y="91" text-anchor="middle" fill="#80551b" font-size="13" font-weight="700">Sensibilité du modèle</text>
-  <text x="381" y="116" text-anchor="middle" fill="#80551b" font-size="17">∇f(x) · δx</text>
-  <path d="M478 102 H528" stroke="#64748b" stroke-width="2" marker-end="url(#error-arrow)"/>
-  <rect x="538" y="66" width="190" height="72" rx="10" fill="#fbe9e5" stroke="#c77b6c"/>
-  <text x="633" y="91" text-anchor="middle" fill="#8c3d31" font-size="13" font-weight="700">Effet sur la prédiction</text>
-  <text x="633" y="116" text-anchor="middle" fill="#8c3d31" font-size="14">Δ données</text>
-  <path d="M381 146 V184 H495" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
-  <rect x="34" y="184" width="300" height="52" rx="9" fill="#eee9f8" stroke="#9c8ac2"/>
-  <text x="184" y="205" text-anchor="middle" fill="#51416f" font-size="13" font-weight="700">Écart de modélisation</text>
-  <text x="184" y="224" text-anchor="middle" fill="#51416f" font-size="12">f(x) − g(x)</text>
-  <rect x="505" y="178" width="223" height="64" rx="10" fill="#20352d"/>
-  <text x="616" y="202" text-anchor="middle" fill="#fffaf0" font-size="13" font-weight="700">Erreur totale</text>
-  <text x="616" y="224" text-anchor="middle" fill="#fffaf0" font-size="14">Δ données + Δ modèle</text>
-  <path d="M336 210 H495" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
-  <path d="M633 146 V174" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
-  <text x="380" y="250" text-anchor="middle" fill="#64748b" font-size="10">Schéma conceptuel — les contributions sont signées, pas nécessairement positives.</text>
+<svg viewBox="0 0 720 190" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="error-budget-title">Deux sources contribuent à l'erreur de prédiction</title>
+  <desc id="error-budget-desc">L'effet d'une donnée erronée et l'écart propre au modèle se combinent pour former l'erreur totale. Les contributions peuvent se renforcer ou se compenser.</desc>
+  <defs><marker id="error-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#64748b" stroke-width="1.2"/></marker></defs>
+  <rect x="10" y="12" width="700" height="166" rx="12" fill="#fbfcfa" stroke="#d8e2d8"/>
+  <rect x="28" y="48" width="190" height="58" rx="9" fill="#e7f0eb" stroke="#78a58a"/>
+  <text x="123" y="72" text-anchor="middle" fill="#244637" font-size="13" font-weight="700">Erreur de donnée</text><text x="123" y="91" text-anchor="middle" fill="#315d49" font-size="12">f(x̃) − f(x)</text>
+  <rect x="28" y="119" width="190" height="42" rx="9" fill="#eee9f8" stroke="#9c8ac2"/>
+  <text x="123" y="145" text-anchor="middle" fill="#51416f" font-size="13" font-weight="700">Écart du modèle : f(x) − g(x)</text>
+  <path d="M220 77 H280 V94 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
+  <path d="M220 140 H280 V110 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
+  <rect x="325" y="65" width="355" height="60" rx="10" fill="#20352d"/>
+  <text x="502" y="89" text-anchor="middle" fill="#fffaf0" font-size="14" font-weight="700">Erreur totale de prédiction</text>
+  <text x="502" y="109" text-anchor="middle" fill="#fffaf0" font-size="12">contributions signées : renforcement ou compensation</text>
 </svg>
-<figcaption>Une erreur de données traverse le modèle selon sa sensibilité ; elle se combine à l'écart de modélisation. Les contributions peuvent se renforcer ou se compenser.</figcaption>
+<figcaption>Une erreur de mesure traverse le modèle ; l'écart de modélisation existe même lorsque l'entrée est exacte.</figcaption>
 </figure>
 
-#### Un exemple chiffré : amplification plutôt que simple addition
+**Exemple.** La réalité est \(g(x)=2x+3\), avec \(x=20\), donc une cible de 43. Le capteur ajoute \(0{,}8\) et le modèle appris est \(f(x)=2{,}1x+3{,}4\).
 
-Supposons que la relation réelle soit \(g(x)=2x+3\), pour une entrée idéale \(x=20\). La cible vaut donc \(43\). Un capteur ajoute un biais de \(+0{,}8\) : le modèle reçoit \(\tilde x=20{,}8\). Le modèle appris est \(f(x)=2{,}1x+3{,}4\).
+- Écart du modèle : \(f(20)-g(20)=45{,}4-43=+2{,}4\).
+- Effet de la mesure : \(f(20{,}8)-f(20)=1{,}68\).
+- Erreur totale : \(47{,}08-43=+4{,}08\).
 
-| Contribution | Calcul | Erreur |
-|---|---:|---:|
-| Écart de modélisation à l'entrée idéale | \(f(20)-g(20)=45{,}4-43\) | \(+2{,}4\) |
-| Effet de l'erreur de mesure | \(f(20{,}8)-f(20)=1{,}68\) | \(+1{,}68\) |
-| **Erreur totale** | \(47{,}08-43\) | **\(+4{,}08\)** |
+Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient se compenser : une prédiction juste ne prouverait donc pas que les données et le modèle sont tous deux corrects.
 
-Dans cet exemple, les deux contributions se renforcent. Si l'une avait été négative, elles auraient pu se compenser partiellement : une prédiction juste par hasard ne prouverait alors pas que les données et le modèle sont tous deux corrects.
-
-**À retenir :** la qualité des données et la qualité du modèle ne se contrôlent pas séparément. Il faut étudier la sensibilité des prédictions aux perturbations d'entrée, documenter les hypothèses du modèle et tester la chaîne complète sur des cas représentatifs.
+**À retenir :** la qualité des données et celle du modèle doivent être examinées ensemble. Les journées suivantes détailleront séparément les mécanismes — échantillonnage, variabilité, dépendance, spécification, stabilité et généralisation — sans les empiler tous ici.
 
 Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, une valeur rare parfaitement réelle.
 
