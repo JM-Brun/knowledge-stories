@@ -490,17 +490,90 @@ Pour séparer un effet « bâtiment » d'un effet « capteur », il faut que les
 
 </details>
 
-## Une grille de contrôle avant analyse
+## Auditer une variable avant de l'utiliser dans un modèle
 
-Avant de calculer une moyenne ou d'entraîner un modèle, poser ces questions :
+La grille précédente peut devenir un protocole concret de revue de feature. Prenons une variable de température collectée par plusieurs capteurs, dans plusieurs bâtiments, puis utilisée pour prédire une consommation énergétique.
 
-- **Sens** — Quelle grandeur la variable représente-t-elle réellement ?
-- **Origine** — Par quel instrument, protocole ou système a-t-elle été produite ?
-- **Qualité** — Quelles composantes d'erreur et d'incertitude sont connues ?
-- **Comparabilité** — Les mesures sont-elles comparables entre groupes, sites et périodes ?
-- **Usage** — L'incertitude restante est-elle acceptable pour la décision visée ?
+### 1. Écrire le modèle de mesure, même approximatif
 
-Cette grille évite de réduire la qualité des données à des contrôles de format, de doublons ou de valeurs manquantes.
+Une représentation simple est :
+
+\[
+x_{i,s,t}^{\mathrm{obs}}
+=
+x_{i,t}^{\ast}
++
+b_s
++
+\varepsilon_{i,s,t},
+\]
+
+où :
+
+- \(x_{i,t}^{\ast}\) est la température que l'on cherche à caractériser ;
+- \(b_s\) est le décalage propre au capteur \(s\) ;
+- \(\varepsilon_{i,s,t}\) regroupe le bruit et les effets non modélisés.
+
+Ce modèle additif est une hypothèse de travail, pas une vérité universelle. Un biais peut dépendre de la température, de l'humidité, du vieillissement ou du protocole. Le point important est de rendre explicite la structure d'erreur que l'on suppose, plutôt que de traiter chaque valeur comme une observation interchangeable.
+
+### 2. Vérifier si l'erreur est associée à la cible ou aux groupes
+
+Comparer les distributions et les résidus par capteur, bâtiment, période et conditions de fonctionnement. Une différence entre groupes peut venir du phénomène étudié, du système de mesure, ou des deux.
+
+Si chaque bâtiment possède un modèle de capteur différent, l'effet « bâtiment » et l'effet « instrument » sont confondus. Une régression ne peut pas les séparer à partir des seules données si le plan de collecte ne permet pas de les identifier. Il faut alors des mesures de référence, des capteurs croisés, ou un protocole où les instruments et les sites varient indépendamment.
+
+### 3. Tester la généralisation dans le bon régime
+
+Un découpage aléatoire par lignes peut placer des mesures du même capteur dans l'entraînement et le test. Il évalue alors surtout l'interpolation vers de nouvelles observations de capteurs déjà connus. Si le cas d'usage est le déploiement sur un nouveau capteur ou un nouveau bâtiment, ce n'est pas le bon test.
+
+Le groupe de validation doit reproduire la nouveauté attendue en production : nouveau capteur, nouveau site, nouvelle période, ou combinaison de ces facteurs. Pour une validation par capteur, le principe peut être illustré avec scikit-learn :
+
+```python
+from sklearn.model_selection import GroupKFold, cross_validate
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import Ridge
+
+X = data[feature_columns]
+y = data["energy_consumption"]
+groups = data["sensor_id"]
+
+model = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler(),
+    Ridge()
+)
+
+cv = GroupKFold(n_splits=5)
+scores = cross_validate(
+    model,
+    X,
+    y,
+    cv=cv.split(X, y, groups=groups),
+    scoring=("neg_mean_absolute_error", "r2")
+)
+```
+
+Ce code n'est pertinent que si le déploiement vise effectivement des capteurs absents de l'entraînement et si cinq groupes indépendants au moins sont disponibles. Pour un déploiement sur de nouveaux bâtiments, il faut grouper par bâtiment ; pour anticiper le futur, il faut aussi respecter l'ordre temporel. Le découpage doit découler de la question de généralisation, pas d'une recette appliquée systématiquement.
+
+### 4. Apprendre toute correction dans l'entraînement, jamais sur le test
+
+Si l'on estime une correction à partir de mesures appariées avec une référence, cette estimation fait partie du prétraitement appris. Elle doit être ajustée uniquement sur les données d'entraînement de chaque pli, puis appliquée sans réestimation au pli de validation. Estimer le décalage sur l'ensemble du jeu de données avant la validation ferait fuiter de l'information du test vers l'entraînement.
+
+Après correction, vérifier les résidus par plage de température, capteur, site et période. Une correction moyenne peut masquer une non-linéarité ou une dérive ; elle doit être validée sur son domaine d'utilisation et accompagnée de son incertitude.
+
+### 5. Relier le diagnostic à une décision
+
+| Diagnostic | Risque pour le modèle | Action à envisager |
+|---|---|---|
+| Décalage stable et documenté | Comparabilité biaisée entre instruments | Correction validée ou effet instrument explicitement modélisé |
+| Bruit important | Atténuation des relations, prédictions moins précises | Caractériser le bruit, agréger seulement si le phénomène le permet |
+| Biais dépendant de la plage | Erreur systématique variable selon les conditions | Calibration sur la plage utile et validation hors échantillon |
+| Dérive temporelle | Dégradation après déploiement | Suivi de dérive, contrôles périodiques et stratégie de recalibration |
+| Instrument confondu avec le site | Effets impossibles à identifier séparément | Revoir le plan de collecte ; le modèle seul ne résout pas la confusion |
+
+Avant de calculer une moyenne ou d'entraîner un modèle, le data scientist doit donc documenter le sens de la variable, sa provenance, son mécanisme de mesure, sa comparabilité, le régime de généralisation visé et l'incertitude acceptable pour la décision. La qualité d'une feature ne se réduit ni à son type numérique, ni à l'absence de valeurs manquantes, ni à sa capacité prédictive sur un split aléatoire.
 
 ## À retenir
 
