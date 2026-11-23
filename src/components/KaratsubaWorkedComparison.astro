@@ -1,0 +1,80 @@
+---
+---
+<section class="worked-comparison" aria-labelledby="worked-comparison-title">
+  <div class="worked-kicker">Même multiplication · Deux stratégies</div>
+  <h3 id="worked-comparison-title">1 234 × 5 678 : méthode directe ou Karatsuba ?</h3>
+  <p class="worked-intro">On découpe les deux nombres de la même façon. Comparez ensuite les calculs réellement effectués, puis la manière de retrouver les termes croisés.</p>
+  <div class="worked-split" aria-label="Découpage commun aux deux méthodes">
+    <div><span>Premier nombre</span><strong>1 234 = 12 × 100 + 34</strong></div>
+    <div><span>Second nombre</span><strong>5 678 = 56 × 100 + 78</strong></div>
+  </div>
+  <div class="worked-columns">
+    <article class="worked-method worked-classic">
+      <header><div><span class="method-number">A · MÉTHODE USUELLE</span><h4>Développer les quatre produits</h4></div><strong class="operation-count">4<small>multiplications</small></strong></header>
+      <ol class="worked-steps">
+        <li><span class="step-label">Blocs de gauche</span><code>12 × 56 = 672</code></li>
+        <li><span class="step-label">Premier produit croisé</span><code>12 × 78 = 936</code></li>
+        <li><span class="step-label">Second produit croisé</span><code>34 × 56 = 1 904</code></li>
+        <li><span class="step-label">Blocs de droite</span><code>34 × 78 = 2 652</code></li>
+        <li class="cross-step"><span class="step-label">Additionner les produits croisés</span><code>936 + 1 904 = 2 840</code></li>
+      </ol>
+      <div class="worked-recompose"><span>Recomposition</span><code>672 × 10 000 + 2 840 × 100 + 2 652</code><strong>= 7 006 652</strong></div>
+    </article>
+    <article class="worked-method worked-karatsuba">
+      <header><div><span class="method-number">B · KARATSUBA</span><h4>Reconstruire les produits croisés</h4></div><strong class="operation-count">3<small>multiplications</small></strong></header>
+      <ol class="worked-steps">
+        <li><span class="step-label">Blocs de gauche</span><code>p = 12 × 56 = 672</code></li>
+        <li><span class="step-label">Blocs de droite</span><code>q = 34 × 78 = 2 652</code></li>
+        <li><span class="step-label">Produit des sommes</span><code>r = (12 + 34)(56 + 78)</code><code>= 46 × 134 = 6 164</code></li>
+        <li class="cross-step"><span class="step-label">Retrouver les produits croisés</span><code>r − p − q</code><code>= 6 164 − 672 − 2 652</code><code>= 2 840</code></li>
+      </ol>
+      <div class="worked-recompose"><span>Recomposition</span><code>672 × 10 000 + 2 840 × 100 + 2 652</code><strong>= 7 006 652</strong></div>
+    </article>
+  </div>
+  <div class="worked-insight">
+    <span>Ce qu'il faut observer</span>
+    <p>Les deux méthodes calculent <strong>672</strong> et <strong>2 652</strong>. La méthode usuelle calcule ensuite séparément <strong>936</strong> et <strong>1 904</strong>. Karatsuba calcule à la place un seul produit supplémentaire, <strong>6 164</strong>, puis lui soustrait les deux produits déjà connus.</p>
+    <div class="worked-identity" role="math" aria-label="936 plus 1904 égale 6164 moins 672 moins 2652 égale 2840"><span>Même quantité retrouvée dans les deux colonnes</span><strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong></div>
+  </div>
+  <p class="worked-caveat">Le décompte compare les multiplications des blocs à ce niveau de découpage. Les additions, soustractions et décalages ne sont pas gratuits ; ils coûtent toutefois O(n), alors que les multiplications récursives dominent à grande taille.</p>
+</section>
+<style>
+  .worked-comparison { margin: 2.5rem 0; padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #252820; }
+  .worked-kicker { color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+  .worked-comparison h3 { margin: .5rem 0; font: 500 clamp(1.5rem, 3.5vw, 2.1rem)/1.12 "Newsreader", Georgia, serif; }
+  .worked-intro { max-width: 58rem; margin: 0; color: #5f5b51; font: .9rem/1.6 "DM Sans", sans-serif; }
+  .worked-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: 1.25rem 0; }
+  .worked-split > div { display: grid; gap: .25rem; padding: .8rem; border: 1px solid #ded9cc; border-radius: .45rem; background: #fffefa; }
+  .worked-split span, .worked-recompose > span { color: #6b675e; font: 500 .66rem/1.4 "DM Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+  .worked-split strong { font: 600 clamp(.78rem, 2vw, .98rem)/1.4 "DM Mono", monospace; }
+  .worked-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; align-items: stretch; }
+  .worked-method { min-width: 0; padding: 1rem; border: 1px solid #d9d5ca; border-radius: .55rem; background: #fffefa; }
+  .worked-karatsuba { border-color: #b9c9b8; background: #f0f4ed; }
+  .worked-method header { display: flex; justify-content: space-between; gap: .5rem; align-items: start; padding-bottom: .8rem; border-bottom: 1px solid #e3dfd5; }
+  .worked-karatsuba header { border-color: #d3dfd0; }
+  .method-number { color: #843c27; font: 500 .62rem "DM Mono", monospace; letter-spacing: .07em; }
+  .worked-karatsuba .method-number { color: #315b45; }
+  .worked-method h4 { margin: .3rem 0 0; font: 600 1rem/1.25 "DM Sans", sans-serif; }
+  .operation-count { flex: 0 0 auto; color: #843c27; font: 600 1.9rem/.9 "DM Mono", monospace; text-align: right; }
+  .worked-karatsuba .operation-count { color: #315b45; }
+  .operation-count small { display: block; margin-top: .3rem; color: #6b675e; font: 500 .58rem/1.2 "DM Sans", sans-serif; }
+  .worked-steps { display: grid; gap: .65rem; margin: .9rem 0; padding-left: 1.35rem; }
+  .worked-steps li { padding-left: .15rem; }
+  .worked-steps li::marker { color: #843c27; font: 600 .72rem "DM Mono", monospace; }
+  .worked-karatsuba .worked-steps li::marker { color: #315b45; }
+  .step-label { display: block; margin-bottom: .15rem; color: #6b675e; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
+  .worked-steps code, .worked-recompose code { display: block; color: #252820; font: 500 clamp(.68rem, 1.5vw, .82rem)/1.55 "DM Mono", monospace; white-space: normal; overflow-wrap: anywhere; }
+  .worked-steps .cross-step { margin: .1rem -.3rem; padding: .55rem .5rem; border-radius: .35rem; background: #f2eee3; }
+  .worked-karatsuba .worked-steps .cross-step { background: #e2eadf; }
+  .worked-recompose { display: grid; gap: .35rem; margin-top: auto; padding: .75rem; border-radius: .4rem; background: #f0ede4; }
+  .worked-karatsuba .worked-recompose { background: #e2eadf; }
+  .worked-recompose strong { color: #315b45; font: 700 1.05rem "DM Mono", monospace; }
+  .worked-insight { margin-top: 1rem; padding: 1rem; border-left: 4px solid #52745c; border-radius: .25rem; background: #e8eee4; }
+  .worked-insight > span { color: #536252; font: 500 .66rem "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  .worked-insight p { margin: .4rem 0 .75rem; color: #354438; font: .84rem/1.65 "DM Sans", sans-serif; }
+  .worked-identity { display: grid; gap: .3rem; }
+  .worked-identity span { color: #536252; font: .65rem "DM Sans", sans-serif; }
+  .worked-identity strong { color: #244b37; font: 600 clamp(.75rem, 2vw, 1rem)/1.5 "DM Mono", monospace; overflow-wrap: anywhere; }
+  .worked-caveat { margin: .8rem 0 0; color: #6b675e; font: .72rem/1.55 "DM Sans", sans-serif; }
+  @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
+</style>
