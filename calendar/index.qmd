@@ -1,19 +1,19 @@
 ---
-title: "24 jours pour comprendre la Data Science et le Machine Learning"
-subtitle: "Édition 2026 · Du phénomène mesuré aux modèles qui apprennent"
-description: "Un calendrier de l'Avent autonome en 24 questions et expériences courtes."
+title: "24 enquêtes pour voir les données autrement"
+subtitle: "Édition 2026 · 24 questions scientifiques, 24 expériences de pensée"
+description: "Une collection de 24 enquêtes autonomes en data science, statistiques et intelligence artificielle."
 ---
 
 <div class="calendar-intro">
 
 Une donnée n'est pas le réel. Un grand échantillon n'est pas nécessairement représentatif. Une moyenne ne raconte pas toute l'histoire. Et un modèle qui obtient un bon score n'a pas forcément appris ce que l'on croit.
 
-Du **1er au 24 décembre 2026**, ce calendrier propose vingt-quatre histoires courtes pour explorer les idées fondamentales de la Data Science et du Machine Learning. Chaque journée part d'une question concrète, construit une intuition, formalise un concept et invite à vérifier son raisonnement.
+Du **1er au 24 décembre 2026**, cette édition rassemble vingt-quatre enquêtes courtes autour de questions scientifiques qui méritent qu'on s'y arrête. Certaines partent d'un paradoxe, d'autres d'une expérience, d'un résultat surprenant ou d'une décision difficile. Chacune propose un angle singulier, une explication rigoureuse et, lorsque cela apporte quelque chose, une expérience ou une visualisation.
 
 </div>
 
 ::: {.callout-note}
-**Comment lire cette édition ?** Chaque journée est une histoire indépendante : vous pouvez ouvrir n'importe quelle case, dans n'importe quel ordre. Les quatre étapes du parcours proposent un fil conducteur facultatif, pour celles et ceux qui préfèrent suivre une progression naturelle. Les solutions des défis sont repliées sous chaque activité.
+**Comment lire cette édition ?** Ce calendrier n'est pas un cours découpé en 24 leçons et ne suppose aucun ordre de lecture. Chaque enquête se suffit à elle-même : choisissez une question parce qu'elle vous intrigue, passez d'un domaine à un autre, revenez plus tard. Les liens entre journées signalent des échos ou des prolongements, pas des prérequis. Les solutions des défis sont repliées sous chaque activité.
 :::
 
 ## Ouvrir une case
@@ -67,22 +67,19 @@ Les portes sont aussi listées ici pour faciliter la navigation au clavier, l'ac
 
 </div>
 
-## Le fil conducteur de l'édition
+## Une collection de questions, pas un parcours imposé
 
-Le parcours suit quatre mouvements. Ils donnent une progression naturelle, sans imposer de prérequis : chaque journée réintroduit les notions dont elle a besoin.
+Les vingt-quatre enquêtes traversent plusieurs territoires : mesure et données, raisonnement statistique, modélisation, apprentissage, évaluation et intelligence artificielle. Cette diversité est volontaire. Elle permet de passer d'une question de métrologie à un paradoxe statistique, d'un choix de modélisation à une limite des métriques, puis à un mécanisme des modèles de langue, sans prétendre qu'une notion doit nécessairement précéder la suivante.
 
-1. **Jours 1–6 · Observer le monde à travers des données** — mesure, sélection, distributions, moments, information et causalité.
-2. **Jours 7–14 · Apprendre une règle à partir d'exemples** — régression, vraisemblance, fonctions de perte, optimisation et modèles arborescents.
-3. **Jours 15–20 · Prouver que le modèle fonctionne** — validation, fuites de données, métriques, calibration et expérimentation.
-4. **Jours 21–24 · Des nombres aux modèles de langue** — tenseurs, probabilités, attention et apprentissage autorégressif.
+Chaque page reprend les définitions et les éléments nécessaires à sa propre compréhension. Les rapprochements entre journées servent à comparer des idées, à repérer des analogies ou à découvrir des limites communes ; ils ne constituent pas une chaîne de dépendances. Le parcours d'apprentissage structuré reste ailleurs : le calendrier privilégie la curiosité, les angles inattendus et la compréhension par l'enquête.
 
 ## À propos de cette édition
 
-Cette édition 2026 est conçue comme un objet éditorial autonome. Elle peut être lue indépendamment des autres années et des projets qui l'ont inspirée. Les journées peuvent être parcourues séparément ; les renvois entre elles servent à éclairer les liens conceptuels, jamais à remplacer les explications nécessaires à la compréhension.
+Cette édition 2026 est conçue comme un objet éditorial autonome. Elle peut être lue indépendamment des autres années et des projets qui l'ont inspirée. Les journées peuvent être parcourues séparément ; les renvois entre elles servent à mettre en perspective les idées, jamais à imposer une progression ou à remplacer les explications nécessaires à la compréhension.
 
 Les contenus canoniques, leur conception pédagogique et leurs métadonnées sont maintenus séparément dans le projet de connaissance à l'origine du calendrier. Le site public ne dépend pas de ce dépôt interne : chaque journée publiée est relue et doit être compréhensible sans accès à une ressource privée.
 
-[← Retour aux archives des calendriers](../calendriers/)
+[Explorer les articles](../#articles) · [À propos de Knowledge Stories](../about/)
 
 <details class="editorial-access">
 <summary>Note pour les relecteurs</summary>
