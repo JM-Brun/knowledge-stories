@@ -247,12 +247,19 @@ Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite **n** chiffres. 
 
 Pour rendre l’écart concret, prenons **n = 8 = 2³** chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compare les deux arbres dans le **modèle équilibré idéalisé**, où chaque appel divise exactement la taille par deux. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’une trace littérale de l’algorithme décimal, d’un chronométrage ni d’un décompte exact des opérations machine.
 
-| Niveau | Taille d’un bloc | Appels classiques | Travail classique | Appels Karatsuba | Travail Karatsuba |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 0 | 8 | 1 | 8 unités | 1 | 8 unités |
-| 1 | 4 | 4 | 16 unités | 3 | 12 unités |
-| 2 | 2 | 16 | 32 unités | 9 | 18 unités |
-| 3 | 1 | 64 feuilles | 64 produits de base | 27 feuilles | 27 produits de base |
+<div class="complexity-table-scroll" role="region" aria-label="Comparaison des appels et du travail à chaque niveau" tabindex="0">
+  <table>
+    <thead>
+      <tr><th>Niveau</th><th>Taille d’un bloc</th><th>Appels (classique / Karatsuba)</th><th>Travail local (classique / Karatsuba)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>0</td><td>8</td><td>1 / 1</td><td>8 / 8 unités</td></tr>
+      <tr><td>1</td><td>4</td><td>4 / 3</td><td>16 / 12 unités</td></tr>
+      <tr><td>2</td><td>2</td><td>16 / 9</td><td>32 / 18 unités</td></tr>
+      <tr><td>3 · feuilles</td><td>1</td><td>64 / 27</td><td>64 / 27 produits de base</td></tr>
+    </tbody>
+  </table>
+</div>
 
 Le travail local d’un niveau est le nombre d’appels multiplié par le coût linéaire de chacun :
 
