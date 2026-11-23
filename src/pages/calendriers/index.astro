@@ -6,7 +6,7 @@ const articles = await getCollection("articles", ({ data }) => data.status === "
 const articleItems = articles.map((article) => ({
   title: article.data.title,
   description: article.data.description,
-  href: `/knowledge-stories/articles/${article.id}/`,
+  href: `${import.meta.env.BASE_URL}articles/${article.id}/`,
   themes: article.data.themes.length ? article.data.themes : [article.data.category],
   tags: article.data.tags,
   year: article.data.date.getUTCFullYear(),
@@ -22,7 +22,6 @@ const storiesByTheme = themes.map((theme) => ({
   items: thematicItems.filter((item) => item.themes.includes(theme)).sort((a, b) => a.title.localeCompare(b.title, "fr")),
 }));
 const years = [...new Set(calendarStories.map((story) => story.year))].sort((a, b) => b - a);
-const dateLabel = (day) => `${day} décembre`;
 ---
 <BaseLayout title="Les archives | Knowledge Stories" description="Retrouver les éditions annuelles et explorer les histoires par thème.">
   <main class="archive-page">
@@ -45,11 +44,11 @@ const dateLabel = (day) => `${day} décembre`;
           <div class="archive-year"><span>{year}</span><small>{items.length} histoires publiées</small></div>
           <div class="archive-edition-content">
             <p class="archive-edition-kicker">{items[0]?.calendar}</p>
-            <h3>Du phénomène mesuré aux modèles qui apprennent</h3>
-            <p class="archive-edition-description">Une progression facultative en 24 questions, de la qualité des données aux premières briques des modèles de langue. Chaque histoire peut aussi se lire indépendamment.</p>
-            <a class="archive-primary-link" href="/knowledge-stories/calendar/">Ouvrir l'édition {year} <span aria-hidden="true">↗</span></a>
+            <h3>{items[0]?.calendar}</h3>
+            <p class="archive-edition-description">Une progression facultative en 24 questions. Chaque histoire peut aussi se lire indépendamment.</p>
+            <a class="archive-primary-link" href={`${import.meta.env.BASE_URL}calendar/`}>Ouvrir l'édition {year} <span aria-hidden="true">↗</span></a>
             <ol class="archive-day-list">
-              {items.map((item) => <li><a href={item.href}><span class="archive-day-number">{String(item.day).padStart(2, "0")}</span><span>{item.title}</span><span aria-hidden="true">↗</span></a></li>)}
+              {items.map((item) => <li><a href={`${import.meta.env.BASE_URL}${item.href}`}><span class="archive-day-number">{String(item.day).padStart(2, "0")}</span><span>{item.title}</span><span aria-hidden="true">↗</span></a></li>)}
             </ol>
           </div>
         </article>;
