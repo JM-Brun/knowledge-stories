@@ -230,14 +230,22 @@ Les feuilles ne représentent pas tout le travail : chaque appel doit aussi déc
 
 Pour isoler le raisonnement, supposons d’abord que **n** soit une puissance de deux et que chaque découpage soit équilibré. On note **T(n)** le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent O(n). La différence entre les méthodes tient donc au nombre de multiplications récursives. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) exposent explicitement ce modèle et les deux récurrences ; nous allons ici refaire le raisonnement avec l’arbre de récursion :
 
-<div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences de la méthode classique et de Karatsuba">
-  <div class="math-line"><span class="term-common">Méthode classique : T(n) = 4 T(n/2) + O(n)</span></div>
-  <div class="math-line"><span class="term-aux">Karatsuba : T(n) = 3 T(n/2) + O(n)</span></div>
+<div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences développées : quatre produits directs contre trois produits Karatsuba">
+  <div class="complexity-method">
+    <b>Méthode classique · quatre sous-produits</b>
+    <div class="math-line">T(n) = <span class="term-common">T<sub>ac</sub>(n/2)</span> + <span class="term-cross">T<sub>ad</sub>(n/2)</span> + <span class="term-cross">T<sub>bc</sub>(n/2)</span> + <span class="term-common">T<sub>bd</sub>(n/2)</span> + O(n)</div>
+    <div class="math-line">= 4 T(n/2) + O(n)</div>
+  </div>
+  <div class="complexity-method">
+    <b>Karatsuba · trois sous-produits</b>
+    <div class="math-line">T(n) = <span class="term-common">T<sub>p</sub>(n/2)</span> + <span class="term-common">T<sub>q</sub>(n/2)</span> + <span class="term-aux">T<sub>r</sub>(n/2)</span> + O(n)</div>
+    <div class="math-line">= 3 T(n/2) + O(n)</div>
+  </div>
 </div>
 
 Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite **n** chiffres. Au niveau 1, il crée **3** appels de taille **n/2** ; au niveau 2, ces appels en créent **9** de taille **n/4**. Plus généralement, au niveau **j**, il existe **3ʲ** appels, chacun traitant environ **n/2ʲ** chiffres.
 
-Pour rendre l’écart concret, prenons **n = 8 = 2³** chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compte les appels de chaque niveau. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’un chronométrage ni d’un décompte exact des opérations machine.
+Pour rendre l’écart concret, prenons **n = 8 = 2³** chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compare les deux arbres dans le **modèle équilibré idéalisé**, où chaque appel divise exactement la taille par deux. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’une trace littérale de l’algorithme décimal, d’un chronométrage ni d’un décompte exact des opérations machine.
 
 | Niveau | Taille d’un bloc | Appels classiques | Travail classique | Appels Karatsuba | Travail Karatsuba |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -281,7 +289,7 @@ Cette preuve par arbre est équivalente à l’application du théorème maître
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
-Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, (a+b) ou (c+d) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille (n/2). Cela ne change pas l’exposant, car leur taille reste bornée par (n/2+O(1)), et l’on peut majorer la récurrence par trois appels de taille voisine de (n/2) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. La documentation de [FLINT, section « Karatsuba multiplication »](https://flintlib.org/doc/algorithms/integers/multiplication.html) détaille cette variante et sa preuve de complexité.
+Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille \(n/2\). Cela ne change pas l’exposant, car leur taille reste bornée par \(n/2+O(1)\), et l’on peut majorer la récurrence par trois appels de taille voisine de \(n/2\) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. La documentation de [FLINT, section « Karatsuba multiplication »](https://flintlib.org/doc/algorithms/integers/multiplication.html) détaille cette variante et sa preuve de complexité.
 
 ## Pourquoi une bibliothèque combine plusieurs méthodes
 
