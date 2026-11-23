@@ -1,70 +1,129 @@
 ---
 title: "Quand la covariance change-t-elle la variance d'une somme ?"
 subtitle: "Jour 4 · Les variables ne varient pas toujours indépendamment"
-description: "Calculer la variance d'une somme en tenant compte de la covariance."
+description: "Comprendre comment la dépendance modifie l'incertitude d'un agrégat, d'une moyenne ou d'un portefeuille de mesures."
 ---
+
+> **En 7 à 9 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
 
 ## La question
 
-Pourquoi la variance de $X+Y$ n'est-elle pas toujours égale à la somme des variances de $X$ et de $Y$ ?
+Pourquoi la variance de (X+Y) n'est-elle pas toujours égale à la somme des variances de (X) et de (Y) ? Parce que la somme dépend aussi de la manière dont les deux variables fluctuent ensemble.
+
+## Un cas parfaitement dépendant
 
 Considérons trois couples équiprobables :
 
-$$
-(X,Y)\in\{(1,2),(2,4),(3,6)\}.
-$$
+[
+(X,Y)in{(1,2),(2,4),(3,6)}.
+]
 
-On observe ici une relation parfaite : $Y=2X$.
+Ici, (Y=2X). Les moyennes sont (mathbb E[X]=2) et (mathbb E[Y]=4). En utilisant le diviseur (n=3) pour les variances et la covariance empiriques :
 
-## À vous de calculer
+[
+operatorname{Var}_n(X)=rac23,quad
+operatorname{Var}_n(Y)=rac83,quad
+operatorname{Cov}_n(X,Y)=rac43.
+]
 
-1. Calculez les moyennes de $X$ et de $Y$.
-2. Calculez leurs variances empiriques en utilisant le diviseur $n$.
-3. Calculez la covariance et la corrélation.
-4. Déduisez la variance de $X+Y$.
+La corrélation empirique vaut 1. Les deux variables augmentent ensemble de manière parfaitement linéaire.
+
+La formule de la variance d'une somme est :
+
+[
+operatorname{Var}(X+Y)=
+operatorname{Var}(X)+operatorname{Var}(Y)+2operatorname{Cov}(X,Y).
+]
+
+On obtient donc :
+
+[
+operatorname{Var}_n(X+Y)=rac23+rac83+2	imesrac43=6.
+]
+
+Oublier la covariance donnerait (10/3), soit presque deux fois moins.
+
+## Trois régimes de dépendance
+
+Pour deux variables de même variance (sigma^2), la variance de leur moyenne vaut :
+
+[
+operatorname{Var}left(rac{X+Y}{2}ight)
+=rac{sigma^2}{2}(1+ho),
+]
+
+où (ho) est leur corrélation, si les variances sont finies et non nulles.
+
+- Si (ho=1), les deux variables évoluent ensemble : moyenner ne réduit pas la variance.
+- Si (ho=0), la variance de la moyenne est divisée par deux.
+- Si (ho=-1), les fluctuations se compensent exactement dans ce cas idéal.
+
+La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**.
+
+## Une visualisation mentale : erreurs communes et erreurs propres
+
+Imaginons dix capteurs qui mesurent le même phénomène. Chacun possède une erreur propre, mais ils subissent aussi tous une perturbation commune : une variation de température dans la pièce, une horloge mal synchronisée ou une calibration partagée.
+
+Moyenner les dix mesures peut réduire les erreurs indépendantes propres à chaque capteur. En revanche, la perturbation commune subsiste dans la moyenne. La redondance ne remplace donc pas la diversité des sources d'erreur.
+
+La même logique s'applique à un ensemble de modèles entraînés sur des données très proches : dix prédicteurs fortement corrélés ne valent pas nécessairement dix sources d'information indépendantes.
+
+## De la somme à une combinaison pondérée
+
+Pour un vecteur aléatoire (X) et des poids (w), la variance de l'agrégat linéaire s'écrit :
+
+[
+operatorname{Var}(w^	op X)=w^	opSigma w,
+]
+
+où (Sigma) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances.
+
+Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs, en portefeuille financier et en agrégation de prédictions. La diversification réduit le risque lorsque les composantes ne sont pas parfaitement corrélées ; elle ne supprime pas un risque commun à toutes.
+
+## Covariance nulle n'est pas indépendance
+
+La covariance décrit une dépendance linéaire. Elle ne résume pas toute la dépendance.
+
+Prenons (X) uniforme sur ({-1,0,1}) et (Y=X^2). On a :
+
+[
+mathbb E[X]=0,qquad mathbb E[Y]=rac23,qquad
+mathbb E[XY]=0.
+]
+
+Ainsi, (operatorname{Cov}(X,Y)=0), alors que (Y) est entièrement déterminée par (X). Les variables sont dépendantes malgré une covariance nulle.
+
+## Transfert : agréger des modèles ou des mesures
+
+Dans un système de mesure, les erreurs communes peuvent dominer le gain apporté par plusieurs capteurs. En ML, les erreurs de plusieurs modèles peuvent être corrélées parce qu'ils partagent les mêmes données, variables ou biais inductifs.
+
+Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes au même endroit. Mais la diversité doit être évaluée sur les erreurs, pas déduite du nombre de modèles.
+
+## À vous de raisonner
+
+1. Que devient la variance de la moyenne de deux variables identiques parfaitement corrélées ?
+2. Pourquoi dix capteurs soumis au même biais ne corrigent-ils pas ce biais par moyennage ?
+3. Que représente la matrice (Sigma) dans (operatorname{Var}(w^	op X)) ?
+4. Donnez un exemple de variables dépendantes mais de covariance nulle.
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-Les moyennes sont :
-
-$$
-\mathbb E[X]=2,\qquad \mathbb E[Y]=4.
-$$
-
-Les variances empiriques et la covariance (avec le diviseur $n=3$) valent :
-
-$$
-\operatorname{Var}(X)=\frac23,\qquad
-\operatorname{Var}(Y)=\frac83,\qquad
-\operatorname{Cov}(X,Y)=\frac43.
-$$
-
-La corrélation vaut 1 puisque $Y=2X$ et que les deux variables varient dans le même sens de façon parfaitement linéaire.
-
-La formule générale est :
-
-$$
-\operatorname{Var}(X+Y)=
-\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
-$$
-
-Donc :
-
-$$
-\operatorname{Var}(X+Y)=\frac23+\frac83+2\times\frac43=6.
-$$
-
-Oublier la covariance donnerait $10/3$, une valeur incorrecte.
-
-**À retenir :** l'indépendance implique une covariance nulle (si les moments existent), mais une covariance nulle n'implique pas en général l'indépendance. Il faut justifier les hypothèses, pas les supposer.
+1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
+2. Le biais commun est présent dans chaque mesure et donc aussi dans leur moyenne.
+3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
+4. (X) uniforme sur ({-1,0,1}) et (Y=X^2) : (Y) dépend de (X), mais leur covariance est nulle.
 
 </details>
 
-## Transfert vers la Data Science
+## À retenir
 
-Les erreurs de plusieurs modèles ou les mesures de plusieurs capteurs peuvent être corrélées. Agréger leurs résultats ne fait pas automatiquement disparaître leur variabilité.
+- La variance d'une somme dépend des covariances.
+- Des mesures nombreuses mais corrélées apportent moins d'information indépendante.
+- La covariance nulle n'implique pas l'indépendance.
+- La diversification agit sur les dépendances ; elle ne supprime pas les biais communs.
 
-## Connexion utile
+## Pour aller plus loin
 
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : retrouver la variance comme mesure de dispersion avant d'étudier la covariance entre deux variables.
+- OpenStax, *Introductory Statistics 2e* — covariance et variance des combinaisons linéaires.
+- NIST/SEMATECH, *e-Handbook of Statistical Methods* — propagation de l'incertitude et analyse de dépendance : https://www.itl.nist.gov/div898/handbook/
