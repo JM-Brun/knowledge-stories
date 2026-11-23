@@ -12,8 +12,18 @@ Le périmètre initial reste léger : pas de CMS, pas de base de données, pas d
 - **Règles éditoriales** : charte, modèle, workflow et instructions d'agents.
 - **Publication** : build statique déployable sur GitHub Pages.
 
-## Frontmatter et publication
-Le schéma de collection impose les champs essentiels et contraint les niveaux de difficulté et les statuts. Seuls les articles avec `status: published` sont rendus dans les routes publiques. Les brouillons et contenus en revue restent dans Git mais ne sont pas générés comme pages.
+## Cycle de vie et exposition
+Le champ `status` porte l'état éditorial, sans le confondre avec la visibilité technique :
+
+| Statut | Page générée ? | Découvrable depuis le site ? | Usage |
+|---|---:|---:|---|
+| `draft` | Non | Non | Rédaction interne, non publiée |
+| `review` | Oui, sous `/atelier/` | Non, sauf accès direct à l'URL de l'atelier | Relecture éditoriale ciblée |
+| `published` | Oui, sous `/articles/` | Oui | Publication publique validée |
+
+La page d'accueil, les listes d'articles, les articles à la une et les parcours publics ne sélectionnent que `published`. Les contenus `review` disposent d'une page d'index discrète à `/atelier/`, non liée depuis la navigation, et de pages individuelles à `/atelier/{slug}/`. Toutes ces pages portent `noindex, nofollow, noarchive`. Les contenus `draft` ne sont jamais générés.
+
+Le mode atelier est une **discrétion de navigation et d'indexation**, pas un contrôle d'accès : GitHub Pages sert des fichiers publics. Toute personne disposant de l'URL peut lire une page de relecture. Ne jamais y placer de données personnelles, secrets, contenus sous embargo ou matériaux dont la publication n'est pas autorisée. Pour une confidentialité réelle, utiliser un environnement privé distinct.
 
 ## Chemins et déploiement
 Le dépôt est prévu pour GitHub Pages à l'adresse `https://jm-brun.github.io/knowledge-stories/`. Le paramètre `base` Astro doit rester cohérent avec le nom du dépôt. Les liens internes de navigation doivent respecter ce préfixe.
