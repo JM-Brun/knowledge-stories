@@ -256,24 +256,23 @@ Dans ce modèle simplifié, on suppose que \(b\) reste constant pendant l'expér
 
 ### Une relation utile en statistique
 
-Pour un estimateur \(\hat{\theta}\) de variance finie d'une quantité fixe \(\theta\), le biais et la variance décrivent deux aspects de sa distribution lorsque l'on répète l'échantillonnage :
+Pour un estimateur \(\hat{\theta}\) d'une quantité fixe \(\theta\), le biais décrit le décalage moyen de l'estimateur et la variance décrit la dispersion de ses valeurs lorsque l'on répète l'échantillonnage. Posons :
 
 \[
-\operatorname{Biais}(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta,
-\qquad
-\operatorname{Var}(\hat{\theta}) =
-\mathbb{E}\!\left[(\hat{\theta}-\mathbb{E}[\hat{\theta}])^2\right].
+B(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta
 \]
-
-L'erreur quadratique moyenne se décompose alors en :
 
 \[
-\operatorname{EQM}(\hat{\theta}) =
-\operatorname{Var}(\hat{\theta}) +
-\operatorname{Biais}(\hat{\theta})^2.
+V(\hat{\theta}) = \mathbb{E}\left[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2\right]
 \]
 
-Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'erreur quadratique moyenne. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire aussi le compromis biais–variance rencontré en apprentissage statistique : la complexité d'un modèle peut réduire certains biais, mais augmenter sa sensibilité aux fluctuations de l'échantillon. Cette formule concerne l'estimation d'une quantité fixe sous perte quadratique ; dans un problème de prédiction avec une cible bruitée, la décomposition du risque peut comporter en plus une composante de bruit irréductible.
+Sous une perte quadratique, l'erreur quadratique moyenne (EQM) vérifie :
+
+\[
+\mathrm{EQM}(\hat{\theta}) = V(\hat{\theta}) + B(\hat{\theta})^2
+\]
+
+Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'EQM. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire le compromis biais–variance en apprentissage statistique : un modèle plus flexible peut réduire certains biais, mais devenir plus sensible aux fluctuations de l'échantillon. La formule concerne l'estimation d'une quantité fixe sous perte quadratique ; pour le risque de prédiction face à une cible bruitée, une composante de bruit irréductible peut s'ajouter.
 
 ### Lire biais et variance sur une cible
 
@@ -405,17 +404,23 @@ Trois conséquences pour la Data Science :
 
 Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
 
-Notons \(x\) l'entrée idéale, \(\tilde x\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle \(f\), maintenu fixe, pour les deux entrées. En ajoutant et retranchant \(f(x)\), on obtient une décomposition exacte :
+Notons \(x\) l'entrée idéale, \(\tilde{x}\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle \(f\), maintenu fixe, pour les deux entrées. En ajoutant et retranchant \(f(x)\), on obtient :
 
 \[
-\underbrace{f(\tilde x)-g(x)}_{\text{erreur totale}}
+f(\tilde{x}) - g(x)
 =
-\underbrace{f(\tilde x)-f(x)}_{\text{effet de l'erreur de donnée}}
+\bigl[f(\tilde{x}) - f(x)\bigr]
 +
-\underbrace{f(x)-g(x)}_{\text{écart du modèle}}.
+\bigl[f(x) - g(x)\bigr]
 \]
 
-Cette égalité est un outil de raisonnement, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, la décomposition écrite ici ne représente pas à elle seule toute l'erreur de prédiction. Enfin, si les données d'entraînement sont biaisées, elles peuvent aussi modifier les paramètres appris ; cette influence n'est pas isolée par le premier terme, qui compare ici deux entrées pour un modèle fixé.
+Les trois quantités ont une interprétation distincte :
+
+- **Erreur totale** : \(f(\tilde{x}) - g(x)\), écart entre la prédiction calculée à partir de l'entrée observée et la valeur cible.
+- **Effet de l'erreur de donnée** : \(f(\tilde{x}) - f(x)\), variation de la prédiction due au remplacement de l'entrée idéale par l'entrée mesurée, à modèle fixé.
+- **Écart du modèle** : \(f(x) - g(x)\), erreur du modèle lorsque l'entrée idéale est fournie.
+
+Cette égalité est une identité algébrique, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, il faut distinguer l'écart à la fonction cible de l'erreur par rapport à une réalisation bruitée. Enfin, si les données d'entraînement sont biaisées, elles peuvent modifier les paramètres appris ; cet effet indirect n'est pas isolé ici, puisque le modèle est maintenu fixe.
 
 <figure class="error-figure">
 <svg viewBox="0 0 720 190" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
