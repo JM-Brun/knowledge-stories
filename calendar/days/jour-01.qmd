@@ -146,6 +146,15 @@ Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont 
 
 Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
+<style>
+.sensor-decision{border:1px solid #b8cbbb;border-radius:12px;padding:1rem;margin:1rem 0;background:#f5f8f5;color:#20352d}
+.sensor-decision label{display:block;margin-bottom:.5rem}
+.sensor-decision select{display:block;width:100%;max-width:100%;padding:.65rem;border:1px solid #789482;border-radius:7px;background:white;color:#20352d;font:inherit}
+.sensor-decision-result{margin-top:.9rem;padding:.8rem;background:white;border-left:4px solid #4f8064;border-radius:4px}
+.sensor-decision-result p:last-child{margin-bottom:0}
+@media (max-width:600px){.sensor-decision{padding:.75rem}.sensor-decision-result{padding:.7rem}}
+</style>
+
 ### Choisir un capteur selon l'usage
 
 Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
