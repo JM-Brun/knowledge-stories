@@ -17,26 +17,26 @@ Une population cible comporte 100 000 personnes :
 
 La moyenne de la population vaut donc :
 
-[
+$$
 \mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
-]
+$$
 
 Deux enquêtes sont réalisées :
 
 - l'enquête en ligne recueille 50 000 réponses, toutes dans le groupe A ;
-- l'enquête par échantillonnage aléatoire sélectionne 1 000 personnes dans chaque groupe.
+- l'enquête stratifiée sélectionne aléatoirement 1 000 personnes dans chaque groupe.
 
 ## À vous de raisonner
 
 1. Quelle moyenne observe-t-on dans l'enquête en ligne ?
-2. Quelle moyenne l'enquête équilibrée estime-t-elle en moyenne sur des tirages répétés ?
+2. Quelle moyenne l'enquête stratifiée estime-t-elle en moyenne sur des tirages répétés ?
 3. Ajouter encore des réponses provenant uniquement du groupe A corrige-t-il le problème ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
 1. L'enquête en ligne donne une moyenne de 10. Elle décrit correctement les répondants, mais pas la population cible.
-2. L'échantillon équilibré estime en moyenne ( (10+20)/2=15 ), cohérent avec la composition de la population.
+2. L'échantillon équilibré estime en moyenne $0{,}5\times10+0{,}5\times20=15$, cohérent avec la composition de la population.
 3. Non. Ajouter des réponses du groupe A peut réduire l'incertitude sur ce groupe, mais ne compense pas l'absence du groupe B.
 
 **À retenir :** le volume de données ne répare pas un défaut de couverture. Un million d'exemples provenant uniquement des utilisateurs actifs d'un service ne garantit pas la qualité des prédictions pour les utilisateurs absents.
