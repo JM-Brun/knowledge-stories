@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: ../dist/calendar
+  render:
+    - "!templates/**"
 
 website:
   title: "Calendrier Data Science & ML 2026"
