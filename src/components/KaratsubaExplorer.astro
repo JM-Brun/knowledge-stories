@@ -46,7 +46,7 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
     <div class="lab-steps" data-steps>
       <div class="lab-step"><span class="step-index" aria-hidden="true">01</span><div><h4>Découper</h4><p data-split>1 234 = 12 × 100 + 34<br />5 678 = 56 × 100 + 78</p></div></div>
       <div class="lab-step"><span class="step-index" aria-hidden="true">02</span><div><h4>Calculer trois produits</h4><p data-products><span class="term-common" data-p>p = 12 × 56 = 672</span><br /><span class="term-common" data-q>q = 34 × 78 = 2 652</span><br /><span class="term-aux" data-r>r = 46 × 134 = 6 164</span></p></div></div>
-      <div class="lab-step"><span class="step-index" aria-hidden="true">03</span><div><h4>Retrouver les produits croisés</h4><p class="term-cross" data-cross>r − p − q = 2 840</p></div></div>
+      <div class="lab-step"><span class="step-index" aria-hidden="true">03</span><div><h4>Retrouver les produits croisés</h4><p data-cross><span class="term-aux" data-cross-r>r</span> − <span class="term-common" data-cross-p>p</span> − <span class="term-common" data-cross-q>q</span> = <span class="term-cross" data-cross-value>2 840</span></p></div></div>
       <div class="lab-step"><span class="step-index" aria-hidden="true">04</span><div><h4>Recomposer</h4><p data-recompose><span class="term-common" data-recompose-p>672</span> × 10 000 + <span class="term-cross" data-recompose-cross>2 840</span> × 100 + <span class="term-common" data-recompose-q>2 652</span> = <strong data-recompose-result>7 006 652</strong></p></div></div>
     </div>
 
@@ -129,7 +129,10 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
       setText(root, "[data-p]", `p = ${format(a)} × ${format(c)} = ${format(p)}`);
       setText(root, "[data-q]", `q = ${format(b)} × ${format(d)} = ${format(q)}`);
       setText(root, "[data-r]", `r = (${format(a)} + ${format(b)}) × (${format(c)} + ${format(d)}) = ${format(r)}`);
-      setText(root, "[data-cross]", `r − p − q = ${format(r)} − ${format(p)} − ${format(q)} = ${format(cross)}`);
+      setText(root, "[data-cross-r]", `r = ${format(r)}`);
+      setText(root, "[data-cross-p]", `p = ${format(p)}`);
+      setText(root, "[data-cross-q]", `q = ${format(q)}`);
+      setText(root, "[data-cross-value]", format(cross));
       setText(root, "[data-recompose-p]", format(p));
       setText(root, "[data-recompose-cross]", format(cross));
       setText(root, "[data-recompose-q]", format(q));
