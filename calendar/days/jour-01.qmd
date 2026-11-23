@@ -38,7 +38,7 @@ Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois
 
 Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable.
 
-Mais leur position par rapport à la référence est très différente. Le capteur B répète presque parfaitement une valeur décalée.
+Mais leur position par rapport à la référence est très différente. Sur ces trois relevés, le capteur B produit des valeurs presque identiques mais décalées. C'est compatible avec un biais systématique ; trois répétitions ne suffisent toutefois pas à caractériser la répétabilité de l'instrument ni à établir ce biais à elles seules.
 
 ### Voir la différence : dispersion et décalage
 
