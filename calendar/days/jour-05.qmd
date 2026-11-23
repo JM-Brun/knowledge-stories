@@ -1,55 +1,121 @@
 ---
 title: "Quelle distribution est la plus incertaine ?"
 subtitle: "Jour 5 · Quantifier l'incertitude avec l'entropie"
-description: "Calculer l'entropie de trois distributions et la distinguer de la surprise d'une observation."
+description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, et comprendre ce que cette mesure ne dit pas."
 ---
+
+> **En 7 à 9 minutes** — Deux distributions peuvent avoir le même support et ne pas laisser la même place à l'imprévu. Mais « incertitude » dépend toujours de la question posée.
 
 ## La question
 
-Une prévision qui annonce deux issues à 50 % est-elle plus incertaine qu'une prévision à 90 % / 10 % ? L'entropie permet de formaliser cette intuition.
+Une prévision qui annonce deux issues à 50 % est-elle plus incertaine qu'une prévision à 90 % / 10 % ? L'entropie de Shannon formalise une partie de cette intuition.
 
 Considérons trois distributions sur deux issues :
 
-- A : $p=(0{,}5;0{,}5)$
-- B : $p=(0{,}9;0{,}1)$
-- C : $p=(1;0)$
+- A : (p=(0{,}5;0{,}5))
+- B : (p=(0{,}9;0{,}1))
+- C : (p=(1;0))
+
+La distribution A laisse les deux issues également possibles. C rend l'une des issues certaine. B se situe entre les deux.
+
+## Surprise d'une issue et entropie d'une distribution
+
+La surprise associée à une issue (x) de probabilité (p(x)) est :
+
+[
+I(x)=-log_2 p(x).
+]
+
+Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité (1/2) apporte 1 bit de surprise ; une issue de probabilité (1/8), 3 bits.
+
+Mais avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne :
+
+[
+H(X)=-sum_x p(x)log_2 p(x).
+]
+
+On adopte la convention (0log_2(0)=0), obtenue par continuité.
+
+Pour les trois distributions :
+
+- A : (H(A)=1) bit ;
+- B : (H(B)approx0{,}469) bit ;
+- C : (H(C)=0) bit.
+
+Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont équiprobables, et minimale lorsqu'une issue est certaine.
+
+## Pourquoi le logarithme ?
+
+Le logarithme transforme une multiplication de probabilités en addition de surprises. Si deux événements indépendants ont des probabilités (p) et (q), la probabilité conjointe vaut (pq), et :
+
+[
+-log_2(pq)=-log_2(p)-log_2(q).
+]
+
+Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base (e) pour les nats.
+
+## Incertitude conditionnelle : que sait-on déjà ?
+
+L'incertitude peut diminuer lorsqu'on obtient une information. Si l'on connaît une variable (Y), l'incertitude résiduelle sur (X) est l'entropie conditionnelle :
+
+[
+H(Xmid Y)=
+-sum_{x,y}p(x,y)log_2 p(xmid y).
+]
+
+L'information mutuelle mesure la réduction moyenne d'incertitude apportée par (Y) sur (X) :
+
+[
+I(X;Y)=H(X)-H(Xmid Y).
+]
+
+Elle est nulle si (X) et (Y) sont indépendantes, et positive sinon. Cette quantité permet de formaliser l'information partagée, sans pour autant établir une relation causale.
+
+## Un piège : faible entropie ne veut pas dire bonne prévision
+
+Imaginons un modèle qui annonce une probabilité de 99 % pour une issue. Sa distribution prédictive a une faible entropie. Mais si l'issue contraire se produit souvent, le modèle est mal calibré.
+
+L'entropie décrit la concentration de la distribution annoncée par le modèle, pas la qualité de cette annonce. Pour évaluer une prévision probabiliste, il faut la confronter aux résultats observés, par exemple avec le score de Brier ou la log-loss, et examiner sa calibration.
+
+De même, une distribution très concentrée peut être inadaptée à une décision si les événements rares ont des conséquences catastrophiques. L'incertitude moyenne n'est pas le coût du risque.
+
+## Un autre piège : l'entropie dépend de la représentation
+
+Pour une variable discrète, l'entropie est définie à partir des probabilités des catégories. Regrouper ou découper les catégories change la distribution et donc l'entropie. Pour une variable continue, la quantité analogue — l'entropie différentielle — dépend du choix d'unité et peut être négative ; elle ne se compare pas directement à l'entropie discrète.
+
+Il faut donc préciser l'espace des événements et la représentation avant de comparer des entropies.
+
+## Transfert vers la Data Science et les modèles de langue
+
+Dans un classifieur, l'entropie de la distribution prédite peut signaler une sortie diffuse ou concentrée. Dans un modèle de langue, elle caractérise la dispersion des probabilités sur les prochains tokens. Une température de génération modifie cette distribution et donc son entropie, sans garantir que les probabilités deviennent mieux calibrées.
+
+La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguïté d'une prédiction, à sélectionner un exemple à annoter, à quantifier l'information d'une variable ou à contrôler le risque d'une décision ?
 
 ## À vous de raisonner
 
-1. Classez ces distributions de la plus incertaine à la moins incertaine.
-2. Calculez leur entropie en bits avec :
-
-$$
-H(p)=-\sum_i p_i\log_2 p_i,
-$$
-
-en utilisant la convention $0\log_2(0)=0$.
-3. Une issue rare est-elle toujours très surprenante ?
+1. Calculez l'entropie de (p=(0{,}5;0{,}5)) et de (p=(0{,}9;0{,}1)).
+2. Pourquoi une prédiction très confiante peut-elle être incorrecte ?
+3. Quelle différence entre surprise et entropie ?
+4. Si (Y) révèle exactement (X), que vaut (H(Xmid Y)) ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-- A : $H(A)=1$ bit.
-- B : $H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469$ bit.
-- C : $H(C)=0$ bit, car l'issue est certaine.
-
-L'ordre d'incertitude moyenne est donc A, B, C.
-
-Il faut distinguer deux notions :
-
-- **Surprise** d'une issue observée $x$ : $I(x)=-\log_2 p(x)$.
-- **Entropie** : surprise moyenne avant de connaître l'issue, $H(X)=\mathbb E[I(X)]$.
-
-Une issue de probabilité nulle n'est pas observée sous le modèle considéré. Sa surprise formelle est infinie, mais elle ne contribue pas à l'espérance de l'entropie, selon la convention $0\log 0=0$.
-
-**À retenir :** la classe prédite par un classifieur (l'argmax) ne résume pas toute sa distribution de probabilités. L'entropie décrit l'incertitude portée par cette distribution.
+1. Les entropies sont respectivement 1 bit et environ 0,469 bit.
+2. L'entropie porte sur la distribution annoncée, pas sur sa correspondance avec la fréquence réelle des événements.
+3. La surprise est associée à une issue particulière ; l'entropie est la moyenne de cette surprise sous la distribution.
+4. Elle vaut zéro si (X) est déterminée sans ambiguïté par (Y).
 
 </details>
 
+## À retenir
+
+- La surprise concerne une issue ; l'entropie concerne une distribution.
+- L'entropie est une mesure moyenne dépendante de l'espace des événements.
+- Une faible entropie ne prouve ni la justesse ni la calibration d'un modèle.
+- L'information mutuelle quantifie une information partagée, pas une causalité.
+
 ## Pour aller plus loin
 
-L'entropie est une mesure d'incertitude moyenne, pas une mesure de la justesse d'une prévision. Un modèle très confiant peut être incorrect ; la calibration et les fonctions de perte répondent à d'autres questions.
-
-## Connexion utile
-
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comparer deux façons de quantifier l'incertitude, par la dispersion numérique et par la distribution des probabilités.
+- C. E. Shannon (1948), *A Mathematical Theory of Communication*, Bell System Technical Journal.
+- Cover & Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les entropies conditionnelles.
