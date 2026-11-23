@@ -82,7 +82,7 @@ L'information mutuelle mesure la réduction moyenne d'incertitude apportée par 
 I(X;Y)=H(X)-H(X\mid Y).
 \]
 
-Elle est nulle si (X) et (Y) sont indépendantes, et positive sinon. Cette quantité permet de formaliser l'information partagée, sans pour autant établir une relation causale.
+Elle est nulle si \(X\) et \(Y\) sont indépendantes, et positive sinon. Cette quantité permet de formaliser l'information partagée, sans pour autant établir une relation causale.
 
 ## Un piège : faible entropie ne veut pas dire bonne prévision
 
@@ -117,7 +117,7 @@ La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguït�
 1. Les entropies sont respectivement 1 bit et environ 0,469 bit.
 2. L'entropie porte sur la distribution annoncée, pas sur sa correspondance avec la fréquence réelle des événements.
 3. La surprise est associée à une issue particulière ; l'entropie est la moyenne de cette surprise sous la distribution.
-4. Elle vaut zéro si (X) est déterminée sans ambiguïté par (Y).
+4. Elle vaut zéro si \(X\) est déterminée sans ambiguïté par \(Y\).
 
 </details>
 
