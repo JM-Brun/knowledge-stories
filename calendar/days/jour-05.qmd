@@ -22,7 +22,7 @@ La distribution A laisse les deux issues également possibles. C rend l'une des 
 
 La surprise associée à une issue \(x\) de probabilité \(p(x)\) est \(I(x)=-\log_2 p(x)\).
 
-Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité (1/2) apporte 1 bit de surprise ; une issue de probabilité (1/8), 3 bits.
+Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité \(1/2\) apporte 1 bit de surprise ; une issue de probabilité \(1/8\), 3 bits.
 
 Mais avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne :
 
@@ -65,7 +65,7 @@ Le logarithme transforme une multiplication de probabilités en addition de surp
 -\log_2(pq)=-\log_2(p)-\log_2(q).
 ]
 
-Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base (e) pour les nats.
+Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base \(e\) pour les nats.
 
 ## Incertitude conditionnelle : que sait-on déjà ?
 
