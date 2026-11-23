@@ -122,7 +122,7 @@ La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://git
 
 ### État de la source
 
-- La source de référence est `calendar/days/jour-01.qmd`. Elle contient déjà cinq profils pédagogiques, une galerie de capteurs, un sélecteur d'aide au choix, les équations corrigées, les visualisations biais–variance et propagation des erreurs.
+- La source de référence est `calendar/days/jour-01.qmd`. Elle contient cinq profils pédagogiques, un sélecteur d'aide au choix, quatre cartes complémentaires sur les limites des relevés ponctuels, les équations, les visualisations biais–variance et la propagation des erreurs.
 - Le rendu public observé au début de la revue ne correspondait pas à cette source : il présentait encore l'ancienne version à deux capteurs et des expressions mathématiques dégradées. Le workflow Pages du commit `9a89b9d` est toutefois indiqué comme réussi. Une nouvelle vérification du rendu déployé reste nécessaire ; un succès CI ne prouve pas à lui seul que le navigateur ou un cache sert la bonne version.
 - Le contenu est riche et scientifiquement prudent, mais dense pour un premier jour. Il faut préserver les nuances sans accumuler les avertissements redondants.
 
@@ -173,3 +173,13 @@ Conserver le fil conducteur « phénomène → instrument/protocole → observat
 ### Statut des validations automatisées
 
 La PR #35 a été mise à jour après sa première exécution. Les workflows de la nouvelle révision doivent être vérifiés sur le dernier SHA avant toute fusion ; les exécutions précédentes, y compris celles annulées par une nouvelle poussée, ne valident pas le contenu courant.
+
+
+### Troisième passe — réduction des redondances visuelles
+
+- La galerie qui répétait les profils A à E après leur tableau et leur graphique a été remplacée par quatre cartes complémentaires : incertitude de la référence, dérive, dynamique de réponse et contraintes environnementales.
+- Le texte d'introduction explicite pourquoi trois lectures ne permettent pas de caractériser ces dimensions.
+- La galerie passe à deux colonnes sur grand écran et reste en une colonne sur petit écran ; elle conserve une alternative textuelle via les titres et descriptions.
+- La table des arbitrages et le sélecteur interactif ont été conservés : ils répondent à deux questions différentes, respectivement « quels compromis comparer ? » et « quels critères examiner selon l'usage ? ».
+
+Cette réorganisation retire une répétition de profils sans supprimer leur information : les valeurs A à E restent dans le tableau et le graphique ; les cartes ajoutent désormais des dimensions absentes des seules observations.
