@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Atelier de relecture — Knowledge Stories" description="Espace discret de relecture éditoriale." noindex>
+  <main class="atelier-page">
+    <p class="eyebrow">Espace éditorial</p>
+    <h1>Atelier de relecture</h1>
+    <p class="intro">Versions de travail proposées pour relecture. Ces pages ne font pas partie des publications publiques.</p>
+    {articles.length > 0 ? (
+      <ul class="review-list">
+        {articles.map((article) => (
+          <li>
+            <a href={`/knowledge-stories/atelier/${article.id}/`}>
+              <span class="category">{article.data.category}</span>
+              <strong>{article.data.title}</strong>
+              <span>{article.data.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">Aucun texte n'est actuellement soumis à relecture.</p>
+    )}
+    <p class="notice">Cet espace est volontairement absent de la navigation générale. Il n'est pas protégé par mot de passe : ne partagez pas ici de contenu confidentiel ou non autorisé.</p>
+  </main>
+</BaseLayout>
+
+<style>
+  .atelier-page { max-width: 58rem; min-height: 65vh; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem); }
+  .eyebrow, .category { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  h1 { margin: .7rem 0 1rem; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 4rem)/1.05 "Newsreader", serif; }
+  .intro { max-width: 42rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
+  .review-list { display: grid; gap: .75rem; margin: 2.5rem 0; padding: 0; list-style: none; }
+  .review-list a { display: grid; gap: .35rem; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: .45rem; color: inherit; text-decoration: none; }
+  .review-list a:hover { border-color: #843c27; background: #faf7ef; }
+  .review-list strong { color: var(--ink); font: 500 1.5rem/1.2 "Newsreader", serif; }
+  .review-list a > span:last-child { color: #625b4d; line-height: 1.5; }
+  .empty, .notice { color: #625b4d; line-height: 1.6; }
+  .notice { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .85rem; }
+</style>

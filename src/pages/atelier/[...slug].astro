@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles", ({ data }) => data.status === "review");
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+const sections = headings.filter(({ depth }) => depth === 2);
+const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
+const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire", advanced: "Avancé" };
+---
+<BaseLayout title={`Relecture — ${article.data.title} — Knowledge Stories`} description={article.data.description} noindex>
+  <main class="review-page">
+    <div class="review-banner">
+      <strong>Version de travail · Relecture</strong>
+      <span>Ce texte n'est pas une publication validée. Merci de signaler les erreurs, ambiguïtés et pistes d'amélioration.</span>
+    </div>
+    <header class="story-header">
+      <a class="back-link" href="/knowledge-stories/atelier/">← Index de relecture</a>
+      <p class="category">{article.data.category}</p>
+      <h1>{article.data.title}</h1>
+      <p class="deck">{article.data.description}</p>
+      <div class="meta"><time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time><span>{difficulty[article.data.difficulty]}</span>{article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}</div>
+    </header>
+    <div class="review-layout">
+      {sections.length > 0 && <nav class="outline" aria-label="Sommaire de la version de travail"><strong>Dans cet article</strong><ul>{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ul></nav>}
+      <article class="prose"><Content />
+        {article.data.sources.length > 0 && <section class="sources"><h2>Sources déclarées</h2><ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({source.kind})</span></li>)}</ol></section>}
+      </article>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .review-page { max-width: 75rem; margin: 0 auto; padding: 2rem clamp(1rem, 4vw, 3rem) 6rem; }
+  .review-banner { display: grid; gap: .35rem; padding: .9rem 1rem; border: 1px solid #d7b98a; border-left: 4px solid #9a6630; border-radius: .35rem; background: #faf3e6; color: #493b2c; font: .85rem/1.5 "DM Sans", sans-serif; }
+  .review-banner strong { font-size: .9rem; }
+  .story-header { max-width: 55rem; padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--line); }
+  .back-link { display: inline-block; margin-bottom: 1.8rem; color: #625b4d; }
+  .category { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  h1 { max-width: 18ch; margin: .5rem 0; color: var(--ink); font: 500 clamp(2.5rem, 5.5vw, 5rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
+  .deck { max-width: 43ch; color: #514d42; font: 1.3rem/1.5 "Newsreader", serif; }
+  .meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; color: #625b4d; font: .75rem/1.4 "DM Mono", monospace; }
+  .review-layout { display: grid; max-width: 67rem; margin: 0 auto; }
+  .prose { max-width: 44rem; margin: 2.5rem auto 0; color: #34352f; line-height: 1.75; }
+  .prose :global(h2) { margin-top: 2.8rem; scroll-margin-top: 1.5rem; font: 500 clamp(1.8rem, 4vw, 2.4rem)/1.15 "Newsreader", serif; }
+  .prose :global(a), .sources a, .outline a { color: #843c27; }
+  .sources li span { color: #625b4d; }
+  .outline { margin: 1.5rem 0 0; padding: 1rem 0; border-block: 1px solid var(--line); }
+  .outline ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem 1rem; padding-left: 1.1rem; }
+  @media (min-width: 62rem) {
+    .review-layout { grid-template-columns: minmax(0, 1fr) 14rem; gap: 3rem; }
+    .prose { grid-column: 1; grid-row: 1; width: 100%; }
+    .outline { grid-column: 2; grid-row: 1; position: sticky; top: 1.5rem; align-self: start; margin-top: 3rem; border: 0; border-inline-start: 1px solid var(--line); padding: .25rem 0 .25rem 1rem; }
+    .outline ul { grid-template-columns: 1fr; }
+  }
+</style>
