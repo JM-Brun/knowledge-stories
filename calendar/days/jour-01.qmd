@@ -125,9 +125,9 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
   <article class="sensor-card sensor-e" role="listitem">
     <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="36" r="26" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 18v19l13 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M72 12l8-5m-8 5 1-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
     <span class="sensor-kicker">Profil E</span>
-    <h4>Rapide et énergivore</h4>
-    <p>Suit des phénomènes brefs grâce à une acquisition fréquente.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> autonomie, stockage et transmission.</p>
+    <h4>Échantillonnage fréquent</h4>
+    <p>Enregistre souvent pour mieux décrire la dynamique, si le capteur répond lui-même assez vite.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> autonomie, stockage et transmission ; une fréquence élevée ne rend pas un capteur lent plus rapide.</p>
   </article>
 </div>
 <figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
@@ -145,6 +145,8 @@ Les profils ne se classent pas sur une échelle unique. Un capteur B peut conven
 
 La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.
 
+Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont deux paramètres distincts : augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
+
 Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
@@ -155,7 +157,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 |---|---|---|
 | **Fidélité** | Les résultats répétés sont-ils proches les uns des autres ? | Écart-type, variance ou autre mesure de dispersion, dans des conditions précisées |
 | **Répétabilité** | Sont-ils proches lorsque les conditions de répétabilité sont réunies ? | Même procédure, opérateur, système de mesure, conditions de fonctionnement et lieu, sur une courte période |
-| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen à la référence ; la justesse elle-même n'est pas une grandeur numérique |
+| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen observé à la référence ; la justesse elle-même n'est pas une grandeur numérique |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
 La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
