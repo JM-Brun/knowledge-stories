@@ -116,3 +116,41 @@ La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://git
 3. Tester explorateur, équations, clavier et mobile.
 4. Traiter Wiki Knowledge PR #158 et synchroniser les corrections éventuelles.
 5. Ne demander une validation de publication qu'après clôture des points bloquants et décision humaine explicite.
+
+
+## 6. Revue éditoriale et scientifique — Calendrier, jour 1 — 23 novembre 2026
+
+### État de la source
+
+- La source de référence est `calendar/days/jour-01.qmd`. Elle contient déjà cinq profils pédagogiques, une galerie de capteurs, un sélecteur d'aide au choix, les équations corrigées, les visualisations biais–variance et propagation des erreurs.
+- Le rendu public observé au début de la revue ne correspondait pas à cette source : il présentait encore l'ancienne version à deux capteurs et des expressions mathématiques dégradées. Le workflow Pages du commit `9a89b9d` est toutefois indiqué comme réussi. Une nouvelle vérification du rendu déployé reste nécessaire ; un succès CI ne prouve pas à lui seul que le navigateur ou un cache sert la bonne version.
+- Le contenu est riche et scientifiquement prudent, mais dense pour un premier jour. Il faut préserver les nuances sans accumuler les avertissements redondants.
+
+### Corrections intégrées dans la branche de revue
+
+- Le profil C n'est plus qualifié de « peu biaisé » sur la seule base de trois observations : sa moyenne observée est explicitement distinguée du biais de la population.
+- Le profil D n'infère plus une résolution de l'instrument à partir de trois nombres : le pas de 0,5 °C est présenté comme une hypothèse illustrative sur l'affichage.
+- Les descriptions alternatives du graphique ont été alignées sur ces précautions.
+- Les explications répétées sur la comparaison A/B ont été allégées.
+- La discussion du profil C distingue maintenant clairement moyenne journalière, bruit centré à confirmer et événements brefs susceptibles d'être masqués.
+
+### Revue scientifique — points validés à la lecture
+
+- Pour A et B, les deux séries ont la même étendue et le même écart-type empirique (environ 0,058 °C avec le diviseur (n-1)); les moyennes et écarts à la référence sont cohérents après arrondi.
+- Sous les hypothèses i.i.d. explicitées, l'écart-type de la moyenne varie comme (1/\sqrt{n}), tandis que le décalage systématique constant persiste.
+- La décomposition biais–variance de l'EQM est formulée pour l'estimation d'une quantité fixe sous perte quadratique.
+- La décomposition (f(\tilde{x})-g(x)=[f(\tilde{x})-f(x)]+[f(x)-g(x)]) est une identité exacte sous les hypothèses indiquées ; l'exemple numérique donne respectivement (2,4), (1,68) et (4,08).
+- Le texte distingue erreur de mesure, incertitude, étalonnage, ajustage et traçabilité, ainsi que biais de mesure et biais d'estimation.
+
+### Travail restant — avant clôture
+
+1. **Rendu publié (P0)** — vérifier en navigateur que la version publique correspond bien au commit source courant ; inspecter les équations MathJax, le sommaire, les deux SVG et les ancres. Faire un rechargement sans cache si nécessaire.
+2. **Responsive et accessibilité (P1)** — contrôler desktop, tablette et mobile ; tester le sélecteur au clavier, le focus visible, le contraste, le lecteur d'écran et le comportement sans JavaScript.
+3. **Visualisations (P1)** — contrôler la lisibilité des libellés dans le graphique à cinq profils et dans la chaîne de propagation sur petit écran ; vérifier que la couleur n'est jamais le seul canal de distinction.
+4. **Sources (P1)** — ouvrir les liens JCGM, NIST et AI Measurement Science ; confirmer les versions et la portée des affirmations, en particulier la référence 2026 sur la calibration sans référence.
+5. **Édition (P2)** — relire la longueur réelle avec un lecteur non spécialiste. Envisager de déplacer une partie du détour sur la validité des construits ou la perturbation de la mesure vers un encadré « Pour aller plus loin » si la progression principale paraît trop chargée.
+6. **Publication** — ne pas déclarer la revue terminée avant les vérifications de rendu et d'accessibilité. Le statut de revue ne vaut pas validation scientifique externe.
+
+### Principe éditorial
+
+Conserver le fil conducteur « phénomène → instrument/protocole → observation/incertitude → jeu de données → modèle/décision ». Chaque détail métrologique doit éclairer une décision de mesure ou une limite d'interprétation ; éviter d'ajouter des profils ou des notions qui ne renforcent pas ce raisonnement.
