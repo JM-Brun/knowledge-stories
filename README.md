@@ -58,6 +58,17 @@ npm run check     # vérification Astro et TypeScript
 - `editorial/` : charte, workflow, contrôles et modèle d'article.
 - `docs/` : architecture, intégration inter-projets et déploiement.
 
+## Calendrier Data Science & Machine Learning 2026
+
+Le calendrier de l'Avent 2026 est publié comme une entrée éditoriale du site, avec son mini-site Quarto dédié :
+
+- [Présentation éditoriale](https://jm-brun.github.io/knowledge-stories/articles/calendrier-data-science-ml-2026/)
+- [Ouvrir les 24 journées](https://jm-brun.github.io/knowledge-stories/calendar/)
+
+Le site Astro et le projet Quarto sont construits ensemble par `.github/workflows/pages.yml`. Quarto génère le calendrier dans `dist/calendar/`, puis le même artefact est déployé sur GitHub Pages. Les cinq premières journées sont publiées ; les suivantes restent annoncées comme à paraître jusqu'à leur validation.
+
+La conception du programme, les identifiants de concepts et les métadonnées éditoriales restent maintenus dans Wiki Knowledge. Le site public ne dépend pas du dépôt privé et ne synchronise pas automatiquement ses données.
+
 ## État du projet
 
 Le dépôt commence par ses fondations éditoriales et techniques. Les premiers articles pilotes seront ajoutés après constitution de dossiers documentaires vérifiés ; aucune synthèse issue d'un autre dépôt ne doit être recopiée sans réexamen des sources et des droits.
