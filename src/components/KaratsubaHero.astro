@@ -5,109 +5,104 @@
     <div>
       <p class="hero-eyebrow">Une idée d’algorithmique · 1962</p>
       <p class="hero-statement">Multiplier autrement.</p>
-      <p class="hero-subtitle">Karatsuba remplace quatre produits de blocs par trois — puis répète cette économie à chaque niveau.</p>
+      <p class="hero-subtitle">À chaque découpage, Karatsuba remplace quatre multiplications de blocs par trois. Le schéma montre ce qui change — et ce qui ne change pas.</p>
     </div>
     <div class="hero-count" aria-label="Quatre produits deviennent trois">
       <span>4</span><i>→</i><strong>3</strong>
-      <small>produits récursifs</small>
+      <small>multiplications de blocs</small>
     </div>
   </div>
 
-  <div class="hero-workflow">
-    <section class="hero-stage hero-inputs" aria-label="Découpage des opérandes">
-      <div class="stage-heading"><span>01</span> DÉCOUPER</div>
-      <div class="operand">
-        <span class="operand-label">x</span>
-        <strong><span class="high">12</span><span class="low">34</span></strong>
-        <small>1 234 = 12 × 100 + 34</small>
-      </div>
-      <div class="operand">
-        <span class="operand-label">y</span>
-        <strong><span class="high">56</span><span class="low">78</span></strong>
-        <small>5 678 = 56 × 100 + 78</small>
-      </div>
-    </section>
+  <svg class="karatsuba-diagram" viewBox="0 0 820 390" role="img" aria-labelledby="karatsuba-diagram-title karatsuba-diagram-desc">
+    <title id="karatsuba-diagram-title">De quatre produits partiels à trois produits avec Karatsuba</title>
+    <desc id="karatsuba-diagram-desc">Les nombres 1 234 et 5 678 sont découpés en 12, 34, 56 et 78. La méthode directe calcule ac, ad, bc et bd. Karatsuba calcule ac, bd et le produit des sommes (a+b)(c+d), puis soustrait ac et bd pour retrouver ad+bc.</desc>
+    <defs>
+      <linearGradient id="karatsuba-flow-gradient" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#60d4bf" />
+        <stop offset="1" stop-color="#8eacff" />
+      </linearGradient>
+      <linearGradient id="karatsuba-result-gradient" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#176b6d" />
+        <stop offset="1" stop-color="#315c72" />
+      </linearGradient>
+    </defs>
+    <rect class="diagram-panel" x="8" y="8" width="804" height="374" rx="22" />
+    <text class="diagram-number" x="410" y="48" text-anchor="middle">1 234 × 5 678</text>
+    <text class="diagram-caption" x="410" y="72" text-anchor="middle">DÉCOUPER : (12 × 100 + 34) × (56 × 100 + 78)</text>
 
-    <div class="hero-connector" aria-hidden="true">→</div>
+    <g class="diagram-direct">
+      <text class="diagram-section-label" x="410" y="112" text-anchor="middle">DÉVELOPPEMENT DIRECT · 4 PRODUITS</text>
+      <path class="diagram-branch" d="M410 82 V126 M112 126 H708 M112 126 V145 M310 126 V145 M510 126 V145 M708 126 V145" />
+      <g class="diagram-product common-product">
+        <rect x="36" y="147" width="152" height="58" rx="10" />
+        <text x="112" y="172" text-anchor="middle">ac</text><text class="diagram-small" x="112" y="190" text-anchor="middle">12 × 56</text>
+      </g>
+      <g class="diagram-product cross-product">
+        <rect x="234" y="147" width="152" height="58" rx="10" />
+        <text x="310" y="172" text-anchor="middle">ad</text><text class="diagram-small" x="310" y="190" text-anchor="middle">12 × 78</text>
+      </g>
+      <g class="diagram-product cross-product">
+        <rect x="434" y="147" width="152" height="58" rx="10" />
+        <text x="510" y="172" text-anchor="middle">bc</text><text class="diagram-small" x="510" y="190" text-anchor="middle">34 × 56</text>
+      </g>
+      <g class="diagram-product common-product">
+        <rect x="632" y="147" width="152" height="58" rx="10" />
+        <text x="708" y="172" text-anchor="middle">bd</text><text class="diagram-small" x="708" y="190" text-anchor="middle">34 × 78</text>
+      </g>
+    </g>
 
-    <section class="hero-stage hero-products" aria-label="Trois produits nécessaires">
-      <div class="stage-heading"><span>02</span> CALCULER TROIS PRODUITS</div>
-      <div class="product-row">
-        <span class="product-symbol common">p</span>
-        <span class="product-expression"><strong>12 × 56</strong><small>haut × haut</small></span>
-        <b class="product-value">672</b>
-      </div>
-      <div class="product-row">
-        <span class="product-symbol common">q</span>
-        <span class="product-expression"><strong>34 × 78</strong><small>bas × bas</small></span>
-        <b class="product-value">2 652</b>
-      </div>
-      <div class="product-row auxiliary-row">
-        <span class="product-symbol auxiliary">r</span>
-        <span class="product-expression"><strong>(12 + 34)(56 + 78)</strong><small>produit des sommes</small></span>
-        <b class="product-value">6 164</b>
-      </div>
-    </section>
-  </div>
-
-  <div class="hero-reconstruction">
-    <div class="reconstruction-copy">
-      <span class="stage-heading"><span>03</span> RECONSTRUIRE</span>
-      <strong class="cross-equation">r − p − q = <em>2 840</em></strong>
-      <small>Le terme croisé ad + bc, sans calculer ad et bc séparément.</small>
-    </div>
-    <div class="reconstruction-result">
-      <span>PRODUIT EXACT</span>
-      <strong>7 006 652</strong>
-      <small>672 × 10 000 + 2 840 × 100 + 2 652</small>
-    </div>
-  </div>
-  <figcaption id="karatsuba-hero-caption">Un même calcul, deux chemins : le développement direct calcule les quatre produits partiels ; Karatsuba obtient le terme croisé par différence à partir d’un troisième produit auxiliaire.</figcaption>
+    <path class="diagram-transition" d="M410 218 V250" />
+    <path class="diagram-transition-arrow" d="M401 241 L410 251 L419 241" />
+    <text class="diagram-section-label diagram-karatsuba-label" x="410" y="275" text-anchor="middle">KARATSUBA · 3 PRODUITS</text>
+    <g class="diagram-karatsuba-products">
+      <rect class="diagram-pill common-pill" x="54" y="291" width="190" height="48" rx="10" />
+      <text x="149" y="320" text-anchor="middle">p = ac</text>
+      <rect class="diagram-pill common-pill" x="315" y="291" width="190" height="48" rx="10" />
+      <text x="410" y="320" text-anchor="middle">q = bd</text>
+      <rect class="diagram-pill auxiliary-pill" x="576" y="291" width="190" height="48" rx="10" />
+      <text x="671" y="320" text-anchor="middle">r = (a+b)(c+d)</text>
+    </g>
+    <text class="diagram-equation" x="410" y="365" text-anchor="middle">ad + bc = r − p − q</text>
+  </svg>
+  <figcaption id="karatsuba-hero-caption">Les deux méthodes reconstruisent exactement le même produit. Karatsuba ne supprime pas le terme croisé : il le déduit d’un produit auxiliaire et de deux produits déjà calculés.</figcaption>
 </figure>
 
 <style>
-  .karatsuba-hero { --kh-ink:#f5f1e7; --kh-muted:#c3c9bd; --kh-green:#284b3c; --kh-green-2:#37634e; --kh-line:rgba(245,241,231,.2); margin:1.4rem 0 2.6rem; padding:clamp(1.1rem,3.2vw,2rem); border-radius:1rem; overflow:hidden; color:var(--kh-ink); background:radial-gradient(ellipse at 90% 0%,#426b50 0,transparent 42%),linear-gradient(135deg,#1e392f,#294c3d 70%,#203b31); box-shadow:0 18px 42px rgba(34,48,37,.12); }
+  .karatsuba-hero { --kh-ink:#eef9fa; --kh-muted:#c4d5dc; margin:1.4rem 0 2.6rem; padding:clamp(1rem,3vw,2rem); border-radius:1.15rem; overflow:hidden; color:var(--kh-ink); background:radial-gradient(ellipse at 88% 0%,#244f65 0,transparent 45%),linear-gradient(135deg,#102c43,#193b57 70%,#16364c); box-shadow:0 18px 42px rgba(25,59,87,.15); }
   .karatsuba-hero * { box-sizing:border-box; }
-  .hero-top { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.5rem; align-items:end; padding-bottom:1.5rem; border-bottom:1px solid var(--kh-line); }
-  .hero-eyebrow,.stage-heading,.reconstruction-result>span { margin:0; color:#d9b77e; font:600 .64rem/1.4 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; }
+  .hero-top { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.5rem; align-items:end; padding-bottom:1.35rem; border-bottom:1px solid rgba(226,245,247,.2); }
+  .hero-eyebrow,.hero-count small { margin:0; color:#80d8c9; font:600 .65rem/1.4 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; }
   .hero-statement { margin:.45rem 0 .35rem; color:var(--kh-ink); font:500 clamp(2rem,5vw,3.6rem)/.98 "Newsreader",Georgia,serif; letter-spacing:-.045em; }
-  .hero-subtitle { max-width:34rem; margin:0; color:#d7ded4; font: .91rem/1.55 "DM Sans",sans-serif; }
+  .hero-subtitle { max-width:42rem; margin:0; color:#c4d5dc; font:.93rem/1.55 "DM Sans",sans-serif; }
   .hero-count { display:grid; grid-template-columns:auto auto auto; align-items:center; column-gap:.35rem; text-align:center; white-space:nowrap; }
   .hero-count span,.hero-count strong { font:500 clamp(2.8rem,6vw,4.6rem)/.85 "Newsreader",Georgia,serif; }
-  .hero-count span { color:#d5ddd1; }
-  .hero-count i { color:#d9b77e; font:400 2rem "DM Sans",sans-serif; }
-  .hero-count strong { color:#e6bd79; }
-  .hero-count small { grid-column:1/-1; margin-top:.5rem; color:#d7ded4; font: .62rem "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
-  .hero-workflow { display:grid; grid-template-columns:minmax(0,.9fr) 24px minmax(0,1.1fr); gap:.85rem; align-items:center; padding:1.5rem 0; }
-  .hero-stage { min-width:0; }
-  .stage-heading { display:flex; align-items:center; gap:.55rem; margin-bottom:.85rem; color:#d5ddd1; }
-  .stage-heading span { display:grid; place-items:center; width:1.35rem; height:1.35rem; border:1px solid rgba(217,183,126,.7); border-radius:50%; color:#e6bd79; font-size:.58rem; }
-  .operand { display:grid; grid-template-columns:1.1rem 1fr; gap:.15rem .55rem; align-items:center; margin:.45rem 0; padding:.55rem .65rem; border:1px solid var(--kh-line); border-radius:.55rem; background:rgba(255,255,255,.055); }
-  .operand-label { grid-row:1/3; color:#d9b77e; font:italic 1rem "Newsreader",serif; }
-  .operand strong { display:flex; gap:.25rem; font:600 1.25rem/1.1 "DM Mono",monospace; }
-  .operand strong span { display:inline-grid; place-items:center; min-width:2.25rem; padding:.2rem .35rem; border-radius:.25rem; }
-  .operand .high { color:#e0edf4; background:#476a7a; }
-  .operand .low { color:#e7f0dc; background:#62794d; }
-  .operand small { grid-column:2; color:#c3c9bd; font: .62rem/1.35 "DM Mono",monospace; }
-  .hero-connector { color:#d9b77e; text-align:center; font:1.6rem "DM Sans",sans-serif; }
-  .product-row { display:grid; grid-template-columns:1.7rem minmax(0,1fr) auto; gap:.55rem; align-items:center; margin:.45rem 0; padding:.58rem .65rem; border:1px solid var(--kh-line); border-radius:.5rem; background:rgba(255,255,255,.055); }
-  .product-symbol { display:grid; place-items:center; width:1.65rem; height:1.65rem; border-radius:.35rem; font:600 .85rem "DM Mono",monospace; }
-  .product-symbol.common { color:#d6ebe3; background:#3d7464; }
-  .product-symbol.auxiliary { color:#f0e4fa; background:#76628e; }
-  .product-expression { display:grid; gap:.1rem; min-width:0; }
-  .product-expression strong { overflow-wrap:anywhere; color:#f5f1e7; font:600 clamp(.7rem,1.8vw,.86rem)/1.3 "DM Mono",monospace; }
-  .product-expression small { color:#c3c9bd; font: .61rem/1.3 "DM Sans",sans-serif; }
-  .product-value { color:#e7d7b5; font:600 .78rem "DM Mono",monospace; white-space:nowrap; }
-  .auxiliary-row { border-color:rgba(186,160,215,.55); background:rgba(118,98,142,.17); }
-  .hero-reconstruction { display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:center; padding:1rem; border:1px solid rgba(217,183,126,.42); border-radius:.65rem; background:rgba(10,25,19,.25); }
-  .reconstruction-copy .stage-heading { margin-bottom:.55rem; }
-  .cross-equation { display:block; color:#f5f1e7; font:600 clamp(.95rem,2.5vw,1.3rem)/1.35 "DM Mono",monospace; }
-  .cross-equation em { color:#f0c47e; font-style:normal; }
-  .reconstruction-copy>small { display:block; max-width:25rem; margin-top:.3rem; color:#c3c9bd; font:.68rem/1.4 "DM Sans",sans-serif; }
-  .reconstruction-result { display:grid; gap:.3rem; text-align:right; }
-  .reconstruction-result>span { color:#d9b77e; font-size:.56rem; }
-  .reconstruction-result strong { color:#f2d7a6; font:600 clamp(1.15rem,3vw,1.7rem)/1 "DM Mono",monospace; white-space:nowrap; }
-  .reconstruction-result small { color:#c3c9bd; font:.58rem/1.4 "DM Mono",monospace; }
-  .karatsuba-hero figcaption { margin-top:1rem; color:#c3c9bd; font:.7rem/1.55 "DM Sans",sans-serif; }
-  @media(max-width:620px) { .hero-top { grid-template-columns:1fr; gap:1rem; } .hero-count { justify-self:start; } .hero-workflow { grid-template-columns:1fr; gap:.55rem; padding:1.15rem 0; } .hero-connector { transform:rotate(90deg); line-height:1; } .hero-reconstruction { grid-template-columns:1fr; } .reconstruction-result { text-align:left; padding-top:.8rem; border-top:1px solid var(--kh-line); } }
+  .hero-count span { color:#d1e1e6; }.hero-count i { color:#60d4bf; font:400 2rem "DM Sans",sans-serif; }.hero-count strong { color:#8eacff; }
+  .hero-count small { grid-column:1/-1; margin-top:.5rem; color:#c4d5dc; font-size:.57rem; letter-spacing:.08em; }
+  .karatsuba-diagram { display:block; width:100%; height:auto; margin:1.35rem auto .3rem; overflow:visible; }
+  .diagram-panel { fill:#193b57; stroke:#3d6479; stroke-width:1.5; }
+  .diagram-number { fill:#eef9fa; font:700 25px "DM Mono",monospace; }
+  .diagram-caption { fill:#a9c7d1; font:11px "DM Mono",monospace; }
+  .diagram-section-label { fill:#a9c7d1; font:600 11px "DM Mono",monospace; letter-spacing:1.2px; }
+  .diagram-branch { fill:none; stroke:#6d9aaa; stroke-width:1.7; }
+  .diagram-product rect { stroke-width:1.4; }
+  .diagram-product text { fill:#f4fbfc; font:600 17px "DM Mono",monospace; }
+  .diagram-product .diagram-small { fill:#bcd3dc; font:11px "DM Sans",sans-serif; font-weight:400; }
+  .common-product rect { fill:#285c68; stroke:#65b6a8; }
+  .cross-product rect { fill:#654f45; stroke:#d3a46d; }
+  .diagram-transition { fill:none; stroke:url(#karatsuba-flow-gradient); stroke-width:2.7; stroke-linecap:round; }
+  .diagram-transition-arrow { fill:none; stroke:#8eacff; stroke-width:2.7; stroke-linecap:round; stroke-linejoin:round; }
+  .diagram-karatsuba-label { fill:#80d8c9; }
+  .diagram-pill { stroke-width:1.4; }
+  .common-pill { fill:#285c68; stroke:#65b6a8; }
+  .auxiliary-pill { fill:#4f4b70; stroke:#8eacff; }
+  .diagram-karatsuba-products text { fill:#f4fbfc; font:600 16px "DM Mono",monospace; }
+  .diagram-equation { fill:#9de6d8; font:600 15px "DM Mono",monospace; }
+  .karatsuba-hero figcaption { margin:.65rem .2rem 0; color:#c4d5dc; font:.72rem/1.55 "DM Sans",sans-serif; }
+  @media(max-width:650px) {
+    .hero-top { grid-template-columns:1fr; gap:1rem; }
+    .hero-count { justify-self:start; }
+    .karatsuba-diagram { min-width:560px; max-width:none; width:100%; }
+    .karatsuba-hero { overflow-x:auto; }
+    .karatsuba-hero figcaption { min-width:0; }
+  }
 </style>
