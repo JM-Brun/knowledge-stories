@@ -151,7 +151,19 @@ Notons $P_s$ la distribution source (entraînement) et $P_t$ la distribution cib
 |---|---|---|---|
 | **Covariate shift** | $P(X)$ | $P_t(Y\mid X)=P_s(Y\mid X)$ | La relation conditionnelle reste stable, mais les profils observés changent |
 | **Label shift** (*prior probability shift*) | $P(Y)$ | $P_t(X\mid Y)=P_s(X\mid Y)$ | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
-| **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de (X) ne suffit généralement pas |
+
+Sous label shift, la correction porte plutôt sur les probabilités a priori des classes. Pour un classifieur probabiliste, la relation de Bayes donne, sous cette hypothèse :
+
+$$
+P_t(Y=y\mid X=x)
+\propto
+P_s(Y=y\mid X=x)\,
+\frac{P_t(Y=y)}{P_s(Y=y)}.
+$$
+
+Il faut donc estimer la prévalence cible, ce qui n'est pas toujours direct lorsque les labels cible sont absents. Cette correction ne doit pas être confondue avec un simple rééquilibrage arbitraire des classes dans le jeu d'entraînement.
+
+| **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de $X$ ne suffit généralement pas |
 
 Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
 
@@ -170,6 +182,15 @@ $$
 Le poids $w(x)=p_t(x)/p_s(x)$ donne davantage d'importance aux profils fréquents dans la population cible et moins aux profils surreprésentés dans les données source. Cette égalité exige que la relation $P(Y\mid X)$ reste stable et que la population cible soit couverte par la source : si un profil a une probabilité positive dans la cible mais n'apparaît jamais dans la source, son comportement ne peut pas être appris par simple repondération.
 
 Exemple : un modèle de demande est entraîné surtout sur des utilisateurs réguliers, alors que le déploiement vise aussi des utilisateurs occasionnels. Si les variables pertinentes sont observées dans les deux populations et si la relation entre ces variables et la demande est stable, une pondération peut rapprocher l'évaluation du risque cible. Elle ne crée toutefois aucune information pour les profils absents de l'entraînement.
+
+Prenons un exemple chiffré. Dans les données source, 90 % des utilisateurs sont réguliers et 10 % occasionnels ; dans la population cible, les deux groupes représentent chacun 50 %. Si ces groupes résument suffisamment le changement de distribution et si la relation cible reste stable, les poids de transport sont :
+
+| Profil | Proportion source | Proportion cible | Poids cible/source |
+|---|---:|---:|---:|
+| Régulier | 0,90 | 0,50 | 0,56 |
+| Occasionnel | 0,10 | 0,50 | 5,00 |
+
+Les observations occasionnelles pèsent donc neuf fois plus que les observations régulières dans l'évaluation pondérée. Avec 1 000 observations source (900 régulières et 100 occasionnelles), la taille effective associée à ces poids est d'environ 360. On a toujours 1 000 lignes, mais l'information utile pour estimer le risque cible est concentrée sur un nombre bien plus faible d'observations. Ce calcul illustre pourquoi il faut examiner les poids et leur taille effective, pas seulement afficher une métrique pondérée.
 
 En pratique, les ratios de densité sont rarement connus. On peut les estimer à partir d'un échantillon source et d'un échantillon cible non étiqueté, par exemple avec un classifieur qui prédit l'appartenance au domaine. Mais cette estimation peut être instable, surtout en grande dimension ou lorsque les domaines se recouvrent peu.
 
