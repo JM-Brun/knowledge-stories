@@ -1,0 +1,62 @@
+---
+---
+<section class="karatsuba-comparison" aria-labelledby="karatsuba-comparison-title">
+  <div class="figure-kicker">Lecture visuelle · Le cœur de l’algorithme</div>
+  <h3 id="karatsuba-comparison-title">Le même produit, un calcul partiel en moins</h3>
+  <p class="figure-intro">Après avoir séparé chaque nombre en deux blocs, le développement direct calcule quatre produits. Karatsuba réutilise deux de ces produits pour reconstruire la somme des termes croisés.</p>
+  <div class="methods">
+    <article class="method method-classic">
+      <header><span>01</span><div><h4>Développement direct</h4><p>Quatre produits de blocs</p></div><strong>4</strong></header>
+      <div class="product-grid" aria-label="Les quatre produits directs">
+        <div><b>ac</b><span>haut × haut</span></div>
+        <div><b>ad</b><span>haut × bas</span></div>
+        <div><b>bc</b><span>bas × haut</span></div>
+        <div><b>bd</b><span>bas × bas</span></div>
+      </div>
+      <p class="method-note">Les deux produits croisés ad et bc sont calculés séparément.</p>
+    </article>
+    <article class="method method-karatsuba">
+      <header><span>02</span><div><h4>Karatsuba</h4><p>Trois produits de blocs</p></div><strong>3</strong></header>
+      <div class="product-grid karatsuba-grid" aria-label="Les trois produits de Karatsuba">
+        <div><b>p = ac</b><span>haut × haut</span></div>
+        <div><b>q = bd</b><span>bas × bas</span></div>
+        <div class="product-wide"><b>r = (a+b)(c+d)</b><span>produit des sommes</span></div>
+      </div>
+      <p class="method-note">Les termes croisés sont récupérés par <code>r − p − q</code>.</p>
+    </article>
+  </div>
+  <div class="identity">
+    <span>Identité qui rend l’économie possible</span>
+    <strong>ad + bc = (a + b)(c + d) − ac − bd</strong>
+  </div>
+  <figcaption>Le gain porte sur le nombre de multiplications récursives. Les additions, soustractions et recompositions restent nécessaires et coûtent O(n) à chaque niveau.</figcaption>
+</section>
+
+<style>
+  .karatsuba-comparison { margin: 2.8rem 0; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #22241f; }
+  .figure-kicker { color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+  .karatsuba-comparison h3 { margin: .55rem 0 .6rem; font: 500 clamp(1.5rem, 3.5vw, 2.15rem)/1.1 "Newsreader", Georgia, serif; }
+  .figure-intro { max-width: 54rem; margin: 0; color: #5f5b51; font: .93rem/1.65 "DM Sans", sans-serif; }
+  .methods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 1.5rem 0 1rem; }
+  .method { min-width: 0; padding: 1rem; border: 1px solid #d9d5ca; border-radius: .55rem; background: #fffefa; }
+  .method-karatsuba { border-color: #b9c9b8; background: #f0f4ed; }
+  .method header { display: grid; grid-template-columns: 2rem 1fr auto; gap: .5rem; align-items: center; margin-bottom: 1rem; }
+  .method header > span { color: #843c27; font: .72rem "DM Mono", monospace; }
+  .method header h4 { margin: 0; font: 600 .95rem "DM Sans", sans-serif; }
+  .method header p { margin: .15rem 0 0; color: #6b675e; font: .75rem "DM Sans", sans-serif; }
+  .method header > strong { color: #843c27; font: 600 2rem/1 "DM Mono", monospace; }
+  .method-karatsuba header > strong { color: #315b45; }
+  .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem; }
+  .product-grid > div { display: grid; gap: .2rem; padding: .65rem; border-radius: .35rem; background: #f0ede4; }
+  .karatsuba-grid > div { background: #e2eadf; }
+  .product-grid b { font: 600 1.1rem "DM Mono", monospace; }
+  .product-grid span { color: #666258; font: .7rem/1.35 "DM Sans", sans-serif; }
+  .product-grid .product-wide { grid-column: 1 / -1; }
+  .method-note { margin: .85rem 0 0; color: #5f5b51; font: .78rem/1.5 "DM Sans", sans-serif; }
+  .method-note code { color: #315b45; font-family: "DM Mono", monospace; }
+  .identity { display: grid; gap: .35rem; margin-top: 1rem; padding: 1rem 1.1rem; border-left: 4px solid #315b45; border-radius: .25rem; background: #e8eee4; }
+  .identity span { color: #536252; font: 500 .67rem "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .identity strong { overflow-wrap: anywhere; color: #244b37; font: 600 clamp(.95rem, 2.4vw, 1.35rem)/1.4 "DM Mono", monospace; }
+  .karatsuba-comparison figcaption { margin-top: .85rem; color: #6b675e; font: .75rem/1.55 "DM Sans", sans-serif; }
+  @media (max-width: 650px) { .methods { grid-template-columns: 1fr; } }
+</style>
