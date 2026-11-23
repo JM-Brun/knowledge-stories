@@ -44,16 +44,21 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content figcaption { margin: .8rem .35rem .15rem; color: #5e6f64; font-size: .88rem; line-height: 1.55; }
 #quarto-content .math.display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
 /* Avoid splitting raw TeX commands if MathJax is delayed or unavailable. */
-#quarto-content .math.inline { white-space: nowrap; }
+#quarto-content .math.inline,
+#quarto-content mjx-container:not([display="true"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}
 #quarto-content mjx-container[display="true"] {
   display: block;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   padding: .5rem 0;
-}
-#quarto-content mjx-container:not([display="true"]) {
-  max-width: 100%;
 }
 #quarto-content details { max-width: 76ch; }
 .error-figure { border-color: #cbd9ce !important; background: linear-gradient(145deg,#fffefa,#f1f5ef) !important; }
@@ -62,4 +67,81 @@ main.content, #quarto-content main { max-width: 76rem; }
   #quarto-content figure { margin: 1.4rem -.25rem; padding: .45rem; border-radius: 10px; }
   #quarto-content table th, #quarto-content table td { padding: .5rem .55rem; }
   #quarto-content h2 { margin-top: 2.3rem; }
+}
+
+
+/* Day 1 — sensor profiles: an editorial gallery that remains readable on mobile. */
+#quarto-content .sensor-showcase {
+  margin: 2rem 0 2.4rem;
+  padding: 1.1rem;
+  border: 1px solid #d7dfd5;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fffefa 0%, #f0f4ed 100%);
+}
+#quarto-content .sensor-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+}
+#quarto-content .sensor-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid #dce3d9;
+  border-top: 3px solid var(--sensor-accent, #47745b);
+  border-radius: 12px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 4px 14px rgba(32,53,45,.045);
+}
+#quarto-content .sensor-card svg {
+  width: 4.2rem;
+  height: 3.2rem;
+  margin: 0 auto .55rem;
+  color: var(--sensor-accent, #47745b);
+}
+#quarto-content .sensor-card .sensor-kicker {
+  color: #69796e;
+  font: 600 .66rem/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+#quarto-content .sensor-card h4 {
+  margin: .3rem 0 .45rem;
+  color: #294b3a;
+  font: 600 1.02rem/1.25 Georgia, serif;
+}
+#quarto-content .sensor-card p {
+  margin: .3rem 0;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+#quarto-content .sensor-card .sensor-limit {
+  margin-top: auto;
+  padding-top: .65rem;
+  color: #5f6e64;
+  font-size: .8rem;
+}
+#quarto-content .sensor-reference { --sensor-accent: #9b7944; }
+#quarto-content .sensor-a { --sensor-accent: #277b69; }
+#quarto-content .sensor-b { --sensor-accent: #b06a3d; }
+#quarto-content .sensor-c { --sensor-accent: #6476a5; }
+#quarto-content .sensor-d { --sensor-accent: #587b50; }
+#quarto-content .sensor-e { --sensor-accent: #8867a6; }
+#quarto-content .sensor-showcase figcaption { margin-top: 1rem; }
+#quarto-content table { font-size: .91rem; }
+#quarto-content table tbody tr:nth-child(even) { background: rgba(233,238,231,.42); }
+#quarto-content table th { white-space: normal; }
+@media (max-width: 900px) {
+  #quarto-content .sensor-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  #quarto-content .sensor-showcase { margin-inline: -.25rem; padding: .65rem; }
+  #quarto-content .sensor-gallery { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  #quarto-content .sensor-card { display: grid; grid-template-columns: 3.2rem minmax(0,1fr); column-gap: .75rem; padding: .8rem; }
+  #quarto-content .sensor-card svg { grid-row: 1 / span 4; width: 3rem; height: 2.8rem; margin: .25rem 0 0; }
+  #quarto-content .sensor-card .sensor-kicker,
+  #quarto-content .sensor-card h4,
+  #quarto-content .sensor-card p { grid-column: 2; }
+  #quarto-content .sensor-card .sensor-limit { margin-top: .15rem; padding-top: .3rem; }
 }
