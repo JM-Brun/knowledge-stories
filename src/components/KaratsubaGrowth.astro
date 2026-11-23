@@ -1,0 +1,81 @@
+---
+---
+<figure class="growth-figure" aria-labelledby="growth-title">
+  <div class="growth-heading">
+    <div>
+      <p class="growth-kicker">La récursion en un coup d’œil</p>
+      <h3 id="growth-title">Chaque étage amplifie l’écart</h3>
+    </div>
+    <p>Quand la taille des opérandes double, on ajoute un niveau de sous-problèmes.</p>
+  </div>
+  <div class="growth-columns">
+    <section class="growth-method classic" aria-label="Méthode classique : quatre branches">
+      <header><span>01 / MÉTHODE CLASSIQUE</span><strong>4 branches</strong></header>
+      <div class="growth-tree" aria-hidden="true">
+        <div class="tree-level"><i class="node root"></i></div>
+        <div class="tree-branches four"><i></i><i></i><i></i><i></i></div>
+        <div class="tree-level children four"><i></i><i></i><i></i><i></i></div>
+        <div class="tree-leaves sixteen"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="growth-counts"><span>1</span><span>4</span><strong>16</strong></div>
+      <p>À chaque étage, le nombre d’appels est multiplié par <b>4</b>.</p>
+    </section>
+    <section class="growth-method karatsuba" aria-label="Karatsuba : trois branches">
+      <header><span>02 / KARATSUBA</span><strong>3 branches</strong></header>
+      <div class="growth-tree" aria-hidden="true">
+        <div class="tree-level"><i class="node root"></i></div>
+        <div class="tree-branches three"><i></i><i></i><i></i></div>
+        <div class="tree-level children three"><i></i><i></i><i></i></div>
+        <div class="tree-leaves nine"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="growth-counts"><span>1</span><span>3</span><strong>9</strong></div>
+      <p>À chaque étage, le nombre d’appels est multiplié par <b>3</b>.</p>
+    </section>
+  </div>
+  <div class="growth-conclusion">
+    <span>APRÈS DEUX DÉCOUPAGES</span>
+    <strong>16 contre 9</strong>
+    <p>Les feuilles sont les multiplications élémentaires restantes. L’écart continue de se creuser à chaque niveau supplémentaire.</p>
+  </div>
+  <figcaption>Arbres équilibrés simplifiés sur deux niveaux. Les nombres indiquent les appels au niveau correspondant, pas le coût total des additions et recompositions.</figcaption>
+</figure>
+
+<style>
+  .growth-figure { margin:2rem 0; padding:clamp(1rem,3vw,1.6rem); border:1px solid #d9d5ca; border-radius:.8rem; background:#eeece3; color:#252820; }
+  .growth-heading { display:flex; justify-content:space-between; gap:1rem; align-items:end; margin-bottom:1.2rem; }
+  .growth-kicker { margin:0 0 .4rem; color:#843c27; font:600 .62rem "DM Mono",monospace; letter-spacing:.1em; text-transform:uppercase; }
+  .growth-heading h3 { margin:0; font:500 clamp(1.35rem,3vw,1.8rem)/1.1 "Newsreader",Georgia,serif; }
+  .growth-heading>p { max-width:17rem; margin:0; color:#666258; font:.75rem/1.5 "DM Sans",sans-serif; }
+  .growth-columns { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+  .growth-method { min-width:0; padding:.85rem; border:1px solid #d9d5ca; border-radius:.55rem; background:#fbfaf5; }
+  .growth-method.karatsuba { border-color:#b8c9b9; background:#f0f4ed; }
+  .growth-method header { display:flex; justify-content:space-between; gap:.4rem; align-items:center; color:#843c27; font:600 .58rem "DM Mono",monospace; letter-spacing:.04em; }
+  .growth-method.karatsuba header { color:#315b45; }
+  .growth-method header strong { font-size:.65rem; white-space:nowrap; }
+  .growth-tree { display:grid; justify-items:center; margin:.9rem auto .4rem; max-width:17rem; }
+  .tree-level { display:flex; justify-content:center; width:100%; }
+  .tree-level i,.tree-leaves i { display:block; width:.55rem; height:.55rem; border-radius:50%; background:#bd4b32; }
+  .karatsuba .tree-level i,.karatsuba .tree-leaves i { background:#47775a; }
+  .tree-level .root { width:.75rem; height:.75rem; background:#843c27; }
+  .karatsuba .tree-level .root { background:#315b45; }
+  .tree-branches { display:flex; justify-content:space-around; width:100%; height:1.25rem; border-top:1px solid #c8b7a7; margin-top:.35rem; padding-top:.4rem; }
+  .tree-branches i { display:block; width:1px; height:.75rem; background:#c8b7a7; transform:rotate(24deg); }
+  .tree-branches.four i:nth-child(1),.tree-branches.four i:nth-child(4) { transform:rotate(-24deg); }
+  .tree-branches.three { width:82%; }
+  .tree-level.children { justify-content:space-around; }
+  .tree-level.children i { width:.42rem; height:.42rem; }
+  .tree-leaves { display:flex; justify-content:center; flex-wrap:nowrap; gap:.25rem; margin-top:.55rem; width:100%; }
+  .tree-leaves i { width:.38rem; height:.38rem; }
+  .growth-counts { display:grid; grid-template-columns:repeat(3,1fr); gap:.25rem; margin:.65rem 0; text-align:center; }
+  .growth-counts span,.growth-counts strong { padding:.4rem .2rem; border-radius:.3rem; background:#eee9df; color:#655f54; font:600 .95rem "DM Mono",monospace; }
+  .growth-counts strong { background:#eadbd1; color:#843c27; }
+  .karatsuba .growth-counts strong { background:#dce8da; color:#315b45; }
+  .growth-method>p { margin:.45rem 0 0; color:#666258; font:.7rem/1.5 "DM Sans",sans-serif; }
+  .growth-method>p b { color:#252820; }
+  .growth-conclusion { display:grid; grid-template-columns:auto auto 1fr; gap:.8rem; align-items:center; margin-top:.8rem; padding:.8rem; border-radius:.45rem; background:#263f33; color:#f5f1e7; }
+  .growth-conclusion span { color:#d9b77e; font:600 .58rem "DM Mono",monospace; letter-spacing:.07em; }
+  .growth-conclusion strong { color:#f2d7a6; font:600 1.1rem "DM Mono",monospace; white-space:nowrap; }
+  .growth-conclusion p { margin:0; color:#d7ded4; font:.68rem/1.45 "DM Sans",sans-serif; }
+  .growth-figure figcaption { margin-top:.75rem; color:#777166; font:.65rem/1.5 "DM Sans",sans-serif; }
+  @media(max-width:560px) { .growth-heading { display:block; } .growth-heading>p { margin-top:.5rem; } .growth-columns { grid-template-columns:1fr; } .growth-conclusion { grid-template-columns:1fr auto; } .growth-conclusion p { grid-column:1/-1; } }
+</style>
