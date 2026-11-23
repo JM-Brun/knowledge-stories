@@ -169,9 +169,9 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
 <style>
   .karatsuba-lab { --lab-muted: #5e5a50; scroll-margin-top: 1.5rem; margin: 2.5rem 0; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid var(--line, #d9d4c8); border-radius: 1rem; background: var(--surface, #fbfaf6); color: var(--ink, #252820); }
   .lab-heading { display: flex; justify-content: space-between; align-items: start; gap: 1.5rem; }
-  .karatsuba-lab .term-common { color: #286d61; font-weight: 650; }
-  .karatsuba-lab .term-cross { color: #a65d12; font-weight: 650; }
-  .karatsuba-lab .term-aux { color: #7965a4; font-weight: 650; }
+  .karatsuba-lab .term-common { color: var(--term-common, #286d61); font-weight: 650; }
+  .karatsuba-lab .term-cross { color: var(--term-cross, #a65d12); font-weight: 650; }
+  .karatsuba-lab .term-aux { color: var(--term-aux, #70569b); font-weight: 650; }
   .lab-result-label, .comparison-label { margin: 0; color: var(--lab-muted); font: 500 .72rem/1.4 var(--mono, monospace); letter-spacing: .06em; text-transform: uppercase; }
   .lab-heading h3 { margin: .35rem 0 0; font: 600 clamp(1.35rem, 3vw, 1.8rem)/1.15 var(--serif, Georgia, serif); }
   .lab-intro { max-width: 24rem; margin: 0; color: var(--lab-muted); font-size: .92rem; }
