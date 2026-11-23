@@ -143,7 +143,7 @@ Les profils ne se classent pas sur une échelle unique. Un capteur B peut conven
 | **Fréquence / autonomie** | Échantillonnage fréquent | Consommation, stockage et transmission augmentent souvent | À quelle vitesse le phénomène évolue-t-il réellement ? |
 | **Robustesse / sensibilité** | Résister à l'environnement ou détecter de faibles variations | Le boîtier, le montage et le principe de mesure imposent des compromis | Quelles contraintes environnementales sont non négociables ? |
 
-Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
+La résolution mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.\n\nCes arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
@@ -156,7 +156,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Écart systématique moyen à la référence |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, même lieu et conditions de fonctionnement aussi constantes que possible, sur une courte période. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
@@ -193,11 +193,11 @@ L'erreur quadratique moyenne se décompose alors en :
 \operatorname{Biais}(\hat{\theta})^2.
 \]
 
-Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'erreur totale. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire aussi le compromis biais–variance rencontré en apprentissage statistique : la complexité d'un modèle peut réduire certains biais, mais augmenter sa sensibilité aux fluctuations de l'échantillon.
+Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'erreur quadratique moyenne. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire aussi le compromis biais–variance rencontré en apprentissage statistique : la complexité d'un modèle peut réduire certains biais, mais augmenter sa sensibilité aux fluctuations de l'échantillon. Cette formule concerne l'estimation d'une quantité fixe sous perte quadratique ; dans un problème de prédiction avec une cible bruitée, la décomposition du risque peut comporter en plus une composante de bruit irréductible.
 
 ### Lire biais et variance sur une cible
 
-La cible ci-dessous représente les résultats d'un estimateur obtenus sur de nombreux échantillons hypothétiques. Le centre est la valeur vraie \(\theta\). Le décalage du nuage représente le biais ; son étalement représente la variance. Il ne s'agit pas des trois relevés des thermomètres présentés plus haut, mais d'une visualisation de la distribution d'un estimateur.
+La cible ci-dessous représente les résultats d'un estimateur obtenus sur de nombreux échantillons hypothétiques. Le centre est la valeur vraie \(\theta\). Le décalage du nuage représente le biais ; son étalement représente la variance. Il ne s'agit pas des trois relevés des thermomètres présentés plus haut, mais d'une visualisation schématique de la distribution d'un estimateur.
 
 <figure>
 <svg viewBox="0 0 760 350" role="img" aria-labelledby="target-title target-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
@@ -265,11 +265,11 @@ Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est ut
 
 Un étalon peut être mieux caractérisé qu'un capteur ordinaire ; il n'est pas pour autant une vérité parfaite, connue avec une infinité de décimales. Sa valeur est établie par une procédure, reliée à d'autres références et accompagnée d'une incertitude.
 
-Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée et une valeur de référence, et **l'incertitude**, paramètre non négatif décrivant la dispersion des valeurs attribuées au mesurande à partir des informations disponibles. Dans cet exemple pédagogique, l'écart à 20,00 °C est calculé par rapport à une valeur de référence conventionnelle ; une comparaison métrologique réelle doit aussi tenir compte de l'incertitude de cette référence. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut inclure des composantes associées à des effets systématiques, y compris lorsque ceux-ci ont fait l'objet d'une correction. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
+Il faut distinguer **l'[erreur de mesure](https://jcgm.bipm.org/vim/fr/2.16.html)**, différence entre une valeur mesurée et une valeur de référence, et **l'[incertitude](https://jcgm.bipm.org/vim/fr/2.26.html)**, paramètre non négatif décrivant la dispersion des valeurs attribuées au mesurande à partir des informations disponibles. Dans cet exemple pédagogique, l'écart à 20,00 °C est calculé par rapport à une valeur de référence conventionnelle ; une comparaison métrologique réelle doit aussi tenir compte de l'incertitude de cette référence. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut inclure des composantes associées à des effets systématiques, y compris lorsque ceux-ci ont fait l'objet d'une correction. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
 
 ### Étalonner n'est pas simplement remettre à zéro
 
-Un étalonnage établit, dans des conditions spécifiées, une relation entre les valeurs et incertitudes fournies par des étalons et les indications correspondantes avec leurs incertitudes ; cette relation permet ensuite d'obtenir un résultat de mesure à partir d'une indication. Il peut conduire à une correction, sans se confondre avec l'ajustage du système ni avec la vérification de performances.\n\nLa **traçabilité métrologique** est une propriété du résultat de mesure : celui-ci doit pouvoir être relié à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude. Cette traçabilité ne garantit ni que l'incertitude soit adaptée à l'usage, ni l'absence d'erreurs humaines.
+Un [étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html) établit, dans des conditions spécifiées, une relation entre les valeurs et incertitudes fournies par des étalons et les indications correspondantes avec leurs incertitudes ; cette relation permet ensuite d'obtenir un résultat de mesure à partir d'une indication. Il peut conduire à une correction, sans se confondre avec l'ajustage du système ni avec la vérification de performances.\n\nLa **[traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html)** est une propriété du résultat de mesure : celui-ci doit pouvoir être relié à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude. Cette traçabilité ne garantit ni que l'incertitude soit adaptée à l'usage, ni l'absence d'erreurs humaines.
 
 ## Avant de corriger : définir ce que l'on veut mesurer
 
@@ -323,7 +323,7 @@ Trois conséquences pour la Data Science :
 
 Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
 
-Notons \(x\) l'entrée idéale, \(\tilde x\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. En ajoutant et retranchant \(f(x)\), on obtient une décomposition exacte :
+Notons \(x\) l'entrée idéale, \(\tilde x\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle \(f\), maintenu fixe, pour les deux entrées. En ajoutant et retranchant \(f(x)\), on obtient une décomposition exacte :
 
 \[
 \underbrace{f(\tilde x)-g(x)}_{\text{erreur totale}}
@@ -333,7 +333,7 @@ Notons \(x\) l'entrée idéale, \(\tilde x\) la valeur observée, \(g(x)\) la re
 \underbrace{f(x)-g(x)}_{\text{écart du modèle}}.
 \]
 
-Cette égalité est un outil de raisonnement, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Et si les données d'entraînement sont biaisées, elles peuvent aussi modifier les paramètres appris ; cette influence n'est pas isolée par le premier terme, qui compare ici deux entrées pour un modèle fixé.
+Cette égalité est un outil de raisonnement, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, la décomposition écrite ici ne représente pas à elle seule toute l'erreur de prédiction. Enfin, si les données d'entraînement sont biaisées, elles peuvent aussi modifier les paramètres appris ; cette influence n'est pas isolée par le premier terme, qui compare ici deux entrées pour un modèle fixé.
 
 <figure class="error-figure">
 <svg viewBox="0 0 720 190" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
