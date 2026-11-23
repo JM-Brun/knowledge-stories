@@ -22,27 +22,27 @@ Ce calendrier explore ces idées en 24 étapes : **observer**, **apprendre**, **
 
 <div class="calendar-day available">
   <div class="day-number">01 · 1 décembre</div>
-  <h3><a href="days/jour-01.qmd">Une mesure précise peut-elle être fausse ?</a></h3>
+  <h3><a href="days/jour-01.html">Une mesure précise peut-elle être fausse ?</a></h3>
   <p>Répétabilité, justesse et biais de mesure.</p>
 </div>
 <div class="calendar-day available">
   <div class="day-number">02 · 2 décembre</div>
-  <h3><a href="days/jour-02.qmd">50 000 réponses valent-elles mieux que 1 000 ?</a></h3>
+  <h3><a href="days/jour-02.html">50 000 réponses valent-elles mieux que 1 000 ?</a></h3>
   <p>Population, échantillonnage et biais de sélection.</p>
 </div>
 <div class="calendar-day available">
   <div class="day-number">03 · 3 décembre</div>
-  <h3><a href="days/jour-03.qmd">Trois distributions, une même moyenne</a></h3>
+  <h3><a href="days/jour-03.html">Trois distributions, une même moyenne</a></h3>
   <p>Dispersion et limites des statistiques résumées.</p>
 </div>
 <div class="calendar-day available">
   <div class="day-number">04 · 4 décembre</div>
-  <h3><a href="days/jour-04.qmd">Quand la covariance change-t-elle la variance d'une somme ?</a></h3>
+  <h3><a href="days/jour-04.html">Quand la covariance change-t-elle la variance d'une somme ?</a></h3>
   <p>Moments, covariance et dépendance.</p>
 </div>
 <div class="calendar-day available">
   <div class="day-number">05 · 5 décembre</div>
-  <h3><a href="days/jour-05.qmd">Quelle distribution est la plus incertaine ?</a></h3>
+  <h3><a href="days/jour-05.html">Quelle distribution est la plus incertaine ?</a></h3>
   <p>Entropie, surprise et information.</p>
 </div>
 
