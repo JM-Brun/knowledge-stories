@@ -1,0 +1,51 @@
+---
+title: "Quelle distribution est la plus incertaine ?"
+subtitle: "Jour 5 · Quantifier l'incertitude avec l'entropie"
+description: "Calculer l'entropie de trois distributions et la distinguer de la surprise d'une observation."
+---
+
+## La question
+
+Une prévision qui annonce deux issues à 50 % est-elle plus incertaine qu'une prévision à 90 % / 10 % ? L'entropie permet de formaliser cette intuition.
+
+Considérons trois distributions sur deux issues :
+
+- A : (p=(0{,}5;0{,}5))
+- B : (p=(0{,}9;0{,}1))
+- C : (p=(1;0))
+
+## À vous de raisonner
+
+1. Classez ces distributions de la plus incertaine à la moins incertaine.
+2. Calculez leur entropie en bits avec :
+
+[
+H(p)=-\sum_i p_i\log_2 p_i,
+]
+
+en utilisant la convention (0\log_2(0)=0).
+3. Une issue rare est-elle toujours très surprenante ?
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+- A : (H(A)=1) bit.
+- B : (H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469) bit.
+- C : (H(C)=0) bit, car l'issue est certaine.
+
+L'ordre d'incertitude moyenne est donc A, B, C.
+
+Il faut distinguer deux notions :
+
+- **Surprise** d'une issue observée (x) : (I(x)=-\log_2 p(x)).
+- **Entropie** : surprise moyenne avant de connaître l'issue, (H(X)=\mathbb E[I(X)]).
+
+Une issue de probabilité nulle n'est pas observée sous le modèle considéré. Sa surprise formelle est infinie, mais elle ne contribue pas à l'espérance de l'entropie, selon la convention (0\log 0=0).
+
+**À retenir :** la classe prédite par un classifieur (l'argmax) ne résume pas toute sa distribution de probabilités. L'entropie décrit l'incertitude portée par cette distribution.
+
+</details>
+
+## Pour aller plus loin
+
+L'entropie est une mesure d'incertitude moyenne, pas une mesure de la justesse d'une prévision. Un modèle très confiant peut être incorrect ; la calibration et les fonctions de perte répondent à d'autres questions.
