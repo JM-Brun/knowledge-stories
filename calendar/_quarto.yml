@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: ../dist/calendar
+
+website:
+  title: "Calendrier Data Science & ML 2026"
+  site-url: "https://jm-brun.github.io/knowledge-stories/calendar/"
+  description: "24 idées pour comprendre les données, apprendre à partir d'exemples et évaluer les modèles."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Le calendrier
+    right:
+      - text: Knowledge Stories
+        href: ../
+  page-footer:
+    left: "Knowledge Stories · Édition 2026"
+    right: "Contenus pédagogiques indépendants"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    code-copy: true
+    lang: fr
+
+execute:
+  freeze: auto
