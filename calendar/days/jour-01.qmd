@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 15 à 18 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **En 15 à 18 minutes** — Une comparaison de cinq profils de capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
@@ -26,7 +26,7 @@ Elles sont liées, mais elles ne sont pas équivalentes.
 
 ## Cinq profils de capteurs, plusieurs qualités différentes
 
-Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois mesures dans les mêmes conditions.
+Une référence conventionnelle indique 20,00 °C. Le tableau rassemble trois relevés illustratifs par profil ; pour E, il s'agit de trois instants sélectionnés parmi une acquisition à 10 Hz, et non de trois mesures prises à la même cadence que les autres.
 
 | Profil | Mesure 1 | Mesure 2 | Mesure 3 | Moyenne | Écart à 20,00 °C | Ce que les valeurs illustrent |
 |---|---:|---:|---:|---:|---:|---|
@@ -38,7 +38,7 @@ Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois
 
 Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
 
-Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
+Les séries A et B ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
 Mais leur position par rapport à la référence est très différente. Sur ces trois relevés, le capteur B produit des valeurs presque identiques mais décalées. C'est compatible avec un biais systématique ; trois répétitions ne suffisent toutefois pas à caractériser la répétabilité de l'instrument ni à établir ce biais à elles seules.
 
@@ -78,7 +78,7 @@ Le capteur B illustre le cas d'un instrument stable mais décalé : une correcti
 
 ### Il n'existe pas de capteur optimal sur tous les critères
 
-Les deux séries précédentes isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Les profils A et B isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
 
 Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
 
