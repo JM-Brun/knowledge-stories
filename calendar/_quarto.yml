@@ -23,6 +23,7 @@ website:
 format:
   html:
     theme: cosmo
+    html-math-method: mathjax
     css: styles.css
     toc: true
     toc-depth: 2
