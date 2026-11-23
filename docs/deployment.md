@@ -3,7 +3,8 @@
 Le dépôt publie un site Astro et un mini-site Quarto dans un seul artefact GitHub Pages :
 
 - site éditorial : `https://jm-brun.github.io/knowledge-stories/`
-- calendrier 2026 : `https://jm-brun.github.io/knowledge-stories/calendar/`
+- archives annuelles : `https://jm-brun.github.io/knowledge-stories/calendriers/`
+- édition 2026 : `https://jm-brun.github.io/knowledge-stories/calendar/`
 
 ## Activation initiale
 
