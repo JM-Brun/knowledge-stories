@@ -2,6 +2,7 @@
 import "../styles/global.css";
 interface Props { title?: string; description?: string; noindex?: boolean; }
 const { title = "Knowledge Stories", description = "Des idées complexes, expliquées avec clarté, rigueur et imagination.", noindex = false } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 <!doctype html>
 <html lang="fr">
@@ -22,6 +23,6 @@ const { title = "Knowledge Stories", description = "Des idées complexes, expliq
       <nav aria-label="Navigation principale"><a href="/knowledge-stories/calendar/">Calendrier 2026</a><a href="/knowledge-stories/#articles">Articles</a><a href="/knowledge-stories/about/">À propos</a><a class="nav-github" href="https://github.com/JM-Brun/knowledge-stories">GitHub ↗</a></nav>
     </header>
     <slot />
-    <footer class="site-footer"><a class="brand" href={import.meta.env.BASE_URL}><span class="brand-mark">K.</span><span>knowledge stories</span></a><p>Des idées complexes, expliquées avec clarté, rigueur et imagination.</p><span class="footer-meta">Recherche indépendante · Sources ouvertes · Esprit critique</span><a class="footer-review" href={`${import.meta.env.BASE_URL}atelier/`}>Espace relecteurs</a></footer>
+    <footer class="site-footer"><a class="brand" href={import.meta.env.BASE_URL}><span class="brand-mark">K.</span><span>knowledge stories</span></a><p>Des idées complexes, expliquées avec clarté, rigueur et imagination.</p><span class="footer-meta">Recherche indépendante · Sources ouvertes · Esprit critique</span><a class="footer-review" href={`${baseUrl}atelier/`}>Espace relecteurs</a></footer>
   </body>
 </html>
