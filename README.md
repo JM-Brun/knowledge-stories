@@ -60,10 +60,10 @@ npm run check     # vérification Astro et TypeScript
 
 ## Calendrier Data Science & Machine Learning 2026
 
-Le calendrier de l'Avent 2026 est publié comme une entrée éditoriale du site, avec son mini-site Quarto dédié :
+Les calendriers annuels sont regroupés dans une archive commune. Chaque édition est une page autonome qui réunit la présentation, les 24 cases, le fil conducteur facultatif et les accès directs aux journées :
 
-- [Présentation éditoriale](https://jm-brun.github.io/knowledge-stories/articles/calendrier-data-science-ml-2026/)
-- [Ouvrir les 24 journées](https://jm-brun.github.io/knowledge-stories/calendar/)
+- [Archives des calendriers](https://jm-brun.github.io/knowledge-stories/calendriers/)
+- [Édition 2026 — Data Science & Machine Learning](https://jm-brun.github.io/knowledge-stories/calendar/)
 
 Le site Astro et le projet Quarto sont construits ensemble par `.github/workflows/pages.yml`. Quarto génère le calendrier dans `dist/calendar/`, puis le même artefact est déployé sur GitHub Pages. Les cinq premières journées sont publiées ; les suivantes restent annoncées comme à paraître jusqu'à leur validation.
 
