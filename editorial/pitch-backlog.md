@@ -1,5 +1,8 @@
 # Pistes éditoriales initiales
 
+> **Périmètre de ce fichier :** carnet d'exploration éditoriale (angles, expériences, visuels et questions à investiguer), pas registre canonique du programme. La séquence des 24 journées, les identifiants de concepts et leurs relations sont définis dans le projet privé Wiki Knowledge. En cas de divergence, le programme v1 de Wiki Knowledge fait foi ; ce carnet sert à préparer et enrichir les contenus publiés.
+
+
 Ce document est un carnet de propositions, pas une liste d'articles approuvés. Chaque sujet doit faire l'objet d'un dossier documentaire autonome avant rédaction. Les dépôts privés peuvent aider à retrouver le travail déjà effectué, mais aucune donnée ou note privée n'est copiée dans les contenus publics.
 
 ## 1. Comment Karatsuba multiplie-t-il deux grands nombres avec moins de multiplications ?
