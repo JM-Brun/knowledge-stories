@@ -83,6 +83,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .8rem;
 }
+#quarto-content .measurement-checks .sensor-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 #quarto-content .sensor-card {
   min-width: 0;
   display: flex;

@@ -116,3 +116,70 @@ La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://git
 3. Tester explorateur, équations, clavier et mobile.
 4. Traiter Wiki Knowledge PR #158 et synchroniser les corrections éventuelles.
 5. Ne demander une validation de publication qu'après clôture des points bloquants et décision humaine explicite.
+
+
+## 6. Revue éditoriale et scientifique — Calendrier, jour 1 — 23 novembre 2026
+
+### État de la source
+
+- La source de référence est `calendar/days/jour-01.qmd`. Elle contient cinq profils pédagogiques, un sélecteur d'aide au choix, quatre cartes complémentaires sur les limites des relevés ponctuels, les équations, les visualisations biais–variance et la propagation des erreurs.
+- Le rendu public observé au début de la revue ne correspondait pas à cette source : il présentait encore l'ancienne version à deux capteurs et des expressions mathématiques dégradées. Le workflow Pages du commit `9a89b9d` est toutefois indiqué comme réussi. Une nouvelle vérification du rendu déployé reste nécessaire ; un succès CI ne prouve pas à lui seul que le navigateur ou un cache sert la bonne version.
+- Le contenu est riche et scientifiquement prudent, mais dense pour un premier jour. Il faut préserver les nuances sans accumuler les avertissements redondants.
+
+### Corrections intégrées dans la branche de revue
+
+- Le profil C n'est plus qualifié de « peu biaisé » sur la seule base de trois observations : sa moyenne observée est explicitement distinguée du biais de la population.
+- Le profil D n'infère plus une résolution de l'instrument à partir de trois nombres : le pas de 0,5 °C est présenté comme une hypothèse illustrative sur l'affichage.
+- Les descriptions alternatives du graphique ont été alignées sur ces précautions.
+- Les explications répétées sur la comparaison A/B ont été allégées.
+- La discussion du profil C distingue maintenant clairement moyenne journalière, bruit centré à confirmer et événements brefs susceptibles d'être masqués.
+
+### Revue scientifique — points validés à la lecture
+
+- Pour A et B, les deux séries ont la même étendue et le même écart-type empirique (environ 0,058 °C avec le diviseur `n-1`) ; les moyennes et écarts à la référence sont cohérents après arrondi.
+- Sous les hypothèses i.i.d. explicitées, l'écart-type de la moyenne varie comme (1/\sqrt{n}), tandis que le décalage systématique constant persiste.
+- La décomposition biais–variance de l'EQM est formulée pour l'estimation d'une quantité fixe sous perte quadratique.
+- La décomposition (f(\tilde{x})-g(x)=[f(\tilde{x})-f(x)]+[f(x)-g(x)]) est une identité exacte sous les hypothèses indiquées ; l'exemple numérique donne respectivement (2,4), (1,68) et (4,08).
+- Le texte distingue erreur de mesure, incertitude, étalonnage, ajustage et traçabilité, ainsi que biais de mesure et biais d'estimation.
+
+### Travail restant — avant clôture
+
+1. **Rendu publié (P0)** — vérifier en navigateur que la version publique correspond bien au commit source courant ; inspecter les équations MathJax, le sommaire, les deux SVG et les ancres. Faire un rechargement sans cache si nécessaire.
+2. **Responsive et accessibilité (P1)** — contrôler desktop, tablette et mobile ; tester le sélecteur au clavier, le focus visible, le contraste, le lecteur d'écran et le comportement sans JavaScript.
+3. **Visualisations (P1)** — contrôler la lisibilité des libellés dans le graphique à cinq profils et dans la chaîne de propagation sur petit écran ; vérifier que la couleur n'est jamais le seul canal de distinction.
+4. **Sources (P1)** — ouvrir les liens JCGM, NIST et AI Measurement Science ; confirmer les versions et la portée des affirmations, en particulier la référence 2026 sur la calibration sans référence.
+5. **Édition (P2)** — relire la longueur réelle avec un lecteur non spécialiste. Envisager de déplacer une partie du détour sur la validité des construits ou la perturbation de la mesure vers un encadré « Pour aller plus loin » si la progression principale paraît trop chargée.
+6. **Publication** — ne pas déclarer la revue terminée avant les vérifications de rendu et d'accessibilité. Le statut de revue ne vaut pas validation scientifique externe.
+
+### Principe éditorial
+
+Conserver le fil conducteur « phénomène → instrument/protocole → observation/incertitude → jeu de données → modèle/décision ». Chaque détail métrologique doit éclairer une décision de mesure ou une limite d'interprétation ; éviter d'ajouter des profils ou des notions qui ne renforcent pas ce raisonnement.
+
+
+### Deuxième passe — cohérence entre profils, définitions et commentaires
+
+- La galerie C ne le présente plus comme « peu biaisé » : le titre indique maintenant que seule la moyenne des trois valeurs affichées coïncide avec la référence. Le texte rappelle que cela ne caractérise pas le biais de la population.
+- La propriété de robustesse environnementale attribuée au profil D est explicitement donnée comme hypothèse du scénario, et non comme une conclusion tirée des trois lectures.
+- La définition opérationnelle de la justesse précise désormais que le biais doit être estimé sur une série suffisamment représentative ; trois valeurs illustratives ne suffisent pas.
+- Le texte sur la répétabilité rappelle que trois relevés ne démontrent pas à eux seuls que les conditions normalisées de répétabilité ont été respectées.
+
+### Points de vigilance conservés pour une validation experte
+
+- Le tableau d'arbitrage et le guide interactif donnent des orientations qualitatives, pas un dimensionnement métrologique. Une application réelle demanderait spécifications, plage, dynamique, incertitude et conditions d'environnement.
+- Le profil E à 10 Hz est une métadonnée de scénario. Les trois valeurs représentées ne permettent pas de vérifier la fréquence, le temps de réponse ou la bande passante.
+- La cible biais–variance est une illustration de distributions d'estimateurs répétées, distincte du modèle de mesure des thermomètres. Maintenir cette distinction dans toute adaptation visuelle.
+- La décomposition d'erreur de prédiction est une identité algébrique à modèle fixé et cible déterministe ; elle ne doit pas être interprétée comme une addition de variances ou comme une décomposition complète du risque d'un modèle entraîné sur des données biaisées.
+
+### Statut des validations automatisées
+
+La PR #35 a été mise à jour après sa première exécution. Les workflows de la nouvelle révision doivent être vérifiés sur le dernier SHA avant toute fusion ; les exécutions précédentes, y compris celles annulées par une nouvelle poussée, ne valident pas le contenu courant.
+
+
+### Troisième passe — réduction des redondances visuelles
+
+- La galerie qui répétait les profils A à E après leur tableau et leur graphique a été remplacée par quatre cartes complémentaires : incertitude de la référence, dérive, dynamique de réponse et contraintes environnementales.
+- Le texte d'introduction explicite pourquoi trois lectures ne permettent pas de caractériser ces dimensions.
+- La galerie passe à deux colonnes sur grand écran et reste en une colonne sur petit écran ; elle conserve une alternative textuelle via les titres et descriptions.
+- La table des arbitrages et le sélecteur interactif ont été conservés : ils répondent à deux questions différentes, respectivement « quels compromis comparer ? » et « quels critères examiner selon l'usage ? ».
+
+Cette réorganisation retire une répétition de profils sans supprimer leur information : les valeurs A à E restent dans le tableau et le graphique ; les cartes ajoutent désormais des dimensions absentes des seules observations.

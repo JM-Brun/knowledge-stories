@@ -32,11 +32,11 @@ Une référence conventionnelle indique 20,00 °C. Le tableau rassemble trois re
 |---|---:|---:|---:|---:|---:|---|
 | **A — stable, proche** | 20,2 °C | 20,1 °C | 20,2 °C | **20,17 °C** | **+0,17 °C** | Faible dispersion et faible décalage observé |
 | **B — stable, décalé** | 19,0 °C | 19,1 °C | 19,0 °C | **19,03 °C** | **−0,97 °C** | Même dispersion que A, mais centre nettement décalé |
-| **C — bruité, peu biaisé** | 19,2 °C | 20,7 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Moyenne proche de la référence, lectures individuelles dispersées |
-| **D — robuste, peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Pas d'indication intermédiaire : pas de finesse de lecture sous 0,5 °C dans cet exemple |
+| **C — bruité, moyenne observée centrée** | 19,2 °C | 20,7 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Moyenne de ces trois lectures égale à la référence, malgré leur dispersion |
+| **D — robuste, affichage peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Instrument supposé robuste, avec un affichage par pas de 0,5 °C dans cet exemple |
 | **E — acquisition rapide** | 19,9 °C | 20,0 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Trois instants sélectionnés parmi une acquisition à 10 Hz ; la fréquence ne se lit pas dans ces seuls nombres |
 
-Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
+Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Pour C, la moyenne des trois valeurs est égale à la référence par construction : cela ne démontre ni que le bruit est centré dans la population, ni que le capteur est peu biaisé. Pour D, le pas de 0,5 °C est une propriété supposée de l'affichage, illustrée par les valeurs choisies ; trois relevés ne suffiraient pas à caractériser la résolution d'un instrument. La robustesse environnementale attribuée à D est également une hypothèse du scénario, pas une propriété déduite de ces trois lectures. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
 
 Les séries A et B ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
@@ -49,7 +49,7 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
 <figure>
 <svg viewBox="0 0 760 455" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sensor-title">Cinq profils de capteurs comparés à une référence de 20 degrés</title>
-  <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C est très dispersé autour de la référence. D présente des pas de lecture de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
+  <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C présente trois valeurs dispersées dont la moyenne est égale à la référence. D illustre un affichage supposé quantifié par pas de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
   <rect x="1" y="1" width="758" height="453" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="32" font-size="15" font-weight="700" fill="#0f172a">Trois relevés par profil (°C) — exemples illustratifs</text>
   <line x1="120" y1="400" x2="700" y2="400" stroke="#64748b" stroke-width="1.5"/>
@@ -78,59 +78,47 @@ Le capteur B illustre le cas d'un instrument stable mais décalé : une correcti
 
 ### Il n'existe pas de capteur optimal sur tous les critères
 
-Les profils A et B isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
 
-Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
+Les valeurs précédentes illustrent quelques contrastes, mais trois relevés ne disent presque rien de la dérive à long terme, de la dynamique de réponse ou de la résistance à l'environnement. Ces dimensions doivent être caractérisées séparément.
 
-<figure class="sensor-showcase" aria-labelledby="sensor-showcase-caption">
+<figure class="sensor-showcase measurement-checks" aria-labelledby="measurement-checks-caption">
 <div class="sensor-gallery" role="list">
-  <article class="sensor-card sensor-reference" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M42 10a9 9 0 0 1 18 0v35a17 17 0 1 1-18 0z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M51 23v31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="51" cy="54" r="8" fill="currentColor"/><path d="M64 18h9m-9 10h6m-6 10h9" stroke="currentColor" stroke-width="2"/></svg>
-    <span class="sensor-kicker">Référence</span>
-    <h4>Instrument étalon</h4>
-    <p>Traçabilité et incertitude caractérisée pour comparer les autres mesures.</p>
-    <p class="sensor-limit"><strong>Coût :</strong> prix, maintenance et conditions d'emploi plus exigeantes.</p>
-  </article>
   <article class="sensor-card sensor-a" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="57" cy="52" r="5" fill="currentColor"/></svg>
-    <span class="sensor-kicker">Profil A</span>
-    <h4>Stable et proche de la référence</h4>
-    <p>Faible dispersion et faible décalage observé dans les conditions testées.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> stabilité dans le temps et coût total.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="35" r="25" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 10v50M23 35h50" stroke="currentColor" stroke-width="2"/><circle cx="48" cy="35" r="6" fill="currentColor"/></svg>
+    <span class="sensor-kicker">Référence</span>
+    <h4>Une référence a aussi une incertitude</h4>
+    <p>La valeur de 20,00 °C est fixée pour l'exercice. En pratique, la référence est elle-même établie par une chaîne de mesure et possède une incertitude.</p>
+    <p class="sensor-limit"><strong>À documenter :</strong> source, certificat, date et incertitude associée.</p>
   </article>
   <article class="sensor-card sensor-b" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M22 16l-8-8m8 8 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-    <span class="sensor-kicker">Profil B</span>
-    <h4>Stable mais décalé</h4>
-    <p>Répétable ; un biais connu peut parfois être corrigé.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> correction valide sur toute la plage d'usage.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 54h66M22 48l14-10 14 4 14-18 12-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 16h8v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    <span class="sensor-kicker">Stabilité</span>
+    <h4>Un capteur peut dériver</h4>
+    <p>Un instrument stable pendant quelques minutes peut évoluer avec le vieillissement, l'encrassement, l'humidité ou les conditions de fonctionnement.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> dérive dans le temps et périodicité des contrôles.</p>
   </article>
   <article class="sensor-card sensor-c" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 52h66M20 52V17m0 35h57" stroke="currentColor" stroke-width="2"/><path d="M25 37l9-15 9 25 9-32 9 27 9-18 9 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Profil C</span>
-    <h4>Peu biaisé mais bruité</h4>
-    <p>La moyenne peut se rapprocher de la référence si le bruit est centré, que les mesures sont suffisamment indépendantes et que les conditions restent stables.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> le moyennage ne masque pas les événements rapides et les mesures ne dérivent pas.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M12 37h12l8-18 12 36 10-28 9 10h21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 60h72" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg>
+    <span class="sensor-kicker">Dynamique</span>
+    <h4>Fréquence et temps de réponse diffèrent</h4>
+    <p>Enregistrer à 10 Hz ne garantit pas de capter un phénomène rapide : le capteur et son filtrage doivent transmettre les variations recherchées.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> temps de réponse, bande passante et fréquence d'échantillonnage.</p>
   </article>
   <article class="sensor-card sensor-d" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 7 76 18v18c0 15-12 24-28 30C32 60 20 51 20 36V18z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Profil D</span>
-    <h4>Robuste en milieu difficile</h4>
-    <p>Conçu pour résister aux chocs, à l'humidité ou aux vibrations.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> résolution suffisante pour le phénomène ciblé.</p>
-  </article>
-  <article class="sensor-card sensor-e" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="36" r="26" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 18v19l13 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M72 12l8-5m-8 5 1-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-    <span class="sensor-kicker">Profil E</span>
-    <h4>Échantillonnage fréquent</h4>
-    <p>Enregistre souvent pour mieux décrire la dynamique, si le capteur répond lui-même assez vite.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> autonomie, stockage et transmission ; une fréquence élevée ne rend pas un capteur lent plus rapide.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 8 76 19v17c0 15-12 24-28 29C32 60 20 51 20 36V19z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="sensor-kicker">Environnement</span>
+    <h4>La robustesse dépend du terrain</h4>
+    <p>Chocs, vibrations, poussière, humidité et température ambiante peuvent modifier les performances ou dégrader l'instrument.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> conditions d'emploi réelles et qualification dans cet environnement.</p>
   </article>
 </div>
-<figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
+<figcaption id="measurement-checks-caption">Quatre dimensions importantes qui ne peuvent pas être déduites des trois valeurs affichées dans le tableau.</figcaption>
 </figure>
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C pourrait convenir à une moyenne journalière si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois points du tableau ne suffisent pas à l'établir. Il pourrait en revanche manquer un pic de quelques secondes.
+Ces dimensions complètent les profils A à E : les relevés illustrent quelques propriétés, mais ne suffisent pas à caractériser un instrument dans toutes ses conditions d'utilisation.
+
+Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Pour C, une moyenne journalière pourrait être pertinente si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois valeurs illustratives ne permettent pas de le conclure. Un tel moyennage pourrait en revanche masquer un pic de quelques secondes.
 
 | Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
 |---|---|---|---|
@@ -233,10 +221,10 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 |---|---|---|
 | **Fidélité** | Les résultats répétés sont-ils proches les uns des autres ? | Écart-type, variance ou autre mesure de dispersion, dans des conditions précisées |
 | **Répétabilité** | Sont-ils proches lorsque les conditions de répétabilité sont réunies ? | Même procédure, opérateur, système de mesure, conditions de fonctionnement et lieu, sur une courte période |
-| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen observé à la référence ; la justesse elle-même n'est pas une grandeur numérique |
+| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Estimée par le biais sur une série suffisamment représentative ; la justesse elle-même n'est pas une grandeur numérique |
 | **Exactitude** | Le résultat est-il proche de la valeur vraie du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Les trois relevés du tableau ne suffisent pas à établir à eux seuls ces conditions ni à caractériser complètement la répétabilité. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
