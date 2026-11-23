@@ -4,11 +4,11 @@ subtitle: "Jour 2 · Qui est représenté dans les données ?"
 description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la couverture ni le mécanisme de sélection."
 ---
 
-> **En 7 à 9 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
+> **En 8 à 10 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
 
 ## La question
 
-Une enquête qui recueille 50 000 réponses est-elle nécessairement plus fiable qu'une enquête qui en recueille 2 000 ? Pas si les 50 000 réponses proviennent presque exclusivement d'un sous-groupe.
+Une enquête qui recueille 50 000 réponses est-elle nécessairement plus fiable qu'une enquête qui en recueille 1 000 ? Pas si les 50 000 réponses proviennent presque exclusivement d'un sous-groupe.
 
 La taille d'un échantillon renseigne sur la quantité d'information disponible **sous un mécanisme de collecte donné**. Elle ne dit pas, à elle seule, si les personnes observées ressemblent à la population sur laquelle on souhaite conclure.
 
@@ -44,7 +44,16 @@ où \(W_A\) et \(W_B\) sont les proportions des groupes dans la population, et \
 
 L'enquête limitée au groupe A ne souffre pas simplement d'un échantillon « trop petit ». Elle estime correctement la moyenne de A, mais cette quantité n'est pas l'estimand choisi. C'est une distinction fondamentale : **un calcul peut être exact pour la mauvaise question**.
 
-Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple, les 500 observations de chaque strate donnent bien 1 000 réponses au total, comme l'annonce le titre. Si les fractions d'échantillonnage diffèrent, il faut appliquer les poids correspondant au plan et à la population cible ; une moyenne brute des répondants n'est pas automatiquement correcte.
+Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple :
+
+\[
+\widehat{\mu}_T =
+0{,}5\,\overline{X}_A + 0{,}5\,\overline{X}_B,
+\qquad
+\mathbb{E}[\widehat{\mu}_T] = \mu_T = 15.
+\]
+
+L'espérance porte ici sur les tirages aléatoires répétés dans chaque strate ; l'égalité suppose un échantillonnage probabiliste correct et une réponse complète. Une réalisation particulière peut donc s'écarter de 15. Si les fractions d'échantillonnage diffèrent, il faut appliquer les poids correspondant au plan et à la population cible ; une moyenne brute des répondants n'est pas automatiquement correcte.
 
 ## Pourquoi plus de données ne résout-il rien ici ?
 

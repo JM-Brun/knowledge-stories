@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 8 à 10 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **En 10 à 12 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
@@ -110,15 +110,72 @@ La répétition caractérise la partie variable. Si les erreurs sont i.i.d., de 
 
 ### Une relation utile en statistique
 
-Pour un estimateur \(\hat{\theta}\) d'une quantité fixe \(\theta\), l'erreur quadratique moyenne se décompose en :
+Pour un estimateur \(\hat{\theta}\) d'une quantité fixe \(\theta\), le biais et la variance décrivent deux aspects de sa distribution lorsque l'on répète l'échantillonnage :
+
+\[
+\operatorname{Biais}(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta,
+\qquad
+\operatorname{Var}(\hat{\theta}) =
+\mathbb{E}\!\left[(\hat{\theta}-\mathbb{E}[\hat{\theta}])^2\right].
+\]
+
+L'erreur quadratique moyenne se décompose alors en :
 
 \[
 \operatorname{EQM}(\hat{\theta}) =
 \operatorname{Var}(\hat{\theta}) +
-\operatorname{Biais}(\hat{\theta})^2
+\operatorname{Biais}(\hat{\theta})^2.
 \]
 
 Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'erreur totale. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire aussi le compromis biais–variance rencontré en apprentissage statistique : la complexité d'un modèle peut réduire certains biais, mais augmenter sa sensibilité aux fluctuations de l'échantillon.
+
+### Lire biais et variance sur une cible
+
+La cible ci-dessous représente les résultats d'un estimateur obtenus sur de nombreux échantillons hypothétiques. Le centre est la valeur vraie \(\theta\). Le décalage du nuage représente le biais ; son étalement représente la variance. Il ne s'agit pas des trois relevés des thermomètres présentés plus haut, mais d'une visualisation de la distribution d'un estimateur.
+
+<figure>
+<svg viewBox="0 0 760 350" role="img" aria-labelledby="target-title target-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="target-title">Quatre distributions d'estimateurs selon leur biais et leur variance</title>
+  <desc id="target-desc">Quatre cibles comparent un biais faible ou élevé et une variance faible ou élevée. Le centre de chaque cible est la valeur vraie. Les points représentent des estimations répétées : proches du centre et serrés, décalés et serrés, dispersés autour du centre, ou dispersés et décalés.</desc>
+  <rect x="1" y="1" width="758" height="348" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-family="sans-serif" fill="#0f172a">
+    <rect x="12" y="10" width="360" height="158" rx="9" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="388" y="10" width="360" height="158" rx="9" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="12" y="180" width="360" height="158" rx="9" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="388" y="180" width="360" height="158" rx="9" fill="#ffffff" stroke="#cbd5e1"/>
+    <g font-size="13" font-weight="700">
+      <text x="24" y="31">Biais faible · variance faible</text>
+      <text x="400" y="31">Biais élevé · variance faible</text>
+      <text x="24" y="201">Biais faible · variance élevée</text>
+      <text x="400" y="201">Biais élevé · variance élevée</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#94a3b8">
+    <circle cx="192" cy="99" r="42"/><circle cx="192" cy="99" r="28"/><circle cx="192" cy="99" r="14"/>
+    <circle cx="568" cy="99" r="42"/><circle cx="568" cy="99" r="28"/><circle cx="568" cy="99" r="14"/>
+    <circle cx="192" cy="269" r="42"/><circle cx="192" cy="269" r="28"/><circle cx="192" cy="269" r="14"/>
+    <circle cx="568" cy="269" r="42"/><circle cx="568" cy="269" r="28"/><circle cx="568" cy="269" r="14"/>
+  </g>
+  <g stroke="#b45309" stroke-width="1.5" stroke-dasharray="3 3">
+    <path d="M192 49 V149 M142 99 H242 M568 49 V149 M518 99 H618 M192 219 V319 M142 269 H242 M568 219 V319 M518 269 H618"/>
+  </g>
+  <g fill="#0f766e" stroke="#ffffff" stroke-width="1.5">
+    <circle cx="188" cy="97" r="5"/><circle cx="195" cy="103" r="5"/><circle cx="197" cy="94" r="5"/><circle cx="187" cy="105" r="5"/><circle cx="193" cy="91" r="5"/>
+    <circle cx="590" cy="84" r="5"/><circle cx="594" cy="91" r="5"/><circle cx="586" cy="89" r="5"/><circle cx="592" cy="97" r="5"/><circle cx="598" cy="85" r="5"/>
+    <circle cx="158" cy="263" r="5"/><circle cx="218" cy="280" r="5"/><circle cx="181" cy="236" r="5"/><circle cx="203" cy="296" r="5"/><circle cx="193" cy="267" r="5"/>
+    <circle cx="540" cy="232" r="5"/><circle cx="607" cy="262" r="5"/><circle cx="585" cy="294" r="5"/><circle cx="559" cy="248" r="5"/><circle cx="601" cy="230" r="5"/>
+  </g>
+  <g fill="#92400e" font-size="10" font-weight="700">
+    <text x="192" y="159" text-anchor="middle">θ vrai</text><text x="568" y="159" text-anchor="middle">θ vrai</text>
+    <text x="192" y="329" text-anchor="middle">θ vrai</text><text x="568" y="329" text-anchor="middle">θ vrai</text>
+  </g>
+</svg>
+<figcaption>Un nuage serré indique une faible variance ; un centre de nuage décalé indique un biais. Les deux propriétés sont distinctes.</figcaption>
+</figure>
+
+Cette cible est pertinente ici parce qu'elle rend visible la décomposition biais–variance. Elle ne représente toutefois pas, à elle seule, la courbe du compromis biais–variance en fonction de la complexité d'un modèle : cette courbe relève d'une analyse supplémentaire, propre à l'apprentissage statistique.
+
+**Attention au vocabulaire :** le décalage \(b\) du modèle de mesure décrit un effet systématique de l'instrument. Le biais \(\mathbb{E}[\hat{\theta}]-\theta\) de la cible décrit l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Les deux notions partagent une même intuition — un décalage systématique — mais ne portent pas sur le même objet.
 
 ## Mesure-t-on toujours une chose qui existe directement ?
 
