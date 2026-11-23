@@ -63,3 +63,56 @@ Ce dossier est une revue préparatoire, pas une validation scientifique finale n
 Les deux articles sont désormais proposés sous `/atelier/{slug}/`. L'index `/atelier/` est accessible depuis un lien discret placé dans les notes de fin du calendrier 2026. Les pages sont marquées `noindex, nofollow, noarchive` et absentes de la navigation ordinaire.
 
 **Limite importante :** le dépôt et GitHub Pages sont publics. Le statut `review` masque les contenus des parcours et moteurs de recherche conformes à la directive, mais ne fournit aucun contrôle d'accès. Ne pas y placer d'information confidentielle.
+
+## 5. Suivi de la correction de l'atelier et de la page Karatsuba — 23 novembre 2026
+
+### État technique vérifié
+
+- Le lien de pied de page, les liens de l'index de relecture et les liens de retour utilisent maintenant une base URL normalisée avec un séparateur final. Cela évite la concaténation fautive `/knowledge-storiesatelier/`.
+- La page Karatsuba possède une notice de provenance en tête : l'article de Djamchid Dalili, [« Multiplier deux nombres — de Karatsuba à l'IA »](https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html), est explicitement présenté comme source principale. La page indique que son fil explicatif, plusieurs idées de présentation et une part importante de sa matière pédagogique en dérivent.
+- Une comparaison visuelle responsive illustre les quatre produits du développement direct et les trois produits de Karatsuba, avec l'identité algébrique qui permet de reconstruire les termes croisés.
+- La PR Knowledge Stories #18 a été fusionnée. Les contrôles de qualité, tests, build Astro, rendu Quarto, vérification de publication combinée et déploiement Pages ont réussi.
+- URLs de revue : [index](https://jm-brun.github.io/knowledge-stories/atelier/) · [Karatsuba](https://jm-brun.github.io/knowledge-stories/atelier/karatsuba-multiplication/).
+- Le contenu conserve le statut `review`. Ne pas le passer à `published` sans validation humaine explicite.
+
+### Travail restant — ordre recommandé
+
+#### P0 — Revue visuelle réelle et liens en production
+- [ ] Ouvrir l'index de relecture depuis le lien discret du pied de page sur ordinateur et mobile ; vérifier que l'URL reste sous `/knowledge-stories/atelier/`.
+- [ ] Ouvrir les deux fiches depuis l'index et utiliser le lien « Index de relecture » depuis chaque fiche.
+- [ ] Examiner la page Karatsuba en largeur desktop, tablette et mobile : débordements, densité, hiérarchie des titres, lisibilité des équations et cohérence des couleurs.
+- [ ] Vérifier le rendu effectif des blocs mathématiques et du composant comparatif dans le navigateur ; le succès du build ne garantit pas à lui seul leur rendu visuel.
+- [ ] Vérifier les liens externes et les ancres vers la source principale, notamment l'ancre `#atelier` si elle est conservée.
+
+#### P1 — Exactitude, attribution et intégrité éditoriale de Karatsuba
+- [ ] Relire l'article de Djamchid en parallèle du brouillon et établir une petite matrice de provenance : idées/structure reprises, formulations reformulées, exemples/calculs ajoutés, visualisations ajoutées et références complémentaires.
+- [ ] Vérifier que l'attribution ne laisse pas entendre que les éléments repris sont des contributions originales de Knowledge Stories. Conserver une attribution visible dans la page, pas seulement dans les métadonnées.
+- [ ] Vérifier les conditions de réutilisation de la source et des éventuels visuels : distinguer inspiration, paraphrase, adaptation et reproduction. Demander une autorisation ou remplacer tout élément dont les droits ne sont pas établis ; ne pas supposer qu'un lien ou une attribution suffit.
+- [ ] Contrôler indépendamment les calculs numériques, la décomposition algébrique, la récurrence et les hypothèses du modèle de coût.
+- [ ] Revoir les affirmations historiques et contemporaines sur les algorithmes de multiplication rapide à partir de sources primaires ; dater les résultats et distinguer prépublication, publication évaluée, preuve formalisée et implémentation.
+- [ ] Confirmer que les comparaisons de complexité ne sont pas présentées comme des mesures de temps réel et que les seuils pratiques sont contextualisés.
+
+#### P1 — Qualité du composant et accessibilité
+- [ ] Tester l'explorateur interactif avec nombres de tailles très différentes, zéro, valeurs négatives si elles sont prises en charge, retenues et limites de saisie.
+- [ ] Vérifier les comportements clavier, focus visible, lecteurs d'écran et libellés des contrôles.
+- [ ] Vérifier que la comparaison visuelle a une alternative textuelle suffisante et reste compréhensible sans couleur.
+- [ ] Tester le comportement sans JavaScript ou documenter explicitement les éléments qui nécessitent JavaScript.
+- [ ] Contrôler le responsive et les contrastes du bandeau de provenance, des cartes de comparaison et des liens.
+
+#### P2 — Cohérence éditoriale et modèle de connaissance
+- [ ] Après revue humaine, synchroniser les corrections de contenu dans la fiche conceptuelle et la fiche source de Wiki Knowledge ; ne pas traiter la page dérivée comme une corroboration indépendante de sa source.
+- [ ] Vérifier que les liens croisés Knowledge Stories ↔ Wiki Knowledge ne créent ni doublon de concept ni double comptage des sources.
+- [ ] Pour le paradoxe des jumeaux, reprendre séparément les points de revue listés plus haut ; ne pas considérer la validation de Karatsuba comme une validation globale de l'atelier.
+- [ ] Enregistrer la décision de revue et les corrections substantielles avant tout passage à `published`.
+
+### Dépendance inter-dépôts
+
+La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://github.com/JM-Brun/wiki-knowledge/pull/158). Elle relie la fiche conceptuelle Karatsuba à cette adaptation dérivée et documente la provenance dans la fiche source. Elle reste à valider : ses workflows ont échoué avant la première étape des jobs, sans journal exploitable. À la prochaine session, vérifier si une relance produit des étapes et des journaux normaux ; sinon diagnostiquer le provisionnement GitHub Actions. Ne pas fusionner uniquement sur la base du diff si les validations attendues n'ont pas été exécutées.
+
+### Reprise rapide à la prochaine session
+
+1. Commencer par le contrôle navigateur de l'index et de la page Karatsuba déployés.
+2. Effectuer la revue de provenance et de droits avec l'article de Djamchid ouvert en parallèle.
+3. Tester explorateur, équations, clavier et mobile.
+4. Traiter Wiki Knowledge PR #158 et synchroniser les corrections éventuelles.
+5. Ne demander une validation de publication qu'après clôture des points bloquants et décision humaine explicite.
