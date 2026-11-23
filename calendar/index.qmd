@@ -1,0 +1,84 @@
+---
+title: "24 jours pour comprendre la Data Science et le Machine Learning"
+subtitle: "Du phénomène mesuré aux modèles qui apprennent"
+description: "Un parcours progressif en 24 micro-expériences, du 1er au 24 décembre 2026."
+---
+
+<div class="calendar-intro">
+
+Une donnée n'est pas le réel. Un grand échantillon n'est pas nécessairement représentatif. Une moyenne ne raconte pas toute l'histoire. Et un modèle qui obtient un bon score n'a pas forcément appris ce que l'on croit.
+
+Ce calendrier explore ces idées en 24 étapes : **observer**, **apprendre**, **évaluer**, puis **comprendre les mécanismes des modèles de langue**. Chaque porte propose une question, une explication et une activité courte.
+
+</div>
+
+::: {.callout-note}
+**Mode d'emploi.** Une journée prend environ 5 à 10 minutes. Les cinq premières journées sont publiées et leurs défis disposent de solutions expliquées. Les suivantes sont annoncées dans le programme, mais ne sont pas encore ouvertes.
+:::
+
+## Le calendrier
+
+<div class="calendar-grid">
+
+<div class="calendar-day available">
+  <div class="day-number">01 · 1 décembre</div>
+  <h3><a href="days/jour-01.qmd">Une mesure précise peut-elle être fausse ?</a></h3>
+  <p>Répétabilité, justesse et biais de mesure.</p>
+</div>
+<div class="calendar-day available">
+  <div class="day-number">02 · 2 décembre</div>
+  <h3><a href="days/jour-02.qmd">50 000 réponses valent-elles mieux que 1 000 ?</a></h3>
+  <p>Population, échantillonnage et biais de sélection.</p>
+</div>
+<div class="calendar-day available">
+  <div class="day-number">03 · 3 décembre</div>
+  <h3><a href="days/jour-03.qmd">Trois distributions, une même moyenne</a></h3>
+  <p>Dispersion et limites des statistiques résumées.</p>
+</div>
+<div class="calendar-day available">
+  <div class="day-number">04 · 4 décembre</div>
+  <h3><a href="days/jour-04.qmd">Quand la covariance change-t-elle la variance d'une somme ?</a></h3>
+  <p>Moments, covariance et dépendance.</p>
+</div>
+<div class="calendar-day available">
+  <div class="day-number">05 · 5 décembre</div>
+  <h3><a href="days/jour-05.qmd">Quelle distribution est la plus incertaine ?</a></h3>
+  <p>Entropie, surprise et information.</p>
+</div>
+
+<div class="calendar-day"><div class="day-number">06 · 6 décembre</div><h3>Corrélation n'est pas causalité</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">07 · 7 décembre</div><h3>Une droite peut-elle apprendre ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">08 · 8 décembre</div><h3>Retrouver le biais d'une pièce</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">09 · 9 décembre</div><h3>Le modèle optimise ce qu'on lui demande</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">10 · 10 décembre</div><h3>Un pas trop grand fait rater la vallée</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">11 · 11 décembre</div><h3>Payer pour un modèle plus simple</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">12 · 12 décembre</div><h3>Un modèle stable vaut parfois mieux qu'un modèle précis</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">13 · 13 décembre</div><h3>Apprendre en posant des questions</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">14 · 14 décembre</div><h3>Corriger ses erreurs, arbre après arbre</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">15 · 15 décembre</div><h3>Le test doit ressembler au futur</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">16 · 16 décembre</div><h3>Le score parfait qui cache une fuite</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">17 · 17 décembre</div><h3>99 % d'accuracy : bon modèle ou mauvais problème ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">18 · 18 décembre</div><h3>Quand 80 % veut-il vraiment dire 80 % ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">19 · 19 décembre</div><h3>Un gain de 0,3 point est-il réel ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">20 · 20 décembre</div><h3>Qu'est-ce qui a vraiment amélioré le modèle ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">21 · 21 décembre</div><h3>La forme d'un tenseur ne dit pas son sens</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">22 · 22 décembre</div><h3>Des scores aux probabilités, puis à l'erreur</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">23 · 23 décembre</div><h3>Pourquoi le modèle regarde-t-il ailleurs ?</h3><p class="calendar-status">À paraître</p></div>
+<div class="calendar-day"><div class="day-number">24 · 24 décembre</div><h3>Apprendre avec le bon préfixe, générer avec le sien</h3><p class="calendar-status">À paraître</p></div>
+
+</div>
+
+## Le fil conducteur
+
+1. **Jours 1–6 · Observer le monde à travers des données** — mesure, sélection, distributions, moments, information et causalité.
+2. **Jours 7–14 · Apprendre une règle à partir d'exemples** — régression, vraisemblance, fonctions de perte, optimisation et modèles arborescents.
+3. **Jours 15–20 · Prouver que le modèle fonctionne** — validation, fuites, métriques, calibration et expérimentation.
+4. **Jours 21–24 · Des nombres aux modèles de langue** — tenseurs, probabilités, attention et apprentissage autorégressif.
+
+Le parcours suit une progression pédagogique ; il ne prétend pas que chaque notion est un prérequis mathématique strict de la suivante.
+
+## À propos de cette édition
+
+Cette édition est publiée par **Knowledge Stories**. Les contenus canoniques, leur conception pédagogique et leurs métadonnées sont maintenus séparément dans le projet de connaissance à l'origine du calendrier. Le site public ne dépend pas de ce dépôt interne : chaque journée publiée doit être autonome, relue et compréhensible sans accès à une ressource privée.
+
+[Découvrir les autres histoires de Knowledge Stories](../).
