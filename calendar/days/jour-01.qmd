@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 10 à 12 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **En 15 à 18 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
@@ -12,7 +12,7 @@ Imaginez deux thermomètres placés côte à côte dans une pièce. Le premier a
 
 Lequel inspire le plus confiance ?
 
-À première vue, les deux semblent remarquablement stables. Pourtant, si une référence indépendante indique 20,00 °C, leurs résultats ne racontent pas la même histoire. Le premier est proche de la référence ; le second s'en écarte d'environ un degré.
+À première vue, les deux semblent remarquablement stables. Pourtant, si l'on adopte une valeur de référence conventionnelle de 20,00 °C pour l'exercice, leurs résultats ne racontent pas la même histoire. Le premier est proche de la référence ; le second s'en écarte d'environ un degré.
 
 Ce petit exemple contient une difficulté majeure de la Data Science : **la cohérence interne d'une série ne garantit pas qu'elle représente correctement le phénomène étudié.**
 
@@ -97,7 +97,7 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
   <article class="sensor-card sensor-a" role="listitem">
     <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="57" cy="52" r="5" fill="currentColor"/></svg>
     <span class="sensor-kicker">Profil A</span>
-    <h4>Stable et bien ajusté</h4>
+    <h4>Stable et proche de la référence</h4>
     <p>Faible dispersion et faible décalage observé dans les conditions testées.</p>
     <p class="sensor-limit"><strong>À vérifier :</strong> stabilité dans le temps et coût total.</p>
   </article>
@@ -112,8 +112,8 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
     <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 52h66M20 52V17m0 35h57" stroke="currentColor" stroke-width="2"/><path d="M25 37l9-15 9 25 9-32 9 27 9-18 9 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
     <span class="sensor-kicker">Profil C</span>
     <h4>Peu biaisé mais bruité</h4>
-    <p>La moyenne peut être juste après agrégation d'un grand nombre de mesures.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> le bruit ne masque pas les événements rapides.</p>
+    <p>La moyenne peut se rapprocher de la référence si le bruit est centré, que les mesures sont suffisamment indépendantes et que les conditions restent stables.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> le moyennage ne masque pas les événements rapides et les mesures ne dérivent pas.</p>
   </article>
   <article class="sensor-card sensor-d" role="listitem">
     <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 7 76 18v18c0 15-12 24-28 30C32 60 20 51 20 36V18z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -133,7 +133,7 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
 <figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
 </figure>
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C peut convenir à une moyenne journalière, mais manquer un pic de quelques secondes.
+Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C peut convenir à une moyenne journalière si ses erreurs sont centrées et si les conditions restent suffisamment stables, mais manquer un pic de quelques secondes.
 
 | Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
 |---|---|---|---|
@@ -147,7 +147,7 @@ Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
-La métrologie — la science de la mesure — distingue des notions que le langage courant mélange souvent. Le Vocabulaire international de métrologie (VIM, JCGM 200:2012) fournit un cadre précis.
+La métrologie — la science de la mesure — distingue des notions que le langage courant mélange souvent. Le Vocabulaire international de métrologie (VIM, JCGM 200:2012) fournit un cadre précis. Les définitions de [fidélité](https://jcgm.bipm.org/vim/fr/2.15.html), [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html), [justesse](https://jcgm.bipm.org/vim/fr/2.14.html) et [exactitude](https://jcgm.bipm.org/vim/fr/2.13.html) sont consultables dans la version annotée du JCGM.
 
 | Notion | Question à laquelle elle répond | Comment l'observer ? |
 |---|---|---|
@@ -156,7 +156,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Écart systématique moyen à la référence |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est une fidélité évaluée dans des conditions presque identiques ; changer d'opérateur, d'instrument ou de laboratoire conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, même lieu et conditions de fonctionnement aussi constantes que possible, sur une courte période. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
@@ -172,11 +172,11 @@ où :
 - \(b\) représente un décalage systématique (biais), supposé constant dans ce modèle simplifié ;
 - \(\varepsilon_i\) représente les variations aléatoires d'une observation à l'autre.
 
-La répétition caractérise la partie variable. Si les erreurs sont indépendantes, de même loi, de moyenne nulle et de variance finie, l'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
+Dans ce modèle simplifié, on suppose que \(b\) reste constant pendant l'expérience et que les erreurs aléatoires sont indépendantes, de même loi, de moyenne nulle et de variance finie. La répétition permet alors d'estimer la partie variable. L'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
 
 ### Une relation utile en statistique
 
-Pour un estimateur \(\hat{\theta}\) d'une quantité fixe \(\theta\), le biais et la variance décrivent deux aspects de sa distribution lorsque l'on répète l'échantillonnage :
+Pour un estimateur \(\hat{\theta}\) de variance finie d'une quantité fixe \(\theta\), le biais et la variance décrivent deux aspects de sa distribution lorsque l'on répète l'échantillonnage :
 
 \[
 \operatorname{Biais}(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta,
@@ -239,7 +239,7 @@ La cible ci-dessous représente les résultats d'un estimateur obtenus sur de no
 <figcaption>Un nuage serré indique une faible variance ; un centre de nuage décalé indique un biais. Les deux propriétés sont distinctes.</figcaption>
 </figure>
 
-Cette cible est pertinente ici parce qu'elle rend visible la décomposition biais–variance. Elle ne représente toutefois pas, à elle seule, la courbe du compromis biais–variance en fonction de la complexité d'un modèle : cette courbe relève d'une analyse supplémentaire, propre à l'apprentissage statistique.
+Cette cible est pertinente ici parce qu'elle rend visible la distinction biais–variance. Les quelques points dessinés dans chaque cible sont schématiques : ils illustrent la position moyenne et la dispersion d'estimations répétées, sans constituer une distribution empirique. La figure ne représente pas non plus, à elle seule, la courbe du compromis biais–variance en fonction de la complexité d'un modèle.
 
 **Attention au vocabulaire :** le décalage \(b\) du modèle de mesure décrit un effet systématique de l'instrument. Le biais \(\mathbb{E}[\hat{\theta}]-\theta\) de la cible décrit l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Les deux notions partagent une même intuition — un décalage systématique — mais ne portent pas sur le même objet.
 
@@ -249,7 +249,7 @@ Jusqu'ici, le phénomène était une température. On peut comparer un thermomè
 
 On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
 
-Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
+Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** concerne l'interprétation que l'on fait des scores et l'usage qui en est tiré. Elle demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
 
 De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
 
@@ -265,11 +265,11 @@ Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est ut
 
 Un étalon peut être mieux caractérisé qu'un capteur ordinaire ; il n'est pas pour autant une vérité parfaite, connue avec une infinité de décimales. Sa valeur est établie par une procédure, reliée à d'autres références et accompagnée d'une incertitude.
 
-Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée et une référence, et **l'incertitude**, paramètre décrivant la dispersion des valeurs raisonnablement attribuables au mesurande. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
+Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée et une valeur de référence, et **l'incertitude**, paramètre non négatif décrivant la dispersion des valeurs attribuées au mesurande à partir des informations disponibles. Dans cet exemple pédagogique, l'écart à 20,00 °C est calculé par rapport à une valeur de référence conventionnelle ; une comparaison métrologique réelle doit aussi tenir compte de l'incertitude de cette référence. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut inclure des composantes associées à des effets systématiques, y compris lorsque ceux-ci ont fait l'objet d'une correction. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
 
 ### Étalonner n'est pas simplement remettre à zéro
 
-Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications et des valeurs de référence avec leurs incertitudes. Il peut permettre une correction, sans garantir la stabilité future de l'instrument. La traçabilité documente l'instrument, la méthode, la date, les conditions et l'incertitude.
+Un étalonnage établit, dans des conditions spécifiées, une relation entre les valeurs et incertitudes fournies par des étalons et les indications correspondantes avec leurs incertitudes ; cette relation permet ensuite d'obtenir un résultat de mesure à partir d'une indication. Il peut conduire à une correction, sans se confondre avec l'ajustage du système ni avec la vérification de performances.\n\nLa **traçabilité métrologique** est une propriété du résultat de mesure : celui-ci doit pouvoir être relié à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude. Cette traçabilité ne garantit ni que l'incertitude soit adaptée à l'usage, ni l'absence d'erreurs humaines.
 
 ## Avant de corriger : définir ce que l'on veut mesurer
 
@@ -354,7 +354,7 @@ Cette égalité est un outil de raisonnement, pas une loi disant que deux varian
 <figcaption>Une erreur de mesure traverse le modèle ; l'écart de modélisation existe même lorsque l'entrée est exacte.</figcaption>
 </figure>
 
-**Exemple.** La réalité est \(g(x)=2x+3\), avec \(x=20\), donc une cible de 43. Le capteur ajoute \(0{,}8\) et le modèle appris est \(f(x)=2{,}1x+3{,}4\).
+**Exemple numérique indépendant des deux thermomètres précédents.** La relation réelle est \(g(x)=2x+3\), avec \(x=20\), donc une cible de 43. Supposons qu'un autre capteur fournisse \(\tilde{x}=20{,}8\), soit une erreur d'entrée de \(+0{,}8\), et que le modèle appris soit \(f(x)=2{,}1x+3{,}4\).
 
 - Écart du modèle : \(f(20)-g(20)=45{,}4-43=+2{,}4\).
 - Effet de la mesure : \(f(20{,}8)-f(20)=1{,}68\).
@@ -377,7 +377,7 @@ Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-1. Elle reste proche de 19,03 °C si le biais est stable. La moyenne devient moins variable, mais ne converge pas vers 20,00 °C.
+1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne se rapproche de l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Elle devient moins variable, mais ne converge pas vers 20,00 °C.
 2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
 3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
 4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
@@ -401,14 +401,14 @@ Cette grille évite de réduire la qualité des données à des contrôles de fo
 ## À retenir
 
 - Une faible dispersion indique une bonne fidélité dans les conditions considérées ; elle ne garantit pas la justesse.
-- Répéter une mesure réduit l'incertitude liée à certaines variations aléatoires, mais ne supprime pas automatiquement un biais systématique.
+- Répéter une mesure peut réduire l'incertitude liée à certaines variations aléatoires si les observations apportent suffisamment d'information indépendante et si les conditions restent stables ; cela ne supprime pas automatiquement un biais systématique.
 - Une référence possède elle aussi une incertitude : la mesure doit être replacée dans une chaîne de traçabilité.
 - Une variable abstraite doit être opérationnalisée : la validité de l'indicateur ne se déduit pas de sa seule stabilité.
 - En Data Science, la provenance, l'instrumentation et le protocole font partie de la qualité des données, pas seulement leur format ou leur absence de valeurs manquantes.
 
 ## Pour aller plus loin
 
-- **[Vocabulaire international de métrologie — JCGM 200:2012 (VIM)](https://www.bipm.org/documents/20126/2071204/JCGM_200_2012.pdf)** — la référence terminologique pour distinguer fidélité, répétabilité, justesse, exactitude, erreur et incertitude.
+- **[Vocabulaire international de métrologie — JCGM 200:2012 (VIM)](https://doi.org/10.59161/JCGM200-2012)** — la référence terminologique pour distinguer fidélité, répétabilité, justesse, exactitude, erreur, étalonnage, traçabilité et incertitude. La [version annotée en français](https://jcgm.bipm.org/vim/fr/) permet de consulter les définitions individuellement.
 - **[Evaluation of measurement data — Guide to the expression of uncertainty in measurement (JCGM 100:2008)](https://www.bipm.org/en/committees/jc/jcgm/publications)** — le guide pour construire et combiner des composantes d'incertitude.
 - **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — une introduction opérationnelle à l'évaluation et à l'expression de l'incertitude de mesure.
 - **[AI Measurement Science — Validity](https://aimsbook.org/src/chap1.html)** — une discussion approfondie de la validité des construits et des pièges d'évaluation des systèmes d'IA.
