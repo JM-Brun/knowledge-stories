@@ -3,7 +3,12 @@
 <section class="worked-comparison" aria-labelledby="worked-comparison-title">
   <div class="worked-kicker">Même multiplication · Deux stratégies</div>
   <h3 id="worked-comparison-title">1 234 × 5 678 : méthode directe ou Karatsuba ?</h3>
-  <p class="worked-intro">On découpe les deux nombres de la même façon. Comparez ensuite les calculs réellement effectués, puis la manière de retrouver les termes croisés.</p>
+  <p class="worked-intro">Les couleurs suivent les mêmes quantités dans les deux colonnes : le bleu-vert désigne les produits de blocs communs, l'ambre les termes croisés. La méthode change leur calcul, pas leur rôle dans le résultat.</p>
+  <div class="worked-legend" aria-label="Légende des couleurs">
+    <span><i class="legend-common"></i> Produits communs aux deux méthodes : ac et bd</span>
+    <span><i class="legend-cross"></i> Terme croisé : ad + bc</span>
+    <span><i class="legend-extra"></i> Produit auxiliaire propre à Karatsuba</span>
+  </div>
   <div class="worked-split" aria-label="Découpage commun aux deux méthodes">
     <div><span>Premier nombre</span><strong>1 234 = 12 × 100 + 34</strong></div>
     <div><span>Second nombre</span><strong>5 678 = 56 × 100 + 78</strong></div>
@@ -12,37 +17,57 @@
     <article class="worked-method worked-classic">
       <header><div><span class="method-number">A · MÉTHODE USUELLE</span><h4>Développer les quatre produits</h4></div><strong class="operation-count">4<small>multiplications</small></strong></header>
       <ol class="worked-steps">
-        <li><span class="step-label">Blocs de gauche</span><code>12 × 56 = 672</code></li>
-        <li><span class="step-label">Premier produit croisé</span><code>12 × 78 = 936</code></li>
-        <li><span class="step-label">Second produit croisé</span><code>34 × 56 = 1 904</code></li>
-        <li><span class="step-label">Blocs de droite</span><code>34 × 78 = 2 652</code></li>
-        <li class="cross-step"><span class="step-label">Additionner les produits croisés</span><code>936 + 1 904 = 2 840</code></li>
+        <li class="common-step"><span class="step-label">Produit des blocs de gauche · ac</span><code>12 × 56 = 672</code></li>
+        <li class="cross-step"><span class="step-label">Premier produit croisé · ad</span><code>12 × 78 = 936</code></li>
+        <li class="cross-step"><span class="step-label">Second produit croisé · bc</span><code>34 × 56 = 1 904</code></li>
+        <li class="common-step"><span class="step-label">Produit des blocs de droite · bd</span><code>34 × 78 = 2 652</code></li>
+        <li class="cross-step"><span class="step-label">Additionner les deux termes croisés</span><code>936 + 1 904 = 2 840</code></li>
       </ol>
-      <div class="worked-recompose"><span>Recomposition</span><code>672 × 10 000 + 2 840 × 100 + 2 652</code><strong>= 7 006 652</strong></div>
+      <div class="worked-recompose"><span>Recomposition</span><code><b class="common-text">672</b> × 10 000 + <b class="cross-text">2 840</b> × 100 + <b class="common-text">2 652</b></code><strong>= 7 006 652</strong></div>
     </article>
     <article class="worked-method worked-karatsuba">
       <header><div><span class="method-number">B · KARATSUBA</span><h4>Reconstruire les produits croisés</h4></div><strong class="operation-count">3<small>multiplications</small></strong></header>
       <ol class="worked-steps">
-        <li><span class="step-label">Blocs de gauche</span><code>p = 12 × 56 = 672</code></li>
-        <li><span class="step-label">Blocs de droite</span><code>q = 34 × 78 = 2 652</code></li>
-        <li><span class="step-label">Produit des sommes</span><code>r = (12 + 34)(56 + 78)</code><code>= 46 × 134 = 6 164</code></li>
-        <li class="cross-step"><span class="step-label">Retrouver les produits croisés</span><code>r − p − q</code><code>= 6 164 − 672 − 2 652</code><code>= 2 840</code></li>
+        <li class="common-step"><span class="step-label">Même produit des blocs de gauche · p = ac</span><code>p = 12 × 56 = 672</code></li>
+        <li class="common-step"><span class="step-label">Même produit des blocs de droite · q = bd</span><code>q = 34 × 78 = 2 652</code></li>
+        <li class="extra-step"><span class="step-label">Produit auxiliaire des sommes · r</span><code>r = (12 + 34)(56 + 78)</code><code>= 46 × 134 = 6 164</code></li>
+        <li class="cross-step"><span class="step-label">Isoler le terme croisé · r − p − q</span><code>6 164 − 672 − 2 652</code><code>= 2 840</code></li>
       </ol>
-      <div class="worked-recompose"><span>Recomposition</span><code>672 × 10 000 + 2 840 × 100 + 2 652</code><strong>= 7 006 652</strong></div>
+      <div class="worked-recompose"><span>Recomposition</span><code><b class="common-text">672</b> × 10 000 + <b class="cross-text">2 840</b> × 100 + <b class="common-text">2 652</b></code><strong>= 7 006 652</strong></div>
     </article>
   </div>
   <div class="worked-insight">
-    <span>Ce qu'il faut observer</span>
-    <p>Les deux méthodes calculent <strong>672</strong> et <strong>2 652</strong>. La méthode usuelle calcule ensuite séparément <strong>936</strong> et <strong>1 904</strong>. Karatsuba calcule à la place un seul produit supplémentaire, <strong>6 164</strong>, puis lui soustrait les deux produits déjà connus.</p>
-    <div class="worked-identity" role="math" aria-label="936 plus 1904 égale 6164 moins 672 moins 2652 égale 2840"><span>Même quantité retrouvée dans les deux colonnes</span><strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong></div>
+    <span>Le point commun : le même terme croisé</span>
+    <p>À gauche, on additionne les deux produits croisés calculés séparément. À droite, on soustrait au produit des sommes les deux produits de blocs déjà connus. Les deux opérations isolent exactement la même quantité.</p>
+    <div class="worked-identity" role="math" aria-label="ad plus bc égale 936 plus 1904 égale 6164 moins 672 moins 2652 égale 2840">
+      <span>Identité algébrique illustrée par les valeurs</span>
+      <strong>ad + bc = (a + b)(c + d) − ac − bd</strong>
+      <strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong>
+    </div>
   </div>
-  <p class="worked-caveat">Le décompte compare les multiplications des blocs à ce niveau de découpage. Les additions, soustractions et décalages ne sont pas gratuits ; ils coûtent toutefois O(n), alors que les multiplications récursives dominent à grande taille.</p>
+  <div class="worked-cost">
+    <h4>Pourquoi plusieurs additions coûtent-elles moins cher qu'une multiplication ?</h4>
+    <p>Sur des blocs de <strong>n chiffres</strong>, additionner deux nombres demande de parcourir les chiffres une fois, en propageant éventuellement une retenue : le coût est proportionnel à <strong>n</strong>, soit O(n).</p>
+    <p>Avec la multiplication scolaire, chaque chiffre d'un nombre est combiné avec chaque chiffre de l'autre. Il faut donc environ <strong>n × n</strong> produits élémentaires, soit O(n²). Une multiplication de blocs mobilise ainsi beaucoup plus de travail qu'une addition de blocs lorsque n grandit.</p>
+    <div class="cost-contrast">
+      <div><span>Addition de deux blocs</span><strong>≈ n</strong><small>opérations sur les chiffres</small></div>
+      <div><span>Multiplication scolaire</span><strong>≈ n²</strong><small>produits élémentaires</small></div>
+    </div>
+    <p class="worked-cost-note">Karatsuba remplace donc une multiplication de blocs par quelques additions et soustractions. Ce n'est pas « gratuit » : pour de petits nombres, les coûts fixes peuvent annuler le bénéfice. Mais à mesure que les blocs grandissent, le terme quadratique de la multiplication scolaire augmente plus vite que le coût linéaire des additions. C'est cette différence de croissance qui rend l'échange intéressant.</p>
+  </div>
+  <p class="worked-caveat">Le décompte 4 → 3 porte sur les multiplications de blocs à un niveau de découpage. En répétant la réduction récursivement, on obtient T(n) = 3T(n/2) + O(n), au lieu de T(n) = 4T(n/2) + O(n).</p>
 </section>
 <style>
   .worked-comparison { margin: 2.5rem 0; padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #252820; }
   .worked-kicker { color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
   .worked-comparison h3 { margin: .5rem 0; font: 500 clamp(1.5rem, 3.5vw, 2.1rem)/1.12 "Newsreader", Georgia, serif; }
   .worked-intro { max-width: 58rem; margin: 0; color: #5f5b51; font: .9rem/1.6 "DM Sans", sans-serif; }
+  .worked-legend { display: flex; flex-wrap: wrap; gap: .55rem 1rem; margin: 1rem 0; color: #514f47; font: .7rem/1.4 "DM Sans", sans-serif; }
+  .worked-legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .worked-legend i { width: .72rem; height: .72rem; border-radius: .2rem; display: inline-block; }
+  .legend-common { background: #cce5df; border: 1px solid #4b8b7e; }
+  .legend-cross { background: #f7dfb7; border: 1px solid #bd792b; }
+  .legend-extra { background: #e5dff2; border: 1px solid #7965a4; }
   .worked-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: 1.25rem 0; }
   .worked-split > div { display: grid; gap: .25rem; padding: .8rem; border: 1px solid #ded9cc; border-radius: .45rem; background: #fffefa; }
   .worked-split span, .worked-recompose > span { color: #6b675e; font: 500 .66rem/1.4 "DM Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
@@ -59,22 +84,35 @@
   .worked-karatsuba .operation-count { color: #315b45; }
   .operation-count small { display: block; margin-top: .3rem; color: #6b675e; font: 500 .58rem/1.2 "DM Sans", sans-serif; }
   .worked-steps { display: grid; gap: .65rem; margin: .9rem 0; padding-left: 1.35rem; }
-  .worked-steps li { padding-left: .15rem; }
+  .worked-steps li { padding: .35rem .45rem .35rem .15rem; border-radius: .35rem; }
   .worked-steps li::marker { color: #843c27; font: 600 .72rem "DM Mono", monospace; }
   .worked-karatsuba .worked-steps li::marker { color: #315b45; }
-  .step-label { display: block; margin-bottom: .15rem; color: #6b675e; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
+  .step-label { display: block; margin-bottom: .15rem; color: #5d5a52; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
   .worked-steps code, .worked-recompose code { display: block; color: #252820; font: 500 clamp(.68rem, 1.5vw, .82rem)/1.55 "DM Mono", monospace; white-space: normal; overflow-wrap: anywhere; }
-  .worked-steps .cross-step { margin: .1rem -.3rem; padding: .55rem .5rem; border-radius: .35rem; background: #f2eee3; }
-  .worked-karatsuba .worked-steps .cross-step { background: #e2eadf; }
+  .worked-steps .common-step { background: #e4f0ed; border-left: 3px solid #4b8b7e; }
+  .worked-steps .cross-step { background: #fbefd9; border-left: 3px solid #bd792b; }
+  .worked-steps .extra-step { background: #eee9f6; border-left: 3px solid #7965a4; }
+  .common-text { color: #286d61; }
+  .cross-text { color: #a65d12; }
   .worked-recompose { display: grid; gap: .35rem; margin-top: auto; padding: .75rem; border-radius: .4rem; background: #f0ede4; }
   .worked-karatsuba .worked-recompose { background: #e2eadf; }
   .worked-recompose strong { color: #315b45; font: 700 1.05rem "DM Mono", monospace; }
-  .worked-insight { margin-top: 1rem; padding: 1rem; border-left: 4px solid #52745c; border-radius: .25rem; background: #e8eee4; }
-  .worked-insight > span { color: #536252; font: 500 .66rem "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
-  .worked-insight p { margin: .4rem 0 .75rem; color: #354438; font: .84rem/1.65 "DM Sans", sans-serif; }
+  .worked-insight, .worked-cost { margin-top: 1rem; padding: 1rem; border-radius: .35rem; }
+  .worked-insight { border-left: 4px solid #bd792b; background: #fbf1df; }
+  .worked-insight > span { color: #87551d; font: 500 .66rem "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  .worked-insight p, .worked-cost p { margin: .4rem 0 .75rem; color: #454238; font: .84rem/1.65 "DM Sans", sans-serif; }
   .worked-identity { display: grid; gap: .3rem; }
-  .worked-identity span { color: #536252; font: .65rem "DM Sans", sans-serif; }
-  .worked-identity strong { color: #244b37; font: 600 clamp(.75rem, 2vw, 1rem)/1.5 "DM Mono", monospace; overflow-wrap: anywhere; }
+  .worked-identity span { color: #76501f; font: .65rem "DM Sans", sans-serif; }
+  .worked-identity strong { color: #8e5517; font: 600 clamp(.75rem, 2vw, 1rem)/1.5 "DM Mono", monospace; overflow-wrap: anywhere; }
+  .worked-cost { border: 1px solid #d7d2c6; background: #fffefa; }
+  .worked-cost h4 { margin: 0 0 .5rem; font: 600 1.05rem/1.3 "DM Sans", sans-serif; }
+  .cost-contrast { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin: .8rem 0; }
+  .cost-contrast > div { display: grid; gap: .2rem; padding: .7rem; border-radius: .4rem; background: #e8eee9; }
+  .cost-contrast > div + div { background: #f5eadb; }
+  .cost-contrast span, .cost-contrast small { color: #5d5a52; font: .68rem/1.4 "DM Sans", sans-serif; }
+  .cost-contrast strong { color: #315b45; font: 700 1.35rem "DM Mono", monospace; }
+  .cost-contrast > div + div strong { color: #9b5c1c; }
+  .worked-cost .worked-cost-note, .worked-cost-note { margin-bottom: 0; color: #5d5a52; font-size: .78rem; }
   .worked-caveat { margin: .8rem 0 0; color: #6b675e; font: .72rem/1.55 "DM Sans", sans-serif; }
-  @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
+  @media (max-width: 700px) { .worked-columns, .worked-split, .cost-contrast { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
 </style>
