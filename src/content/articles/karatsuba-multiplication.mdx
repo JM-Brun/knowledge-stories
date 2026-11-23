@@ -24,7 +24,7 @@ sources:
     kind: "secondary"
     accessed: 2026-11-20
   - title: "Multiplying integers — FLINT documentation"
-    url: "https://fredrikj.net/fdoc/html/algorithms/integers/multiplication.html"
+    url: "https://flintlib.org/doc/algorithms/integers/multiplication.html"
     kind: "documentation"
     accessed: 2026-11-20
   - title: "Karatsuba Multiplication — University of Illinois, CS 173"
@@ -47,8 +47,8 @@ sources:
     url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
     kind: "secondary"
     accessed: 2026-11-20
-  - title: "Multiplication Algorithms — GNU MP 6.3.0"
-    url: "https://gmplib.org/manual/Multiplication-Algorithms"
+  - title: "Karatsuba Multiplication — GNU MP 6.3.0"
+    url: "https://gmplib.org/manual/Karatsuba-Multiplication"
     kind: "documentation"
     accessed: 2026-11-20
   - title: "Integer multiplication in time O(n log n) — Harvey et van der Hoeven (2021)"
@@ -289,7 +289,7 @@ Cette preuve par arbre est équivalente à l’application du théorème maître
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
-Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille \(n/2\). Cela ne change pas l’exposant, car leur taille reste bornée par \(n/2+O(1)\), et l’on peut majorer la récurrence par trois appels de taille voisine de \(n/2\) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. La documentation de [FLINT, section « Karatsuba multiplication »](https://flintlib.org/doc/algorithms/integers/multiplication.html) détaille cette variante et sa preuve de complexité.
+Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille \(n/2\). Cela ne change pas l’exposant, car leur taille reste bornée par \(n/2+O(1)\), et l’on peut majorer la récurrence par trois appels de taille voisine de \(n/2\) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi la variante avec différences évite les sommes susceptibles de dépasser la taille des blocs et décrit le coût supplémentaire des additions.
 
 ## Pourquoi une bibliothèque combine plusieurs méthodes
 
