@@ -2,7 +2,8 @@ project:
   type: website
   output-dir: ../dist/calendar
   render:
-    - "!templates/**"
+    - index.qmd
+    - days/*.qmd
 
 website:
   title: "Calendrier Data Science & ML 2026"
