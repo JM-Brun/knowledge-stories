@@ -175,7 +175,7 @@ L’atelier effectue un découpage et affiche les trois produits qui deviennent,
 <details>
 <summary>Voir la réponse</summary>
 
-Le produit des sommes reçoit 99 + 99 = 198 d’un côté et 12 + 34 = 46 de l’autre. Les deux autres produits portent sur des blocs de deux chiffres. La retenue qui crée le chiffre des centaines suffit à rompre l’hypothèse de tailles exactement divisées par deux.
+Dans le produit auxiliaire, les deux sommes valent 198 et 46. Son premier opérande comporte donc trois chiffres, alors que les produits ac et bd utilisent des blocs de deux chiffres. La retenue suffit ainsi à rompre l’hypothèse d’un découpage en sous-problèmes exactement deux fois plus petits.
 
 </details>
 
@@ -266,7 +266,7 @@ Le tableau décrit un arbre équilibré. L’exercice précédent montre toutefo
 
 Les multiplications économisées ont un prix. À petite taille, les additions, les allocations et la gestion des appels peuvent coûter plus que les produits qu’elles remplacent. La complexité asymptotique décrit comment le travail croît avec la taille. Pour déterminer un seuil de bascule, il faut mesurer une implémentation sur la machine visée.
 
-Le [manuel de GNU MP](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à des variantes de Toom et à la FFT. Les seuils sont exprimés en mots binaires, les blocs de la représentation interne appelés *limbs*. La taille relative des deux opérandes compte aussi. La documentation de FLINT donne un deuxième exemple de seuils qui varient selon les architectures.
+Le [manuel de GNU MP](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à des variantes de Toom et à la FFT. Les seuils sont exprimés en nombre de *limbs*, les unités de taille fixe utilisées par la représentation interne. La taille relative des deux opérandes compte aussi. La documentation de FLINT donne un deuxième exemple de seuils qui varient selon les architectures.
 
 La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Multiplication) répond directement au problème de retenue observé dans l’atelier. Le terme croisé s’écrit aussi `ad + bc = ac + bd − (a − b)(c − d)`. La valeur absolue d’une différence entre deux blocs de **m** chiffres tient sur **m** chiffres, alors que leur somme peut en prendre **m + 1**. Le calcul doit alors gérer le signe du produit des différences.
 
@@ -300,7 +300,7 @@ O(n (log n)^(1 - κ)), avec κ = 2^(-46)
 
 et s'accompagne d'une formalisation en Lean 4. Le dépôt des auteurs fournit le papier court, le papier complet et le développement Lean. Sa documentation indique que la preuve formalisée établit la borne à partir de la construction et des définitions de machine retenues, sans prendre les résultats du préprint OpenAI ni ceux de Harvey–van der Hoeven comme hypothèses ou axiomes. Le noyau Lean et les définitions Mathlib utilisées, ainsi que les trois axiomes logiques standards de Lean, font partie de la base de confiance déclarée.
 
-Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en O(n log n), pas une implémentation pratique du nouvel algorithme sous-n log n.
+Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en O(n log n), pas une implémentation pratique du nouvel algorithme en temps inférieur à n log n.
 
 Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce κ = 2^-56 avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint κ = 2^-46. Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
 
@@ -322,6 +322,6 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 - **Une présentation de la récurrence.** Les notes de cours de l'université Radboud détaillent le passage de quatre à trois multiplications et la résolution de la récurrence.
 - **Les choix d'implémentation.** La documentation de FLINT présente une identité de Karatsuba, une preuve de la borne et des considérations concrètes sur les seuils et les architectures.
 - **Un cours d'algorithmique.** Le cours CS 173 de l'université de l'Illinois propose une explication progressive de l'identité et de la complexité.
-- **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne sous-n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
+- **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne asymptotique en dessous de n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
 
 ---
