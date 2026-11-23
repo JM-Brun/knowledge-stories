@@ -76,7 +76,7 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
-On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie transforme le coût asymptotique de Θ(n²) en Θ(n^log₂(3)), soit environ Θ(n^1,585).
+On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie donne un coût en Θ(n^log₂(3)), soit environ Θ(n^1,585), au lieu de Θ(n²) pour la méthode classique. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong>4 → 3</strong><span>multiplications de blocs à chaque étape</span></div>
@@ -108,9 +108,9 @@ En développant le produit :
   <div className="math-line"><i>xy</i> = <span className="term-common"><i>ac</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>ad</i> + <i>bc</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>bd</i></span></div>
 </div>
 
-Il faut donc connaître trois quantités : le produit des blocs de gauche ac, le produit des blocs de droite bd, et la somme des deux produits croisés ad + bc.
+Il faut donc connaître trois quantités : le produit des blocs de gauche <span class="term-common">ac</span>, le produit des blocs de droite <span class="term-common">bd</span>, et la somme des deux produits croisés <span class="term-cross">ad + bc</span>.
 
-La méthode directe calcule quatre produits : ac, ad, bc et bd. Mais les deux produits croisés n'ont pas besoin d'être calculés séparément.
+La méthode directe calcule quatre produits : <span class="term-common">ac</span>, <span class="term-cross">ad</span>, <span class="term-cross">bc</span> et <span class="term-common">bd</span>. Mais les deux produits croisés n'ont pas besoin d'être calculés séparément.
 
 ## Le mécanisme : une multiplication en moins
 
@@ -143,7 +143,7 @@ Le produit final se recompose ainsi :
 </div>
 
 
-Le calcul des blocs comporte aussi des opérations auxiliaires : deux additions pour former a + b et c + d, puis deux soustractions pour isoler le terme croisé r − p − q. La méthode directe, elle, additionne simplement ad et bc. Dans les deux cas, la recomposition finale demande les mêmes deux décalages de blocs et deux additions. Ces opérations sur les chiffres coûtent O(n) par niveau : elles sont plus nombreuses avec Karatsuba, mais restent moins coûteuses asymptotiquement que les sous-multiplications récursives. Les trois produits p, q et r sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
+Le calcul des blocs comporte aussi des opérations auxiliaires : deux additions pour former <span class="term-aux">a + b</span> et <span class="term-aux">c + d</span>, puis deux soustractions pour isoler le terme croisé <span class="term-aux">r</span> − <span class="term-common">p</span> − <span class="term-common">q</span>. La méthode directe, elle, additionne simplement <span class="term-cross">ad</span> et <span class="term-cross">bc</span>. Dans les deux cas, la recomposition finale demande les mêmes deux décalages de blocs et deux additions. Ces opérations sur les chiffres coûtent O(n) par niveau : elles sont plus nombreuses avec Karatsuba, mais restent moins coûteuses asymptotiquement que les sous-multiplications récursives. Les trois produits <span class="term-common">p</span>, <span class="term-common">q</span> et <span class="term-aux">r</span> sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
 
 ## Un exemple pas à pas
 
@@ -226,10 +226,16 @@ Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage �
 
 Les feuilles ne représentent pas tout le travail : chaque appel doit aussi découper les blocs, effectuer des additions et recomposer le résultat. Le détail ci-dessous montre pourquoi ces opérations, de coût linéaire par appel, ne changent pas l'exposant de la complexité.
 
-<details>
-<summary>Retrouver l’exposant à partir de l’arbre</summary>
+## Démontrer l’exposant à partir de l’arbre
 
-Pour deux opérandes de **n** chiffres en base fixe, supposons **n** puissance de deux et un découpage exactement équilibré. On note **T(n)** le coût total, en opérations élémentaires sur les chiffres. Le découpage et la recomposition coûtent O(n) à chaque appel. On obtient T(n) = 4T(n/2) + O(n) pour le découpage classique et T(n) = 3T(n/2) + O(n) pour Karatsuba.
+Pour isoler le raisonnement, supposons que **n** soit une puissance de deux et que chaque découpage soit équilibré. On note **T(n)** le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent O(n). La différence entre les méthodes tient donc au nombre de multiplications récursives :
+
+<div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences de la méthode classique et de Karatsuba">
+  <div class="math-line"><span class="term-common">Méthode classique : T(n) = 4 T(n/2) + O(n)</span></div>
+  <div class="math-line"><span class="term-aux">Karatsuba : T(n) = 3 T(n/2) + O(n)</span></div>
+</div>
+
+Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite **n** chiffres. Au niveau 1, il crée **3** appels de taille **n/2** ; au niveau 2, ces appels en créent **9** de taille **n/4**. Plus généralement, au niveau **j**, il existe **3ʲ** appels, chacun traitant environ **n/2ʲ** chiffres.
 
 Pour huit chiffres, le calcul suivant normalise le travail hors sous-appels à une unité par chiffre traité à chaque nœud interne.
 
@@ -240,11 +246,23 @@ Pour huit chiffres, le calcul suivant normalise le travail hors sous-appels à u
 | 2 | 9 | 2 | 18 unités |
 | 3 | 27 | 1 | 27 produits de base |
 
-À la profondeur **j**, les 3ʲ appels traitent chacun n/2ʲ chiffres. Un étage interne coûte donc O(n × (3/2)ʲ). La somme géométrique jusqu’au dernier étage interne est en O(3ᵏ), où k = log₂(n). Les 3ᵏ feuilles fournissent déjà un coût en Θ(3ᵏ) dès lors que chacun de leurs produits a un coût constant positif. Le coût total est donc en **Θ(n^log₂(3)) ≈ Θ(n^1,585)**. Le même raisonnement à quatre branches donne 4ᵏ = n² feuilles et un coût total en Θ(n²).
+Le travail local d’un niveau est le nombre d’appels multiplié par le coût linéaire de chacun :
+
+<div class="math-display math-display--compact complexity-equations" role="math" aria-label="Coût du niveau j égal à O de n fois trois sur deux puissance j">
+  <div class="math-line"><span class="term-aux">3ʲ × O(n/2ʲ) = O(n(3/2)ʲ)</span></div>
+</div>
+
+La profondeur vaut **k = log₂(n)**. À la dernière profondeur, le nombre de feuilles est :
+
+<div class="math-display math-display--key complexity-equations" role="math" aria-label="Nombre de feuilles égal à trois puissance k égal à n puissance logarithme base deux de trois">
+  <div class="math-line"><span class="term-aux">3ᵏ = 3^log₂(n) = n^log₂(3)</span></div>
+</div>
+
+La somme des coûts internes est une série géométrique de raison **3/2**, supérieure à 1 : elle est donc dominée, à un facteur constant près, par son dernier terme. Elle vaut O(n(3/2)ᵏ) = O(3ᵏ). Les feuilles coûtent elles-mêmes Θ(3ᵏ), puisque chaque multiplication de base traite un nombre constant de chiffres. Le coût total est donc **Θ(3ᵏ) = Θ(n^log₂(3))**. Numériquement, log₂(3) ≈ 1,585.
+
+Pour la méthode classique, le même raisonnement remplace **3** par **4** : le niveau j coûte O(n·2ʲ), et les feuilles sont au nombre de **4ᵏ = n²**. Le coût total est donc Θ(n²). L’économie de Karatsuba porte ainsi sur le facteur de branchement de l’arbre : trois sous-multiplications au lieu de quatre, répétées à chaque profondeur.
 
 Le tableau décrit un arbre équilibré. L’exercice précédent montre toutefois qu'une retenue peut agrandir légèrement un sous-problème ; la variante par différences, présentée ensuite, évite cet effet pour des blocs de même longueur.
-
-</details>
 
 ## Pourquoi une bibliothèque combine plusieurs méthodes
 
