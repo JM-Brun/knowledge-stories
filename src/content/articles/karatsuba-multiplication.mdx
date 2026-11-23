@@ -61,6 +61,9 @@ relatedArticles: []
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
+import KaratsubaHero from "../../components/KaratsubaHero.astro";
+
+<KaratsubaHero />
 
 <aside class="source-provenance">
   <strong>Source principale et filiation de cet article</strong>
@@ -184,6 +187,61 @@ Le produit des sommes reçoit 99 + 99 = 198 d’un côté et 12 + 34 = 46 de l�
 
 </details>
 
+## Un algorithme récursif, pas seulement une identité
+
+L'identité précédente décrit un seul niveau de découpage. Pour multiplier de très grands entiers, on applique la même méthode aux trois produits de blocs : c'est la récursion qui produit le gain asymptotique.
+
+Voici une version de référence en Python. Elle utilise les entiers de précision arbitraire de Python et traite le cas où les deux opérandes n'ont pas la même longueur :
+
+```python
+def karatsuba(x: int, y: int) -> int:
+    if x < 10 or y < 10:
+        return x * y
+
+    m = max(len(str(x)), len(str(y))) // 2
+    base = 10**m
+    a, b = divmod(x, base)
+    c, d = divmod(y, base)
+
+    ac = karatsuba(a, c)
+    bd = karatsuba(b, d)
+    cross = karatsuba(a + b, c + d) - ac - bd
+
+    return ac * base**2 + cross * base + bd
+```
+
+Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
+
+Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de (n=2^k) chiffres conduisent à (4^k=n^2) produits élémentaires avec la méthode classique, contre (3^k=n^{\log_2 3}) avec Karatsuba. Pour un million de chiffres, ces modèles donnent respectivement (10^{12}) et environ (3,8\times10^9) produits aux feuilles. Ce comptage compare les feuilles de deux arbres idéalisés ; il ne constitue pas une mesure du temps d'exécution d'une bibliothèque.
+
+## Exercices pour vérifier l'idée
+
+**1. Calculer 47 × 83 avec Karatsuba.** Coupez les nombres en dizaines et unités, puis retrouvez le terme croisé sans calculer séparément les deux produits croisés.
+
+<details>
+<summary>Correction</summary>
+
+On pose (a=4), (b=7), (c=8) et (d=3). Les trois produits sont (ac=32), (bd=21) et ((a+b)(c+d)=11\times11=121). Le terme croisé vaut donc (121-32-21=68). Enfin, (47\times83=32\times100+68\times10+21=3\,901).
+
+</details>
+
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, (1\,024=2^{10}). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+
+<details>
+<summary>Correction</summary>
+
+La méthode classique en demande (4^{10}=1\,048\,576), tandis que Karatsuba en demande (3^{10}=59\,049). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+
+</details>
+
+## Questions fréquentes
+
+**Pourquoi l'exposant vaut-il environ 1,585 ?** À chaque niveau, la taille est divisée par deux et le nombre de sous-problèmes est multiplié par trois. Pour (n=2^k), le nombre de feuilles vaut (3^k= n^{\log_2 3}\), et (log_2 3\approx1,585).
+
+**Karatsuba est-il toujours plus rapide ?** Non. Pour de petits opérandes, le coût des additions, soustractions, appels récursifs et allocations peut dépasser le gain obtenu. Les bibliothèques utilisent donc des seuils empiriques et plusieurs algorithmes selon la taille.
+
+**Quel est le lien avec Toom–Cook et la FFT ?** Toom–Cook généralise l'idée en découpant les nombres en davantage de blocs et en reconstruisant un produit polynomial à partir de valeurs évaluées. Les algorithmes fondés sur les transformées rapides accélèrent ensuite la convolution des coefficients. Ces méthodes réduisent encore la croissance asymptotique, mais leur complexité d'implémentation et leurs seuils pratiques sont plus élevés.
+
 ## Que se passe-t-il quand on double la taille ?
 
 Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage à l’arbre. Pour passer de quatre à huit chiffres, le découpage classique passe de 16 à 64 produits aux feuilles, et Karatsuba de 9 à 27. Chaque doublement répète ce contraste : **quatre fois plus de feuilles d’un côté, trois fois plus de l’autre**. La différence grandit parce qu’elle se répète à chaque étage.
@@ -275,16 +333,3 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 ---
 
 *État éditorial : brouillon de travail. Les explications mathématiques et les références initiales ont été assemblées, mais l'article doit encore faire l'objet d'une revue indépendante, notamment sur l'histoire de la découverte, les variantes pratiques et les exemples de calcul, avant toute publication.*
-
-
-<style>
-  .term-common { color: #286d61; font-weight: 650; }
-  .term-cross { color: #a65d12; font-weight: 650; }
-  .term-aux { color: #7965a4; font-weight: 650; }
-  .term-legend { display: flex; flex-wrap: wrap; gap: .55rem 1rem; margin: .9rem 0 1.5rem; color: #514f47; font: .76rem/1.4 system-ui, sans-serif; }
-  .term-legend span { display: inline-flex; align-items: center; gap: .4rem; }
-  .term-legend i { display: inline-block; width: .72rem; height: .72rem; border-radius: .2rem; }
-  .legend-common { background: #cce5df; border: 1px solid #4b8b7e; }
-  .legend-cross { background: #f7dfb7; border: 1px solid #bd792b; }
-  .legend-aux { background: #e5dff2; border: 1px solid #7965a4; }
-</style>
