@@ -8,7 +8,7 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 
 ## La question
 
-Pourquoi la variance de (X+Y) n'est-elle pas toujours égale à la somme des variances de (X) et de (Y) ? Parce que la somme dépend aussi de la manière dont les deux variables fluctuent ensemble.
+Pourquoi la variance de \(X+Y\) n'est-elle pas toujours égale à la somme des variances de \(X\) et de \(Y\) ? Parce que la somme dépend aussi de la manière dont les deux variables fluctuent ensemble.
 
 ## Un cas parfaitement dépendant
 
@@ -130,7 +130,7 @@ Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes
 1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
 2. Le biais commun est présent dans chaque mesure et donc aussi dans leur moyenne.
 3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
-4. (X) uniforme sur ({-1,0,1}) et (Y=X^2) : (Y) dépend de (X), mais leur covariance est nulle.
+4. \(X\) est uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\) : \(Y\) dépend de \(X\), mais leur covariance est nulle.
 
 </details>
 
