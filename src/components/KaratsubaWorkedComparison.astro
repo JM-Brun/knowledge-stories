@@ -45,17 +45,6 @@
       <strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong>
     </div>
   </div>
-  <div class="worked-cost">
-    <h4>Pourquoi plusieurs additions coûtent-elles moins cher qu'une multiplication ?</h4>
-    <p>Sur des blocs de <strong>n chiffres</strong>, additionner deux nombres demande de parcourir les chiffres une fois, en propageant éventuellement une retenue : le coût est proportionnel à <strong>n</strong>, soit O(n).</p>
-    <p>Avec la multiplication scolaire, chaque chiffre d'un nombre est combiné avec chaque chiffre de l'autre. Il faut donc environ <strong>n × n</strong> produits élémentaires, soit O(n²). Une multiplication de blocs mobilise ainsi beaucoup plus de travail qu'une addition de blocs lorsque n grandit.</p>
-    <div class="cost-contrast">
-      <div><span>Addition de deux blocs</span><strong>≈ n</strong><small>opérations sur les chiffres</small></div>
-      <div><span>Multiplication scolaire</span><strong>≈ n²</strong><small>produits élémentaires</small></div>
-    </div>
-    <p class="worked-cost-note">Karatsuba remplace donc une multiplication de blocs par quelques additions et soustractions. Ce n'est pas « gratuit » : pour de petits nombres, les coûts fixes peuvent annuler le bénéfice. Mais à mesure que les blocs grandissent, le terme quadratique de la multiplication scolaire augmente plus vite que le coût linéaire des additions. C'est cette différence de croissance qui rend l'échange intéressant.</p>
-  </div>
-  <p class="worked-caveat">Le décompte 4 → 3 porte sur les multiplications de blocs à un niveau de découpage. En répétant la réduction récursivement, on obtient T(n) = 3T(n/2) + O(n), au lieu de T(n) = 4T(n/2) + O(n).</p>
 </section>
 <style>
   .worked-comparison { margin: 2.5rem 0; padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #252820; }
