@@ -276,7 +276,7 @@ La profondeur vaut **k = log₂(n)**. À la dernière profondeur, le nombre de f
 La somme des coûts internes de Karatsuba est une série géométrique de raison **3/2**, supérieure à 1. Elle est donc dominée, à un facteur constant près, par son dernier terme :
 
 \[
-\sum_{j=0}^{k-1} O\!\left(n(3/2)^j\right)
+\sum_&#123;j=0&#125;^&#123;k-1&#125; O\!\left(n(3/2)^j\right)
 = O\!\left(n(3/2)^k\right)
 = O(3^k).
 \]
@@ -285,28 +285,28 @@ Les feuilles coûtent elles-mêmes \(\Theta(3^k)\), puisque chacune effectue une
 
 \[
 T(n)=\Theta(3^k)
-=\boxed{\Theta\!\left(n^{\log_2 3}\right)}.
+=\boxed&#123;\Theta\!\left(n^&#123;\log_2 3&#125;\right)&#125;.
 \]
 
-Comme \(\log_2 3 \approx 1{,}58496\), l’exposant est souvent arrondi à **1,585**.
+Comme \(\log_2 3 \approx 1&#123;,&#125;58496\), l’exposant est souvent arrondi à **1,585**.
 
 Pour la méthode classique, le même raisonnement remplace **3** par **4**. Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de \(4^k = (2^k)^2=n^2\). La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total est donc \(\Theta(n^2)\).
 
-Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^{\log_2 n}=n^{\log_2 3}\).
+Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
 Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut toutefois nécessiter un chiffre supplémentaire. Si \(m_j\) désigne la taille maximale d’un sous-problème au niveau \(j\), on peut majorer cette évolution par
 
 \[
-m_{j+1}\leq \frac{m_j}{2}+2.
+m_&#123;j+1&#125;\leq \frac&#123;m_j&#125;&#123;2&#125;+2.
 \]
 
 En déroulant cette inégalité, on obtient \(m_j\leq n/2^j+4\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau \(j\), le travail interne est donc borné par
 \[
 O(3^j m_j)=O\!\left(n(3/2)^j+3^j\right).
 \]
-Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^{\log_2 3})\). Les feuilles sont en nombre \(\Theta(3^{\log_2 n})=\Theta(n^{\log_2 3})\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^&#123;\log_2 3&#125;)\). Les feuilles sont en nombre \(\Theta(3^&#123;\log_2 n&#125;)=\Theta(n^&#123;\log_2 3&#125;)\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
