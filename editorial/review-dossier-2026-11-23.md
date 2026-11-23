@@ -183,3 +183,20 @@ La PR #35 a été mise à jour après sa première exécution. Les workflows de 
 - La table des arbitrages et le sélecteur interactif ont été conservés : ils répondent à deux questions différentes, respectivement « quels compromis comparer ? » et « quels critères examiner selon l'usage ? ».
 
 Cette réorganisation retire une répétition de profils sans supprimer leur information : les valeurs A à E restent dans le tableau et le graphique ; les cartes ajoutent désormais des dimensions absentes des seules observations.
+
+
+## 7. Troisième passe pédagogique — exercices du jour 1 — 23 novembre 2026
+
+### Ajustements intégrés
+
+- La légende du graphique ne présente plus la quantification du profil D comme une propriété mesurée : elle précise qu'il s'agit d'un affichage supposé, cohérent avec le scénario illustratif.
+- La première question d'exercice remplace « cent fois plus » par « multiplier par 100 le nombre de mesures », formulation non ambiguë pour le facteur appliqué à l'écart-type de la moyenne.
+- Trois indices gradués précèdent désormais la solution : distinguer variation aléatoire et décalage systématique ; interroger la validité d'une correction ; concevoir un protocole permettant de séparer les effets capteur et bâtiment.
+
+### Vérification du raisonnement
+
+Si le nombre d'observations indépendantes de même loi est multiplié par 100, l'écart-type de la moyenne est divisé par 10. Cette réduction concerne la composante aléatoire sous les hypothèses du modèle ; elle ne réduit pas le biais constant. La formulation de l'exercice et celle de sa solution sont maintenant alignées sur ce facteur.
+
+### Statut
+
+Ces changements constituent une amélioration pédagogique ciblée. Ils ne remplacent pas le contrôle navigateur, responsive, clavier et lecteur d'écran, qui reste à effectuer.
