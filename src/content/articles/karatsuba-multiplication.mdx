@@ -212,7 +212,7 @@ def karatsuba(x: int, y: int) -> int:
 
 Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
 
-Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de (n=2^k) chiffres conduisent à (4^k=n^2) produits élémentaires avec la méthode classique, contre (3^k=n^{\log_2 3}) avec Karatsuba. Pour un million de chiffres, ces modèles donnent respectivement (10^{12}) et environ (3,8\times10^9) produits aux feuilles. Ce comptage compare les feuilles de deux arbres idéalisés ; il ne constitue pas une mesure du temps d'exécution d'une bibliothèque.
+Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de \(n=2^k\) chiffres conduisent à \(4^k=n^2\) produits élémentaires avec la méthode classique, contre \(3^k=n^{\log_2 3}\) avec Karatsuba. Pour un million de chiffres, ces modèles donnent respectivement \(10^{12}\) et environ \(3,8\times10^9\) produits aux feuilles. Ce comptage compare les feuilles de deux arbres idéalisés ; il ne constitue pas une mesure du temps d'exécution d'une bibliothèque.
 
 ## Exercices pour vérifier l'idée
 
