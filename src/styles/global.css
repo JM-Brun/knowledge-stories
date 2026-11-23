@@ -6,3 +6,5 @@
 @media(max-width:650px){.archive-hero{padding:75px 0 60px}.archive-lead{font-size:19px}.edition-card{grid-template-columns:1fr}.edition-art{min-height:270px}.edition-copy{padding:28px}.edition-status{font-size:8px}}
 
 .hero-actions{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+
+.footer-review{justify-self:end;color:var(--muted);font:9px var(--mono);text-decoration:none;letter-spacing:.04em}.footer-review:hover,.footer-review:focus-visible{color:var(--accent);text-decoration:underline;text-underline-offset:3px}@media(max-width:650px){.footer-review{justify-self:start}}
