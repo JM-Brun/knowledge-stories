@@ -25,3 +25,30 @@ details { margin:1.2rem 0; padding:.8rem 1rem; border:1px solid var(--calendar-l
 @media(max-width:900px){.advent-calendar{grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(max-width:600px){.advent-calendar{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.advent-door{min-height:165px;padding:.8rem}.advent-door .door-number{font-size:3.2rem}.advent-door .door-title{font-size:.72rem}}
 @media(prefers-reduced-motion:reduce){.advent-door{transition:none}a.advent-door:hover{transform:none}}
+
+
+/* Article pages: calmer the reading measure and give mathematical/visual
+   blocks enough space to render without clipping on narrow screens. */
+main.content, #quarto-content main { max-width: 76rem; }
+#quarto-content .page-columns { column-gap: 2rem; }
+#quarto-content .content { line-height: 1.72; }
+#quarto-content h2 { margin-top: 3rem; padding-bottom: .45rem; border-bottom: 1px solid var(--calendar-line); color: var(--calendar-green); letter-spacing: -.025em; }
+#quarto-content h3 { margin-top: 2rem; color: #355b49; }
+#quarto-content p, #quarto-content li { max-width: 76ch; }
+#quarto-content table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; }
+#quarto-content table thead { background: #e9eee7; }
+#quarto-content table th { color: #294b3a; }
+#quarto-content table th, #quarto-content table td { padding: .65rem .8rem; vertical-align: top; }
+#quarto-content figure { margin: 2rem 0; padding: 1rem; border: 1px solid var(--calendar-line); border-radius: 14px; background: rgba(255,255,255,.72); box-shadow: 0 8px 24px rgba(32,53,45,.055); }
+#quarto-content figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+#quarto-content figcaption { margin: .8rem .35rem .15rem; color: #5e6f64; font-size: .88rem; line-height: 1.55; }
+#quarto-content .math.display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
+#quarto-content .math.inline { overflow-wrap: anywhere; }
+#quarto-content details { max-width: 76ch; }
+.error-figure { border-color: #cbd9ce !important; background: linear-gradient(145deg,#fffefa,#f1f5ef) !important; }
+.error-figure svg { max-height: 19rem; }
+@media (max-width: 700px) {
+  #quarto-content figure { margin: 1.4rem -.25rem; padding: .45rem; border-radius: 10px; }
+  #quarto-content table th, #quarto-content table td { padding: .5rem .55rem; }
+  #quarto-content h2 { margin-top: 2.3rem; }
+}
