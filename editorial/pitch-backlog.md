@@ -254,3 +254,5 @@ Ces pistes complètent les titres déjà inscrits dans le calendrier. Elles ne c
 5. **Une frontière de validité.** Dire ce que l'expérience ne permet pas de conclure.
 6. **Ne pas gonfler artificiellement la durée.** Viser 7 à 10 minutes utiles ; une interaction courte peut remplacer plusieurs paragraphes.
 7. **Ne pas publier une piste comme un fait établi.** Les dossiers de sources, calculs et licences sont à constituer avant la rédaction finale.
+
+> **Cohérence transversale :** le fil rouge des erreurs de données et de modélisation est cadré dans [`architecture-erreurs-calendrier-2026.md`](./architecture-erreurs-calendrier-2026.md). Ce document conserve les 24 thèmes et répartit les approfondissements sans ajouter de journée.
