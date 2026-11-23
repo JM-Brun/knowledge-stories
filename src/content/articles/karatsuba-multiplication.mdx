@@ -94,14 +94,18 @@ En 1962, Anatoli Karatsuba et Yuri Ofman publient un résultat fondateur sur la 
 
 Prenons deux nombres et séparons chacun en deux blocs. En base dix, si l'on coupe après m chiffres :
 
-    x = a × 10^m + b
-    y = c × 10^m + d
+<div className="math-display" role="math" aria-label="x égale a fois dix puissance m plus b ; y égale c fois dix puissance m plus d">
+  <div className="math-line"><i>x</i> = <i>a</i> · 10<sup>m</sup> + <i>b</i></div>
+  <div className="math-line"><i>y</i> = <i>c</i> · 10<sup>m</sup> + <i>d</i></div>
+</div>
 
 Les lettres a et c désignent les blocs de gauche, les plus significatifs ; b et d, ceux de droite.
 
 En développant le produit :
 
-    xy = ac × 10^(2m) + (ad + bc) × 10^m + bd
+<div className="math-display math-display--compact" role="math" aria-label="x y égale a c fois dix puissance deux m, plus a d plus b c fois dix puissance m, plus b d">
+  <div className="math-line"><i>xy</i> = <i>ac</i> · 10<sup>2m</sup> + (<i>ad</i> + <i>bc</i>) · 10<sup>m</sup> + <i>bd</i></div>
+</div>
 
 Il faut donc connaître trois quantités : le produit des blocs de gauche ac, le produit des blocs de droite bd, et la somme des deux produits croisés ad + bc.
 
@@ -111,21 +115,31 @@ La méthode directe calcule quatre produits : ac, ad, bc et bd. Mais les deux pr
 
 Calculons plutôt :
 
-    (a + b)(c + d) = ac + ad + bc + bd
+<div className="math-display" role="math" aria-label="a plus b fois c plus d égale a c plus a d plus b c plus b d">
+  <div className="math-line">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>) = <i>ac</i> + <i>ad</i> + <i>bc</i> + <i>bd</i></div>
+</div>
 
 En retirant les deux produits que nous connaissons déjà, il reste exactement ce qui nous manque :
 
-    ad + bc = (a + b)(c + d) - ac - bd
+<div className="math-display math-display--key" role="math" aria-label="a d plus b c égale a plus b fois c plus d moins a c moins b d">
+  <div className="math-line"><i>ad</i> + <i>bc</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>) − <i>ac</i> − <i>bd</i></div>
+  <span className="math-caption">Le produit des sommes contient exactement les deux termes croisés recherchés.</span>
+</div>
 
 Nous avons donc seulement besoin de trois multiplications :
 
-    p = ac
-    q = bd
-    r = (a + b)(c + d)
+<div className="math-display math-display--compact" role="math" aria-label="p égale a c ; q égale b d ; r égale a plus b fois c plus d">
+  <div className="math-line"><i>p</i> = <i>ac</i></div>
+  <div className="math-line"><i>q</i> = <i>bd</i></div>
+  <div className="math-line"><i>r</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</div>
+</div>
 
 Le produit final se recompose ainsi :
 
-    xy = p × 10^(2m) + (r - p - q) × 10^m + q
+<div className="math-display math-display--key" role="math" aria-label="x y égale p fois dix puissance deux m plus r moins p moins q fois dix puissance m plus q">
+  <div className="math-line"><i>xy</i> = <i>p</i> · 10<sup>2m</sup> + (<i>r</i> − <i>p</i> − <i>q</i>) · 10<sup>m</sup> + <i>q</i></div>
+  <span className="math-caption">Trois produits suffisent ; les décalages et la recomposition restent des opérations linéaires.</span>
+</div>
 
 <KaratsubaComparison />
 
@@ -135,31 +149,52 @@ Les décalages de blocs et les additions/soustractions demandent un nombre d'op�
 
 Multiplions 1234 par 5678. Découpons chaque nombre après deux chiffres :
 
-    1234 = 12 × 100 + 34
-    5678 = 56 × 100 + 78
+<div className="math-display" role="math" aria-label="1234 égale 12 fois 100 plus 34 ; 5678 égale 56 fois 100 plus 78">
+  <div className="math-line">1 234 = 12 · 100 + 34</div>
+  <div className="math-line">5 678 = 56 · 100 + 78</div>
+</div>
 
 **1. Les deux produits des blocs**
 
-    p = 12 × 56 = 672
-    q = 34 × 78 = 2652
+<div className="math-display math-display--compact" role="math" aria-label="p égale 12 fois 56 égale 672 ; q égale 34 fois 78 égale 2652">
+  <div className="math-line"><i>p</i> = 12 · 56 = <strong>672</strong></div>
+  <div className="math-line"><i>q</i> = 34 · 78 = <strong>2 652</strong></div>
+</div>
 
 **2. Le produit des sommes**
 
-    r = (12 + 34)(56 + 78)
-    r = 46 × 134 = 6164
+<div className="math-display math-display--compact" role="math" aria-label="r égale 12 plus 34 fois 56 plus 78, égale 46 fois 134, égale 6164">
+  <div className="math-line"><i>r</i> = (12 + 34)(56 + 78)</div>
+  <div className="math-line">= 46 · 134 = <strong>6 164</strong></div>
+</div>
 
 **3. Retrouver les produits croisés**
 
-    r - p - q = 6164 - 672 - 2652 = 2840
+<div className="math-display math-display--compact" role="math" aria-label="r moins p moins q égale 6164 moins 672 moins 2652 égale 2840">
+  <div className="math-line"><i>r</i> − <i>p</i> − <i>q</i> = 6 164 − 672 − 2 652</div>
+  <div className="math-line">= <strong>2 840</strong></div>
+</div>
 
 Nous avons donc 12 × 78 + 34 × 56 = 2840, sans avoir calculé ces deux produits séparément.
 
 **4. Recomposer le résultat**
 
-    1234 × 5678
-    = 672 × 10000 + 2840 × 100 + 2652
-    = 6 720 000 + 284 000 + 2 652
-    = 7 006 652
+<div className="math-display math-display--worked" role="math" aria-label="Recomposition de 1234 fois 5678 en 7 millions 6 mille 652">
+  <div className="math-line">1 234 · 5 678 = 672 · 10 000 + 2 840 · 100 + 2 652</div>
+  <div className="math-line">= 6 720 000 + 284 000 + 2 652</div>
+  <div className="math-line math-result">= 7 006 652</div>
+</div>
+
+Pour voir comment les formules générales deviennent ce calcul précis, gardons en tête que la coupure se fait après deux chiffres : ici, `m = 2`, donc `10^m = 100` et `10^{2m} = 10 000`.
+
+<div className="calculation-bridge">
+  <p className="calculation-bridge-title">La formule générale, avec les valeurs de l'exemple</p>
+  <div className="math-display math-display--compact" role="math" aria-label="x y égale a c fois 10000 plus a d plus b c fois 100 plus b d">
+    <div className="math-line"><i>xy</i> = <i>ac</i> · 10 000 + (<i>ad</i> + <i>bc</i>) · 100 + <i>bd</i></div>
+    <div className="math-line">= 672 · 10 000 + 2 840 · 100 + 2 652</div>
+  </div>
+  <p>Chaque bloc a maintenant un rôle visible : <strong>672</strong> occupe la position des dizaines de milliers, <strong>2 840</strong> celle des centaines, et <strong>2 652</strong> reste dans les unités.</p>
+</div>
 
 La vérification est importante : Karatsuba ne fait pas disparaître les produits croisés. Il les reconstitue à partir d'un produit auxiliaire et des deux produits déjà calculés.
 
