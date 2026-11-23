@@ -63,6 +63,14 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content details { max-width: 76ch; }
 .error-figure { border-color: #cbd9ce !important; background: linear-gradient(145deg,#fffefa,#f1f5ef) !important; }
 .error-figure svg { max-height: 19rem; }
+/* Wide explanatory diagrams stay legible on phones: scroll the diagram rather
+   than shrinking every label to an unreadable size. The region is keyboard-focusable. */
+#quarto-content .diagram-scroll { max-width: 100%; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; }
+#quarto-content .diagram-scroll svg { min-width: 0; }
+#quarto-content .diagram-scroll:focus-visible { outline: 2px solid var(--calendar-green); outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 700px) {
+  #quarto-content .diagram-scroll svg { min-width: 620px; }
+}
 @media (max-width: 700px) {
   #quarto-content figure { margin: 1.4rem -.25rem; padding: .45rem; border-radius: 10px; }
   #quarto-content table th, #quarto-content table td { padding: .5rem .55rem; }

@@ -200,3 +200,21 @@ Si le nombre d'observations indépendantes de même loi est multiplié par 100, 
 ### Statut
 
 Ces changements constituent une amélioration pédagogique ciblée. Ils ne remplacent pas le contrôle navigateur, responsive, clavier et lecteur d'écran, qui reste à effectuer.
+
+
+## 8. Quatrième passe — lisibilité des schémas sur mobile — 23 novembre 2026
+
+### Problème identifié dans la source
+
+Quatre schémas explicatifs utilisent des viewBox de 720 à 760 unités. Avec une largeur fluide à 100 %, les SVG sont réduits à la largeur d'un téléphone ; les textes et annotations peuvent devenir trop petits pour être lus confortablement.
+
+### Correction intégrée
+
+- Ajout d'un conteneur défilable horizontalement autour des quatre schémas principaux : profils de capteurs, cible biais–variance, chaîne de transformation et décomposition de l'erreur.
+- Sur les écrans étroits, la largeur minimale des SVG est fixée à 620 px afin de préserver la taille des annotations ; le défilement reste limité au schéma et ne force pas la page entière à déborder.
+- Chaque zone défilable est nommée et accessible au clavier (role=region, tabindex=0, aria-label) ; un contour de focus visible signale sa prise en main.
+- Sur les écrans plus larges, les schémas conservent leur largeur fluide.
+
+### Limites de validation
+
+Le changement améliore le comportement prévu par le CSS et la structure HTML, mais ne constitue pas un test navigateur. Il reste à vérifier sur un téléphone réel ou un émulateur : taille effective des caractères, visibilité de la barre de défilement, défilement tactile et clavier, ainsi que l'absence de débordement horizontal global.
