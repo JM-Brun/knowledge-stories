@@ -81,9 +81,6 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong>4 → 3</strong><span>multiplications de blocs à chaque étape</span></div>
   <div><strong>n^1,585</strong><span>exposant de la complexité asymptotique</span></div>
-</div></div>
-  <div><strong>3 appels ≈ n/2</strong><span>trois sous-problèmes de taille proche de la moitié</span></div>
-  <div><strong>n^1,585</strong><span>exposant de complexité asymptotique</span></div>
 </div>
 
 <div className="term-legend" aria-label="Code couleur des formules">
@@ -95,6 +92,7 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 ## Pourquoi cette question est intéressante
 
 Avec la méthode scolaire, chacun des n chiffres d'un opérande peut être multiplié par chacun des n chiffres de l'autre. Le nombre de produits élémentaires croît donc comme Θ(n²). Pour des entiers très longs, peut-on exploiter la structure de la multiplication pour réduire ce travail ?
+
 ## Construire l'intuition
 
 Prenons deux nombres et séparons chacun en deux blocs. En base dix, si l'on coupe après m chiffres :
@@ -163,6 +161,7 @@ Multiplions 1234 par 5678. Découpons chaque nombre après deux chiffres :
 La comparaison fait ressortir la différence entre les deux méthodes : la méthode directe calcule séparément les produits croisés, tandis que Karatsuba les déduit du produit des sommes.
 
 La coupure intervient après deux chiffres : <code>m = 2</code>, donc <code>10^m = 100</code> et <code>10^(2m) = 10 000</code>. Les produits sont recomposés aux mêmes positions décimales ; l'identité est exacte, sans approximation.
+
 ## Expérimenter : changez les nombres
 
 La démonstration ci-dessous reprend exactement la décomposition algébrique. Essayez des nombres de longueurs différentes, observez les blocs obtenus et vérifiez que le résultat reconstruit est identique au produit direct. Le calcul utilise des entiers exacts, sans approximation flottante.
@@ -206,6 +205,7 @@ def karatsuba(x: int, y: int) -> int:
 Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
 
 Dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de \(n=2^k\) chiffres conduisent à \(4^k=n^2\) produits élémentaires avec la méthode classique, contre \(3^k=n^&#123;\log_2 3&#125;\) avec Karatsuba. Ce décompte porte sur les produits aux feuilles d'arbres équilibrés ; il ne prédit pas directement le temps d'exécution d'une bibliothèque.
+
 ## Exercices pour vérifier l'idée
 
 **1. Calculer 47 × 83 avec Karatsuba.** Coupez les nombres en dizaines et unités, puis retrouvez le terme croisé sans calculer séparément les deux produits croisés.
