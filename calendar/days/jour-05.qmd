@@ -63,7 +63,7 @@ Le logarithme transforme une multiplication de probabilités en addition de surp
 
 \[
 -\log_2(pq)=-\log_2(p)-\log_2(q).
-]
+\]
 
 Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base \(e\) pour les nats.
 
