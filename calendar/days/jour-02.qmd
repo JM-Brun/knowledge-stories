@@ -83,7 +83,7 @@ On peut résumer l'intuition ainsi :
   <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
   <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
   <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
-  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête volumineuse</text>
+  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Recensement du groupe A</text>
   <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
   <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses : recensement de A → moyenne exacte : 10</text>
   <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
