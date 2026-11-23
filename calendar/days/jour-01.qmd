@@ -134,7 +134,7 @@ où :
 - \(b\) représente un décalage systématique (biais), supposé constant dans ce modèle simplifié ;
 - \(\varepsilon_i\) représente les variations aléatoires d'une observation à l'autre.
 
-La répétition caractérise la partie variable. Si les erreurs sont i.i.d., de moyenne nulle et de variance finie, l'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
+La répétition caractérise la partie variable. Si les erreurs sont indépendantes, de même loi, de moyenne nulle et de variance finie, l'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
 
 ### Une relation utile en statistique
 
