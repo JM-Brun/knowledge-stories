@@ -19,7 +19,7 @@ sources:
     url: "https://www.mathnet.ru/php/archive.phtml?jrnid=dan&option_lang=eng&paperid=26729&wshow=paper"
     kind: "primary"
     accessed: 2026-11-20
-  - title: "Lecture notes — Complexity, Radboud University (2024)"
+  - title: "Lecture notes — Complexity, H. Zantema, Radboud University (version 2019)"
     url: "https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf"
     kind: "secondary"
     accessed: 2026-11-20
@@ -228,7 +228,7 @@ Les feuilles ne représentent pas tout le travail : chaque appel doit aussi déc
 
 ## Démontrer l’exposant à partir de l’arbre
 
-Pour isoler le raisonnement, supposons que **n** soit une puissance de deux et que chaque découpage soit équilibré. On note **T(n)** le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent O(n). La différence entre les méthodes tient donc au nombre de multiplications récursives :
+Pour isoler le raisonnement, supposons d’abord que **n** soit une puissance de deux et que chaque découpage soit équilibré. On note **T(n)** le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent O(n). La différence entre les méthodes tient donc au nombre de multiplications récursives. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) exposent explicitement ce modèle et les deux récurrences ; nous allons ici refaire le raisonnement avec l’arbre de récursion :
 
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences de la méthode classique et de Karatsuba">
   <div class="math-line"><span class="term-common">Méthode classique : T(n) = 4 T(n/2) + O(n)</span></div>
@@ -239,12 +239,12 @@ Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite **n** chiffres. 
 
 Pour rendre l’écart concret, prenons **n = 8 = 2³** chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compte les appels de chaque niveau. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’un chronométrage ni d’un décompte exact des opérations machine.
 
-| Niveau | Appels | Chiffres | Travail local |
-| --- | ---: | ---: | ---: |
-| 0 | 1 | 8 | 8 unités |
-| 1 | 3 | 4 | 12 unités |
-| 2 | 9 | 2 | 18 unités |
-| 3 | 27 | 1 | 27 produits de base |
+| Niveau | Taille d’un bloc | Appels classiques | Travail classique | Appels Karatsuba | Travail Karatsuba |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 0 | 8 | 1 | 8 unités | 1 | 8 unités |
+| 1 | 4 | 4 | 16 unités | 3 | 12 unités |
+| 2 | 2 | 16 | 32 unités | 9 | 18 unités |
+| 3 | 1 | 64 feuilles | 64 produits de base | 27 feuilles | 27 produits de base |
 
 Le travail local d’un niveau est le nombre d’appels multiplié par le coût linéaire de chacun :
 
@@ -258,11 +258,30 @@ La profondeur vaut **k = log₂(n)**. À la dernière profondeur, le nombre de f
   <div class="math-line"><span class="term-aux">3ᵏ = 3^log₂(n) = n^log₂(3)</span></div>
 </div>
 
-La somme des coûts internes est une série géométrique de raison **3/2**, supérieure à 1 : elle est donc dominée, à un facteur constant près, par son dernier terme. Elle vaut O(n(3/2)ᵏ) = O(3ᵏ). Les feuilles coûtent elles-mêmes Θ(3ᵏ), puisque chaque multiplication de base traite un nombre constant de chiffres. Le coût total est donc **Θ(3ᵏ) = Θ(n^log₂(3))**. Numériquement, log₂(3) ≈ 1,585.
+La somme des coûts internes de Karatsuba est une série géométrique de raison **3/2**, supérieure à 1. Elle est donc dominée, à un facteur constant près, par son dernier terme :
 
-Pour la méthode classique, le même raisonnement remplace **3** par **4** : le niveau j coûte O(n·2ʲ), et les feuilles sont au nombre de **4ᵏ = n²**. Le coût total est donc Θ(n²). L’économie de Karatsuba porte ainsi sur le facteur de branchement de l’arbre : trois sous-multiplications au lieu de quatre, répétées à chaque profondeur.
+\[
+\sum_{j=0}^{k-1} O\!\left(n(3/2)^j\right)
+= O\!\left(n(3/2)^k\right)
+= O(3^k).
+\]
 
-Le tableau décrit un arbre équilibré. L’exercice précédent montre toutefois qu'une retenue peut agrandir légèrement un sous-problème ; la variante par différences, présentée ensuite, évite cet effet pour des blocs de même longueur.
+Les feuilles coûtent elles-mêmes \(\Theta(3^k)\), puisque chacune effectue une multiplication de base sur un nombre constant de chiffres. Elles donnent donc aussi une borne inférieure en \(\Omega(3^k)\). En combinant les deux bornes :
+
+\[
+T(n)=\Theta(3^k)
+=\boxed{\Theta\!\left(n^{\log_2 3}\right)}.
+\]
+
+Comme \(\log_2 3 \approx 1{,}58496\), l’exposant est souvent arrondi à **1,585**.
+
+Pour la méthode classique, le même raisonnement remplace **3** par **4**. Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de \(4^k = (2^k)^2=n^2\). La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total est donc \(\Theta(n^2)\).
+
+Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^{\log_2 n}=n^{\log_2 3}\).
+
+**Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
+
+Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, (a+b) ou (c+d) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille (n/2). Cela ne change pas l’exposant, car leur taille reste bornée par (n/2+O(1)), et l’on peut majorer la récurrence par trois appels de taille voisine de (n/2) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. La documentation de [FLINT, section « Karatsuba multiplication »](https://flintlib.org/doc/algorithms/integers/multiplication.html) détaille cette variante et sa preuve de complexité.
 
 ## Pourquoi une bibliothèque combine plusieurs méthodes
 
@@ -313,7 +332,7 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 ## Pour aller plus loin
 
 - **La publication originale.** La notice de Math-Net donne la référence de l'article de Karatsuba et Ofman, publié en 1962 dans *Doklady Akademii Nauk SSSR*, volume 145, pages 293–294. Elle permet de retrouver le texte original et son contexte historique.
-- **Une présentation de la récurrence.** Les notes de cours de l'université Radboud détaillent le passage de quatre à trois multiplications et la résolution de la récurrence.
+- **Une présentation de la récurrence.** Les notes de cours de H. Zantema (Radboud University, version du 28 mars 2019) détaillent le passage de quatre à trois multiplications et la résolution par le théorème maître.
 - **Les choix d'implémentation.** La documentation de FLINT présente une identité de Karatsuba, une preuve de la borne et des considérations concrètes sur les seuils et les architectures.
 - **Un cours d'algorithmique.** Le cours CS 173 de l'université de l'Illinois propose une explication progressive de l'identité et de la complexité.
 - **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne asymptotique en dessous de n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
