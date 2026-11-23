@@ -57,3 +57,8 @@ Le capteur A est en moyenne à environ +0,17 °C de la référence ; le capteur 
 ## Pour aller plus loin
 
 Cette distinction se retrouve dans les pipelines de données : des valeurs cohérentes entre elles ne sont pas nécessairement représentatives du phénomène que l'on cherche à mesurer.
+
+## Connexions utiles
+
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : distinguer la dispersion d'une série de son éventuel biais.
+- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : passer du biais de mesure au biais de sélection.

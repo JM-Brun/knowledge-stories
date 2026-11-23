@@ -46,3 +46,7 @@ Deux enquêtes sont réalisées :
 ## Une nuance importante
 
 Un échantillon équilibré est adapté ici parce que les deux groupes ont le même poids dans la population. Dans une application réelle, un échantillonnage stratifié doit être accompagné de pondérations appropriées si les proportions de l'échantillon diffèrent de celles de la population cible.
+
+## Connexion utile
+
+- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : distinguer un décalage systématique de la question de la représentativité d'un échantillon.

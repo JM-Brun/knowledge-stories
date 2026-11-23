@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Les calendriers | Knowledge Stories" description="Les éditions annuelles des calendriers de l'Avent Data Science et Machine Learning.">
+  <main class="archive-page">
+    <header class="archive-hero">
+      <p class="eyebrow">Les éditions annuelles</p>
+      <h1>Un calendrier,<br /><em>24 idées à ouvrir.</em></h1>
+      <p class="archive-lead">Chaque année, un nouveau parcours indépendant : vingt-quatre questions pour explorer un domaine, comprendre ses concepts et mettre ses intuitions à l'épreuve.</p>
+    </header>
+    <section class="archive-section" aria-labelledby="editions-title">
+      <div class="section-heading"><p class="eyebrow">Les archives</p><h2 id="editions-title">Choisir une édition</h2></div>
+      <a class="edition-card edition-current" href="/knowledge-stories/calendar/">
+        <div class="edition-art" aria-hidden="true">
+          <span class="edition-art-kicker">24 jours</span><span class="edition-art-year">2026</span>
+          <span class="edition-art-caption">DATA SCIENCE<br />& MACHINE LEARNING</span><span class="edition-art-dots">✳ · ✳ · ✳</span>
+        </div>
+        <div class="edition-copy">
+          <span class="edition-status">ÉDITION 2026 · EN COURS DE PRÉPARATION</span>
+          <h2>Data Science & Machine Learning</h2>
+          <p>Du phénomène mesuré aux modèles qui apprennent : statistiques, apprentissage, évaluation et premières briques des modèles de langue.</p>
+          <span class="edition-link">Ouvrir les 24 cases <span aria-hidden="true">↗</span></span>
+          <span class="edition-progress">5 journées publiées sur 24</span>
+        </div>
+      </a>
+      <p class="archive-note">Les prochaines éditions seront ajoutées ici au fil des années. Une édition archivée restera accessible comme un parcours complet et autonome.</p>
+    </section>
+  </main>
+</BaseLayout>

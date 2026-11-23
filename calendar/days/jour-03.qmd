@@ -46,3 +46,7 @@ L'ordre de dispersion est donc A, B, C. La série C contient deux valeurs extrê
 ## Attention à la convention
 
 La variance ci-dessus est une variance empirique descriptive calculée avec le diviseur $n$. Pour estimer sans biais la variance d'une population à partir d'un échantillon indépendant, on utilise généralement le diviseur $n-1$. Il faut préciser la convention avant de comparer des valeurs.
+
+## Connexion utile
+
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : étendre l'étude de la dispersion à celle de plusieurs variables qui varient ensemble.

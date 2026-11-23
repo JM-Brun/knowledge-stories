@@ -49,3 +49,7 @@ Une issue de probabilité nulle n'est pas observée sous le modèle considéré.
 ## Pour aller plus loin
 
 L'entropie est une mesure d'incertitude moyenne, pas une mesure de la justesse d'une prévision. Un modèle très confiant peut être incorrect ; la calibration et les fonctions de perte répondent à d'autres questions.
+
+## Connexion utile
+
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comparer deux façons de quantifier l'incertitude, par la dispersion numérique et par la distribution des probabilités.

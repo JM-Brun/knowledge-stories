@@ -1,84 +1,85 @@
 ---
 title: "24 jours pour comprendre la Data Science et le Machine Learning"
-subtitle: "Du phénomène mesuré aux modèles qui apprennent"
-description: "Un parcours progressif en 24 micro-expériences, du 1er au 24 décembre 2026."
+subtitle: "Édition 2026 · Du phénomène mesuré aux modèles qui apprennent"
+description: "Un calendrier de l'Avent autonome en 24 questions et expériences courtes."
 ---
 
 <div class="calendar-intro">
 
 Une donnée n'est pas le réel. Un grand échantillon n'est pas nécessairement représentatif. Une moyenne ne raconte pas toute l'histoire. Et un modèle qui obtient un bon score n'a pas forcément appris ce que l'on croit.
 
-Ce calendrier explore ces idées en 24 étapes : **observer**, **apprendre**, **évaluer**, puis **comprendre les mécanismes des modèles de langue**. Chaque porte propose une question, une explication et une activité courte.
+Du **1er au 24 décembre 2026**, ce calendrier propose vingt-quatre histoires courtes pour explorer les idées fondamentales de la Data Science et du Machine Learning. Chaque journée part d'une question concrète, construit une intuition, formalise un concept et invite à vérifier son raisonnement.
 
 </div>
 
 ::: {.callout-note}
-**Mode d'emploi.** Une journée prend environ 5 à 10 minutes. Les cinq premières journées sont publiées et leurs défis disposent de solutions expliquées. Les suivantes sont annoncées dans le programme, mais ne sont pas encore ouvertes.
+**Comment lire cette édition ?** Chaque journée est une histoire indépendante : vous pouvez ouvrir n'importe quelle case, dans n'importe quel ordre. Les quatre étapes du parcours proposent un fil conducteur facultatif, pour celles et ceux qui préfèrent suivre une progression naturelle. Les solutions des défis sont repliées sous chaque activité.
 :::
 
-## Le calendrier
+## Ouvrir une case
 
-<div class="calendar-grid">
+<div class="advent-calendar" aria-label="Calendrier de l'Avent 2026, 24 cases">
 
-<div class="calendar-day available">
-  <div class="day-number">01 · 1 décembre</div>
-  <h3><a href="days/jour-01.html">Une mesure précise peut-elle être fausse ?</a></h3>
-  <p>Répétabilité, justesse et biais de mesure.</p>
-</div>
-<div class="calendar-day available">
-  <div class="day-number">02 · 2 décembre</div>
-  <h3><a href="days/jour-02.html">50 000 réponses valent-elles mieux que 1 000 ?</a></h3>
-  <p>Population, échantillonnage et biais de sélection.</p>
-</div>
-<div class="calendar-day available">
-  <div class="day-number">03 · 3 décembre</div>
-  <h3><a href="days/jour-03.html">Trois distributions, une même moyenne</a></h3>
-  <p>Dispersion et limites des statistiques résumées.</p>
-</div>
-<div class="calendar-day available">
-  <div class="day-number">04 · 4 décembre</div>
-  <h3><a href="days/jour-04.html">Quand la covariance change-t-elle la variance d'une somme ?</a></h3>
-  <p>Moments, covariance et dépendance.</p>
-</div>
-<div class="calendar-day available">
-  <div class="day-number">05 · 5 décembre</div>
-  <h3><a href="days/jour-05.html">Quelle distribution est la plus incertaine ?</a></h3>
-  <p>Entropie, surprise et information.</p>
-</div>
+<a class="advent-door" href="days/jour-01.html" aria-label="Jour 1, ouvrir : Une mesure précise peut-elle être fausse ?"><span class="door-date">1 décembre</span><span class="door-number">01</span><span class="door-title">Une mesure précise peut-elle être fausse ?</span><span class="door-action">Ouvrir la case ↗</span></a>
+<a class="advent-door" href="days/jour-02.html" aria-label="Jour 2, ouvrir : 50 000 réponses valent-elles mieux que 1 000 ?"><span class="door-date">2 décembre</span><span class="door-number">02</span><span class="door-title">50 000 réponses valent-elles mieux que 1 000 ?</span><span class="door-action">Ouvrir la case ↗</span></a>
+<a class="advent-door" href="days/jour-03.html" aria-label="Jour 3, ouvrir : Trois distributions, une même moyenne"><span class="door-date">3 décembre</span><span class="door-number">03</span><span class="door-title">Trois distributions, une même moyenne</span><span class="door-action">Ouvrir la case ↗</span></a>
+<a class="advent-door" href="days/jour-04.html" aria-label="Jour 4, ouvrir : Quand la covariance change-t-elle la variance d'une somme ?"><span class="door-date">4 décembre</span><span class="door-number">04</span><span class="door-title">Quand la covariance change-t-elle la variance d'une somme ?</span><span class="door-action">Ouvrir la case ↗</span></a>
+<a class="advent-door" href="days/jour-05.html" aria-label="Jour 5, ouvrir : Quelle distribution est la plus incertaine ?"><span class="door-date">5 décembre</span><span class="door-number">05</span><span class="door-title">Quelle distribution est la plus incertaine ?</span><span class="door-action">Ouvrir la case ↗</span></a>
 
-<div class="calendar-day"><div class="day-number">06 · 6 décembre</div><h3>Corrélation n'est pas causalité</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">07 · 7 décembre</div><h3>Une droite peut-elle apprendre ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">08 · 8 décembre</div><h3>Retrouver le biais d'une pièce</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">09 · 9 décembre</div><h3>Le modèle optimise ce qu'on lui demande</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">10 · 10 décembre</div><h3>Un pas trop grand fait rater la vallée</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">11 · 11 décembre</div><h3>Payer pour un modèle plus simple</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">12 · 12 décembre</div><h3>Un modèle stable vaut parfois mieux qu'un modèle précis</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">13 · 13 décembre</div><h3>Apprendre en posant des questions</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">14 · 14 décembre</div><h3>Corriger ses erreurs, arbre après arbre</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">15 · 15 décembre</div><h3>Le test doit ressembler au futur</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">16 · 16 décembre</div><h3>Le score parfait qui cache une fuite</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">17 · 17 décembre</div><h3>99 % d'accuracy : bon modèle ou mauvais problème ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">18 · 18 décembre</div><h3>Quand 80 % veut-il vraiment dire 80 % ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">19 · 19 décembre</div><h3>Un gain de 0,3 point est-il réel ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">20 · 20 décembre</div><h3>Qu'est-ce qui a vraiment amélioré le modèle ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">21 · 21 décembre</div><h3>La forme d'un tenseur ne dit pas son sens</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">22 · 22 décembre</div><h3>Des scores aux probabilités, puis à l'erreur</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">23 · 23 décembre</div><h3>Pourquoi le modèle regarde-t-il ailleurs ?</h3><p class="calendar-status">À paraître</p></div>
-<div class="calendar-day"><div class="day-number">24 · 24 décembre</div><h3>Apprendre avec le bon préfixe, générer avec le sien</h3><p class="calendar-status">À paraître</p></div>
+<div class="advent-door closed" aria-label="Jour 6, à paraître" aria-disabled="true"><span class="door-date">6 décembre</span><span class="door-number">06</span><span class="door-title">Corrélation n'est pas causalité</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 7, à paraître" aria-disabled="true"><span class="door-date">7 décembre</span><span class="door-number">07</span><span class="door-title">Une droite peut-elle apprendre ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 8, à paraître" aria-disabled="true"><span class="door-date">8 décembre</span><span class="door-number">08</span><span class="door-title">Retrouver le biais d'une pièce</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 9, à paraître" aria-disabled="true"><span class="door-date">9 décembre</span><span class="door-number">09</span><span class="door-title">Le modèle optimise ce qu'on lui demande</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 10, à paraître" aria-disabled="true"><span class="door-date">10 décembre</span><span class="door-number">10</span><span class="door-title">Un pas trop grand fait rater la vallée</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 11, à paraître" aria-disabled="true"><span class="door-date">11 décembre</span><span class="door-number">11</span><span class="door-title">Payer pour un modèle plus simple</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 12, à paraître" aria-disabled="true"><span class="door-date">12 décembre</span><span class="door-number">12</span><span class="door-title">Un modèle stable vaut parfois mieux qu'un modèle précis</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 13, à paraître" aria-disabled="true"><span class="door-date">13 décembre</span><span class="door-number">13</span><span class="door-title">Apprendre en posant des questions</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 14, à paraître" aria-disabled="true"><span class="door-date">14 décembre</span><span class="door-number">14</span><span class="door-title">Corriger ses erreurs, arbre après arbre</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 15, à paraître" aria-disabled="true"><span class="door-date">15 décembre</span><span class="door-number">15</span><span class="door-title">Le test doit ressembler au futur</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 16, à paraître" aria-disabled="true"><span class="door-date">16 décembre</span><span class="door-number">16</span><span class="door-title">Le score parfait qui cache une fuite</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 17, à paraître" aria-disabled="true"><span class="door-date">17 décembre</span><span class="door-number">17</span><span class="door-title">99 % d'accuracy : bon modèle ou mauvais problème ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 18, à paraître" aria-disabled="true"><span class="door-date">18 décembre</span><span class="door-number">18</span><span class="door-title">Quand 80 % veut-il vraiment dire 80 % ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 19, à paraître" aria-disabled="true"><span class="door-date">19 décembre</span><span class="door-number">19</span><span class="door-title">Un gain de 0,3 point est-il réel ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 20, à paraître" aria-disabled="true"><span class="door-date">20 décembre</span><span class="door-number">20</span><span class="door-title">Qu'est-ce qui a vraiment amélioré le modèle ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 21, à paraître" aria-disabled="true"><span class="door-date">21 décembre</span><span class="door-number">21</span><span class="door-title">La forme d'un tenseur ne dit pas son sens</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 22, à paraître" aria-disabled="true"><span class="door-date">22 décembre</span><span class="door-number">22</span><span class="door-title">Des scores aux probabilités, puis à l'erreur</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 23, à paraître" aria-disabled="true"><span class="door-date">23 décembre</span><span class="door-number">23</span><span class="door-title">Pourquoi le modèle regarde-t-il ailleurs ?</span><span class="door-action">À paraître</span></div>
+<div class="advent-door closed" aria-label="Jour 24, à paraître" aria-disabled="true"><span class="door-date">24 décembre</span><span class="door-number">24</span><span class="door-title">Apprendre avec le bon préfixe, générer avec le sien</span><span class="door-action">À paraître</span></div>
 
 </div>
 
-## Le fil conducteur
+<div class="calendar-legend" aria-label="Légende du calendrier">
+  <span><i class="legend-swatch"></i> Case ouverte : journée publiée</span>
+  <span><i class="legend-swatch closed"></i> Case fermée : publication à venir</span>
+</div>
+
+## Accès direct aux journées publiées
+
+Les portes sont aussi listées ici pour faciliter la navigation au clavier, l'accès direct et le repérage des sujets.
+
+<div class="direct-access">
+
+1. [Une mesure précise peut-elle être fausse ?](days/jour-01.html) — Répétabilité, justesse et biais de mesure.
+2. [50 000 réponses valent-elles mieux que 1 000 ?](days/jour-02.html) — Population, échantillonnage et biais de sélection.
+3. [Trois distributions, une même moyenne](days/jour-03.html) — Dispersion et limites des statistiques résumées.
+4. [Quand la covariance change-t-elle la variance d'une somme ?](days/jour-04.html) — Moments, covariance et dépendance.
+5. [Quelle distribution est la plus incertaine ?](days/jour-05.html) — Entropie, surprise et information.
+
+</div>
+
+## Le fil conducteur de l'édition
+
+Le parcours suit quatre mouvements. Ils donnent une progression naturelle, sans imposer de prérequis : chaque journée réintroduit les notions dont elle a besoin.
 
 1. **Jours 1–6 · Observer le monde à travers des données** — mesure, sélection, distributions, moments, information et causalité.
 2. **Jours 7–14 · Apprendre une règle à partir d'exemples** — régression, vraisemblance, fonctions de perte, optimisation et modèles arborescents.
-3. **Jours 15–20 · Prouver que le modèle fonctionne** — validation, fuites, métriques, calibration et expérimentation.
+3. **Jours 15–20 · Prouver que le modèle fonctionne** — validation, fuites de données, métriques, calibration et expérimentation.
 4. **Jours 21–24 · Des nombres aux modèles de langue** — tenseurs, probabilités, attention et apprentissage autorégressif.
-
-Le parcours suit une progression pédagogique ; il ne prétend pas que chaque notion est un prérequis mathématique strict de la suivante.
 
 ## À propos de cette édition
 
-Cette édition est publiée par **Knowledge Stories**. Les contenus canoniques, leur conception pédagogique et leurs métadonnées sont maintenus séparément dans le projet de connaissance à l'origine du calendrier. Le site public ne dépend pas de ce dépôt interne : chaque journée publiée doit être autonome, relue et compréhensible sans accès à une ressource privée.
+Cette édition 2026 est conçue comme un objet éditorial autonome. Elle peut être lue indépendamment des autres années et des projets qui l'ont inspirée. Les journées peuvent être parcourues séparément ; les renvois entre elles servent à éclairer les liens conceptuels, jamais à remplacer les explications nécessaires à la compréhension.
 
-[Découvrir les autres histoires de Knowledge Stories](../).
+Les contenus canoniques, leur conception pédagogique et leurs métadonnées sont maintenus séparément dans le projet de connaissance à l'origine du calendrier. Le site public ne dépend pas de ce dépôt interne : chaque journée publiée est relue et doit être compréhensible sans accès à une ressource privée.
+
+[← Retour aux archives des calendriers](../calendriers/)
