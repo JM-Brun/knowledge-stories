@@ -54,8 +54,8 @@
 .article-page:has(.karatsuba-hero) .prose .term-common,
 .article-page:has(.karatsuba-hero) .prose .term-cross,
 .article-page:has(.karatsuba-hero) .prose .term-aux { font-weight: 650; }
-.article-page:has(.karatsuba-hero) .math-lead > div:first-child { border-top: 3px solid var(--term-cross); }
-.article-page:has(.karatsuba-hero) .math-lead > div:last-child { border-top: 3px solid var(--term-aux); }
+.article-page:has(.karatsuba-hero) .math-lead > div:first-child,
+.article-page:has(.karatsuba-hero) .math-lead > div:last-child { border-top: 3px solid #c9c2b5; }
 .article-page:has(.karatsuba-hero) .math-display {
   padding: .9rem 1.1rem;
   border: 1px solid #ded9cc;
@@ -63,8 +63,16 @@
   background: #fffefa;
 }
 .article-page:has(.karatsuba-hero) .math-display--key {
-  border-left: 4px solid var(--term-aux);
-  background: linear-gradient(90deg, var(--term-aux-soft), #fffefa 42%);
+  border-left: 4px solid #c9c2b5;
+  background: #fffefa;
+}
+.article-page:has(.karatsuba-hero) .math-display--cross {
+  border-left-color: var(--term-cross);
+  background: linear-gradient(90deg, var(--term-cross-soft), #fffefa 42%);
+}
+.article-page:has(.karatsuba-hero) .math-display--recomposition {
+  border-left-color: #c9c2b5;
+  background: #fffefa;
 }
 .article-page:has(.karatsuba-hero) .math-display--key .term-common { color: var(--term-common); }
 .article-page:has(.karatsuba-hero) .math-display--key .term-cross { color: var(--term-cross); }
