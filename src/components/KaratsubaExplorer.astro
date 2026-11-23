@@ -45,17 +45,17 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
 
     <div class="lab-steps" data-steps>
       <div class="lab-step"><span class="step-index" aria-hidden="true">01</span><div><h4>Découper</h4><p data-split>1 234 = 12 × 100 + 34<br />5 678 = 56 × 100 + 78</p></div></div>
-      <div class="lab-step"><span class="step-index" aria-hidden="true">02</span><div><h4>Calculer trois produits</h4><p data-products>p = 12 × 56 = 672<br />q = 34 × 78 = 2 652<br />r = 46 × 134 = 6 164</p></div></div>
-      <div class="lab-step"><span class="step-index" aria-hidden="true">03</span><div><h4>Retrouver les produits croisés</h4><p data-cross>r − p − q = 2 840</p></div></div>
-      <div class="lab-step"><span class="step-index" aria-hidden="true">04</span><div><h4>Recomposer</h4><p data-recompose>672 × 10 000 + 2 840 × 100 + 2 652 = 7 006 652</p></div></div>
+      <div class="lab-step"><span class="step-index" aria-hidden="true">02</span><div><h4>Calculer trois produits</h4><p data-products><span class="term-common" data-p>p = 12 × 56 = 672</span><br /><span class="term-common" data-q>q = 34 × 78 = 2 652</span><br /><span class="term-aux" data-r>r = 46 × 134 = 6 164</span></p></div></div>
+      <div class="lab-step"><span class="step-index" aria-hidden="true">03</span><div><h4>Retrouver les produits croisés</h4><p class="term-cross" data-cross>r − p − q = 2 840</p></div></div>
+      <div class="lab-step"><span class="step-index" aria-hidden="true">04</span><div><h4>Recomposer</h4><p data-recompose><span class="term-common" data-recompose-p>672</span> × 10 000 + <span class="term-cross" data-recompose-cross>2 840</span> × 100 + <span class="term-common" data-recompose-q>2 652</span> = <strong data-recompose-result>7 006 652</strong></p></div></div>
     </div>
 
     <div class="lab-comparison">
       <h4>Où se trouve l'économie ?</h4>
       <div class="comparison-grid">
-        <div><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small>ac · ad · bc · bd</small></div>
+        <div><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-cross">ad</span> · <span class="term-cross">bc</span> · <span class="term-common">bd</span></small></div>
         <div class="comparison-arrow" aria-hidden="true">→</div>
-        <div><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small>ac · bd · (a+b)(c+d)</small></div>
+        <div><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-common">bd</span> · <span class="term-aux">(a+b)(c+d)</span></small></div>
       </div>
       <p class="lab-footnote">Cette comparaison porte sur un niveau de découpage. En répétant la méthode récursivement, on obtient la récurrence T(n) = 3T(n/2) + O(n), dans le modèle où les deux blocs sont de taille comparable.</p>
     </div>
@@ -126,9 +126,14 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
       error.hidden = true;
       setText(root, "[data-result]", format(result));
       setText(root, "[data-split]", `x = ${format(a)} × ${format(base)} + ${format(b)}\ny = ${format(c)} × ${format(base)} + ${format(d)}`);
-      setText(root, "[data-products]", `p = ${format(a)} × ${format(c)} = ${format(p)}\nq = ${format(b)} × ${format(d)} = ${format(q)}\nr = (${format(a)} + ${format(b)}) × (${format(c)} + ${format(d)}) = ${format(r)}`);
+      setText(root, "[data-p]", `p = ${format(a)} × ${format(c)} = ${format(p)}`);
+      setText(root, "[data-q]", `q = ${format(b)} × ${format(d)} = ${format(q)}`);
+      setText(root, "[data-r]", `r = (${format(a)} + ${format(b)}) × (${format(c)} + ${format(d)}) = ${format(r)}`);
       setText(root, "[data-cross]", `r − p − q = ${format(r)} − ${format(p)} − ${format(q)} = ${format(cross)}`);
-      setText(root, "[data-recompose]", `${format(p)} × ${format(base * base)} + ${format(cross)} × ${format(base)} + ${format(q)} = ${format(result)}`);
+      setText(root, "[data-recompose-p]", format(p));
+      setText(root, "[data-recompose-cross]", format(cross));
+      setText(root, "[data-recompose-q]", format(q));
+      setText(root, "[data-recompose-result]", format(result));
       const calls = getKaratsubaSubproblems(step);
       subproblems.hidden = calls.length === 0;
       baseCase.hidden = calls.length > 0;
@@ -164,6 +169,9 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
 <style>
   .karatsuba-lab { --lab-muted: #5e5a50; scroll-margin-top: 1.5rem; margin: 2.5rem 0; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid var(--line, #d9d4c8); border-radius: 1rem; background: var(--surface, #fbfaf6); color: var(--ink, #252820); }
   .lab-heading { display: flex; justify-content: space-between; align-items: start; gap: 1.5rem; }
+  .karatsuba-lab .term-common { color: #286d61; font-weight: 650; }
+  .karatsuba-lab .term-cross { color: #a65d12; font-weight: 650; }
+  .karatsuba-lab .term-aux { color: #7965a4; font-weight: 650; }
   .lab-result-label, .comparison-label { margin: 0; color: var(--lab-muted); font: 500 .72rem/1.4 var(--mono, monospace); letter-spacing: .06em; text-transform: uppercase; }
   .lab-heading h3 { margin: .35rem 0 0; font: 600 clamp(1.35rem, 3vw, 1.8rem)/1.15 var(--serif, Georgia, serif); }
   .lab-intro { max-width: 24rem; margin: 0; color: var(--lab-muted); font-size: .92rem; }

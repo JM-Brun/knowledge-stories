@@ -6,7 +6,7 @@ category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["algorithmique", "arithmétique", "récursivité", "complexité"]
 difficulty: "intermediate"
-readingTime: 10
+readingTime: 14
 status: "review"
 featured: false
 cover: "karatsuba"
@@ -61,11 +61,13 @@ relatedArticles: []
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
+import KaratsubaHero from "../../components/KaratsubaHero.astro";
+import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
+import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
-<aside class="source-provenance">
-  <strong>Source principale et filiation de cet article</strong>
-  Cet article est une adaptation pédagogique largement dérivée de l’article de <a href="https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html" target="_blank" rel="noreferrer">Djamchid Dalili, « Multiplier deux nombres — de Karatsuba à l’IA » (18 novembre 2026)</a>. Le fil explicatif, plusieurs idées de présentation et une part importante de la matière pédagogique reprennent cette source. Le texte présent reformule et prolonge ce travail avec des calculs détaillés, un explorateur interactif et des références complémentaires. La source de Djamchid Dalili doit donc être considérée comme la référence principale de cette page, et non comme une simple lecture secondaire.
-</aside>
+<KaratsubaHero />
+
+<KaratsubaSourceNote />
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
@@ -79,8 +81,14 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 
 <div class="math-lead" aria-label="Les trois idées clés de Karatsuba">
   <div><strong>4 → 3</strong><span>produits de blocs à chaque découpage</span></div>
-  <div><strong>3T(n/2)</strong><span>trois sous-problèmes de taille divisée par deux</span></div>
+  <div><strong>3 appels ≈ n/2</strong><span>trois sous-problèmes de taille proche de la moitié</span></div>
   <div><strong>n^1,585</strong><span>exposant de complexité asymptotique</span></div>
+</div>
+
+<div className="term-legend" aria-label="Code couleur des formules">
+  <span><i className="legend-common" /> Produits de blocs conservés : ac et bd (p et q)</span>
+  <span><i className="legend-cross" /> Terme croisé recherché : ad + bc</span>
+  <span><i className="legend-aux" /> Produit auxiliaire : (a + b)(c + d), noté r</span>
 </div>
 
 ## Pourquoi cette question est intéressante
@@ -105,7 +113,7 @@ Les lettres a et c désignent les blocs de gauche, les plus significatifs ; b et
 En développant le produit :
 
 <div className="math-display math-display--compact" role="math" aria-label="x y égale a c fois dix puissance deux m, plus a d plus b c fois dix puissance m, plus b d">
-  <div className="math-line"><i>xy</i> = <i>ac</i> · 10<sup>2m</sup> + (<i>ad</i> + <i>bc</i>) · 10<sup>m</sup> + <i>bd</i></div>
+  <div className="math-line"><i>xy</i> = <span className="term-common"><i>ac</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>ad</i> + <i>bc</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>bd</i></span></div>
 </div>
 
 Il faut donc connaître trois quantités : le produit des blocs de gauche ac, le produit des blocs de droite bd, et la somme des deux produits croisés ad + bc.
@@ -117,34 +125,34 @@ La méthode directe calcule quatre produits : ac, ad, bc et bd. Mais les deux pr
 Calculons plutôt :
 
 <div className="math-display" role="math" aria-label="a plus b fois c plus d égale a c plus a d plus b c plus b d">
-  <div className="math-line">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>) = <i>ac</i> + <i>ad</i> + <i>bc</i> + <i>bd</i></div>
+  <div className="math-line"><span className="term-aux">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span> = <span className="term-common"><i>ac</i> + <i>bd</i></span> + <span className="term-cross"><i>ad</i> + <i>bc</i></span></div>
 </div>
 
 En retirant les deux produits que nous connaissons déjà, il reste exactement ce qui nous manque :
 
 <div className="math-display math-display--key" role="math" aria-label="a d plus b c égale a plus b fois c plus d moins a c moins b d">
-  <div className="math-line"><i>ad</i> + <i>bc</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>) − <i>ac</i> − <i>bd</i></div>
+  <div className="math-line"><span className="term-cross"><i>ad</i> + <i>bc</i></span> = <span className="term-aux">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span> − <span className="term-common"><i>ac</i> + <i>bd</i></span></div>
   <span className="math-caption">Le produit des sommes contient exactement les deux termes croisés recherchés.</span>
 </div>
 
 Nous avons donc seulement besoin de trois multiplications :
 
 <div className="math-display math-display--compact" role="math" aria-label="p égale a c ; q égale b d ; r égale a plus b fois c plus d">
-  <div className="math-line"><i>p</i> = <i>ac</i></div>
-  <div className="math-line"><i>q</i> = <i>bd</i></div>
-  <div className="math-line"><i>r</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</div>
+  <div className="math-line"><span className="term-common"><i>p</i> = <i>ac</i></span></div>
+  <div className="math-line"><span className="term-common"><i>q</i> = <i>bd</i></span></div>
+  <div className="math-line"><span className="term-aux"><i>r</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span></div>
 </div>
 
 Le produit final se recompose ainsi :
 
 <div className="math-display math-display--key" role="math" aria-label="x y égale p fois dix puissance deux m plus r moins p moins q fois dix puissance m plus q">
-  <div className="math-line"><i>xy</i> = <i>p</i> · 10<sup>2m</sup> + (<i>r</i> − <i>p</i> − <i>q</i>) · 10<sup>m</sup> + <i>q</i></div>
+  <div className="math-line"><i>xy</i> = <span className="term-common"><i>p</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>r</i> − <i>p</i> − <i>q</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>q</i></span></div>
   <span className="math-caption">Trois produits suffisent ; les décalages et la recomposition restent des opérations linéaires.</span>
 </div>
 
 <KaratsubaComparison />
 
-Les décalages de blocs et les additions/soustractions demandent un nombre d'opérations proportionnel à la taille des nombres. Ils coûtent donc O(n), tandis que les trois multiplications peuvent être confiées à la même méthode, récursivement.
+Les décalages de blocs et les additions/soustractions demandent un nombre d'opérations proportionnel à la taille des nombres : O(n). Les trois produits p, q et r sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
 
 ## Un exemple pas à pas
 
@@ -178,9 +186,66 @@ Le produit des sommes reçoit 99 + 99 = 198 d’un côté et 12 + 34 = 46 de l�
 
 </details>
 
+## Un algorithme récursif, pas seulement une identité
+
+L'identité précédente décrit un seul niveau de découpage. Pour multiplier de très grands entiers, on applique la même méthode aux trois produits de blocs : c'est la récursion qui produit le gain asymptotique.
+
+Voici une version de référence en Python. Elle utilise les entiers de précision arbitraire de Python et traite le cas où les deux opérandes n'ont pas la même longueur :
+
+```python
+def karatsuba(x: int, y: int) -> int:
+    if x < 10 or y < 10:
+        return x * y
+
+    m = max(len(str(x)), len(str(y))) // 2
+    base = 10**m
+    a, b = divmod(x, base)
+    c, d = divmod(y, base)
+
+    ac = karatsuba(a, c)
+    bd = karatsuba(b, d)
+    cross = karatsuba(a + b, c + d) - ac - bd
+
+    return ac * base**2 + cross * base + bd
+```
+
+Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
+
+Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de \(n=2^k\) chiffres conduisent à \(4^k=n^2\) produits élémentaires avec la méthode classique, contre \(3^k=n^&#123;\log_2 3&#125;\) avec Karatsuba. Pour un million de chiffres, ces modèles donnent respectivement \(10^12\) et environ \(3,8\times10^9\) produits aux feuilles. Ce comptage compare les feuilles de deux arbres idéalisés ; il ne constitue pas une mesure du temps d'exécution d'une bibliothèque.
+
+## Exercices pour vérifier l'idée
+
+**1. Calculer 47 × 83 avec Karatsuba.** Coupez les nombres en dizaines et unités, puis retrouvez le terme croisé sans calculer séparément les deux produits croisés.
+
+<details>
+<summary>Correction</summary>
+
+On pose \(a=4\), \(b=7\), \(c=8\) et \(d=3\). Les trois produits sont \(ac=32\), \(bd=21\) et \((a+b)(c+d)=11\times11=121\). Le terme croisé vaut donc \(121-32-21=68\). Enfin, \(47\times83=32\times100+68\times10+21=3\,901\).
+
+</details>
+
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^&#123;10&#125;\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+
+<details>
+<summary>Correction</summary>
+
+La méthode classique en demande \(4^&#123;10&#125;=1\,048\,576\), tandis que Karatsuba en demande \(3^&#123;10&#125;=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+
+</details>
+
+## Questions fréquentes
+
+**Pourquoi l'exposant vaut-il environ 1,585 ?** À chaque niveau, la taille est divisée par deux et le nombre de sous-problèmes est multiplié par trois. Pour \(n=2^k\), le nombre de feuilles vaut \(3^k=n^&#123;\log_2 3&#125;\), et \(\log_2 3\approx1,585\).
+
+**Karatsuba est-il toujours plus rapide ?** Non. Pour de petits opérandes, le coût des additions, soustractions, appels récursifs et allocations peut dépasser le gain obtenu. Les bibliothèques utilisent donc des seuils empiriques et plusieurs algorithmes selon la taille.
+
+**Quel est le lien avec Toom–Cook et la FFT ?** Toom–Cook généralise l'idée en découpant les nombres en davantage de blocs et en reconstruisant un produit polynomial à partir de valeurs évaluées. Les algorithmes fondés sur les transformées rapides accélèrent ensuite la convolution des coefficients. Ces méthodes réduisent encore la croissance asymptotique, mais leur complexité d'implémentation et leurs seuils pratiques sont plus élevés.
+
 ## Que se passe-t-il quand on double la taille ?
 
 Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage à l’arbre. Pour passer de quatre à huit chiffres, le découpage classique passe de 16 à 64 produits aux feuilles, et Karatsuba de 9 à 27. Chaque doublement répète ce contraste : **quatre fois plus de feuilles d’un côté, trois fois plus de l’autre**. La différence grandit parce qu’elle se répète à chaque étage.
+
+<KaratsubaGrowth />
 
 Les feuilles comptent les petits produits. Entre les feuilles et la racine, il faut également découper les blocs, faire les additions et les soustractions, puis recomposer les résultats. À chaque étage de Karatsuba, il y a trois fois plus d’appels et les blocs sont deux fois plus courts. Le travail cumulé à l’intérieur d’un étage grandit donc d’un facteur de 3/2 si le coût par appel est proportionnel à sa taille. La somme de ces coûts a le même ordre de grandeur que le travail aux feuilles.
 
@@ -253,7 +318,7 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 ## À retenir
 
 - En découpant deux nombres en deux blocs, le développement classique fait apparaître quatre produits partiels.
-- L'identité (a + b)(c + d) - ac - bd = ad + bc permet de reconstruire les produits croisés avec une seule multiplication auxiliaire.
+- L'identité <span className="term-cross">ad + bc</span> = <span className="term-aux">(a + b)(c + d)</span> − <span className="term-common">ac + bd</span> permet de reconstruire les produits croisés avec une seule multiplication auxiliaire.
 - Trois appels récursifs au lieu de quatre donnent la récurrence T(n) = 3T(n/2) + O(n), donc une complexité en Θ(n^log₂(3)).
 - Le passage aux polynômes explique pourquoi la même stratégie s’étend à trois blocs avec Toom–Cook.
 - Les bibliothèques choisissent une méthode selon la taille et la forme des opérandes, en tenant compte du coût de leur implémentation.

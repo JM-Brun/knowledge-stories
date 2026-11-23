@@ -8,26 +8,26 @@
     <article class="method method-classic">
       <header><span>01</span><div><h4>Développement direct</h4><p>Quatre produits de blocs</p></div><strong>4</strong></header>
       <div class="product-grid" aria-label="Les quatre produits directs">
-        <div><b>ac</b><span>haut × haut</span></div>
-        <div><b>ad</b><span>haut × bas</span></div>
-        <div><b>bc</b><span>bas × haut</span></div>
-        <div><b>bd</b><span>bas × bas</span></div>
+        <div><b class="term-common">ac</b><span>haut × haut</span></div>
+        <div><b class="term-cross">ad</b><span>haut × bas</span></div>
+        <div><b class="term-cross">bc</b><span>bas × haut</span></div>
+        <div><b class="term-common">bd</b><span>bas × bas</span></div>
       </div>
       <p class="method-note">Les deux produits croisés ad et bc sont calculés séparément.</p>
     </article>
     <article class="method method-karatsuba">
       <header><span>02</span><div><h4>Karatsuba</h4><p>Trois produits de blocs</p></div><strong>3</strong></header>
       <div class="product-grid karatsuba-grid" aria-label="Les trois produits de Karatsuba">
-        <div><b>p = ac</b><span>haut × haut</span></div>
-        <div><b>q = bd</b><span>bas × bas</span></div>
-        <div class="product-wide"><b>r = (a+b)(c+d)</b><span>produit des sommes</span></div>
+        <div><b class="term-common">p = ac</b><span>haut × haut</span></div>
+        <div><b class="term-common">q = bd</b><span>bas × bas</span></div>
+        <div class="product-wide"><b class="term-aux">r = (a+b)(c+d)</b><span>produit des sommes</span></div>
       </div>
-      <p class="method-note">Les termes croisés sont récupérés par <code>r − p − q</code>.</p>
+      <p class="method-note">Les termes croisés sont récupérés par <code class="term-cross">r − p − q</code>.</p>
     </article>
   </div>
   <div class="identity">
     <span>Identité qui rend l’économie possible</span>
-    <strong>ad + bc = (a + b)(c + d) − ac − bd</strong>
+    <strong><span class="term-cross">ad + bc</span> = <span class="term-aux">(a + b)(c + d)</span> − <span class="term-common">ac + bd</span></strong>
   </div>
   <figcaption>Le gain porte sur le nombre de multiplications récursives. Les additions, soustractions et recompositions restent nécessaires et coûtent O(n) à chaque niveau.</figcaption>
 </section>
@@ -50,12 +50,18 @@
   .product-grid > div { display: grid; gap: .2rem; padding: .65rem; border-radius: .35rem; background: #f0ede4; }
   .karatsuba-grid > div { background: #e2eadf; }
   .product-grid b { font: 600 1.1rem "DM Mono", monospace; }
+  .product-grid .term-common { color: #286d61; }
+  .product-grid .term-cross { color: #a65d12; }
+  .product-grid .term-aux { color: #7965a4; }
   .product-grid span { color: #666258; font: .7rem/1.35 "DM Sans", sans-serif; }
   .product-grid .product-wide { grid-column: 1 / -1; }
   .method-note { margin: .85rem 0 0; color: #5f5b51; font: .78rem/1.5 "DM Sans", sans-serif; }
-  .method-note code { color: #315b45; font-family: "DM Mono", monospace; }
+  .method-note code { color: #a65d12; font-family: "DM Mono", monospace; }
   .identity { display: grid; gap: .35rem; margin-top: 1rem; padding: 1rem 1.1rem; border-left: 4px solid #315b45; border-radius: .25rem; background: #e8eee4; }
   .identity span { color: #536252; font: 500 .67rem "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .identity .term-common { color: #286d61; }
+  .identity .term-cross { color: #a65d12; }
+  .identity .term-aux { color: #7965a4; }
   .identity strong { overflow-wrap: anywhere; color: #244b37; font: 600 clamp(.95rem, 2.4vw, 1.35rem)/1.4 "DM Mono", monospace; }
   .karatsuba-comparison figcaption { margin-top: .85rem; color: #6b675e; font: .75rem/1.55 "DM Sans", sans-serif; }
   @media (max-width: 650px) { .methods { grid-template-columns: 1fr; } }
