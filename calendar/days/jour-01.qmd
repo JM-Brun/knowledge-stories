@@ -1,0 +1,59 @@
+---
+title: "Une mesure précise peut-elle être fausse ?"
+subtitle: "Jour 1 · Observer avant de modéliser"
+description: "Distinguer répétabilité, justesse et biais à partir de deux capteurs."
+---
+
+## La question
+
+Un capteur qui répète presque toujours la même valeur est-il nécessairement fiable ?
+
+La réponse est non. Une mesure peut être très peu dispersée tout en étant systématiquement éloignée de la valeur de référence. Pour évaluer un instrument, il faut distinguer au moins deux propriétés :
+
+- **Répétabilité** : proximité entre des mesures répétées dans des conditions identiques.
+- **Justesse** : proximité entre la moyenne des mesures et une valeur de référence.
+
+La dispersion décrit la variabilité des mesures ; l'écart à la référence renseigne sur un éventuel biais. Ces deux dimensions ne sont pas interchangeables.
+
+## Un exemple
+
+Une référence indique 20,00 °C. Deux capteurs effectuent chacun trois mesures :
+
+| Capteur A | Capteur B |
+|---:|---:|
+| 20,2 °C | 19,0 °C |
+| 20,1 °C | 19,1 °C |
+| 20,2 °C | 19,0 °C |
+
+Les deux séries ont la même étendue : 0,1 °C. Sur ces trois observations, leur dispersion empirique est donc comparable. Mais leurs moyennes diffèrent :
+
+[
+\bar{x}_A = \frac{20{,}2+20{,}1+20{,}2}{3} \approx 20{,}17\ ^\circ\mathrm{C}
+]
+
+[
+\bar{x}_B = \frac{19{,}0+19{,}1+19{,}0}{3} \approx 19{,}03\ ^\circ\mathrm{C}
+]
+
+Le capteur A est en moyenne à environ +0,17 °C de la référence ; le capteur B à environ −0,97 °C.
+
+## À vous de raisonner
+
+1. Quel capteur présente la plus grande répétabilité sur ces trois mesures ?
+2. Quel capteur est le plus proche de la référence en moyenne ?
+3. Peut-on conclure que le capteur B est meilleur parce que ses valeurs sont peu dispersées ?
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+1. Les deux séries ont la même étendue (0,1 °C) et la même structure de dispersion. Avec ces seules observations, elles ont une répétabilité empirique comparable.
+2. Le capteur A : son écart moyen à la référence est d'environ +0,17 °C, contre −0,97 °C pour B.
+3. Non. B est stable mais présente ici un décalage systématique important. Une faible dispersion ne garantit pas la justesse.
+
+**À retenir :** un jeu de données peut être cohérent et répétable tout en portant un biais de mesure. La provenance, l'instrument et le protocole comptent autant que les contrôles de valeurs aberrantes.
+
+</details>
+
+## Pour aller plus loin
+
+Cette distinction se retrouve dans les pipelines de données : des valeurs cohérentes entre elles ne sont pas nécessairement représentatives du phénomène que l'on cherche à mesurer.
