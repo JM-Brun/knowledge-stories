@@ -48,3 +48,26 @@
 .article-page:has(.karatsuba-hero) .math-display .term-common { color: var(--term-common); }
 .article-page:has(.karatsuba-hero) .math-display .term-cross { color: var(--term-cross); }
 .article-page:has(.karatsuba-hero) .math-display .term-aux { color: var(--term-aux); }
+
+
+/* Karatsuba: extend semantic term colors to prose, callouts and displayed derivations. */
+.article-page:has(.karatsuba-hero) .prose .term-common,
+.article-page:has(.karatsuba-hero) .prose .term-cross,
+.article-page:has(.karatsuba-hero) .prose .term-aux { font-weight: 650; }
+.article-page:has(.karatsuba-hero) .math-lead > div:first-child { border-top: 3px solid var(--term-cross); }
+.article-page:has(.karatsuba-hero) .math-lead > div:last-child { border-top: 3px solid var(--term-aux); }
+.article-page:has(.karatsuba-hero) .math-display {
+  padding: .9rem 1.1rem;
+  border: 1px solid #ded9cc;
+  border-radius: .55rem;
+  background: #fffefa;
+}
+.article-page:has(.karatsuba-hero) .math-display--key {
+  border-left: 4px solid var(--term-aux);
+  background: linear-gradient(90deg, var(--term-aux-soft), #fffefa 42%);
+}
+.article-page:has(.karatsuba-hero) .math-display--key .term-common { color: var(--term-common); }
+.article-page:has(.karatsuba-hero) .math-display--key .term-cross { color: var(--term-cross); }
+.article-page:has(.karatsuba-hero) .math-display--key .term-aux { color: var(--term-aux); }
+.article-page:has(.karatsuba-hero) .complexity-equations .term-common { color: var(--term-common); }
+.article-page:has(.karatsuba-hero) .complexity-equations .term-aux { color: var(--term-aux); }
