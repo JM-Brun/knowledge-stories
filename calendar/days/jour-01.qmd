@@ -215,6 +215,8 @@ Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé
 - **[Vocabulaire international de métrologie — JCGM 200:2012 (VIM)](https://www.bipm.org/documents/20126/2071204/JCGM_200_2012.pdf)** — la référence terminologique pour distinguer fidélité, répétabilité, justesse, exactitude, erreur et incertitude.
 - **[Evaluation of measurement data — Guide to the expression of uncertainty in measurement (JCGM 100:2008)](https://www.bipm.org/en/committees/jc/jcgm/publications)** — le guide pour construire et combiner des composantes d'incertitude.
 - **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — une introduction opérationnelle à l'évaluation et à l'expression de l'incertitude de mesure.
+- **[AI Measurement Science — Validity](https://aimsbook.org/src/chap1.html)** — une discussion approfondie de la validité des construits et des pièges d'évaluation des systèmes d'IA.
+- **[Data-Driven Calibration and Reference-Free Drift Detection for Multi-Modal Sensor Systems (2026)](https://doi.org/10.3390/s26217016)** — un exemple récent de calibration transférée entre capteurs et de détection de dérive sans référence, avec des limites explicitement discutées.
 
 ## Connexions utiles
 
