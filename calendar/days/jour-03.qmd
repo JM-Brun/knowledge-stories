@@ -169,5 +169,10 @@ Il n'existe pas de résumé universellement suffisant. Le bon résumé est celui
 
 ## Pour aller plus loin
 
-- F. J. Anscombe (1973), *Graphs in Statistical Analysis*, The American Statistician, 27(1), 17–21.
+- F. J. Anscombe (1973), *Graphs in Statistical Analysis*, The American Statistician, 27(1), 17–21. https://doi.org/10.1080/00031305.1973.10478966
 - Matejka & Fitzmaurice (2017), *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics*, CHI. https://doi.org/10.1145/3025453.3025912
+
+## Connexions utiles
+
+- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : distinguer erreur de mesure et variabilité.
+- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : vérifier si les observations permettent de parler de la population cible.
