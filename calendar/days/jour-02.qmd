@@ -121,7 +121,15 @@ Le biais de sélection ne se limite pas à une mauvaise proportion de groupes. I
 
 Exemple : une plateforme analyse uniquement les utilisateurs qui sont restés actifs six mois. La fidélité dépend peut-être à la fois de la satisfaction et de la difficulté d'utilisation. En ne gardant que les utilisateurs encore présents, on sélectionne un sous-ensemble particulier. Les relations observées entre satisfaction, difficulté et usage peuvent alors différer de celles de l'ensemble des personnes ayant essayé le service.
 
-Ce mécanisme peut produire des associations artificielles ou masquer des différences. Il est lié à la sélection sur une variable influencée par plusieurs facteurs — un mécanisme que l'on retrouvera dans les graphes causaux.
+On peut représenter le mécanisme par un graphe causal minimal :
+
+```text
+Satisfaction ──► Actif à 6 mois ◄── Difficulté
+```
+
+L'indicateur « actif à six mois » est ici une conséquence commune de deux variables. En ne conservant que les personnes pour lesquelles cet indicateur vaut 1, on conditionne sur un **collisionneur** (*collider*). Cela peut ouvrir artificiellement un chemin statistique entre satisfaction et difficulté, même si elles étaient indépendantes dans la population de départ. C'est pourquoi une corrélation calculée sur les seuls utilisateurs encore actifs ne décrit pas nécessairement la relation dans toute la population.
+
+Le mécanisme peut produire des associations artificielles ou masquer des différences. Il faut donc documenter non seulement les variables mesurées, mais aussi la règle qui détermine quelles unités entrent dans l'analyse.
 
 ## Peut-on corriger le problème ?
 
@@ -129,11 +137,72 @@ Parfois. La stratification, la pondération, la post-stratification ou des modè
 
 Mais aucune pondération ne recrée magiquement une information totalement absente. Si un groupe n'a aucune chance d'être observé, les données ne permettent pas d'apprendre directement son comportement. Il faut une source externe ou des hypothèses supplémentaires.
 
-## Transfert vers le Machine Learning
+## Transfert vers le Machine Learning : évaluer le bon domaine de généralisation
 
 Un jeu de données massif peut être très représentatif des utilisateurs actifs d'un produit et très peu informatif sur les personnes qui l'ont abandonné, celles qui ne peuvent pas accéder au service ou celles dont le comportement n'est pas enregistré.
 
-Le score obtenu sur un test tiré du même mécanisme de collecte peut alors être précis pour la mauvaise population. La validation doit donc préciser l'unité de généralisation : nouveaux utilisateurs, utilisateurs existants, nouveaux sites, période future, ou population entière.
+Le score obtenu sur un test tiré du même mécanisme de collecte peut alors être précis pour la mauvaise population. Le problème n'est pas seulement un « dataset shift » abstrait : il faut identifier **quelle partie du processus générateur a changé**, puis déterminer si les données permettent de corriger ou seulement de mesurer cette différence.
+
+### Trois changements de distribution à ne pas confondre
+
+Notons (P_s) la distribution source (entraînement) et (P_t) la distribution cible (déploiement).
+
+| Situation | Ce qui change | Hypothèse caractéristique | Conséquence |
+|---|---|---|---|
+| **Covariate shift** | (P(X)) | (P_t(Y\mid X)=P_s(Y\mid X)) | La relation conditionnelle reste stable, mais les profils observés changent |
+| **Label shift** (*prior probability shift*) | (P(Y)) | (P_t(X\mid Y)=P_s(X\mid Y)) | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
+| **Concept drift** | (P(Y\mid X)) | La relation prédictive change | Une correction des seuls poids de (X) ne suffit généralement pas |
+
+Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
+
+### Quand la pondération par importance peut-elle aider ?
+
+Sous covariate shift, on peut réévaluer le risque du modèle dans la population cible en pondérant les observations source :
+
+[
+R_t(f)=\mathbb{E}_{(X,Y)\sim P_t}[\ell(f(X),Y)]
+=\mathbb{E}_{(X,Y)\sim P_s}
+\left[
+\frac{p_t(X)}{p_s(X)}\,\ell(f(X),Y)
+\right].
+]
+
+Le poids (w(x)=p_t(x)/p_s(x)) donne davantage d'importance aux profils fréquents dans la population cible et moins aux profils surreprésentés dans les données source. Cette égalité exige que la relation (P(Y\mid X)) reste stable et que la population cible soit couverte par la source : si un profil a une probabilité positive dans la cible mais n'apparaît jamais dans la source, son comportement ne peut pas être appris par simple repondération.
+
+Exemple : un modèle de demande est entraîné surtout sur des utilisateurs réguliers, alors que le déploiement vise aussi des utilisateurs occasionnels. Si les variables pertinentes sont observées dans les deux populations et si la relation entre ces variables et la demande est stable, une pondération peut rapprocher l'évaluation du risque cible. Elle ne crée toutefois aucune information pour les profils absents de l'entraînement.
+
+En pratique, les ratios de densité sont rarement connus. On peut les estimer à partir d'un échantillon source et d'un échantillon cible non étiqueté, par exemple avec un classifieur qui prédit l'appartenance au domaine. Mais cette estimation peut être instable, surtout en grande dimension ou lorsque les domaines se recouvrent peu.
+
+### Diagnostiquer avant de corriger
+
+1. **Définir le domaine cible** : nouveaux utilisateurs, nouveaux sites, autre période, autre canal d'acquisition ? Décrire la population et l'unité de généralisation.
+2. **Comparer les features** : distributions marginales et conjointes, taux de valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
+3. **Vérifier le support commun** : la cible contient-elle des profils qui n'existent pas dans la source ? Sans recouvrement, la repondération devient impossible ou repose sur une extrapolation.
+4. **Examiner les labels** : dès que des labels cible sont disponibles, comparer calibration, erreurs et (P(Y\mid X)) par période ou groupe. Sans labels cible, on ne peut pas vérifier directement la stabilité de cette relation.
+5. **Choisir le protocole de validation** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Le test doit reproduire la nouveauté attendue.
+6. **Quantifier la stabilité des poids** : inspecter leur distribution et la taille effective d'échantillon.
+
+Une mesure utile de concentration des poids est la taille effective d'échantillon :
+
+[
+n_{\mathrm{eff}}=
+\frac{\left(\sum_{i=1}^{n}w_i\right)^2}
+{\sum_{i=1}^{n}w_i^2}.
+]
+
+Si quelques observations portent presque tout le poids, (n_{\mathrm{eff}}) peut être très inférieur à (n). Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
+
+### Quelle action selon le diagnostic ?
+
+| Diagnostic | Action défendable | Ce qu'il ne faut pas prétendre |
+|---|---|---|
+| Covariate shift plausible, support commun suffisant | Repondération, validation pondérée, suivi du domaine | Que (P(Y\mid X)) est stable sans vérification |
+| Prévalence des classes modifiée, (P(X\mid Y)) stable | Ajustement des probabilités a priori, recalibration adaptée | Que le simple rééquilibrage du jeu d'entraînement résout tout |
+| Concept drift | Collecter des labels récents, réévaluer et réentraîner si nécessaire | Qu'une pondération des features répare la relation cible |
+| Profils cible absents de la source | Collecte complémentaire ou restriction explicite du domaine d'usage | Que le modèle sait généraliser sans données ni hypothèses |
+| Sélection dépendant de variables non observées | Étude de sensibilité, données externes, hypothèses causales explicites | Qu'une pondération estimée sur les seules features observées élimine le biais |
+
+La validation doit donc préciser l'unité de généralisation et le mécanisme de collecte. Une validation aléatoire peut être correcte pour prédire de nouvelles lignes issues du même régime, mais trompeuse pour de nouveaux utilisateurs, de nouveaux sites ou une période future.
 
 ## À vous de raisonner
 
@@ -158,11 +227,13 @@ Pour juger si un jeu de données permet de généraliser :
 
 1. **Écrire l'estimand** : quelle population, quelle période, quelle unité et quelle quantité ?
 2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ?
-3. **Comparer observés et cible** : distributions, taux de couverture et taux de réponse par variables pertinentes.
-4. **Examiner les zones sans support** : certains profils ou groupes sont-ils totalement absents ?
-5. **Tester la sensibilité** : les conclusions changent-elles sous des hypothèses plausibles de non-réponse ou de pondération ?
+3. **Comparer source et cible** : distributions, taux de couverture et de réponse, catégories inédites et profils absents.
+4. **Formuler le type de changement plausible** : (P(X)), (P(Y)), (P(X\mid Y)) ou (P(Y\mid X)) ? Ne pas choisir une correction avant d'avoir formulé son hypothèse.
+5. **Examiner le support commun** : quelles régions de la cible sont couvertes par la source ?
+6. **Choisir une validation fidèle au déploiement** et, lorsque c'est possible, évaluer sur des labels cible.
+7. **Tester la sensibilité** : poids extrêmes, taille effective, hypothèses de sélection et stabilité des conclusions.
 
-Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels et la population à laquelle les résultats peuvent raisonnablement être transportés.
+Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels, la taille effective et la population à laquelle les résultats peuvent raisonnablement être transportés.
 
 ## À retenir
 
@@ -170,6 +241,8 @@ Une pondération est un estimateur fondé sur des hypothèses, pas une réparati
 - La représentativité dépend du mécanisme d'inclusion, pas du seul nombre de lignes.
 - Les données absentes ne sont pas toujours récupérables par pondération.
 - En ML, le jeu de test doit représenter la population à laquelle on veut réellement généraliser.
+- Covariate shift, label shift et concept drift correspondent à des hypothèses différentes ; les corrections ne sont pas interchangeables.
+- La repondération exige une stabilité de (P(Y\mid X)), un support commun et des poids suffisamment stables.
 
 ## Pour aller plus loin
 
