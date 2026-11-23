@@ -1,0 +1,48 @@
+---
+title: "50 000 réponses valent-elles mieux que 1 000 ?"
+subtitle: "Jour 2 · Qui est représenté dans les données ?"
+description: "Comprendre pourquoi la taille d'un échantillon ne corrige pas un biais de sélection."
+---
+
+## La question
+
+Un sondage de 50 000 réponses peut-il être moins informatif sur une population qu'un sondage de 2 000 réponses ? Oui, si le premier ne recueille les réponses que d'une partie de la population.
+
+## Un exemple contrôlé
+
+Une population cible comporte 100 000 personnes :
+
+- 50 000 appartiennent au groupe A, dont le score moyen est 10 ;
+- 50 000 appartiennent au groupe B, dont le score moyen est 20.
+
+La moyenne de la population vaut donc :
+
+[
+\mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
+]
+
+Deux enquêtes sont réalisées :
+
+- l'enquête en ligne recueille 50 000 réponses, toutes dans le groupe A ;
+- l'enquête par échantillonnage aléatoire sélectionne 1 000 personnes dans chaque groupe.
+
+## À vous de raisonner
+
+1. Quelle moyenne observe-t-on dans l'enquête en ligne ?
+2. Quelle moyenne l'enquête équilibrée estime-t-elle en moyenne sur des tirages répétés ?
+3. Ajouter encore des réponses provenant uniquement du groupe A corrige-t-il le problème ?
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+1. L'enquête en ligne donne une moyenne de 10. Elle décrit correctement les répondants, mais pas la population cible.
+2. L'échantillon équilibré estime en moyenne ( (10+20)/2=15 ), cohérent avec la composition de la population.
+3. Non. Ajouter des réponses du groupe A peut réduire l'incertitude sur ce groupe, mais ne compense pas l'absence du groupe B.
+
+**À retenir :** le volume de données ne répare pas un défaut de couverture. Un million d'exemples provenant uniquement des utilisateurs actifs d'un service ne garantit pas la qualité des prédictions pour les utilisateurs absents.
+
+</details>
+
+## Une nuance importante
+
+Un échantillon équilibré est adapté ici parce que les deux groupes ont le même poids dans la population. Dans une application réelle, un échantillonnage stratifié doit être accompagné de pondérations appropriées si les proportions de l'échantillon diffèrent de celles de la population cible.
