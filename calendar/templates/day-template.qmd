@@ -1,0 +1,83 @@
+---
+# Dupliquer ce fichier dans calendar/days/jour-NN.qmd.
+# Le front matter public reste volontairement éditorial ; les IDs canoniques
+# et les relations conceptuelles vivent dans Wiki Knowledge.
+title: "Question-titre qui crée une tension intellectuelle"
+subtitle: "Jour NN · Repère thématique court"
+description: "Une phrase décrivant la question et l'apprentissage visé."
+---
+
+> **En 7 à 10 minutes** — Annonce honnête du contenu : paradoxe, expérience, formalisation et transfert.
+
+## La question
+
+Partir d'une situation concrète, d'un résultat contre-intuitif ou d'une décision réelle. Formuler une seule question centrale. Ne pas commencer par une définition encyclopédique.
+
+## Une expérience à observer
+
+Présenter un exemple minimal, reproductible et suffisamment précis pour que le lecteur puisse refaire le raisonnement. Donner les données, unités, hypothèses et conventions.
+
+Si un calcul ou un graphique est nécessaire, l'introduire ici. Le visuel doit rendre visible une relation qui serait difficile à saisir dans le texte seul : comparaison, mécanisme, évolution, géométrie ou contre-exemple. Ajouter titre, légende, unités et texte alternatif.
+
+## Formaliser l'intuition
+
+Introduire la notation seulement après l'intuition. Définir chaque symbole, préciser les conditions d'application et dérouler au moins un calcul ou une implication vérifiable.
+
+Distinguer soigneusement :
+- ce qui est une définition ;
+- ce qui découle mathématiquement des hypothèses ;
+- ce qui est une observation empirique ;
+- ce qui relève d'une interprétation.
+
+## Ce que le résumé habituel ne montre pas
+
+Développer l'angle distinctif de la journée : hypothèse cachée, variable omise, problème d'identification, effet de sélection, limite d'une métrique, changement d'échelle ou conséquence inattendue.
+
+La section doit apporter une perspective supplémentaire, pas répéter la définition précédente.
+
+## Changer d'échelle : où retrouve-t-on cette idée ?
+
+Faire un transfert explicite vers une autre discipline ou une situation de Data Science / ML. Expliquer ce qui reste invariant et ce qui change. Éviter les analogies qui suggèrent une équivalence abusive.
+
+## Frontière de validité
+
+Énoncer au moins une conclusion que l'expérience ne permet pas de tirer. Rendre visibles les hypothèses, les cas limites, les incertitudes ou les confusions possibles.
+
+## À vous de raisonner
+
+Proposer 2 à 4 questions graduées :
+1. vérifier une compréhension ou un calcul ;
+2. prédire l'effet d'une modification ;
+3. transférer à un contexte différent ;
+4. éventuellement identifier une hypothèse insuffisante.
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+Donner le raisonnement, pas seulement le résultat. Signaler les conventions et les étapes où une hypothèse intervient.
+
+</details>
+
+## À retenir
+
+- Une idée centrale, formulée précisément.
+- Une conséquence pratique ou conceptuelle.
+- Une limite ou une question à garder en tête.
+
+## Pour aller plus loin
+
+- **Source primaire ou référence de fond** — préciser ce qu'elle apporte.
+- **Ressource complémentaire** — préciser pourquoi elle est utile.
+
+---
+
+## Contrat éditorial interne (à retirer du rendu public)
+
+- Durée visée : 7–10 min ; viser environ 1 000–1 400 mots utiles selon densité et visuels.
+- Un seul angle distinctif par journée ; pas de remplissage pour atteindre une durée.
+- Toute affirmation quantitative doit être calculée, vérifiée ou sourcée.
+- Toute figure doit avoir une fonction cognitive et un texte alternatif.
+- Relier la page à un ou plusieurs concepts canoniques de Wiki Knowledge via le manifeste éditorial privé ; ne pas recopier ici les identifiants internes.
+- L'ordre du calendrier est une progression narrative, pas une relation de prérequis.
+- La page doit rester autonome : aucun concept essentiel ne doit être accessible uniquement par un lien.
+- Vérifier le rendu Quarto, les liens, l'accessibilité clavier, les équations et l'affichage mobile.
