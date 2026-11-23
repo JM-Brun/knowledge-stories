@@ -50,7 +50,7 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
 <svg viewBox="0 0 760 455" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sensor-title">Cinq profils de capteurs comparés à une référence de 20 degrés</title>
   <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C est très dispersé autour de la référence. D présente des pas de lecture de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
-  <rect x="1" y="1" width="758" height="428" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="1" y="1" width="758" height="453" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="32" font-size="15" font-weight="700" fill="#0f172a">Trois relevés par profil (°C) — exemples illustratifs</text>
   <line x1="120" y1="400" x2="700" y2="400" stroke="#64748b" stroke-width="1.5"/>
   <g fill="#475569" font-size="11" text-anchor="middle">
