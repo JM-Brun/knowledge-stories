@@ -34,7 +34,7 @@ La moyenne observée dans la première enquête est 10 si elle couvre tout le gr
 
 ## Pourquoi plus de données ne résout-il rien ici ?
 
-Supposons que l'enquête en ligne recueille non pas 50 000 mais 500 000 réponses, toujours uniquement dans le groupe A. La moyenne observée restera 10 si la moyenne du groupe est stable.
+Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et une enquête qui recueille les 500 000 réponses uniquement dans A. La moyenne de l'enquête restera 10 : le volume augmente, mais la population cible reste couverte à moitié seulement.
 
 L'erreur ne vient pas d'une fluctuation aléatoire autour de la bonne cible. Elle vient du fait que la procédure observe une population accessible différente de la population cible.
 
