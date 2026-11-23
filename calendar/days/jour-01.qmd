@@ -148,6 +148,21 @@ Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée
 
 Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications et des valeurs de référence avec leurs incertitudes. Il peut permettre une correction, sans garantir la stabilité future de l'instrument. La traçabilité documente l'instrument, la méthode, la date, les conditions et l'incertitude.
 
+## Avant de corriger : définir ce que l'on veut mesurer
+
+Un protocole de mesure commence avant le choix de l'instrument. Il faut préciser au moins quatre éléments :
+
+1. **Le mesurande** : quelle grandeur ou quel attribut cherche-t-on à caractériser ?
+2. **L'unité d'observation** : un instant, un capteur, un bâtiment, une personne, une session ?
+3. **Les conditions de mesure** : où, quand, avec quel protocole et sur quelle plage de fonctionnement ?
+4. **L'usage du résultat** : quelle décision sera prise, et quelle erreur serait coûteuse ?
+
+Ces choix déterminent ce qu'une observation signifie. Une température moyenne par bâtiment, une température instantanée par capteur et une température ressentie par les occupants ne sont pas trois versions interchangeables de la même variable.
+
+Une correction instrumentale doit donc être évaluée sur son domaine d'application. Une correction estimée à 20 °C ne garantit pas une correction valide à 5 °C ou 40 °C ; une calibration réalisée dans un laboratoire ne garantit pas le même comportement dans un environnement humide ou soumis aux vibrations.
+
+**Réflexe de Data Scientist :** documenter la définition de la variable, sa provenance, les transformations appliquées, les conditions de validité et l'incertitude connue. Sans ce contrat de mesure, une colonne numérique peut être techniquement propre mais scientifiquement ambiguë.
+
 ## De la mesure au jeu de données : où le problème se propage
 
 Considérons maintenant un réseau de capteurs de température déployé dans plusieurs bâtiments. Si certains capteurs ont un décalage systématique, le jeu de données peut présenter des différences entre bâtiments qui proviennent en partie des instruments plutôt que des bâtiments eux-mêmes.
@@ -203,6 +218,18 @@ Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé
 **Le point important :** une correction n'est pas une opération cosmétique. C'est un modèle supplémentaire, qui possède lui aussi des hypothèses et une incertitude.
 
 </details>
+
+## Une grille de contrôle avant analyse
+
+Avant de calculer une moyenne ou d'entraîner un modèle, poser ces questions :
+
+- **Sens** — Quelle grandeur la variable représente-t-elle réellement ?
+- **Origine** — Par quel instrument, protocole ou système a-t-elle été produite ?
+- **Qualité** — Quelles composantes d'erreur et d'incertitude sont connues ?
+- **Comparabilité** — Les mesures sont-elles comparables entre groupes, sites et périodes ?
+- **Usage** — L'incertitude restante est-elle acceptable pour la décision visée ?
+
+Cette grille évite de réduire la qualité des données à des contrôles de format, de doublons ou de valeurs manquantes.
 
 ## À retenir
 
