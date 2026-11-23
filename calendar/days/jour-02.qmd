@@ -28,7 +28,7 @@ La moyenne de la population est donc :
 Deux enquêtes sont réalisées :
 
 - les 50 000 personnes du groupe A répondent une fois : on dispose d'un recensement de A, mais d'aucune observation de B ;
-- une enquête stratifiée tire aléatoirement 500 personnes dans chaque groupe, soit 1 000 au total.
+- une enquête stratifiée tire aléatoirement, sans remise, 500 personnes dans chaque groupe, soit 1 000 au total ; les réponses sont complètes.
 
 Dans le premier dispositif, toutes les personnes de A sont observées : sa moyenne vaut donc exactement 10 pour ce groupe, sans erreur d'échantillonnage sur A. Elle ne donne toutefois aucune information directe sur B et n'est pas la moyenne de la population cible. Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. Le dispositif le plus volumineux décrit parfaitement une partie de la population, mais pas la population entière.
 
