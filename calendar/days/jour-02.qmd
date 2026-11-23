@@ -21,9 +21,9 @@ Une population cible comporte 100 000 personnes :
 
 La moyenne de la population est donc :
 
-[
-mu = 0{,}5	imes 10 + 0{,}5	imes 20 = 15.
-]
+\[
+\mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
+\]
 
 Deux enquêtes sont réalisées :
 
