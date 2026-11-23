@@ -295,7 +295,11 @@ Le modèle précédent divise exactement les tailles par deux. Dans l’algorith
 m_{j+1}\leq \frac{m_j}{2}+2.
 \]
 
-En déroulant cette inégalité, on obtient \(m_j\leq n/2^j+4\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau ; les feuilles sont donc toujours en nombre \(\Theta(3^{\log_2 n})=\Theta(n^{\log_2 3})\). Le coût linéaire des niveaux internes reste du même ordre que celui des feuilles. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+En déroulant cette inégalité, on obtient \(m_j\leq n/2^j+4\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau \(j\), le travail interne est donc borné par
+\[
+O(3^j m_j)=O\!\left(n(3/2)^j+3^j\right).
+\]
+Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^{\log_2 3})\). Les feuilles sont en nombre \(\Theta(3^{\log_2 n})=\Theta(n^{\log_2 3})\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
@@ -349,7 +353,7 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 
 - **La publication originale.** La notice de Math-Net donne la référence de l'article de Karatsuba et Ofman, publié en 1962 dans *Doklady Akademii Nauk SSSR*, volume 145, pages 293–294. Elle permet de retrouver le texte original et son contexte historique.
 - **Une présentation de la récurrence.** Les notes de cours de H. Zantema (Radboud University, version du 28 mars 2019) détaillent le passage de quatre à trois multiplications et la résolution par le théorème maître.
-- **Les choix d'implémentation.** La documentation de FLINT présente une identité de Karatsuba, une preuve de la borne et des considérations concrètes sur les seuils et les architectures.
+- **Les choix d'implémentation.** La documentation de FLINT présente une identité de Karatsuba, une preuve de la borne et des considérations concrètes sur les seuils et les architectures. Sa page signale toutefois qu’une partie de la révision d’octobre 2026 a été générée par un modèle de langage : elle est utile pour s’orienter, mais les détails importants doivent être recoupés avec le manuel de GNU MP et les mesures publiées.
 - **Un cours d'algorithmique.** Le cours CS 173 de l'université de l'Illinois propose une explication progressive de l'identité et de la complexité.
 - **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne asymptotique en dessous de n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
 
