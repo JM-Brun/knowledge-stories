@@ -1,0 +1,66 @@
+---
+title: "Quand la covariance change-t-elle la variance d'une somme ?"
+subtitle: "Jour 4 · Les variables ne varient pas toujours indépendamment"
+description: "Calculer la variance d'une somme en tenant compte de la covariance."
+---
+
+## La question
+
+Pourquoi la variance de (X+Y) n'est-elle pas toujours égale à la somme des variances de (X) et de (Y) ?
+
+Considérons trois couples équiprobables :
+
+[
+(X,Y)\in\{(1,2),(2,4),(3,6)\}.
+]
+
+On observe ici une relation parfaite : (Y=2X).
+
+## À vous de calculer
+
+1. Calculez les moyennes de (X) et de (Y).
+2. Calculez leurs variances empiriques en utilisant le diviseur (n).
+3. Calculez la covariance et la corrélation.
+4. Déduisez la variance de (X+Y).
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+Les moyennes sont :
+
+[
+\mathbb E[X]=2,\qquad \mathbb E[Y]=4.
+]
+
+Les variances empiriques et la covariance (avec le diviseur (n=3)) valent :
+
+[
+\operatorname{Var}(X)=\frac23,\qquad
+\operatorname{Var}(Y)=\frac83,\qquad
+\operatorname{Cov}(X,Y)=\frac43.
+]
+
+La corrélation vaut 1 puisque (Y=2X) et que les deux variables varient dans le même sens de façon parfaitement linéaire.
+
+La formule générale est :
+
+[
+\operatorname{Var}(X+Y)=
+\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
+]
+
+Donc :
+
+[
+\operatorname{Var}(X+Y)=\frac23+\frac83+2\times\frac43=6.
+]
+
+Oublier la covariance donnerait (10/3), une valeur incorrecte.
+
+**À retenir :** l'indépendance implique une covariance nulle (si les moments existent), mais une covariance nulle n'implique pas en général l'indépendance. Il faut justifier les hypothèses, pas les supposer.
+
+</details>
+
+## Transfert vers la Data Science
+
+Les erreurs de plusieurs modèles ou les mesures de plusieurs capteurs peuvent être corrélées. Agréger leurs résultats ne fait pas automatiquement disparaître leur variabilité.
