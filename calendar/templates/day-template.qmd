@@ -47,6 +47,15 @@ Développer l'angle distinctif de la journée : hypothèse cachée, variable omi
 
 La section doit apporter une perspective supplémentaire, pas répéter la définition précédente.
 
+Avant rédaction, noter dans le dossier éditorial (pas dans la page publique) :
+1. ce que les explications de référence présentent déjà ;
+2. le point aveugle, la tension ou la confusion que l'article choisit d'éclairer ;
+3. la contribution précise de cette journée pour le lecteur ;
+4. le dispositif qui permet de découvrir cette contribution ;
+5. une question de transfert qui vérifie qu'elle est comprise.
+
+L'apport peut être une meilleure reconstruction pédagogique, une démonstration ou une connexion rigoureuse ; il ne doit pas être présenté comme une découverte nouvelle. Si l'article n'ajoute rien de substantiel, simplifier cette section ou assumer explicitement une synthèse plutôt que d'inventer un angle.
+
 ## Changer d'échelle : où retrouve-t-on cette idée ?
 
 Faire un transfert explicite vers une autre discipline ou une situation de Data Science / ML. Expliquer ce qui reste invariant et ce qui change. Éviter les analogies qui suggèrent une équivalence abusive.
@@ -87,6 +96,7 @@ Donner le raisonnement, pas seulement le résultat. Signaler les conventions et 
 
 - Durée visée : 7–10 min ; viser environ 1 000–1 400 mots utiles selon densité et visuels.
 - Un seul angle distinctif par journée ; pas de remplissage pour atteindre une durée.
+- L'angle doit expliciter le traitement courant, le point aveugle, l'apport au lecteur et le dispositif de découverte ; ne jamais fabriquer une originalité.
 - Toute affirmation quantitative doit être calculée, vérifiée ou sourcée.
 - Toute figure doit avoir une fonction cognitive et un texte alternatif.
 - Relier la page à un ou plusieurs concepts canoniques de Wiki Knowledge via le manifeste éditorial privé ; ne pas recopier ici les identifiants internes.

@@ -62,3 +62,18 @@ La typographie, la composition, les espaces, les schémas et les interactions do
 La revue porte sur cinq dimensions distinctes : exactitude documentaire, solidité du raisonnement, progression pédagogique, qualité visuelle/accessibilité, conformité juridique et confidentialité. Un build réussi ne constitue pas une validation scientifique.
 
 Ajouter à la revue pédagogique un contrôle explicite de la couverture conceptuelle : les concepts centraux sont-ils réellement expliqués ? Les prérequis et concepts voisins sont-ils clarifiés au bon niveau ? Les connexions apportent-elles un transfert réel ? Les approfondissements restent-ils proportionnés ?
+
+
+## Contribution éditoriale distinctive
+Chaque journée doit apporter une contribution identifiable au-delà d'une présentation correcte du sujet. Cette contribution n'a pas besoin d'être une découverte scientifique originale : elle peut résider dans la question choisie, la reconstruction d'un raisonnement, une expérience, une démonstration, un contre-exemple, une connexion interdisciplinaire ou une mise en perspective.
+
+Avant rédaction, consigner brièvement :
+- **Le traitement courant** : comment le sujet est-il généralement expliqué dans les ressources de référence consultées ?
+- **Le manque ou la tension** : quelle hypothèse implicite, confusion, limite, conséquence ou question reste peu visible dans ce traitement ?
+- **L'apport de cette journée** : qu'est-ce que le lecteur verra, comprendra ou saura faire de plus grâce à l'article ?
+- **Le dispositif de découverte** : quel exemple, calcul, expérience, visualisation, enquête ou raisonnement permet de le faire constater ?
+- **La preuve de valeur** : quelle question de transfert ou quel contre-exemple vérifie que l'apport est compris ?
+
+La comparaison avec les explications existantes sert à situer l'article, pas à fabriquer artificiellement une originalité. Si aucune contribution supplémentaire n'est justifiée, mieux vaut assumer une synthèse pédagogique claire et utile que surjouer un angle inédit.
+
+L'angle doit rester au service de la question centrale. Une analogie n'est pas une preuve ; une connexion n'est pertinente que si elle éclaire un mécanisme commun et ses limites. Éviter les rubriques « originalité » qui ne font que renommer une définition, répéter le récit ou ajouter une digression.
