@@ -289,7 +289,15 @@ Cette preuve par arbre est équivalente à l’application du théorème maître
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
-Le modèle suppose des tailles divisées exactement par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut nécessiter un chiffre supplémentaire : les trois appels ne sont donc pas toujours exactement de taille \(n/2\). Cela ne change pas l’exposant, car leur taille reste bornée par \(n/2+O(1)\), et l’on peut majorer la récurrence par trois appels de taille voisine de \(n/2\) plus un coût linéaire. Une variante par différences, présentée plus loin, évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi la variante avec différences évite les sommes susceptibles de dépasser la taille des blocs et décrit le coût supplémentaire des additions.
+Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut toutefois nécessiter un chiffre supplémentaire. Si \(m_j\) désigne la taille maximale d’un sous-problème au niveau \(j\), on peut majorer cette évolution par
+
+\[
+m_{j+1}\leq \frac{m_j}{2}+2.
+\]
+
+En déroulant cette inégalité, on obtient \(m_j\leq n/2^j+4\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau ; les feuilles sont donc toujours en nombre \(\Theta(3^{\log_2 n})=\Theta(n^{\log_2 3})\). Le coût linéaire des niveaux internes reste du même ordre que celui des feuilles. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+
+Une variante par différences évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
 ## Pourquoi une bibliothèque combine plusieurs méthodes
 
