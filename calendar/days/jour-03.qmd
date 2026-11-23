@@ -53,6 +53,14 @@ La moyenne identique masque ici des dispersions radicalement différentes. La s�
 
 
 
+## Série observée, distribution empirique et loi de probabilité
+
+Les listes A, B et C sont d'abord **trois séries observées**. Si l'on attribue le même poids à chacune des cinq observations, chacune définit une **distribution empirique** : une répartition finie qui décrit exactement les valeurs présentes dans la série.
+
+Une **loi de probabilité** est un autre objet : un modèle mathématique décrivant les probabilités des valeurs possibles d'une variable aléatoire. Une série observée peut servir à étudier une loi, mais elle ne suffit pas à établir quelle loi a produit les données. Ici, aucune hypothèse de représentativité ni de mécanisme générateur n'est nécessaire pour comparer les trois séries.
+
+Cette distinction évite de confondre ce que l'on a effectivement observé avec ce que l'on suppose du phénomène qui aurait pu produire ces observations.
+
 ## Deuxième niveau : mêmes résumés, formes différentes
 
 Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est composé de quatre jeux de données construits pour partager, à l'arrondi près, les mêmes statistiques descriptives usuelles : moyennes, variances, corrélation et droite de régression. Pourtant, leurs nuages de points ont des formes très différentes. Dans l'un, une relation est courbe ; dans un autre, un point extrême joue un rôle déterminant.
