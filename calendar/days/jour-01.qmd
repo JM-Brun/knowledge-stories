@@ -535,6 +535,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
+# Ici, feature_columns contient uniquement des variables numériques.
 X = data[feature_columns]
 y = data["energy_consumption"]
 groups = data["sensor_id"]
@@ -555,7 +556,7 @@ scores = cross_validate(
 )
 ```
 
-Ce code n'est pertinent que si le déploiement vise effectivement des capteurs absents de l'entraînement et si cinq groupes indépendants au moins sont disponibles. Pour un déploiement sur de nouveaux bâtiments, il faut grouper par bâtiment ; pour anticiper le futur, il faut aussi respecter l'ordre temporel. Le découpage doit découler de la question de généralisation, pas d'une recette appliquée systématiquement.
+Ce code suppose que les variables explicatives sont numériques et n'est pertinent que si le déploiement vise effectivement des capteurs absents de l'entraînement et si cinq groupes indépendants au moins sont disponibles. Pour un déploiement sur de nouveaux bâtiments, il faut grouper par bâtiment ; pour anticiper le futur, il faut aussi respecter l'ordre temporel. Si des hyperparamètres sont sélectionnés, cette sélection doit elle aussi respecter les groupes, idéalement dans une validation imbriquée. Le découpage doit découler de la question de généralisation, pas d'une recette appliquée systématiquement.
 
 ### 4. Apprendre toute correction dans l'entraînement, jamais sur le test
 
@@ -568,7 +569,7 @@ Après correction, vérifier les résidus par plage de température, capteur, si
 | Diagnostic | Risque pour le modèle | Action à envisager |
 |---|---|---|
 | Décalage stable et documenté | Comparabilité biaisée entre instruments | Correction validée ou effet instrument explicitement modélisé |
-| Bruit important | Atténuation des relations, prédictions moins précises | Caractériser le bruit, agréger seulement si le phénomène le permet |
+| Bruit important | Sous les hypothèses classiques d'une erreur additive indépendante, atténuation possible des coefficients ; prédictions moins précises | Caractériser le bruit, agréger seulement si le phénomène le permet |
 | Biais dépendant de la plage | Erreur systématique variable selon les conditions | Calibration sur la plage utile et validation hors échantillon |
 | Dérive temporelle | Dégradation après déploiement | Suivi de dérive, contrôles périodiques et stratégie de recalibration |
 | Instrument confondu avec le site | Effets impossibles à identifier séparément | Revoir le plan de collecte ; le modèle seul ne résout pas la confusion |
