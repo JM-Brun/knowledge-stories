@@ -32,11 +32,11 @@ Une référence conventionnelle indique 20,00 °C. Le tableau rassemble trois re
 |---|---:|---:|---:|---:|---:|---|
 | **A — stable, proche** | 20,2 °C | 20,1 °C | 20,2 °C | **20,17 °C** | **+0,17 °C** | Faible dispersion et faible décalage observé |
 | **B — stable, décalé** | 19,0 °C | 19,1 °C | 19,0 °C | **19,03 °C** | **−0,97 °C** | Même dispersion que A, mais centre nettement décalé |
-| **C — bruité, peu biaisé** | 19,2 °C | 20,7 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Moyenne proche de la référence, lectures individuelles dispersées |
-| **D — robuste, peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Pas d'indication intermédiaire : pas de finesse de lecture sous 0,5 °C dans cet exemple |
+| **C — bruité, moyenne observée centrée** | 19,2 °C | 20,7 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Moyenne de ces trois lectures égale à la référence, malgré leur dispersion |
+| **D — robuste, affichage peu résolu** | 19,5 °C | 20,0 °C | 20,5 °C | **20,00 °C** | **0,00 °C** | Instrument supposé robuste, avec un affichage par pas de 0,5 °C dans cet exemple |
 | **E — acquisition rapide** | 19,9 °C | 20,0 °C | 20,1 °C | **20,00 °C** | **0,00 °C** | Trois instants sélectionnés parmi une acquisition à 10 Hz ; la fréquence ne se lit pas dans ces seuls nombres |
 
-Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
+Les profils C, D et E sont des **exemples pédagogiques distincts**, pas des mesures issues du même essai comparatif que A et B. Pour C, la moyenne des trois valeurs est égale à la référence par construction : cela ne démontre ni que le bruit est centré dans la population, ni que le capteur est peu biaisé. Pour D, le pas de 0,5 °C est une propriété supposée de l'affichage, illustrée par les valeurs choisies ; trois relevés ne suffiraient pas à caractériser la résolution d'un instrument. Les trois valeurs affichées pour E sont volontairement trois instants sélectionnés : elles ne représentent pas l'ensemble des mesures acquises à 10 Hz.
 
 Les séries A et B ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
@@ -49,7 +49,7 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
 <figure>
 <svg viewBox="0 0 760 455" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sensor-title">Cinq profils de capteurs comparés à une référence de 20 degrés</title>
-  <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C est très dispersé autour de la référence. D présente des pas de lecture de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
+  <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C présente trois valeurs dispersées dont la moyenne est égale à la référence. D illustre un affichage supposé quantifié par pas de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
   <rect x="1" y="1" width="758" height="453" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="32" font-size="15" font-weight="700" fill="#0f172a">Trois relevés par profil (°C) — exemples illustratifs</text>
   <line x1="120" y1="400" x2="700" y2="400" stroke="#64748b" stroke-width="1.5"/>
@@ -78,7 +78,7 @@ Le capteur B illustre le cas d'un instrument stable mais décalé : une correcti
 
 ### Il n'existe pas de capteur optimal sur tous les critères
 
-Les profils A et B isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
 
 Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
 
@@ -130,7 +130,7 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
 <figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
 </figure>
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C pourrait convenir à une moyenne journalière si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois points du tableau ne suffisent pas à l'établir. Il pourrait en revanche manquer un pic de quelques secondes.
+Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Pour C, une moyenne journalière pourrait être pertinente si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois valeurs illustratives ne permettent pas de le conclure. Un tel moyennage pourrait en revanche masquer un pic de quelques secondes.
 
 | Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
 |---|---|---|---|
