@@ -27,10 +27,10 @@ La moyenne de la population est donc :
 
 Deux enquêtes sont réalisées :
 
-- une enquête ouverte en ligne recueille 50 000 réponses, toutes dans le groupe A ;
+- les 50 000 personnes du groupe A répondent une fois : on dispose d'un recensement de A, mais d'aucune observation de B ;
 - une enquête stratifiée tire aléatoirement 500 personnes dans chaque groupe, soit 1 000 au total.
 
-La moyenne observée dans la première enquête est 10 si elle couvre tout le groupe A (ou son espérance est 10 sous un tirage dans A). Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. L'enquête la plus volumineuse vise ici une quantité différente, parce qu'elle ne couvre qu'une moitié de la population.
+Dans le premier dispositif, toutes les personnes de A sont observées : sa moyenne vaut donc exactement 10 pour ce groupe, sans erreur d'échantillonnage sur A. Elle ne donne toutefois aucune information directe sur B et n'est pas la moyenne de la population cible. Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. Le dispositif le plus volumineux décrit parfaitement une partie de la population, mais pas la population entière.
 
 ## Préciser la quantité que l'on cherche à estimer
 
@@ -48,7 +48,7 @@ Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupe
 
 ## Pourquoi plus de données ne résout-il rien ici ?
 
-Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et une enquête qui recueille les 500 000 réponses uniquement dans A. La moyenne de l'enquête restera 10 : le volume augmente, mais la population cible reste couverte à moitié seulement.
+Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et un recensement de A. Sa moyenne restera 10 : le nombre de réponses augmente, mais la population cible reste couverte à moitié seulement.
 
 L'erreur ne vient pas d'une fluctuation aléatoire autour de la bonne cible. Elle vient du fait que la procédure observe une population accessible différente de la population cible.
 
@@ -68,12 +68,12 @@ Une distribution très étroite n'est donc pas nécessairement rassurante : elle
 
 On peut résumer l'intuition ainsi :
 
-| Propriété | Grand échantillon auto-sélectionné | Échantillon probabiliste stratifié |
+| Propriété | Recensement du groupe A | Échantillon probabiliste stratifié |
 |---|---|---|
 | Volume | Très élevé | Plus modeste |
 | Couverture des groupes | Groupe A seulement | A et B |
-| Cible directement décrite | Répondants du groupe A | Population, avec pondération adaptée |
-| Effet d'une hausse de taille | Réduit l'aléa dans A | Réduit généralement l'erreur d'échantillonnage |
+| Cible directement décrite | Groupe A dans son intégralité | Population, avec pondération adaptée |
+| Effet de la taille | Décrit A sans erreur d'échantillonnage ; B reste absent | Réduit généralement l'erreur d'échantillonnage, selon le plan |
 
 <figure>
 <svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
