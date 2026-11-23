@@ -74,10 +74,10 @@ La ligne verticale représente la référence de 20,00 °C. Les points sont les 
   </g>
   <text x="120" y="296" font-size="11" fill="#64748b">Chaque point représente une mesure ; les positions sont proportionnelles aux valeurs.</text>
 </svg>
-<figcaption>La stabilité décrit la dispersion des points. Le biais se lit dans le décalage de leur centre par rapport à la référence.</figcaption>
+<figcaption>Même dispersion, deux moyennes : les mesures du capteur B sont regroupées loin de la référence.</figcaption>
 </figure>
 
-Le capteur B n'est pas « mauvais » parce que ses valeurs varient peu : il est stable dans cet essai, mais son résultat est décalé. Cette distinction est le cœur de la question.
+Le capteur B illustre le cas d'un instrument stable mais décalé : une correction ne serait pertinente qu'après vérification de sa stabilité et de son domaine de validité.
 
 ### Il n'existe pas de capteur optimal sur tous les critères
 
@@ -85,27 +85,65 @@ Les deux séries précédentes isolent volontairement un seul contraste : une di
 
 Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
 
-| Profil de capteur | Ce qu'il privilégie | Ce qu'il sacrifie ou exige | Usage pour lequel il peut être pertinent |
+<figure class="sensor-showcase" aria-labelledby="sensor-showcase-caption">
+<div class="sensor-gallery" role="list">
+  <article class="sensor-card sensor-reference" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M42 10a9 9 0 0 1 18 0v35a17 17 0 1 1-18 0z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M51 23v31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="51" cy="54" r="8" fill="currentColor"/><path d="M64 18h9m-9 10h6m-6 10h9" stroke="currentColor" stroke-width="2"/></svg>
+    <span class="sensor-kicker">Référence</span>
+    <h4>Instrument étalon</h4>
+    <p>Traçabilité et incertitude caractérisée pour comparer les autres mesures.</p>
+    <p class="sensor-limit"><strong>Coût :</strong> prix, maintenance et conditions d'emploi plus exigeantes.</p>
+  </article>
+  <article class="sensor-card sensor-a" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="57" cy="52" r="5" fill="currentColor"/></svg>
+    <span class="sensor-kicker">Profil A</span>
+    <h4>Stable et bien ajusté</h4>
+    <p>Faible dispersion et faible décalage observé dans les conditions testées.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> stabilité dans le temps et coût total.</p>
+  </article>
+  <article class="sensor-card sensor-b" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M22 16l-8-8m8 8 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span class="sensor-kicker">Profil B</span>
+    <h4>Stable mais décalé</h4>
+    <p>Répétable ; un biais connu peut parfois être corrigé.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> correction valide sur toute la plage d'usage.</p>
+  </article>
+  <article class="sensor-card sensor-c" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 52h66M20 52V17m0 35h57" stroke="currentColor" stroke-width="2"/><path d="M25 37l9-15 9 25 9-32 9 27 9-18 9 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
+    <span class="sensor-kicker">Profil C</span>
+    <h4>Peu biaisé mais bruité</h4>
+    <p>La moyenne peut être juste après agrégation d'un grand nombre de mesures.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> le bruit ne masque pas les événements rapides.</p>
+  </article>
+  <article class="sensor-card sensor-d" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 7 76 18v18c0 15-12 24-28 30C32 60 20 51 20 36V18z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="sensor-kicker">Profil D</span>
+    <h4>Robuste en milieu difficile</h4>
+    <p>Conçu pour résister aux chocs, à l'humidité ou aux vibrations.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> résolution suffisante pour le phénomène ciblé.</p>
+  </article>
+  <article class="sensor-card sensor-e" role="listitem">
+    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="36" r="26" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 18v19l13 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M72 12l8-5m-8 5 1-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span class="sensor-kicker">Profil E</span>
+    <h4>Rapide et énergivore</h4>
+    <p>Suit des phénomènes brefs grâce à une acquisition fréquente.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> autonomie, stockage et transmission.</p>
+  </article>
+</div>
+<figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
+</figure>
+
+Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C peut convenir à une moyenne journalière, mais manquer un pic de quelques secondes.
+
+| Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
 |---|---|---|---|
-| **Référence de laboratoire** | Faible dispersion, justesse caractérisée, traçabilité | Coût, encombrement, maintenance et parfois temps de réponse | Étalonnage et mesures de référence |
-| **Capteur A — dispersion faible, décalage observé modéré** | Répétabilité et faible décalage dans les conditions testées | Coût ou complexité potentiellement supérieurs à un capteur grand public | Suivi quantitatif lorsque la stabilité compte |
-| **Capteur B — dispersion faible, décalage observé marqué** | Faible dispersion, simplicité ou faible coût | Justesse : une correction et sa validation sont nécessaires | Surveillance relative si le biais est connu et stable |
-| **Capteur C — peu biaisé mais bruité** | Moyenne proche de la référence sur de nombreuses répétitions | Forte variabilité d'une lecture à l'autre | Estimation agrégée si l'on peut répéter et moyenner sans perdre la dynamique utile |
-| **Capteur D — robuste mais peu résolu** | Résistance aux chocs, à l'humidité ou aux environnements difficiles | Capacité à distinguer de petites variations | Détection de seuils ou surveillance en conditions sévères |
-| **Capteur E — rapide mais énergivore** | Fréquence d'échantillonnage et temps de réponse | Autonomie, volume de données et coût de transmission | Détection d'événements brefs lorsque la temporalité est déterminante |
+| **Bruit / biais** | Mesures peu dispersées ou moyenne proche de la référence | Le moyennage réduit le bruit aléatoire, pas un biais stable | Cherche-t-on une lecture instantanée ou une moyenne ? |
+| **Résolution / plage** | Détecter de très petites variations ou couvrir une grande plage | La résolution utile dépend de la plage, du bruit et de la technologie | Quelle est la plus petite variation qui change la décision ? |
+| **Temps de réponse / filtrage** | Signal lissé ou réaction rapide | Le filtrage peut retarder ou atténuer un événement | Quelle durée d'événement faut-il détecter ? |
+| **Fréquence / autonomie** | Échantillonnage fréquent | Consommation, stockage et transmission augmentent souvent | À quelle vitesse le phénomène évolue-t-il réellement ? |
+| **Robustesse / sensibilité** | Résister à l'environnement ou détecter de faibles variations | Le boîtier, le montage et le principe de mesure imposent des compromis | Quelles contraintes environnementales sont non négociables ? |
 
-Ces profils montrent plusieurs compromis indépendants. Ce sont des arbitrages d'ingénierie possibles, pas des lois universelles : leur existence et leur intensité dépendent de la technologie, du dimensionnement, de l'environnement et du budget.
-
-- **Bruit–biais** : moyenner peut réduire une partie du bruit aléatoire, mais ne corrige pas un décalage systématique.
-- **Résolution–plage de mesure** : distinguer de très petites variations sur une plage étroite n'est pas la même exigence que couvrir une plage très large.
-- **Temps de réponse–filtrage** : lisser le signal réduit certaines fluctuations, mais peut retarder ou atténuer un événement rapide.
-- **Fréquence d'échantillonnage–autonomie** : mesurer plus souvent peut mieux décrire une dynamique, au prix d'une consommation et d'un volume de données accrus.
-- **Robustesse–sensibilité** : un dispositif adapté à un environnement difficile n'est pas nécessairement celui qui détecte les plus petites variations.
-
-Le bon choix dépend donc de la **décision à prendre**. Pour déclencher une alarme lorsqu'une température dépasse 30 °C, une résolution de 0,1 °C peut être suffisante. Pour caractériser une dérive de 0,05 °C, elle ne l'est pas nécessairement. Pour détecter un pic de quelques secondes, une mesure toutes les dix minutes est inadéquate, même si chaque mesure est très stable.
-
-**Point méthodologique :** dans l'exemple initial, 20,00 °C est traité comme une référence conventionnelle pour rendre les calculs lisibles. En pratique, cette référence possède elle aussi une incertitude. On ne peut conclure qu'un capteur est suffisamment juste qu'en comparant les résultats et les incertitudes dans les conditions d'utilisation visées.
-
+Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
@@ -326,7 +364,6 @@ Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient 
 
 **À retenir :** la qualité des données et celle du modèle doivent être examinées ensemble. Les journées suivantes détailleront séparément les mécanismes — échantillonnage, variabilité, dépendance, spécification, stabilité et généralisation — sans les empiler tous ici.
 
-Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, une valeur rare parfaitement réelle.
 
 ## À vous de raisonner
 
