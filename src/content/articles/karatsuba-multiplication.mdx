@@ -78,8 +78,10 @@ Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indir
 
 On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie transforme le coût asymptotique de Θ(n²) en Θ(n^log₂(3)), soit environ Θ(n^1,585).
 
-<div class="math-lead" aria-label="Les trois idées clés de Karatsuba">
-  <div><strong>4 → 3</strong><span>produits de blocs à chaque découpage</span></div>
+<div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
+  <div><strong>4 → 3</strong><span>multiplications de blocs à chaque étape</span></div>
+  <div><strong>n^1,585</strong><span>exposant de la complexité asymptotique</span></div>
+</div></div>
   <div><strong>3 appels ≈ n/2</strong><span>trois sous-problèmes de taille proche de la moitié</span></div>
   <div><strong>n^1,585</strong><span>exposant de complexité asymptotique</span></div>
 </div>
@@ -92,12 +94,7 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 
 ## Pourquoi cette question est intéressante
 
-La multiplication que nous apprenons à l'école fonctionne très bien pour les nombres ordinaires. Pour deux nombres de n chiffres, chaque chiffre du premier peut contribuer à chacun des n chiffres du second. Le nombre d'opérations élémentaires croît donc comme le carré de la taille : Θ(n²).
-
-Pour des entiers très longs, cette croissance devient coûteuse. Peut-on exploiter la structure de la multiplication pour éviter certains calculs ?
-
-En 1962, Anatoli Karatsuba et Yuri Ofman publient un résultat fondateur sur la multiplication de nombres à plusieurs chiffres. L'article original est très court ; l'idée algorithmique, elle, est devenue un jalon de l'arithmétique rapide.
-
+Avec la méthode scolaire, chacun des n chiffres d'un opérande peut être multiplié par chacun des n chiffres de l'autre. Le nombre de produits élémentaires croît donc comme Θ(n²). Pour des entiers très longs, peut-on exploiter la structure de la multiplication pour réduire ce travail ?
 ## Construire l'intuition
 
 Prenons deux nombres et séparons chacun en deux blocs. En base dix, si l'on coupe après m chiffres :
@@ -163,17 +160,16 @@ Multiplions 1234 par 5678. Découpons chaque nombre après deux chiffres :
 
 <KaratsubaWorkedComparison />
 
-La lecture horizontale permet de comparer les deux stratégies à chaque étape. Les deux commencent par la même séparation des nombres et finissent par la même recomposition. La différence se situe au milieu : la méthode directe calcule séparément les deux produits croisés ; Karatsuba les retrouve à partir du produit des sommes.
+La comparaison fait ressortir la différence entre les deux méthodes : la méthode directe calcule séparément les produits croisés, tandis que Karatsuba les déduit du produit des sommes.
 
-Ici, la coupure est faite après deux chiffres : <code>m = 2</code>, donc <code>10^m = 100</code> et <code>10^(2m) = 10 000</code>. Les trois valeurs de Karatsuba sont replacées dans les mêmes positions décimales que les quatre produits de la méthode directe. L'économie ne vient pas d'une approximation : les deux colonnes donnent exactement le même entier.
-
+La coupure intervient après deux chiffres : <code>m = 2</code>, donc <code>10^m = 100</code> et <code>10^(2m) = 10 000</code>. Les produits sont recomposés aux mêmes positions décimales ; l'identité est exacte, sans approximation.
 ## Expérimenter : changez les nombres
 
 La démonstration ci-dessous reprend exactement la décomposition algébrique. Essayez des nombres de longueurs différentes, observez les blocs obtenus et vérifiez que le résultat reconstruit est identique au produit direct. Le calcul utilise des entiers exacts, sans approximation flottante.
 
 <KaratsubaExplorer />
 
-L’atelier effectue un découpage et affiche les trois multiplications qu’on pourrait traiter de la même façon au niveau suivant. Il prolonge sous une forme interactive une démarche pédagogique présentée dans l’article de [Djamchid Dalili](https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html#atelier), qui constitue la source principale de cette page.
+L’atelier effectue un découpage et affiche les trois produits qui deviennent, à leur tour, des sous-problèmes de multiplication. Vous pouvez ainsi suivre le passage d'une identité appliquée une fois à un algorithme récursif.
 
 **À vous de prévoir.** Pour 9 999 × 1 234, les blocs de gauche et de droite comportent chacun deux chiffres. Quel appel peut recevoir un opérande de trois chiffres ? Faites une prédiction, puis vérifiez-la dans l’atelier.
 
@@ -209,8 +205,7 @@ def karatsuba(x: int, y: int) -> int:
 
 Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
 
-Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de \(n=2^k\) chiffres conduisent à \(4^k=n^2\) produits élémentaires avec la méthode classique, contre \(3^k=n^&#123;\log_2 3&#125;\) avec Karatsuba. Pour un million de chiffres, ces modèles donnent respectivement \(10^12\) et environ \(3,8\times10^9\) produits aux feuilles. Ce comptage compare les feuilles de deux arbres idéalisés ; il ne constitue pas une mesure du temps d'exécution d'une bibliothèque.
-
+Dans le modèle idéal où chaque découpage divise exactement la taille par deux, deux opérandes de \(n=2^k\) chiffres conduisent à \(4^k=n^2\) produits élémentaires avec la méthode classique, contre \(3^k=n^&#123;\log_2 3&#125;\) avec Karatsuba. Ce décompte porte sur les produits aux feuilles d'arbres équilibrés ; il ne prédit pas directement le temps d'exécution d'une bibliothèque.
 ## Exercices pour vérifier l'idée
 
 **1. Calculer 47 × 83 avec Karatsuba.** Coupez les nombres en dizaines et unités, puis retrouvez le terme croisé sans calculer séparément les deux produits croisés.
@@ -235,7 +230,7 @@ La méthode classique en demande \(4^&#123;10&#125;=1\,048\,576\), tandis que Ka
 
 **Pourquoi l'exposant vaut-il environ 1,585 ?** À chaque niveau, la taille est divisée par deux et le nombre de sous-problèmes est multiplié par trois. Pour \(n=2^k\), le nombre de feuilles vaut \(3^k=n^&#123;\log_2 3&#125;\), et \(\log_2 3\approx1,585\).
 
-**Karatsuba est-il toujours plus rapide ?** Non. Pour de petits opérandes, le coût des additions, soustractions, appels récursifs et allocations peut dépasser le gain obtenu. Les bibliothèques utilisent donc des seuils empiriques et plusieurs algorithmes selon la taille.
+**Karatsuba est-il toujours plus rapide ?** Non. Le coût des additions, des appels récursifs et des allocations peut dépasser le gain pour les petits opérandes. La section sur les bibliothèques explique pourquoi les seuils de bascule dépendent de l'implémentation et de la machine.
 
 **Quel est le lien avec Toom–Cook et la FFT ?** Toom–Cook généralise l'idée en découpant les nombres en davantage de blocs et en reconstruisant un produit polynomial à partir de valeurs évaluées. Les algorithmes fondés sur les transformées rapides accélèrent ensuite la convolution des coefficients. Ces méthodes réduisent encore la croissance asymptotique, mais leur complexité d'implémentation et leurs seuils pratiques sont plus élevés.
 
@@ -263,7 +258,7 @@ Pour huit chiffres, le calcul suivant normalise le travail hors sous-appels à u
 
 À la profondeur **j**, les 3ʲ appels traitent chacun n/2ʲ chiffres. Un étage interne coûte donc O(n × (3/2)ʲ). La somme géométrique jusqu’au dernier étage interne est en O(3ᵏ), où k = log₂(n). Les 3ᵏ feuilles fournissent déjà un coût en Θ(3ᵏ) dès lors que chacun de leurs produits a un coût constant positif. Le coût total est donc en **Θ(n^log₂(3)) ≈ Θ(n^1,585)**. Le même raisonnement à quatre branches donne 4ᵏ = n² feuilles et un coût total en Θ(n²).
 
-Le tableau décrit l’arbre équilibré. La retenue de l’exercice montre où le découpage par sommes peut produire un sous-problème légèrement plus grand. La variante par différences ci-dessous permet de retrouver des blocs de taille moitié pour des tailles paires.
+Le tableau décrit un arbre équilibré. L’exercice précédent montre toutefois qu'une retenue peut agrandir légèrement un sous-problème ; la variante par différences, présentée ensuite, évite cet effet pour des blocs de même longueur.
 
 </details>
 
@@ -330,5 +325,3 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 - **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne sous-n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
 
 ---
-
-*État éditorial : brouillon de travail. Les explications mathématiques et les références initiales ont été assemblées, mais l'article doit encore faire l'objet d'une revue indépendante, notamment sur l'histoire de la découverte, les variantes pratiques et les exemples de calcul, avant toute publication.*
