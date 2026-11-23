@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 8 à 10 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **En 10 à 12 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
