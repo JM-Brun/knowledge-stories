@@ -151,6 +151,9 @@ Notons $P_s$ la distribution source (entraînement) et $P_t$ la distribution cib
 |---|---|---|---|
 | **Covariate shift** | $P(X)$ | $P_t(Y\mid X)=P_s(Y\mid X)$ | La relation conditionnelle reste stable, mais les profils observés changent |
 | **Label shift** (*prior probability shift*) | $P(Y)$ | $P_t(X\mid Y)=P_s(X\mid Y)$ | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
+| **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de $X$ ne suffit généralement pas |
+
+Le vocabulaire varie selon les domaines : certains travaux emploient *concept drift* au sens large pour désigner toute évolution de la distribution. Ici, on réserve ce terme au changement de la relation conditionnelle $P(Y\mid X)$ afin de distinguer les mécanismes. C'est une convention de travail, pas une terminologie universellement adoptée.
 
 Sous label shift, la correction porte plutôt sur les probabilités a priori des classes. Pour un classifieur probabiliste, la relation de Bayes donne, sous cette hypothèse :
 
@@ -162,10 +165,6 @@ P_s(Y=y\mid X=x)\,
 $$
 
 Il faut donc estimer la prévalence cible, ce qui n'est pas toujours direct lorsque les labels cible sont absents. Cette correction ne doit pas être confondue avec un simple rééquilibrage arbitraire des classes dans le jeu d'entraînement.
-
-Le vocabulaire varie selon les domaines : certains travaux emploient *concept drift* au sens large pour désigner toute évolution de la distribution. Ici, on réserve ce terme au changement de la relation conditionnelle $P(Y\mid X)$ afin de distinguer les mécanismes. C'est une convention de travail, pas une terminologie universellement adoptée.
-
-| **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de $X$ ne suffit généralement pas |
 
 Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
 
