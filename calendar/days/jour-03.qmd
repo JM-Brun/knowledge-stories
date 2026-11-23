@@ -40,11 +40,11 @@ La moyenne identique masque ici des dispersions radicalement différentes. La s�
   <text x="420" y="27" fill="#92400e" font-size="12" font-weight="700">Moyenne = 5</text>
   <g fill="#334155" font-size="13" font-weight="700"><text x="28" y="69">Série A</text><text x="28" y="119">Série B</text><text x="28" y="169">Série C</text></g>
   <g fill="#0f766e" stroke="#fff" stroke-width="2">
-    <circle cx="352" cy="58" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="410" cy="75" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="468" cy="58" r="7"/>
+    <circle cx="381" cy="58" r="7"/><circle cx="410" cy="52" r="7"/><circle cx="410" cy="64" r="7"/><circle cx="410" cy="76" r="7"/><circle cx="439" cy="58" r="7"/>
   </g>
   <g fill="#2563eb" stroke="#fff" stroke-width="2"><circle cx="294" cy="108" r="7"/><circle cx="352" cy="108" r="7"/><circle cx="410" cy="108" r="7"/><circle cx="468" cy="108" r="7"/><circle cx="526" cy="108" r="7"/></g>
   
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="120" cy="158" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="410" cy="175" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="700" cy="158" r="7"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="120" cy="158" r="7"/><circle cx="410" cy="150" r="7"/><circle cx="410" cy="165" r="7"/><circle cx="410" cy="180" r="7"/><circle cx="700" cy="158" r="7"/></g>
   <g fill="#475569" font-size="11" text-anchor="middle"><text x="120" y="222">−5</text><text x="265" y="222">0</text><text x="410" y="222">5</text><text x="555" y="222">10</text><text x="700" y="222">15</text></g>
   <text x="410" y="240" text-anchor="middle" fill="#64748b" font-size="11">Axe commun · valeurs observées</text>
 </svg>
