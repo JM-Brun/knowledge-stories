@@ -90,9 +90,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Écart systématique moyen à la référence |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est un cas particulier de fidélité, sous des conditions définies. Changer d'opérateur, d'instrument ou de laboratoire peut faire apparaître d'autres sources de variabilité : on parle alors de fidélité intermédiaire ou de reproductibilité.
-
-Dans le VIM, **l'exactitude n'est pas une grandeur calculée directement**. Elle ne se réduit ni à la fidélité ni à la justesse. Employer « précision » comme synonyme d'« exactitude » entretient donc une ambiguïté.
+La répétabilité est une fidélité évaluée dans des conditions presque identiques ; changer d'opérateur, d'instrument ou de laboratoire conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
@@ -108,11 +106,7 @@ où :
 - \(b\) représente un décalage systématique (biais), supposé constant dans ce modèle simplifié ;
 - \(\varepsilon_i\) représente les variations aléatoires d'une observation à l'autre.
 
-La répétition aide à caractériser la partie variable. Si les erreurs aléatoires sont indépendantes, de moyenne nulle et de variance finie, la moyenne de nombreuses observations devient généralement moins variable : son écart-type décroît comme \(1/\sqrt{n}\).
-
-Mais augmenter le nombre de mesures ne fait pas disparaître le terme \(b\). Dans ce modèle, la moyenne converge vers \(\theta+b\), pas vers \(\theta\).
-
-C'est une distinction essentielle entre **réduire le bruit** et **corriger un biais**. Répéter mille fois une mesure affectée par le même décalage peut produire une moyenne très stable… et toujours fausse par rapport à la référence.
+La répétition caractérise la partie variable. Si les erreurs sont indépendantes, de moyenne nulle et de variance finie, l'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
 
 ### Une relation utile en statistique
 
@@ -130,23 +124,15 @@ Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser 
 
 Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
 
-On ne pose pas un instrument sur la table pour lire directement la confiance. On choisit des indicateurs : réponses à un questionnaire, comportements, délais, déclarations ou décisions. Ce passage d'une idée abstraite à des observations est une **opérationnalisation**.
+On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
 
-Elle introduit une question plus profonde que la précision instrumentale : **les observations représentent-elles bien le concept que l'on prétend mesurer ?**
+Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
 
-Un test de programmation reproductible peut mesurer surtout la familiarité avec un langage ou un format d'exercice. Un score de satisfaction stable peut refléter la facilité d'utilisation plutôt que la qualité du service. Une métrique répond à une question construite ; elle n'est pas le concept lui-même.
-
-En sciences humaines et en évaluation de l'IA, on parle notamment de validité de construit. Il faut accumuler des éléments montrant que les indicateurs se comportent comme la théorie du concept le prédit : convergent avec des mesures proches, se distinguent de concepts différents et prédisent des conséquences pertinentes. Un score élevé ou une forte cohérence interne ne suffisent pas à établir cette validité.
-
-Cela rejoint directement l'évaluation des modèles : obtenir 90 % sur un benchmark établit d'abord une performance sur les items et les conditions de ce benchmark. Pour conclure à une capacité générale, il faut justifier le passage entre le score observé et la propriété qu'on souhaite inférer.
+De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
 
 ## La mesure peut-elle changer ce qu'elle observe ?
 
-Une dernière subtilité : l'instrument n'est pas toujours extérieur au phénomène. Mesurer peut perturber le système, modifier le comportement ou sélectionner ce qui devient visible.
-
-Un capteur thermique mal conçu peut chauffer légèrement l'objet qu'il mesure. Un questionnaire peut influencer les réponses par sa formulation. Un indicateur de performance utilisé pour piloter une organisation peut modifier les comportements : les acteurs optimisent alors ce qui est compté, parfois au détriment de ce qui comptait réellement.
-
-Il faut distinguer perturbation physique, réactivité comportementale à l'observation, optimisation de l'indicateur et sélection des événements enregistrés. Ces mécanismes diffèrent, mais rappellent qu'une mesure est une interaction organisée avec le monde, pas une extraction neutre.
+Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure ; un questionnaire influencer les réponses ; un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation, réactivité, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
 
 **Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
 
@@ -156,20 +142,11 @@ Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est ut
 
 Un étalon peut être mieux caractérisé qu'un capteur ordinaire ; il n'est pas pour autant une vérité parfaite, connue avec une infinité de décimales. Sa valeur est établie par une procédure, reliée à d'autres références et accompagnée d'une incertitude.
 
-Il faut donc distinguer :
-
-- **L'erreur de mesure** : différence entre une valeur mesurée et une valeur de référence ou une valeur vraie, selon le cadre retenu. Elle n'est généralement pas connue exactement.
-- **L'incertitude de mesure** : paramètre qui caractérise la dispersion des valeurs que l'on peut raisonnablement attribuer au mesurande, compte tenu des informations disponibles.
-
-L'incertitude n'est pas simplement « l'erreur que l'on a faite ». Elle décrit ce que l'on sait — et ce que l'on ne sait pas — sur le résultat.
-
-Ses sources possibles incluent la résolution, l'étalonnage, la répétabilité, les conditions ambiantes et le modèle d'interprétation. Certaines composantes sont évaluées par répétition ; d'autres à partir de certificats ou de connaissances sur le dispositif.
+Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée et une référence, et **l'incertitude**, paramètre décrivant la dispersion des valeurs raisonnablement attribuables au mesurande. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
 
 ### Étalonner n'est pas simplement remettre à zéro
 
-Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications d'un instrument et des valeurs de référence assorties de leurs incertitudes. Cette relation peut permettre d'appliquer une correction. Elle ne garantit pas à elle seule que l'instrument restera stable dans le temps ou dans toutes les conditions d'utilisation.
-
-La traçabilité conserve donc l'identité de l'instrument, la méthode, la date, les conditions, l'étalonnage et l'incertitude associée.
+Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications et des valeurs de référence avec leurs incertitudes. Il peut permettre une correction, sans garantir la stabilité future de l'instrument. La traçabilité documente l'instrument, la méthode, la date, les conditions et l'incertitude.
 
 ## De la mesure au jeu de données : où le problème se propage
 
@@ -198,13 +175,13 @@ Considérons maintenant un réseau de capteurs de température déployé dans pl
 <figcaption>La donnée analysée est le produit d'une chaîne de transformations. La qualité doit être examinée tout au long de cette chaîne.</figcaption>
 </figure>
 
-Trois conséquences intéressent directement la Data Science :
+Trois conséquences pour la Data Science :
 
-1. **Un biais de mesure peut devenir un biais de cible.** Si une variable à prédire est mesurée différemment selon les sites, un modèle peut apprendre les particularités des instruments au lieu du phénomène visé.
-2. **Une différence entre groupes peut être artificielle.** Si un groupe est mesuré avec un appareil ou un protocole différent, une comparaison brute risque d'attribuer au groupe un effet qui vient de la mesure.
-3. **Une dérive peut rendre le modèle obsolète.** Un capteur vieillissant, une nouvelle version logicielle ou un changement de protocole peut modifier la relation entre le phénomène et la donnée. Le modèle reçoit alors des entrées qui n'ont plus exactement le même sens.
+1. **Biais de cible :** le modèle apprend les particularités des instruments ou des sites plutôt que le phénomène.
+2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
+3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
 
-Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, tandis qu'une valeur rare peut être parfaitement réelle.
+Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, une valeur rare parfaitement réelle.
 
 ## À vous de raisonner
 
