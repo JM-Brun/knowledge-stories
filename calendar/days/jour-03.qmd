@@ -1,0 +1,48 @@
+---
+title: "Trois distributions, une même moyenne"
+subtitle: "Jour 3 · Ce qu'un résumé statistique ne montre pas"
+description: "Comparer trois séries de même moyenne mais de dispersions différentes."
+---
+
+## La question
+
+Si trois jeux de données ont la même moyenne, décrivent-ils nécessairement des situations comparables ?
+
+Considérons les trois séries :
+
+- A : ( (4,5,5,5,6) )
+- B : ( (1,3,5,7,9) )
+- C : ( (-5,5,5,5,15) )
+
+## À vous de raisonner
+
+1. Vérifiez que les trois moyennes valent 5.
+2. Classez les séries de la moins dispersée à la plus dispersée.
+3. Pourquoi la moyenne ne suffit-elle pas à décrire ces observations ?
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+Les trois sommes valent 25 et chaque série contient cinq valeurs : leur moyenne vaut donc 5.
+
+Pour comparer leur dispersion, calculons la variance empirique avec le diviseur (n=5) :
+
+[
+s_n^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2.
+]
+
+| Série | Variance empirique |
+|---|---:|
+| A | 0,4 |
+| B | 8 |
+| C | 40 |
+
+L'ordre de dispersion est donc A, B, C. La série C contient deux valeurs extrêmes ; B est régulièrement étalée ; A est concentrée autour de sa moyenne.
+
+**À retenir :** une moyenne identique peut masquer des profils de risque très différents. En évaluation ML, il est souvent nécessaire d'examiner la distribution des erreurs et les performances par sous-groupe, pas seulement leur moyenne.
+
+</details>
+
+## Attention à la convention
+
+La variance ci-dessus est une variance empirique descriptive calculée avec le diviseur (n). Pour estimer sans biais la variance d'une population à partir d'un échantillon indépendant, on utilise généralement le diviseur (n-1). Il faut préciser la convention avant de comparer des valeurs.
