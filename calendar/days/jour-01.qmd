@@ -143,7 +143,9 @@ Les profils ne se classent pas sur une échelle unique. Un capteur B peut conven
 | **Fréquence / autonomie** | Échantillonnage fréquent | Consommation, stockage et transmission augmentent souvent | À quelle vitesse le phénomène évolue-t-il réellement ? |
 | **Robustesse / sensibilité** | Résister à l'environnement ou détecter de faibles variations | Le boîtier, le montage et le principe de mesure imposent des compromis | Quelles contraintes environnementales sont non négociables ? |
 
-La résolution mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.\n\nCes arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
+La résolution mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.
+
+Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
@@ -269,7 +271,9 @@ Il faut distinguer **l'[erreur de mesure](https://jcgm.bipm.org/vim/fr/2.16.html
 
 ### Étalonner n'est pas simplement remettre à zéro
 
-Un [étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html) établit, dans des conditions spécifiées, une relation entre les valeurs et incertitudes fournies par des étalons et les indications correspondantes avec leurs incertitudes ; cette relation permet ensuite d'obtenir un résultat de mesure à partir d'une indication. Il peut conduire à une correction, sans se confondre avec l'ajustage du système ni avec la vérification de performances.\n\nLa **[traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html)** est une propriété du résultat de mesure : celui-ci doit pouvoir être relié à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude. Cette traçabilité ne garantit ni que l'incertitude soit adaptée à l'usage, ni l'absence d'erreurs humaines.
+Un [étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html) établit, dans des conditions spécifiées, une relation entre les valeurs et incertitudes fournies par des étalons et les indications correspondantes avec leurs incertitudes ; cette relation permet ensuite d'obtenir un résultat de mesure à partir d'une indication. Il peut conduire à une correction, sans se confondre avec l'ajustage du système ni avec la vérification de performances.
+
+La **[traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html)** est une propriété du résultat de mesure : celui-ci doit pouvoir être relié à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude. Cette traçabilité ne garantit ni que l'incertitude soit adaptée à l'usage, ni l'absence d'erreurs humaines.
 
 ## Avant de corriger : définir ce que l'on veut mesurer
 
