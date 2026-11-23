@@ -102,3 +102,26 @@
     font-size: .68rem;
   }
 }
+
+
+.article-page:has(.karatsuba-hero) .complexity-table-scroll {
+  max-width: 100%;
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+  border: 1px solid #ded9cc;
+  border-radius: .5rem;
+  background: #fffefa;
+  -webkit-overflow-scrolling: touch;
+}
+.article-page:has(.karatsuba-hero) .complexity-table-scroll table {
+  min-width: 620px;
+  margin: 0;
+}
+.article-page:has(.karatsuba-hero) .complexity-table-scroll th {
+  color: #514f47;
+  background: #eeece3;
+  font-size: .72rem;
+}
+.article-page:has(.karatsuba-hero) .complexity-table-scroll td {
+  font-variant-numeric: tabular-nums;
+}
