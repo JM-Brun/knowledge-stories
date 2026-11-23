@@ -304,6 +304,7 @@ Le gradient mesure ici la sensibilité locale de la prédiction aux entrées. Un
   <text x="616" y="202" text-anchor="middle" fill="#fffaf0" font-size="13" font-weight="700">Erreur totale</text>
   <text x="616" y="224" text-anchor="middle" fill="#fffaf0" font-size="14">Δ données + Δ modèle</text>
   <path d="M336 210 H495" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
+  <path d="M633 146 V174" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
   <text x="380" y="250" text-anchor="middle" fill="#64748b" font-size="10">Schéma conceptuel — les contributions sont signées, pas nécessairement positives.</text>
 </svg>
 <figcaption>Une erreur de données traverse le modèle selon sa sensibilité ; elle se combine à l'écart de modélisation. Les contributions peuvent se renforcer ou se compenser.</figcaption>
