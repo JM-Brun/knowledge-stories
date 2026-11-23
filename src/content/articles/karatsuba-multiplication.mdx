@@ -11,6 +11,10 @@ status: "review"
 featured: false
 cover: "karatsuba"
 sources:
+  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
+    url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
+    kind: "secondary"
+    accessed: 2026-11-20
   - title: "Karatsuba et Ofman (1962), notice bibliographique et texte original"
     url: "https://www.mathnet.ru/php/archive.phtml?jrnid=dan&option_lang=eng&paperid=26729&wshow=paper"
     kind: "primary"
@@ -39,10 +43,6 @@ sources:
     url: "https://github.com/lockqueue/intmul"
     kind: "primary"
     accessed: 2026-11-20
-  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
-    url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
-    kind: "secondary"
-    accessed: 2026-11-20
   - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
     url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
     kind: "secondary"
@@ -59,7 +59,12 @@ relatedArticles: []
 ---
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
+import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 
+<aside class="source-provenance">
+  <strong>Source principale et filiation de cet article</strong>
+  Cet article est une adaptation pédagogique largement dérivée de l’article de <a href="https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html" target="_blank" rel="noreferrer">Djamchid Dalili, « Multiplier deux nombres — de Karatsuba à l’IA » (18 novembre 2026)</a>. Le fil explicatif, plusieurs idées de présentation et une part importante de la matière pédagogique reprennent cette source. Le texte présent reformule et prolonge ce travail avec des calculs détaillés, un explorateur interactif et des références complémentaires. La source de Djamchid Dalili doit donc être considérée comme la référence principale de cette page, et non comme une simple lecture secondaire.
+</aside>
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
@@ -70,6 +75,12 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
 On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie transforme le coût asymptotique de Θ(n²) en Θ(n^log₂(3)), soit environ Θ(n^1,585).
+
+<div class="math-lead" aria-label="Les trois idées clés de Karatsuba">
+  <div><strong>4 → 3</strong><span>produits de blocs à chaque découpage</span></div>
+  <div><strong>3T(n/2)</strong><span>trois sous-problèmes de taille divisée par deux</span></div>
+  <div><strong>n^1,585</strong><span>exposant de complexité asymptotique</span></div>
+</div>
 
 ## Pourquoi cette question est intéressante
 
@@ -116,6 +127,8 @@ Le produit final se recompose ainsi :
 
     xy = p × 10^(2m) + (r - p - q) × 10^m + q
 
+<KaratsubaComparison />
+
 Les décalages de blocs et les additions/soustractions demandent un nombre d'opérations proportionnel à la taille des nombres. Ils coûtent donc O(n), tandis que les trois multiplications peuvent être confiées à la même méthode, récursivement.
 
 ## Un exemple pas à pas
@@ -156,7 +169,7 @@ La démonstration ci-dessous reprend exactement la décomposition algébrique. E
 
 <KaratsubaExplorer />
 
-L’atelier effectue un découpage et affiche les trois multiplications qu’on pourrait traiter de la même façon au niveau suivant. Cette lecture du calcul s’inspire de l’atelier de [Djamchid Dalili](https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html#atelier).
+L’atelier effectue un découpage et affiche les trois multiplications qu’on pourrait traiter de la même façon au niveau suivant. Il prolonge sous une forme interactive une démarche pédagogique présentée dans l’article de [Djamchid Dalili](https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html#atelier), qui constitue la source principale de cette page.
 
 **À vous de prévoir.** Pour 9 999 × 1 234, les blocs de gauche et de droite comportent chacun deux chiffres. Quel appel peut recevoir un opérande de trois chiffres ? Faites une prédiction, puis vérifiez-la dans l’atelier.
 

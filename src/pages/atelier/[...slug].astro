@@ -12,6 +12,7 @@ const { Content, headings } = await render(article);
 const sections = headings.filter(({ depth }) => depth === 2);
 const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
 const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire", advanced: "Avancé" };
+const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 <BaseLayout title={`Relecture — ${article.data.title} — Knowledge Stories`} description={article.data.description} noindex>
   <main class="review-page">
@@ -20,7 +21,7 @@ const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire
       <span>Ce texte n'est pas une publication validée. Merci de signaler les erreurs, ambiguïtés et pistes d'amélioration.</span>
     </div>
     <header class="story-header">
-      <div class="review-actions"><a class="back-link" href={`${import.meta.env.BASE_URL}atelier/`}>← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
+      <div class="review-actions"><a class="back-link" href={`${baseUrl}atelier/`}>← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
       <p class="category">{article.data.category}</p>
       <h1>{article.data.title}</h1>
       <p class="deck">{article.data.description}</p>
@@ -39,8 +40,23 @@ const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire
   .review-page { max-width: 75rem; margin: 0 auto; padding: 2rem clamp(1rem, 4vw, 3rem) 6rem; }
   .review-banner { display: grid; gap: .35rem; padding: .9rem 1rem; border: 1px solid #d7b98a; border-left: 4px solid #9a6630; border-radius: .35rem; background: #faf3e6; color: #493b2c; font: .85rem/1.5 "DM Sans", sans-serif; }
   .review-banner strong { font-size: .9rem; }
-  .story-header { max-width: 55rem; padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--line); }
-  .review-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-bottom: 1.8rem; }\n  .back-link { display: inline-block; color: #625b4d; }\n  .edit-link { display: inline-block; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: .35rem; color: #843c27; font: 600 .78rem/1.4 "DM Sans", sans-serif; text-decoration: none; }\n  .edit-link:hover { background: #faf7ef; border-color: #843c27; }\n  .edit-link:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
+  .story-header { max-width: 64rem; padding: clamp(2.5rem, 6vw, 5rem) 0 2.5rem; border-bottom: 1px solid var(--line); }
+  .story-header h1 { max-width: 20ch; }
+  .review-page { max-width: 82rem; }
+  .review-banner { max-width: 64rem; margin: 0 auto; }
+  .prose :global(.source-provenance) { margin: 0 0 2.5rem; padding: 1.2rem 1.35rem; border: 1px solid #c9d4c7; border-left: 5px solid #315b45; border-radius: .55rem; background: #edf2e9; color: #263b2e; font: .94rem/1.65 "DM Sans", sans-serif; }
+  .prose :global(.source-provenance strong) { display: block; margin-bottom: .35rem; color: #244b37; font-size: .78rem; letter-spacing: .07em; text-transform: uppercase; }
+  .prose :global(.source-provenance a) { color: #244b37; font-weight: 700; text-underline-offset: 3px; }
+  .prose :global(.math-lead) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; margin: 1.8rem 0; }
+  .prose :global(.math-lead > div) { padding: 1rem; border: 1px solid var(--line); border-radius: .55rem; background: #f0ede4; }
+  .prose :global(.math-lead strong) { display: block; color: #843c27; font: 600 1.35rem/1.2 "DM Mono", monospace; }
+  .prose :global(.math-lead span) { display: block; margin-top: .35rem; color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
+  .prose :global(.comparison-figure) { margin: 2.5rem 0; }
+  .review-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-bottom: 1.8rem; }
+  .back-link { display: inline-block; color: #625b4d; }
+  .edit-link { display: inline-block; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: .35rem; color: #843c27; font: 600 .78rem/1.4 "DM Sans", sans-serif; text-decoration: none; }
+  .edit-link:hover { background: #faf7ef; border-color: #843c27; }
+  .edit-link:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
   .category { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
   h1 { max-width: 18ch; margin: .5rem 0; color: var(--ink); font: 500 clamp(2.5rem, 5.5vw, 5rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
   .deck { max-width: 43ch; color: #514d42; font: 1.3rem/1.5 "Newsreader", serif; }
@@ -52,6 +68,7 @@ const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire
   .sources li span { color: #625b4d; }
   .outline { margin: 1.5rem 0 0; padding: 1rem 0; border-block: 1px solid var(--line); }
   .outline ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem 1rem; padding-left: 1.1rem; }
+  @media (max-width: 620px) { .prose :global(.math-lead) { grid-template-columns: 1fr; } }
   @media (min-width: 62rem) {
     .review-layout { grid-template-columns: minmax(0, 1fr) 14rem; gap: 3rem; }
     .prose { grid-column: 1; grid-row: 1; width: 100%; }

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
@@ -14,7 +15,7 @@ const articles = (await getCollection("articles", ({ data }) => data.status === 
       <ul class="review-list">
         {articles.map((article) => (
           <li>
-            <a href={`${import.meta.env.BASE_URL}atelier/${article.slug}/`}>
+            <a href={`${baseUrl}atelier/${article.slug}/`}>
               <span class="category">{article.data.category}</span>
               <strong>{article.data.title}</strong>
               <span>{article.data.description}</span>
