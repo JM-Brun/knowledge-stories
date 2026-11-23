@@ -222,22 +222,22 @@ Pour donner un ordre de grandeur, dans le modèle idéal où chaque découpage d
 <details>
 <summary>Correction</summary>
 
-On pose (a=4), (b=7), (c=8) et (d=3). Les trois produits sont (ac=32), (bd=21) et ((a+b)(c+d)=11\times11=121). Le terme croisé vaut donc (121-32-21=68). Enfin, (47\times83=32\times100+68\times10+21=3\,901).
+On pose \(a=4\), \(b=7\), \(c=8\) et \(d=3\). Les trois produits sont \(ac=32\), \(bd=21\) et \((a+b)(c+d)=11\times11=121\). Le terme croisé vaut donc \(121-32-21=68\). Enfin, \(47\times83=32\times100+68\times10+21=3\,901\).
 
 </details>
 
-**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, (1\,024=2^{10}). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^{10}\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
 
 <details>
 <summary>Correction</summary>
 
-La méthode classique en demande (4^{10}=1\,048\,576), tandis que Karatsuba en demande (3^{10}=59\,049). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+La méthode classique en demande \(4^{10}=1\,048\,576\), tandis que Karatsuba en demande \(3^{10}=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
 
 </details>
 
 ## Questions fréquentes
 
-**Pourquoi l'exposant vaut-il environ 1,585 ?** À chaque niveau, la taille est divisée par deux et le nombre de sous-problèmes est multiplié par trois. Pour (n=2^k), le nombre de feuilles vaut (3^k= n^{\log_2 3}\), et (log_2 3\approx1,585).
+**Pourquoi l'exposant vaut-il environ 1,585 ?** À chaque niveau, la taille est divisée par deux et le nombre de sous-problèmes est multiplié par trois. Pour \(n=2^k\), le nombre de feuilles vaut \(3^k=n^{\log_2 3}\), et \(\log_2 3\approx1,585\).
 
 **Karatsuba est-il toujours plus rapide ?** Non. Pour de petits opérandes, le coût des additions, soustractions, appels récursifs et allocations peut dépasser le gain obtenu. Les bibliothèques utilisent donc des seuils empiriques et plusieurs algorithmes selon la taille.
 
