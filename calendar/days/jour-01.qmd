@@ -146,6 +146,146 @@ Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont 
 
 Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
 
+### Choisir un capteur selon l'usage
+
+Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
+
+<div class="sensor-decision" id="sensor-decision">
+  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
+  <select id="sensor-use">
+    <option value="absolute">Comparer des températures absolues à une référence</option>
+    <option value="trend">Suivre une tendance sur plusieurs jours</option>
+    <option value="peak">Détecter un pic bref ou une variation rapide</option>
+    <option value="small">Détecter une très petite variation</option>
+    <option value="harsh">Mesurer dans un environnement difficile</option>
+  </select>
+  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
+    <strong>Point de départ : étalon + profil A caractérisé.</strong>
+    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
+    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
+  </div>
+  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('sensor-decision');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+  const select = root.querySelector('#sensor-use');
+  const result = root.querySelector('#sensor-use-result');
+  const guidance = {
+    absolute: {
+      title: 'Point de départ : étalon + profil A caractérisé.',
+      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
+      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
+    },
+    trend: {
+      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
+      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
+      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
+    },
+    peak: {
+      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
+      body: 'Une fréquence d’acquisition élevée aide à échantillonner les événements brefs. Elle ne suffit pas : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
+      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
+    },
+    small: {
+      title: 'Point de départ : instrument caractérisé à faible incertitude.',
+      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
+      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
+    },
+    harsh: {
+      title: 'Point de départ : profil D robuste, après qualification.',
+      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
+      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
+    }
+  };
+  select.addEventListener('change', () => {
+    const item = guidance[select.value];
+    result.replaceChildren();
+    const title = document.createElement('strong');
+    title.textContent = item.title;
+    const body = document.createElement('p');
+    body.textContent = item.body;
+    const tradeoff = document.createElement('p');
+    const label = document.createElement('strong');
+    label.textContent = 'Compromis à vérifier : ';
+    tradeoff.append(label, document.createTextNode(item.tradeoff));
+    result.append(title, body, tradeoff);
+  });
+})();
+</script>
+
+### Choisir un capteur selon l'usage
+
+Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
+
+<div class="sensor-decision" id="sensor-decision">
+  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
+  <select id="sensor-use">
+    <option value="absolute">Comparer des températures absolues à une référence</option>
+    <option value="trend">Suivre une tendance sur plusieurs jours</option>
+    <option value="peak">Détecter un pic bref ou une variation rapide</option>
+    <option value="small">Détecter une très petite variation</option>
+    <option value="harsh">Mesurer dans un environnement difficile</option>
+  </select>
+  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
+    <strong>Point de départ : étalon + profil A caractérisé.</strong>
+    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
+    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
+  </div>
+  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('sensor-decision');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+  const select = root.querySelector('#sensor-use');
+  const result = root.querySelector('#sensor-use-result');
+  const guidance = {
+    absolute: {
+      title: 'Point de départ : étalon + profil A caractérisé.',
+      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
+      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
+    },
+    trend: {
+      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
+      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
+      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
+    },
+    peak: {
+      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
+      body: 'Une fréquence d’acquisition élevée aide à échantillonner les événements brefs. Elle ne suffit pas : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
+      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
+    },
+    small: {
+      title: 'Point de départ : instrument caractérisé à faible incertitude.',
+      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
+      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
+    },
+    harsh: {
+      title: 'Point de départ : profil D robuste, après qualification.',
+      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
+      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
+    }
+  };
+  select.addEventListener('change', () => {
+    const item = guidance[select.value];
+    result.replaceChildren();
+    const title = document.createElement('strong');
+    title.textContent = item.title;
+    const body = document.createElement('p');
+    body.textContent = item.body;
+    const tradeoff = document.createElement('p');
+    const label = document.createElement('strong');
+    label.textContent = 'Compromis à vérifier : ';
+    tradeoff.append(label, document.createTextNode(item.tradeoff));
+    result.append(title, body, tradeoff);
+  });
+})();
+</script>
+
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
 La métrologie — la science de la mesure — distingue des notions que le langage courant mélange souvent. Le Vocabulaire international de métrologie (VIM, JCGM 200:2012) fournit un cadre précis. Les définitions de [fidélité](https://jcgm.bipm.org/vim/fr/2.15.html), [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html), [justesse](https://jcgm.bipm.org/vim/fr/2.14.html) et [exactitude](https://jcgm.bipm.org/vim/fr/2.13.html) sont consultables dans la version annotée du JCGM.
