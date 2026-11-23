@@ -50,6 +50,11 @@ jobs:
           test -f dist/calendar/index.html
           test -f dist/calendar/days/jour-01.html
           test -f dist/calendar/days/jour-05.html
+          test -f dist/atelier/index.html
+          test -f dist/atelier/karatsuba-multiplication/index.html
+          test -f dist/atelier/paradoxe-des-jumeaux/index.html
+          grep -q "atelier/karatsuba-multiplication/" dist/atelier/index.html
+          grep -q "atelier/paradoxe-des-jumeaux/" dist/atelier/index.html
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
