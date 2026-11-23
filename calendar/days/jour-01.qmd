@@ -79,6 +79,34 @@ La ligne verticale représente la référence de 20,00 °C. Les points sont les 
 
 Le capteur B n'est pas « mauvais » parce que ses valeurs varient peu : il est stable dans cet essai, mais son résultat est décalé. Cette distinction est le cœur de la question.
 
+### Il n'existe pas de capteur optimal sur tous les critères
+
+Les deux séries précédentes isolent volontairement un seul contraste : une dispersion comparable, mais un décalage différent. Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+
+Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
+
+| Profil de capteur | Ce qu'il privilégie | Ce qu'il sacrifie ou exige | Usage pour lequel il peut être pertinent |
+|---|---|---|---|
+| **Référence de laboratoire** | Faible dispersion, justesse caractérisée, traçabilité | Coût, encombrement, maintenance et parfois temps de réponse | Étalonnage et mesures de référence |
+| **Capteur A — stable et proche de la référence** | Répétabilité et faible décalage dans les conditions testées | Coût ou complexité potentiellement supérieurs à un capteur grand public | Suivi quantitatif lorsque la stabilité compte |
+| **Capteur B — stable mais décalé** | Faible dispersion, simplicité ou faible coût | Justesse : une correction et sa validation sont nécessaires | Surveillance relative si le biais est connu et stable |
+| **Capteur C — peu biaisé mais bruité** | Moyenne proche de la référence sur de nombreuses répétitions | Forte variabilité d'une lecture à l'autre | Estimation agrégée si l'on peut répéter et moyenner sans perdre la dynamique utile |
+| **Capteur D — robuste mais peu résolu** | Résistance aux chocs, à l'humidité ou aux environnements difficiles | Capacité à distinguer de petites variations | Détection de seuils ou surveillance en conditions sévères |
+| **Capteur E — rapide mais énergivore** | Fréquence d'échantillonnage et temps de réponse | Autonomie, volume de données et coût de transmission | Détection d'événements brefs lorsque la temporalité est déterminante |
+
+Ces profils montrent plusieurs compromis indépendants :
+
+- **Bruit–biais** : moyenner peut réduire une partie du bruit aléatoire, mais ne corrige pas un décalage systématique.
+- **Résolution–plage de mesure** : distinguer de très petites variations sur une plage étroite n'est pas la même exigence que couvrir une plage très large.
+- **Temps de réponse–filtrage** : lisser le signal réduit certaines fluctuations, mais peut retarder ou atténuer un événement rapide.
+- **Fréquence d'échantillonnage–autonomie** : mesurer plus souvent peut mieux décrire une dynamique, au prix d'une consommation et d'un volume de données accrus.
+- **Robustesse–sensibilité** : un dispositif adapté à un environnement difficile n'est pas nécessairement celui qui détecte les plus petites variations.
+
+Le bon choix dépend donc de la **décision à prendre**. Pour déclencher une alarme lorsqu'une température dépasse 30 °C, une résolution de 0,1 °C peut être suffisante. Pour caractériser une dérive de 0,05 °C, elle ne l'est pas nécessairement. Pour détecter un pic de quelques secondes, une mesure toutes les dix minutes est inadéquate, même si chaque mesure est très stable.
+
+**Point méthodologique :** dans l'exemple initial, 20,00 °C est traité comme une référence conventionnelle pour rendre les calculs lisibles. En pratique, cette référence possède elle aussi une incertitude. On ne peut conclure qu'un capteur est suffisamment juste qu'en comparant les résultats et les incertitudes dans les conditions d'utilisation visées.
+
+
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
 La métrologie — la science de la mesure — distingue des notions que le langage courant mélange souvent. Le Vocabulaire international de métrologie (VIM, JCGM 200:2012) fournit un cadre précis.
@@ -249,7 +277,7 @@ Considérons maintenant un réseau de capteurs de température déployé dans pl
 
 Trois conséquences pour la Data Science :
 
-1. **Biais de cible :** le modèle apprend les particularités des instruments ou des sites plutôt que le phénomène.
+1. **Biais dans les variables d'entrée :** le modèle apprend les particularités des instruments ou des sites plutôt que le phénomène.
 2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
 3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
 
