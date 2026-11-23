@@ -1,52 +1,108 @@
 ---
 title: "Trois distributions, une même moyenne"
 subtitle: "Jour 3 · Ce qu'un résumé statistique ne montre pas"
-description: "Comparer trois séries de même moyenne mais de dispersions différentes."
+description: "Voir comment des distributions très différentes peuvent partager des statistiques descriptives et conduire à des interprétations opposées."
 ---
+
+> **En 7 à 9 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
 
 ## La question
 
-Si trois jeux de données ont la même moyenne, décrivent-ils nécessairement des situations comparables ?
+Si deux jeux de données ont la même moyenne, décrivent-ils nécessairement des situations comparables ? Non. Et même si l'on ajoute la variance et la corrélation, on peut encore manquer des structures essentielles.
 
-Considérons les trois séries :
+## Premier niveau : même moyenne, dispersions différentes
 
-- A : `(4, 5, 5, 5, 6)`
-- B : `(1, 3, 5, 7, 9)`
-- C : `(-5, 5, 5, 5, 15)`
+Considérons trois séries :
+
+- A : ((4,5,5,5,6))
+- B : ((1,3,5,7,9))
+- C : ((-5,5,5,5,15))
+
+Les trois sommes valent 25 et chaque série contient cinq valeurs. Leur moyenne vaut donc 5.
+
+Avec le diviseur (n), leurs variances empiriques sont respectivement :
+
+[
+s_n^2(A)=0{,}4,qquad
+s_n^2(B)=8,qquad
+s_n^2(C)=40.
+]
+
+La moyenne identique masque ici des dispersions radicalement différentes. La série C contient deux valeurs extrêmes ; B est étalée régulièrement ; A est concentrée autour du centre.
+
+## Deuxième niveau : mêmes résumés, formes différentes
+
+Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est composé de quatre jeux de données construits pour partager, à l'arrondi près, les mêmes statistiques descriptives usuelles : moyennes, variances, corrélation et droite de régression. Pourtant, leurs nuages de points ont des formes très différentes. Dans l'un, une relation est courbe ; dans un autre, un point extrême joue un rôle déterminant.
+
+Le message n'est pas « les statistiques ne servent à rien ». Il est que les statistiques résumées répondent à des questions précises et ne remplacent pas l'examen de la structure.
+
+## Pourquoi un graphique change le diagnostic
+
+Une moyenne et une variance ne disent pas :
+
+- si la distribution est multimodale ;
+- si une relation est non linéaire ;
+- si un point influence fortement une régression ;
+- si plusieurs sous-populations sont mélangées ;
+- si les observations sont ordonnées dans le temps et présentent une dérive.
+
+Un histogramme, un nuage de points, une fonction de répartition empirique ou un graphique temporel rendent visibles des aspects différents. Aucun graphique n'est neutre : le choix des classes, de l'échelle, du lissage ou de la fenêtre temporelle peut lui aussi masquer une structure.
+
+## Une petite expérience de diagnostic
+
+Avant d'ajuster un modèle linéaire, comparer au minimum :
+
+1. le nuage de points ;
+2. les résidus en fonction des valeurs ajustées ;
+3. la distribution des résidus ;
+4. les observations influentes ;
+5. les performances sur des sous-groupes pertinents.
+
+Une même corrélation globale peut résulter de relations différentes dans chaque sous-groupe — voire s'inverser après stratification, comme dans le paradoxe de Simpson. L'agrégation peut donc masquer l'hétérogénéité et parfois inverser une comparaison.
+
+## Le lien avec la compression de l'information
+
+Calculer une moyenne consiste à transformer un vecteur de nombreuses observations en un seul nombre. C'est une opération de compression : plusieurs jeux de données distincts sont envoyés vers la même valeur.
+
+Cette perte d'information est souvent souhaitable. Un résumé permet de comparer rapidement des groupes, de suivre un indicateur ou de communiquer un résultat. Le problème apparaît lorsqu'on oublie ce que la transformation a éliminé.
+
+On peut penser à une projection : une ombre en deux dimensions peut être identique pour des objets tridimensionnels différents. Le résumé statistique joue un rôle comparable : il conserve certaines propriétés et en efface d'autres. L'analogie est utile, mais une statistique n'est pas nécessairement une projection linéaire au sens algébrique.
+
+## Transfert vers le Machine Learning
+
+Un score moyen peut masquer une dégradation sévère sur un sous-groupe. Une erreur moyenne faible peut cacher une queue d'erreurs catastrophiques. Une corrélation élevée peut être dominée par quelques observations influentes. Et un benchmark global peut masquer une performance très inégale selon la langue, le site ou le type d'entrée.
+
+La bonne question n'est donc pas « quelle statistique dois-je calculer ? », mais « quelle propriété de la distribution ou du processus de décision dois-je contrôler ? ».
+
+## Frontière de validité
+
+Visualiser ne garantit pas de comprendre. Un graphique peut être trompeur, et une anomalie visuelle peut venir du bruit d'échantillonnage. L'exploration doit être complétée par des hypothèses explicites, des analyses de sensibilité et, lorsque c'est nécessaire, une validation sur de nouvelles données.
 
 ## À vous de raisonner
 
-1. Vérifiez que les trois moyennes valent 5.
-2. Classez les séries de la moins dispersée à la plus dispersée.
-3. Pourquoi la moyenne ne suffit-elle pas à décrire ces observations ?
+1. Pourquoi les trois séries de l'exemple ont-elles la même moyenne ?
+2. Quelle information la variance ajoute-t-elle, et que laisse-t-elle encore de côté ?
+3. Comment un point extrême peut-il modifier fortement une droite de régression ?
+4. Quel graphique examineriez-vous pour détecter une dérive temporelle ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-Les trois sommes valent 25 et chaque série contient cinq valeurs : leur moyenne vaut donc 5.
-
-Pour comparer leur dispersion, calculons la variance empirique avec le diviseur $n$ :
-
-$$
-s_n^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2.
-$$
-
-| Série | Variance empirique |
-|---|---:|
-| A | 0,4 |
-| B | 8 |
-| C | 40 |
-
-L'ordre de dispersion est donc A, B, C. La série C contient deux valeurs extrêmes ; B est régulièrement étalée ; A est concentrée autour de sa moyenne.
-
-**À retenir :** une moyenne identique peut masquer des profils de risque très différents. En évaluation ML, il est souvent nécessaire d'examiner la distribution des erreurs et les performances par sous-groupe, pas seulement leur moyenne.
+1. Leur somme est identique (25) et leur effectif aussi (5).
+2. La variance mesure une dispersion quadratique autour de la moyenne, mais ne décrit pas à elle seule l'asymétrie, la multimodalité, l'ordre temporel ou les relations non linéaires.
+3. Le point peut avoir un fort levier (position atypique dans l'espace des variables) et influencer la pente et l'ordonnée à l'origine. Il faut distinguer levier et résidu important.
+4. Un graphique des observations ou des résidus en fonction du temps, éventuellement accompagné d'une fenêtre glissante, permet de repérer des changements. Il faut toutefois distinguer dérive réelle et fluctuations aléatoires.
 
 </details>
 
-## Attention à la convention
+## À retenir
 
-La variance ci-dessus est une variance empirique descriptive calculée avec le diviseur $n$. Pour estimer sans biais la variance d'une population à partir d'un échantillon indépendant, on utilise généralement le diviseur $n-1$. Il faut préciser la convention avant de comparer des valeurs.
+- Plusieurs jeux de données peuvent partager une moyenne et avoir des dispersions très différentes.
+- Même plusieurs statistiques descriptives identiques ne garantissent pas une structure identique.
+- Les graphiques sont des outils de diagnostic, pas des preuves automatiques.
+- En ML, examiner les distributions et les sous-groupes est indispensable pour interpréter un score agrégé.
 
-## Connexion utile
+## Pour aller plus loin
 
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : étendre l'étude de la dispersion à celle de plusieurs variables qui varient ensemble.
+- F. J. Anscombe (1973), *Graphs in Statistical Analysis*, The American Statistician, 27(1), 17–21.
+- Matejka & Fitzmaurice (2017), *Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics*, CHI. https://doi.org/10.1145/3025453.3025912
