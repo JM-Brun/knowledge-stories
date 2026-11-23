@@ -30,7 +30,7 @@ Deux enquêtes sont réalisées :
 - une enquête ouverte en ligne recueille 50 000 réponses, toutes dans le groupe A ;
 - une enquête stratifiée tire aléatoirement 1 000 personnes dans chaque groupe.
 
-La première enquête donne une moyenne de 10. La seconde donne une moyenne de 15 dans cet exemple construit. L'enquête la plus volumineuse est éloignée de la moyenne de la population, parce qu'elle ne couvre qu'une moitié de celle-ci.
+La moyenne observée dans la première enquête est 10 si elle couvre tout le groupe A (ou son espérance est 10 sous un tirage dans A). Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. L'enquête la plus volumineuse vise ici une quantité différente, parce qu'elle ne couvre qu'une moitié de la population.
 
 ## Pourquoi plus de données ne résout-il rien ici ?
 
@@ -60,6 +60,25 @@ On peut résumer l'intuition ainsi :
 | Couverture des groupes | Groupe A seulement | A et B |
 | Cible directement décrite | Répondants du groupe A | Population, avec pondération adaptée |
 | Effet d'une hausse de taille | Réduit l'aléa dans A | Réduit généralement l'erreur d'échantillonnage |
+
+<figure>
+<svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="sample-title">Un grand échantillon qui ne couvre qu'un groupe peut viser la mauvaise moyenne</title>
+  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. L'échantillon volumineux ne contient que A et sa moyenne attendue est 10. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
+  <rect x="1" y="1" width="758" height="268" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
+  <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
+  <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
+  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête volumineuse</text>
+  <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
+  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses, toutes dans A → moyenne attendue : 10</text>
+  <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
+  <rect x="24" y="202" width="350" height="28" rx="5" fill="#0f766e"/><rect x="374" y="202" width="350" height="28" rx="5" fill="#d97706"/>
+  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">1 000 dans A</text><text x="549" y="221">1 000 dans B</text></g>
+  <text x="374" y="253" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Avec les poids de population : estimateur centré sur 15</text>
+</svg>
+<figcaption>La taille renseigne sur la quantité de données ; la couverture et le plan de sondage déterminent quelle population l'estimation peut représenter.</figcaption>
+</figure>
 
 Le tableau ne signifie pas qu'un échantillon stratifié est toujours représentatif. Le plan de sondage, les probabilités d'inclusion, la non-réponse et les pondérations doivent être pris en compte.
 
