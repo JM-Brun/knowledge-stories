@@ -9,6 +9,7 @@ const articles = defineCollection({
     updated: z.coerce.date().optional(),
     category: z.string(),
     tags: z.array(z.string()).default([]),
+    themes: z.array(z.string()).default([]),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
