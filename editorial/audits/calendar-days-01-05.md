@@ -126,4 +126,4 @@ Ces propositions précisent le transfert Data Science à rendre visible dans cha
 - Pas de rendu Quarto ni de capture desktop/mobile/clavier dans cette revue.
 - Les équations et valeurs ont été relues conceptuellement, mais pas toutes recalculées par un script indépendant.
 - Les URL et références n'ont pas fait l'objet d'une vérification bibliographique exhaustive.
-- Les propositions ci-dessus sont des pistes de révision ciblées, pas des modifications déjà apportées aux cinq pages.
+- La révision opérationnelle de la journée 1 est proposée dans la PR #45. Les priorités des journées 2 à 5 restent des recommandations ; elles ne sont pas encore intégrées aux pages.
