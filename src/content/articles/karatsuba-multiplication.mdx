@@ -105,7 +105,7 @@ Les lettres a et c désignent les blocs de gauche, les plus significatifs ; b et
 En développant le produit :
 
 <div className="math-display math-display--compact" role="math" aria-label="x y égale a c fois dix puissance deux m, plus a d plus b c fois dix puissance m, plus b d">
-  <div className="math-line"><i>xy</i> = <i>ac</i> · 10<sup>2m</sup> + (<i>ad</i> + <i>bc</i>) · 10<sup>m</sup> + <i>bd</i></div>
+  <div className="math-line"><i>xy</i> = <span className="term-common"><i>ac</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>ad</i> + <i>bc</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>bd</i></span></div>
 </div>
 
 Il faut donc connaître trois quantités : le produit des blocs de gauche ac, le produit des blocs de droite bd, et la somme des deux produits croisés ad + bc.
@@ -123,22 +123,22 @@ Calculons plutôt :
 En retirant les deux produits que nous connaissons déjà, il reste exactement ce qui nous manque :
 
 <div className="math-display math-display--key" role="math" aria-label="a d plus b c égale a plus b fois c plus d moins a c moins b d">
-  <div className="math-line"><i>ad</i> + <i>bc</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>) − <i>ac</i> − <i>bd</i></div>
+  <div className="math-line"><span className="term-cross"><i>ad</i> + <i>bc</i></span> = <span className="term-aux">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span> − <span className="term-common"><i>ac</i> + <i>bd</i></span></div>
   <span className="math-caption">Le produit des sommes contient exactement les deux termes croisés recherchés.</span>
 </div>
 
 Nous avons donc seulement besoin de trois multiplications :
 
 <div className="math-display math-display--compact" role="math" aria-label="p égale a c ; q égale b d ; r égale a plus b fois c plus d">
-  <div className="math-line"><i>p</i> = <i>ac</i></div>
-  <div className="math-line"><i>q</i> = <i>bd</i></div>
-  <div className="math-line"><i>r</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</div>
+  <div className="math-line"><span className="term-common"><i>p</i> = <i>ac</i></span></div>
+  <div className="math-line"><span className="term-common"><i>q</i> = <i>bd</i></span></div>
+  <div className="math-line"><span className="term-aux"><i>r</i> = (<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span></div>
 </div>
 
 Le produit final se recompose ainsi :
 
 <div className="math-display math-display--key" role="math" aria-label="x y égale p fois dix puissance deux m plus r moins p moins q fois dix puissance m plus q">
-  <div className="math-line"><i>xy</i> = <i>p</i> · 10<sup>2m</sup> + (<i>r</i> − <i>p</i> − <i>q</i>) · 10<sup>m</sup> + <i>q</i></div>
+  <div className="math-line"><i>xy</i> = <span className="term-common"><i>p</i></span> · 10<sup>2m</sup> + (<span className="term-cross"><i>r</i> − <i>p</i> − <i>q</i></span>) · 10<sup>m</sup> + <span className="term-common"><i>q</i></span></div>
   <span className="math-caption">Trois produits suffisent ; les décalages et la recomposition restent des opérations linéaires.</span>
 </div>
 
@@ -253,7 +253,7 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 ## À retenir
 
 - En découpant deux nombres en deux blocs, le développement classique fait apparaître quatre produits partiels.
-- L'identité (a + b)(c + d) - ac - bd = ad + bc permet de reconstruire les produits croisés avec une seule multiplication auxiliaire.
+- L'identité <span className="term-cross">ad + bc</span> = <span className="term-aux">(a + b)(c + d)</span> − <span className="term-common">ac + bd</span> permet de reconstruire les produits croisés avec une seule multiplication auxiliaire.
 - Trois appels récursifs au lieu de quatre donnent la récurrence T(n) = 3T(n/2) + O(n), donc une complexité en Θ(n^log₂(3)).
 - Le passage aux polynômes explique pourquoi la même stratégie s’étend à trois blocs avec Toom–Cook.
 - Les bibliothèques choisissent une méthode selon la taille et la forme des opérandes, en tenant compte du coût de leur implémentation.
@@ -269,3 +269,10 @@ Une borne asymptotique, une preuve examinée, une implémentation et un gain de 
 ---
 
 *État éditorial : brouillon de travail. Les explications mathématiques et les références initiales ont été assemblées, mais l'article doit encore faire l'objet d'une revue indépendante, notamment sur l'histoire de la découverte, les variantes pratiques et les exemples de calcul, avant toute publication.*
+
+
+<style>
+  .term-common { color: #286d61; font-weight: 650; }
+  .term-cross { color: #a65d12; font-weight: 650; }
+  .term-aux { color: #7965a4; font-weight: 650; }
+</style>
