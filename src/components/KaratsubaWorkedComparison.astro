@@ -3,7 +3,7 @@
 <section class="worked-comparison" aria-labelledby="worked-comparison-title">
   <div class="worked-kicker">Même multiplication · Deux stratégies</div>
   <h3 id="worked-comparison-title">1 234 × 5 678 : méthode directe ou Karatsuba ?</h3>
-  <p class="worked-intro">Les couleurs suivent les mêmes quantités dans les deux colonnes : le bleu-vert désigne les produits de blocs communs, l'ambre les termes croisés. La méthode change leur calcul, pas leur rôle dans le résultat.</p>
+  <p class="worked-intro">Les deux colonnes partent du même découpage et reconstruisent le même produit.</p>
   <div class="worked-legend" aria-label="Légende des couleurs">
     <span><i class="legend-common"></i> Produits communs aux deux méthodes : ac et bd</span>
     <span><i class="legend-cross"></i> Terme croisé : ad + bc</span>
@@ -92,6 +92,5 @@
   .worked-identity { display:grid; gap:.3rem; }
   .worked-identity span { color:#76501f; font:.65rem "DM Sans",sans-serif; }
   .worked-identity strong { color:#8e5517; font:600 clamp(.75rem,2vw,1rem)/1.5 "DM Mono",monospace; overflow-wrap:anywhere; }
-  .worked-caveat { margin: .8rem 0 0; color: #6b675e; font: .72rem/1.55 "DM Sans", sans-serif; }
-  @media (max-width: 700px) { .worked-columns, .worked-split, .cost-contrast { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
+  @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
 </style>
