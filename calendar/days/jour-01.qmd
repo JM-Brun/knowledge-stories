@@ -1,64 +1,227 @@
 ---
 title: "Une mesure précise peut-elle être fausse ?"
 subtitle: "Jour 1 · Observer avant de modéliser"
-description: "Distinguer répétabilité, justesse et biais à partir de deux capteurs."
+description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-## La question
+> **En 8 à 10 minutes** — Une expérience avec deux capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
 
-Un capteur qui répète presque toujours la même valeur est-il nécessairement fiable ?
+## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
-La réponse est non. Une mesure peut être très peu dispersée tout en étant systématiquement éloignée de la valeur de référence. Pour évaluer un instrument, il faut distinguer au moins deux propriétés :
+Imaginez deux thermomètres placés côte à côte dans une pièce. Le premier affiche successivement 20,2 °C, 20,1 °C et 20,2 °C. Le second affiche 19,0 °C, 19,1 °C et 19,0 °C.
 
-- **Répétabilité** : proximité entre des mesures répétées dans des conditions identiques.
-- **Justesse** : proximité entre la moyenne des mesures et une valeur de référence.
+Lequel inspire le plus confiance ?
 
-La dispersion décrit la variabilité des mesures ; l'écart à la référence renseigne sur un éventuel biais. Ces deux dimensions ne sont pas interchangeables.
+À première vue, les deux semblent remarquablement stables. Pourtant, si une référence indépendante indique 20,00 °C, leurs résultats ne racontent pas la même histoire. Le premier est proche de la référence ; le second s'en écarte d'environ un degré.
 
-## Un exemple
+Ce petit exemple contient une difficulté majeure de la Data Science : **la cohérence interne d'une série ne garantit pas qu'elle représente correctement le phénomène étudié.**
 
-Une référence indique 20,00 °C. Deux capteurs effectuent chacun trois mesures :
+On confond souvent trois questions :
 
-| Capteur A | Capteur B |
-|---:|---:|
-| 20,2 °C | 19,0 °C |
-| 20,1 °C | 19,1 °C |
-| 20,2 °C | 19,0 °C |
+- Les mesures se ressemblent-elles lorsqu'on répète l'expérience ?
+- La moyenne des mesures est-elle proche d'une référence ?
+- Le résultat est-il suffisamment fiable pour la décision que l'on veut prendre ?
 
-Les deux séries ont la même étendue : 0,1 °C. Sur ces trois observations, leur dispersion empirique est donc comparable. Mais leurs moyennes diffèrent :
+Elles sont liées, mais elles ne sont pas équivalentes.
 
-$$
-\bar{x}_A = \frac{20{,}2+20{,}1+20{,}2}{3} \approx 20{,}17\ ^\circ\mathrm{C}
-$$
+## Deux capteurs, deux qualités différentes
 
-$$
-\bar{x}_B = \frac{19{,}0+19{,}1+19{,}0}{3} \approx 19{,}03\ ^\circ\mathrm{C}
-$$
+Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois mesures dans les mêmes conditions.
 
-Le capteur A est en moyenne à environ +0,17 °C de la référence ; le capteur B à environ −0,97 °C.
+| Mesure | Capteur A | Capteur B |
+|---:|---:|---:|
+| 1 | 20,2 °C | 19,0 °C |
+| 2 | 20,1 °C | 19,1 °C |
+| 3 | 20,2 °C | 19,0 °C |
+| **Moyenne** | **20,17 °C** | **19,03 °C** |
+| **Écart à la référence** | **+0,17 °C** | **−0,97 °C** |
+
+Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable.
+
+Mais leur position par rapport à la référence est très différente. Le capteur B répète presque parfaitement une valeur décalée.
+
+### Voir la différence : dispersion et décalage
+
+La ligne verticale représente la référence de 20,00 °C. Les points sont les trois observations de chaque capteur. L'axe horizontal représente la température mesurée.
+
+<figure>
+<svg viewBox="0 0 760 310" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="sensor-title">Deux capteurs avec une dispersion comparable mais un biais différent</title>
+  <desc id="sensor-desc">Le capteur A produit trois mesures proches de 20,17 degrés, à proximité de la référence de 20 degrés. Le capteur B produit trois mesures proches de 19,03 degrés, nettement à gauche de la référence. Les deux groupes ont une dispersion similaire.</desc>
+  <rect x="1" y="1" width="758" height="308" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="34" font-size="15" font-weight="700" fill="#0f172a">Mesures répétées (°C)</text>
+  <line x1="120" y1="252" x2="700" y2="252" stroke="#64748b" stroke-width="1.5"/>
+  <g fill="#475569" font-size="12" text-anchor="middle">
+    <text x="120" y="274">18,8</text><text x="265" y="274">19,2</text><text x="410" y="274">19,6</text><text x="555" y="274">20,0</text><text x="700" y="274">20,4</text>
+  </g>
+  <g stroke="#cbd5e1" stroke-width="1">
+    <line x1="120" y1="76" x2="120" y2="252"/><line x1="265" y1="76" x2="265" y2="252"/><line x1="410" y1="76" x2="410" y2="252"/><line x1="700" y1="76" x2="700" y2="252"/>
+  </g>
+  <line x1="555" y1="63" x2="555" y2="252" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <text x="565" y="58" font-size="12" font-weight="700" fill="#92400e">Référence : 20,00</text>
+  <g fill="#0f766e" stroke="#ffffff" stroke-width="2">
+    <circle cx="628" cy="111" r="8"/><circle cx="592" cy="135" r="8"/><circle cx="628" cy="159" r="8"/>
+  </g>
+  <g fill="#475569" font-size="13" font-weight="700">
+    <text x="24" y="128">Capteur A</text><text x="24" y="218">Capteur B</text>
+  </g>
+  <g fill="#b45309" stroke="#ffffff" stroke-width="2">
+    <circle cx="192" cy="201" r="8"/><circle cx="228" cy="225" r="8"/><circle cx="192" cy="237" r="8"/>
+  </g>
+  <g fill="#0f172a" font-size="12">
+    <text x="650" y="122">Moyenne ≈ 20,17</text>
+    <text x="246" y="207">Moyenne ≈ 19,03</text>
+  </g>
+  <text x="120" y="296" font-size="11" fill="#64748b">Chaque point représente une mesure ; les positions sont proportionnelles aux valeurs.</text>
+</svg>
+<figcaption>La stabilité décrit la dispersion des points. Le biais se lit dans le décalage de leur centre par rapport à la référence.</figcaption>
+</figure>
+
+Le capteur B n'est pas « mauvais » parce que ses valeurs varient peu : il est stable dans cet essai, mais son résultat est décalé. Cette distinction est le cœur de la question.
+
+## Les mots comptent : fidélité, répétabilité, justesse, exactitude
+
+La métrologie — la science de la mesure — distingue des notions que le langage courant mélange souvent. Le Vocabulaire international de métrologie (VIM, JCGM 200:2012) fournit un cadre précis.
+
+| Notion | Question à laquelle elle répond | Comment l'observer ? |
+|---|---|---|
+| **Fidélité** | Les résultats répétés sont-ils proches les uns des autres ? | Écart-type, variance ou autre mesure de dispersion, dans des conditions précisées |
+| **Répétabilité** | Sont-ils proches lorsque les conditions restent presque identiques ? | Répétitions avec même méthode, opérateur, instrument, lieu et sur une courte période |
+| **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Écart systématique moyen à la référence |
+| **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
+
+La répétabilité est une fidélité évaluée dans des conditions presque identiques ; changer d'opérateur, d'instrument ou de laboratoire conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+
+## Le modèle caché derrière une mesure
+
+Une mesure n'est pas une fenêtre transparente sur le réel. Pour raisonner, on peut représenter simplement une observation par :
+
+\[
+X_i = \theta + b + \varepsilon_i
+\]
+
+où :
+
+- \(\theta\) est la valeur du phénomène que l'on cherche à mesurer ;
+- \(b\) représente un décalage systématique (biais), supposé constant dans ce modèle simplifié ;
+- \(\varepsilon_i\) représente les variations aléatoires d'une observation à l'autre.
+
+La répétition caractérise la partie variable. Si les erreurs sont i.i.d., de moyenne nulle et de variance finie, l'écart-type de la moyenne décroît comme \(1/\sqrt{n}\). Mais le terme \(b\) persiste : la moyenne converge vers \(\theta+b\), pas vers \(\theta\). Réduire le bruit n'est donc pas corriger un biais ; mille répétitions peuvent stabiliser une valeur décalée.
+
+### Une relation utile en statistique
+
+Pour un estimateur \(\hat{\theta}\) d'une quantité fixe \(\theta\), l'erreur quadratique moyenne se décompose en :
+
+\[
+\operatorname{EQM}(\hat{\theta}) =
+\operatorname{Var}(\hat{\theta}) +
+\operatorname{Biais}(\hat{\theta})^2
+\]
+
+Cette relation montre pourquoi minimiser la variance ne suffit pas à minimiser l'erreur totale. Un estimateur peut gagner en stabilité tout en conservant un biais important. Elle éclaire aussi le compromis biais–variance rencontré en apprentissage statistique : la complexité d'un modèle peut réduire certains biais, mais augmenter sa sensibilité aux fluctuations de l'échantillon.
+
+## Mesure-t-on toujours une chose qui existe directement ?
+
+Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
+
+On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
+
+Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
+
+De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
+
+## La mesure peut-elle changer ce qu'elle observe ?
+
+Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure ; un questionnaire influencer les réponses ; un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation, réactivité, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
+
+**Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
+
+## Le piège suivant : la référence n'est pas la vérité absolue
+
+Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est utile pour apprendre, mais une mesure de référence est elle-même le résultat d'une chaîne métrologique. Elle est associée à une incertitude.
+
+Un étalon peut être mieux caractérisé qu'un capteur ordinaire ; il n'est pas pour autant une vérité parfaite, connue avec une infinité de décimales. Sa valeur est établie par une procédure, reliée à d'autres références et accompagnée d'une incertitude.
+
+Il faut distinguer **l'erreur de mesure**, différence entre une valeur mesurée et une référence, et **l'incertitude**, paramètre décrivant la dispersion des valeurs raisonnablement attribuables au mesurande. L'incertitude n'est pas l'erreur commise : elle caractérise ce que l'on sait du résultat. Elle peut combiner résolution, étalonnage, répétabilité, environnement et modèle d'interprétation ; certaines composantes viennent de répétitions, d'autres de certificats ou de connaissances sur l'instrument.
+
+### Étalonner n'est pas simplement remettre à zéro
+
+Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications et des valeurs de référence avec leurs incertitudes. Il peut permettre une correction, sans garantir la stabilité future de l'instrument. La traçabilité documente l'instrument, la méthode, la date, les conditions et l'incertitude.
+
+## De la mesure au jeu de données : où le problème se propage
+
+Considérons maintenant un réseau de capteurs de température déployé dans plusieurs bâtiments. Si certains capteurs ont un décalage systématique, le jeu de données peut présenter des différences entre bâtiments qui proviennent en partie des instruments plutôt que des bâtiments eux-mêmes.
+
+<figure>
+<svg viewBox="0 0 760 210" role="img" aria-labelledby="chain-title chain-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="chain-title">La chaîne qui transforme un phénomène en donnée exploitable</title>
+  <desc id="chain-desc">Un phénomène réel passe par un instrument et un protocole, devient un signal, puis une donnée enregistrée, une variable de modèle et enfin une décision. Un défaut à une étape peut se propager aux suivantes.</desc>
+  <rect x="1" y="1" width="758" height="208" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">
+    <rect x="18" y="65" width="112" height="58" rx="8" fill="#dbeafe" stroke="#60a5fa"/><text x="74" y="89">Phénomène</text><text x="74" y="106">réel</text>
+    <rect x="157" y="65" width="112" height="58" rx="8" fill="#d1fae5" stroke="#34d399"/><text x="213" y="89">Instrument</text><text x="213" y="106">+ protocole</text>
+    <rect x="296" y="65" width="112" height="58" rx="8" fill="#fef3c7" stroke="#f59e0b"/><text x="352" y="89">Signal</text><text x="352" y="106">mesuré</text>
+    <rect x="435" y="65" width="112" height="58" rx="8" fill="#e0e7ff" stroke="#818cf8"/><text x="491" y="89">Donnée</text><text x="491" y="106">enregistrée</text>
+    <rect x="574" y="65" width="78" height="58" rx="8" fill="#f3e8ff" stroke="#c084fc"/><text x="613" y="89">Modèle</text><text x="613" y="106">/ analyse</text>
+    <rect x="674" y="65" width="68" height="58" rx="8" fill="#fee2e2" stroke="#f87171"/><text x="708" y="89">Décision</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" fill="none">
+    <path d="M130 94 H153 l-6 -5 m6 5 l-6 5"/><path d="M269 94 H292 l-6 -5 m6 5 l-6 5"/><path d="M408 94 H431 l-6 -5 m6 5 l-6 5"/><path d="M547 94 H570 l-6 -5 m6 5 l-6 5"/><path d="M652 94 H670 l-6 -5 m6 5 l-6 5"/>
+  </g>
+  <path d="M213 130 V157 H491 V130" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <text x="352" y="177" text-anchor="middle" font-size="12" fill="#92400e">Étalonnage, contrôles et provenance</text>
+  <text x="380" y="198" text-anchor="middle" font-size="11" fill="#64748b">Une transformation peut corriger, amplifier ou masquer un défaut initial.</text>
+</svg>
+<figcaption>La donnée analysée est le produit d'une chaîne de transformations. La qualité doit être examinée tout au long de cette chaîne.</figcaption>
+</figure>
+
+Trois conséquences pour la Data Science :
+
+1. **Biais de cible :** le modèle apprend les particularités des instruments ou des sites plutôt que le phénomène.
+2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
+3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
+
+Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, une valeur rare parfaitement réelle.
 
 ## À vous de raisonner
 
-1. Quel capteur présente la plus grande répétabilité sur ces trois mesures ?
-2. Quel capteur est le plus proche de la référence en moyenne ?
-3. Peut-on conclure que le capteur B est meilleur parce que ses valeurs sont peu dispersées ?
+Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
+
+1. Si l'on collecte cent fois plus de mesures avec B, que devient sa moyenne attendue dans le modèle simplifié ?
+2. Si l'on soustrait 0,97 °C à toutes ses mesures, a-t-on nécessairement corrigé le problème ?
+3. Si le biais varie avec la température ambiante, une correction constante suffit-elle ?
+4. Si les capteurs de certains bâtiments sont tous du même modèle, comment distinguer un effet du bâtiment d'un effet de l'instrument ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-1. Les deux séries ont la même étendue (0,1 °C) et la même structure de dispersion. Avec ces seules observations, elles ont une répétabilité empirique comparable.
-2. Le capteur A : son écart moyen à la référence est d'environ +0,17 °C, contre −0,97 °C pour B.
-3. Non. B est stable mais présente ici un décalage systématique important. Une faible dispersion ne garantit pas la justesse.
+1. Elle reste proche de 19,03 °C si le biais est stable. La moyenne devient moins variable, mais ne converge pas vers 20,00 °C.
+2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
+3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
+4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
 
-**À retenir :** un jeu de données peut être cohérent et répétable tout en portant un biais de mesure. La provenance, l'instrument et le protocole comptent autant que les contrôles de valeurs aberrantes.
+**Le point important :** une correction n'est pas une opération cosmétique. C'est un modèle supplémentaire, qui possède lui aussi des hypothèses et une incertitude.
 
 </details>
 
+## À retenir
+
+- Une faible dispersion indique une bonne fidélité dans les conditions considérées ; elle ne garantit pas la justesse.
+- Répéter une mesure réduit l'incertitude liée à certaines variations aléatoires, mais ne supprime pas automatiquement un biais systématique.
+- Une référence possède elle aussi une incertitude : la mesure doit être replacée dans une chaîne de traçabilité.
+- Une variable abstraite doit être opérationnalisée : la validité de l'indicateur ne se déduit pas de sa seule stabilité.
+- En Data Science, la provenance, l'instrumentation et le protocole font partie de la qualité des données, pas seulement leur format ou leur absence de valeurs manquantes.
+
 ## Pour aller plus loin
 
-Cette distinction se retrouve dans les pipelines de données : des valeurs cohérentes entre elles ne sont pas nécessairement représentatives du phénomène que l'on cherche à mesurer.
+- **[Vocabulaire international de métrologie — JCGM 200:2012 (VIM)](https://www.bipm.org/documents/20126/2071204/JCGM_200_2012.pdf)** — la référence terminologique pour distinguer fidélité, répétabilité, justesse, exactitude, erreur et incertitude.
+- **[Evaluation of measurement data — Guide to the expression of uncertainty in measurement (JCGM 100:2008)](https://www.bipm.org/en/committees/jc/jcgm/publications)** — le guide pour construire et combiner des composantes d'incertitude.
+- **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — une introduction opérationnelle à l'évaluation et à l'expression de l'incertitude de mesure.
+- **[AI Measurement Science — Validity](https://aimsbook.org/src/chap1.html)** — une discussion approfondie de la validité des construits et des pièges d'évaluation des systèmes d'IA.
+- **[Data-Driven Calibration and Reference-Free Drift Detection for Multi-Modal Sensor Systems (2026)](https://doi.org/10.3390/s26217016)** — un exemple récent de calibration transférée entre capteurs et de détection de dérive sans référence, avec des limites explicitement discutées.
 
 ## Connexions utiles
 
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : distinguer la dispersion d'une série de son éventuel biais.
-- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : passer du biais de mesure au biais de sélection.
+- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : après la qualité de la mesure, examiner qui est représenté dans les données.
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que la moyenne masque sur la variabilité.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : étudier comment plusieurs sources de variation interagissent.

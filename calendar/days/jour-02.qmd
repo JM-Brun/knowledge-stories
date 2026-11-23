@@ -1,12 +1,16 @@
 ---
 title: "50 000 réponses valent-elles mieux que 1 000 ?"
 subtitle: "Jour 2 · Qui est représenté dans les données ?"
-description: "Comprendre pourquoi la taille d'un échantillon ne corrige pas un biais de sélection."
+description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la couverture ni le mécanisme de sélection."
 ---
+
+> **En 7 à 9 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
 
 ## La question
 
-Un sondage de 50 000 réponses peut-il être moins informatif sur une population qu'un sondage de 2 000 réponses ? Oui, si le premier ne recueille les réponses que d'une partie de la population.
+Une enquête qui recueille 50 000 réponses est-elle nécessairement plus fiable qu'une enquête qui en recueille 2 000 ? Pas si les 50 000 réponses proviennent presque exclusivement d'un sous-groupe.
+
+La taille d'un échantillon renseigne sur la quantité d'information disponible **sous un mécanisme de collecte donné**. Elle ne dit pas, à elle seule, si les personnes observées ressemblent à la population sur laquelle on souhaite conclure.
 
 ## Un exemple contrôlé
 
@@ -15,38 +19,114 @@ Une population cible comporte 100 000 personnes :
 - 50 000 appartiennent au groupe A, dont le score moyen est 10 ;
 - 50 000 appartiennent au groupe B, dont le score moyen est 20.
 
-La moyenne de la population vaut donc :
+La moyenne de la population est donc :
 
-$$
+\[
 \mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
-$$
+\]
 
 Deux enquêtes sont réalisées :
 
-- l'enquête en ligne recueille 50 000 réponses, toutes dans le groupe A ;
-- l'enquête stratifiée sélectionne aléatoirement 1 000 personnes dans chaque groupe.
+- une enquête ouverte en ligne recueille 50 000 réponses, toutes dans le groupe A ;
+- une enquête stratifiée tire aléatoirement 1 000 personnes dans chaque groupe.
+
+La moyenne observée dans la première enquête est 10 si elle couvre tout le groupe A (ou son espérance est 10 sous un tirage dans A). Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. L'enquête la plus volumineuse vise ici une quantité différente, parce qu'elle ne couvre qu'une moitié de la population.
+
+## Pourquoi plus de données ne résout-il rien ici ?
+
+Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et une enquête qui recueille les 500 000 réponses uniquement dans A. La moyenne de l'enquête restera 10 : le volume augmente, mais la population cible reste couverte à moitié seulement.
+
+L'erreur ne vient pas d'une fluctuation aléatoire autour de la bonne cible. Elle vient du fait que la procédure observe une population accessible différente de la population cible.
+
+C'est utile de distinguer trois objets :
+
+- **Population cible** : les unités auxquelles on veut généraliser.
+- **Base de sondage** : les unités qui peuvent effectivement être sélectionnées.
+- **Échantillon observé** : celles qui ont finalement répondu ou ont été mesurées.
+
+Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la non-réponse et de l'auto-sélection.
+
+## Visualiser biais et incertitude séparément
+
+Imaginons que l'on répète chacune des deux enquêtes un grand nombre de fois. L'estimateur de l'enquête A (toujours limitée au groupe A) sera concentré autour de 10. Celui de l'enquête stratifiée sera centré autour de 15, avec une variabilité d'échantillonnage non nulle.
+
+Une distribution très étroite n'est donc pas nécessairement rassurante : elle peut être précisément concentrée autour d'une quantité qui n'est pas celle que l'on cherche à estimer.
+
+On peut résumer l'intuition ainsi :
+
+| Propriété | Grand échantillon auto-sélectionné | Échantillon probabiliste stratifié |
+|---|---|---|
+| Volume | Très élevé | Plus modeste |
+| Couverture des groupes | Groupe A seulement | A et B |
+| Cible directement décrite | Répondants du groupe A | Population, avec pondération adaptée |
+| Effet d'une hausse de taille | Réduit l'aléa dans A | Réduit généralement l'erreur d'échantillonnage |
+
+<figure>
+<svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="sample-title">Un grand échantillon qui ne couvre qu'un groupe peut viser la mauvaise moyenne</title>
+  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. L'échantillon volumineux ne contient que A et sa moyenne attendue est 10. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
+  <rect x="1" y="1" width="758" height="268" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
+  <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
+  <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
+  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête volumineuse</text>
+  <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
+  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses, toutes dans A → moyenne attendue : 10</text>
+  <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
+  <rect x="24" y="202" width="350" height="28" rx="5" fill="#0f766e"/><rect x="374" y="202" width="350" height="28" rx="5" fill="#d97706"/>
+  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">1 000 dans A</text><text x="549" y="221">1 000 dans B</text></g>
+  <text x="374" y="253" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Avec les poids de population : estimateur centré sur 15</text>
+</svg>
+<figcaption>La taille renseigne sur la quantité de données ; la couverture et le plan de sondage déterminent quelle population l'estimation peut représenter.</figcaption>
+</figure>
+
+Le tableau ne signifie pas qu'un échantillon stratifié est toujours représentatif. Le plan de sondage, les probabilités d'inclusion, la non-réponse et les pondérations doivent être pris en compte.
+
+## Le point moins visible : la sélection peut créer des relations
+
+Le biais de sélection ne se limite pas à une mauvaise proportion de groupes. Il peut aussi apparaître lorsqu'on conditionne l'analyse sur le fait d'être observé.
+
+Exemple : une plateforme analyse uniquement les utilisateurs qui sont restés actifs six mois. La fidélité dépend peut-être à la fois de la satisfaction et de la difficulté d'utilisation. En ne gardant que les utilisateurs encore présents, on sélectionne un sous-ensemble particulier. Les relations observées entre satisfaction, difficulté et usage peuvent alors différer de celles de l'ensemble des personnes ayant essayé le service.
+
+Ce mécanisme peut produire des associations artificielles ou masquer des différences. Il est lié à la sélection sur une variable influencée par plusieurs facteurs — un mécanisme que l'on retrouvera dans les graphes causaux.
+
+## Peut-on corriger le problème ?
+
+Parfois. La stratification, la pondération, la post-stratification ou des modèles de participation peuvent aider si l'on connaît des informations pertinentes sur la population et si les hypothèses de correction sont défendables.
+
+Mais aucune pondération ne recrée magiquement une information totalement absente. Si un groupe n'a aucune chance d'être observé, les données ne permettent pas d'apprendre directement son comportement. Il faut une source externe ou des hypothèses supplémentaires.
+
+## Transfert vers le Machine Learning
+
+Un jeu de données massif peut être très représentatif des utilisateurs actifs d'un produit et très peu informatif sur les personnes qui l'ont abandonné, celles qui ne peuvent pas accéder au service ou celles dont le comportement n'est pas enregistré.
+
+Le score obtenu sur un test tiré du même mécanisme de collecte peut alors être précis pour la mauvaise population. La validation doit donc préciser l'unité de généralisation : nouveaux utilisateurs, utilisateurs existants, nouveaux sites, période future, ou population entière.
 
 ## À vous de raisonner
 
-1. Quelle moyenne observe-t-on dans l'enquête en ligne ?
-2. Quelle moyenne l'enquête stratifiée estime-t-elle en moyenne sur des tirages répétés ?
-3. Ajouter encore des réponses provenant uniquement du groupe A corrige-t-il le problème ?
+1. Quelle moyenne attend-on dans chacune des deux enquêtes de l'exemple ?
+2. Si l'enquête A collecte dix fois plus de réponses, quelle erreur diminue — et quelle erreur persiste ?
+3. Quelle information externe serait utile pour pondérer les réponses ?
+4. Si les personnes qui abandonnent un service ne sont jamais observées, peut-on corriger ce défaut à partir des seuls utilisateurs actifs ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-1. L'enquête en ligne donne une moyenne de 10. Elle décrit correctement les répondants, mais pas la population cible.
-2. L'échantillon équilibré estime en moyenne $0{,}5\times10+0{,}5\times20=15$, cohérent avec la composition de la population.
-3. Non. Ajouter des réponses du groupe A peut réduire l'incertitude sur ce groupe, mais ne compense pas l'absence du groupe B.
-
-**À retenir :** le volume de données ne répare pas un défaut de couverture. Un million d'exemples provenant uniquement des utilisateurs actifs d'un service ne garantit pas la qualité des prédictions pour les utilisateurs absents.
+1. L'enquête limitée à A donne 10 ; l'échantillon stratifié équilibré estime 15 dans cette population où A et B ont le même poids.
+2. La variabilité aléatoire au sein de A peut diminuer. Le défaut de couverture du groupe B persiste.
+3. Il faut connaître les proportions de la population cible et, selon le plan, les probabilités d'inclusion ou des variables auxiliaires liées à la participation et au résultat.
+4. Non, pas sans hypothèses ou informations supplémentaires. L'absence totale d'observations dans un groupe viole la condition de positivité nécessaire à certaines corrections.
 
 </details>
 
-## Une nuance importante
+## À retenir
 
-Un échantillon équilibré est adapté ici parce que les deux groupes ont le même poids dans la population. Dans une application réelle, un échantillonnage stratifié doit être accompagné de pondérations appropriées si les proportions de l'échantillon diffèrent de celles de la population cible.
+- Un grand échantillon peut réduire fortement l'incertitude autour d'une mauvaise cible.
+- La représentativité dépend du mécanisme d'inclusion, pas du seul nombre de lignes.
+- Les données absentes ne sont pas toujours récupérables par pondération.
+- En ML, le jeu de test doit représenter la population à laquelle on veut réellement généraliser.
 
-## Connexion utile
+## Pour aller plus loin
 
-- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : distinguer un décalage systématique de la question de la représentativité d'un échantillon.
+- **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence.
+- **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
