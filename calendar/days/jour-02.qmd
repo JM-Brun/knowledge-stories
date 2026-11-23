@@ -78,14 +78,14 @@ On peut résumer l'intuition ainsi :
 <figure>
 <svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sample-title">Un grand échantillon qui ne couvre qu'un groupe peut viser la mauvaise moyenne</title>
-  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. L'échantillon volumineux ne contient que A et sa moyenne attendue est 10. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
+  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. Le recensement de A donne exactement 10 pour ce groupe, mais ne renseigne pas directement B. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
   <rect x="1" y="1" width="758" height="268" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
   <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
   <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
   <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête volumineuse</text>
   <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
-  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses, toutes dans A → moyenne attendue : 10</text>
+  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses : recensement de A → moyenne exacte : 10</text>
   <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
   <rect x="24" y="202" width="350" height="28" rx="5" fill="#0f766e"/><rect x="374" y="202" width="350" height="28" rx="5" fill="#d97706"/>
   <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">500 dans A</text><text x="549" y="221">500 dans B</text></g>
