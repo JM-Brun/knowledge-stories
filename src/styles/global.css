@@ -71,3 +71,34 @@
 .article-page:has(.karatsuba-hero) .math-display--key .term-aux { color: var(--term-aux); }
 .article-page:has(.karatsuba-hero) .complexity-equations .term-common { color: var(--term-common); }
 .article-page:has(.karatsuba-hero) .complexity-equations .term-aux { color: var(--term-aux); }
+
+
+/* Karatsuba recurrence panel: keep method labels neutral and color only the
+   recursive products according to the article's semantic legend. */
+.article-page:has(.karatsuba-hero) .complexity-equations.math-display--key {
+  border-left-color: #c9c2b5;
+  background: #fffefa;
+}
+.article-page:has(.karatsuba-hero) .complexity-method + .complexity-method {
+  margin-top: .9rem;
+  padding-top: .9rem;
+  border-top: 1px solid #ded9cc;
+}
+.article-page:has(.karatsuba-hero) .complexity-method > b {
+  display: block;
+  margin-bottom: .45rem;
+  color: #514f47;
+  font: 600 .72rem/1.4 "DM Sans", sans-serif;
+}
+.article-page:has(.karatsuba-hero) .complexity-method .math-line {
+  overflow-wrap: anywhere;
+  font: 500 clamp(.7rem, 1.35vw, .9rem)/1.7 "DM Mono", monospace;
+}
+@media(max-width:650px) {
+  .article-page:has(.karatsuba-hero) .complexity-equations {
+    padding: .75rem;
+  }
+  .article-page:has(.karatsuba-hero) .complexity-method .math-line {
+    font-size: .68rem;
+  }
+}
