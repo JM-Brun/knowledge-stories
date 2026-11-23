@@ -7,7 +7,7 @@ themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["algorithmique", "arithmétique", "récursivité", "complexité"]
 difficulty: "intermediate"
 readingTime: 10
-status: "draft"
+status: "review"
 featured: false
 cover: "karatsuba"
 sources:
@@ -205,7 +205,7 @@ La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Mu
 
 Reprenons 1 234 × 5 678. Les deux nombres s’écrivent **P(100)** et **Q(100)**, avec `P(t) = 12t + 34` et `Q(t) = 56t + 78`. On cherche le produit des deux polynômes, qui a trois coefficients. Le produit des blocs de droite donne le coefficient constant, celui des blocs de gauche donne le coefficient de t², et le produit des sommes donne la valeur en **t = 1**. En retirant les coefficients constant et de t² de cette valeur, on retrouve le coefficient du milieu. Il reste à évaluer le résultat en 100 pour retrouver le produit des entiers.
 
-La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) généralise cette démarche. Avec trois blocs, chacun des deux polynômes est de degré au plus deux et leur produit comporte au plus cinq coefficients. Cinq évaluations distinctes suffisent à reconstruire ce produit par interpolation, c’est-à-dire à retrouver ses coefficients à partir de ses valeurs. Cela remplace les neuf produits de blocs du développement direct par cinq produits sur les valeurs évaluées, au prix de davantage de travail de préparation et de recomposition.
+La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) généralise cette démarche. Avec trois blocs, chacun des deux polynômes est de degré au plus deux et leur produit comporte au plus cinq coefficients. Cinq évaluations distinctes suffisent à reconstruire ce produit par interpolation, c’est-à-dire à retrouver ses coefficients à partir de ses valeurs. Cela remplace les neuf produits de blocs du développement direct par cinq produits sur les valeurs évaluées, au prix de davantage de travail de préparation et de recomposition. Sur des entiers, les points d’évaluation et la formule d’interpolation doivent être choisis pour que les divisions intermédiaires soient exactes ; le coût de ces opérations fait partie de l’algorithme, même si le décompte pédagogique met d’abord l’accent sur les multiplications.
 
 - **Schönhage–Strassen** exploite les transformations rapides pour obtenir une borne quasi linéaire, dans un modèle de calcul précis.
 - **Harvey et van der Hoeven (2021)** établissent une borne O(n log n) pour multiplier deux entiers de n bits sur une machine de Turing à plusieurs rubans.
