@@ -30,6 +30,32 @@ s_n^2(C)=40.
 
 La moyenne identique masque ici des dispersions radicalement différentes. La série C contient deux valeurs extrêmes ; B est étalée régulièrement ; A est concentrée autour du centre.
 
+<figure>
+<svg viewBox="0 0 760 250" role="img" aria-labelledby="dist-title dist-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="dist-title">Trois séries de même moyenne mais de dispersions différentes</title>
+  <desc id="dist-desc">Trois lignes de points représentent les séries A, B et C sur un même axe numérique. Leur centre est 5 dans les trois cas, mais l'étalement augmente de A vers C.</desc>
+  <rect x="1" y="1" width="758" height="248" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g stroke="#cbd5e1" stroke-width="1"><line x1="120" y1="45" x2="700" y2="45"/><line x1="120" y1="95" x2="700" y2="95"/><line x1="120" y1="145" x2="700" y2="145"/><line x1="120" y1="195" x2="700" y2="195"/></g>
+  <line x1="410" y1="30" x2="410" y2="205" stroke="#b45309" stroke-width="2" stroke-dasharray="5 5"/>
+  <text x="420" y="27" fill="#92400e" font-size="12" font-weight="700">Moyenne = 5</text>
+  <g fill="#334155" font-size="13" font-weight="700"><text x="28" y="69">Série A</text><text x="28" y="119">Série B</text><text x="28" y="169">Série C</text></g>
+  <g fill="#0f766e" stroke="#fff" stroke-width="2">
+    <circle cx="352" cy="58" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="410" cy="75" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="468" cy="58" r="7"/>
+  </g>
+  <g fill="#2563eb" stroke="#fff" stroke-width="2"><circle cx="178" cy="108" r="7"/><circle cx="294" cy="108" r="7"/><circle cx="410" cy="108" r="7"/><circle cx="526" cy="108" r="7"/><circle cx="642" cy="108" r="7"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="158" r="0"/><circle cx="0" cy="158" r="0"/><circle cx="410" cy="158" r="7"/><circle cx="410" cy="175" r="7"/><circle cx="410" cy="158" r="7"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="120" cy="158" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="410" cy="175" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="700" cy="158" r="7"/></g>
+  <g fill="#475569" font-size="11" text-anchor="middle"><text x="120" y="222">−5</text><text x="265" y="222">0</text><text x="410" y="222">5</text><text x="555" y="222">10</text><text x="700" y="222">15</text></g>
+  <text x="410" y="240" text-anchor="middle" fill="#64748b" font-size="11">Axe commun · valeurs observées</text>
+</svg>
+<figcaption>Les points sont placés sur une échelle commune : le centre reste à 5 tandis que l'étalement varie. Le dessin illustre les valeurs, pas une densité estimée.</figcaption>
+</figure>
+
+
+
 ## Deuxième niveau : mêmes résumés, formes différentes
 
 Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est composé de quatre jeux de données construits pour partager, à l'arrondi près, les mêmes statistiques descriptives usuelles : moyennes, variances, corrélation et droite de régression. Pourtant, leurs nuages de points ont des formes très différentes. Dans l'un, une relation est courbe ; dans un autre, un point extrême joue un rôle déterminant.
