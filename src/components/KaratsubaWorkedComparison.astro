@@ -3,7 +3,7 @@
 <section class="worked-comparison" aria-labelledby="worked-comparison-title">
   <div class="worked-kicker">Même multiplication · Deux stratégies</div>
   <h3 id="worked-comparison-title">1 234 × 5 678 : méthode directe ou Karatsuba ?</h3>
-  <p class="worked-intro">Les couleurs suivent les mêmes quantités dans les deux colonnes : le bleu-vert désigne les produits de blocs communs, l'ambre les termes croisés. La méthode change leur calcul, pas leur rôle dans le résultat.</p>
+  <p class="worked-intro">Les deux colonnes partent du même découpage et reconstruisent le même produit.</p>
   <div class="worked-legend" aria-label="Légende des couleurs">
     <span><i class="legend-common"></i> Produits communs aux deux méthodes : ac et bd</span>
     <span><i class="legend-cross"></i> Terme croisé : ad + bc</span>
@@ -45,17 +45,6 @@
       <strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong>
     </div>
   </div>
-  <div class="worked-cost">
-    <h4>Pourquoi plusieurs additions coûtent-elles moins cher qu'une multiplication ?</h4>
-    <p>Sur des blocs de <strong>n chiffres</strong>, additionner deux nombres demande de parcourir les chiffres une fois, en propageant éventuellement une retenue : le coût est proportionnel à <strong>n</strong>, soit O(n).</p>
-    <p>Avec la multiplication scolaire, chaque chiffre d'un nombre est combiné avec chaque chiffre de l'autre. Il faut donc environ <strong>n × n</strong> produits élémentaires, soit O(n²). Une multiplication de blocs mobilise ainsi beaucoup plus de travail qu'une addition de blocs lorsque n grandit.</p>
-    <div class="cost-contrast">
-      <div><span>Addition de deux blocs</span><strong>≈ n</strong><small>opérations sur les chiffres</small></div>
-      <div><span>Multiplication scolaire</span><strong>≈ n²</strong><small>produits élémentaires</small></div>
-    </div>
-    <p class="worked-cost-note">Karatsuba remplace donc une multiplication de blocs par quelques additions et soustractions. Ce n'est pas « gratuit » : pour de petits nombres, les coûts fixes peuvent annuler le bénéfice. Mais à mesure que les blocs grandissent, le terme quadratique de la multiplication scolaire augmente plus vite que le coût linéaire des additions. C'est cette différence de croissance qui rend l'échange intéressant.</p>
-  </div>
-  <p class="worked-caveat">Le décompte 4 → 3 porte sur les multiplications de blocs à un niveau de découpage. En répétant la réduction récursivement, on obtient T(n) = 3T(n/2) + O(n), au lieu de T(n) = 4T(n/2) + O(n).</p>
 </section>
 <style>
   .worked-comparison { margin: 2.5rem 0; padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #252820; }
@@ -97,22 +86,11 @@
   .worked-recompose { display: grid; gap: .35rem; margin-top: auto; padding: .75rem; border-radius: .4rem; background: #f0ede4; }
   .worked-karatsuba .worked-recompose { background: #e2eadf; }
   .worked-recompose strong { color: #315b45; font: 700 1.05rem "DM Mono", monospace; }
-  .worked-insight, .worked-cost { margin-top: 1rem; padding: 1rem; border-radius: .35rem; }
-  .worked-insight { border-left: 4px solid #bd792b; background: #fbf1df; }
-  .worked-insight > span { color: #87551d; font: 500 .66rem "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
-  .worked-insight p, .worked-cost p { margin: .4rem 0 .75rem; color: #454238; font: .84rem/1.65 "DM Sans", sans-serif; }
-  .worked-identity { display: grid; gap: .3rem; }
-  .worked-identity span { color: #76501f; font: .65rem "DM Sans", sans-serif; }
-  .worked-identity strong { color: #8e5517; font: 600 clamp(.75rem, 2vw, 1rem)/1.5 "DM Mono", monospace; overflow-wrap: anywhere; }
-  .worked-cost { border: 1px solid #d7d2c6; background: #fffefa; }
-  .worked-cost h4 { margin: 0 0 .5rem; font: 600 1.05rem/1.3 "DM Sans", sans-serif; }
-  .cost-contrast { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin: .8rem 0; }
-  .cost-contrast > div { display: grid; gap: .2rem; padding: .7rem; border-radius: .4rem; background: #e8eee9; }
-  .cost-contrast > div + div { background: #f5eadb; }
-  .cost-contrast span, .cost-contrast small { color: #5d5a52; font: .68rem/1.4 "DM Sans", sans-serif; }
-  .cost-contrast strong { color: #315b45; font: 700 1.35rem "DM Mono", monospace; }
-  .cost-contrast > div + div strong { color: #9b5c1c; }
-  .worked-cost .worked-cost-note, .worked-cost-note { margin-bottom: 0; color: #5d5a52; font-size: .78rem; }
-  .worked-caveat { margin: .8rem 0 0; color: #6b675e; font: .72rem/1.55 "DM Sans", sans-serif; }
-  @media (max-width: 700px) { .worked-columns, .worked-split, .cost-contrast { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
+  .worked-insight { margin-top:1rem; padding:1rem; border-radius:.35rem; border-left:4px solid #bd792b; background:#fbf1df; }
+  .worked-insight > span { color:#87551d; font:500 .66rem "DM Mono",monospace; letter-spacing:.07em; text-transform:uppercase; }
+  .worked-insight p { margin:.4rem 0 .75rem; color:#454238; font:.84rem/1.65 "DM Sans",sans-serif; }
+  .worked-identity { display:grid; gap:.3rem; }
+  .worked-identity span { color:#76501f; font:.65rem "DM Sans",sans-serif; }
+  .worked-identity strong { color:#8e5517; font:600 clamp(.75rem,2vw,1rem)/1.5 "DM Mono",monospace; overflow-wrap:anywhere; }
+  @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
 </style>
