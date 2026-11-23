@@ -6,7 +6,7 @@ category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["algorithmique", "arithmétique", "récursivité", "complexité"]
 difficulty: "intermediate"
-readingTime: 10
+readingTime: 14
 status: "review"
 featured: false
 cover: "karatsuba"
@@ -63,13 +63,11 @@ import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 import KaratsubaHero from "../../components/KaratsubaHero.astro";
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
+import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 <KaratsubaHero />
 
-<aside class="source-provenance">
-  <strong>Source principale et filiation de cet article</strong>
-  Cet article est une adaptation pédagogique largement dérivée de l’article de <a href="https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html" target="_blank" rel="noreferrer">Djamchid Dalili, « Multiplier deux nombres — de Karatsuba à l’IA » (18 novembre 2026)</a>. Le fil explicatif, plusieurs idées de présentation et une part importante de la matière pédagogique reprennent cette source. Le texte présent reformule et prolonge ce travail avec des calculs détaillés, un explorateur interactif et des références complémentaires. La source de Djamchid Dalili doit donc être considérée comme la référence principale de cette page, et non comme une simple lecture secondaire.
-</aside>
+<KaratsubaSourceNote />
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
