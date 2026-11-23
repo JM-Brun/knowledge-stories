@@ -1,26 +1,40 @@
-# Déployer Knowledge Stories sur GitHub Pages
+# Déployer Knowledge Stories et le calendrier Quarto
 
-Le site est configuré pour être publié à l'adresse :
+Le dépôt publie un site Astro et un mini-site Quarto dans un seul artefact GitHub Pages :
 
-`https://jm-brun.github.io/knowledge-stories/`
+- site éditorial : `https://jm-brun.github.io/knowledge-stories/`
+- calendrier 2026 : `https://jm-brun.github.io/knowledge-stories/calendar/`
 
 ## Activation initiale
 
-Dans le dépôt GitHub :
+Dans GitHub, ouvrir **Settings → Pages → Build and deployment** et sélectionner **GitHub Actions** comme source. Le workflow `.github/workflows/pages.yml` gère ensuite le build et le déploiement.
 
-1. Ouvrir **Settings → Pages**.
-2. Dans **Build and deployment**, sélectionner **GitHub Actions** comme source.
-3. Vérifier que les GitHub Actions sont autorisées pour le dépôt.
-4. Lancer le workflow **Build and deploy Knowledge Stories** depuis l'onglet Actions, ou pousser un commit sur `main`.
+## Pipeline
 
-Le workflow `.github/workflows/pages.yml` installe les dépendances, exécute `npm run check`, construit le site et déploie le contenu de `dist/`.
+Le job de build :
 
-## Modifications ultérieures
+1. installe Node.js 22 et les dépendances Astro ;
+2. exécute `npm run check` ;
+3. construit le site Astro dans `dist/` ;
+4. installe Quarto 1.11.9 ;
+5. rend le projet `calendar/` dans `dist/calendar/` ;
+6. vérifie la présence des pages principales avant de téléverser l'artefact Pages.
 
-- Les pull requests exécutent le workflow de qualité `.github/workflows/ci.yml`.
-- Les commits sur `main` déclenchent la construction et le déploiement.
-- Les brouillons et articles en revue restent exclus du site : seuls les contenus dont le frontmatter contient `status: published` sont générés.
+Le job de déploiement publie cet artefact avec `actions/deploy-pages`. Les pull requests exécutent les contrôles de build, mais ne déploient pas le site.
 
-## Vérifications
+## Rendu local
 
-Si le déploiement échoue, examiner les étapes Install dependencies, Check, Build et Deploy dans l'exécution GitHub Actions. Une erreur de configuration Pages se corrige dans Settings → Pages ; une erreur Astro doit être corrigée dans le code plutôt que contournée.
+Prérequis : Node.js 22 et Quarto 1.11.9.
+
+```bash
+npm install
+npm run check
+npm run build
+quarto render calendar
+```
+
+Le rendu Quarto utilise `calendar/_quarto.yml` et écrit dans `dist/calendar/`. Exécuter Astro avant Quarto : le build Astro recrée `dist/`.
+
+## Périmètre éditorial
+
+Le site public ne lit pas le dépôt privé Wiki Knowledge et ne synchronise pas ses métadonnées. Les pages Quarto publiées sont des contenus autonomes, explicitement sélectionnés et révisés. Le calendrier complet peut être conçu et suivi dans le dépôt de connaissance ; seules les journées validées sont rendues accessibles ici.
