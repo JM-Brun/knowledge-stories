@@ -34,10 +34,13 @@
 .article-page:has(.karatsuba-hero) {
   --term-common: #286d61;
   --term-common-soft: #e4f0ed;
+  --term-common-border: #4b8b7e;
   --term-cross: #a65d12;
   --term-cross-soft: #fbefd9;
+  --term-cross-border: #bd792b;
   --term-aux: #70569b;
   --term-aux-soft: #eee9f6;
+  --term-aux-border: #7965a4;
 }
 .article-page:has(.karatsuba-hero) .term-common { color: var(--term-common); font-weight: 650; }
 .article-page:has(.karatsuba-hero) .term-cross { color: var(--term-cross); font-weight: 650; }
