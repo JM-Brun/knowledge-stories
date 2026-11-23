@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => data.status === "review");
-  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
 }
 
 const { article } = Astro.props;
@@ -20,7 +20,7 @@ const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire
       <span>Ce texte n'est pas une publication validée. Merci de signaler les erreurs, ambiguïtés et pistes d'amélioration.</span>
     </div>
     <header class="story-header">
-      <div class="review-actions"><a class="back-link" href="/knowledge-stories/atelier/">← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}.mdx`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
+      <div class="review-actions"><a class="back-link" href={`${import.meta.env.BASE_URL}atelier/`}>← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
       <p class="category">{article.data.category}</p>
       <h1>{article.data.title}</h1>
       <p class="deck">{article.data.description}</p>
