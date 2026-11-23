@@ -10,9 +10,9 @@ Si trois jeux de données ont la même moyenne, décrivent-ils nécessairement d
 
 Considérons les trois séries :
 
-- A : ( (4,5,5,5,6) )
-- B : ( (1,3,5,7,9) )
-- C : ( (-5,5,5,5,15) )
+- A : `(4, 5, 5, 5, 6)`
+- B : `(1, 3, 5, 7, 9)`
+- C : `(-5, 5, 5, 5, 15)`
 
 ## À vous de raisonner
 
@@ -25,11 +25,11 @@ Considérons les trois séries :
 
 Les trois sommes valent 25 et chaque série contient cinq valeurs : leur moyenne vaut donc 5.
 
-Pour comparer leur dispersion, calculons la variance empirique avec le diviseur (n=5) :
+Pour comparer leur dispersion, calculons la variance empirique avec le diviseur $n$ :
 
-[
+$$
 s_n^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2.
-]
+$$
 
 | Série | Variance empirique |
 |---|---:|
@@ -45,4 +45,4 @@ L'ordre de dispersion est donc A, B, C. La série C contient deux valeurs extrê
 
 ## Attention à la convention
 
-La variance ci-dessus est une variance empirique descriptive calculée avec le diviseur (n). Pour estimer sans biais la variance d'une population à partir d'un échantillon indépendant, on utilise généralement le diviseur (n-1). Il faut préciser la convention avant de comparer des valeurs.
+La variance ci-dessus est une variance empirique descriptive calculée avec le diviseur $n$. Pour estimer sans biais la variance d'une population à partir d'un échantillon indépendant, on utilise généralement le diviseur $n-1$. Il faut préciser la convention avant de comparer des valeurs.
