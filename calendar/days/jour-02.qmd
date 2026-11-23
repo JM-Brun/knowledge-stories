@@ -145,12 +145,12 @@ Le score obtenu sur un test tiré du même mécanisme de collecte peut alors êt
 
 ### Trois changements de distribution à ne pas confondre
 
-Notons (P_s) la distribution source (entraînement) et (P_t) la distribution cible (déploiement).
+Notons $P_s$ la distribution source (entraînement) et $P_t$ la distribution cible (déploiement).
 
 | Situation | Ce qui change | Hypothèse caractéristique | Conséquence |
 |---|---|---|---|
-| **Covariate shift** | (P(X)) | (P_t(Y\mid X)=P_s(Y\mid X)) | La relation conditionnelle reste stable, mais les profils observés changent |
-| **Label shift** (*prior probability shift*) | (P(Y)) | (P_t(X\mid Y)=P_s(X\mid Y)) | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
+| **Covariate shift** | $P(X)$ | (P_t(Y\mid X)=P_s(Y\mid X)) | La relation conditionnelle reste stable, mais les profils observés changent |
+| **Label shift** (*prior probability shift*) | $P(Y)$ | (P_t(X\mid Y)=P_s(X\mid Y)) | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
 | **Concept drift** | (P(Y\mid X)) | La relation prédictive change | Une correction des seuls poids de (X) ne suffit généralement pas |
 
 Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
@@ -159,7 +159,7 @@ Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on pe
 
 Sous covariate shift, on peut réévaluer le risque du modèle dans la population cible en pondérant les observations source :
 
-[
+$
 R_t(f)=\mathbb{E}_{(X,Y)\sim P_t}[\ell(f(X),Y)]
 =\mathbb{E}_{(X,Y)\sim P_s}
 \left[
@@ -190,7 +190,7 @@ n_{\mathrm{eff}}=
 {\sum_{i=1}^{n}w_i^2}.
 ]
 
-Si quelques observations portent presque tout le poids, (n_{\mathrm{eff}}) peut être très inférieur à (n). Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
+Si quelques observations portent presque tout le poids, (n_{\mathrm{eff}}) peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
 
 ### Quelle action selon le diagnostic ?
 
@@ -228,7 +228,7 @@ Pour juger si un jeu de données permet de généraliser :
 1. **Écrire l'estimand** : quelle population, quelle période, quelle unité et quelle quantité ?
 2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ?
 3. **Comparer source et cible** : distributions, taux de couverture et de réponse, catégories inédites et profils absents.
-4. **Formuler le type de changement plausible** : (P(X)), (P(Y)), (P(X\mid Y)) ou (P(Y\mid X)) ? Ne pas choisir une correction avant d'avoir formulé son hypothèse.
+4. **Formuler le type de changement plausible** : $P(X)$, $P(Y)$, (P(X\mid Y)) ou (P(Y\mid X)) ? Ne pas choisir une correction avant d'avoir formulé son hypothèse.
 5. **Examiner le support commun** : quelles régions de la cible sont couvertes par la source ?
 6. **Choisir une validation fidèle au déploiement** et, lorsque c'est possible, évaluer sur des labels cible.
 7. **Tester la sensibilité** : poids extrêmes, taille effective, hypothèses de sélection et stabilité des conclusions.
@@ -249,6 +249,8 @@ Une pondération est un estimateur fondé sur des hypothèses, pas une réparati
 - **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence : https://openstax.org/details/books/introductory-statistics-2e
 - **Groves et al., Survey Methodology** — erreurs de couverture, non-réponse et qualité des enquêtes : https://www.wiley.com/en-us/Survey+Methodology%2C+2nd+Edition-p-9780470465462
 - **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
+- **Moreno-Torres et al. (2012), A unifying view on dataset shift in classification** — clarifie les familles de changements de distribution et leurs définitions : https://doi.org/10.1016/j.patcog.2011.06.019
+- **Sugiyama, Krauledat & Müller (2007), Covariate Shift Adaptation by Importance Weighted Cross Validation** — fondements de la validation pondérée sous covariate shift : https://www.jmlr.org/papers/v8/sugiyama07a.html
 
 ## Connexions utiles
 
