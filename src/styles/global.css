@@ -8,3 +8,24 @@
 .hero-actions{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
 
 .footer-review{justify-self:end;color:var(--muted);font:9px var(--mono);text-decoration:none;letter-spacing:.04em}.footer-review:hover,.footer-review:focus-visible{color:var(--accent);text-decoration:underline;text-underline-offset:3px}@media(max-width:650px){.footer-review{justify-self:start}}
+
+
+/* Give the Karatsuba article room for its explanatory diagrams without
+   stretching the reading measure of ordinary paragraphs. */
+.article-page:has(.karatsuba-hero) { max-width: 1320px; }
+.article-page:has(.karatsuba-hero) .prose { max-width: 1160px; }
+.article-page:has(.karatsuba-hero) .prose > p,
+.article-page:has(.karatsuba-hero) .prose > ul,
+.article-page:has(.karatsuba-hero) .prose > ol,
+.article-page:has(.karatsuba-hero) .prose > blockquote,
+.article-page:has(.karatsuba-hero) .prose > details {
+  max-width: 900px;
+}
+.article-page:has(.karatsuba-hero) .prose > h2,
+.article-page:has(.karatsuba-hero) .prose > h3 {
+  max-width: 980px;
+}
+@media(max-width:650px) {
+  .article-page:has(.karatsuba-hero) { padding-left: 18px; padding-right: 18px; }
+  .article-page:has(.karatsuba-hero) .prose { margin-top: 36px; }
+}

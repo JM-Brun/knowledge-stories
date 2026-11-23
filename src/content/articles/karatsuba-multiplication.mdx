@@ -59,7 +59,6 @@ relatedArticles: []
 ---
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
-import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 import KaratsubaHero from "../../components/KaratsubaHero.astro";
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
@@ -150,7 +149,6 @@ Le produit final se recompose ainsi :
   <span className="math-caption">Trois produits suffisent ; les décalages et la recomposition restent des opérations linéaires.</span>
 </div>
 
-<KaratsubaComparison />
 
 Les décalages de blocs et les additions/soustractions demandent un nombre d'opérations proportionnel à la taille des nombres : O(n). Les trois produits p, q et r sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à n/2, à un terme constant près.
 
