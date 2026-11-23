@@ -64,3 +64,7 @@ Oublier la covariance donnerait $10/3$, une valeur incorrecte.
 ## Transfert vers la Data Science
 
 Les erreurs de plusieurs modèles ou les mesures de plusieurs capteurs peuvent être corrélées. Agréger leurs résultats ne fait pas automatiquement disparaître leur variabilité.
+
+## Connexion utile
+
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : retrouver la variance comme mesure de dispersion avant d'étudier la covariance entre deux variables.
