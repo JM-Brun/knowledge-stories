@@ -24,7 +24,7 @@ On confond souvent trois questions :
 
 Elles sont liées, mais elles ne sont pas équivalentes.
 
-## Deux capteurs, deux qualités différentes
+## Cinq profils de capteurs, plusieurs qualités différentes
 
 Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois mesures dans les mêmes conditions.
 
