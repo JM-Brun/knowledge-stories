@@ -25,6 +25,21 @@ La qualité éditoriale se juge donc sur deux axes complémentaires :
 
 Un récit captivant qui laisse les concepts dans l'ombre est incomplet. À l'inverse, un exposé encyclopédique qui perd la question initiale n'est pas une bonne histoire. L'article doit faire progresser ces deux fils ensemble, sans les confondre.
 
+## Valeur opérationnelle pour un data scientist
+
+Une journée qui traite un sujet pertinent pour la Data Science doit déboucher sur une capacité professionnelle identifiable. Le transfert ne consiste pas à ajouter une phrase « en ML » à la fin : il doit montrer comment la notion change une analyse, une expérience, une décision de modélisation ou une interprétation.
+
+Pour chaque journée, choisir au moins une situation de travail et expliciter :
+- **La question métier ou scientifique** : quelle quantité veut-on estimer, prédire, comparer ou décider ?
+- **Le risque méthodologique** : quelle erreur un praticien pourrait-il commettre s'il ignore le concept ?
+- **Le diagnostic ou la méthode** : quelles données, hypothèses, visualisations, calculs ou validations permettent de traiter le problème ?
+- **La conséquence pratique** : comment le résultat modifie-t-il le choix d'une variable, d'un estimateur, d'un protocole de validation, d'une métrique ou d'une décision ?
+- **La limite** : dans quelles conditions cette recommandation cesse-t-elle d'être valable ?
+
+La valeur professionnelle peut prendre plusieurs formes : diagnostiquer un biais, choisir un plan d'échantillonnage, sélectionner une validation, interpréter une métrique, quantifier une incertitude, concevoir une expérience ou expliquer une limite à une équipe. Le code n'est pas obligatoire : il n'est utile que s'il rend une méthode reproductible ou éclaire un choix technique. Une formule sans interprétation opérationnelle et un exemple ML artificiellement plaqué ne satisfont pas ce critère.
+
+Le lecteur doit pouvoir répondre à la question : **« Dans quel travail de data scientist cette connaissance m'aide-t-elle, et qu'est-ce que je ferais différemment grâce à elle ? »**
+
 ## Couverture conceptuelle
 Avant la rédaction, établir une carte de couverture proportionnée à la question :
 - **Concepts centraux** : indispensables pour comprendre le phénomène ou le raisonnement ; ils doivent être expliqués et, si nécessaire, formalisés.
