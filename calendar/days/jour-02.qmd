@@ -4,7 +4,7 @@ subtitle: "Jour 2 · Qui est représenté dans les données ?"
 description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la couverture ni le mécanisme de sélection."
 ---
 
-> **En 8 à 10 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
+> **En 12 à 15 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
 
 ## La question
 
@@ -163,6 +163,8 @@ $$
 
 Il faut donc estimer la prévalence cible, ce qui n'est pas toujours direct lorsque les labels cible sont absents. Cette correction ne doit pas être confondue avec un simple rééquilibrage arbitraire des classes dans le jeu d'entraînement.
 
+Le vocabulaire varie selon les domaines : certains travaux emploient *concept drift* au sens large pour désigner toute évolution de la distribution. Ici, on réserve ce terme au changement de la relation conditionnelle $P(Y\mid X)$ afin de distinguer les mécanismes. C'est une convention de travail, pas une terminologie universellement adoptée.
+
 | **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de $X$ ne suffit généralement pas |
 
 Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
@@ -231,6 +233,8 @@ La validation doit donc préciser l'unité de généralisation et le mécanisme 
 2. Si l'enquête A collecte dix fois plus de réponses, quelle erreur diminue — et quelle erreur persiste ?
 3. Quelle information externe serait utile pour pondérer les réponses ?
 4. Si les personnes qui abandonnent un service ne sont jamais observées, peut-on corriger ce défaut à partir des seuls utilisateurs actifs ?
+5. Dans l'exemple de covariate shift, pourquoi les utilisateurs occasionnels reçoivent-ils un poids de 5 et les réguliers un poids d'environ 0,56 ?
+6. Quelle différence pratique fais-tu entre une cible qui contient des profils absents de l'entraînement et une cible où la relation entre features et résultat a changé ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
@@ -239,6 +243,8 @@ La validation doit donc préciser l'unité de généralisation et le mécanisme 
 2. La variabilité aléatoire au sein de A peut diminuer. Le défaut de couverture du groupe B persiste.
 3. Il faut connaître les proportions de la population cible et, selon le plan, les probabilités d'inclusion ou des variables auxiliaires liées à la participation et au résultat.
 4. Non, pas sans hypothèses ou informations supplémentaires. L'absence totale d'observations dans un groupe viole la condition de positivité nécessaire à certaines corrections.
+5. Le poids est le rapport proportion cible / proportion source : 0,50 / 0,10 = 5 pour les occasionnels et 0,50 / 0,90 ≈ 0,56 pour les réguliers. Les occasionnels sont sous-représentés dans la source et doivent donc compter davantage dans l'évaluation cible.
+6. Si des profils sont absents de la source, il manque le support nécessaire à la repondération : il faut collecter des données ou restreindre le domaine d'usage. Si $P(Y\mid X)$ a changé, la relation prédictive elle-même n'est plus stable : il faut obtenir des labels récents, réévaluer et envisager une adaptation ou un réentraînement.
 
 </details>
 
