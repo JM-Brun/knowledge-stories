@@ -58,7 +58,7 @@
       <rect class="diagram-pill common-pill" x="576" y="291" width="190" height="48" rx="10" />
       <text x="671" y="320" text-anchor="middle">q = bd</text>
     </g>
-    <text class="diagram-equation" x="410" y="365" text-anchor="middle">ad + bc = r − p − q</text>
+    <text class="diagram-equation" x="410" y="365" text-anchor="middle"><tspan class="cross-svg">ad + bc</tspan><tspan> = </tspan><tspan class="aux-svg">r</tspan><tspan> − </tspan><tspan class="common-svg">p</tspan><tspan> − </tspan><tspan class="common-svg">q</tspan></text>
   </svg>
   <figcaption id="karatsuba-hero-caption">Les deux méthodes reconstruisent exactement le même produit. Karatsuba ne supprime pas le terme croisé : il le déduit d’un produit auxiliaire et de deux produits déjà calculés. Le produit des sommes est placé au centre, entre les deux produits conservés.</figcaption>
 </figure>
@@ -83,16 +83,21 @@
   .diagram-product rect { stroke-width:1.4; }
   .diagram-product text { fill:#f5f1e7; font:600 17px "DM Mono",monospace; }
   .diagram-product .diagram-small { fill:#c3c9bd; font:11px "DM Sans",sans-serif; font-weight:400; }
-  .common-product rect { fill:#37634e; stroke:#80a58a; }
-  .cross-product rect { fill:#705b3e; stroke:#d9b77e; }
+  .common-product rect { fill:#245b53; stroke:#72b6a7; }
+  .common-product text { fill:#c6eee5; }
+  .cross-product rect { fill:#76501f; stroke:#e2ad5e; }
+  .cross-product text { fill:#ffe0a8; }
   .diagram-transition { fill:none; stroke:url(#karatsuba-flow-gradient); stroke-width:2.7; stroke-linecap:round; }
   .diagram-transition-arrow { fill:none; stroke:#d9b77e; stroke-width:2.7; stroke-linecap:round; stroke-linejoin:round; }
   .diagram-karatsuba-label { fill:#d9b77e; }
   .diagram-pill { stroke-width:1.4; }
-  .common-pill { fill:#37634e; stroke:#80a58a; }
-  .auxiliary-pill { fill:#705b3e; stroke:#e0bd83; }
+  .common-pill { fill:#245b53; stroke:#72b6a7; }
+  .auxiliary-pill { fill:#574477; stroke:#b6a2d8; }
   .diagram-karatsuba-products text { fill:#f5f1e7; font:600 16px "DM Mono",monospace; }
   .diagram-equation { fill:#f0d49f; font:600 15px "DM Mono",monospace; }
+  .cross-svg { fill:#f2c477; }
+  .common-svg { fill:#9cdbca; }
+  .aux-svg { fill:#c6b3e6; }
   .karatsuba-hero figcaption { margin:.65rem .2rem 0; color:#d7ded4; font:.75rem/1.6 "DM Sans",sans-serif; }
   @media(max-width:650px) {
     .hero-top { grid-template-columns:1fr; gap:1rem; }
