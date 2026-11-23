@@ -136,7 +136,7 @@ La PR de modélisation correspondante dans Wiki Knowledge est [#158](https://git
 
 ### Revue scientifique — points validés à la lecture
 
-- Pour A et B, les deux séries ont la même étendue et le même écart-type empirique (environ 0,058 °C avec le diviseur (n-1)); les moyennes et écarts à la référence sont cohérents après arrondi.
+- Pour A et B, les deux séries ont la même étendue et le même écart-type empirique (environ 0,058 °C avec le diviseur `n-1`) ; les moyennes et écarts à la référence sont cohérents après arrondi.
 - Sous les hypothèses i.i.d. explicitées, l'écart-type de la moyenne varie comme (1/\sqrt{n}), tandis que le décalage systématique constant persiste.
 - La décomposition biais–variance de l'EQM est formulée pour l'estimation d'une quantité fixe sous perte quadratique.
 - La décomposition (f(\tilde{x})-g(x)=[f(\tilde{x})-f(x)]+[f(x)-g(x)]) est une identité exacte sous les hypothèses indiquées ; l'exemple numérique donne respectivement (2,4), (1,68) et (4,08).
