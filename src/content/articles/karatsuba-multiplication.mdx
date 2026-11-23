@@ -11,6 +11,10 @@ status: "review"
 featured: false
 cover: "karatsuba"
 sources:
+  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
+    url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
+    kind: "inspiration principale — source largement reprise"
+    accessed: 2026-11-20
   - title: "Karatsuba et Ofman (1962), notice bibliographique et texte original"
     url: "https://www.mathnet.ru/php/archive.phtml?jrnid=dan&option_lang=eng&paperid=26729&wshow=paper"
     kind: "primary"
@@ -39,10 +43,6 @@ sources:
     url: "https://github.com/lockqueue/intmul"
     kind: "primary"
     accessed: 2026-11-20
-  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
-    url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
-    kind: "inspiration principale — source largement reprise"
-    accessed: 2026-11-20
   - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
     url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
     kind: "secondary"
@@ -61,6 +61,10 @@ relatedArticles: []
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 
+<aside class="source-provenance">
+  <strong>Source principale et filiation de cet article</strong>
+  Cet article est une adaptation pédagogique largement dérivée de l’article de <a href="https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html" target="_blank" rel="noreferrer">Djamchid Dalili, « Multiplier deux nombres — de Karatsuba à l’IA » (18 novembre 2026)</a>. Le fil explicatif, plusieurs idées de présentation et une part importante de la matière pédagogique reprennent cette source. Le texte présent reformule et prolonge ce travail avec des calculs détaillés, un explorateur interactif et des références complémentaires. La source de Djamchid Dalili doit donc être considérée comme la référence principale de cette page, et non comme une simple lecture secondaire.
+</aside>
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
