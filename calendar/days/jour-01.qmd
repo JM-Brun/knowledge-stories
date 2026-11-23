@@ -82,53 +82,41 @@ Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui 
 
 Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
 
-<figure class="sensor-showcase" aria-labelledby="sensor-showcase-caption">
+<figure class="sensor-showcase measurement-checks" aria-labelledby="measurement-checks-caption">
 <div class="sensor-gallery" role="list">
-  <article class="sensor-card sensor-reference" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M42 10a9 9 0 0 1 18 0v35a17 17 0 1 1-18 0z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M51 23v31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="51" cy="54" r="8" fill="currentColor"/><path d="M64 18h9m-9 10h6m-6 10h9" stroke="currentColor" stroke-width="2"/></svg>
-    <span class="sensor-kicker">Référence</span>
-    <h4>Instrument étalon</h4>
-    <p>Traçabilité et incertitude caractérisée pour comparer les autres mesures.</p>
-    <p class="sensor-limit"><strong>Coût :</strong> prix, maintenance et conditions d'emploi plus exigeantes.</p>
-  </article>
   <article class="sensor-card sensor-a" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="57" cy="52" r="5" fill="currentColor"/></svg>
-    <span class="sensor-kicker">Profil A</span>
-    <h4>Stable et proche de la référence</h4>
-    <p>Faible dispersion et faible décalage observé dans les conditions testées.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> stabilité dans le temps et coût total.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="35" r="25" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 10v50M23 35h50" stroke="currentColor" stroke-width="2"/><circle cx="48" cy="35" r="6" fill="currentColor"/></svg>
+    <span class="sensor-kicker">Référence</span>
+    <h4>Une référence a aussi une incertitude</h4>
+    <p>La valeur de 20,00 °C est fixée pour l'exercice. En pratique, la référence est elle-même établie par une chaîne de mesure et possède une incertitude.</p>
+    <p class="sensor-limit"><strong>À documenter :</strong> source, certificat, date et incertitude associée.</p>
   </article>
   <article class="sensor-card sensor-b" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><rect x="28" y="8" width="40" height="56" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M38 21h20M38 31h20M38 41h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M22 16l-8-8m8 8 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-    <span class="sensor-kicker">Profil B</span>
-    <h4>Stable mais décalé</h4>
-    <p>Répétable ; un biais connu peut parfois être corrigé.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> correction valide sur toute la plage d'usage.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 54h66M22 48l14-10 14 4 14-18 12-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 16h8v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    <span class="sensor-kicker">Stabilité</span>
+    <h4>Un capteur peut dériver</h4>
+    <p>Un instrument stable pendant quelques minutes peut évoluer avec le vieillissement, l'encrassement, l'humidité ou les conditions de fonctionnement.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> dérive dans le temps et périodicité des contrôles.</p>
   </article>
   <article class="sensor-card sensor-c" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 52h66M20 52V17m0 35h57" stroke="currentColor" stroke-width="2"/><path d="M25 37l9-15 9 25 9-32 9 27 9-18 9 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Profil C</span>
-    <h4>Bruité, moyenne observée centrée</h4>
-    <p>Dans les trois valeurs illustratives, la moyenne coïncide avec la référence. Cela ne suffit pas à établir que le bruit est centré dans la population ni à caractériser le biais du capteur.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> le moyennage ne masque pas les événements rapides et les mesures ne dérivent pas.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M12 37h12l8-18 12 36 10-28 9 10h21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 60h72" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg>
+    <span class="sensor-kicker">Dynamique</span>
+    <h4>Fréquence et temps de réponse diffèrent</h4>
+    <p>Enregistrer à 10 Hz ne garantit pas de capter un phénomène rapide : le capteur et son filtrage doivent transmettre les variations recherchées.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> temps de réponse, bande passante et fréquence d'échantillonnage.</p>
   </article>
   <article class="sensor-card sensor-d" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 7 76 18v18c0 15-12 24-28 30C32 60 20 51 20 36V18z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Profil D</span>
-    <h4>Robuste en milieu difficile</h4>
-    <p>Conçu pour résister aux chocs, à l'humidité ou aux vibrations.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> résolution suffisante pour le phénomène ciblé.</p>
-  </article>
-  <article class="sensor-card sensor-e" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="36" r="26" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 18v19l13 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M72 12l8-5m-8 5 1-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-    <span class="sensor-kicker">Profil E</span>
-    <h4>Échantillonnage fréquent</h4>
-    <p>Enregistre souvent pour mieux décrire la dynamique, si le capteur répond lui-même assez vite.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> autonomie, stockage et transmission ; une fréquence élevée ne rend pas un capteur lent plus rapide.</p>
+    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 8 76 19v17c0 15-12 24-28 29C32 60 20 51 20 36V19z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="sensor-kicker">Environnement</span>
+    <h4>La robustesse dépend du terrain</h4>
+    <p>Chocs, vibrations, poussière, humidité et température ambiante peuvent modifier les performances ou dégrader l'instrument.</p>
+    <p class="sensor-limit"><strong>À vérifier :</strong> conditions d'emploi réelles et qualification dans cet environnement.</p>
   </article>
 </div>
-<figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
+<figcaption id="measurement-checks-caption">Quatre dimensions importantes qui ne peuvent pas être déduites des trois valeurs affichées dans le tableau.</figcaption>
 </figure>
+
+Ces dimensions complètent les profils A à E : les relevés illustrent quelques propriétés, mais ne suffisent pas à caractériser un instrument dans toutes ses conditions d'utilisation.
 
 Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Pour C, une moyenne journalière pourrait être pertinente si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois valeurs illustratives ne permettent pas de le conclure. Un tel moyennage pourrait en revanche masquer un pic de quelques secondes.
 
