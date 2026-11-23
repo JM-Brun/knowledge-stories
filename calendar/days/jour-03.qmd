@@ -20,7 +20,13 @@ Considérons trois séries :
 
 Les trois sommes valent 25 et chaque série contient cinq valeurs. Leur moyenne vaut donc 5.
 
-Avec le diviseur \(n\), leurs variances empiriques sont respectivement :
+Avec le diviseur \(n\), la variance empirique est définie par :
+
+\[
+s_n^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2.
+\]
+
+Pour les trois séries, on obtient respectivement :
 
 \[
 s_n^2(A)=0{,}4,\qquad
@@ -55,7 +61,13 @@ La moyenne identique masque ici des dispersions radicalement différentes. La s�
 
 ## Série observée, distribution empirique et loi de probabilité
 
-Les listes A, B et C sont d'abord **trois séries observées**. Si l'on attribue le même poids à chacune des cinq observations, chacune définit une **distribution empirique** : une répartition finie qui décrit exactement les valeurs présentes dans la série.
+Les listes A, B et C sont d'abord **trois séries observées**. Si l'on attribue le même poids à chacune des cinq observations, chacune définit une **distribution empirique**. Pour une série \(x_1,\ldots,x_n\), sa fonction de répartition empirique est :
+
+\[
+\widehat{F}_n(x)=\frac{1}{n}\sum_{i=1}^{n}\mathbf{1}_{\{x_i\leq x\}}.
+\]
+
+Elle donne, pour chaque seuil \(x\), la proportion d'observations inférieures ou égales à ce seuil. Elle décrit exactement la série observée.
 
 Une **loi de probabilité** est un autre objet : un modèle mathématique décrivant les probabilités des valeurs possibles d'une variable aléatoire. Une série observée peut servir à étudier une loi, mais elle ne suffit pas à établir quelle loi a produit les données. Ici, aucune hypothèse de représentativité ni de mécanisme générateur n'est nécessaire pour comparer les trois séries.
 
