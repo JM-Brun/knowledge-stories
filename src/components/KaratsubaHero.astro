@@ -1,0 +1,83 @@
+---
+---
+<figure class="karatsuba-hero" aria-labelledby="karatsuba-hero-caption">
+  <div class="hero-label">L’astuce de Karatsuba · un découpage, trois produits</div>
+  <svg viewBox="0 0 920 330" role="img" aria-labelledby="hero-title hero-desc">
+    <title id="hero-title">De 1 234 fois 5 678 aux trois produits de Karatsuba</title>
+    <desc id="hero-desc">Les nombres 1 234 et 5 678 sont séparés en blocs 12 et 34, 56 et 78. Trois branches calculent 12 fois 56, 34 fois 78 et 46 fois 134. La soustraction du premier et du deuxième produit au troisième donne le terme croisé.</desc>
+    <defs>
+      <marker id="karatsuba-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#77766c" stroke-width="1.2"/></marker>
+    </defs>
+    <g class="inputs">
+      <text x="24" y="28">LES DEUX NOMBRES</text>
+      <rect x="24" y="48" width="178" height="58" rx="10"/>
+      <rect x="24" y="118" width="178" height="58" rx="10"/>
+      <rect class="high" x="36" y="58" width="70" height="38" rx="6"/>
+      <rect class="low" x="112" y="58" width="78" height="38" rx="6"/>
+      <rect class="high" x="36" y="128" width="70" height="38" rx="6"/>
+      <rect class="low" x="112" y="128" width="78" height="38" rx="6"/>
+      <text class="number" x="71" y="84" text-anchor="middle">12</text><text class="number" x="151" y="84" text-anchor="middle">34</text>
+      <text class="number" x="71" y="154" text-anchor="middle">56</text><text class="number" x="151" y="154" text-anchor="middle">78</text>
+      <text class="operator" x="210" y="116">×</text>
+      <text class="small" x="24" y="204">x = 12 · 100 + 34</text>
+      <text class="small" x="24" y="228">y = 56 · 100 + 78</text>
+      <text class="legend-high" x="24" y="274">■ blocs de poids fort</text>
+      <text class="legend-low" x="24" y="297">■ blocs de poids faible</text>
+    </g>
+    <path class="connector" d="M225 110 C260 110 260 60 300 60 M225 110 C260 110 260 160 300 160 M225 110 C260 110 260 260 300 260"/>
+    <g class="products">
+      <text x="304" y="28">TROIS PRODUITS DE BLOCS</text>
+      <rect class="product common" x="304" y="40" width="260" height="48" rx="9"/>
+      <text class="formula" x="434" y="70" text-anchor="middle">p = 12 × 56 = 672</text>
+      <rect class="product common" x="304" y="136" width="260" height="48" rx="9"/>
+      <text class="formula" x="434" y="166" text-anchor="middle">q = 34 × 78 = 2 652</text>
+      <rect class="product auxiliary" x="304" y="232" width="260" height="56" rx="9"/>
+      <text class="formula" x="434" y="255" text-anchor="middle">r = (12 + 34)(56 + 78)</text>
+      <text class="small" x="434" y="276" text-anchor="middle">= 46 × 134 = 6 164</text>
+    </g>
+    <path class="connector" d="M564 64 H610 M564 160 H610 M564 260 H610"/>
+    <g class="result">
+      <text x="620" y="28">RECONSTRUIRE LE TERME CROISÉ</text>
+      <rect class="cross" x="620" y="46" width="276" height="76" rx="10"/>
+      <text class="formula cross-text" x="758" y="76" text-anchor="middle">r − p − q</text>
+      <text class="value" x="758" y="104" text-anchor="middle">= 2 840</text>
+      <text class="small" x="620" y="158">Puis recomposer les blocs :</text>
+      <text class="final" x="620" y="194">672 × 10 000</text>
+      <text class="final" x="620" y="222">+ 2 840 × 100</text>
+      <text class="final" x="620" y="250">+ 2 652</text>
+      <path class="connector" d="M758 122 V140" marker-end="url(#karatsuba-arrow)"/>
+      <rect class="answer" x="620" y="270" width="276" height="42" rx="8"/>
+      <text class="answer-text" x="758" y="297" text-anchor="middle">7 006 652</text>
+    </g>
+  </svg>
+  <figcaption id="karatsuba-hero-caption">Le découpage de 1 234 × 5 678 fait apparaître quatre produits dans le développement direct. Karatsuba n’en calcule que trois : les deux produits des blocs conservés et le produit auxiliaire des sommes, qui permet de retrouver le terme croisé.</figcaption>
+</figure>
+
+<style>
+  .karatsuba-hero { margin: 1.2rem 0 2rem; padding: clamp(.8rem, 2.4vw, 1.35rem); border: 1px solid #d9d5ca; border-radius: .9rem; background: linear-gradient(135deg,#fbfaf5,#f1f3eb); color: #252820; }
+  .hero-label { margin: 0 0 .7rem; color: #843c27; font: 600 .68rem/1.4 system-ui,sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+  .karatsuba-hero svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .karatsuba-hero svg g > text:first-child { fill: #6b675e; font: 600 11px system-ui,sans-serif; letter-spacing: 1px; }
+  .karatsuba-hero .inputs rect:not(.high):not(.low) { fill: #fffefa; stroke: #d9d5ca; }
+  .karatsuba-hero .high { fill: #d8e8f2; stroke: #7aa3bd; }
+  .karatsuba-hero .low { fill: #e2ecd9; stroke: #8ca77c; }
+  .karatsuba-hero .number { fill: #25332e; font: 700 23px ui-monospace,monospace; }
+  .karatsuba-hero .operator { fill: #843c27; font: 700 25px system-ui,sans-serif; }
+  .karatsuba-hero .small { fill: #615e55; font: 12px ui-monospace,monospace; }
+  .karatsuba-hero .legend-high { fill: #4e7893; font: 11px system-ui,sans-serif; }
+  .karatsuba-hero .legend-low { fill: #607b4f; font: 11px system-ui,sans-serif; }
+  .karatsuba-hero .connector { fill: none; stroke: #99968b; stroke-width: 1.6; marker-end: url(#karatsuba-arrow); }
+  .karatsuba-hero .product { stroke-width: 1.2; }
+  .karatsuba-hero .common { fill: #e4efeb; stroke: #4b8b7e; }
+  .karatsuba-hero .auxiliary { fill: #eee9f5; stroke: #7965a4; }
+  .karatsuba-hero .cross { fill: #f8ead4; stroke: #bd792b; stroke-width: 1.4; }
+  .karatsuba-hero .formula { fill: #286d61; font: 600 15px ui-monospace,monospace; }
+  .karatsuba-hero .auxiliary + .formula { fill: #7965a4; }
+  .karatsuba-hero .cross-text { fill: #a65d12; }
+  .karatsuba-hero .value { fill: #a65d12; font: 700 19px ui-monospace,monospace; }
+  .karatsuba-hero .final { fill: #4d5949; font: 600 13px ui-monospace,monospace; }
+  .karatsuba-hero .answer { fill: #315b45; }
+  .karatsuba-hero .answer-text { fill: white; font: 700 19px ui-monospace,monospace; }
+  .karatsuba-hero figcaption { margin-top: .65rem; color: #625f56; font: .78rem/1.55 system-ui,sans-serif; }
+  @media(max-width:680px) { .karatsuba-hero { padding: .5rem; } .karatsuba-hero svg { min-width: 620px; } .karatsuba-hero { overflow-x: auto; } }
+</style>
