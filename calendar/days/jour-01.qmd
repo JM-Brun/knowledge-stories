@@ -27,13 +27,13 @@ Une référence indique 20,00 °C. Deux capteurs effectuent chacun trois mesures
 
 Les deux séries ont la même étendue : 0,1 °C. Sur ces trois observations, leur dispersion empirique est donc comparable. Mais leurs moyennes diffèrent :
 
-[
+$$
 \bar{x}_A = \frac{20{,}2+20{,}1+20{,}2}{3} \approx 20{,}17\ ^\circ\mathrm{C}
-]
+$$
 
-[
+$$
 \bar{x}_B = \frac{19{,}0+19{,}1+19{,}0}{3} \approx 19{,}03\ ^\circ\mathrm{C}
-]
+$$
 
 Le capteur A est en moyenne à environ +0,17 °C de la référence ; le capteur B à environ −0,97 °C.
 
