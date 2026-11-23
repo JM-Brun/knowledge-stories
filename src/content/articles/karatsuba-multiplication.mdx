@@ -62,6 +62,7 @@ import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaComparison from "../../components/KaratsubaComparison.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 import KaratsubaHero from "../../components/KaratsubaHero.astro";
+import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 
 <KaratsubaHero />
 
@@ -245,6 +246,8 @@ La méthode classique en demande (4^{10}=1\,048\,576), tandis que Karatsuba en d
 ## Que se passe-t-il quand on double la taille ?
 
 Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage à l’arbre. Pour passer de quatre à huit chiffres, le découpage classique passe de 16 à 64 produits aux feuilles, et Karatsuba de 9 à 27. Chaque doublement répète ce contraste : **quatre fois plus de feuilles d’un côté, trois fois plus de l’autre**. La différence grandit parce qu’elle se répète à chaque étage.
+
+<KaratsubaGrowth />
 
 Les feuilles comptent les petits produits. Entre les feuilles et la racine, il faut également découper les blocs, faire les additions et les soustractions, puis recomposer les résultats. À chaque étage de Karatsuba, il y a trois fois plus d’appels et les blocs sont deux fois plus courts. Le travail cumulé à l’intérieur d’un étage grandit donc d’un facteur de 3/2 si le coût par appel est proportionnel à sa taille. La somme de ces coûts a le même ordre de grandeur que le travail aux feuilles.
 
