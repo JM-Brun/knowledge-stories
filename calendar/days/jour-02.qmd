@@ -164,5 +164,11 @@ Une pondération est un estimateur fondé sur des hypothèses, pas une réparati
 
 ## Pour aller plus loin
 
-- **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence.
-- **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
+- **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence : https://openstax.org/details/books/introductory-statistics-2e
+- **Groves et al., Survey Methodology** — erreurs de couverture, non-réponse et qualité des enquêtes : https://www.wiley.com/en-us/Survey+Methodology%2C+2nd+Edition-p-9780470465462
+- **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book()
+
+## Connexions utiles
+
+- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : vérifier ce que les variables mesurent avant de généraliser.
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent, même après avoir constitué un échantillon pertinent.
