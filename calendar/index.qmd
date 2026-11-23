@@ -83,3 +83,10 @@ Cette édition 2026 est conçue comme un objet éditorial autonome. Elle peut ê
 Les contenus canoniques, leur conception pédagogique et leurs métadonnées sont maintenus séparément dans le projet de connaissance à l'origine du calendrier. Le site public ne dépend pas de ce dépôt interne : chaque journée publiée est relue et doit être compréhensible sans accès à une ressource privée.
 
 [← Retour aux archives des calendriers](../calendriers/)
+
+<details class="editorial-access">
+<summary>Note pour les relecteurs</summary>
+
+Les versions de travail soumises à relecture sont accessibles dans l'[atelier éditorial](/knowledge-stories/atelier/). Cet espace n'appartient pas au parcours public et n'est pas protégé par mot de passe.
+
+</details>
