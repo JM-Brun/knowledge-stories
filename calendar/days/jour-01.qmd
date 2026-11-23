@@ -90,9 +90,9 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Écart systématique moyen à la référence |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est donc un cas particulier de la fidélité, sous des conditions de mesure définies. Changer d'opérateur, d'instrument, de laboratoire ou de période peut faire apparaître d'autres sources de variabilité : on parle alors notamment de fidélité intermédiaire ou de reproductibilité.
+La répétabilité est un cas particulier de fidélité, sous des conditions définies. Changer d'opérateur, d'instrument ou de laboratoire peut faire apparaître d'autres sources de variabilité : on parle alors de fidélité intermédiaire ou de reproductibilité.
 
-Une précision terminologique est importante : dans le VIM, **l'exactitude n'est pas une grandeur que l'on calcule directement**. Elle ne se réduit ni à la fidélité ni à la justesse. Dire qu'un instrument est « précis » pour signifier qu'il est « exact » entretient une ambiguïté.
+Dans le VIM, **l'exactitude n'est pas une grandeur calculée directement**. Elle ne se réduit ni à la fidélité ni à la justesse. Employer « précision » comme synonyme d'« exactitude » entretient donc une ambiguïté.
 
 ## Le modèle caché derrière une mesure
 
@@ -134,7 +134,7 @@ On ne pose pas un instrument sur la table pour lire directement la confiance. On
 
 Elle introduit une question plus profonde que la précision instrumentale : **les observations représentent-elles bien le concept que l'on prétend mesurer ?**
 
-Un test de programmation peut être très reproductible et pourtant mesurer surtout la familiarité avec un langage, la vitesse de lecture ou l'expérience d'un format d'exercice. Un score de satisfaction peut être stable tout en reflétant davantage la facilité d'utilisation que la qualité réelle du service. Une métrique est toujours une réponse construite à une question définie — elle n'est pas le concept lui-même.
+Un test de programmation reproductible peut mesurer surtout la familiarité avec un langage ou un format d'exercice. Un score de satisfaction stable peut refléter la facilité d'utilisation plutôt que la qualité du service. Une métrique répond à une question construite ; elle n'est pas le concept lui-même.
 
 En sciences humaines et en évaluation de l'IA, on parle notamment de validité de construit. Il faut accumuler des éléments montrant que les indicateurs se comportent comme la théorie du concept le prédit : convergent avec des mesures proches, se distinguent de concepts différents et prédisent des conséquences pertinentes. Un score élevé ou une forte cohérence interne ne suffisent pas à établir cette validité.
 
@@ -146,7 +146,7 @@ Une dernière subtilité : l'instrument n'est pas toujours extérieur au phénom
 
 Un capteur thermique mal conçu peut chauffer légèrement l'objet qu'il mesure. Un questionnaire peut influencer les réponses par sa formulation. Un indicateur de performance utilisé pour piloter une organisation peut modifier les comportements : les acteurs optimisent alors ce qui est compté, parfois au détriment de ce qui comptait réellement.
 
-Il faut distinguer plusieurs mécanismes : perturbation physique de l'objet, effet de l'observation sur le comportement, réactivité à l'indicateur et sélection des événements enregistrés. Ils ne sont pas interchangeables, mais tous rappellent qu'une mesure est une interaction organisée avec le monde, pas une extraction neutre d'un fait déjà prêt.
+Il faut distinguer perturbation physique, réactivité comportementale à l'observation, optimisation de l'indicateur et sélection des événements enregistrés. Ces mécanismes diffèrent, mais rappellent qu'une mesure est une interaction organisée avec le monde, pas une extraction neutre.
 
 **Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
 
@@ -163,13 +163,13 @@ Il faut donc distinguer :
 
 L'incertitude n'est pas simplement « l'erreur que l'on a faite ». Elle décrit ce que l'on sait — et ce que l'on ne sait pas — sur le résultat.
 
-Elle peut provenir de sources variées : résolution de l'appareil, étalonnage, répétabilité, conditions ambiantes, méthode de mesure, stabilité de l'instrument ou modèle utilisé pour interpréter le signal. Certaines composantes sont évaluées statistiquement à partir de répétitions ; d'autres sont évaluées à partir d'informations externes, de certificats ou de connaissances sur le dispositif.
+Ses sources possibles incluent la résolution, l'étalonnage, la répétabilité, les conditions ambiantes et le modèle d'interprétation. Certaines composantes sont évaluées par répétition ; d'autres à partir de certificats ou de connaissances sur le dispositif.
 
 ### Étalonner n'est pas simplement remettre à zéro
 
 Un étalonnage établit, dans des conditions spécifiées, une relation entre les indications d'un instrument et des valeurs de référence assorties de leurs incertitudes. Cette relation peut permettre d'appliquer une correction. Elle ne garantit pas à elle seule que l'instrument restera stable dans le temps ou dans toutes les conditions d'utilisation.
 
-C'est pourquoi une démarche sérieuse conserve la traçabilité : quel instrument a produit la valeur, selon quelle méthode, à quelle date, dans quelles conditions, avec quel étalonnage et quelle incertitude ?
+La traçabilité conserve donc l'identité de l'instrument, la méthode, la date, les conditions, l'étalonnage et l'incertitude associée.
 
 ## De la mesure au jeu de données : où le problème se propage
 
@@ -204,7 +204,7 @@ Trois conséquences intéressent directement la Data Science :
 2. **Une différence entre groupes peut être artificielle.** Si un groupe est mesuré avec un appareil ou un protocole différent, une comparaison brute risque d'attribuer au groupe un effet qui vient de la mesure.
 3. **Une dérive peut rendre le modèle obsolète.** Un capteur vieillissant, une nouvelle version logicielle ou un changement de protocole peut modifier la relation entre le phénomène et la donnée. Le modèle reçoit alors des entrées qui n'ont plus exactement le même sens.
 
-Ces problèmes ne se règlent pas nécessairement par le nettoyage des valeurs aberrantes. Une valeur cohérente peut être systématiquement décalée ; une valeur rare peut, au contraire, être une observation parfaitement réelle.
+Le nettoyage des valeurs aberrantes ne suffit donc pas : une valeur cohérente peut être décalée, tandis qu'une valeur rare peut être parfaitement réelle.
 
 ## À vous de raisonner
 
