@@ -28,11 +28,11 @@ La progression va de la qualité de l'observation vers la structure statistique,
 
 ### Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?
 
-- **Noyau conceptuel** : population cible, base de sondage, échantillon observé, couverture, auto-sélection, biais de sélection et incertitude d'échantillonnage.
-- **Angle distinctif existant** : l'effet moins visible de la sélection sur les associations, illustré par les utilisateurs encore actifs d'une plateforme. La journée ne se limite donc pas au slogan « un grand échantillon biaisé reste biaisé ».
-- **Valeur** : bonne distinction entre incertitude aléatoire et biais de mécanisme ; transfert pertinent vers la validation ML et la population de généralisation.
-- **Point de vigilance** : le passage du biais de proportion à la sélection sur une variable influencée par plusieurs facteurs introduit un sujet causal plus avancé.
-- **Amélioration recommandée** : expliciter en une phrase le changement de niveau : le biais de sélection peut déformer non seulement les proportions, mais aussi les relations entre variables. Garder le graphe causal comme approfondissement si le mécanisme n'est pas entièrement expliqué.
+- **Noyau conceptuel** : population cible, base de sondage, échantillon observé, couverture, auto-sélection, biais de sélection, estimand et incertitude d'échantillonnage.
+- **Angle distinctif** : montrer que conditionner sur le fait d'être observé peut créer une association via un collisionneur, puis relier la sélection à la transportabilité des performances ML.
+- **Valeur professionnelle** : définir la population de généralisation ; distinguer covariate shift, label shift et changement de la relation conditionnelle ; évaluer si la repondération par importance est défendable ; interpréter les poids et la taille effective d'échantillon ; choisir une validation adaptée au déploiement.
+- **Limites à préserver** : les hypothèses de stabilité et de support commun ne sont pas vérifiables à partir des seules features non étiquetées ; une pondération ne corrige pas un concept drift ni des profils totalement absents.
+- **État** : ces éléments sont intégrés dans calendar/days/jour-02.qmd par la PR #45, fusionnée le 24 novembre 2026.
 
 ### Jour 3 — Trois distributions, une même moyenne
 
@@ -126,4 +126,4 @@ Ces propositions précisent le transfert Data Science à rendre visible dans cha
 - Pas de rendu Quarto ni de capture desktop/mobile/clavier dans cette revue.
 - Les équations et valeurs ont été relues conceptuellement, mais pas toutes recalculées par un script indépendant.
 - Les URL et références n'ont pas fait l'objet d'une vérification bibliographique exhaustive.
-- La révision opérationnelle de la journée 1 est proposée dans la PR #45. Les priorités des journées 2 à 5 restent des recommandations ; elles ne sont pas encore intégrées aux pages.
+- Les révisions opérationnelles des journées 1 et 2 sont intégrées par la PR #45. Les priorités des journées 3 à 5 restent des recommandations ; elles ne sont pas encore intégrées aux pages.
