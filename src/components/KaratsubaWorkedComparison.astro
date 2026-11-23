@@ -44,8 +44,8 @@
     <p>À gauche, on additionne les deux produits croisés calculés séparément. À droite, on soustrait au produit des sommes les deux produits de blocs déjà connus. Les deux opérations isolent exactement la même quantité.</p>
     <div class="worked-identity" role="math" aria-label="ad plus bc égale 936 plus 1904 égale 6164 moins 672 moins 2652 égale 2840">
       <span>Identité algébrique illustrée par les valeurs</span>
-      <strong>ad + bc = (a + b)(c + d) − ac − bd</strong>
-      <strong>936 + 1 904 = 6 164 − 672 − 2 652 = 2 840</strong>
+      <strong><b class="cross-text">ad + bc</b> = <b class="aux-text">(a + b)(c + d)</b> − <b class="common-text">ac</b> − <b class="common-text">bd</b></strong>
+      <strong><b class="cross-text">936 + 1 904</b> = <b class="aux-text">6 164</b> − <b class="common-text">672</b> − <b class="common-text">2 652</b> = <b class="cross-text">2 840</b></strong>
     </div>
   </div>
 </section>
@@ -102,5 +102,8 @@
   .worked-identity { display:grid; gap:.3rem; }
   .worked-identity span { color:#76501f; font:.65rem "DM Sans",sans-serif; }
   .worked-identity strong { color:#8e5517; font:600 clamp(.75rem,2vw,1rem)/1.5 "DM Mono",monospace; overflow-wrap:anywhere; }
+  .worked-identity .common-text { color:#286d61; }
+  .worked-identity .cross-text { color:#a65d12; }
+  .worked-identity .aux-text { color:#70569b; }
   @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
 </style>
