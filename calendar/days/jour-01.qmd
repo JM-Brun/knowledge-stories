@@ -36,7 +36,7 @@ Une référence conventionnelle indique 20,00 °C. Chaque capteur effectue trois
 | **Moyenne** | **20,17 °C** | **19,03 °C** |
 | **Écart à la référence** | **+0,17 °C** | **−0,97 °C** |
 
-Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable.
+Les deux séries ont la même étendue (0,1 °C) et le même écart-type empirique, calculé ici avec le diviseur \(n-1\) : environ 0,058 °C. Dans ces conditions d'essai, leur dispersion est comparable. Avec seulement trois observations, cette estimation de dispersion reste elle-même incertaine.
 
 Mais leur position par rapport à la référence est très différente. Sur ces trois relevés, le capteur B produit des valeurs presque identiques mais décalées. C'est compatible avec un biais systématique ; trois répétitions ne suffisent toutefois pas à caractériser la répétabilité de l'instrument ni à établir ce biais à elles seules.
 
@@ -46,7 +46,7 @@ La ligne verticale représente la référence de 20,00 °C. Les points sont les 
 
 <figure>
 <svg viewBox="0 0 760 310" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="sensor-title">Deux capteurs avec une dispersion comparable mais un biais différent</title>
+  <title id="sensor-title">Deux capteurs avec une dispersion comparable mais des décalages différents par rapport à la référence</title>
   <desc id="sensor-desc">Le capteur A produit trois mesures proches de 20,17 degrés, à proximité de la référence de 20 degrés. Le capteur B produit trois mesures proches de 19,03 degrés, nettement à gauche de la référence. Les deux groupes ont une dispersion similaire.</desc>
   <rect x="1" y="1" width="758" height="308" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="34" font-size="15" font-weight="700" fill="#0f172a">Mesures répétées (°C)</text>
@@ -158,7 +158,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen à la référence ; la justesse elle-même n'est pas une grandeur numérique |
 | **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
-La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
+La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
 ## Le modèle caché derrière une mesure
 
@@ -203,7 +203,7 @@ La cible ci-dessous représente les résultats d'un estimateur obtenus sur de no
 
 <figure>
 <svg viewBox="0 0 760 350" role="img" aria-labelledby="target-title target-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="target-title">Quatre distributions d'estimateurs selon leur biais et leur variance</title>
+  <title id="target-title">Quatre schémas de distributions d'estimateurs selon leur biais et leur variance</title>
   <desc id="target-desc">Quatre cibles comparent un biais faible ou élevé et une variance faible ou élevée. Le centre de chaque cible est la valeur vraie. Les points représentent des estimations répétées : proches du centre et serrés, décalés et serrés, dispersés autour du centre, ou dispersés et décalés.</desc>
   <rect x="1" y="1" width="758" height="348" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <g font-family="sans-serif" fill="#0f172a">
@@ -243,7 +243,7 @@ La cible ci-dessous représente les résultats d'un estimateur obtenus sur de no
 
 Cette cible est pertinente ici parce qu'elle rend visible la distinction biais–variance. Les quelques points dessinés dans chaque cible sont schématiques : ils illustrent la position moyenne et la dispersion d'estimations répétées, sans constituer une distribution empirique. La figure ne représente pas non plus, à elle seule, la courbe du compromis biais–variance en fonction de la complexité d'un modèle.
 
-**Attention au vocabulaire :** dans le modèle de mesure, \(b\) désigne la composante systématique sous-jacente, supposée constante ; ce n'est pas sa valeur estimée. Dans le VIM, le **biais de mesure** est une estimation de l'erreur systématique de mesure. Le biais d'estimation \(\mathbb{E}[\hat{\theta}]-\theta\), représenté sur la cible, désigne quant à lui l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Ces notions sont apparentées, mais elles ne portent pas sur le même objet.
+**Attention au vocabulaire :** dans le modèle de mesure, \(b\) désigne la composante systématique sous-jacente, supposée constante ; ce n'est pas sa valeur estimée. Dans le VIM, le [**biais de mesure**](https://jcgm.bipm.org/vim/fr/2.18.html) est une estimation de l'erreur systématique de mesure. Le biais d'estimation \(\mathbb{E}[\hat{\theta}]-\theta\), représenté sur la cible, désigne quant à lui l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Ces notions sont apparentées, mais elles ne portent pas sur le même objet.
 
 ## Mesure-t-on toujours une chose qui existe directement ?
 
@@ -319,7 +319,7 @@ Considérons maintenant un réseau de capteurs de température déployé dans pl
 
 Trois conséquences pour la Data Science :
 
-1. **Biais dans les variables d'entrée :** le modèle apprend les particularités des instruments ou des sites plutôt que le phénomène.
+1. **Biais dans les variables d'entrée :** lorsque le type d'instrument est confondu avec le site ou le groupe, le modèle peut apprendre les particularités de mesure plutôt que le phénomène étudié.
 2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
 3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
 
@@ -381,7 +381,7 @@ Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé
 <details>
 <summary>Afficher la solution expliquée</summary>
 
-1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne se rapproche de l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Elle devient moins variable, mais ne converge pas vers 20,00 °C.
+1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne observée tend à estimer l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Avec cent fois plus de mesures, l'écart-type de cette moyenne serait divisé par dix dans le modèle i.i.d. ; son espérance resterait décalée, et la moyenne ne convergerait pas vers 20,00 °C.
 2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
 3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
 4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
