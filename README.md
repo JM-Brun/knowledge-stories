@@ -54,9 +54,13 @@ npm run check     # vérification Astro et TypeScript
 - `src/components/` : composants éditoriaux réutilisables.
 - `src/layouts/` : gabarits de pages.
 - `src/pages/` : routes du site.
-- `src/styles/` : système visuel.
+- `src/styles/` : système visuel éditorial.
 - `editorial/` : charte, workflow, contrôles et modèle d'article.
 - `docs/` : architecture, intégration inter-projets et déploiement.
+
+## Atelier de relecture (discret)
+
+Les articles en cours de relecture peuvent être générés sous `/atelier/{slug}/` avec `status: review`. L'index `/atelier/` n'est pas relié à la navigation, à l'accueil ou aux archives. Les contenus `status: draft` ne sont pas générés ; seuls les contenus `status: published` apparaissent dans les parcours publics. L'atelier est non indexé, mais pas privé : une URL partagée permet d'y accéder. Voir [le workflow éditorial](editorial/publication-workflow.md).
 
 ## Calendrier Data Science & Machine Learning 2026
 
