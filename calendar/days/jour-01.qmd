@@ -47,19 +47,19 @@ Mais leur position par rapport à la référence est très différente. Sur ces 
 La ligne verticale représente la référence de 20,00 °C. Chaque ligne correspond à un profil et chaque point à un relevé. L'axe horizontal représente la température mesurée. Les profils A et B forment le seul couple construit pour comparer directement dispersion et décalage ; C, D et E illustrent respectivement le bruit, la résolution et la fréquence d'acquisition.
 
 <figure>
-<svg viewBox="0 0 760 430" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+<svg viewBox="0 0 760 455" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="sensor-title">Cinq profils de capteurs comparés à une référence de 20 degrés</title>
   <desc id="sensor-desc">Cinq lignes montrent les trois relevés de chaque profil. A et B ont une dispersion comparable mais des moyennes différentes. C est très dispersé autour de la référence. D présente des pas de lecture de 0,5 degré. E montre trois instants sélectionnés d'une acquisition rapide. La ligne verticale indique la référence de 20 degrés.</desc>
   <rect x="1" y="1" width="758" height="428" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="24" y="32" font-size="15" font-weight="700" fill="#0f172a">Trois relevés par profil (°C) — exemples illustratifs</text>
-  <line x1="120" y1="382" x2="700" y2="382" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="120" y1="400" x2="700" y2="400" stroke="#64748b" stroke-width="1.5"/>
   <g fill="#475569" font-size="11" text-anchor="middle">
-    <text x="120" y="402">18,5</text><text x="217" y="402">19,0</text><text x="313" y="402">19,5</text><text x="410" y="402">20,0</text><text x="507" y="402">20,5</text><text x="603" y="402">21,0</text><text x="700" y="402">21,5</text>
+    <text x="120" y="420">18,5</text><text x="217" y="420">19,0</text><text x="313" y="420">19,5</text><text x="410" y="420">20,0</text><text x="507" y="420">20,5</text><text x="603" y="420">21,0</text><text x="700" y="420">21,5</text>
   </g>
   <g stroke="#e2e8f0" stroke-width="1">
-    <line x1="120" y1="55" x2="120" y2="382"/><line x1="217" y1="55" x2="217" y2="382"/><line x1="313" y1="55" x2="313" y2="382"/><line x1="507" y1="55" x2="507" y2="382"/><line x1="603" y1="55" x2="603" y2="382"/><line x1="700" y1="55" x2="700" y2="382"/>
+    <line x1="120" y1="55" x2="120" y2="400"/><line x1="217" y1="55" x2="217" y2="400"/><line x1="313" y1="55" x2="313" y2="400"/><line x1="507" y1="55" x2="507" y2="400"/><line x1="603" y1="55" x2="603" y2="400"/><line x1="700" y1="55" x2="700" y2="400"/>
   </g>
-  <line x1="410" y1="48" x2="410" y2="382" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <line x1="410" y1="48" x2="410" y2="400" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5"/>
   <text x="420" y="51" font-size="12" font-weight="700" fill="#92400e">Référence : 20,00</text>
   <g fill="#0f172a" font-size="13" font-weight="700">
     <text x="24" y="112">A · stable</text><text x="24" y="177">B · décalé</text><text x="24" y="242">C · bruité</text><text x="24" y="307">D · peu résolu</text><text x="24" y="372">E · rapide</text>
@@ -69,7 +69,7 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
   <g fill="#7c3aed" stroke="#ffffff" stroke-width="2"><circle cx="255" cy="221" r="7"/><circle cx="545" cy="234" r="7"/><circle cx="429" cy="247" r="7"/></g>
   <g fill="#475569" stroke="#ffffff" stroke-width="2"><circle cx="313" cy="286" r="7"/><circle cx="410" cy="299" r="7"/><circle cx="507" cy="312" r="7"/></g>
   <g fill="#0284c7" stroke="#ffffff" stroke-width="2"><circle cx="391" cy="351" r="7"/><circle cx="410" cy="364" r="7"/><circle cx="429" cy="377" r="7"/></g>
-  <text x="120" y="422" font-size="11" fill="#64748b">A et B isolent le contraste dispersion / décalage ; C, D et E illustrent d'autres compromis.</text>
+  <text x="120" y="444" font-size="11" fill="#64748b">A et B isolent le contraste dispersion / décalage ; C, D et E illustrent d'autres compromis.</text>
 </svg>
 <figcaption>Les cinq profils ne sont pas interchangeables : A et B ont une dispersion comparable mais des centres différents ; C est bruité, D quantifie par pas de 0,5 °C et E échantillonne plus souvent.</figcaption>
 </figure>
@@ -130,7 +130,7 @@ Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas de
 <figcaption id="sensor-showcase-caption">Six profils pour raisonner sur un choix d'instrument. Les silhouettes sont schématiques ; les profils A à E sont des situations pédagogiques, pas des références commerciales.</figcaption>
 </figure>
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C peut convenir à une moyenne journalière si ses erreurs sont centrées et si les conditions restent suffisamment stables, mais manquer un pic de quelques secondes.
+Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Un capteur C pourrait convenir à une moyenne journalière si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois points du tableau ne suffisent pas à l'établir. Il pourrait en revanche manquer un pic de quelques secondes.
 
 | Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
 |---|---|---|---|
@@ -195,7 +195,7 @@ Il n'existe pas de classement universel : le choix dépend du phénomène à obs
     },
     peak: {
       title: 'Point de départ : profil E, sous réserve du temps de réponse.',
-      body: 'Une fréquence d’acquisition élevée aide à échantillonner les événements brefs. Elle ne suffit pas : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
+      body: 'À 10 Hz, deux échantillons successifs sont espacés de 100 ms : un événement plus bref peut être manqué selon sa position entre les acquisitions. Une fréquence élevée aide donc à décrire les événements rapides, sans suffire à les mesurer : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
       tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
     },
     small: {
