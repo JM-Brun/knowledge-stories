@@ -158,7 +158,7 @@ La métrologie — la science de la mesure — distingue des notions que le lang
 | **Fidélité** | Les résultats répétés sont-ils proches les uns des autres ? | Écart-type, variance ou autre mesure de dispersion, dans des conditions précisées |
 | **Répétabilité** | Sont-ils proches lorsque les conditions de répétabilité sont réunies ? | Même procédure, opérateur, système de mesure, conditions de fonctionnement et lieu, sur une courte période |
 | **Justesse** | La moyenne des résultats est-elle proche d'une valeur de référence ? | Caractérisée par l'écart moyen observé à la référence ; la justesse elle-même n'est pas une grandeur numérique |
-| **Exactitude** | Le résultat est-il proche de la valeur du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
+| **Exactitude** | Le résultat est-il proche de la valeur vraie du mesurande ? | Notion qualitative liée à la fois à la justesse et à la fidélité |
 
 La répétabilité est une fidélité évaluée dans des conditions de répétabilité spécifiées : même procédure, mêmes opérateur et système de mesure, mêmes conditions de fonctionnement et même lieu, sur une courte période. Ces conditions sont définies par le VIM ; la [répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html) ne signifie donc pas simplement que les chiffres se ressemblent. Changer certains de ces facteurs conduit à étudier la fidélité intermédiaire ou la reproductibilité. Dans le VIM, **l'exactitude est qualitative** : elle ne se calcule pas directement et ne se réduit ni à la justesse ni à la fidélité. Le mot « précision » est donc ambigu s'il est employé comme synonyme d'exactitude.
 
@@ -259,7 +259,7 @@ De même, 90 % sur un benchmark établit d'abord une performance sur ses items e
 
 ## La mesure peut-elle changer ce qu'elle observe ?
 
-Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure ; un questionnaire influencer les réponses ; un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation, réactivité, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
+Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure : par exemple, un voltmètre dont la résistance d'entrée n'est pas infinie peut modifier la tension du circuit qu'il mesure. Le VIM signale explicitement cette possibilité dans sa définition du [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html). Dans les sciences humaines et les systèmes sociotechniques, un questionnaire peut influencer les réponses et un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation physique, réactivité des personnes, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
 
 **Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
 
