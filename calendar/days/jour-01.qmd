@@ -80,7 +80,7 @@ Le capteur B illustre le cas d'un instrument stable mais décalé : une correcti
 
 Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
 
-Le tableau suivant ajoute des profils **illustratifs**. Ils ne décrivent pas des produits commerciaux : ils servent à distinguer les compromis possibles.
+Les valeurs précédentes illustrent quelques contrastes, mais trois relevés ne disent presque rien de la dérive à long terme, de la dynamique de réponse ou de la résistance à l'environnement. Ces dimensions doivent être caractérisées séparément.
 
 <figure class="sensor-showcase measurement-checks" aria-labelledby="measurement-checks-caption">
 <div class="sensor-gallery" role="list">
