@@ -14,19 +14,19 @@ Si deux jeux de données ont la même moyenne, décrivent-ils nécessairement de
 
 Considérons trois séries :
 
-- A : ((4,5,5,5,6))
-- B : ((1,3,5,7,9))
-- C : ((-5,5,5,5,15))
+- A : \((4,5,5,5,6)\)
+- B : \((1,3,5,7,9)\)
+- C : \((-5,5,5,5,15)\)
 
 Les trois sommes valent 25 et chaque série contient cinq valeurs. Leur moyenne vaut donc 5.
 
-Avec le diviseur (n), leurs variances empiriques sont respectivement :
+Avec le diviseur \(n\), leurs variances empiriques sont respectivement :
 
-[
-s_n^2(A)=0{,}4,qquad
-s_n^2(B)=8,qquad
+\[
+s_n^2(A)=0{,}4,\qquad
+s_n^2(B)=8,\qquad
 s_n^2(C)=40.
-]
+\]
 
 La moyenne identique masque ici des dispersions radicalement différentes. La série C contient deux valeurs extrêmes ; B est étalée régulièrement ; A est concentrée autour du centre.
 
@@ -42,11 +42,8 @@ La moyenne identique masque ici des dispersions radicalement différentes. La s�
   <g fill="#0f766e" stroke="#fff" stroke-width="2">
     <circle cx="352" cy="58" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="410" cy="75" r="7"/><circle cx="410" cy="58" r="7"/><circle cx="468" cy="58" r="7"/>
   </g>
-  <g fill="#2563eb" stroke="#fff" stroke-width="2"><circle cx="178" cy="108" r="7"/><circle cx="294" cy="108" r="7"/><circle cx="410" cy="108" r="7"/><circle cx="526" cy="108" r="7"/><circle cx="642" cy="108" r="7"/></g>
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="158" r="0"/><circle cx="0" cy="158" r="0"/><circle cx="410" cy="158" r="7"/><circle cx="410" cy="175" r="7"/><circle cx="410" cy="158" r="7"/></g>
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="0" cy="0" r="0"/><circle cx="0" cy="0" r="0"/></g>
+  <g fill="#2563eb" stroke="#fff" stroke-width="2"><circle cx="294" cy="108" r="7"/><circle cx="352" cy="108" r="7"/><circle cx="410" cy="108" r="7"/><circle cx="468" cy="108" r="7"/><circle cx="526" cy="108" r="7"/></g>
+  
   <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="120" cy="158" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="410" cy="175" r="7"/><circle cx="410" cy="158" r="7"/><circle cx="700" cy="158" r="7"/></g>
   <g fill="#475569" font-size="11" text-anchor="middle"><text x="120" y="222">−5</text><text x="265" y="222">0</text><text x="410" y="222">5</text><text x="555" y="222">10</text><text x="700" y="222">15</text></g>
   <text x="410" y="240" text-anchor="middle" fill="#64748b" font-size="11">Axe commun · valeurs observées</text>
