@@ -69,6 +69,7 @@ import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
 import FFTConvolutionExplorer from "../../components/FFTConvolutionExplorer.astro";
 import MultiplicationRecurrenceComparison from "../../components/MultiplicationRecurrenceComparison.astro";
 import SchonhageStrassenExplorer from "../../components/SchonhageStrassenExplorer.astro";
+import FFTButterflyDiagram from "../../components/FFTButterflyDiagram.astro";
 
 Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
 
@@ -290,6 +291,8 @@ X_&#123;k+N/2&#125;=E_k-&#92;omega^k O_k.
 &#92;]
 
 Cette paire d'additions et de soustractions, avec une multiplication par un facteur &#92;(&#92;omega^k&#92;), forme une **opération papillon** (*butterfly*). On obtient la récurrence &#92;(F(N)=2F(N/2)+O(N)&#92;), donc &#92;(F(N)=O(N&#92;log N)&#92;). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les &#92;(N&#92;) sommes de la DFT.
+
+<FFTButterflyDiagram />
 
 ### 3.3 Un point crucial : éviter la convolution circulaire
 
