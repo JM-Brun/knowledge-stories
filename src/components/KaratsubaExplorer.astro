@@ -53,9 +53,9 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
     <div class="lab-comparison">
       <h4>Où se trouve l'économie ?</h4>
       <div class="comparison-grid">
-        <div><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-cross">ad</span> · <span class="term-cross">bc</span> · <span class="term-common">bd</span></small></div>
+        <div class="comparison-classic"><span class="comparison-label">Découpage classique</span><strong>4</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-cross">ad</span> · <span class="term-cross">bc</span> · <span class="term-common">bd</span></small></div>
         <div class="comparison-arrow" aria-hidden="true">→</div>
-        <div><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-common">bd</span> · <span class="term-aux">(a+b)(c+d)</span></small></div>
+        <div class="comparison-karatsuba"><span class="comparison-label">Karatsuba</span><strong>3</strong><span>multiplications de blocs</span><small><span class="term-common">ac</span> · <span class="term-common">bd</span> · <span class="term-aux">(a+b)(c+d)</span></small></div>
       </div>
       <p class="lab-footnote">Cette comparaison porte sur un niveau de découpage. En répétant la méthode récursivement, on obtient la récurrence \(T(n)=3T(n/2)+O(n)\), dans le modèle où les deux blocs sont de taille comparable.</p>
     </div>
@@ -214,6 +214,8 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
   .comparison-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: .8rem; margin: 1rem 0; }
   .comparison-grid > div:not(.comparison-arrow) { display: grid; gap: .25rem; padding: .9rem; border: 1px solid var(--line, #d9d4c8); border-radius: .6rem; }
   .comparison-grid strong { font: 600 2rem var(--mono, monospace); }
+  .comparison-classic .comparison-label, .comparison-classic strong { color: var(--term-common, #287a4b); }
+  .comparison-karatsuba .comparison-label, .comparison-karatsuba strong { color: var(--term-aux, #7651a6); }
   .comparison-grid span:not(.comparison-label) { font-size: .8rem; }
   .comparison-grid small { overflow-wrap: anywhere; color: var(--lab-muted); font: .7rem var(--mono, monospace); }
   .comparison-arrow { color: var(--accent, #a85b36); }
