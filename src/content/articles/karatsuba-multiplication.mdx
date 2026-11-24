@@ -290,6 +290,20 @@ Deux phénomènes se produisent simultanément : **le nombre d’appels augmente
 
 Pour la méthode classique, le tableau est identique en remplaçant \(3^j\) par \(4^j\).
 
+Prenons un cas concret : \(n=8=2^3\). Il faut donc trois découpages pour arriver à des blocs d’un chiffre. Pour rendre visible le travail des additions, comptons une unité par chiffre traité dans chaque appel interne. Cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
+
+| Niveau | Taille des blocs | Appels classiques | Appels Karatsuba | Travail local classique | Travail local Karatsuba |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 8 | 1 | 1 | 8 unités | 8 unités |
+| 1 | 4 | 4 | 3 | 16 unités | 12 unités |
+| 2 | 2 | 16 | 9 | 32 unités | 18 unités |
+| 3 · feuilles | 1 | 64 | 27 | 64 produits | 27 produits |
+
+Le calcul du travail local est simple : **nombre d’appels × taille d’un appel**. Par exemple, au niveau 2 de Karatsuba, \(9\) appels traitent chacun \(2\) chiffres : \(9\times2=18\) unités. Au niveau des feuilles, on ne compte plus les additions de découpage, mais les multiplications élémentaires : \(27\) contre \(64\).
+
+Cet exemple montre les deux effets en même temps : Karatsuba effectue moins de multiplications aux feuilles, et le travail d’addition reste compté à chaque niveau. Il ne faut pas confondre ces unités simplifiées avec un temps d’exécution réel.
+
+
 ### 3. Compter les multiplications aux feuilles
 
 La récursion s’arrête lorsque les blocs sont assez petits pour être multipliés directement. Pour simplifier, supposons qu’elle s’arrête à un chiffre et que \(n=2^k\).
