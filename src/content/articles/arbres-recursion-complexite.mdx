@@ -1,6 +1,6 @@
 ---
 title: "Calculer la complexité de la multiplication de Karatsuba"
-description: "À partir de l’implémentation récursive de Karatsuba, établissez sa récurrence, analysez le coût des sous-multiplications et des opérations auxiliaires, puis démontrez la complexité Θ(n^{log₂ 3})."
+description: "Établissez la récurrence du modèle équilibré de Karatsuba et démontrez Θ(n^{log₂ 3}), puis analysez les opérations auxiliaires et les écarts de tailles de l’implémentation."
 date: 2026-11-24
 category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
@@ -30,7 +30,7 @@ import RecursionTreeExample from "../../components/RecursionTreeExample.astro";
 
 <div class="complexity-lesson">
 
-<p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi obtient-on <span>Θ(n<sup>log₂ 3</sup>)</span> ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
+<p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi le modèle équilibré conduit-il à <span>Θ(n<sup>log₂ 3</sup>)</span> ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
 
 
 ## Outil d’analyse : lire un arbre de récursion
