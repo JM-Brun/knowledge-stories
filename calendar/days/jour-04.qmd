@@ -34,6 +34,9 @@ Ici, \(Y=2X\). Les moyennes sont \(\mathbb E[X]=2\) et \(\mathbb E[Y]=4\). En ut
 \operatorname{Cov}_n(X,Y)=\frac43.
 \]
 
+Ces trois couples sont traités ici comme la distribution empirique équipondérée de l'exemple : on calcule donc ses moments avec le diviseur \(n\). Si on les interprétait plutôt comme un échantillon destiné à estimer les moments d'une population, les estimateurs corrigés utiliseraient \(n-1\) pour la variance et la covariance. Le coefficient de corrélation, lui, reste égal à 1.
+
+
 La corrélation empirique vaut 1. Les deux variables augmentent ensemble de manière parfaitement linéaire.
 
 La formule de la variance d'une somme se déduit en développant le carré centré :
@@ -100,6 +103,18 @@ Moyenner les dix mesures peut réduire les erreurs indépendantes propres à cha
 
 La même logique s'applique à un ensemble de modèles entraînés sur des données très proches : dix prédicteurs fortement corrélés ne valent pas nécessairement dix sources d'information indépendantes.
 
+### Le cas général : des poids différents
+
+La formule précédente concerne une somme à poids égaux. Pour un agrégat \(S=\sum_i w_iX_i\), chaque covariance entre deux composantes contribue avec le produit de leurs poids :
+
+\[
+\operatorname{Var}(S)
+=\sum_i w_i^2\operatorname{Var}(X_i)
++2\sum_{i<j}w_iw_j\operatorname{Cov}(X_i,X_j).
+\]
+
+Le facteur 2 vient des deux termes symétriques \((i,j)\) et \((j,i)\) dans \(w^\top\Sigma w\). Un poids élevé amplifie donc à la fois la variance propre de la composante et ses covariances avec les autres. Deux agrégats ayant les mêmes poids et les mêmes variances marginales peuvent avoir des incertitudes différentes si leurs structures de dépendance diffèrent.
+
 ## De la somme à une combinaison pondérée
 
 Pour un vecteur aléatoire \(X\) et des poids \(w\), la variance de l'agrégat linéaire s'écrit :
@@ -108,7 +123,15 @@ Pour un vecteur aléatoire \(X\) et des poids \(w\), la variance de l'agrégat l
 \operatorname{Var}(w^\top X)=w^\top\Sigma w,
 \]
 
-où \(\Sigma\) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances.
+où \(\Sigma\) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances. En développant cette expression, on obtient :
+
+\[
+\operatorname{Var}\left(\sum_i w_iX_i\right)
+=\sum_i w_i^2\operatorname{Var}(X_i)
++2\sum_{i<j}w_iw_j\operatorname{Cov}(X_i,X_j).
+\]
+
+Le facteur 2 vient des deux termes symétriques \((i,j)\) et \((j,i)\) dans la matrice. Chaque covariance contribue donc avec le produit des poids concernés. Un poids élevé amplifie à la fois la variance propre de la composante et ses covariances avec les autres. Deux agrégats ayant les mêmes poids et les mêmes variances marginales peuvent avoir des incertitudes différentes si leurs structures de dépendance diffèrent.
 
 Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs, en portefeuille financier et en agrégation de prédictions. La diversification réduit le risque lorsque les composantes ne sont pas parfaitement corrélées ; elle ne supprime pas un risque commun à toutes.
 
