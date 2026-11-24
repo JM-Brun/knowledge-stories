@@ -47,7 +47,7 @@ const seriesArticles = article.data.series
         </div>
         <ol>
           {seriesArticles.map((item) => (
-            <li class:current={item.id === article.id}>
+            <li class:list={[{ current: item.id === article.id }]}>
               {item.id === article.id
                 ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</span>
                 : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</a>}
