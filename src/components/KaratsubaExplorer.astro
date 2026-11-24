@@ -74,7 +74,7 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
         </ol>
         <p>Une retenue peut allonger l’une des sommes d’un chiffre. Avec 1 234 × 5 678, la somme 56 + 78 vaut 134. L’appel des sommes porte donc sur un opérande de trois chiffres, contre deux au maximum pour chacun des autres appels.</p>
       </div>
-      <p data-base-case hidden>Les deux opérandes tiennent chacun en un chiffre. La multiplication est déjà au cas de base.</p>
+      <p data-base-case hidden>Au moins un des deux opérandes tient sur un chiffre. La multiplication est déjà au cas de base.</p>
       <h4>Si chaque appel divisait la taille par deux</h4>
       <p data-recursion>Sur 4 chiffres, après 2 niveaux de découpage, le modèle équilibré donne 16 feuilles pour le découpage classique et 9 pour Karatsuba.</p>
       <p class="lab-footnote">On complète la longueur à la prochaine puissance de deux si nécessaire et on suppose que chaque appel divise exactement la taille par deux, jusqu’à un chiffre. Les feuilles de cet arbre idéal représentent des produits dans le modèle. Les retenues, les additions et les durées réelles restent hors du comptage.</p>

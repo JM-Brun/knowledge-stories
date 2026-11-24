@@ -55,6 +55,8 @@ test("uses the actual recursive operands, including the extra digit from a carry
   ]);
 });
 
-test("shows no child calls when both operands fit in one digit", () => {
+test("shows no child calls as soon as either operand fits in one digit", () => {
   assert.deepEqual(getKaratsubaSubproblems(calculateKaratsubaStep("0", "7")), []);
+  assert.deepEqual(getKaratsubaSubproblems(calculateKaratsubaStep("9", "123456")), []);
+  assert.deepEqual(getKaratsubaSubproblems(calculateKaratsubaStep("123456", "9")), []);
 });
