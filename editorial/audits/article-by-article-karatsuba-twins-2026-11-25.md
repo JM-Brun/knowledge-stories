@@ -39,9 +39,9 @@ Les deux séries sont scientifiquement et pédagogiquement solides dans leur arc
 
 **Réussites :** la récurrence `3T(n/2)+O(n)` est construite à partir de l'algorithme ; le coût des niveaux est distingué du nombre de feuilles ; les additions sont comptées ; les limites du modèle sont abordées.
 
-**À vérifier/corriger :** le titre peut laisser croire que la preuve porte directement sur toutes les exécutions du code Python. Le résultat démontré est d'abord celui du modèle équilibré. Les appels sur les sommes peuvent dépasser n/2 d'un chiffre : la preuve doit expliquer pourquoi ce décalage constant ne change pas l'exposant. Les unités de travail des tableaux doivent rester qualifiées de repères pédagogiques, pas de décompte d'instructions machine.
+**Constat affiné après lecture complète :** l'article traite déjà explicitement les tailles réelles des blocs, l'arrêt anticipé lorsque l'un des opérandes est court, la borne supérieure de l'implémentation pédagogique et la distinction entre cette borne et une borne inférieure de pire cas équilibré. C'est un point fort à préserver. La seule amélioration utile est de faire remonter plus tôt cette distinction, car elle apparaît tard dans la démonstration.
 
-**Décision :** conserver l'article autonome ; renforcer un encadré « modèle analysé et limites de la transposition au code ».
+**Décision :** conserver la démonstration. Ajouter un renvoi ou un bref repère en amont vers la section 7, sans dupliquer son analyse.
 
 ### A3. Arbres de récursion : compter le travail à chaque niveau — 11 min, hors série
 
@@ -55,9 +55,9 @@ Les deux séries sont scientifiquement et pédagogiquement solides dans leur arc
 
 **Réussites :** transition naturelle de l'identité de Karatsuba à l'évaluation-interpolation ; passage à trois blocs ; choix de cinq valeurs pour un polynôme de degré au plus quatre ; discussion des seuils pratiques.
 
-**À compléter :** justifier brièvement pourquoi les divisions par 2 et 3 de l'interpolation donnent des entiers pour des coefficients entiers. Clarifier que la variante par différences de GNU MP (`ac+bd-(a-b)(c-d)`) est une variante de Karatsuba qui évite l'allongement des sommes, et non une étape de Toom–Cook.
+**Constat affiné après lecture complète :** l'article justifie déjà l'intégralité des divisions par 2 et 3 en réécrivant les numérateurs à partir des coefficients entiers de R. Cette justification est correcte et doit être conservée. La variante par différences de GNU MP est présentée dans la section précédente ; une transition plus explicite pourrait rappeler qu'il s'agit d'une variante de Karatsuba, distincte de Toom–Cook.
 
-**Décision :** conserver la structure ; ajouter la justification d'intégralité et une transition plus nette entre les deux sujets.
+**Décision :** aucune correction mathématique requise sur l'interpolation. Amélioration éditoriale facultative de la transition entre la variante par différences et Toom–Cook.
 
 ### A5. De Toom–Cook à la FFT : accélérer la multiplication par convolution — 12 min
 
@@ -141,7 +141,7 @@ L'ordre actuel des cinq articles est cohérent : mécanisme → complexité → 
 
 ### Bilan de la série des jumeaux
 
-La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Proposition de rôles :
+La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Une première clarification a été appliquée dans l'article d'entrée : les chapitres sont maintenant annoncés selon leur rôle (préparation recommandée, parcours essentiel, point de vue complémentaire, extension). Proposition de rôles :
 - entrée : article introductif ;
 - préparation recommandée : composition des vitesses ;
 - parcours essentiel : simultanéité → asymétrie → temps propre ;
@@ -203,11 +203,12 @@ La série et son ordre doivent rester distincts des relations. Ne pas implément
 ## F. Plan d'action priorisé
 
 ### P1 — Fond et parcours
-- [ ] Préciser la portée de `Theta(n^log₂3)` dans l'article Karatsuba.
-- [ ] Renforcer la séparation modèle équilibré / code réel dans l'article de complexité.
-- [ ] Justifier l'intégralité des divisions de l'interpolation Toom–3.
-- [ ] Qualifier la série des jumeaux : préparation, parcours essentiel, complément, extension.
+- [x] Préciser la portée de `Theta(n^log₂3)` dans l'article Karatsuba (modèle équilibré, opérandes de taille comparable).
+- [x] Qualifier dans l'article d'entrée des jumeaux la préparation, le parcours essentiel, le point de vue complémentaire et l'extension.
+- [ ] Remonter un repère vers la section sur les tailles réelles et la borne de l'implémentation dans l'article de complexité.
 - [ ] Réduire les répétitions du calcul 1,8 → 8,2 sans supprimer la démonstration complète.
+
+**Vérifications de fond déjà satisfaites :** l'article de complexité traite correctement l'arrêt anticipé et distingue borne supérieure de l'implémentation pédagogique et borne inférieure du modèle équilibré ; l'article Toom–3 justifie déjà les divisions exactes par 2 et 3. Ces deux points ne nécessitent pas de correction mathématique.
 
 ### P2 — Pédagogie
 - [ ] Différencier le guide général des arbres de récursion de l'application à Karatsuba.
