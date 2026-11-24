@@ -38,3 +38,14 @@ test("classical multiplication complexity is consistently marked green", () => {
     assert.ok(source.includes(expression), `Missing green semantic class around: ${expression}`);
   }
 });
+
+test("Karatsuba visual comparisons follow the shared semantic palette", () => {
+  const hero = readFileSync(new URL("../src/components/KaratsubaHero.astro", import.meta.url), "utf8");
+  const explorer = readFileSync(new URL("../src/components/KaratsubaExplorer.astro", import.meta.url), "utf8");
+  assert.ok(hero.includes(".hero-count span { color:#9cdbca; }"));
+  assert.ok(hero.includes(".hero-count strong { color:#c6b3e6; }"));
+  assert.ok(explorer.includes('class="comparison-classic"'));
+  assert.ok(explorer.includes('class="comparison-karatsuba"'));
+  assert.ok(explorer.includes(".comparison-classic .comparison-label, .comparison-classic strong { color: var(--term-common"));
+  assert.ok(explorer.includes(".comparison-karatsuba .comparison-label, .comparison-karatsuba strong { color: var(--term-aux"));
+});
