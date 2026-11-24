@@ -312,12 +312,16 @@ Pour la méthode classique, le tableau est identique en remplaçant &#92;(3^j&#9
 
 Prenons un cas concret : &#92;(n=8=2^3&#92;). Il faut donc trois découpages pour arriver à des blocs d’un chiffre. Pour rendre visible le travail des additions, comptons une unité par chiffre traité dans chaque appel interne. Cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
 
+<div className="complexity-table-scroll">
+
 | Niveau | Taille des blocs | Appels classiques | Appels Karatsuba | Travail local classique | Travail local Karatsuba |
 |---:|---:|---:|---:|---:|---:|
 | 0 | 8 | 1 | 1 | 8 unités | 8 unités |
 | 1 | 4 | 4 | 3 | 16 unités | 12 unités |
 | 2 | 2 | 16 | 9 | 32 unités | 18 unités |
 | 3 · feuilles | 1 | 64 | 27 | 64 produits | 27 produits |
+
+</div>
 
 Le calcul du travail local est simple : **nombre d’appels × taille d’un appel**. Par exemple, au niveau 2 de Karatsuba, &#92;(9&#92;) appels traitent chacun &#92;(2&#92;) chiffres : &#92;(9\times2=18&#92;) unités. Au niveau des feuilles, on ne compte plus les additions de découpage, mais les multiplications élémentaires : &#92;(27&#92;) contre &#92;(64&#92;).
 
@@ -502,12 +506,16 @@ La somme des coûts internes est <span class="term-common">&#92;(O(n^2)&#92;)</s
   &#92;]
 </div>
 
+<div className="complexity-table-scroll">
+
 | Ce que l’on compte | <span class="term-common">Méthode classique</span> | <span class="term-aux">Karatsuba</span> |
 |---|---:|---:|
 | Sous-multiplications créées par appel | 4 | 3 |
 | Appels au niveau &#92;(j&#92;) | &#92;(4^j&#92;) | &#92;(3^j&#92;) |
 | Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^&#123;\log_2 3&#125;&#92;) |
 | Coût total | <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(\Theta(n^&#123;1&#123;,&#125;585&#125;)&#92;)</span> |
+
+</div>
 
 La différence ne vient pas de la disparition des additions : Karatsuba doit toujours additionner et soustraire des blocs pour reconstruire le produit. Le gain vient du fait qu’il crée **trois sous-multiplications au lieu de quatre**, et répète cette économie à tous les niveaux.
 
