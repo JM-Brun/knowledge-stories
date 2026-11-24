@@ -282,7 +282,7 @@ Pour une longueur &#92;(N&#92;), choisissons une racine &#92;(N&#92;)-ième prim
 &#92;omega^N=1
 &#92;]
 
-et aucune puissance positive plus petite n'est égale à 1. Cette condition signifie que les puissances &#92;(1,&#92;omega,&#92;ldots,&#92;omega^{N-1}&#92;) sont toutes distinctes. Sur les nombres complexes, une telle racine existe pour toute longueur &#92;(N&#92;). Dans un corps fini, elle existe notamment si &#92;(N&#92;) divise l'ordre du groupe multiplicatif ; pour &#92;(\mathbb F_p&#92;), la condition usuelle est &#92;(N&#92;mid(p-1)&#92;).
+et aucune puissance positive plus petite n'est égale à 1. Cette condition signifie que les puissances &#92;(1,&#92;omega,&#92;ldots,&#92;omega^&#123;N-1&#125;&#92;) sont toutes distinctes. Sur les nombres complexes, une telle racine existe pour toute longueur &#92;(N&#92;). Dans un corps fini, elle existe notamment si &#92;(N&#92;) divise l'ordre du groupe multiplicatif ; pour &#92;(&#92;mathbb F_p&#92;), la condition usuelle est &#92;(N&#92;mid(p-1)&#92;).
 
 La transformée de Fourier discrète (DFT) associe aux coefficients &#92;(a_0,&#92;ldots,a_&#123;N-1&#125;&#92;) les valeurs
 
@@ -299,13 +299,13 @@ Elle évalue en quelque sorte le polynôme &#92;(P&#92;) aux points &#92;(1,&#92
 
 Pour revenir aux coefficients, on utilise la transformée inverse :
 &#92;[
-a_j=&#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;widehat a_k&#92;omega^{-jk}.
+a_j=&#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;widehat a_k&#92;omega^&#123;-jk&#125;.
 &#92;]
-Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(\widehat a_k&#92;) par sa définition, le coefficient de &#92;(a_\ell&#92;) devient
+Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(&#92;widehat a_k&#92;) par sa définition, le coefficient de &#92;(a_&#92;ell&#92;) devient
 &#92;[
-&#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;omega^&#123;k(\ell-j)&#125;.
+&#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;omega^&#123;k(&#92;ell-j)&#125;.
 &#92;]
-Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(\ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(\mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N\mid p-1&#92;), et pour une longueur puissance de deux modulo un nombre impair comme &#92;(2^M+1&#92;).
+Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(&#92;mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N&#92;mid p-1&#92;), et pour une longueur puissance de deux modulo un nombre impair comme &#92;(2^M+1&#92;).
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
