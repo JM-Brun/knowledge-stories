@@ -23,7 +23,7 @@ Le dépôt contient actuellement cinq pages quotidiennes rédigées (`jour-01.qm
 |---|---|---|---|
 | 1 | Mesure, métrologie, biais, incertitude | Généraliste | Conserver intégralement. Le texte lisible compte environ 3 744 mots, soit environ 19 min à 200 mots/min ; l'annonce d'environ 20 min est cohérente. Aucune coupe justifiée. |
 | 2 | Population, échantillonnage, sélection, transportabilité | Généraliste | Conserver. Les liens vers l'évaluation ML sont transversaux et ne constituent pas un doublon LLM. |
-| 3 | Distributions, moyenne, variance, quartette d'Anscombe | Généraliste | Conserver. Rendre explicite la différence entre distribution empirique et loi. |
+| 3 | Distributions, moyenne, variance, quartette d'Anscombe | Généraliste | Conserver sans modification : la page distingue déjà explicitement série observée, distribution empirique et loi de probabilité (section dédiée). |
 | 4 | Covariance, dépendance, variance d'une somme | Généraliste | Ajout effectué dans la PR #110 : formule développée pour les agrégats pondérés et distinction entre moments empiriques avec diviseur n et estimateurs corrigés avec n−1. |
 | 5 | Entropie de Shannon, information mutuelle | Généraliste après correction | Transfert généraliste conservé ; PR #110 ajoute un exemple numérique d'information mutuelle (0,531 bit) et corrige la propriété de non-négativité. |
 
@@ -73,7 +73,6 @@ Le gabarit précédent indiquait 7–10 minutes, ce qui était trop restrictif e
 
 ## Prochaines actions
 
-1. J3 : rendre explicite la différence entre distribution empirique et loi de probabilité, sans alourdir les explications déjà présentes.
-2. Produire les pages 6–24 à partir des squelettes validés, en conservant le périmètre généraliste et le test anti-doublon.
-3. Vérifier les concepts canoniques dans Wiki Knowledge avant chaque création ou référence ; ne pas dupliquer les pages existantes du wiki ou les concepts spécialisés de LLM Lab.
-4. Faire passer la PR #110 en revue non brouillon lorsque les changements seront prêts, afin de déclencher les workflows de validation et de rendu.
+1. Produire les pages 6–24 à partir des squelettes validés, en conservant le périmètre généraliste et le test anti-doublon.
+2. Vérifier les concepts canoniques dans Wiki Knowledge avant chaque création ou référence ; ne pas dupliquer les pages existantes du wiki ou les concepts spécialisés de LLM Lab.
+3. Faire passer la PR #110 en revue non brouillon lorsque les changements seront prêts, afin de déclencher les workflows de validation et de rendu.
