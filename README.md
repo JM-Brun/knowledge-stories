@@ -60,7 +60,7 @@ npm run check     # vérification Astro et TypeScript
 
 ## Atelier de relecture (discret)
 
-Les articles en cours de relecture peuvent être générés sous `/atelier/{slug}/` avec `status: review`. L'index `/atelier/` n'est pas relié à la navigation, à l'accueil ou aux archives. Les contenus `status: draft` ne sont pas générés ; seuls les contenus `status: published` apparaissent dans les parcours publics. L'atelier est non indexé, mais pas privé : une URL partagée permet d'y accéder. Voir [le workflow éditorial](editorial/publication-workflow.md).
+Les articles en cours de relecture peuvent être générés sous `/atelier/{slug}/` avec `status: review`. L'index `/atelier/` n'est pas relié à la navigation, à l'accueil ou aux archives. Les contenus `status: draft` ne sont pas générés ; seuls les contenus `status: published` apparaissent dans les parcours publics. L'atelier est non indexé, mais pas privé : une URL partagée permet d'y accéder. Voir [le workflow éditorial](editorial/publication-workflow.md) et [le modèle éditorial de l'Atelier](editorial/atelier-editorial-model.md).
 
 ## Calendrier Data Science & Machine Learning 2026
 
