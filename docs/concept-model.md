@@ -6,6 +6,23 @@ Knowledge Stories est une **couche de médiation éditoriale**. Wiki Knowledge r
 
 Il ne faut donc ni recopier le graphe de connaissances dans le site, ni faire dépendre le rendu public du dépôt Wiki Knowledge (privé).
 
+## Projection de la taxonomie Wiki Knowledge
+
+Le frontmatter Astro porte une projection éditoriale minimale de la taxonomie de `wiki/TAXONOMY.yml` :
+
+| Champ Stories | Correspondance | Règle |
+|---|---|---|
+| `domain` | Identifiant d'un domaine : `mathematics`, `computing` ou `physics` | Obligatoire ; un domaine principal par article |
+| `discipline` | Libellé lisible du domaine | Conservé pour l'affichage ; doit correspondre à `domain` |
+| `themes[0]` | Thème principal, aligné sur le sous-domaine pertinent | Obligatoire ; détermine le groupe dans l'Atelier |
+| `themes[1...]` | Thèmes secondaires | Contexte complémentaire ; ne duplique pas l'article dans l'index |
+| `labels` | Deux notions saillantes choisies pour le lecteur | Exactement deux ; affichées sur les cartes et les pages |
+| `tags` | Indexation transversale | Plus fine et plus libre que les labels |
+
+Cette projection n'exporte aucun identifiant de concept, chemin privé, graphe ou contenu du wiki. Les labels sont des libellés éditoriaux, pas des identifiants canoniques. Un article n'apparaît qu'une fois dans l'Atelier : sous son domaine et son thème principal.
+
+Les valeurs de domaine sont contrôlées par le schéma de contenu et doivent rester synchronisées avec la taxonomie du wiki. Les thèmes restent des intitulés lisibles ; ils ne prétendent pas reproduire toute la hiérarchie conceptuelle.
+
 ## Correspondance des objets
 
 | Objet conceptuel | Rôle dans Wiki Knowledge | Projection éditoriale dans Knowledge Stories |
