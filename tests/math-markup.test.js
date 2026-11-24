@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 
 const articlePaths = [
   "src/content/articles/karatsuba-multiplication.mdx",
+  "src/content/articles/arbres-recursion-complexite.mdx",
   "src/content/articles/multiplication-rapide-et-preuves-2026.mdx",
 ];
 
@@ -19,15 +20,19 @@ test("MathJax delimiters survive MDX parsing", () => {
 });
 
 test("Karatsuba complexity exponents use explicit TeX grouping", () => {
-  const source = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
-  assert.match(source, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
-  assert.match(source, /3\^&#123;10&#125;=59&#92;,049/);
-  assert.match(source, /n\^&#123;\\log_2 3&#125;/);
-  assert.match(source, /m_&#123;j\+1&#125;/);
+  const article = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  const lesson = readFileSync(new URL("../src/content/articles/arbres-recursion-complexite.mdx", import.meta.url), "utf8");
+  assert.match(article, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
+  assert.match(article, /3\^&#123;10&#125;=59&#92;,049/);
+  assert.match(lesson, /n\^&#123;\\log_2 3&#125;/);
+  assert.match(lesson, /m_&#123;j\+1&#125;/);
 });
 
 test("classical multiplication complexity is consistently marked green", () => {
-  const source = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  const source = [
+    "src/content/articles/karatsuba-multiplication.mdx",
+    "src/content/articles/arbres-recursion-complexite.mdx",
+  ].map((path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8")).join("\\n");
   const expectedGreenExpressions = [
     String.raw`au lieu de <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> pour la`,
     String.raw`Le travail local au niveau &#92;(j&#92;) est <span class="term-common">&#92;(O(n&#92;,2^j)&#92;)</span>`,
