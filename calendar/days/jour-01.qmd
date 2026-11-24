@@ -212,22 +212,13 @@ Cette cible est pertinente ici parce qu'elle rend visible la distinction biais�
 
 **Attention au vocabulaire :** dans le modèle de mesure, \(b\) désigne la composante systématique sous-jacente, supposée constante ; ce n'est pas sa valeur estimée. Dans le VIM, le [**biais de mesure**](https://jcgm.bipm.org/vim/fr/2.18.html) est une estimation de l'erreur systématique de mesure. Le biais d'estimation \(\mathbb{E}[\hat{\theta}]-\theta\), représenté sur la cible, désigne quant à lui l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Ces notions sont apparentées, mais elles ne portent pas sur le même objet.
 
-## Mesure-t-on toujours une chose qui existe directement ?
+## Une mesure représente toujours un choix
 
-Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
+Une température est une grandeur physique ; la confiance, la compétence ou la satisfaction sont des construits que l'on ne peut pas observer directement. Il faut choisir des indicateurs pour les opérationnaliser, puis justifier que ces indicateurs représentent bien le concept visé. La stabilité d'un score ne suffit pas à établir sa validité.
 
-On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
+La mesure peut aussi modifier ce qu'elle observe : un instrument peut perturber un circuit, un questionnaire influencer une réponse ou un indicateur de performance changer les comportements. Ces mécanismes sont différents, mais rappellent qu'une donnée est produite par une interaction avec le phénomène.
 
-Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** concerne l'interprétation que l'on fait des scores et l'usage qui en est tiré. Elle demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
-
-De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
-
-## La mesure peut-elle changer ce qu'elle observe ?
-
-Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure : par exemple, un voltmètre dont la résistance d'entrée n'est pas infinie peut modifier la tension du circuit qu'il mesure. Le VIM signale explicitement cette possibilité dans sa définition du [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html). Dans les sciences humaines et les systèmes sociotechniques, un questionnaire peut influencer les réponses et un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation physique, réactivité des personnes, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
-
-**Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
-
+Les notions de **construit**, d'**opérationnalisation**, de **validité de construit** et de **réactivité de la mesure** sont approfondies dans [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
 ## Le piège suivant : la référence n'est pas la vérité absolue
 
 Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est utile pour apprendre, mais une mesure de référence est elle-même le résultat d'une chaîne métrologique. Elle est associée à une incertitude.
