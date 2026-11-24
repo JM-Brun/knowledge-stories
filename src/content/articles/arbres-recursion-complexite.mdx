@@ -126,10 +126,10 @@ Cet exemple montre pourquoi compter uniquement les feuilles ne suffit pas toujou
 
 > **Réflexe à acquérir :** ne concluez jamais à partir du seul nombre de feuilles. Calculez le coût de chaque niveau, puis comparez les contributions.
 
-## Étude de cas : démontrer l’exposant de Karatsuba à partir de l’arbre
+## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
 
-Nous savons maintenant que Karatsuba remplace quatre multiplications de blocs par trois. Mais pourquoi cette économie conduit-elle précisément à l’exposant &#92;(1&#123;,&#125;585&#92;) ? Pour le comprendre, suivons les appels récursifs dans un arbre.
+Karatsuba remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
 
 Avant de commencer, distinguons deux types d’opérations :
 
@@ -180,7 +180,7 @@ Le signe &#92;(+&#92;) signifie donc « additionner des coûts de calcul ». Il 
 **Une image concrète :** additionner deux nombres de 8 chiffres demande de parcourir leurs chiffres de droite à gauche, en gérant éventuellement une retenue. Le nombre d’étapes grandit proportionnellement à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba ne se résume pas à un seul parcours : on crée trois multiplications de blocs de 4 chiffres, qui créent à leur tour trois multiplications plus petites, et ainsi de suite. C’est cette répétition qui forme l’arbre.
 
 
-### 2. Pourquoi un arbre ?
+### 2. Visualiser les appels récursifs de Karatsuba
 
 Un appel de taille &#92;(n&#92;) est la racine de l’arbre. Chaque appel engendre plusieurs appels plus petits :
 
@@ -473,7 +473,7 @@ Une variante par différences de Karatsuba évite précisément cette retenue su
 
 
 
-## Généraliser : pourquoi trois régimes de croissance apparaissent
+## En complément : généraliser l’analyse à d’autres récurrences
 
 Karatsuba appartient à une famille de récurrences :
 
