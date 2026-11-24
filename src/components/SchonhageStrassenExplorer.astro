@@ -32,7 +32,7 @@
     </div>
     <div data-ss-panel="3" hidden>
       <h4>4 — Garantir l'exactitude et recommencer à plus petite échelle</h4>
-      <p>La transformée fournit des coefficients modulo un entier. On choisit les paramètres et les bornes de coefficients pour pouvoir relever sans ambiguïté les représentants entiers recherchés. On choisit aussi N assez grand pour que le produit complet soit déterminé par son résidu modulo 2ᴺ + 1.</p>
+      <p>La transformée fournit des coefficients modulo un entier. On choisit les paramètres et les bornes de coefficients pour pouvoir relever sans ambiguïté les représentants entiers recherchés. Pour deux entiers positifs de u et v bits, prendre N ≥ u + v garantit que leur produit est strictement inférieur à 2ᴺ + 1 : le résidu détermine alors le produit entier.</p>
       <p>Il reste les multiplications terme à terme dans l'anneau. Elles sont elles-mêmes des multiplications d'entiers plus petits : l'algorithme les traite récursivement avec la même stratégie.</p>
       <div class="ss-result"><span>Complexité en bits</span><strong>O(n log n log log n)</strong><small>Pour deux entiers de n bits, dans l'analyse classique de Schönhage–Strassen.</small></div>
     </div>
