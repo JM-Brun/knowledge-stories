@@ -214,7 +214,7 @@ AC=R(B)=r_0+r_1B+r_2B^2+r_3B^3+r_4B^4.
 &#92;[
 w_1-w_&#123;-1&#125;=2(r_1+r_3),
 &#92;qquad
-w_1+w_{-1}-2r_0-2r_4=2r_2.
+w_1+w_&#123;-1&#125;-2r_0-2r_4=2r_2.
 &#92;]
 La première division par 2 donne donc exactement &#92;(s_1=r_1+r_3&#92;), et la seconde donne &#92;(r_2&#92;). De même,
 &#92;[
@@ -250,7 +250,7 @@ Augmenter &#92;(k&#92;) réduit le nombre de produits récursifs, mais rend l'é
 T(n)=(2k-1)T(n/k)+O(n).
 &#92;]
 
-Posons &#92;(a=2k-1&#92;) et &#92;(b=k&#92;). Comme &#92;(a>b&#92;), l'exposant critique &#92;(p=&#92;log_b a&#92;) est strictement supérieur à 1 ; le terme de combinaison &#92;(O(n)&#92;) est donc d'ordre inférieur à &#92;(n^p&#92;). Sous les hypothèses usuelles du théorème maître, on obtient &#92;(T(n)=&#92;Theta(n^p)&#92;), et le théorème donne l'exposant &#92;(&#92;log_k(2k-1)&#92;). Pour Toom–3, il s'agit de &#92;(&#92;log_3 5&#92;approx1&#123;,&#125;465&#92;), et pour Toom–4 de &#92;(&#92;log_4 7&#92;approx1&#123;,&#125;404&#92;). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
+Posons &#92;(a=2k-1&#92;) et &#92;(b=k&#92;). Comme &#92;(a&#92;gt b&#92;), l'exposant critique &#92;(p=&#92;log_b a&#92;) est strictement supérieur à 1 ; le terme de combinaison &#92;(O(n)&#92;) est donc d'ordre inférieur à &#92;(n^p&#92;). Sous les hypothèses usuelles du théorème maître, on obtient &#92;(T(n)=&#92;Theta(n^p)&#92;), et le théorème donne l'exposant &#92;(&#92;log_k(2k-1)&#92;). Pour Toom–3, il s'agit de &#92;(&#92;log_3 5&#92;approx1&#123;,&#125;465&#92;), et pour Toom–4 de &#92;(&#92;log_4 7&#92;approx1&#123;,&#125;404&#92;). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
 
 ## 3. De Toom–Cook à la FFT : accélérer la convolution
 
@@ -305,7 +305,7 @@ Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(&#92;widehat a_k
 &#92;[
 &#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;omega^&#123;k(&#92;ell-j)&#125;.
 &#92;]
-Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est l'orthogonalité des caractères définis par les racines de l'unité. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose deux propriétés : la longueur de transformée doit être inversible, et les sommes géométriques associées aux racines non triviales doivent s'annuler. Dans un corps, une racine primitive fournit cette seconde propriété ; dans un anneau général, elle doit être vérifiée séparément. Pour Schönhage–Strassen, avec &#92;(N=KM&#92;) et &#92;(N,K&#92;) puissances de deux, le module &#92;(2^N+1&#92;) est impair et, pour &#92;(0<t<K&#92;), &#92;(ω^t-1=2^{2Mt}-1&#92;) est inversible modulo &#92;(2^N+1&#92;). En effet, tout diviseur premier commun imposerait à 2 un ordre exactement &#92;(2N&#92;), alors que &#92;(2Mt<2N&#92;). Les racines utilisées sont donc bien orthogonales, et &#92;(K&#92;) est inversible modulo ce module impair.
+Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est l'orthogonalité des caractères définis par les racines de l'unité. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose deux propriétés : la longueur de transformée doit être inversible, et les sommes géométriques associées aux racines non triviales doivent s'annuler. Dans un corps, une racine primitive fournit cette seconde propriété ; dans un anneau général, elle doit être vérifiée séparément. Pour Schönhage–Strassen, avec &#92;(N=KM&#92;) et &#92;(N,K&#92;) puissances de deux, le module &#92;(2^N+1&#92;) est impair et, pour &#92;(0&#92;lt t&#92;lt K&#92;), &#92;(ω^t-1=2^&#123;2Mt&#125;-1&#92;) est inversible modulo &#92;(2^N+1&#92;). En effet, tout diviseur premier commun imposerait à 2 un ordre exactement &#92;(2N&#92;), alors que &#92;(2Mt&#92;lt2N&#92;). Les racines utilisées sont donc bien orthogonales, et &#92;(K&#92;) est inversible modulo ce module impair.
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
@@ -396,7 +396,7 @@ L'idée est de relier trois représentations : entiers découpés en blocs, poly
 
 <SchonhageStrassenExplorer />
 
-**Pourquoi cette construction est-elle rapide ?** Dans cette sous-section, &#92;(N&#92;) désigne l'exposant du module et &#92;(K&#92;) la longueur de transformée (la notation &#92;(N&#92;) désignait la longueur de DFT dans les sections précédentes). On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre exactement &#92;(2N&#92;). En effet, &#92;(2^N&#92;equiv-1&#92;) implique &#92;(2^{2N}&#92;equiv1&#92;).
+**Pourquoi cette construction est-elle rapide ?** Dans cette sous-section, &#92;(N&#92;) désigne l'exposant du module et &#92;(K&#92;) la longueur de transformée (la notation &#92;(N&#92;) désignait la longueur de DFT dans les sections précédentes). On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre exactement &#92;(2N&#92;). En effet, &#92;(2^N&#92;equiv-1&#92;) implique &#92;(2^&#123;2N&#125;&#92;equiv1&#92;).
 
 Si une puissance &#92;(2^d&#92;) avec &#92;(0&#92;ltd&#92;ltN&#92;) valait déjà 1, alors &#92;(2^d-1&#92;) serait un multiple strictement positif du module, ce qui est impossible puisque &#92;(2^d-1&#92;lt2^N+1&#92;). Si &#92;(N&#92;leq d&#92;lt2N&#92;), écrivons &#92;(d=N+s&#92;) avec &#92;(0&#92;leq s&#92;ltN&#92;) : on aurait alors &#92;(2^s&#92;equiv-1&#92;), impossible car &#92;(0&#92;lt2^s+1&#92;lt2^N+1&#92;). Aucune puissance positive inférieure à &#92;(2N&#92;) ne vaut donc 1.
 
