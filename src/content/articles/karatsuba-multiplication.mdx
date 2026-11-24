@@ -235,13 +235,31 @@ Pour isoler le raisonnement, supposons d’abord que &#92;(n&#92;) soit une puis
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences développées : quatre produits directs contre trois produits Karatsuba">
   <div class="complexity-method">
     <b class="term-common">Méthode classique · quatre sous-produits</b>
-    <div class="math-line"><span class="term-common">&#92;(T(n)=T_ac(n/2)+T_ad(n/2)+T_bc(n/2)+T_bd(n/2)+O(n)&#92;)</span></div>
-    <div class="math-line"><span class="term-common">&#92;(=4T(n/2)+O(n)&#92;)</span></div>
+    <div class="math-line">
+      <span>&#92;(T(n)=&#92;)</span>
+      <span class="term-common">&#92;(T_ac(n/2)&#92;)</span>
+      <span>+</span>
+      <span class="term-cross">&#92;(T_ad(n/2)&#92;)</span>
+      <span>+</span>
+      <span class="term-cross">&#92;(T_bc(n/2)&#92;)</span>
+      <span>+</span>
+      <span class="term-common">&#92;(T_bd(n/2)&#92;)</span>
+      <span>&#92;(+O(n)&#92;)</span>
+    </div>
+    <div class="math-line"><span class="term-common">&#92;(=4T(n/2)&#92;)</span><span>&#92;(+O(n)&#92;)</span></div>
   </div>
   <div class="complexity-method">
     <b class="term-aux">Karatsuba · trois sous-produits</b>
-    <div class="math-line"><span class="term-aux">&#92;(T(n)=T_p(n/2)+T_q(n/2)+T_r(n/2)+O(n)&#92;)</span></div>
-    <div class="math-line"><span class="term-aux">&#92;(=3T(n/2)+O(n)&#92;)</span></div>
+    <div class="math-line">
+      <span>&#92;(T(n)=&#92;)</span>
+      <span class="term-common">&#92;(T_p(n/2)&#92;)</span>
+      <span>+</span>
+      <span class="term-common">&#92;(T_q(n/2)&#92;)</span>
+      <span>+</span>
+      <span class="term-aux">&#92;(T_r(n/2)&#92;)</span>
+      <span>&#92;(+O(n)&#92;)</span>
+    </div>
+    <div class="math-line"><span class="term-aux">&#92;(=3T(n/2)&#92;)</span><span>&#92;(+O(n)&#92;)</span></div>
   </div>
 </div>
 
