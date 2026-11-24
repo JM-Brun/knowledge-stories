@@ -1,15 +1,24 @@
 # Workflow de publication
 
-## États
+## Maturité éditoriale et statut de génération
+
+Le workflow de travail peut suivre les étapes suivantes :
 - **Proposed** : sujet proposé, pas encore qualifié.
 - **Researching** : dossier documentaire en constitution.
-- **Draft** : rédaction en cours ; conservée dans Git mais non générée sur le site.
-- **Review** : version de travail générée dans l'atelier discret pour relecture ciblée.
+- **Drafting** : rédaction en cours.
+- **In review** : relecture éditoriale et scientifique.
 - **Approved** : validation humaine explicite enregistrée.
 - **Published** : article publié dans les parcours publics.
 - **Needs update** : une source, donnée ou explication doit être réexaminée.
 
-Le frontmatter `status: draft` reste invisible sur le site. Passer à `status: review` autorise la génération d'une page sous `/atelier/{slug}/`, sans lien depuis les pages publiques. Passer à `status: published` génère la page canonique sous `/articles/{slug}/` et l'intègre aux parcours publics. Le passage à `published` intervient après la revue et la validation explicite, jamais automatiquement à la fin d'une génération.
+Ces étapes décrivent la maturité du travail. Elles ne sont pas toutes des valeurs du frontmatter : le schéma du site expose uniquement le statut de génération `draft`, `review` ou `published`.
+- `status: draft` : le contenu est conservé dans Git mais n'est pas généré sur le site.
+- `status: review` : une page est générée sous `/atelier/{slug}/` pour relecture, sans lien depuis les pages publiques.
+- `status: published` : la page canonique est générée sous `/articles/{slug}/` et intégrée aux parcours publics.
+
+Le passage à `published` exige une validation humaine explicite préalable ; il ne découle jamais automatiquement de la fin d'une génération. `Approved` est donc une décision de validation, pas un statut de génération supplémentaire. `Needs update` est un signal de maintenance qui peut concerner un article publié comme un article en relecture.
+
+Le modèle, les critères pédagogiques et la feuille de route propres à l'Atelier sont décrits dans [le modèle éditorial de l'Atelier](atelier-editorial-model.md).
 
 ## Utiliser l'atelier de relecture
 1. Rédiger l'article avec `status: draft`.
