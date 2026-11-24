@@ -454,11 +454,7 @@ Les coûts des différents niveaux forment une somme géométrique :
 \end&#123;aligned&#125;
 &#92;]
 
-À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme &#92;(3/2&#92;) est supérieur à 1, les derniers niveaux coûtent davantage que les premiers. La somme est donc dominée, à un facteur constant près, par son dernier terme :
-
-&#92;[
-O\left(n(3/2)^k\right).
-&#92;]
+À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme cette raison est supérieure à 1, les derniers termes dominent la somme. Le calcul géométrique ci-dessus montre que son ordre de grandeur est celui de son dernier terme.
 
 Or &#92;(n=2^k&#92;), donc :
 
