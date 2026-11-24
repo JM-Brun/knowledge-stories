@@ -74,14 +74,6 @@ Le schéma rend visibles les trois dimensions à suivre simultanément : le nomb
 
 Le nombre d'appels augmente, mais chacun devient moins coûteux. Ici, les deux effets se compensent : chaque niveau coûte &#92;(\Theta(n)&#92;).
 
-### Expérimenter : faire varier une récurrence
-
-Le tableau précédent décrit un cas particulier. Utilisez maintenant le modèle général pour changer indépendamment le nombre de sous-problèmes, leur facteur de réduction et le coût local. Observez comment le travail se déplace d'un niveau à l'autre.
-
-<RecursionTreeExplorer />
-
-Commencez par retrouver le cas équilibré qui vient d'être étudié : deux enfants, une taille divisée par deux et un coût local linéaire. Essayez ensuite trois enfants avec les mêmes autres paramètres : vous retrouvez le mécanisme de Karatsuba. Enfin, faites varier l'exposant du coût local pour observer les trois régimes présentés plus loin. L'atelier utilise des tailles de la forme &#92;(n=b^k&#92;), afin que chaque découpage soit exact.
-
 
 ### Compter un niveau avant de compter tout l'arbre
 
@@ -538,6 +530,15 @@ Le coût des feuilles est du même ordre si elles sont &#92;(\Theta(1)&#92;) cha
 | &#92;(a\lt b^d&#92;) | Décroissante | Premiers niveaux |
 | &#92;(a=b^d&#92;) | Constante | Tous les niveaux |
 | &#92;(a>b^d&#92;) | Croissante | Derniers niveaux |
+
+### Expérimenter : faire varier une récurrence
+
+Le tableau précédent décrit un cas particulier. Utilisez maintenant le modèle général pour changer indépendamment le nombre de sous-problèmes, leur facteur de réduction et le coût local. Observez comment le travail se déplace d'un niveau à l'autre.
+
+<RecursionTreeExplorer />
+
+Commencez par retrouver le cas équilibré qui vient d'être étudié : deux enfants, une taille divisée par deux et un coût local linéaire. Essayez ensuite trois enfants avec les mêmes autres paramètres : vous retrouvez le mécanisme de Karatsuba. Enfin, faites varier l'exposant du coût local pour observer les trois régimes présentés plus loin. L'atelier utilise des tailles de la forme &#92;(n=b^k&#92;), afin que chaque découpage soit exact.
+
 
 Cette comparaison donne l'intuition des trois cas du théorème maître. Pour une récurrence &#92;(T(n)=aT(n/b)+\Theta(n^d)&#92;), sous les hypothèses usuelles de régularité :
 
