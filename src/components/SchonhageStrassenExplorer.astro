@@ -4,37 +4,38 @@
     <p>Le changement décisif n'est pas seulement d'accélérer la transformée : c'est de choisir un anneau où les rotations deviennent des décalages binaires.</p>
   </div>
   <div class="ss-controls" role="group" aria-label="Étapes de l'algorithme">
-    <button type="button" data-ss-step="0" aria-pressed="true">1 · Découper</button>
-    <button type="button" data-ss-step="1" aria-pressed="false">2 · Enrouler</button>
-    <button type="button" data-ss-step="2" aria-pressed="false">3 · Transformer</button>
-    <button type="button" data-ss-step="3" aria-pressed="false">4 · Reconstituer</button>
+    <button type="button" data-ss-step="0" aria-controls="ss-panel-0" aria-pressed="true">1 · Découper</button>
+    <button type="button" data-ss-step="1" aria-controls="ss-panel-1" aria-pressed="false">2 · Enrouler</button>
+    <button type="button" data-ss-step="2" aria-controls="ss-panel-2" aria-pressed="false">3 · Transformer</button>
+    <button type="button" data-ss-step="3" aria-controls="ss-panel-3" aria-pressed="false">4 · Reconstituer</button>
   </div>
   <div class="ss-panel" aria-live="polite">
-    <div data-ss-panel="0">
-      <h4>1 — Écrire les entiers comme des polynômes</h4>
-      <p>Choisissons une taille de bloc de <strong>M bits</strong>. En base B = 2ᴹ, chaque entier est une suite de blocs :</p>
-      <div class="ss-equation">a = a₀ + a₁B + a₂B² + ··· + aₖ₋₁Bᵏ⁻¹</div>
-      <div class="ss-equation">A(X) = a₀ + a₁X + a₂X² + ··· + aₖ₋₁Xᵏ⁻¹</div>
-      <p>On construit de même b et B(X). Évaluer A en X = 2ᴹ redonne exactement l'entier a. Multiplier les entiers revient donc à multiplier ces polynômes, puis à réinterpréter leurs coefficients.</p>
+    <div data-ss-panel="0" id="ss-panel-0">
+      <h4>1 — Découper et prévoir assez de place</h4>
+      <p>Écrivons les deux entiers en base B = 2ᴹ. Si leurs longueurs sont u et v bits, choisissons K une puissance de deux et M une puissance de deux tels que N = KM ≥ u + v. On complète les suites de blocs par des zéros jusqu'à K blocs :</p>
+      <div class="ss-equation">a = Σ aⱼBʲ = A(B) ; b = Σ bⱼBʲ = C(B)</div>
+      <p>Les polynômes A et C ont au plus K coefficients. Le remplissage par des zéros ne change pas les entiers ; il prépare une transformée de longueur K. La condition N ≥ u + v servira à retrouver le produit entier sans ambiguïté.</p>
     </div>
-    <div data-ss-panel="1" hidden>
-      <h4>2 — Faire apparaître une convolution négacyclique</h4>
-      <p>On travaille modulo 2ᴺ + 1, avec N = KM. Dans cet anneau, 2ᴺ ≡ −1. Or Bᴷ = (2ᴹ)ᴷ = 2ᴺ : la relation entre les puissances devient donc :</p>
-      <div class="ss-equation">Xᴷ ≡ −1  (lorsqu'on évalue X = 2ᴹ modulo 2ᴺ + 1)</div>
-      <p>Les termes de degré au moins K reviennent ainsi dans les K premières positions avec un signe négatif. C'est une <strong>convolution négacyclique</strong>, analogue à la convolution circulaire de la DFT, mais avec un changement de signe au bouclage.</p>
-      <p class="ss-note">Ce signe n'est pas un détail : il permet de représenter le produit modulo 2ᴺ + 1 sans perdre l'information nécessaire à la recomposition.</p>
+    <div data-ss-panel="1" id="ss-panel-1" hidden>
+      <h4>2 — Transformer le repliement en convolution négacyclique</h4>
+      <p>On calcule modulo 2ᴺ + 1. Comme B = 2ᴹ et N = KM, on a Bᴷ = 2ᴺ ≡ −1. Dans l'anneau quotient, cela revient à imposer Xᴷ = −1 :</p>
+      <div class="ss-equation">Xᴷ ≡ −1  (modulo Xᴷ + 1)</div>
+      <p>Si D(X) = A(X)C(X), un terme de degré r + K revient donc à l'indice r avec un signe moins. Pour 0 ≤ r &lt; K :</p>
+      <div class="ss-equation">dᵣ = Σᵢ₊ⱼ₌ᵣ aᵢcⱼ − Σᵢ₊ⱼ₌ᵣ₊K aᵢcⱼ</div>
+      <p>C'est la convolution <strong>négacyclique</strong>. En évaluant ensuite X en B = 2ᴹ modulo 2ᴺ + 1, on retrouve le produit ab modulo 2ᴺ + 1.</p>
     </div>
-    <div data-ss-panel="2" hidden>
-      <h4>3 — Choisir un anneau adapté à la FFT</h4>
-      <p>Schönhage–Strassen utilise l'anneau R = ℤ/(2ᴺ + 1)ℤ. Comme 2ᴺ ≡ −1, on a 2²ᴺ ≡ 1. Pour des paramètres compatibles, des puissances de 2 fournissent les racines de l'unité requises par la transformée.</p>
-      <div class="ss-equation">Multiplier par 2ʲ = décaler de j bits, puis réduire modulo 2ᴺ + 1</div>
-      <p>Les facteurs de rotation de la FFT ne demandent donc pas une multiplication générale : ils se réalisent par des décalages et, au passage de la borne, des changements de signe. On transforme les deux suites, on multiplie les valeurs correspondantes, puis on applique la transformée inverse.</p>
+    <div data-ss-panel="2" id="ss-panel-2" hidden>
+      <h4>3 — Le « twist » qui permet d'utiliser une FFT cyclique</h4>
+      <p>Une FFT ordinaire calcule une convolution cyclique. Pour obtenir la convolution négacyclique, on introduit une racine primitive ψ d'ordre 2K, puis ω = ψ², racine primitive K-ième :</p>
+      <div class="ss-equation">ψ = 2ᴹ ; ψᴷ = −1 ; ω = ψ²</div>
+      <p>On multiplie d'abord le coefficient aⱼ par ψʲ et cⱼ par ψʲ. On applique ensuite la DFT cyclique de longueur K avec ω, on multiplie les valeurs transformées terme à terme, puis on applique la DFT inverse et on retire le twist en multipliant le coefficient d'indice r par ψ⁻ʳ.</p>
+      <p>Comme ψ et ω sont des puissances de 2 modulo 2ᴺ + 1, ces facteurs se réalisent par des décalages binaires et des réductions modulaires, avec changement de signe au bouclage. Le modulo est impair : les puissances négatives existent donc bien.</p>
     </div>
-    <div data-ss-panel="3" hidden>
-      <h4>4 — Garantir l'exactitude et recommencer à plus petite échelle</h4>
-      <p>La transformée fournit des coefficients modulo un entier. On choisit les paramètres et les bornes de coefficients pour pouvoir relever sans ambiguïté les représentants entiers recherchés. Pour deux entiers positifs de u et v bits, prendre N ≥ u + v garantit que leur produit est strictement inférieur à 2ᴺ + 1 : le résidu détermine alors le produit entier.</p>
-      <p>Il reste les multiplications terme à terme dans l'anneau. Elles sont elles-mêmes des multiplications d'entiers plus petits : l'algorithme les traite récursivement avec la même stratégie.</p>
-      <div class="ss-result"><span>Complexité en bits</span><strong>O(n log n log log n)</strong><small>Pour deux entiers de n bits, dans l'analyse classique de Schönhage–Strassen.</small></div>
+    <div data-ss-panel="3" id="ss-panel-3" hidden>
+      <h4>4 — Retrouver le produit entier et récursiver</h4>
+      <p>La transformée donne le produit modulo 2ᴺ + 1. Or, pour des entiers positifs de u et v bits, ab &lt; 2ᵘ⁺ᵛ ≤ 2ᴺ. Le produit est donc déjà compris entre 0 et le modulo : son résidu détermine exactement ab. On n'a pas besoin de reconstruire séparément chaque coefficient de convolution.</p>
+      <p>Les produits terme à terme dans la transformée sont eux-mêmes des multiplications modulaires d'entiers plus petits. Schönhage–Strassen les traite récursivement ; le choix des tailles de blocs et le coût de ces opérations font partie de l'analyse de complexité.</p>
+      <div class="ss-result"><span>Complexité en bits</span><strong>O(n log n log log n)</strong><small>Borne classique pour deux entiers de n bits ; elle ne se déduit pas de la seule FFT en O(K log K).</small></div>
     </div>
   </div>
   <p class="ss-foot">À retenir : la FFT explique comment calculer vite une convolution ; Schönhage–Strassen choisit un anneau arithmétique qui rend cette transformation compatible avec une multiplication entière exacte et récursive.</p>
