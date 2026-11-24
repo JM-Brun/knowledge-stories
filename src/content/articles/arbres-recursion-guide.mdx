@@ -1,0 +1,334 @@
+---
+title: "Arbres de récursion : compter le travail à chaque niveau"
+description: "Apprenez à lire un arbre de récursion, calculer le coût de chaque niveau, comparer les contributions et retrouver les régimes du théorème maître."
+date: 2026-11-24
+category: "Mathématiques et informatique"
+themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
+tags: ["algorithmique", "complexité", "récursivité", "arbres de récursion", "théorème maître"]
+difficulty: "intermediate"
+readingTime: 11
+status: "review"
+featured: false
+sources:
+  - title: "Lecture notes — Complexity, H. Zantema, Radboud University (version 2019)"
+    url: "https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf"
+    kind: "secondary"
+    accessed: 2026-11-24
+  - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
+    url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
+    kind: "secondary"
+    accessed: 2026-11-24
+relatedArticles: ["arbres-recursion-complexite", "karatsuba-multiplication"]
+---
+
+import RecursionTreeExample from "../../components/RecursionTreeExample.astro";
+import RecursionTreeExplorer from "../../components/RecursionTreeExplorer.astro";
+
+<div class="complexity-lesson">
+
+<p class="lesson-context">Cette ressource présente une méthode générale pour analyser les algorithmes récursifs. Elle est conçue comme un complément méthodologique : pour voir cette méthode appliquée à un cas précis, consultez <a href="/knowledge-stories/atelier/arbres-recursion-complexite/">l’analyse de la complexité de Karatsuba</a>. Vous pouvez aussi revenir à <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’algorithme de multiplication de Karatsuba</a>.</p>
+
+## Outil d’analyse : lire un arbre de récursion
+
+Pour analyser le coût de l'implémentation, il faut visualiser les appels récursifs qu'elle déclenche. L'arbre est ici un **outil**, pas le sujet de l'article : il rend visibles le nombre de sous-multiplications, leur taille et le travail effectué à chaque étape. Les définitions qui suivent donnent uniquement le vocabulaire nécessaire à la démonstration de Karatsuba. Elles pourront être développées dans une ressource autonome si ce détour prend davantage d'ampleur.
+
+### Le vocabulaire indispensable
+
+- **Racine** : premier appel, qui traite le problème initial de taille &#92;(n&#92;).
+- **Nœud** : appel récursif représentant un sous-problème et le travail effectué à cette étape.
+- **Enfant** : appel créé par un nœud ; le nœud qui le crée est son parent.
+- **Niveau** : ensemble des appels situés à la même distance de la racine. La racine est au niveau 0.
+- **Feuille** : nœud qui ne crée plus d'appel récursif ; il résout directement un cas de base.
+- **Profondeur** : nombre de découpages entre la racine et un nœud. La profondeur maximale donne la hauteur en nombre de découpages.
+
+Un arbre n'est pas nécessairement équilibré : certaines branches peuvent s'arrêter avant les autres. Nous commençons par un cas équilibré, puis reviendrons sur les hypothèses nécessaires.
+
+### Un exemple minimal pour comprendre le coût d’un niveau
+
+Considérons un algorithme qui divise un problème en deux sous-problèmes de taille moitié et effectue un travail linéaire pour les réunir :
+
+&#92;[
+T(n)=2T(n/2)+cn,\qquad T(1)=d,
+&#92;]
+
+où &#92;(c&#92;) et &#92;(d&#92;) sont des constantes positives.
+
+Au niveau 0, un appel traite &#92;(n&#92;) éléments. Au niveau 1, deux appels traitent chacun &#92;(n/2&#92;) éléments. Au niveau 2, quatre appels traitent chacun &#92;(n/4&#92;) éléments. Le motif se poursuit.
+
+Le schéma rend visibles les trois dimensions à suivre simultanément : le nombre de nœuds, la taille des sous-problèmes et le coût cumulé du niveau.
+
+<RecursionTreeExample />
+
+| Niveau &#92;(j&#92;) | Nombre d'appels &#92;(N_j&#92;) | Taille par appel &#92;(S_j&#92;) | Coût local par appel | Coût du niveau &#92;(W_j&#92;) |
+|---:|---:|---:|---:|---:|
+| 0 | &#92;(1&#92;) | &#92;(n&#92;) | &#92;(cn&#92;) | &#92;(cn&#92;) |
+| 1 | &#92;(2&#92;) | &#92;(n/2&#92;) | &#92;(cn/2&#92;) | &#92;(cn&#92;) |
+| 2 | &#92;(4&#92;) | &#92;(n/4&#92;) | &#92;(cn/4&#92;) | &#92;(cn&#92;) |
+| &#92;(j&#92;) | &#92;(2^j&#92;) | &#92;(n/2^j&#92;) | &#92;(cn/2^j&#92;) | &#92;(cn&#92;) |
+
+Le nombre d'appels augmente, mais chacun devient moins coûteux. Ici, les deux effets se compensent : chaque niveau coûte &#92;(\Theta(n)&#92;).
+
+
+### Compter un niveau avant de compter tout l'arbre
+
+Posons quatre quantités :
+
+&#92;[
+\begin&#123;aligned&#125;
+N_j &= \text&#123;nombre de nœuds au niveau &#125;j,\\
+S_j &= \text&#123;taille d'un sous-problème à ce niveau&#125;,\\
+C_j &= \text&#123;coût local d'un nœud de ce niveau&#125;,\\
+W_j &= \text&#123;coût cumulé de tous les nœuds du niveau&#125;.
+\end&#123;aligned&#125;
+&#92;]
+
+Lorsque les nœuds d'un même niveau ont la même taille et le même coût local :
+
+&#92;[
+\boxed&#123;W_j=N_j&#92;,C_j&#125;
+&#92;]
+
+Cette formule évite de confondre trois questions : combien d'appels ? combien coûte chacun ? combien coûte le niveau entier ? Dans un arbre irrégulier, les coûts peuvent différer et il faut sommer :
+
+&#92;[
+W_j=\sum_&#123;v\text&#123; au niveau &#125;j&#125; C(v).
+&#92;]
+
+### Du coût des niveaux au coût total
+
+Le coût total doit compter **chaque nœud exactement une fois**, qu'il soit interne ou feuille. Notons &#92;(\mathcal I&#92;) l'ensemble des nœuds internes et &#92;(\mathcal L&#92;) l'ensemble des feuilles. Dans le cas général, y compris lorsque les branches s'arrêtent à des profondeurs différentes :
+
+&#92;[
+T(n)=\sum_&#123;v\in\mathcal I&#125; C(v)+\sum_&#123;\ell\in\mathcal L&#125; C(\ell).
+&#92;]
+
+Comme &#92;(W_j&#92;) désigne le coût de **tous** les nœuds du niveau &#92;(j&#92;), on peut aussi écrire &#92;(T(n)=\sum_&#123;j=0&#125;^h W_j&#92;). Cette écriture inclut les feuilles à leur profondeur réelle.
+
+Dans le cas particulier d'un arbre équilibré dont toutes les feuilles sont au niveau &#92;(h&#92;), on peut séparer les deux contributions :
+
+&#92;[
+T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125; W_j^&#123;\mathrm&#123;int&#125;&#125;+L_h,
+&#92;]
+
+où &#92;(W_j^&#123;\mathrm&#123;int&#125;&#125;&#92;) est le coût des seuls nœuds internes du niveau &#92;(j&#92;) et &#92;(L_h&#92;) le coût cumulé des feuilles. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
+
+Dans l'exemple précédent, chaque niveau interne coûte &#92;(\Theta(n)&#92;), et il y a &#92;(\Theta(\log n)&#92;) niveaux. Les feuilles sont au nombre de &#92;(2^&#123;\log_2 n&#125;=n&#92;), chacune de coût constant. Ainsi :
+
+&#92;[
+T(n)=\Theta(n\log n)+\Theta(n)=\Theta(n\log n).
+&#92;]
+
+Cet exemple montre pourquoi compter uniquement les feuilles ne suffit pas toujours : le travail interne cumulé peut dominer.
+
+> **Réflexe à acquérir :** ne concluez jamais à partir du seul nombre de feuilles. Calculez le coût de chaque niveau, puis comparez les contributions.
+
+## Généraliser l’analyse à d’autres récurrences
+
+Karatsuba appartient à une famille de récurrences :
+
+&#92;[
+T(n)=aT(n/b)+\Theta(n^d),
+&#92;]
+
+avec &#92;(a\geq1&#92;), &#92;(b>1&#92;) et &#92;(d\geq0&#92;). Chaque nœud crée &#92;(a&#92;) enfants de taille &#92;(n/b&#92;) et effectue localement un travail proportionnel à &#92;(n^d&#92;).
+
+Au niveau &#92;(j&#92;), le nombre d'appels et la taille de chacun sont :
+
+&#92;[
+N_j=a^j,\qquad S_j=\frac&#123;n&#125;&#123;b^j&#125;.
+&#92;]
+
+Le coût local cumulé du niveau vaut donc :
+
+&#92;[
+W_j=a^j\Theta\left((n/b^j)^d\right)
+=\Theta\left(n^d\left(\frac&#123;a&#125;&#123;b^d&#125;\right)^j\right).
+&#92;]
+
+Le rapport &#92;(a/b^d&#92;) compare l'augmentation du nombre d'appels à la diminution du coût de chaque appel.
+
+### Cas 1 — Les premiers niveaux dominent
+
+Si &#92;(a/b^d\lt 1&#92;), les contributions diminuent d'un niveau au suivant. La somme géométrique est dominée par les premiers niveaux : le travail interne total est &#92;(\Theta(n^d)&#92;).
+
+### Cas 2 — Tous les niveaux contribuent autant
+
+Si &#92;(a/b^d=1&#92;), chaque niveau coûte &#92;(\Theta(n^d)&#92;). Comme la profondeur est &#92;(\Theta(\log n)&#92;), le travail interne total est :
+
+&#92;[
+\Theta(n^d\log n).
+&#92;]
+
+C'est le mécanisme de &#92;(T(n)=2T(n/2)+\Theta(n)&#92;) : &#92;(a=2&#92;), &#92;(b=2&#92;), &#92;(d=1&#92;).
+
+### Cas 3 — Les derniers niveaux dominent
+
+Si &#92;(a/b^d>1&#92;), les contributions augmentent à chaque niveau. La somme est dominée par les derniers niveaux. Pour une profondeur &#92;(h=\log_b n&#92;), le travail interne est de l'ordre de :
+
+&#92;[
+n^d\left(\frac&#123;a&#125;&#123;b^d&#125;\right)^&#123;\log_b n&#125;
+=n^&#123;\log_b a&#125;.
+&#92;]
+
+Le coût des feuilles est du même ordre si elles sont &#92;(\Theta(1)&#92;) chacune. C'est le régime de Karatsuba : &#92;(a=3&#92;), &#92;(b=2&#92;), &#92;(d=1&#92;), donc &#92;(3/2>1&#92;).
+
+| Comparaison | Évolution du coût par niveau | Contribution dominante |
+|---|---|---|
+| &#92;(a\lt b^d&#92;) | Décroissante | Premiers niveaux |
+| &#92;(a=b^d&#92;) | Constante | Tous les niveaux |
+| &#92;(a>b^d&#92;) | Croissante | Derniers niveaux |
+
+### Expérimenter : faire varier une récurrence
+
+Le tableau précédent décrit un cas particulier. Utilisez maintenant le modèle général pour changer indépendamment le nombre de sous-problèmes, leur facteur de réduction et le coût local. Observez comment le travail se déplace d'un niveau à l'autre.
+
+<RecursionTreeExplorer />
+
+Commencez par retrouver le cas équilibré qui vient d'être étudié : deux enfants, une taille divisée par deux et un coût local linéaire. Essayez ensuite un seul enfant et un coût local constant (recherche dichotomique), puis trois enfants avec les mêmes autres paramètres que Karatsuba. Enfin, faites varier l'exposant du coût local pour observer les trois régimes présentés plus loin. L'atelier utilise des tailles de la forme &#92;(n=b^k&#92;), afin que chaque découpage soit exact.
+
+
+Cette comparaison donne l'intuition des trois cas du théorème maître. Pour une récurrence &#92;(T(n)=aT(n/b)+\Theta(n^d)&#92;), sous les hypothèses usuelles de régularité :
+
+&#92;[
+T(n)=
+\begin&#123;cases&#125;
+\Theta(n^d), & a\lt b^d,\\
+\Theta(n^d\log n), & a=b^d,\\
+\Theta(n^&#123;\log_b a&#125;), & a>b^d.
+\end&#123;cases&#125;
+&#92;]
+
+Le théorème maître formalise ce résultat et résout rapidement certaines récurrences. L'arbre explique pourquoi les trois cas existent. Les deux approches sont complémentaires : l'arbre construit l'intuition et détaille les contributions ; le théorème maître fournit un raccourci sous des hypothèses précises.
+
+## Transférer le raisonnement à d'autres algorithmes
+
+Les arbres de récursion ne sont pas propres à Karatsuba. Ils décrivent aussi bien un algorithme qui divise le travail en plusieurs branches qu'un algorithme qui ne conserve qu'un seul sous-problème.
+
+### Recherche dichotomique : une seule branche
+
+À chaque étape, la recherche dichotomique élimine la moitié du tableau et poursuit la recherche dans une seule moitié. Pour simplifier, supposons que la taille initiale soit une puissance de deux. Son modèle est :
+
+&#92;[
+T(n)=T(n/2)+&#92;Theta(1).
+&#92;]
+
+Ici, &#92;(a=1&#92;), &#92;(b=2&#92;) et &#92;(d=0&#92;). À chaque niveau, il n'existe qu'un appel et son coût local est constant :
+
+&#92;[
+N_j=1,\qquad S_j=n/2^j,\qquad W_j=&#92;Theta(1).
+&#92;]
+
+La profondeur est logarithmique ; il y a donc &#92;(&#92;Theta(\log n)&#92;) niveaux de coût constant. Le coût total est &#92;(\Theta(\log n)&#92;). L'arbre est ici une chaîne : il n'a qu'une feuille, mais cette feuille ne suffit pas à compter le travail effectué avant d'y arriver.
+
+### Tri fusion : plusieurs branches et un coût de recomposition
+
+Le tri fusion découpe le tableau en deux moitiés, trie récursivement chacune, puis fusionne les deux résultats en temps linéaire :
+
+&#92;[
+T(n)=2T(n/2)+&#92;Theta(n).
+&#92;]
+
+Au niveau &#92;(j&#92;), il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;). Le coût cumulé du niveau est donc proportionnel à &#92;(n&#92;) :
+
+&#92;[
+W_j=2^j&#92;,&#92;Theta(n/2^j)=&#92;Theta(n).
+&#92;]
+
+Les &#92;(\Theta(\log n)&#92;) niveaux internes contribuent chacun &#92;(\Theta(n)&#92;), d'où &#92;(\Theta(n\log n)&#92;). C'est le même profil de coûts que notre premier exemple ; ce qui change est l'algorithme qui donne un sens au travail local.
+
+**Comparer les deux arbres :** la recherche dichotomique suit une seule branche et dépense un coût constant à chaque niveau ; le tri fusion crée deux branches et dépense un coût linéaire cumulé à chaque niveau. La hauteur seule ne détermine donc pas la complexité : il faut aussi compter les nœuds et annoter leur coût.
+
+## S'entraîner : construire, compter, comparer
+
+Pour chaque exercice, identifiez le nombre d'enfants &#92;(a&#92;), le facteur de réduction &#92;(b&#92;) et le coût local.
+
+<details>
+<summary><strong>Exercice 1 — Lire un niveau</strong></summary>
+
+On considère &#92;(T(n)=3T(n/2)+\Theta(n)&#92;). Combien d'appels trouve-t-on au niveau 3 ? Quelle est la taille de chaque sous-problème ?
+
+**Correction.** Chaque appel crée trois enfants : &#92;(N_j=3^j&#92;). Au niveau 3, il y a &#92;(3^3=27&#92;) appels, chacun de taille &#92;(n/2^3=n/8&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 2 — Calculer le travail d'un niveau</strong></summary>
+
+On considère &#92;(T(n)=2T(n/2)+\Theta(n)&#92;). Déterminez le travail cumulé du niveau &#92;(j&#92;).
+
+**Correction.** Il y a &#92;(2^j&#92;) appels. Chacun traite &#92;(n/2^j&#92;) éléments et effectue un travail local &#92;(\Theta(n/2^j)&#92;). Ainsi :
+
+&#92;[
+W_j=2^j\Theta(n/2^j)=\Theta(n).
+&#92;]
+
+Tous les niveaux internes ont le même ordre de coût.
+
+</details>
+
+<details>
+<summary><strong>Exercice 3 — Identifier le régime</strong></summary>
+
+Pour chaque récurrence, comparez &#92;(a&#92;) et &#92;(b^d&#92;), puis identifiez les niveaux dominants.
+
+- &#92;(T(n)=2T(n/2)+\Theta(n)&#92;)
+- &#92;(T(n)=2T(n/2)+\Theta(n^2)&#92;)
+- &#92;(T(n)=4T(n/2)+\Theta(n)&#92;)
+
+**Correction.**
+
+1. &#92;(a=2=b^d&#92;) : chaque niveau coûte &#92;(\Theta(n)&#92;), donc le travail interne est &#92;(\Theta(n\log n)&#92;).
+2. &#92;(a=2\lt 4=b^d&#92;) : les coûts décroissent ; les premiers niveaux dominent et le travail interne est &#92;(\Theta(n^2)&#92;).
+3. &#92;(a=4>2=b^d&#92;) : les coûts augmentent ; les derniers niveaux dominent et le coût total est &#92;(\Theta(n^2)&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 4 — Ne pas oublier les feuilles</strong></summary>
+
+Pourquoi le nombre de feuilles ne suffit-il pas toujours à déterminer le coût total ?
+
+**Correction.** Dans &#92;(T(n)=2T(n/2)+\Theta(n)&#92;), les feuilles sont au nombre de &#92;(n&#92;), chacune de coût constant : elles coûtent &#92;(\Theta(n)&#92;). Mais les &#92;(\Theta(\log n)&#92;) niveaux internes coûtent chacun &#92;(\Theta(n)&#92;). Le coût total est donc &#92;(\Theta(n\log n)&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 5 — Reconnaître une récursion en chaîne</strong></summary>
+
+La recherche dichotomique vérifie une valeur, puis poursuit dans une seule moitié du tableau. Écrivez sa récurrence et donnez le nombre d'appels au niveau &#92;(j&#92;).
+
+**Correction.** La récurrence est &#92;(T(n)=T(n/2)+&#92;Theta(1)&#92;). Il n'y a qu'un appel par niveau : &#92;(N_j=1&#92;). La taille est divisée par deux jusqu'à atteindre 1, soit &#92;(\Theta(\log n)&#92;) niveaux. Chaque niveau coûte &#92;(\Theta(1)&#92;), donc le coût total est &#92;(\Theta(\log n)&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 6 — Comparer deux arbres de même hauteur</strong></summary>
+
+Comparez &#92;(T_1(n)=T_1(n/2)+&#92;Theta(1)&#92;) et &#92;(T_2(n)=2T_2(n/2)+&#92;Theta(n)&#92;). Les deux arbres ont une hauteur logarithmique. Pourquoi leurs coûts diffèrent-ils ?
+
+**Correction.** Dans le premier arbre, il y a un seul appel par niveau et un coût constant : &#92;(W_j=&#92;Theta(1)&#92;), donc &#92;(T_1(n)=&#92;Theta(\log n)&#92;). Dans le second, il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;), donc &#92;(W_j=&#92;Theta(n)&#92;), et &#92;(T_2(n)=&#92;Theta(n\log n)&#92;). La hauteur ne suffit pas : le nombre de nœuds et le coût local comptent aussi.
+
+</details>
+
+## Méthode à réutiliser sur un nouvel algorithme
+
+1. **Écrire la récurrence** et identifier le cas de base.
+2. **Identifier les paramètres** : nombre d'enfants &#92;(a&#92;), facteur de réduction &#92;(b&#92;), travail local &#92;(f(n)&#92;).
+3. **Décrire un niveau** : calculer le nombre d'appels et la taille de chacun.
+4. **Calculer son coût** : multiplier le nombre d'appels par le coût local, ou sommer les coûts si le niveau est irrégulier.
+5. **Déterminer la profondeur** : chercher quand les sous-problèmes atteignent le cas de base.
+6. **Additionner les niveaux internes** et calculer séparément le coût des feuilles.
+7. **Comparer les contributions** pour identifier les niveaux dominants.
+8. **Vérifier les hypothèses** : tailles équilibrées, cas de base, coûts locaux et branches qui peuvent s'arrêter plus tôt.
+
+Cette procédure permet de justifier chaque terme de la complexité et de repérer les hypothèses qui pourraient invalider le résultat.
+
+## À retenir
+
+- Un nœud représente un appel récursif ; un niveau regroupe les appels de même profondeur ; une feuille est un appel qui ne se décompose plus.
+- Le nombre d'appels et le coût de chaque appel évoluent souvent en sens inverse : il faut les combiner pour obtenir le coût d'un niveau.
+- Le coût total est la somme des coûts internes et du coût des feuilles. Compter les seules feuilles peut être insuffisant.
+- Le rapport &#92;(a/b^d&#92;) indique si les contributions des niveaux diminuent, restent constantes ou augmentent dans le modèle régulier.
+- Pour Karatsuba, &#92;(a=3&#92;), &#92;(b=2&#92;), &#92;(d=1&#92;) : les derniers niveaux dominent et la complexité est &#92;(\Theta(n^&#123;\log_2 3&#125;)&#92;).
+
+</div>
