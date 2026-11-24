@@ -305,7 +305,7 @@ Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(&#92;widehat a_k
 &#92;[
 &#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;omega^&#123;k(&#92;ell-j)&#125;.
 &#92;]
-Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(&#92;mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N&#92;mid p-1&#92;), et pour une longueur de transformée puissance de deux dans l'anneau modulo &#92;(2^M+1&#92;), qui est impair.
+Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est l'orthogonalité des caractères définis par les racines de l'unité. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose deux propriétés : la longueur de transformée doit être inversible, et les sommes géométriques associées aux racines non triviales doivent s'annuler. Dans un corps, une racine primitive fournit cette seconde propriété ; dans un anneau général, elle doit être vérifiée séparément. Pour Schönhage–Strassen, avec &#92;(N=KM&#92;) et &#92;(N,K&#92;) puissances de deux, le module &#92;(2^N+1&#92;) est impair et, pour &#92;(0<t<K&#92;), &#92;(ω^t-1=2^{2Mt}-1&#92;) est inversible modulo &#92;(2^N+1&#92;). En effet, tout diviseur premier commun imposerait à 2 un ordre exactement &#92;(2N&#92;), alors que &#92;(2Mt<2N&#92;). Les racines utilisées sont donc bien orthogonales, et &#92;(K&#92;) est inversible modulo ce module impair.
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
@@ -396,7 +396,11 @@ L'idée est de relier trois représentations : entiers découpés en blocs, poly
 
 <SchonhageStrassenExplorer />
 
-**Pourquoi cette construction est-elle rapide ?** On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre &#92;(2N&#92;). Ainsi, &#92;(ψ=2^M&#92;) est une racine primitive d'ordre &#92;(2K&#92;) : &#92;(ψ^K=2^N&#92;equiv-1&#92;). En posant &#92;(ω=ψ^2&#92;), on obtient une racine primitive &#92;(K&#92;)-ième de l'unité.
+**Pourquoi cette construction est-elle rapide ?** On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre exactement &#92;(2N&#92;). En effet, &#92;(2^N&#92;equiv-1&#92;) implique &#92;(2^{2N}&#92;equiv1&#92;).
+
+Si une puissance &#92;(2^d&#92;) avec &#92;(0<d<N&#92;) valait déjà 1, alors &#92;(2^d-1&#92;) serait un multiple strictement positif du module, ce qui est impossible puisque &#92;(2^d-1<2^N+1&#92;). Si &#92;(N&#92;leq d<2N&#92;), écrivons &#92;(d=N+s&#92;) avec &#92;(0&#92;leq s<N&#92;) : on aurait alors &#92;(2^s&#92;equiv-1&#92;), impossible car &#92;(0<2^s+1<2^N+1&#92;). Aucune puissance positive inférieure à &#92;(2N&#92;) ne vaut donc 1.
+
+Comme &#92;(M=N/K&#92;), la puissance &#92;(ψ=2^M&#92;) est d'ordre &#92;(2K&#92;), et &#92;(ψ^K=2^N&#92;equiv-1&#92;). En posant &#92;(ω=ψ^2&#92;), on obtient une racine primitive &#92;(K&#92;)-ième de l'unité.
 
 Il reste une subtilité essentielle : une DFT ordinaire avec &#92;(ω&#92;) calcule une convolution **cyclique**, pas négacyclique. On effectue donc un *twist* avant la transformée : on multiplie le coefficient d'indice &#92;(j&#92;) par &#92;(ψ^j&#92;), on applique la DFT cyclique de racine &#92;(ω&#92;), puis on retire le twist après la transformée inverse en multipliant le coefficient d'indice &#92;(r&#92;) par &#92;(ψ^&#123;-r&#125;&#92;). C'est ce changement de phase qui transforme le bouclage cyclique en bouclage avec signe négatif. Comme ces racines sont des puissances de 2 modulo &#92;(2^N+1&#92;), les multiplications correspondantes se ramènent à des décalages binaires et à des réductions modulaires.
 
