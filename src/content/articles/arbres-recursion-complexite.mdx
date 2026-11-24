@@ -27,6 +27,7 @@ relatedArticles: ["karatsuba-multiplication"]
 
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 import RecursionTreeExample from "../../components/RecursionTreeExample.astro";
+import RecursionTreeExplorer from "../../components/RecursionTreeExplorer.astro";
 
 <div class="complexity-lesson">
 
@@ -72,6 +73,15 @@ Le schéma rend visibles les trois dimensions à suivre simultanément : le nomb
 | &#92;(j&#92;) | &#92;(2^j&#92;) | &#92;(n/2^j&#92;) | &#92;(cn/2^j&#92;) | &#92;(cn&#92;) |
 
 Le nombre d'appels augmente, mais chacun devient moins coûteux. Ici, les deux effets se compensent : chaque niveau coûte &#92;(\Theta(n)&#92;).
+
+### Expérimenter : faire varier une récurrence
+
+Le tableau précédent décrit un cas particulier. Utilisez maintenant le modèle général pour changer indépendamment le nombre de sous-problèmes, leur facteur de réduction et le coût local. Observez comment le travail se déplace d'un niveau à l'autre.
+
+<RecursionTreeExplorer />
+
+Commencez par retrouver le cas équilibré qui vient d'être étudié : deux enfants, une taille divisée par deux et un coût local linéaire. Essayez ensuite trois enfants avec les mêmes autres paramètres : vous retrouvez le mécanisme de Karatsuba. Enfin, faites varier l'exposant du coût local pour observer les trois régimes présentés plus loin. L'atelier utilise des tailles de la forme &#92;(n=b^k&#92;), afin que chaque découpage soit exact.
+
 
 ### Compter un niveau avant de compter tout l'arbre
 
