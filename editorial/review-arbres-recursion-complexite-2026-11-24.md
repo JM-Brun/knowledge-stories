@@ -178,3 +178,18 @@ Le tableau recalcule, pour chaque niveau, le nombre d'appels `N_j`, la taille `S
 - [ ] Vérifier les valeurs du tableau et des feuilles pour plusieurs profondeurs.
 - [ ] Revue visuelle desktop/mobile, thème sombre et navigation clavier.
 - [ ] Vérifier la cohérence de l'atelier avec les équations et le texte de généralisation.
+
+
+## Quatrième itération — transfert à des arbres non ramifiés
+
+### Apport pédagogique
+
+L'atelier accepte désormais `a=1`, ce qui permet de représenter une récursion en chaîne, et pas seulement un arbre à embranchements. La page ajoute deux exemples travaillés :
+- recherche dichotomique : `T(n)=T(n/2)+Theta(1)`, une branche, un coût constant par niveau, donc `Theta(log n)` ;
+- tri fusion : `T(n)=2T(n/2)+Theta(n)`, deux branches, coût cumulé `Theta(n)` par niveau, donc `Theta(n log n)`.
+
+Deux exercices supplémentaires font comparer des arbres de même hauteur, mais de coûts très différents. Cela renforce le principe central : la hauteur seule ne détermine pas la complexité.
+
+### Limite de validation
+
+La tentative de clonage du dépôt depuis l'environnement d'exécution a échoué car l'accès réseau à GitHub n'est pas disponible. Les scripts `npm test`, `npm run check` et `npm run build` n'ont donc pas été exécutés ici. Aucun résultat CI ne doit être supposé. Le code a été relu statiquement, mais la compilation Astro et le rendu navigateur restent à confirmer.
