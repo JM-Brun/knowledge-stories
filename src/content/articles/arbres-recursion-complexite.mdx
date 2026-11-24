@@ -559,7 +559,7 @@ Les arbres de récursion ne sont pas propres à Karatsuba. Ils décrivent aussi 
 
 ### Recherche dichotomique : une seule branche
 
-À chaque étape, la recherche dichotomique élimine la moitié du tableau et poursuit la recherche dans une seule moitié. Son modèle est :
+À chaque étape, la recherche dichotomique élimine la moitié du tableau et poursuit la recherche dans une seule moitié. Pour simplifier, supposons que la taille initiale soit une puissance de deux. Son modèle est :
 
 &#92;[
 T(n)=T(n/2)+&#92;Theta(1).
@@ -581,7 +581,7 @@ Le tri fusion découpe le tableau en deux moitiés, trie récursivement chacune,
 T(n)=2T(n/2)+&#92;Theta(n).
 &#92;]
 
-Au niveau &#92;(j&#92;), il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;). Le coût cumulé du niveau est donc constant à l'échelle de &#92;(n&#92;) :
+Au niveau &#92;(j&#92;), il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;). Le coût cumulé du niveau est donc proportionnel à &#92;(n&#92;) :
 
 &#92;[
 W_j=2^j\,&#92;Theta(n/2^j)=&#92;Theta(n).
