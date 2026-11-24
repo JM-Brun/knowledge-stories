@@ -27,6 +27,7 @@ relatedArticles: ["karatsuba-multiplication"]
 
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 import RecursionTreeExample from "../../components/RecursionTreeExample.astro";
+import RecursionTreeExplorer from "../../components/RecursionTreeExplorer.astro";
 
 <div class="complexity-lesson">
 
@@ -72,6 +73,7 @@ Le schéma rend visibles les trois dimensions à suivre simultanément : le nomb
 | &#92;(j&#92;) | &#92;(2^j&#92;) | &#92;(n/2^j&#92;) | &#92;(cn/2^j&#92;) | &#92;(cn&#92;) |
 
 Le nombre d'appels augmente, mais chacun devient moins coûteux. Ici, les deux effets se compensent : chaque niveau coûte &#92;(\Theta(n)&#92;).
+
 
 ### Compter un niveau avant de compter tout l'arbre
 
@@ -529,6 +531,15 @@ Le coût des feuilles est du même ordre si elles sont &#92;(\Theta(1)&#92;) cha
 | &#92;(a=b^d&#92;) | Constante | Tous les niveaux |
 | &#92;(a>b^d&#92;) | Croissante | Derniers niveaux |
 
+### Expérimenter : faire varier une récurrence
+
+Le tableau précédent décrit un cas particulier. Utilisez maintenant le modèle général pour changer indépendamment le nombre de sous-problèmes, leur facteur de réduction et le coût local. Observez comment le travail se déplace d'un niveau à l'autre.
+
+<RecursionTreeExplorer />
+
+Commencez par retrouver le cas équilibré qui vient d'être étudié : deux enfants, une taille divisée par deux et un coût local linéaire. Essayez ensuite un seul enfant et un coût local constant (recherche dichotomique), puis trois enfants avec les mêmes autres paramètres que Karatsuba. Enfin, faites varier l'exposant du coût local pour observer les trois régimes présentés plus loin. L'atelier utilise des tailles de la forme &#92;(n=b^k&#92;), afin que chaque découpage soit exact.
+
+
 Cette comparaison donne l'intuition des trois cas du théorème maître. Pour une récurrence &#92;(T(n)=aT(n/b)+\Theta(n^d)&#92;), sous les hypothèses usuelles de régularité :
 
 &#92;[
@@ -541,6 +552,44 @@ T(n)=
 &#92;]
 
 Le théorème maître formalise ce résultat et résout rapidement certaines récurrences. L'arbre explique pourquoi les trois cas existent. Les deux approches sont complémentaires : l'arbre construit l'intuition et détaille les contributions ; le théorème maître fournit un raccourci sous des hypothèses précises.
+
+## Transférer le raisonnement à d'autres algorithmes
+
+Les arbres de récursion ne sont pas propres à Karatsuba. Ils décrivent aussi bien un algorithme qui divise le travail en plusieurs branches qu'un algorithme qui ne conserve qu'un seul sous-problème.
+
+### Recherche dichotomique : une seule branche
+
+À chaque étape, la recherche dichotomique élimine la moitié du tableau et poursuit la recherche dans une seule moitié. Pour simplifier, supposons que la taille initiale soit une puissance de deux. Son modèle est :
+
+&#92;[
+T(n)=T(n/2)+&#92;Theta(1).
+&#92;]
+
+Ici, &#92;(a=1&#92;), &#92;(b=2&#92;) et &#92;(d=0&#92;). À chaque niveau, il n'existe qu'un appel et son coût local est constant :
+
+&#92;[
+N_j=1,\qquad S_j=n/2^j,\qquad W_j=&#92;Theta(1).
+&#92;]
+
+La profondeur est logarithmique ; il y a donc &#92;(&#92;Theta(\log n)&#92;) niveaux de coût constant. Le coût total est &#92;(\Theta(\log n)&#92;). L'arbre est ici une chaîne : il n'a qu'une feuille, mais cette feuille ne suffit pas à compter le travail effectué avant d'y arriver.
+
+### Tri fusion : plusieurs branches et un coût de recomposition
+
+Le tri fusion découpe le tableau en deux moitiés, trie récursivement chacune, puis fusionne les deux résultats en temps linéaire :
+
+&#92;[
+T(n)=2T(n/2)+&#92;Theta(n).
+&#92;]
+
+Au niveau &#92;(j&#92;), il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;). Le coût cumulé du niveau est donc proportionnel à &#92;(n&#92;) :
+
+&#92;[
+W_j=2^j&#92;,&#92;Theta(n/2^j)=&#92;Theta(n).
+&#92;]
+
+Les &#92;(\Theta(\log n)&#92;) niveaux internes contribuent chacun &#92;(\Theta(n)&#92;), d'où &#92;(\Theta(n\log n)&#92;). C'est le même profil de coûts que notre premier exemple ; ce qui change est l'algorithme qui donne un sens au travail local.
+
+**Comparer les deux arbres :** la recherche dichotomique suit une seule branche et dépense un coût constant à chaque niveau ; le tri fusion crée deux branches et dépense un coût linéaire cumulé à chaque niveau. La hauteur seule ne détermine donc pas la complexité : il faut aussi compter les nœuds et annoter leur coût.
 
 ## S'entraîner : construire, compter, comparer
 
@@ -593,6 +642,24 @@ Pour chaque récurrence, comparez &#92;(a&#92;) et &#92;(b^d&#92;), puis identif
 Pourquoi le nombre de feuilles ne suffit-il pas toujours à déterminer le coût total ?
 
 **Correction.** Dans &#92;(T(n)=2T(n/2)+\Theta(n)&#92;), les feuilles sont au nombre de &#92;(n&#92;), chacune de coût constant : elles coûtent &#92;(\Theta(n)&#92;). Mais les &#92;(\Theta(\log n)&#92;) niveaux internes coûtent chacun &#92;(\Theta(n)&#92;). Le coût total est donc &#92;(\Theta(n\log n)&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 5 — Reconnaître une récursion en chaîne</strong></summary>
+
+La recherche dichotomique vérifie une valeur, puis poursuit dans une seule moitié du tableau. Écrivez sa récurrence et donnez le nombre d'appels au niveau &#92;(j&#92;).
+
+**Correction.** La récurrence est &#92;(T(n)=T(n/2)+&#92;Theta(1)&#92;). Il n'y a qu'un appel par niveau : &#92;(N_j=1&#92;). La taille est divisée par deux jusqu'à atteindre 1, soit &#92;(\Theta(\log n)&#92;) niveaux. Chaque niveau coûte &#92;(\Theta(1)&#92;), donc le coût total est &#92;(\Theta(\log n)&#92;).
+
+</details>
+
+<details>
+<summary><strong>Exercice 6 — Comparer deux arbres de même hauteur</strong></summary>
+
+Comparez &#92;(T_1(n)=T_1(n/2)+&#92;Theta(1)&#92;) et &#92;(T_2(n)=2T_2(n/2)+&#92;Theta(n)&#92;). Les deux arbres ont une hauteur logarithmique. Pourquoi leurs coûts diffèrent-ils ?
+
+**Correction.** Dans le premier arbre, il y a un seul appel par niveau et un coût constant : &#92;(W_j=&#92;Theta(1)&#92;), donc &#92;(T_1(n)=&#92;Theta(\log n)&#92;). Dans le second, il y a &#92;(2^j&#92;) appels de taille &#92;(n/2^j&#92;), donc &#92;(W_j=&#92;Theta(n)&#92;), et &#92;(T_2(n)=&#92;Theta(n\log n)&#92;). La hauteur ne suffit pas : le nombre de nœuds et le coût local comptent aussi.
 
 </details>
 

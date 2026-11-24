@@ -1,0 +1,166 @@
+---
+const defaults = { a: 2, b: 2, d: 1, k: 4 };
+const rows = Array.from({ length: defaults.k + 1 }, (_, j) => {
+  const calls = BigInt(defaults.a) ** BigInt(j);
+  const size = BigInt(defaults.b) ** BigInt(defaults.k - j);
+  const local = size ** BigInt(defaults.d);
+  return { j, calls, size, local, total: calls * local };
+});
+const maxTotal = rows.reduce((max, row) => row.total > max ? row.total : max, 1n);
+const width = (value: bigint) => `${Number(value * 100n / maxTotal)}%`;
+---
+<section class="recursion-explorer" data-recursion-explorer aria-labelledby="recursion-explorer-title">
+  <header class="explorer-heading">
+    <div>
+      <p class="explorer-kicker">Atelier interactif · modèle général</p>
+      <h3 id="recursion-explorer-title">Faites varier la forme de l’arbre</h3>
+    </div>
+    <p>Modifiez le nombre d’enfants (y compris un seul appel récursif), le facteur de réduction et le coût local. Observez quel niveau concentre le travail.</p>
+  </header>
+
+  <div class="explorer-controls">
+    <label>Enfants par appel · <i>a</i>
+      <select data-param="a">
+        {[1, 2, 3, 4, 5].map((value) => <option value={value} selected={value === defaults.a}>{value}</option>)}
+      </select>
+    </label>
+    <label>Réduction de taille · <i>b</i>
+      <select data-param="b">
+        {[2, 3, 4].map((value) => <option value={value} selected={value === defaults.b}>{value}</option>)}
+      </select>
+    </label>
+    <label>Exposant du coût local · <i>d</i>
+      <select data-param="d">
+        {[0, 1, 2, 3].map((value) => <option value={value} selected={value === defaults.d}>{value}</option>)}
+      </select>
+    </label>
+    <label>Profondeur · <i>k</i>
+      <select data-param="k">
+        {[3, 4, 5, 6, 7, 8].map((value) => <option value={value} selected={value === defaults.k}>{value}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <p class="explorer-model">Modèle étudié : <strong data-recurrence>T(n) = 2T(n/2) + Θ(n)</strong>, avec <span data-size>n = 16</span> et des sous-problèmes de taille entière.</p>
+
+  <div class="explorer-summary" aria-live="polite" aria-atomic="true">
+    <div><span>Comparaison a / bᵈ</span><strong data-ratio>a = bᵈ = 2</strong></div>
+    <div><span>Régime observé</span><strong data-regime>Contributions constantes</strong></div>
+    <div><span>Nombre de feuilles</span><strong data-leaves>16</strong></div>
+  </div>
+
+  <div class="explorer-table-wrap">
+    <table class="explorer-table">
+      <caption>Évolution du nombre d’appels, de leur taille et du travail cumulé par niveau</caption>
+      <thead><tr><th scope="col">Niveau <i>j</i></th><th scope="col">Appels <i>Nⱼ</i></th><th scope="col">Taille <i>Sⱼ</i></th><th scope="col">Coût local <i>Cⱼ</i></th><th scope="col">Travail <i>Wⱼ</i></th></tr></thead>
+      <tbody data-levels>
+        {rows.map((row) => (
+          <tr>
+            <th scope="row">{row.j}</th>
+            <td>{row.calls.toString()}</td>
+            <td>{row.size.toString()}</td>
+            <td>{row.local.toString()}</td>
+            <td><strong>{row.total.toString()}</strong><span class="work-track"><span style={`width:${width(row.total)}`}></span></span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="explorer-explanation" data-explanation>Chaque niveau coûte autant : les contributions s’additionnent sur k niveaux, ce qui fait apparaître un facteur logarithmique.</p>
+  <p class="explorer-caveat">Hypothèses : arbre régulier, exactement <i>a</i> enfants de taille <i>n/b</i>, arrêt après <i>k</i> découpages et coût de feuille constant. Les valeurs affichées sont des unités de travail du modèle, pas des temps mesurés. Les tailles sont choisies sous la forme <i>n = bᵏ</i> pour éviter les arrondis.</p>
+  <noscript><p>Le tableau statique correspond au cas a = 2, b = 2, d = 1 et n = 16. Activez JavaScript pour explorer les autres paramètres.</p></noscript>
+</section>
+
+<script>
+  const format = (value: bigint) => value.toLocaleString("fr-FR");
+  document.querySelectorAll<HTMLElement>("[data-recursion-explorer]").forEach((root) => {
+    const field = (name: string) => root.querySelector<HTMLSelectElement>(`[data-param="${name}"]`)!;
+    const levels = root.querySelector<HTMLTableSectionElement>("[data-levels]")!;
+    const update = () => {
+      const a = BigInt(field("a").value);
+      const b = BigInt(field("b").value);
+      const d = BigInt(field("d").value);
+      const k = Number(field("k").value);
+      const n = b ** BigInt(k);
+      const rows = Array.from({ length: k + 1 }, (_, j) => {
+        const calls = a ** BigInt(j);
+        const size = b ** BigInt(k - j);
+        const local = size ** d;
+        return { j, calls, size, local, total: calls * local };
+      });
+      const max = rows.reduce((value, row) => row.total > value ? row.total : value, 1n);
+      levels.replaceChildren();
+      rows.forEach((row) => {
+        const tr = document.createElement("tr");
+        const cells = [String(row.j), format(row.calls), format(row.size), format(row.local)];
+        cells.forEach((value, index) => {
+          const cell = document.createElement(index === 0 ? "th" : "td");
+          if (index === 0) cell.scope = "row";
+          cell.textContent = value;
+          tr.append(cell);
+        });
+        const totalCell = document.createElement("td");
+        const total = document.createElement("strong");
+        total.textContent = format(row.total);
+        const track = document.createElement("span");
+        track.className = "work-track";
+        const bar = document.createElement("span");
+        bar.style.width = `${Number(row.total * 10000n / max) / 100}%`;
+        track.append(bar);
+        totalCell.append(total, track);
+        tr.append(totalCell);
+        levels.append(tr);
+      });
+
+      const threshold = b ** d;
+      const regime = a < threshold ? "Premiers niveaux dominants" : a === threshold ? "Contributions constantes" : "Derniers niveaux dominants";
+      const ratio = a < threshold ? `a = ${a} < bᵈ = ${threshold}` : a === threshold ? `a = bᵈ = ${a}` : `a = ${a} > bᵈ = ${threshold}`;
+      root.querySelector("[data-recurrence]")!.textContent = `T(n) = ${a}T(n/${b}) + Θ(n^${d})`;
+      root.querySelector("[data-size]")!.textContent = `n = ${format(n)}`;
+      root.querySelector("[data-ratio]")!.textContent = ratio;
+      root.querySelector("[data-regime]")!.textContent = regime;
+      root.querySelector("[data-leaves]")!.textContent = format(a ** BigInt(k));
+      const explanation = a < threshold
+        ? "Le coût cumulé diminue d’un niveau au suivant. Les premiers niveaux dominent ; les feuilles ne changent pas l’ordre Θ(nᵈ)."
+        : a === threshold
+          ? "Chaque niveau a le même ordre de coût. Les k niveaux internes s’additionnent et produisent un facteur logarithmique."
+          : "Le coût cumulé augmente d’un niveau au suivant. Les derniers niveaux dominent ; le nombre de feuilles fixe l’exposant log_b(a).";
+      root.querySelector("[data-explanation]")!.textContent = explanation;
+    };
+    ["a", "b", "d", "k"].forEach((name) => field(name).addEventListener("change", update));
+    update();
+  });
+</script>
+
+<style>
+  .recursion-explorer { margin:2.2rem 0; padding:clamp(1rem,3vw,1.6rem); border:1px solid var(--border-subtle,#d8d5ca); border-radius:.8rem; background:var(--surface-soft,#f1efe7); color:var(--text-primary,#282b25); }
+  .explorer-heading { display:flex; align-items:end; justify-content:space-between; gap:1.2rem; margin-bottom:1.1rem; }
+  .explorer-kicker { margin:0 0 .35rem; color:var(--term-common,#286d61); font:600 .62rem "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+  .explorer-heading h3 { margin:0; font:500 clamp(1.3rem,2.7vw,1.7rem)/1.15 "Newsreader",Georgia,serif; }
+  .explorer-heading>p { max-width:19rem; margin:0; color:var(--text-secondary,#68675f); font:.76rem/1.5 "DM Sans",sans-serif; }
+  .explorer-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.65rem; }
+  .explorer-controls label { display:grid; gap:.35rem; color:var(--text-secondary,#68675f); font:.7rem/1.35 "DM Sans",sans-serif; }
+  .explorer-controls select { width:100%; min-height:2.7rem; padding:.45rem .55rem; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.4rem; background:var(--surface-primary,#fbfaf6); color:var(--text-primary,#282b25); font:600 .85rem "DM Mono",monospace; }
+  .explorer-controls select:focus-visible { outline:3px solid var(--term-common,#286d61); outline-offset:2px; }
+  .explorer-model { margin:1rem 0 .7rem; color:var(--text-secondary,#68675f); font-size:.83rem; }
+  .explorer-model strong { color:var(--text-primary,#282b25); font-family:"DM Mono",monospace; }
+  .explorer-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.55rem; margin:.8rem 0; }
+  .explorer-summary>div { display:grid; gap:.3rem; padding:.7rem; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.45rem; background:var(--surface-primary,#fbfaf6); }
+  .explorer-summary span { color:var(--text-secondary,#68675f); font:.63rem "DM Sans",sans-serif; }
+  .explorer-summary strong { color:var(--term-common,#286d61); font:.83rem/1.35 "DM Sans",sans-serif; }
+  .explorer-table-wrap { overflow-x:auto; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.45rem; background:var(--surface-primary,#fbfaf6); }
+  .explorer-table { width:100%; border-collapse:collapse; font:.75rem "DM Sans",sans-serif; font-variant-numeric:tabular-nums; }
+  .explorer-table caption { padding:.65rem; color:var(--text-secondary,#68675f); text-align:left; font-size:.7rem; }
+  .explorer-table th,.explorer-table td { padding:.55rem .65rem; border-top:1px solid var(--border-subtle,#e2dfd5); text-align:right; white-space:nowrap; }
+  .explorer-table thead th { color:var(--text-secondary,#68675f); font-weight:600; }
+  .explorer-table th:first-child { text-align:left; }
+  .explorer-table tbody th { color:var(--text-secondary,#68675f); font-weight:600; }
+  .explorer-table td strong { display:block; color:var(--term-common,#286d61); }
+  .work-track { display:block; width:5rem; height:.25rem; margin:.25rem 0 0 auto; overflow:hidden; border-radius:2rem; background:var(--surface-soft,#e9e6dc); }
+  .work-track>span { display:block; height:100%; border-radius:inherit; background:var(--term-common,#286d61); }
+  .explorer-explanation { margin:.85rem 0 .3rem; color:var(--text-primary,#282b25); font-size:.83rem; line-height:1.55; }
+  .explorer-caveat { margin:0; color:var(--text-secondary,#68675f); font-size:.7rem; line-height:1.55; }
+  @media(max-width:680px) { .explorer-heading { display:block; } .explorer-heading>p { margin-top:.55rem; } .explorer-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media(max-width:420px) { .explorer-summary { grid-template-columns:1fr; } }
+</style>
