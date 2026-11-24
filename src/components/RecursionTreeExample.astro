@@ -1,0 +1,74 @@
+<figure class="recursion-tree-figure" aria-labelledby="recursion-tree-title">
+  <div class="recursion-tree-heading">
+    <div>
+      <p class="recursion-tree-kicker">Exemple générique · a = 2, b = 2, d = 1</p>
+      <h3 id="recursion-tree-title">Du nœud au coût du niveau</h3>
+    </div>
+    <p>Chaque appel crée deux appels plus petits. Le coût d'un niveau combine leur nombre et le travail de chacun.</p>
+  </div>
+  <div class="recursion-tree-layout">
+    <div class="recursion-tree-canvas">
+      <svg viewBox="0 0 560 282" role="img" aria-labelledby="recursion-tree-svg-title recursion-tree-svg-desc">
+        <title id="recursion-tree-svg-title">Arbre de récursion à deux sous-problèmes par appel</title>
+        <desc id="recursion-tree-svg-desc">Une racine de taille n crée deux appels de taille n sur 2. Chacun crée deux appels de taille n sur 4.</desc>
+        <g class="tree-level-labels">
+          <text x="12" y="49">j = 0</text><text x="12" y="140">j = 1</text><text x="12" y="240">j = 2</text>
+        </g>
+        <g class="tree-edges">
+          <path d="M280 63 L180 116 M280 63 L420 116" />
+          <path d="M180 157 L110 216 M180 157 L230 216 M420 157 L350 216 M420 157 L490 216" />
+        </g>
+        <g class="tree-node root-node"><rect x="241" y="23" width="78" height="40" rx="8" /><text x="280" y="48">n</text></g>
+        <g class="tree-node"><rect x="141" y="117" width="78" height="40" rx="8" /><text x="180" y="142">n/2</text></g>
+        <g class="tree-node"><rect x="381" y="117" width="78" height="40" rx="8" /><text x="420" y="142">n/2</text></g>
+        <g class="tree-node level-two-node">
+          <rect x="71" y="217" width="78" height="40" rx="8" /><text x="110" y="242">n/4</text>
+          <rect x="191" y="217" width="78" height="40" rx="8" /><text x="230" y="242">n/4</text>
+          <rect x="311" y="217" width="78" height="40" rx="8" /><text x="350" y="242">n/4</text>
+          <rect x="451" y="217" width="78" height="40" rx="8" /><text x="490" y="242">n/4</text>
+        </g>
+      </svg>
+      <p class="recursion-tree-note">Les nœuds du niveau 2 sont encore des appels récursifs dans cet exemple : ils ne sont pas nécessairement les feuilles.</p>
+    </div>
+    <div class="recursion-tree-levels" aria-label="Coût des trois premiers niveaux">
+      <section class="recursion-level"><h4>Niveau 0 · racine</h4><dl>
+        <div><dt>Appels N₀</dt><dd>1</dd></div><div><dt>Taille S₀</dt><dd>n</dd></div><div><dt>Coût local C₀</dt><dd>cn</dd></div><div class="level-total"><dt>Coût du niveau W₀</dt><dd>cn</dd></div>
+      </dl></section>
+      <section class="recursion-level"><h4>Niveau 1</h4><dl>
+        <div><dt>Appels N₁</dt><dd>2</dd></div><div><dt>Taille S₁</dt><dd>n/2</dd></div><div><dt>Coût local C₁</dt><dd>cn/2</dd></div><div class="level-total"><dt>Coût du niveau W₁</dt><dd>cn</dd></div>
+      </dl></section>
+      <section class="recursion-level"><h4>Niveau 2</h4><dl>
+        <div><dt>Appels N₂</dt><dd>4</dd></div><div><dt>Taille S₂</dt><dd>n/4</dd></div><div><dt>Coût local C₂</dt><dd>cn/4</dd></div><div class="level-total"><dt>Coût du niveau W₂</dt><dd>cn</dd></div>
+      </dl></section>
+    </div>
+  </div>
+  <figcaption>Les appels sont multipliés par 2 à chaque niveau, tandis que la taille et le coût local de chaque appel sont divisés par 2. Le coût total d'un niveau reste donc égal à cn. Les feuilles et leur coût de base seront comptées séparément.</figcaption>
+</figure>
+<style>
+  .recursion-tree-figure { margin:1.6rem 0 2rem; padding:clamp(1rem,2.8vw,1.5rem); border:1px solid var(--border-subtle,#d8d5ca); border-radius:.75rem; background:var(--surface-soft,#f1efe7); color:var(--text-primary,#282b25); }
+  .recursion-tree-heading { display:flex; align-items:end; justify-content:space-between; gap:1.25rem; margin-bottom:1.1rem; }
+  .recursion-tree-kicker { margin:0 0 .35rem; color:var(--term-common,#286d61); font:600 .62rem "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+  .recursion-tree-heading h3 { margin:0; font:500 clamp(1.3rem,2.7vw,1.7rem)/1.15 "Newsreader",Georgia,serif; }
+  .recursion-tree-heading>p { max-width:18rem; margin:0; color:var(--text-secondary,#68675f); font:.75rem/1.5 "DM Sans",sans-serif; }
+  .recursion-tree-layout { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(15rem,.85fr); gap:1rem; align-items:center; }
+  .recursion-tree-canvas { min-width:0; padding:.5rem; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.55rem; background:var(--surface-primary,#fbfaf6); }
+  .recursion-tree-canvas svg { display:block; width:100%; height:auto; overflow:visible; }
+  .tree-level-labels { fill:var(--text-secondary,#68675f); font:600 11px "DM Mono",monospace; }
+  .tree-edges path { fill:none; stroke:var(--border-strong,#a9a69b); stroke-width:1.8; }
+  .tree-node rect { fill:var(--term-common-soft,#e4f0ed); stroke:var(--term-common-border,#8bb9ad); stroke-width:1.2; }
+  .tree-node text { fill:var(--term-common,#286d61); text-anchor:middle; dominant-baseline:middle; font:600 14px "DM Mono",monospace; }
+  .tree-node.root-node rect { fill:var(--term-common,#286d61); stroke:var(--term-common,#286d61); }
+  .tree-node.root-node text { fill:white; }
+  .recursion-tree-note { margin:.2rem .35rem .1rem; color:var(--text-secondary,#68675f); font:.65rem/1.45 "DM Sans",sans-serif; }
+  .recursion-tree-levels { display:grid; gap:.5rem; }
+  .recursion-level { padding:.65rem .75rem; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.5rem; background:var(--surface-primary,#fbfaf6); }
+  .recursion-level h4 { margin:0 0 .45rem; color:var(--text-primary,#282b25); font:600 .72rem "DM Sans",sans-serif; }
+  .recursion-level dl { display:grid; grid-template-columns:1fr 1fr; gap:.3rem .65rem; margin:0; }
+  .recursion-level dl div { display:flex; justify-content:space-between; gap:.4rem; align-items:baseline; }
+  .recursion-level dt { color:var(--text-secondary,#68675f); font:.62rem "DM Sans",sans-serif; }
+  .recursion-level dd { margin:0; color:var(--text-primary,#282b25); font:600 .7rem "DM Mono",monospace; }
+  .recursion-level .level-total { grid-column:1/-1; padding-top:.35rem; border-top:1px solid var(--border-subtle,#d8d5ca); }
+  .recursion-level .level-total dt,.recursion-level .level-total dd { color:var(--term-common,#286d61); font-weight:700; }
+  .recursion-tree-figure figcaption { margin-top:.85rem; color:var(--text-secondary,#68675f); font:.67rem/1.5 "DM Sans",sans-serif; }
+  @media(max-width:720px) { .recursion-tree-heading { display:block; } .recursion-tree-heading>p { margin-top:.5rem; } .recursion-tree-layout { grid-template-columns:1fr; } }
+</style>
