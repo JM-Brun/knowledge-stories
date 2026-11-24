@@ -8,10 +8,11 @@ const articles = defineCollection({
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     category: z.string(),
+    domain: z.enum(["mathematics", "computing", "physics"]),
     discipline: z.enum(["Mathématiques", "Informatique", "Physique", "Sciences sociales", "Sciences de la vie", "Sciences de l’ingénieur", "Autres"]).default("Autres"),
-    labels: z.array(z.string()).length(2).default([]),
+    labels: z.array(z.string().trim().min(1)).length(2),
     tags: z.array(z.string()).default([]),
-    themes: z.array(z.string()).default([]),
+    themes: z.array(z.string().trim().min(1)).min(1),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
@@ -24,6 +25,11 @@ const articles = defineCollection({
       accessed: z.coerce.date().optional(),
     })).default([]),
     relatedArticles: z.array(z.string()).default([]),
+  }).superRefine((data, context) => {
+    const disciplineByDomain = { mathematics: "Mathématiques", computing: "Informatique", physics: "Physique" } as const;
+    if (data.discipline !== disciplineByDomain[data.domain]) {
+      context.addIssue({ code: "custom", path: ["discipline"], message: `La discipline doit correspondre au domaine ${data.domain}.` });
+    }
   }),
 });
 
