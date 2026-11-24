@@ -52,7 +52,7 @@ const seriesTotalReadingTime = seriesArticles.reduce((total, item) => total + re
             <li class:list={[{ current: item.id === article.id }]}>
               {item.id === article.id
                 ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`} · {readingTimeFor(item)} min</small>{item.data.title}</span>
-                : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</a>}
+                : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`} · {readingTimeFor(item)} min</small>{item.data.title}</a>}
             </li>
           ))}
         </ol>
