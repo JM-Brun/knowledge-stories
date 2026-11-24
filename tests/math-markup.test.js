@@ -6,6 +6,7 @@ const articlePaths = [
   "src/content/articles/karatsuba-multiplication.mdx",
   "src/content/articles/arbres-recursion-complexite.mdx",
   "src/content/articles/multiplication-rapide-et-preuves-2026.mdx",
+  "src/content/articles/trois-voyageurs-deux-planetes.mdx",
 ];
 
 test("MathJax delimiters survive MDX parsing", () => {
