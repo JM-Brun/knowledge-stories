@@ -6,7 +6,7 @@ category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["multiplication-entière", "complexité", "algorithmes-rapides", "preuve-formelle", "Lean", "Toom-Cook", "FFT"]
 difficulty: "advanced"
-readingTime: 20
+readingTime: 23
 status: "review"
 featured: false
 sources:
@@ -29,6 +29,14 @@ sources:
   - title: "Fast multiplication of large numbers — Schönhage et Strassen (1971)"
     url: "https://doi.org/10.1007/BF02242355"
     kind: "primary"
+    accessed: 2026-11-24
+  - title: "Schönhage–Strassen multiplication — FLINT documentation"
+    url: "https://flintlib.org/doc/algorithms/fft/schonhage-strassen.html"
+    kind: "documentation"
+    accessed: 2026-11-24
+  - title: "Schönhage-Strassen's Algorithm — Pierrick Zimmermann"
+    url: "https://members.loria.fr/PZimmermann/papers/fft.pdf"
+    kind: "secondary"
     accessed: 2026-11-24
   - title: "Integer multiplication in time O(n log n) — Harvey et van der Hoeven (2021)"
     url: "https://annals.math.princeton.edu/2021/193-2/p04"
@@ -60,6 +68,7 @@ relatedArticles: []
 import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
 import FFTConvolutionExplorer from "../../components/FFTConvolutionExplorer.astro";
 import MultiplicationRecurrenceComparison from "../../components/MultiplicationRecurrenceComparison.astro";
+import SchonhageStrassenExplorer from "../../components/SchonhageStrassenExplorer.astro";
 
 Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
 
@@ -327,6 +336,20 @@ Prenons &#92;(A(x)=1+2x&#92;) et &#92;(B(x)=3+4x&#92;). Leur produit possède tr
 <FFTConvolutionExplorer />
 
 Cet exemple montre l'identité algébrique. Il ne constitue pas à lui seul une implémentation de multiplication entière rapide : il ne traite ni le choix optimal de longueur, ni les bornes de coefficients, ni la précision numérique. Ces questions deviennent essentielles dès que les coefficients sont grands.
+
+### 3.6 Schönhage–Strassen : rendre la FFT exacte et récursive
+
+La FFT précédente travaille sur des nombres complexes : elle explique le mécanisme de convolution rapide, mais ne suffit pas à construire un multiplicateur entier exact. La **NTT** répond à une première difficulté en remplaçant les complexes par des résidus modulo un nombre premier adapté. Schönhage–Strassen suit une autre voie : il réalise une transformée dans un anneau de la forme \\(\\mathbb Z/(2^N+1)\\mathbb Z\\), choisi pour que les facteurs de rotation soient des puissances de 2.
+
+L'idée est de relier trois représentations : entiers découpés en blocs, polynômes, puis convolution négacyclique. L'atelier suivant déroule ce passage et montre pourquoi les multiplications terme à terme peuvent, elles aussi, être traitées récursivement.
+
+<SchonhageStrassenExplorer />
+
+**Pourquoi cette construction est-elle rapide ?** Dans l'anneau modulo \\(2^N+1\\), on a \\(2^N\\equiv-1\\), donc \\(2^{2N}\\equiv1\\). Pour des paramètres choisis de façon compatible avec la longueur de transformée, certaines puissances de 2 jouent le rôle de racines de l'unité. Multiplier par une telle puissance revient essentiellement à décaler les bits et à gérer un éventuel bouclage avec changement de signe. On évite ainsi les multiplications générales pour les facteurs de rotation.
+
+La transformée et son inverse organisent la convolution en \\(O(K\\log K)\\) opérations dans l'anneau pour une longueur \\(K\\). Mais chaque produit terme à terme est lui-même un produit d'entiers modulo \\(2^N+1\\) : on le calcule récursivement. L'analyse conjointe des tailles de blocs, des opérations dans l'anneau et de cette récursion conduit à la borne classique \\(O(n\\log n\\log\\log n)\\) en opérations binaires pour deux entiers de \\(n\\) bits.
+
+Il faut donc éviter une simplification trompeuse : **la borne de Schönhage–Strassen ne découle pas de la seule FFT en \\(O(K\\log K)\\)**. Elle dépend aussi du coût des opérations sur les coefficients et de la récursion des produits ponctuels.
 
 ## 4. La frontière théorique : trois travaux à ne pas confondre
 
