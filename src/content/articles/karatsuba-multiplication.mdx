@@ -79,8 +79,8 @@ Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indir
 On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en \(\Theta(\class&#123;term-aux&#125;&#123;n^&#123;\log_2 3&#125;&#125;)\), soit environ \(\Theta(\class&#123;term-aux&#125;&#123;n^&#123;1&#123;,&#125;585&#125;&#125;)\), au lieu de \(\class&#123;term-common&#125;&#123;\Theta(n^2)&#125;\) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
-  <div><strong>4 → 3</strong><span>multiplications de blocs à chaque étape</span></div>
-  <div><strong>\(n^&#123;1&#123;,&#125;585&#125;\)</strong><span>exposant de la complexité asymptotique</span></div>
+  <div><strong><span class="term-common">4</span> → <span class="term-aux">3</span></strong><span>multiplications de blocs à chaque étape</span></div>
+  <div><strong><span class="term-aux">\(n^&#123;1&#123;,&#125;585&#125;\)</span></strong><span>exposant de la complexité de Karatsuba</span></div>
 </div>
 
 <div className="term-legend" aria-label="Code couleur constant dans l’article">
@@ -292,21 +292,21 @@ Comme \(\class&#123;term-aux&#125;&#123;\log_2 3 \approx 1&#123;,&#125;58496&#12
 
 Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace \(3\) par \(4\). Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de \(\class&#123;term-common&#125;&#123;4^k=(2^k)^2=n^2&#125;\). La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total de la <span class="term-common">méthode classique</span> est donc \(\class&#123;term-common&#125;&#123;\Theta(n^2)&#125;\).
 
-Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
+Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=\class&#123;term-aux&#125;&#123;3\) pour <span class="term-aux">Karatsuba</span> et \(a=\class&#123;term-common&#125;&#123;4\) pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
 Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut toutefois nécessiter un chiffre supplémentaire. Si \(m_j\) désigne la taille maximale d’un sous-problème au niveau \(j\), on peut majorer cette évolution par
 
 \[
-m_&#123;j+1&#125;\leq \frac&#123;m_j&#125;&#123;2&#125;+2.
+\class&#123;term-aux&#125;&#123;m_&#123;j+1&#125;\leq \frac&#123;m_j&#125;&#123;2&#125;+2.&#125;
 \]
 
 En déroulant cette inégalité propre à la récursion de <span class="term-aux">Karatsuba</span>, on obtient \(\class&#123;term-aux&#125;&#123;m_j\leq n/2^j+4&#125;\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau \(j\), le travail interne est donc borné par
 \[
-O(3^j m_j)=O\!\left(n(3/2)^j+3^j\right).
+\class&#123;term-aux&#125;&#123;O(3^j m_j)=O\!\left(n(3/2)^j+3^j\right).&#125;
 \]
-Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^&#123;\log_2 3&#125;)\). Les feuilles sont en nombre \(\Theta(3^&#123;\log_2 n&#125;)=\Theta(n^&#123;\log_2 3&#125;)\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(\class&#123;term-aux&#125;&#123;O(n^&#123;\log_2 3&#125;)&#125;\). Les feuilles sont en nombre \(\class&#123;term-aux&#125;&#123;\Theta(3^&#123;\log_2 n&#125;)=\Theta(n^&#123;\log_2 3&#125;)&#125;\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences de <span class="term-aux">Karatsuba</span> évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
@@ -316,7 +316,7 @@ Les multiplications économisées ont un prix. À petite taille, les additions, 
 
 Le [manuel de GNU MP](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à des variantes de Toom et à la FFT. Les seuils sont exprimés en nombre de *limbs*, les unités de taille fixe utilisées par la représentation interne. La taille relative des deux opérandes compte aussi. La documentation de FLINT donne un deuxième exemple de seuils qui varient selon les architectures.
 
-La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Multiplication) répond directement au problème de retenue observé dans l’atelier. Le terme croisé s’écrit aussi `ad + bc = ac + bd − (a − b)(c − d)`. La valeur absolue d’une différence entre deux blocs de **m** chiffres tient sur **m** chiffres, alors que leur somme peut en prendre **m + 1**. Le calcul doit alors gérer le signe du produit des différences.
+La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Multiplication) répond directement au problème de retenue observé dans l’atelier. Le terme croisé s’écrit aussi <code class="term-cross">ad + bc</code> = <code class="term-common">ac + bd</code> − <code class="term-aux">(a − b)(c − d)</code>. La valeur absolue d’une différence entre deux blocs de **m** chiffres tient sur **m** chiffres, alors que leur somme peut en prendre **m + 1**. Le calcul doit alors gérer le signe du produit des différences.
 
 ## Du produit des blocs au produit de polynômes
 
