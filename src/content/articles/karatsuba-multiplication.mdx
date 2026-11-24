@@ -269,6 +269,16 @@ Dans les deux cas, il faut aussi effectuer des additions, des soustractions et l
 
 Attention à une confusion fréquente : le 3 ne désigne pas trois additions. Il indique que le problème engendre trois nouveaux problèmes de multiplication. Les additions sont comptées séparément dans \(O(n)\).
 
+On peut aussi lire la formule comme un **compte de temps**, et non comme une opération sur les nombres que l’on multiplie :
+
+- \(3T(n/2)\) : trois tâches de multiplication distinctes sont lancées ; on additionne leurs durées, car elles doivent toutes être terminées ;
+- \(+O(n)\) : l’appel courant effectue aussi un travail local proportionnel à la taille des blocs.
+
+Le signe \(+\) signifie donc « additionner des coûts de calcul ». Il ne signifie pas que l’algorithme remplace une multiplication numérique par une addition numérique.
+
+**Une image concrète :** additionner deux nombres de 8 chiffres demande de parcourir leurs chiffres de droite à gauche, en gérant éventuellement une retenue. Le nombre d’étapes grandit proportionnellement à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba ne se résume pas à un seul parcours : on crée trois multiplications de blocs de 4 chiffres, qui créent à leur tour trois multiplications plus petites, et ainsi de suite. C’est cette répétition qui forme l’arbre.
+
+
 ### 2. Pourquoi un arbre ?
 
 Un appel de taille \(n\) est la racine de l’arbre. Chaque appel engendre plusieurs appels plus petits :
@@ -432,7 +442,7 @@ La somme des coûts internes est dominée par les derniers niveaux et reste de l
 | Multiplications aux feuilles | \(n^2\) | \(n^{\log_2 3}\) |
 | Coût total | <span class="term-common">\(\Theta(n^2)\)</span> | <span class="term-aux">\(\Theta(n^{1{,}585})\)</span> |
 
-La différence ne vient donc pas de la suppression des additions : Karatsuba en effectue même davantage à chaque appel. Le gain vient du fait qu’il crée **trois sous-multiplications au lieu de quatre**, et répète cette économie à tous les niveaux.
+La différence ne vient pas de la disparition des additions : Karatsuba doit toujours additionner et soustraire des blocs pour reconstruire le produit. Le gain vient du fait qu’il crée **trois sous-multiplications au lieu de quatre**, et répète cette économie à tous les niveaux.
 
 ### 6. Le lien avec le théorème maître
 
