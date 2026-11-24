@@ -39,16 +39,17 @@
   .figure-intro { max-width: 54rem; margin: 0; color: #5f5b51; font: .93rem/1.65 "DM Sans", sans-serif; }
   .methods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 1.5rem 0 1rem; }
   .method { min-width: 0; padding: 1rem; border: 1px solid #d9d5ca; border-radius: .55rem; background: #fffefa; }
-  .method-karatsuba { border-color: #b9c9b8; background: #f0f4ed; }
+   .method-classic { border-color: var(--term-common-border, #4b8b7e); background: #f7fbf8; }
+  .method-karatsuba { border-color: var(--term-aux-border, #7965a4); background: var(--term-aux-soft, #eee9f6); }
   .method header { display: grid; grid-template-columns: 2rem 1fr auto; gap: .5rem; align-items: center; margin-bottom: 1rem; }
   .method header > span { color: #843c27; font: .72rem "DM Mono", monospace; }
   .method header h4 { margin: 0; font: 600 .95rem "DM Sans", sans-serif; }
   .method header p { margin: .15rem 0 0; color: #6b675e; font: .75rem "DM Sans", sans-serif; }
-  .method header > strong { color: #843c27; font: 600 2rem/1 "DM Mono", monospace; }
-  .method-karatsuba header > strong { color: #315b45; }
+   .method header > strong { color: var(--term-common, #286d61); font: 600 2rem/1 "DM Mono", monospace; }
+   .method-karatsuba header > strong { color: var(--term-aux, #70569b); }
   .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem; }
   .product-grid > div { display: grid; gap: .2rem; padding: .65rem; border-radius: .35rem; background: #f0ede4; }
-  .karatsuba-grid > div { background: #e2eadf; }
+   .karatsuba-grid > div { background: #e7e0f0; }
   .product-grid b { font: 600 1.1rem "DM Mono", monospace; }
   .product-grid .term-common { color: #286d61; }
   .product-grid .term-cross { color: #a65d12; }
