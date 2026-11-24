@@ -48,6 +48,24 @@
       <strong><b class="cross-text">936 + 1 904</b> = <b class="aux-text">6 164</b> − <b class="common-text">672</b> − <b class="common-text">2 652</b> = <b class="cross-text">2 840</b></strong>
     </div>
   </div>
+  <aside class="worked-cost" aria-labelledby="worked-cost-title">
+    <h4 id="worked-cost-title">Pourquoi quelques additions coûtent-elles moins cher qu’une multiplication ?</h4>
+    <p>Pour comparer les deux méthodes, il faut regarder le coût des opérations sur des blocs de <strong>n chiffres</strong>, et pas seulement compter combien d’opérations on effectue.</p>
+    <div class="cost-explanation">
+      <div class="cost-operation cost-addition">
+        <span>Additionner deux blocs</span><strong>≈ n</strong>
+        <small>On parcourt les chiffres une fois, de droite à gauche, en propageant éventuellement une retenue.</small>
+        <b>Coût linéaire : O(n)</b>
+      </div>
+      <div class="cost-operation cost-multiplication">
+        <span>Multiplier deux blocs (méthode scolaire)</span><strong>≈ n × n</strong>
+        <small>Chaque chiffre du premier bloc est combiné avec chacun des chiffres du second.</small>
+        <b>Coût quadratique : O(n²)</b>
+      </div>
+    </div>
+    <p>Karatsuba accepte donc de faire quelques additions et soustractions supplémentaires pour éviter une multiplication récursive. Ces opérations ne sont pas gratuites : elles demandent du travail. Mais leur coût augmente proportionnellement à <strong>n</strong>, tandis que celui de la multiplication scolaire augmente proportionnellement à <strong>n²</strong>.</p>
+    <p class="worked-cost-note">Quand la taille des blocs grandit, le coût quadratique finit par croître beaucoup plus vite que le coût linéaire. C’est ce qui rend l’échange intéressant. Pour de petits blocs, les coûts fixes des appels récursifs et les opérations auxiliaires peuvent toutefois annuler le bénéfice : les bibliothèques utilisent donc un seuil de bascule mesuré en pratique.</p>
+  </aside>
 </section>
 <style>
   .worked-comparison { margin: 2.5rem 0; padding: clamp(1rem, 3vw, 1.65rem); border: 1px solid #d9d5ca; border-radius: .8rem; background: #f8f6ef; color: #252820; }
@@ -97,6 +115,18 @@
   .worked-recompose { display: grid; gap: .35rem; margin-top: auto; padding: .75rem; border-radius: .4rem; background: #f0ede4; }
    .worked-karatsuba .worked-recompose { background: #e7e0f0; }
    .worked-recompose strong { color: var(--term-common); font: 700 1.05rem "DM Mono", monospace; }
+  .worked-cost { margin-top:1rem; padding:1.1rem; border:1px solid #d9d5ca; border-radius:.45rem; background:#fffefa; }
+  .worked-cost h4 { margin:0 0 .55rem; font:600 1.05rem/1.3 "DM Sans",sans-serif; }
+  .worked-cost p { margin:.55rem 0; color:#454238; font:.84rem/1.65 "DM Sans",sans-serif; }
+  .cost-explanation { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem; margin:.85rem 0; }
+  .cost-operation { display:grid; align-content:start; gap:.35rem; padding:.85rem; border-radius:.4rem; background:#f1f3ef; }
+  .cost-operation > span { color:#514f47; font:600 .7rem/1.4 "DM Sans",sans-serif; }
+  .cost-operation > strong { color:#252820; font:700 1.55rem/1.1 "DM Mono",monospace; }
+  .cost-operation > small { color:#5d5a52; font:.72rem/1.5 "DM Sans",sans-serif; }
+  .cost-operation > b { color:#315b45; font:600 .72rem/1.4 "DM Sans",sans-serif; }
+  .cost-multiplication { background:var(--term-common-soft); border:1px solid var(--term-common-border); }
+  .cost-multiplication > strong,.cost-multiplication > b { color:var(--term-common); }
+  .worked-cost .worked-cost-note { margin-bottom:0; color:#5d5a52; }
   .worked-insight { margin-top:1rem; padding:1rem; border-radius:.35rem; border-left:4px solid var(--term-cross-border); background:var(--term-cross-soft); }
   .worked-insight > span { color:var(--term-cross); font:500 .66rem "DM Mono",monospace; letter-spacing:.07em; text-transform:uppercase; }
   .worked-insight p { margin:.4rem 0 .75rem; color:#454238; font:.84rem/1.65 "DM Sans",sans-serif; }
@@ -106,5 +136,5 @@
   .worked-identity .common-text { color:var(--term-common); }
   .worked-identity .cross-text { color:var(--term-cross); }
   .worked-identity .aux-text { color:var(--term-aux); }
-  @media (max-width: 700px) { .worked-columns, .worked-split { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
+  @media (max-width: 700px) { .worked-columns, .worked-split, .cost-explanation { grid-template-columns: 1fr; } .worked-method { padding: .85rem; } .worked-steps code, .worked-recompose code { font-size: .78rem; } }
 </style>
