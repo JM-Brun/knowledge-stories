@@ -61,57 +61,74 @@
 </figure>
 
 <script>
-  const root = document.querySelector("[data-three-travellers]");
-  if (root && !root.dataset.initialized) {
-    root.dataset.initialized = "true";
-    const slider = root.querySelector("#three-time");
-    const speedSelect = root.querySelector("#three-speed");
-    const timeLabel = root.querySelector("#three-time-label");
-    const eventNote = root.querySelector("#three-event-note");
-    const gammaFactor = (beta) => 1 / Math.sqrt(1 - beta * beta);
-    const y = (s) => 300 - 90 * s;
-    const xSimon = (s) => s <= 2 ? 48 : 48 + 262 * (s - 2);
-    const xOdile = (s) => s <= 1 ? 48 + 262 * s : 310;
-    const xKara = (s) => s <= 1 ? 48 + 262 * s : s <= 2 ? 310 - 262 * (s - 1) : 48 + 262 * (s - 2);
+  const root = document.querySelector<HTMLElement>("[data-three-travellers]");
 
-    function update() {
-      const s = Number(slider.value);
-      const beta = Number(speedSelect.value);
-      const gamma = gammaFactor(beta);
-      const simon = s <= 2 ? s : 2 + (s - 2) / gamma;
-      const odile = s <= 1 ? s / gamma : 1 / gamma + (s - 1);
-      const kara = s / gamma;
-      const format = (value) => value.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
-      root.querySelector(".simon-marker").setAttribute("cx", String(xSimon(s)));
-      root.querySelector(".simon-marker").setAttribute("cy", String(y(s)));
-      root.querySelector(".odile-marker").setAttribute("cx", String(xOdile(s)));
-      root.querySelector(".odile-marker").setAttribute("cy", String(y(s)));
-      root.querySelector(".kara-marker").setAttribute("cx", String(xKara(s)));
-      root.querySelector(".kara-marker").setAttribute("cy", String(y(s)));
-      root.querySelector(".simon-readout strong").textContent = format(simon) + " T";
-      root.querySelector(".odile-readout strong").textContent = format(odile) + " T";
-      root.querySelector(".kara-readout strong").textContent = format(kara) + " T";
+  if (root) {
+    const slider = root.querySelector<HTMLInputElement>("#three-time");
+    const speedSelect = root.querySelector<HTMLSelectElement>("#three-speed");
+    const timeLabel = root.querySelector<HTMLOutputElement>("#three-time-label");
+    const eventNote = root.querySelector<HTMLElement>("#three-event-note");
+    const simonMarker = root.querySelector<SVGCircleElement>(".simon-marker");
+    const odileMarker = root.querySelector<SVGCircleElement>(".odile-marker");
+    const karaMarker = root.querySelector<SVGCircleElement>(".kara-marker");
+    const simonValue = root.querySelector<HTMLElement>(".simon-readout strong");
+    const odileValue = root.querySelector<HTMLElement>(".odile-readout strong");
+    const karaValue = root.querySelector<HTMLElement>(".kara-readout strong");
 
-      if (s < 0.005) {
-        timeLabel.textContent = "Départ · Terre";
-        eventNote.textContent = "Les trois montres sont synchronisées au départ.";
-      } else if (Math.abs(s - 1) < 0.01) {
-        timeLabel.textContent = "Étape 1 · Arrivée sur Zartha";
-        eventNote.textContent = "Odile et Kara se retrouvent sur Zartha : leurs montres indiquent la même durée.";
-      } else if (Math.abs(s - 2) < 0.01) {
-        timeLabel.textContent = "Étape 2 · Retour de Kara sur Terre";
-        eventNote.textContent = "Simon et Kara se retrouvent sur Terre et peuvent comparer directement leurs montres.";
-      } else if (Math.abs(s - 3) < 0.01) {
-        timeLabel.textContent = "Étape 3 · Retrouvailles sur Zartha";
-        eventNote.textContent = "Les trois montres sont réunies : Simon et Odile ont le même âge propre, Kara est plus jeune.";
-      } else {
-        timeLabel.textContent = "Entre deux rencontres · " + format(s) + " T";
-        eventNote.textContent = "Les lectures sont des temps propres cumulés. Seules les rencontres permettent une comparaison directe des montres.";
+    if (
+      slider && speedSelect && timeLabel && eventNote &&
+      simonMarker && odileMarker && karaMarker &&
+      simonValue && odileValue && karaValue
+    ) {
+      const gammaFactor = (beta: number): number => 1 / Math.sqrt(1 - beta * beta);
+      const y = (s: number): number => 300 - 90 * s;
+      const xSimon = (s: number): number => s <= 2 ? 48 : 48 + 262 * (s - 2);
+      const xOdile = (s: number): number => s <= 1 ? 48 + 262 * s : 310;
+      const xKara = (s: number): number =>
+        s <= 1 ? 48 + 262 * s : s <= 2 ? 310 - 262 * (s - 1) : 48 + 262 * (s - 2);
+      const format = (value: number): string =>
+        value.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
+
+      function update(): void {
+        const s = Number(slider.value);
+        const beta = Number(speedSelect.value);
+        const gamma = gammaFactor(beta);
+        const simon = s <= 2 ? s : 2 + (s - 2) / gamma;
+        const odile = s <= 1 ? s / gamma : 1 / gamma + (s - 1);
+        const kara = s / gamma;
+
+        simonMarker.setAttribute("cx", String(xSimon(s)));
+        simonMarker.setAttribute("cy", String(y(s)));
+        odileMarker.setAttribute("cx", String(xOdile(s)));
+        odileMarker.setAttribute("cy", String(y(s)));
+        karaMarker.setAttribute("cx", String(xKara(s)));
+        karaMarker.setAttribute("cy", String(y(s)));
+        simonValue.textContent = format(simon) + " T";
+        odileValue.textContent = format(odile) + " T";
+        karaValue.textContent = format(kara) + " T";
+
+        if (s < 0.005) {
+          timeLabel.textContent = "Départ · Terre";
+          eventNote.textContent = "Les trois montres sont synchronisées au départ.";
+        } else if (Math.abs(s - 1) < 0.01) {
+          timeLabel.textContent = "Étape 1 · Arrivée sur Zartha";
+          eventNote.textContent = "Odile et Kara se retrouvent sur Zartha : leurs montres indiquent la même durée.";
+        } else if (Math.abs(s - 2) < 0.01) {
+          timeLabel.textContent = "Étape 2 · Retour de Kara sur Terre";
+          eventNote.textContent = "Simon et Kara se retrouvent sur Terre et peuvent comparer directement leurs montres.";
+        } else if (Math.abs(s - 3) < 0.01) {
+          timeLabel.textContent = "Étape 3 · Retrouvailles sur Zartha";
+          eventNote.textContent = "Les trois montres sont réunies : Simon et Odile ont le même âge propre, Kara est plus jeune.";
+        } else {
+          timeLabel.textContent = "Entre deux rencontres · " + format(s) + " T";
+          eventNote.textContent = "Les lectures sont des temps propres cumulés. Seules les rencontres permettent une comparaison directe des montres.";
+        }
       }
+
+      slider.addEventListener("input", update);
+      speedSelect.addEventListener("change", update);
+      update();
     }
-    slider.addEventListener("input", update);
-    speedSelect.addEventListener("change", update);
-    update();
   }
 </script>
 
