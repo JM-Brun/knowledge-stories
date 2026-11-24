@@ -213,16 +213,16 @@ Cette version privilégie la lisibilité. Le même m est utilisé pour les deux 
 <details>
 <summary>Correction</summary>
 
-On pose &#92;(a=4&#92;), &#92;(b=7&#92;), &#92;(c=8&#92;) et &#92;(d=3&#92;). Les trois produits sont &#92;(ac=32&#92;), &#92;(bd=21&#92;) et &#92;((a+b)(c+d)=11\times11=121&#92;). Le terme croisé vaut donc &#92;(121-32-21=68&#92;). Enfin, &#92;(47\times83=32\times100+68\times10+21=3\,901&#92;).
+On pose &#92;(a=4&#92;), &#92;(b=7&#92;), &#92;(c=8&#92;) et &#92;(d=3&#92;). Les trois produits sont &#92;(ac=32&#92;), &#92;(bd=21&#92;) et &#92;((a+b)(c+d)=11\times11=121&#92;). Le terme croisé vaut donc &#92;(121-32-21=68&#92;). Enfin, &#92;(47\times83=32\times100+68\times10+21=3&#92;,901&#92;).
 
 </details>
 
-**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, &#92;(1\,024=2^&#123;10&#125;&#92;). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, &#92;(1&#92;,024=2^&#123;10&#125;&#92;). Combien de produits aux feuilles obtient-on avec chaque méthode ?
 
 <details>
 <summary>Correction</summary>
 
-La <span class="term-common">méthode classique</span> en demande <span class="term-common">&#92;(4^&#123;10&#125;=1\,048\,576&#92;)</span>, tandis que <span class="term-aux">Karatsuba</span> en demande <span class="term-aux">&#92;(3^&#123;10&#125;=59\,049&#92;)</span>. Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+La <span class="term-common">méthode classique</span> en demande <span class="term-common">&#92;(4^&#123;10&#125;=1&#92;,048&#92;,576&#92;)</span>, tandis que <span class="term-aux">Karatsuba</span> en demande <span class="term-aux">&#92;(3^&#123;10&#125;=59&#92;,049&#92;)</span>. Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
 
 </details>
 
@@ -266,7 +266,7 @@ Pour rendre l’écart concret, prenons &#92;(n=8=2^3&#92;) chiffres et arrêton
 Le travail local d’un niveau est le nombre d’appels multiplié par le coût linéaire de chacun :
 
 <div class="math-display math-display--compact complexity-equations" role="math" aria-label="Coût du niveau j : trois puissance j fois le coût linéaire d’un bloc de taille n sur deux puissance j">
-  <div class="math-line"><span class="term-aux">&#92;(3^j\times O(n/2^j)=O\!\left(n\left(3/2\right)^j\right)&#92;)</span></div>
+  <div class="math-line"><span class="term-aux">&#92;(3^j\times O(n/2^j)=O&#92;!\left(n\left(3/2\right)^j\right)&#92;)</span></div>
 </div>
 
 La profondeur vaut &#92;(k=\log_2(n)&#92;). À la dernière profondeur, le nombre de feuilles est :
@@ -279,8 +279,8 @@ La somme des coûts internes de Karatsuba est une série géométrique de raison
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Somme géométrique des coûts internes de Karatsuba">
   &#92;[
-  \sum_&#123;j=0&#125;^&#123;k-1&#125; O\!\left(n\left(3/2\right)^j\right)
-  = O\!\left(n\left(3/2\right)^k\right)
+  \sum_&#123;j=0&#125;^&#123;k-1&#125; O&#92;!\left(n\left(3/2\right)^j\right)
+  = O&#92;!\left(n\left(3/2\right)^k\right)
   = O(3^k).
   &#92;]
 </div>
@@ -289,13 +289,13 @@ Les feuilles coûtent elles-mêmes &#92;(\Theta(3^k)&#92;), puisque chacune effe
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Complexité asymptotique de Karatsuba">
   &#92;[
-  T(n)=\Theta(3^k)=\boxed&#123;\Theta\!\left(n^&#123;\log_2 3&#125;\right)&#125;.
+  T(n)=\Theta(3^k)=\boxed&#123;\Theta&#92;!\left(n^&#123;\log_2 3&#125;\right)&#125;.
   &#92;]
 </div>
 
 Comme <span class="term-aux">&#92;( \log_2 3 \approx 1,58496 &#92;)</span>, l’exposant de <span class="term-aux">Karatsuba</span> est souvent arrondi à <span class="term-aux">&#92;(1,585&#92;)</span>.
 
-Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace &#92;(3&#92;) par &#92;(4&#92;). Le travail local au niveau &#92;(j&#92;) est &#92;(O(n\,2^j)&#92;), et les feuilles sont au nombre de <span class="term-common">&#92;(4^k=(2^k)^2=n^2&#92;)</span>. La somme des coûts internes est elle aussi &#92;(O(n^2)&#92;), tandis que les feuilles donnent une borne inférieure en &#92;(\Omega(n^2)&#92;). Le coût total de la <span class="term-common">méthode classique</span> est donc <span class="term-common">&#92;(\Theta(n^2)&#92;)</span>.
+Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace &#92;(3&#92;) par &#92;(4&#92;). Le travail local au niveau &#92;(j&#92;) est &#92;(O(n&#92;,2^j)&#92;), et les feuilles sont au nombre de <span class="term-common">&#92;(4^k=(2^k)^2=n^2&#92;)</span>. La somme des coûts internes est elle aussi &#92;(O(n^2)&#92;), tandis que les feuilles donnent une borne inférieure en &#92;(\Omega(n^2)&#92;). Le coût total de la <span class="term-common">méthode classique</span> est donc <span class="term-common">&#92;(\Theta(n^2)&#92;)</span>.
 
 Cette preuve par arbre est équivalente à l’application du théorème maître à &#92;(T(n)=aT(n/2)+O(n)&#92;) : ici &#92;(a=&#92;)<span class="term-aux">&#92;(3&#92;)</span> pour <span class="term-aux">Karatsuba</span> et &#92;(a=&#92;)<span class="term-common">&#92;(4&#92;)</span> pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;\log_2 3&#125;&#92;).
 
@@ -313,7 +313,7 @@ En déroulant cette inégalité propre à la récursion de <span class="term-aux
 
 <div class="math-display math-display--compact complexity-equations term-aux" role="math" aria-label="Borne du travail interne au niveau j">
   &#92;[
-  O(3^j m_j)=O\!\left(n\left(3/2\right)^j+3^j\right).
+  O(3^j m_j)=O&#92;!\left(n\left(3/2\right)^j+3^j\right).
   &#92;]
 </div>
 
