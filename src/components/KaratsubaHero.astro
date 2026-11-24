@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="karatsuba-diagram-scroll" aria-label="Schéma défilant horizontalement sur petit écran">
+  <div class="karatsuba-diagram-scroll" role="region" tabindex="0" aria-label="Schéma de Karatsuba, défilement horizontal possible sur petit écran">
   <svg class="karatsuba-diagram" viewBox="0 0 820 390" role="img" aria-labelledby="karatsuba-diagram-title karatsuba-diagram-desc">
     <title id="karatsuba-diagram-title">De quatre produits partiels à trois produits avec Karatsuba</title>
     <desc id="karatsuba-diagram-desc">Les nombres 1 234 et 5 678 sont découpés en 12, 34, 56 et 78. La méthode directe calcule ac, ad, bc et bd. Karatsuba calcule ac, bd et le produit des sommes (a+b)(c+d), placé au centre, puis soustrait ac et bd pour retrouver ad+bc.</desc>
@@ -77,6 +77,7 @@
   .hero-count span { color:#9cdbca; }.hero-count i { color:#d9b77e; font:400 2rem "DM Sans",sans-serif; }.hero-count strong { color:#c6b3e6; }
   .hero-count small { grid-column:1/-1; margin-top:.5rem; color:#d7ded4; font-size:.57rem; letter-spacing:.08em; }
   .karatsuba-diagram-scroll { max-width:100%; min-width:0; }
+  .karatsuba-diagram-scroll:focus-visible { outline:2px solid #d9b77e; outline-offset:3px; }
   .karatsuba-diagram { display:block; width:100%; height:auto; margin:1.35rem auto .3rem; overflow:visible; }
   .diagram-panel { fill:#294c3d; stroke:#55735e; stroke-width:1.5; }
   .diagram-number { fill:#f5f1e7; font:700 25px "DM Mono",monospace; }
