@@ -6,6 +6,7 @@ const articlePaths = [
   "src/content/articles/karatsuba-multiplication.mdx",
   "src/content/articles/arbres-recursion-complexite.mdx",
   "src/content/articles/multiplication-rapide-et-preuves-2026.mdx",
+  "src/content/articles/trois-voyageurs-deux-planetes.mdx",
 ];
 
 test("MathJax delimiters survive MDX parsing", () => {
@@ -53,4 +54,10 @@ test("Karatsuba visual comparisons follow the shared semantic palette", () => {
   assert.ok(explorer.includes('class="comparison-karatsuba"'));
   assert.ok(explorer.includes(".comparison-classic .comparison-label, .comparison-classic strong { color: var(--term-common"));
   assert.ok(explorer.includes(".comparison-karatsuba .comparison-label, .comparison-karatsuba strong { color: var(--term-aux"));
+});
+
+test("the proper-time integral keeps TeX bounds escaped for MDX", () => {
+  const source = readFileSync(new URL("../src/content/articles/trois-voyageurs-deux-planetes.mdx", import.meta.url), "utf8");
+  assert.ok(source.includes(String.raw`&#92;int_&#123;t_i&#125;^&#123;t_f&#125;`));
+  assert.doesNotMatch(source, /&#92;int_\{/);
 });

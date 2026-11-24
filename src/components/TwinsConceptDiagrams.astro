@@ -1,0 +1,104 @@
+---
+---
+
+<section class="concept-diagrams" aria-label="Trois schémas pour comprendre le paradoxe des jumeaux">
+  <figure>
+    <svg viewBox="0 0 640 210" role="img" aria-labelledby="velocity-title velocity-desc">
+      <title id="velocity-title">Addition classique et composition relativiste des vitesses</title>
+      <desc id="velocity-desc">Deux segments de vitesse de 0,8 c s'additionnent classiquement en 1,6 c, tandis que la composition relativiste donne environ 0,976 c, toujours inférieur à c.</desc>
+      <text x="24" y="28" class="heading">Même situation : deux vitesses de 0,8 c dans le même sens</text>
+      <text x="24" y="76" class="label">Galilée</text>
+      <rect x="135" y="53" width="440" height="34" rx="7" class="track"/>
+      <rect x="135" y="53" width="440" height="34" rx="7" class="classical" />
+      <line x1="410" y1="47" x2="410" y2="94" class="limit"/>
+      <text x="410" y="111" text-anchor="middle" class="small">c</text>
+      <text x="580" y="76" class="value">1,6 c</text>
+      <text x="24" y="154" class="label">Relativité</text>
+      <rect x="135" y="131" width="440" height="34" rx="7" class="track"/>
+      <rect x="135" y="131" width="268" height="34" rx="7" class="relativistic"/>
+      <line x1="410" y1="125" x2="410" y2="172" class="limit"/>
+      <text x="410" y="190" text-anchor="middle" class="small">c</text>
+      <text x="418" y="154" class="value">0,976 c</text>
+    </svg>
+    <figcaption><strong>1 · La rupture avec l'intuition classique.</strong> La somme galiléenne dépasse c ; la loi relativiste issue des transformations de Lorentz conserve la borne c.</figcaption>
+  </figure>
+
+  <figure>
+    <svg viewBox="0 0 640 245" role="img" aria-labelledby="clock-title clock-desc">
+      <title id="clock-title">Horloge lumineuse au repos et en mouvement</title>
+      <desc id="clock-desc">À gauche, la lumière parcourt verticalement la distance entre deux miroirs. À droite, vue depuis un référentiel où l'horloge se déplace, le trajet lumineux est diagonal et plus long entre les mêmes événements de départ et d'arrivée.</desc>
+      <text x="24" y="28" class="heading">Une même lumière, deux descriptions géométriques</text>
+      <g transform="translate(95 48)">
+        <text x="55" y="0" text-anchor="middle" class="label">Horloge au repos</text>
+        <line x1="20" y1="35" x2="90" y2="35" class="mirror"/>
+        <line x1="20" y1="155" x2="90" y2="155" class="mirror"/>
+        <path d="M55 145 V45" class="light"/>
+        <path d="M48 55 L55 43 L62 55" class="arrow"/>
+        <text x="105" y="98" class="small">L</text>
+        <text x="55" y="190" text-anchor="middle" class="small">demi-trajet : L</text>
+      </g>
+      <g transform="translate(355 48)">
+        <text x="105" y="0" text-anchor="middle" class="label">Horloge en mouvement</text>
+        <line x1="20" y1="35" x2="190" y2="35" class="mirror"/>
+        <line x1="20" y1="155" x2="190" y2="155" class="mirror"/>
+        <path d="M35 145 L175 45" class="light"/>
+        <path d="M160 47 L176 44 L170 59" class="arrow"/>
+        <text x="102" y="105" class="small" transform="rotate(-35 102 105)">trajet plus long</text>
+        <text x="105" y="190" text-anchor="middle" class="small">la vitesse de la lumière reste c</text>
+      </g>
+    </svg>
+    <figcaption><strong>2 · Construire la dilatation du temps.</strong> La géométrie du trajet, combinée à l'invariance de c, conduit à Δt = γ Δτ. Le dessin est schématique et non à l'échelle.</figcaption>
+  </figure>
+
+  <figure>
+    <svg viewBox="0 0 640 330" role="img" aria-labelledby="spacetime-title spacetime-desc">
+      <title id="spacetime-title">Lignes d'univers de Simon et Kara</title>
+      <desc id="spacetime-desc">Diagramme de Minkowski schématique : Simon suit une ligne verticale sur Terre. Kara suit deux segments, part vers la droite jusqu'au demi-tour, puis revient. Les deux trajectoires partent et se rejoignent aux mêmes événements.</desc>
+      <text x="24" y="26" class="heading">Deux lignes d'univers, mêmes événements de rencontre</text>
+      <path d="M95 285 V48 M95 285 H565" class="axis"/>
+      <path d="M89 58 L95 45 L101 58 M552 279 L565 285 L552 291" class="axis"/>
+      <path d="M95 285 L191 165 L95 45" class="traveller"/>
+      <path d="M95 285 V45" class="earth"/>
+      <path d="M95 285 L191 165" class="outbound"/>
+      <path d="M191 165 L95 45" class="inbound"/>
+      <circle cx="95" cy="285" r="5" class="event"/>
+      <circle cx="191" cy="165" r="5" class="event"/>
+      <circle cx="95" cy="45" r="5" class="event"/>
+      <text x="110" y="300" class="small">Départ</text>
+      <text x="206" y="162" class="small">Demi-tour</text>
+      <text x="110" y="44" class="small">Retrouvailles</text>
+      <text x="72" y="48" text-anchor="end" class="small">ct</text>
+      <text x="560" y="310" text-anchor="end" class="small">x</text>
+      <text x="400" y="110" class="legend">Simon : Terre</text>
+      <line x1="370" y1="106" x2="392" y2="106" class="earth"/>
+      <text x="400" y="140" class="legend">Kara : vaisseau</text>
+      <line x1="370" y1="136" x2="392" y2="136" class="traveller"/>
+    </svg>
+    <figcaption><strong>3 · Comparer les trajectoires.</strong> Le temps propre est la durée accumulée le long de chaque ligne d'univers. La ligne droite inertielle entre ces événements maximise le temps propre en espace-temps de Minkowski.</figcaption>
+  </figure>
+</section>
+
+<style>
+  .concept-diagrams { display:grid; gap:1.6rem; margin:2rem 0; }
+  .concept-diagrams figure { margin:0; padding:1rem; border:1px solid #d8d5c9; border-radius:.65rem; background:#faf9f4; }
+  .concept-diagrams svg { display:block; width:100%; height:auto; color:#263b3c; font:500 14px "DM Sans",sans-serif; }
+  .concept-diagrams .heading { fill:#263b3c; font-size:16px; font-weight:700; }
+  .concept-diagrams .label { fill:#263b3c; font-weight:700; }
+  .concept-diagrams .small { fill:#536260; font-size:12px; }
+  .concept-diagrams .value { fill:#263b3c; font-weight:700; font-size:13px; }
+  .concept-diagrams .track { fill:#e7e8e0; }
+  .concept-diagrams .classical { fill:#c77b48; }
+  .concept-diagrams .relativistic { fill:#477a60; }
+  .concept-diagrams .limit { stroke:#263b3c; stroke-width:2; stroke-dasharray:4 4; }
+  .concept-diagrams .mirror { stroke:#263b3c; stroke-width:7; stroke-linecap:round; }
+  .concept-diagrams .light { fill:none; stroke:#c77b48; stroke-width:4; stroke-linecap:round; }
+  .concept-diagrams .arrow { fill:none; stroke:#c77b48; stroke-width:3; }
+  .concept-diagrams .axis { fill:none; stroke:#536260; stroke-width:1.7; }
+  .concept-diagrams .earth { fill:none; stroke:#386da5; stroke-width:4; }
+  .concept-diagrams .traveller { fill:none; stroke:#b85a24; stroke-width:3; }
+  .concept-diagrams .outbound,.concept-diagrams .inbound { fill:none; stroke:#b85a24; stroke-width:3; }
+  .concept-diagrams .event { fill:#263b3c; }
+  .concept-diagrams .legend { fill:#263b3c; font-size:12px; }
+  .concept-diagrams figcaption { margin-top:.8rem; color:#4e5750; font-size:.88rem; line-height:1.55; }
+  @media (max-width: 38rem) { .concept-diagrams figure { padding:.5rem; } .concept-diagrams svg { font-size:12px; } }
+</style>

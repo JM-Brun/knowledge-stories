@@ -1,0 +1,143 @@
+---
+title: "Trois voyageurs, deux planètes : comparer des horloges aux rencontres"
+description: "Une expérience à trois personnages montre comment comparer des temps propres sans confondre durée vécue, simultanéité à distance et signal reçu."
+date: 2026-11-24
+category: "Physique"
+discipline: "Physique"
+domain: "physics"
+themes: ["Relativité restreinte", "Mesure et référentiels"]
+tags: ["temps propre", "ligne d'univers", "rencontre", "relativité restreinte"]
+labels: ["Temps propre", "Lignes d'univers"]
+difficulty: "intermediate"
+readingTime: 9
+status: "review"
+featured: false
+sources:
+  - title: "Albert Einstein (1905), On the Electrodynamics of Moving Bodies, § 4"
+    url: "https://sites.pitt.edu/~jdnorton/teaching/Einstein_graduate/pdfs/Einstein_STR_1905_English_reset.pdf"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "Markus Pössel, The case of the travelling twins, Einstein Online"
+    url: "https://www.einstein-online.info/en/spotlight/twins/"
+    kind: "secondary"
+    accessed: 2026-11-24
+relatedArticles: ["paradoxe-des-jumeaux"]
+---
+
+import ThreeTravellersExplorer from "../../components/ThreeTravellersExplorer.astro";
+import PersonName from "../../components/PersonName.astro";
+
+## Une expérience qui multiplie les rencontres
+
+Dans le paradoxe des jumeaux classique, deux personnes se retrouvent après un voyage aller-retour. On compare alors directement leurs montres. Mais comment raisonner lorsqu'elles ne se retrouvent pas toutes au même endroit, ni au même moment ?
+
+Imaginons trois personnes du même âge : <PersonName name="Simon" /> reste d'abord sur Terre, <PersonName name="Odile" /> voyage vers une planète appelée Zartha, et <PersonName name="Kara" /> effectue plusieurs trajets entre les deux planètes. Le but n'est pas d'ajouter une complication narrative : c'est de créer plusieurs événements de rencontre où certaines montres peuvent être comparées localement.
+
+<ThreeTravellersExplorer />
+
+## 1. Définir précisément le scénario
+
+On adopte un modèle idéal de relativité restreinte :
+
+- La Terre et Zartha sont au repos l'une par rapport à l'autre dans un même référentiel inertiel.
+- Leur distance mesurée dans ce référentiel est constante et vaut &#92;(L&#92;).
+- Les voyageurs se déplacent à vitesse de valeur constante &#92;(v&#92;), avec &#92;(0 &#92;lt v &#92;lt c&#92;).
+- Les départs, arrivées et demi-tours sont instantanés dans cette première modélisation.
+- Les trois montres sont mises à zéro au même événement de départ.
+
+On pose &#92;(T=L/v&#92;) et le facteur de Lorentz :
+
+&#92;[
+&#92;gamma = &#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;.
+&#92;]
+
+Une phase de voyage dure &#92;(T&#92;) dans le référentiel des planètes et &#92;(T/&#92;gamma&#92;) sur la montre du voyageur. Une phase d'attente sur une planète dure &#92;(T&#92;) pour la personne qui y reste au repos.
+
+L'hypothèse de transition instantanée est une idéalisation : elle permet de séparer nettement les phases de mouvement uniforme. Pour un voyage réaliste, il faudrait spécifier les accélérations et intégrer le temps propre pendant chacune d'elles.
+
+## 2. Organiser les trois trajectoires
+
+Les histoires sont les suivantes :
+
+1. **Départ vers Zartha.** Odile et Kara voyagent ensemble de la Terre vers Zartha pendant une phase ; Simon reste sur Terre. À l'arrivée, Odile et Kara peuvent comparer leurs montres.
+2. **Retour de Kara.** Odile reste sur Zartha. Kara repart vers la Terre pendant une phase ; Simon y est toujours. À leur rencontre, Simon et Kara peuvent comparer leurs montres.
+3. **Retrouvailles sur Zartha.** Simon et Kara voyagent ensemble vers Zartha pendant une phase ; Odile les y attend. Les trois personnes comparent alors leurs montres.
+
+Les rencontres ont lieu à des événements précis :
+
+- Au départ, les trois montres sont réunies sur Terre.
+- À la première arrivée sur Zartha, Odile et Kara se retrouvent.
+- Au retour de Kara sur Terre, Simon et Kara se retrouvent.
+- À l'arrivée finale sur Zartha, les trois personnes sont réunies.
+
+Il faut distinguer une comparaison directe d'une comparaison calculée. À la première arrivée sur Zartha, Simon est loin : sa durée propre peut être calculée dans le référentiel commun, mais il ne compare pas physiquement sa montre à celles d'Odile et de Kara à cet événement.
+
+## 3. Calculer les durées propres
+
+Pour une phase de voyage de durée coordonnée &#92;(T&#92;), la montre du voyageur accumule &#92;(T/&#92;gamma&#92;). Pour une phase au repos dans le référentiel commun, elle accumule &#92;(T&#92;).
+
+| Événement | Simon | Odile | Kara |
+|---|---:|---:|---:|
+| Départ sur Terre | &#92;(0&#92;) | &#92;(0&#92;) | &#92;(0&#92;) |
+| Première arrivée sur Zartha | &#92;(T&#92;) | &#92;(T/&#92;gamma&#92;) | &#92;(T/&#92;gamma&#92;) |
+| Retour de Kara sur Terre | &#92;(2T&#92;) | &#92;(T+T/&#92;gamma&#92;) | &#92;(2T/&#92;gamma&#92;) |
+| Arrivée finale sur Zartha | &#92;(2T+T/&#92;gamma&#92;) | &#92;(2T+T/&#92;gamma&#92;) | &#92;(3T/&#92;gamma&#92;) |
+
+À la première arrivée, Odile et Kara ont suivi la même trajectoire : leurs montres indiquent donc la même durée &#92;(T/&#92;gamma&#92;).
+
+À la deuxième rencontre, Simon a attendu deux phases sur Terre, tandis que Kara a effectué deux phases de voyage :
+
+&#92;[
+&#92;tau_S=2T,
+&#92;qquad
+&#92;tau_K=&#92;frac&#123;2T&#125;&#123;&#92;gamma&#125;.
+&#92;]
+
+La comparaison est directe puisque les deux montres sont réunies.
+
+À la rencontre finale, Simon et Odile ont chacun passé deux phases au repos et une phase en mouvement :
+
+&#92;[
+&#92;tau_S=2T+&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;,
+&#92;qquad
+&#92;tau_O=&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;+2T.
+&#92;]
+
+Ils ont donc le même âge. Kara a voyagé pendant les trois phases :
+
+&#92;[
+&#92;tau_K=&#92;frac&#123;3T&#125;&#123;&#92;gamma&#125;.
+&#92;]
+
+La différence avec Simon vaut :
+
+&#92;[
+&#92;tau_S-&#92;tau_K
+=2T&#92;left(1-&#92;frac&#123;1&#125;&#123;&#92;gamma&#125;&#92;right)&#92;gt 0.
+&#92;]
+
+## 4. Interpréter le résultat sans règle simpliste
+
+La conclusion n'est pas « la personne qui voyage est toujours plus jeune ». Simon voyage sur la dernière phase et Odile sur la première ; ils ont pourtant le même âge à la rencontre finale. Kara est plus jeune parce que son histoire comporte trois phases de mouvement à la vitesse &#92;(v&#92;), alors que Simon et Odile ont chacun deux phases d'attente au repos.
+
+Le résultat dépend de la trajectoire complète, pas d'une étiquette (« voyageur » ou « sédentaire »). Le temps propre est une grandeur attachée à une ligne d'univers. Dans le référentiel inertiel commun, pour une vitesse éventuellement variable, il s'écrit :
+
+&#92;[
+&#92;tau=&#92;int_&#123;t_i&#125;^&#123;t_f&#125;
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt.
+&#92;]
+
+Dans le scénario présent, la vitesse est constante par morceaux : cette intégrale se réduit à la somme des durées propres de chaque phase.
+
+## 5. Ce que les rencontres permettent réellement d'affirmer
+
+- Deux montres réunies au même événement peuvent être comparées directement.
+- Une durée propre peut être calculée le long d'une trajectoire même si son porteur est éloigné ; cela ne signifie pas qu'une comparaison locale a eu lieu.
+- La simultanéité à distance n'est pas nécessaire pour comparer deux montres qui se retrouvent.
+- Les transitions instantanées simplifient le calcul, mais ne décrivent pas une manœuvre physique réalisable.
+
+Cette expérience complète le récit du paradoxe des jumeaux : elle fait varier les histoires de mouvement et montre que le résultat dépend de la répartition des phases de voyage et d'attente.
+
+## Pour poursuivre
+
+Revenir au [paradoxe des jumeaux](/knowledge-stories/atelier/paradoxe-des-jumeaux/) pour comprendre pourquoi la simultanéité change au demi-tour, puis consulter les pages canoniques sur le [paradoxe des jumeaux](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/paradoxe-des-jumeaux.md) et les [accélération propre et référentiels inertiels](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/acceleration-propre-et-referentiels-inertiels.md).
