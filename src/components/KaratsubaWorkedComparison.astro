@@ -18,10 +18,10 @@
       <header><div><span class="method-number">A · MÉTHODE USUELLE</span><h4>Développer les quatre produits</h4></div><strong class="operation-count">4<small>multiplications</small></strong></header>
       <p class="operation-breakdown"><b>Opérations auxiliaires :</b> 1 addition pour former <span class="cross-text">ad + bc</span>.</p>
       <ol class="worked-steps">
-        <li class="common-step"><span class="step-label">Produit des blocs de gauche · ac</span><code><span class="common-text">12 × 56 = 672</span></code></li>
-        <li class="cross-step"><span class="step-label">Premier produit croisé · ad</span><code><span class="cross-text">12 × 78 = 936</span></code></li>
-        <li class="cross-step"><span class="step-label">Second produit croisé · bc</span><code><span class="cross-text">34 × 56 = 1 904</span></code></li>
-        <li class="common-step"><span class="step-label">Produit des blocs de droite · bd</span><code><span class="common-text">34 × 78 = 2 652</span></code></li>
+        <li class="common-step"><span class="step-label">Produit des blocs de gauche · <b class="common-text">ac</b></span><code><span class="common-text">12 × 56 = 672</span></code></li>
+        <li class="cross-step"><span class="step-label">Premier produit croisé · <b class="cross-text">ad</b></span><code><span class="cross-text">12 × 78 = 936</span></code></li>
+        <li class="cross-step"><span class="step-label">Second produit croisé · <b class="cross-text">bc</b></span><code><span class="cross-text">34 × 56 = 1 904</span></code></li>
+        <li class="common-step"><span class="step-label">Produit des blocs de droite · <b class="common-text">bd</b></span><code><span class="common-text">34 × 78 = 2 652</span></code></li>
         <li class="cross-step"><span class="step-label">Additionner les deux termes croisés</span><code><span class="cross-text">936 + 1 904 = 2 840</span></code></li>
       </ol>
       <div class="worked-recompose"><span>Recomposition</span><code><b class="common-text">672</b> × 10 000 + <b class="cross-text">2 840</b> × 100 + <b class="common-text">2 652</b></code><strong>= 7 006 652</strong></div>
@@ -30,9 +30,9 @@
       <header><div><span class="method-number">B · KARATSUBA</span><h4>Reconstruire les produits croisés</h4></div><strong class="operation-count">3<small>multiplications</small></strong></header>
       <p class="operation-breakdown"><b>Opérations auxiliaires :</b> 2 additions pour former les sommes, puis 2 soustractions pour isoler <span class="cross-text">ad + bc</span>.</p>
       <ol class="worked-steps">
-        <li class="common-step"><span class="step-label">Même produit des blocs de gauche · p = ac</span><code><span class="common-text">p = 12 × 56 = 672</span></code></li>
-        <li class="common-step"><span class="step-label">Même produit des blocs de droite · q = bd</span><code><span class="common-text">q = 34 × 78 = 2 652</span></code></li>
-        <li class="extra-step"><span class="step-label">Former les deux sommes (2 additions), puis calculer r</span><code><span class="aux-text">(12 + 34) = 46 ; (56 + 78) = 134</span></code><code><span class="aux-text">r = 46 × 134 = 6 164</span></code></li>
+        <li class="common-step"><span class="step-label">Même produit des blocs de gauche · <b class="common-text">p = ac</b></span><code><span class="common-text">p = 12 × 56 = 672</span></code></li>
+        <li class="common-step"><span class="step-label">Même produit des blocs de droite · <b class="common-text">q = bd</b></span><code><span class="common-text">q = 34 × 78 = 2 652</span></code></li>
+        <li class="extra-step"><span class="step-label">Former les deux sommes (2 additions), puis calculer <b class="aux-text">r</b></span><code><span class="aux-text">(12 + 34) = 46 ; (56 + 78) = 134</span></code><code><span class="aux-text">r = 46 × 134 = 6 164</span></code></li>
         <li class="cross-step"><span class="step-label">Isoler le terme croisé (2 soustractions)</span><code><span class="aux-text">r</span> − <span class="common-text">p</span> − <span class="common-text">q</span> = 6 164 − 672 − 2 652 = 2 840</code><code><span class="cross-text">ad + bc = 2 840</span></code></li>
       </ol>
       <div class="worked-recompose"><span>Recomposition</span><code><b class="common-text">672</b> × 10 000 + <b class="cross-text">2 840</b> × 100 + <b class="common-text">2 652</b></code><strong>= 7 006 652</strong></div>
