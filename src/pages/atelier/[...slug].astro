@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatReadingDuration, seriesInfo } from "../../data/series";
+import { getReadingTime } from "../../utils/reading-time.mjs";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => data.status === "review");
@@ -15,7 +16,7 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
 const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire", advanced: "Avancé" };
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 
-const readingTimeFor = (entry: { data: { readingTime?: number }; body: string }) => entry.data.readingTime ?? Math.max(1, Math.ceil(entry.body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));
+const readingTimeFor = getReadingTime;
 const seriesArticles = article.data.series
   ? (await getCollection("articles", ({ data }) => data.status === "review" && data.series === article.data.series))
       .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999))
