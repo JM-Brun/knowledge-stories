@@ -209,12 +209,12 @@ On pose \(a=4\), \(b=7\), \(c=8\) et \(d=3\). Les trois produits sont \(ac=32\),
 
 </details>
 
-**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^&#123;10&#125;\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^{10}\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
 
 <details>
 <summary>Correction</summary>
 
-La méthode classique en demande \(4^&#123;10&#125;=1\,048\,576\), tandis que Karatsuba en demande \(3^&#123;10&#125;=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+La méthode classique en demande \(4^{10}=1\,048\,576\), tandis que Karatsuba en demande \(3^{10}=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
 
 </details>
 
@@ -332,25 +332,21 @@ La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multi
 
 Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de n bits en temps
 
-```text
 \[O\!\left(n(\log n)^{1-\kappa}\right),\qquad \kappa=2^{-182}.\]
-```
 
 sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que \(O(n\log n)\) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
 
-Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat O(n log n) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape. Cette appréciation porte sur la prépublication OpenAI de septembre : elle précède les travaux présentés ensuite.
+Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat \(O(n\log n)\) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape. Cette appréciation porte sur la prépublication OpenAI de septembre : elle précède les travaux présentés ensuite.
 
 **Une nouvelle étape apparaît le 13 novembre 2026.** Piaoyang Cui, Yiming Liu et David P. Woodruff publient *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*. Leur construction atteint une borne de la forme
 
-```text
-O(n (log n)^(1 - κ)), avec κ = 2^(-46)
-```
+\\[O\\!\\left(n(\\log n)^{1-\\kappa}\\right),\\qquad \\kappa=2^{-46}.\\]
 
 et s'accompagne d'une formalisation en Lean 4. Le dépôt des auteurs fournit le papier court, le papier complet et le développement Lean. Sa documentation indique que la preuve formalisée établit la borne à partir de la construction et des définitions de machine retenues, sans prendre les résultats du préprint OpenAI ni ceux de Harvey–van der Hoeven comme hypothèses ou axiomes. Le noyau Lean et les définitions Mathlib utilisées, ainsi que les trois axiomes logiques standards de Lean, font partie de la base de confiance déclarée.
 
-Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en O(n log n), pas une implémentation pratique du nouvel algorithme en temps inférieur à n log n.
+Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en \(O(n\log n)\), pas une implémentation pratique du nouvel algorithme en temps inférieur à n log n.
 
-Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce κ = 2^-56 avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint κ = 2^-46. Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
+Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce \(\kappa=2^{-56}\) avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint \(\kappa=2^{-46}\). Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
 
 Une borne asymptotique, une preuve examinée, une implémentation et un gain de performance mesuré répondent à quatre questions différentes. La méthode de Karatsuba permet d’observer ces distinctions à l’échelle d’un calcul complet.
 
