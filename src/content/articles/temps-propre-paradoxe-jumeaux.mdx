@@ -1,0 +1,87 @@
+---
+title: "Le temps propre : ce que mesure une montre"
+description: "Calculer les durées vécues le long de trajectoires différentes et comprendre pourquoi le voyageur retrouve son jumeau plus jeune."
+date: 2026-11-24
+category: "Physique"
+discipline: "Physique"
+domain: "physics"
+themes: ["Relativité restreinte", "Espace-temps"]
+tags: ["temps propre", "ligne d’univers", "dilatation du temps", "paradoxe des jumeaux"]
+labels: ["Temps propre", "Espace-temps"]
+difficulty: "intermediate"
+readingTime: 9
+status: "review"
+featured: false
+sources:
+  - title: "Albert Einstein (1905), On the Electrodynamics of Moving Bodies, § 4"
+    url: "https://sites.pitt.edu/~jdnorton/teaching/Einstein_graduate/pdfs/Einstein_STR_1905_English_reset.pdf"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "Markus Pössel, The case of the travelling twins, Einstein Online"
+    url: "https://www.einstein-online.info/en/spotlight/twins/"
+    kind: "secondary"
+    accessed: 2026-11-24
+relatedArticles: ["paradoxe-des-jumeaux", "asymetrie-paradoxe-jumeaux"]
+---
+
+Quand deux montres se retrouvent au même endroit, on peut comparer directement leurs indications. Aucune synchronisation à distance n’est nécessaire. Si elles ont suivi des trajectoires différentes entre les mêmes événements de rencontre, elles peuvent afficher des durées différentes.
+
+La grandeur mesurée par une horloge le long de sa trajectoire est le **temps propre**.
+
+## 1. Une durée attachée à une trajectoire
+
+Dans un référentiel inertiel de l’espace-temps plat, une horloge qui se déplace à la vitesse \(v(t)\) accumule :
+
+\[
+d\tau=dt\sqrt{1-\frac{v(t)^2}{c^2}}.
+\]
+
+Sa durée totale entre deux événements est l’intégrale :
+
+\[
+\tau=\int_{t_1}^{t_2}\sqrt{1-\frac{v(t)^2}{c^2}}\,dt.
+\]
+
+Cette expression ne dit pas que la montre « ralentit mécaniquement » parce qu’une force agit sur elle. Elle relie le temps propre mesuré par la montre au temps coordonné du référentiel choisi. Pour une vitesse constante, le facteur sous la racine est constant.
+
+## 2. Le calcul des deux jumeaux
+
+Reprenons le voyage : Kara part de la Terre à \(0{,}8c\), atteint un point situé à 4 années-lumière, puis revient à la même vitesse en valeur absolue. Dans le référentiel de Simon, chaque tronçon dure 5 ans.
+
+Le facteur de Lorentz vaut :
+
+\[
+\gamma=\frac{1}{\sqrt{1-0{,}8^2}}=\frac{5}{3}.
+\]
+
+La durée propre de Kara sur chaque tronçon est donc :
+
+\[
+\Delta\tau=\frac{5}{\gamma}=3\ \text{ans}.
+\]
+
+Elle accumule 6 ans au total. Simon, au repos dans le référentiel terrestre pendant 10 ans, accumule 10 ans. À leurs retrouvailles, les montres indiquent donc 10 ans et 6 ans.
+
+## 3. Pourquoi la ligne droite maximise-t-elle le temps propre ?
+
+Dans l’espace-temps de Minkowski, entre deux événements séparés dans le temps, la trajectoire inertielle maximise le temps propre parmi les trajectoires qui relient ces mêmes événements. C’est l’inverse de l’intuition euclidienne : le chemin spatial le plus court n’est pas le critère pertinent.
+
+On peut le voir dans le référentiel où Simon reste au repos. Sa vitesse vaut zéro et son temps propre est égal au temps coordonné : 10 ans. Kara a une vitesse non nulle pendant les phases de croisière ; chaque intervalle contribue moins que \(dt\) à son temps propre. Le résultat total est inférieur.
+
+Ce résultat suppose l’espace-temps plat et les mêmes événements de départ et de retrouvailles. En présence d’un champ gravitationnel, il faut intégrer le temps propre avec la métrique de l’espace-temps considérée.
+
+## 4. L’accélération n’est pas une pénalité ajoutée au calcul
+
+Le demi-tour permet à Kara de rejoindre Simon. Il ne faut pas ajouter une « quantité de vieillissement perdue » proportionnelle à l’accélération. La durée mesurée est calculée le long de toute la ligne d’univers, y compris pendant une phase d’accélération de durée finie.
+
+Dans le modèle simplifié où le demi-tour est instantané, cette phase n’a aucune durée propre. C’est une idéalisation : un vaisseau réel accélère pendant un intervalle fini. En rendant cet intervalle très bref tout en gardant les mêmes événements limites, on retrouve les valeurs limites de 10 et 6 ans.
+
+## 5. Une expérience de symétrie
+
+Supposons maintenant que Simon et Kara partent en sens opposés, à la même vitesse dans le référentiel de la station, puis fassent demi-tour au même instant dans ce référentiel avant de s’y retrouver. Leurs trajectoires sont symétriques et leurs vitesses ont la même valeur absolue à chaque instant. Leurs temps propres sont égaux.
+
+Cela confirme qu’« avoir accéléré » ne suffit pas à déterminer qui vieillit le moins. Ce sont les trajectoires complètes, avec les événements de rencontre et la géométrie de l’espace-temps, qui déterminent le résultat.
+
+**À retenir :** une montre mesure le temps propre le long de sa ligne d’univers. Pour comparer deux âges, il faut comparer les durées accumulées entre les mêmes événements de rencontre.
+
+**Pour approfondir :** [où se trouve l’asymétrie ?](/atelier/asymetrie-paradoxe-jumeaux/) et [le principe de Mach et les référentiels](/atelier/inertie-referentiels-principe-mach/).
