@@ -6,6 +6,8 @@ const articlePaths = [
   "src/content/articles/karatsuba-multiplication.mdx",
   "src/content/articles/arbres-recursion-complexite.mdx",
   "src/content/articles/multiplication-rapide-et-preuves-2026.mdx",
+  "src/content/articles/multiplication-fft-convolution-2026.mdx",
+  "src/content/articles/frontiere-theorique-multiplication-entiere-2026.mdx",
   "src/content/articles/trois-voyageurs-deux-planetes.mdx",
 ];
 
