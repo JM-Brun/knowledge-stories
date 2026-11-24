@@ -154,3 +154,18 @@ main.content, #quarto-content main { max-width: 76rem; }
   #quarto-content .sensor-card p { grid-column: 2; }
   #quarto-content .sensor-card .sensor-limit { margin-top: .15rem; padding-top: .3rem; }
 }
+
+/* Editorial skeletons are navigable, but visually distinct from published articles. */
+.advent-door.skeleton {
+  color: var(--calendar-ink);
+  background: linear-gradient(145deg,#f4f1e6,#e8eee5);
+  border: 1px dashed #8fa996;
+  box-shadow: 0 3px 0 #c7d3c5,0 7px 15px rgba(30,59,46,.07);
+}
+.advent-door.skeleton:before { border-color:rgba(49,93,73,.2); }
+.advent-door.skeleton:after { color:rgba(49,93,73,.3); }
+.advent-door.skeleton .door-number { color:var(--calendar-green); text-shadow:none; }
+.advent-door.skeleton .door-date,
+.advent-door.skeleton .door-action { color:#62796a; }
+.advent-door.skeleton .door-title { color:#294b3a; }
+.legend-swatch.skeleton { background:#e8eee5; border:1px dashed #8fa996; }
