@@ -2,17 +2,17 @@
   <svg viewBox="0 0 400 290" aria-hidden="true">
     <defs>
       <pattern id="twins-cover-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-        <path d="M24 0H0V24" fill="none" stroke="#c3dfdf" stroke-opacity=".13"/>
+        <path d="M24 0H0V24" fill="none" stroke="#b7cce4" stroke-opacity=".13"/>
       </pattern>
       <linearGradient id="twins-cover-fill">
-        <stop stop-color="#94ddd8" stop-opacity=".06"/>
-        <stop offset="1" stop-color="#ffaf85" stop-opacity=".24"/>
+        <stop stop-color="#75b7ff" stop-opacity=".06"/>
+        <stop offset="1" stop-color="#ffad78" stop-opacity=".24"/>
       </linearGradient>
     </defs>
     <rect width="400" height="290" fill="url(#twins-cover-grid)"/>
     <path d="M114 245V45l80 100Z" fill="url(#twins-cover-fill)"/>
-    <path class="clara" d="M114 245V45"/>
-    <path class="noe" d="M114 245l80-100-80-100"/>
+    <path class="simon" d="M114 245V45"/>
+    <path class="kara" d="M114 245l80-100-80-100"/>
     <g fill="#e9f3f1">
       <circle cx="114" cy="245" r="5"/>
       <circle cx="114" cy="45" r="5"/>
@@ -26,8 +26,8 @@
     </g>
   </svg>
   <figcaption>
-    <span class="name clara-name">Clara · Terre</span>
-    <span class="name noe-name">Noé · Vaisseau</span>
+    <span class="name simon-name">Simon · Terre</span>
+    <span class="name kara-name">Kara · Vaisseau</span>
     <span class="caption">Deux trajectoires, un départ et des retrouvailles.</span>
   </figcaption>
 </figure>
@@ -44,9 +44,9 @@
   }
 
   svg { display: block; width: 100%; height: auto; font: 500 17px/1.35 "DM Sans", sans-serif; }
-  .clara, .noe { fill: none; stroke-width: 3.5px; }
-  .clara { stroke: #94ddd8; }
-  .noe { stroke: #ffb68f; }
+  .simon, .kara { fill: none; stroke-width: 3.5px; }
+  .simon { stroke: #75b7ff; }
+  .kara { stroke: #ffad78; }
   .guide { fill: none; stroke: #a1b5ba; }
 
   figcaption {
@@ -60,7 +60,7 @@
 
   .name { display: inline-flex; align-items: center; gap: .45rem; }
   .name::before { width: .85rem; height: 2px; background: currentColor; content: ""; }
-  .clara-name { color: #94ddd8; }
-  .noe-name { color: #ffb68f; }
+  .simon-name { color: #75b7ff; }
+  .kara-name { color: #ffad78; }
   .caption { flex-basis: 100%; color: #c8d8dc; }
 </style>

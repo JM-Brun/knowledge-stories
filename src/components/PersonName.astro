@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: "Simon" | "Kara" | "Odile";
+}
+const { name } = Astro.props;
+const tone = {
+  Simon: "simon",
+  Kara: "kara",
+  Odile: "odile",
+}[name];
+---
+
+<span class={`person-name ${tone}`}>{name}</span>
+
+<style>
+  .person-name { font-weight: 650; white-space: nowrap; }
+  .simon { color: #245fa8; }
+  .kara { color: #b85a24; }
+  .odile { color: #26734d; }
+  @media (forced-colors: active) {
+    .person-name { text-decoration: underline; text-decoration-style: dotted; }
+  }
+</style>
