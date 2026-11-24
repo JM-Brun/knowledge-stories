@@ -141,3 +141,40 @@ Sur le commit `85b8d8ef2075577ab991388cf304a20de7c1d9c6) :
 - L'étape d'upload de l'artefact est ignorée sur une pull request ; aucune publication Pages n'a été déclenchée depuis le workflow PR.
 
 La compilation ne remplace pas une revue visuelle dans un navigateur. La vérification fine du rendu desktop/mobile, du contraste en thème sombre et de la navigation clavier reste à faire. La PR #82 a ensuite été fusionnée dans `main` au commit `7ea146f50b0f089db1eb7346f172367d63e0998d`.
+
+
+## Troisième itération — expérimentation paramétrique générique
+
+### Objectif
+
+Rendre transférable le raisonnement développé dans la page. Le lecteur ne doit pas seulement lire les trois régimes : il doit pouvoir les provoquer en modifiant les paramètres de la récurrence.
+
+### Composant ajouté
+
+Nouveau composant : `src/components/RecursionTreeExplorer.astro`.
+
+Paramètres manipulables :
+- nombre de sous-problèmes par appel (`a`) ;
+- facteur de réduction de la taille (`b`) ;
+- exposant du coût local (`d`) ;
+- profondeur (`k`), avec une taille initiale `n = b^k`.
+
+Le tableau recalcule, pour chaque niveau, le nombre d'appels `N_j`, la taille `S_j`, le coût local `C_j` et le coût cumulé `W_j`. Les barres facilitent la comparaison des contributions. Un résumé indique la comparaison entre `a` et `b^d`, le régime dominant et le nombre de feuilles.
+
+### Choix de modélisation et limites
+
+- Les tailles sont des puissances exactes de `b` : aucune approximation due aux arrondis de découpage.
+- Le tableau est rendu initialement côté serveur ; JavaScript ne fait que mettre à jour les valeurs et les barres. Une version statique reste donc lisible sans interaction.
+- Les valeurs sont des unités de travail abstraites, pas des temps d'exécution.
+- L'atelier représente un arbre régulier et un coût de feuille constant. Il ne remplace pas la discussion des arbres irréguliers et des retenues dans l'étude de Karatsuba.
+- Les contrôles sont des éléments HTML natifs, utilisables au clavier ; les mises à jour de synthèse sont annoncées via une région `aria-live`.
+
+### Vérifications restantes
+
+- [ ] `npm test`.
+- [ ] `npm run check`.
+- [ ] `npm run build`.
+- [ ] Tester les trois régimes : (a,b,d) = (2,2,1), (2,2,2), (3,2,1).
+- [ ] Vérifier les valeurs du tableau et des feuilles pour plusieurs profondeurs.
+- [ ] Revue visuelle desktop/mobile, thème sombre et navigation clavier.
+- [ ] Vérifier la cohérence de l'atelier avec les équations et le texte de généralisation.
