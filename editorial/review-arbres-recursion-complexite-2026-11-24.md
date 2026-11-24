@@ -87,3 +87,20 @@ La page est pédagogiquement satisfaisante si un lecteur peut, sans connaître K
 3. expliquer pourquoi le coût total comprend les niveaux internes et les feuilles ;
 4. identifier le régime dominant à partir de (a/b^d) ;
 5. appliquer la procédure à une récurrence nouvelle et expliciter les hypothèses utilisées.
+
+
+## Correctifs après la première exécution CI
+
+L'exécution de la CI sur la première version de la PR a révélé trois défauts de compatibilité, sans remettre en cause la démonstration mathématique :
+
+- des délimiteurs TeX écrits sous forme de caractères bruts dans le MDX n'étaient pas protégés de l'analyse Markdown/MDX ;
+- le caractère `<` de la comparaison `a/b^d<1` était interprété comme le début d'un élément JSX ;
+- un test de régression attendait encore l'ancienne notation `O(n,2^j)`, alors que le texte avait été corrigé en `O(n 2^j)`.
+
+Correctifs appliqués dans la branche :
+
+- uniformisation des délimiteurs mathématiques en entités MDX sûres ;
+- remplacement de la comparaison par la commande mathématique `\\lt` ;
+- mise à jour du test pour vérifier la notation corrigée sans relâcher l'exigence de marquage sémantique.
+
+Le contrôle Astro a réussi sur la première exécution (0 erreur, 0 avertissement, 0 hint). Le build a ensuite échoué sur le caractère `<` signalé ci-dessus ; les tests ont échoué sur les deux assertions décrites. Les correctifs ont été poussés dans la branche, mais ils ne sont pas considérés comme validés tant qu'une nouvelle exécution complète de `npm test`, `npm run check` et `npm run build` n'a pas réussi.
