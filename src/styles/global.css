@@ -225,9 +225,15 @@
   margin-top: .22rem;
   border-radius: 50%;
 }
-:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-common { background: var(--term-common-soft); border: 1px solid var(--term-common); }
-:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-cross { background: var(--term-cross-soft); border: 1px solid var(--term-cross); }
-:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-aux { background: var(--term-aux-soft); border: 1px solid var(--term-aux); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-common { background: var(--term-common); border: 1px solid var(--term-common); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-cross { background: var(--term-cross); border: 1px solid var(--term-cross); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-aux { background: var(--term-aux); border: 1px solid var(--term-aux); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend .legend-copy {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
 :is(.story-page, .review-page):has(.karatsuba-hero) .term-legend b { white-space: nowrap; }
 @media(max-width:760px) {
   :is(.story-page, .review-page):has(.karatsuba-hero) .term-legend { grid-template-columns: 1fr; }
