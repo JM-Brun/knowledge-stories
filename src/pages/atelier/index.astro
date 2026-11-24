@@ -35,7 +35,9 @@ const seriesFor = (domain: Domain) => (Object.keys(seriesInfo) as SeriesId[])
 const articlesForSeries = (series: SeriesId) => articles
   .filter((article) => article.data.series === series)
   .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999));
-const readingTimeFor = (article: (typeof articles)[number]) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));\nconst seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);\nconst ungroupedArticles = (domain: Domain) => articles.filter(
+const readingTimeFor = (article: (typeof articles)[number]) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));
+const seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);
+const ungroupedArticles = (domain: Domain) => articles.filter(
   (article) => article.data.domain === domain && !article.data.series,
 );
 const themesFor = (domain: Domain) => [...new Set(
@@ -64,7 +66,8 @@ const themesFor = (domain: Domain) => [...new Set(
                   <div>
                     <p class="series-kicker">Parcours · {articlesForSeries(series).length} articles</p>
                     <h3 id={`series-${series}`}>{seriesInfo[series].title}</h3>
-                    <p class="series-question">{seriesInfo[series].question}</p>\n                    <p class="series-duration">Durée cumulée estimée : <strong>{seriesReadingTime(series)} min</strong> · hors approfondissements externes</p>
+                    <p class="series-question">{seriesInfo[series].question}</p>
+                    <p class="series-duration">Durée cumulée estimée : <strong>{seriesReadingTime(series)} min</strong> · hors approfondissements externes</p>
                   </div>
                   <span class="series-mark" aria-hidden="true">{series === "multiplication-karatsuba" ? "×" : "τ"}</span>
                 </header>
@@ -130,7 +133,10 @@ const themesFor = (domain: Domain) => [...new Set(
   .series-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .series-kicker { margin: 0 0 .5rem; color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
   .series-heading h3 { max-width: 36ch; margin: 0; color: var(--ink); font: 500 clamp(1.5rem, 3vw, 2.15rem)/1.12 "Newsreader", serif; }
-  .series-duration { margin: .55rem 0 0; color: #625b4d; font: .76rem/1.5 "DM Mono", monospace; }\n  .series-duration strong { color: #315b45; font-weight: 600; }\n  .reading-time { color: #625b4d; font: .68rem/1.4 "DM Mono", monospace; }\n  .series-question { max-width: 58rem; margin: .65rem 0 0; color: #625b4d; font: .95rem/1.55 "DM Sans", sans-serif; }
+  .series-duration { margin: .55rem 0 0; color: #625b4d; font: .76rem/1.5 "DM Mono", monospace; }
+  .series-duration strong { color: #315b45; font-weight: 600; }
+  .reading-time { color: #625b4d; font: .68rem/1.4 "DM Mono", monospace; }
+  .series-question { max-width: 58rem; margin: .65rem 0 0; color: #625b4d; font: .95rem/1.55 "DM Sans", sans-serif; }
   .series-mark { display: grid; flex: 0 0 2.7rem; width: 2.7rem; height: 2.7rem; place-items: center; border: 1px solid #d8cbbb; border-radius: 50%; color: #75432f; font: 1.5rem/1 "Newsreader", serif; }
   .series-grid, .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .85rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
   .series-card, .review-card { display: flex; min-height: 100%; flex-direction: column; gap: .6rem; padding: 1.1rem 1.15rem; border: 1px solid var(--line); border-radius: .55rem; color: inherit; background: #fffdf8; text-decoration: none; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease; }
