@@ -222,77 +222,86 @@ Cette construction fournit trois comparaisons locales : Odile–Kara à Zartha a
 
 Pour isoler l'effet cinématique, adoptons d'abord un modèle idéal :
 
-- la distance Terre–Zartha est constante et vaut (L) dans le référentiel commun ;
+- la distance Terre–Zartha est constante et vaut \\(L\\) dans le référentiel commun ;
 - les deux planètes sont au repos l'une par rapport à l'autre dans ce référentiel ;
-- les trois trajets sont parcourus à la même vitesse de valeur (v), avec (0 < v < c) ;
+- les trois trajets sont parcourus à la même vitesse de valeur \\(v\\), avec \\(0 < v < c\\) ;
 - les changements de vitesse au départ, à l'arrivée et aux demi-tours sont idéalisés comme instantanés ;
-- les phases de voyage ont donc toutes la même durée de coordonnées (T=L/v).
+- chaque phase de voyage dure donc \\(T=L/v\\) dans le temps de coordonnées du référentiel commun.
 
-On note
-[
-gamma = rac{1}{sqrt{1-v^2/c^2}}.
-]
+On définit le facteur de Lorentz :
 
-Pendant une phase de voyage à vitesse constante (v), une durée de coordonnées (T) correspond à une durée propre (T/gamma) sur la montre du voyageur. Pendant une attente sur l'une des planètes, au repos dans le référentiel commun, la montre accumule la durée (T).
+\\[
+\\gamma = \\frac{1}{\\sqrt{1-v^2/c^2}}.
+\\]
 
-L'approximation des changements de vitesse instantanés est un outil de calcul, pas une manœuvre réalisable. Dans un modèle avec accélérations de durée finie, il faut intégrer le temps propre pendant ces phases et recalculer les dates de rencontre. Les résultats numériques ci-dessous concernent le modèle idéal annoncé.
+Pendant une phase de voyage à vitesse constante \\(v\\), une durée de coordonnées \\(T\\) correspond à une durée propre \\(T/\\gamma\\) sur la montre du voyageur. Pendant une attente sur l'une des planètes, au repos dans le référentiel commun, la montre accumule la durée \\(T\\).
+
+L'approximation des changements de vitesse instantanés est un outil de calcul, pas une manœuvre réalisable. Dans un modèle avec accélérations de durée finie, il faut intégrer le temps propre pendant ces phases et recalculer les dates de rencontre. Les résultats ci-dessous concernent le modèle idéal annoncé.
 
 ### Comparer les montres à chaque rencontre
 
 <ThreeTravellersExplorer />
 
-
 Notons les événements communs et les lectures cumulées depuis le départ :
 
 | Événement | Simon | Odile | Kara |
 |---|---:|---:|---:|
-| Départ sur Terre | (0) | (0) | (0) |
-| Première arrivée sur Zartha | (T) | (T/gamma) | (T/gamma) |
-| Retour de Kara sur Terre | (2T) | (T+T/gamma) | (2T/gamma) |
-| Arrivée finale sur Zartha | (2T+T/gamma) | (2T+T/gamma) | (3T/gamma) |
+| Départ sur Terre | \\(0\\) | \\(0\\) | \\(0\\) |
+| Première arrivée sur Zartha | \\(T\\) | \\(T/\\gamma\\) | \\(T/\\gamma\\) |
+| Retour de Kara sur Terre | \\(2T\\) | \\(T+T/\\gamma\\) | \\(2T/\\gamma\\) |
+| Arrivée finale sur Zartha | \\(2T+T/\\gamma\\) | \\(2T+T/\\gamma\\) | \\(3T/\\gamma\\) |
 
-Les valeurs d'une même ligne sont les lectures des montres au même événement de rencontre. Les valeurs de personnes éloignées sur une même ligne sont leurs temps propres cumulés depuis le départ ; les comparer ne suppose pas qu'elles se soient rencontrées à cet instant.
+Les valeurs d'une même ligne sont les lectures des montres au même événement de rencontre. À la première arrivée, Simon est éloigné sur Terre : sa lecture est calculable, mais il ne compare pas directement sa montre avec celles d'Odile et de Kara. Une comparaison directe n'a lieu que lorsque les personnes concernées sont réunies.
 
-**Première rencontre : Odile et Kara.** Elles ont voyagé ensemble de la Terre à Zartha. Leurs montres indiquent toutes deux (T/gamma). C'est une comparaison simple : même événement de départ, même trajectoire, même événement d'arrivée.
+**Première rencontre : Odile et Kara.** Elles ont voyagé ensemble de la Terre à Zartha. Leurs montres indiquent toutes deux \\(T/\\gamma\\). C'est une comparaison simple : même événement de départ, même trajectoire, même événement d'arrivée.
 
-**Deuxième rencontre : Simon et Kara.** Simon est resté sur Terre pendant (2T). Kara a effectué deux trajets à vitesse (v), chacun durant (T/gamma) sur sa montre. Au moment où ils se retrouvent :
-[
-	au_{mathrm{Simon}}=2T,qquad
-	au_{mathrm{Kara}}=rac{2T}{gamma}.
-]
+**Deuxième rencontre : Simon et Kara.** Simon est resté sur Terre pendant \\(2T\\). Kara a effectué deux trajets à vitesse \\(v\\), chacun durant \\(T/\\gamma\\) sur sa montre. Au moment où ils se retrouvent :
+
+\\[
+\\tau_{\\mathrm{Simon}}=2T,
+\\qquad
+\\tau_{\\mathrm{Kara}}=\\frac{2T}{\\gamma}.
+\\]
+
 Simon a donc davantage vieilli que Kara. Cette comparaison est directe : les deux montres sont réunies sur Terre.
 
-**Troisième rencontre : les trois voyageurs.** Simon a attendu sur Terre pendant deux phases, puis a voyagé une phase. Odile a voyagé une phase, puis attendu sur Zartha pendant deux phases. Leurs durées propres sont donc égales :
-[
-	au_{mathrm{Simon}}=2T+rac{T}{gamma},
-qquad
-	au_{mathrm{Odile}}=rac{T}{gamma}+2T.
-]
+**Troisième rencontre : les trois voyageurs.** Simon a attendu sur Terre pendant deux phases, puis a voyagé pendant une phase. Odile a voyagé pendant une phase, puis attendu sur Zartha pendant deux phases. Leurs durées propres sont donc égales :
+
+\\[
+\\tau_{\\mathrm{Simon}}=2T+\\frac{T}{\\gamma},
+\\qquad
+\\tau_{\\mathrm{Odile}}=\\frac{T}{\\gamma}+2T.
+\\]
+
 Ainsi,
-[
-oxed{	au_{mathrm{Simon}}=	au_{mathrm{Odile}}}.
-]
+
+\\[
+\\boxed{\\tau_{\\mathrm{Simon}}=\\tau_{\\mathrm{Odile}}}.
+\\]
 
 Kara a, elle, effectué les trois trajets :
-[
-	au_{mathrm{Kara}}=rac{3T}{gamma}.
-]
-Elle est plus jeune que Simon et Odile à la dernière rencontre, puisque
-[
-2T+rac{T}{gamma}-rac{3T}{gamma}
-=2Tleft(1-rac{1}{gamma}ight)>0.
-]
 
-Le résultat n'est pas que « celui qui voyage est toujours plus jeune ». Simon a voyagé sur le dernier trajet et Odile sur le premier ; ils ont pourtant le même âge à la fin. Kara est la plus jeune parce que, dans cette configuration, elle a passé les trois phases en mouvement à la vitesse (v).
+\\[
+\\tau_{\\mathrm{Kara}}=\\frac{3T}{\\gamma}.
+\\]
+
+Elle est plus jeune que Simon et Odile à la dernière rencontre, puisque
+
+\\[
+2T+\\frac{T}{\\gamma}-\\frac{3T}{\\gamma}
+=2T\\left(1-\\frac{1}{\\gamma}\\right)>0.
+\\]
+
+Le résultat n'est pas que « celui qui voyage est toujours plus jeune ». Simon a voyagé sur le dernier trajet et Odile sur le premier ; ils ont pourtant le même âge à la fin. Kara est la plus jeune parce que, dans cette configuration, elle a passé les trois phases en mouvement à la vitesse \\(v\\).
 
 ### Pourquoi Simon et Odile ont-ils le même âge ?
 
 Le résultat vient de la symétrie précise de leurs histoires dans le référentiel commun :
 
-- Simon attend pendant (2T) sur Terre, puis voyage pendant une phase ;
-- Odile voyage pendant une phase, puis attend pendant (2T) sur Zartha.
+- Simon attend pendant \\(2T\\) sur Terre, puis voyage pendant une phase ;
+- Odile voyage pendant une phase, puis attend pendant \\(2T\\) sur Zartha.
 
-Ils accumulent chacun deux phases de durée propre (T) au repos et une phase de durée propre (T/gamma) en mouvement. Leurs trajectoires ne sont pas identiques, mais leurs contributions au temps propre total sont les mêmes.
+Ils accumulent chacun deux phases de durée propre \\(T\\) au repos et une phase de durée propre \\(T/\\gamma\\) en mouvement. Leurs trajectoires ne sont pas identiques, mais leurs contributions au temps propre total sont les mêmes.
 
 Cette égalité n'est pas une règle générale selon laquelle deux personnes qui attendent sur deux planètes différentes vieillissent toujours de la même façon. Elle résulte ici des hypothèses de symétrie : mêmes durées d'attente, mêmes distances, mêmes vitesses de voyage, et absence de différence gravitationnelle entre les lieux dans le modèle.
 
@@ -306,12 +315,12 @@ Cette expérience complète le paradoxe classique sur plusieurs points :
 - **L'accélération n'est pas un supplément de vieillissement à ajouter mécaniquement.** Elle permet de changer de trajectoire et de rejoindre les autres. Le calcul des durées repose sur l'intégrale du temps propre, y compris pendant les phases accélérées si elles sont modélisées.
 
 Dans le référentiel inertiel commun, la durée propre d'une trajectoire est
-[
-	au=int sqrt{1-rac{v(t)^2}{c^2}},dt.
-]
-Pour Simon et Odile, les portions au repos et les portions en mouvement se répartissent différemment, mais donnent ici la même somme. Pour Kara, les trois portions sont parcourues à la vitesse (v), d'où le résultat plus faible.
 
-Il faut enfin éviter une comparaison trompeuse : à la première arrivée sur Zartha, Simon est loin, sur Terre. On peut calculer le temps propre qu'il a accumulé, mais on ne peut pas prétendre que les personnages ont alors comparé leurs montres. La comparaison directe n'a lieu qu'aux événements où ils sont effectivement réunis.
+\\[
+\\tau=\\int \\sqrt{1-\\frac{v(t)^2}{c^2}}\\,dt.
+\\]
+
+Pour Simon et Odile, les portions au repos et les portions en mouvement se répartissent différemment, mais donnent ici la même somme. Pour Kara, les trois portions sont parcourues à la vitesse \\(v\\), d'où le résultat plus faible.
 
 ## Pour aller plus loin
 
