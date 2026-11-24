@@ -1,6 +1,4 @@
 ---
-const velocity = 0.8;
-const gamma = 1 / Math.sqrt(1 - velocity ** 2);
 ---
 
 <section class="concept-diagrams" aria-label="Trois schémas pour comprendre le paradoxe des jumeaux">
@@ -63,7 +61,6 @@ const gamma = 1 / Math.sqrt(1 - velocity ** 2);
       <path d="M95 285 V45" class="earth"/>
       <path d="M95 285 L285 85" class="outbound"/>
       <path d="M285 85 L95 45" class="inbound"/>
-      <path d="M95 285 L285 85 L475 285" class="light-cone" />
       <circle cx="95" cy="285" r="5" class="event"/>
       <circle cx="285" cy="85" r="5" class="event"/>
       <circle cx="95" cy="45" r="5" class="event"/>
@@ -100,7 +97,6 @@ const gamma = 1 / Math.sqrt(1 - velocity ** 2);
   .concept-diagrams .earth { fill:none; stroke:#386da5; stroke-width:4; }
   .concept-diagrams .traveller { fill:none; stroke:#b85a24; stroke-width:3; }
   .concept-diagrams .outbound,.concept-diagrams .inbound { fill:none; stroke:#b85a24; stroke-width:3; }
-  .concept-diagrams .light-cone { fill:none; stroke:#9a8bb5; stroke-width:1.2; stroke-dasharray:4 5; opacity:.8; }
   .concept-diagrams .event { fill:#263b3c; }
   .concept-diagrams .legend { fill:#263b3c; font-size:12px; }
   .concept-diagrams figcaption { margin-top:.8rem; color:#4e5750; font-size:.88rem; line-height:1.55; }
