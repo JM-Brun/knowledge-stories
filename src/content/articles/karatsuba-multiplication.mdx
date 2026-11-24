@@ -393,7 +393,7 @@ Cette formule mérite d’être lue lentement : on multiplie **le nombre d’app
   <div className="level-cost-heading">
     <div>
       <p className="level-cost-kicker">Exemple illustratif · n = 8</p>
-      <h4 id="level-cost-title">Le travail local augmente à chaque niveau</h4>
+      <h4 id="level-cost-title">Le travail local total par niveau</h4>
     </div>
     <p>Nombre d’appels × taille de chaque appel, sans compter les feuilles.</p>
   </div>
@@ -446,7 +446,7 @@ Cette formule mérite d’être lue lentement : on multiplie **le nombre d’app
 Les coûts des différents niveaux forment une somme géométrique :
 
 &#92;[
-O(n)+O(3n/2)+O(n(3/2)^2)+\cdots
+\sum_{j=0}^{k-1} O\!\left(n(3/2)^j\right)
 &#92;]
 
 À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme &#92;(3/2&#92;) est supérieur à 1, les derniers niveaux coûtent davantage que les premiers. La somme est donc dominée, à un facteur constant près, par son dernier terme :
