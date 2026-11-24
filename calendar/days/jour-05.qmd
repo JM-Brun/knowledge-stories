@@ -108,11 +108,11 @@ Pour une variable discrète, l'entropie est définie à partir des probabilités
 
 Il faut donc préciser l'espace des événements et la représentation avant de comparer des entropies.
 
-## Transfert vers la Data Science et les modèles de langue
+## Transfert : de l'incertitude à l'analyse des données
 
-Dans un classifieur, l'entropie de la distribution prédite peut signaler une sortie diffuse ou concentrée. Dans un modèle de langue, elle caractérise la dispersion des probabilités sur les prochains tokens. Une température de génération modifie cette distribution et donc son entropie, sans garantir que les probabilités deviennent mieux calibrées.
+Dans un classifieur, l'entropie de la distribution prédite peut signaler une sortie diffuse ou concentrée. En contrôle qualité, elle peut décrire la diversité des catégories observées ; en sondage, elle aide à caractériser la concentration d'une population entre plusieurs modalités. En apprentissage actif, une entropie prédictive élevée peut servir de critère pour sélectionner des observations à faire annoter — à condition de ne pas la confondre avec une mesure de l'erreur attendue.
 
-La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguïté d'une prédiction, à sélectionner un exemple à annoter, à quantifier l'information d'une variable ou à contrôler le risque d'une décision ?
+La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguïté d'une prédiction, à sélectionner une observation informative, à quantifier l'information d'une variable ou à contrôler le risque d'une décision ? L'entropie est un outil de description et de comparaison, pas un indicateur universel de qualité.
 
 ## À vous de raisonner
 
