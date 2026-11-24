@@ -147,9 +147,12 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
 
       const counts = getRecursiveMultiplicationCounts(Math.max(x.toString().length, y.toString().length));
       setText(root, "[data-verification]", result === direct ? "Vérification réussie : le résultat reconstruit correspond au produit direct." : "Erreur : les deux méthodes ne donnent pas le même résultat.");
+      const theoreticalCounts = `À titre de comparaison, un arbre idéal équilibré pour une taille de ${counts.digitCount} chiffres (portée à ${counts.paddedDigits}) aurait ${format(BigInt(counts.schoolbookLeaves))} feuilles en découpage classique et ${format(BigInt(counts.karatsubaLeaves))} avec Karatsuba, après ${counts.depth} niveau${counts.depth > 1 ? "x" : ""}.`;
       setText(root, "[data-recursion]", counts.depth === 0
         ? "Avec un chiffre par opérande, chaque méthode compte une seule feuille, sans découpage."
-        : `Sur ${counts.digitCount} chiffres (longueur du plus grand opérande, portée à ${counts.paddedDigits}), après ${counts.depth} niveau${counts.depth > 1 ? "x" : ""} de découpage, le modèle équilibré donne ${format(BigInt(counts.schoolbookLeaves))} feuilles pour le découpage classique et ${format(BigInt(counts.karatsubaLeaves))} pour Karatsuba.`);
+        : x < 10n || y < 10n
+          ? `Ici, l'un des opérandes ne comporte qu'un chiffre : l'algorithme s'arrête immédiatement au cas de base et ne construit pas d'arbre récursif. ${theoreticalCounts}`
+          : theoreticalCounts + " Ce comptage est un modèle théorique, pas le relevé des appels réellement exécutés pour ces deux nombres.");
     };
 
     const examples = root.querySelector<HTMLElement>("[data-examples]")!;
