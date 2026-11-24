@@ -105,7 +105,7 @@ Donner le raisonnement, pas seulement le résultat. Signaler les conventions et 
 
 ## Contrat éditorial interne (à retirer du rendu public)
 
-- Durée visée : 7–10 min ; viser environ 1 000–1 400 mots utiles selon densité et visuels.
+- Durée visée : 7–20 min ; calibrer le volume à la densité conceptuelle (ordre de grandeur : 900–2 400 mots utiles, sans quota mécanique). Un article inférieur à 7 min doit être fusionné avec un sujet proche ou enrichi par un apport réel ; au-delà de 20 min, hiérarchiser ou scinder sans perte d'information.
 - Un seul angle distinctif par journée ; pas de remplissage pour atteindre une durée.
 - L'angle doit expliciter le traitement courant, le point aveugle, l'apport au lecteur et le dispositif de découverte ; ne jamais fabriquer une originalité.
 - Toute affirmation quantitative doit être calculée, vérifiée ou sourcée.
@@ -113,6 +113,7 @@ Donner le raisonnement, pas seulement le résultat. Signaler les conventions et 
 - Relier la page à un ou plusieurs concepts canoniques de Wiki Knowledge via le manifeste éditorial privé ; ne pas recopier ici les identifiants internes.
 - L'ordre du calendrier est une progression narrative, pas une relation de prérequis.
 - La page doit rester autonome : aucun concept essentiel ne doit être accessible uniquement par un lien.
+- La page doit rester dans le périmètre généraliste de Knowledge Stories : statistiques, mathématiques appliquées, data science et ML transversal. Les mécanismes spécifiques aux LLM (tokenisation, embeddings, attention/QKV, Transformers, génération autorégressive et entraînement propre aux modèles de langue) relèvent de LLM Lab. Un concept mathématique commun peut être partagé, mais l'exemple principal doit être non-LLM.
 - Vérifier le rendu Quarto, les liens, l'accessibilité clavier, les équations et l'affichage mobile.
 - Avant validation, vérifier que la page donne au lecteur une capacité professionnelle identifiable : diagnostic, méthode, interprétation ou décision, avec ses hypothèses et limites.
 - Avant validation, vérifier la carte de couverture : concepts centraux expliqués, prérequis rappelés, confusions voisines levées, transfert justifié et approfondissements proportionnés.
