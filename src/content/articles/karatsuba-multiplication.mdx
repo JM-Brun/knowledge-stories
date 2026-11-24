@@ -76,11 +76,11 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
-On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en <span class="term-aux">\(\Theta(n^\lbrace\log_2 3\rbrace)\)</span>, soit environ <span class="term-aux">\(\Theta(n^\lbrace1{,}585\rbrace)\)</span>, au lieu de \(\Theta(n^2)\) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
+On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en <span class="term-aux">\(\Theta(n^\lbrace\log_2 3\rbrace)\)</span>, soit environ <span class="term-aux">\(\Theta(n^\lbrace1,585\rbrace)\)</span>, au lieu de \(\Theta(n^2)\) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong><span class="term-common">4</span> → <span class="term-aux">3</span></strong><span>multiplications de blocs à chaque étape</span></div>
-  <div><strong><span class="term-aux">\(n^\lbrace1{,}585\rbrace\)</span></strong><span>exposant de la complexité de Karatsuba</span></div>
+  <div><strong><span class="term-aux">\(n^\lbrace1,585\rbrace\)</span></strong><span>exposant de la complexité de Karatsuba</span></div>
 </div>
 
 <div className="term-legend" aria-label="Code couleur constant dans l’article">
