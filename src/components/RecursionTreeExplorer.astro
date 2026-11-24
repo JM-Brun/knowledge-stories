@@ -44,7 +44,7 @@ const width = (value: bigint) => `${Number(value * 100n / maxTotal)}%`;
   <p class="explorer-model">Modèle étudié : <strong data-recurrence>T(n) = 2T(n/2) + Θ(n)</strong>, avec <span data-size>n = 16</span> et des sous-problèmes de taille entière.</p>
 
   <div class="explorer-summary" aria-live="polite" aria-atomic="true">
-    <div><span>Rapport des niveaux</span><strong data-ratio> a / bᵈ = 1/2</strong></div>
+    <div><span>Comparaison a / bᵈ</span><strong data-ratio>a = bᵈ = 2</strong></div>
     <div><span>Régime observé</span><strong data-regime>Contributions constantes</strong></div>
     <div><span>Nombre de feuilles</span><strong data-leaves>16</strong></div>
   </div>
@@ -115,7 +115,7 @@ const width = (value: bigint) => `${Number(value * 100n / maxTotal)}%`;
 
       const threshold = b ** d;
       const regime = a < threshold ? "Premiers niveaux dominants" : a === threshold ? "Contributions constantes" : "Derniers niveaux dominants";
-      const ratio = a < threshold ? "a < bᵈ" : a === threshold ? "a = bᵈ" : "a > bᵈ";
+      const ratio = a < threshold ? `a = ${a} < bᵈ = ${threshold}` : a === threshold ? `a = bᵈ = ${a}` : `a = ${a} > bᵈ = ${threshold}`;
       root.querySelector("[data-recurrence]")!.textContent = `T(n) = ${a}T(n/${b}) + Θ(n^${d})`;
       root.querySelector("[data-size]")!.textContent = `n = ${format(n)}`;
       root.querySelector("[data-ratio]")!.textContent = ratio;
