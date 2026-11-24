@@ -32,6 +32,9 @@ const articles = defineCollection({
     if (data.discipline !== disciplineByDomain[data.domain]) {
       context.addIssue({ code: "custom", path: ["discipline"], message: `La discipline doit correspondre au domaine ${data.domain}.` });
     }
+    if ((data.series === undefined) !== (data.seriesOrder === undefined)) {
+      context.addIssue({ code: "custom", path: ["series"], message: "Une appartenance à une série et son ordre doivent être renseignés ensemble." });
+    }
   }),
 });
 
