@@ -1,0 +1,17 @@
+<section class="toom-cost" aria-labelledby="toom-cost-title">
+  <div class="cost-heading"><p class="eyebrow">Comparer les récursions</p><h3 id="toom-cost-title">Moins de produits, mais pas gratuitement</h3><p>À un niveau de découpage, on compare le nombre de multiplications récursives. Les barres ne représentent ni le temps total ni un benchmark.</p></div>
+  <div class="cost-legend"><span><i class="baseline"></i>Développement direct : k² produits</span><span><i class="reduced"></i>Évaluation–interpolation : 2k − 1 produits</span></div>
+  <div class="cost-rows">
+    <div class="cost-row"><div><strong>2 blocs · Karatsuba</strong><small>4 → 3 produits · exposant log₂ 3 ≈ 1,585</small></div><div class="bars"><div><span>4</span><i style="--w:25%"></i></div><div><span>3</span><i class="reduced-bar" style="--w:18.75%"></i></div></div></div>
+    <div class="cost-row"><div><strong>3 blocs · Toom–3</strong><small>9 → 5 produits · exposant log₃ 5 ≈ 1,465</small></div><div class="bars"><div><span>9</span><i style="--w:56.25%"></i></div><div><span>5</span><i class="reduced-bar" style="--w:31.25%"></i></div></div></div>
+    <div class="cost-row"><div><strong>4 blocs · Toom–4</strong><small>16 → 7 produits · exposant log₄ 7 ≈ 1,404</small></div><div class="bars"><div><span>16</span><i style="--w:100%"></i></div><div><span>7</span><i class="reduced-bar" style="--w:43.75%"></i></div></div></div>
+  </div>
+  <p class="cost-note">Les exposants proviennent du modèle simplifié T(n) = aT(n/k) + O(n), où a est le nombre de produits récursifs. Les méthodes de plus grand degré diminuent cet exposant, mais augmentent le coût et la complexité des évaluations et de l'interpolation.</p>
+</section>
+<style>
+.toom-cost{margin:2rem 0;padding:1.4rem;border:1px solid var(--line,#d9d5ca);background:#eae6dc;color:var(--ink,#22241f)}
+.cost-heading .eyebrow{margin:0 0 .4rem}.cost-heading h3{font:500 1.35rem/1.2 var(--serif,Georgia);margin:.2rem 0 .5rem}.cost-heading>p:last-child{font-size:.9rem;color:var(--muted,#77776d);max-width:650px}
+.cost-legend{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0;font-size:.78rem;color:var(--muted,#77776d)}.cost-legend span{display:flex;gap:.4rem;align-items:center}.cost-legend i{width:18px;height:7px;display:inline-block;background:#77776d}.cost-legend i.reduced{background:var(--accent,#bd4b32)}
+.cost-rows{display:grid;gap:.85rem}.cost-row{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1fr);gap:1rem;align-items:center;padding:.85rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca)}.cost-row>div:first-child{display:grid;gap:.25rem}.cost-row strong{font-size:.95rem}.cost-row small{font-size:.78rem;color:var(--muted,#77776d);line-height:1.4}.bars{display:grid;gap:.35rem}.bars>div{display:grid;grid-template-columns:24px 1fr;gap:.45rem;align-items:center}.bars span{font: .75rem var(--mono,monospace);color:var(--muted,#77776d);text-align:right}.bars i{display:block;height:9px;width:var(--w);background:#77776d}.bars i.reduced-bar{background:var(--accent,#bd4b32)}.cost-note{font-size:.82rem;line-height:1.6;color:var(--muted,#77776d);margin:.9rem 0 0}
+@media(max-width:620px){.cost-row{grid-template-columns:1fr}.cost-legend{display:grid;gap:.4rem}}
+</style>

@@ -1,0 +1,69 @@
+---
+---
+<section class="fft-lab" aria-labelledby="fft-lab-title">
+  <div class="lab-head">
+    <div><p class="eyebrow">Atelier guidé · convolution et FFT</p><h3 id="fft-lab-title">Multiplier deux polynômes avec quatre évaluations</h3></div>
+    <p>Un exemple minimal permet de voir pourquoi la transformation rend la convolution plus simple.</p>
+  </div>
+  <div class="fft-polys">
+    <div><span>Premier polynôme</span><strong>A(x) = 1 + 2x</strong><small>coefficients : [1, 2]</small></div>
+    <div><span>Second polynôme</span><strong>B(x) = 3 + 4x</strong><small>coefficients : [3, 4]</small></div>
+  </div>
+  <div class="fft-controls">
+    <button type="button" data-fft-step="0" aria-pressed="true">1 · Compléter</button>
+    <button type="button" data-fft-step="1" aria-pressed="false">2 · Transformer</button>
+    <button type="button" data-fft-step="2" aria-pressed="false">3 · Multiplier</button>
+    <button type="button" data-fft-step="3" aria-pressed="false">4 · Inverser</button>
+  </div>
+  <div class="fft-panel" aria-live="polite">
+    <div data-fft-panel="0">
+      <h4>1 — Ajouter un zéro pour éviter le repliement</h4>
+      <p>Le produit de deux polynômes de degré 1 est de degré au plus 2 : il faut trois coefficients. On choisit ici N = 4, une longueur pratique pour une FFT radix 2.</p>
+      <div class="sequence"><span>A</span><b>[1, 2, 0, 0]</b><span>B</span><b>[3, 4, 0, 0]</b></div>
+      <p class="hint">Sans ce complément, une convolution circulaire de longueur 2 replierait le coefficient de degré 2 sur l'indice 0.</p>
+    </div>
+    <div data-fft-panel="1" hidden>
+      <h4>2 — Évaluer aux racines quatrièmes de l'unité</h4>
+      <p>On prend ω = i. Les quatre points sont 1, i, −1 et −i. La DFT évalue chaque polynôme sur ces quatre points.</p>
+      <div class="eval-grid">
+        <div><span>k</span><b>0</b><b>1</b><b>2</b><b>3</b></div>
+        <div><span>ωᵏ</span><b>1</b><b>i</b><b>−1</b><b>−i</b></div>
+        <div><span>A(ωᵏ)</span><b>3</b><b>1+2i</b><b>−1</b><b>1−2i</b></div>
+        <div><span>B(ωᵏ)</span><b>7</b><b>3+4i</b><b>−1</b><b>3−4i</b></div>
+      </div>
+    </div>
+    <div data-fft-panel="2" hidden>
+      <h4>3 — Une multiplication par point</h4>
+      <p>La convolution devient quatre produits indépendants dans le domaine transformé.</p>
+      <div class="sequence"><span>k = 0</span><b>3 × 7 = 21</b><span>k = 1</span><b>(1+2i)(3+4i) = −5+10i</b><span>k = 2</span><b>(−1)(−1) = 1</b><span>k = 3</span><b>(1−2i)(3−4i) = −5−10i</b></div>
+    </div>
+    <div data-fft-panel="3" hidden>
+      <h4>4 — Appliquer la transformée inverse</h4>
+      <p>La DFT inverse restitue les coefficients du produit, dans le même ordre :</p>
+      <div class="inverse-result"><span>Convolution obtenue</span><strong>[3, 10, 8, 0]</strong><small>Le dernier zéro est le remplissage ; le produit polynomial vaut 3 + 10x + 8x².</small></div>
+      <p class="equation">A(x)B(x) = (1 + 2x)(3 + 4x) = 3 + 10x + 8x²</p>
+    </div>
+  </div>
+  <p class="lab-foot">Ici, les calculs sont exacts dans ℂ pour illustrer la propriété algébrique. Une FFT numérique flottante doit contrôler les erreurs d’arrondi ; une NTT remplace les complexes par des calculs exacts modulo un entier premier adapté.</p>
+</section>
+<script>
+  document.querySelectorAll("[data-fft-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const root = button.closest(".fft-lab");
+      if (!root) return;
+      const selected = button.getAttribute("data-fft-step");
+      root.querySelectorAll("[data-fft-step]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      root.querySelectorAll("[data-fft-panel]").forEach((panel) => {
+        panel.toggleAttribute("hidden", panel.getAttribute("data-fft-panel") !== selected);
+      });
+    });
+  });
+</script>
+<style>
+  .fft-lab{margin:2rem 0;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--line,#d9d5ca);border-radius:1rem;background:#eae6dc;color:var(--ink,#22241f)}
+  .lab-head{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;align-items:end}.eyebrow{margin:0 0 .3rem;color:var(--accent,#bd4b32);font-size:.76rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}.lab-head h3{margin:.1rem 0;font-size:1.3rem}.lab-head>p{margin:0;color:var(--muted,#77776d);font-size:.94rem}
+  .fft-polys{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.2rem 0}.fft-polys>div{display:grid;gap:.2rem;padding:.9rem;border-radius:.7rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca)}.fft-polys span,.eval-grid span,.sequence span{font-size:.8rem;color:var(--muted,#77776d)}.fft-polys strong{font-size:1.08rem}.fft-polys small{color:var(--muted,#77776d)}
+  .fft-controls{display:flex;flex-wrap:wrap;gap:.45rem;margin:1rem 0 .7rem}.fft-controls button{border:1px solid var(--line,#d9d5ca);border-radius:999px;background:var(--paper,#f4f1e9);padding:.55rem .8rem;color:inherit;font:inherit;font-size:.85rem;cursor:pointer}.fft-controls button[aria-pressed="true"]{background:var(--accent,#bd4b32);border-color:var(--accent,#bd4b32);color:#fff}
+  .fft-panel{padding:1rem;border-radius:.7rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca)}.fft-panel h4{margin:0 0 .5rem}.fft-panel p{margin:.5rem 0}.sequence{display:grid;grid-template-columns:auto 1fr;gap:.45rem .8rem;align-items:center}.sequence b{font-family:ui-monospace,monospace;font-weight:550;overflow-wrap:anywhere}.eval-grid{display:grid;grid-template-columns:1fr repeat(4,minmax(0,1fr));gap:.45rem;text-align:center;overflow-x:auto}.eval-grid>div{display:contents}.eval-grid span,.eval-grid b{padding:.45rem .25rem;background:#eae6dc;border-radius:.35rem;font-size:.86rem}.eval-grid b{font-family:ui-monospace,monospace;font-weight:550}.hint,.lab-foot{font-size:.85rem;color:var(--muted,#77776d)}.inverse-result{display:grid;gap:.2rem;padding:.9rem;background:#eae6dc;border-radius:.6rem}.inverse-result span,.inverse-result small{color:var(--muted,#77776d)}.inverse-result strong{font-size:1.6rem;color:var(--accent,#bd4b32);font-family:ui-monospace,monospace}.equation{font-family:ui-monospace,monospace;background:#eae6dc;padding:.65rem;border-radius:.4rem;overflow-wrap:anywhere}
+  @media(max-width:650px){.lab-head{grid-template-columns:1fr}.fft-polys{grid-template-columns:1fr}.eval-grid span,.eval-grid b{font-size:.72rem}}
+</style>

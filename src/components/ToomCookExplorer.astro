@@ -1,0 +1,76 @@
+<section class="toom-lab" aria-labelledby="toom-lab-title">
+  <div class="lab-head">
+    <div><p class="eyebrow">Atelier guidé · Toom–3</p><h3 id="toom-lab-title">Reconstruire un produit à partir de cinq valeurs</h3></div>
+    <p>Suivez un exemple complet, avec des coefficients assez petits pour vérifier chaque calcul à la main.</p>
+  </div>
+  <div class="polynomials" aria-label="Polynômes de l'exemple">
+    <div><span>P(x)</span><strong>1 + 2x + 3x²</strong><small>P(10) = 321</small></div>
+    <div><span>Q(x)</span><strong>4 + 5x + 6x²</strong><small>Q(10) = 654</small></div>
+  </div>
+  <div class="point-grid">
+    <div><span>x = 0</span><b>1 × 4</b><strong>4</strong><small>w₀</small></div>
+    <div><span>x = 1</span><b>6 × 15</b><strong>90</strong><small>w₁</small></div>
+    <div><span>x = −1</span><b>2 × 5</b><strong>10</strong><small>w₋₁</small></div>
+    <div><span>x = 2</span><b>17 × 38</b><strong>646</strong><small>w₂</small></div>
+    <div><span>x = ∞</span><b>3 × 6</b><strong>18</strong><small>w∞</small></div>
+  </div>
+  <div class="toom-controls">
+    <button type="button" data-toom-step="0" aria-pressed="true">1 · Évaluer</button>
+    <button type="button" data-toom-step="1" aria-pressed="false">2 · Interpoler</button>
+    <button type="button" data-toom-step="2" aria-pressed="false">3 · Recomposer</button>
+  </div>
+  <div class="toom-explanation" aria-live="polite">
+    <div data-toom-panel="0">
+      <h4>Étape 1 — cinq produits, cinq informations</h4>
+      <p>Le produit R(x) est de degré au plus 4. Il possède donc cinq coefficients inconnus. Les cinq produits évalués fournissent cinq contraintes indépendantes.</p>
+      <p class="equation">w₀ = 4 · 1 = 4 ; w₁ = 6 · 15 = 90</p>
+      <p class="equation">w₋₁ = 2 · 5 = 10 ; w₂ = 17 · 38 = 646</p>
+      <p class="equation">w∞ = 3 · 6 = 18</p>
+    </div>
+    <div data-toom-panel="1" hidden>
+      <h4>Étape 2 — isoler les coefficients</h4>
+      <p>Les points 0 et ∞ donnent les coefficients extrêmes. Les points 1 et −1 séparent les contributions paires et impaires.</p>
+      <div class="coefficient-grid">
+        <span>r₀ = w₀</span><b>4</b>
+        <span>r₄ = w∞</span><b>18</b>
+        <span>r₂ = (w₁ + w₋₁)/2 − r₀ − r₄</span><b>28</b>
+        <span>s₁ = (w₁ − w₋₁)/2 = r₁ + r₃</span><b>40</b>
+        <span>t = (w₂ − r₀ − 16r₄)/2</span><b>177</b>
+        <span>r₃ = (t − s₁ − 2r₂)/3</span><b>27</b>
+        <span>r₁ = s₁ − r₃</span><b>13</b>
+      </div>
+      <p>On retrouve ainsi les cinq coefficients : (4, 13, 28, 27, 18). Les divisions sont exactes parce que les valeurs proviennent ici du produit de deux polynômes à coefficients entiers.</p>
+    </div>
+    <div data-toom-panel="2" hidden>
+      <h4>Étape 3 — revenir aux entiers</h4>
+      <p>On remplace x par la base B = 10. Les coefficients deviennent les blocs du résultat.</p>
+      <p class="equation">R(x) = 4 + 13x + 28x² + 27x³ + 18x⁴</p>
+      <p class="equation">R(10) = 4 + 130 + 2 800 + 27 000 + 180 000</p>
+      <div class="final-result"><span>321 × 654</span><strong>209 934</strong><small>Vérification : le produit direct donne le même entier.</small></div>
+    </div>
+  </div>
+  <p class="lab-foot">Les valeurs sont volontairement petites. Dans une vraie multiplication, les coefficients sont des blocs de plusieurs chiffres et chaque produit évalué est lui-même calculé récursivement.</p>
+</section>
+<script>
+  document.querySelectorAll("[data-toom-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const root = button.closest(".toom-lab");
+      if (!root) return;
+      const selected = button.getAttribute("data-toom-step");
+      root.querySelectorAll("[data-toom-step]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      root.querySelectorAll("[data-toom-panel]").forEach((panel) => {
+        panel.toggleAttribute("hidden", panel.getAttribute("data-toom-panel") !== selected);
+      });
+    });
+  });
+</script>
+<style>
+  .toom-lab{margin:2rem 0;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--line,#d9d5ca);border-radius:1rem;background:#eae6dc;color:var(--ink,#22241f)}
+  .lab-head{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;align-items:end}.eyebrow{margin:0 0 .3rem;color:var(--accent,#bd4b32);font-size:.76rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+  .lab-head h3{margin:.1rem 0;font-size:1.3rem}.lab-head>p{margin:0;color:var(--muted,#77776d);font-size:.94rem}
+  .polynomials{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.2rem 0}.polynomials>div{padding:.9rem;border-radius:.7rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca);display:grid;gap:.2rem}.polynomials span,.point-grid span{font-size:.8rem;color:var(--muted,#77776d)}.polynomials strong{font-size:1.1rem}.polynomials small{color:var(--muted,#77776d)}
+  .point-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.45rem}.point-grid>div{display:grid;gap:.25rem;text-align:center;padding:.7rem .3rem;border-radius:.65rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca)}.point-grid b{font-size:.83rem;font-weight:550}.point-grid strong{font-size:1.35rem;color:var(--accent,#bd4b32)}.point-grid small{color:var(--muted,#77776d)}
+  .toom-controls{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.1rem 0 .7rem}.toom-controls button{border:1px solid var(--line,#d9d5ca);border-radius:999px;background:var(--paper,#f4f1e9);padding:.55rem .85rem;color:inherit;font:inherit;font-size:.85rem;cursor:pointer}.toom-controls button[aria-pressed="true"]{background:var(--accent,#bd4b32);border-color:var(--accent,#bd4b32);color:white}
+  .toom-explanation{padding:1rem;border-radius:.7rem;background:var(--paper,#f4f1e9);border:1px solid var(--line,#d9d5ca)}.toom-explanation h4{margin:0 0 .5rem}.toom-explanation p{margin:.5rem 0}.equation{font-family:ui-monospace,monospace;background:#eae6dc;padding:.55rem .7rem;border-radius:.4rem;overflow-wrap:anywhere}.coefficient-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.35rem .8rem;align-items:center;font-size:.9rem}.coefficient-grid span{font-family:ui-monospace,monospace;overflow-wrap:anywhere}.coefficient-grid b{color:var(--accent,#bd4b32);font-size:1.05rem}.final-result{display:grid;grid-template-columns:1fr auto;gap:.25rem 1rem;align-items:center;padding:.8rem;border-radius:.6rem;background:#eae6dc}.final-result strong{font-size:1.5rem;color:var(--accent,#bd4b32)}.final-result small{grid-column:1/-1;color:var(--muted,#77776d)}.lab-foot{margin:.8rem 0 0;color:var(--muted,#77776d);font-size:.84rem}
+  @media(max-width:650px){.lab-head{grid-template-columns:1fr}.point-grid{grid-template-columns:repeat(3,1fr)}.polynomials{grid-template-columns:1fr}.coefficient-grid{font-size:.78rem}}
+</style>
