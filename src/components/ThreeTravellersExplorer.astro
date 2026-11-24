@@ -1,0 +1,202 @@
+---
+/**
+ * Interactive worldline comparison for Simon, Odile and Kara.
+ * Coordinate time is measured in units T = L/v. Proper-time readouts
+ * use the idealized instantaneous departure/arrival model.
+ */
+---
+<figure class="three-travellers" data-three-travellers>
+  <fieldset>
+    <legend>Parcourir les trois trajectoires</legend>
+    <label for="three-speed">
+      Vitesse de croisière
+      <select id="three-speed">
+        <option value="0.6">0,6 c</option>
+        <option value="0.8" selected>0,8 c</option>
+        <option value="0.9">0,9 c</option>
+      </select>
+    </label>
+    <label for="three-time">
+      Instant de l'expérience
+      <input id="three-time" type="range" min="0" max="3" step="0.01" value="0" />
+      <output for="three-time" id="three-time-label">Départ · Terre</output>
+    </label>
+  </fieldset>
+
+  <div class="worldline-layout">
+    <svg viewBox="0 0 360 340" role="img" aria-labelledby="three-title three-description">
+      <title id="three-title">Trajectoires de Simon, Odile et Kara entre la Terre et Zartha</title>
+      <desc id="three-description">Le temps augmente vers le haut. La Terre est à gauche et Zartha à droite. Simon attend sur Terre puis voyage vers Zartha. Odile voyage vers Zartha puis y attend. Kara effectue trois trajets alternés.</desc>
+      <path class="axis" d="M48 300V28 M48 300H330" />
+      <path class="grid" d="M48 210H310 M48 120H310 M48 30H310" />
+      <path class="planet earth" d="M48 300V30" />
+      <path class="planet zartha" d="M310 300V30" />
+      <text x="48" y="320" text-anchor="middle">Terre</text>
+      <text x="310" y="320" text-anchor="middle">Zartha</text>
+      <text x="14" y="24">Temps</text>
+      <text x="34" y="304" text-anchor="end">0</text>
+      <text x="34" y="214" text-anchor="end">T</text>
+      <text x="34" y="124" text-anchor="end">2T</text>
+      <text x="34" y="34" text-anchor="end">3T</text>
+      <path class="line simon" d="M48 300L48 120L310 30" />
+      <path class="line odile" d="M48 300L310 210L310 30" />
+      <path class="line kara" d="M48 300L310 210L48 120L310 30" />
+      <circle class="marker simon-marker" cx="48" cy="300" r="6" />
+      <circle class="marker odile-marker" cx="48" cy="300" r="6" />
+      <circle class="marker kara-marker" cx="48" cy="300" r="6" />
+      <text class="line-label simon-label" x="67" y="137">Simon</text>
+      <text class="line-label odile-label" x="282" y="194" text-anchor="end">Odile</text>
+      <text class="line-label kara-label" x="67" y="250">Kara</text>
+    </svg>
+
+    <div class="readouts" aria-live="polite">
+      <p class="readout-intro">Temps propre écoulé depuis le départ</p>
+      <div class="person simon-readout"><span>Simon</span><strong>0</strong></div>
+      <div class="person odile-readout"><span>Odile</span><strong>0</strong></div>
+      <div class="person kara-readout"><span>Kara</span><strong>0</strong></div>
+      <p class="event-note" id="three-event-note">Les trois montres sont synchronisées au départ.</p>
+    </div>
+  </div>
+  <figcaption>Schéma qualitatif dans le référentiel où Terre et Zartha sont au repos. Les changements de vitesse sont idéalisés comme instantanés.</figcaption>
+</figure>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-three-travellers]");
+
+  if (root) {
+    const slider = root.querySelector<HTMLInputElement>("#three-time");
+    const speedSelect = root.querySelector<HTMLSelectElement>("#three-speed");
+    const timeLabel = root.querySelector<HTMLOutputElement>("#three-time-label");
+    const eventNote = root.querySelector<HTMLElement>("#three-event-note");
+    const simonMarker = root.querySelector<SVGCircleElement>(".simon-marker");
+    const odileMarker = root.querySelector<SVGCircleElement>(".odile-marker");
+    const karaMarker = root.querySelector<SVGCircleElement>(".kara-marker");
+    const simonValue = root.querySelector<HTMLElement>(".simon-readout strong");
+    const odileValue = root.querySelector<HTMLElement>(".odile-readout strong");
+    const karaValue = root.querySelector<HTMLElement>(".kara-readout strong");
+
+    if (
+      slider && speedSelect && timeLabel && eventNote &&
+      simonMarker && odileMarker && karaMarker &&
+      simonValue && odileValue && karaValue
+    ) {
+      // Capture narrowed DOM references before defining the event callback.
+      const timeControl: HTMLInputElement = slider;
+      const speedControl: HTMLSelectElement = speedSelect;
+      const timeOutput: HTMLOutputElement = timeLabel;
+      const noteOutput: HTMLElement = eventNote;
+      const simonDot: SVGCircleElement = simonMarker;
+      const odileDot: SVGCircleElement = odileMarker;
+      const karaDot: SVGCircleElement = karaMarker;
+      const simonClock: HTMLElement = simonValue;
+      const odileClock: HTMLElement = odileValue;
+      const karaClock: HTMLElement = karaValue;
+
+      const gammaFactor = (beta: number): number => 1 / Math.sqrt(1 - beta * beta);
+      const y = (s: number): number => 300 - 90 * s;
+      const xSimon = (s: number): number => s <= 2 ? 48 : 48 + 262 * (s - 2);
+      const xOdile = (s: number): number => s <= 1 ? 48 + 262 * s : 310;
+      const xKara = (s: number): number =>
+        s <= 1 ? 48 + 262 * s : s <= 2 ? 310 - 262 * (s - 1) : 48 + 262 * (s - 2);
+      const format = (value: number): string =>
+        value.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
+
+      function update(): void {
+        const s = Number(timeControl.value);
+        const beta = Number(speedControl.value);
+        const gamma = gammaFactor(beta);
+        const simon = s <= 2 ? s : 2 + (s - 2) / gamma;
+        const odile = s <= 1 ? s / gamma : 1 / gamma + (s - 1);
+        const kara = s / gamma;
+
+        simonDot.setAttribute("cx", String(xSimon(s)));
+        simonDot.setAttribute("cy", String(y(s)));
+        odileDot.setAttribute("cx", String(xOdile(s)));
+        odileDot.setAttribute("cy", String(y(s)));
+        karaDot.setAttribute("cx", String(xKara(s)));
+        karaDot.setAttribute("cy", String(y(s)));
+        simonClock.textContent = format(simon) + " T";
+        odileClock.textContent = format(odile) + " T";
+        karaClock.textContent = format(kara) + " T";
+
+        if (s < 0.005) {
+          timeOutput.textContent = "Départ · Terre";
+          noteOutput.textContent = "Les trois montres sont synchronisées au départ.";
+        } else if (Math.abs(s - 1) < 0.01) {
+          timeOutput.textContent = "Étape 1 · Arrivée sur Zartha";
+          noteOutput.textContent = "Odile et Kara se retrouvent sur Zartha : leurs montres indiquent la même durée.";
+        } else if (Math.abs(s - 2) < 0.01) {
+          timeOutput.textContent = "Étape 2 · Retour de Kara sur Terre";
+          noteOutput.textContent = "Simon et Kara se retrouvent sur Terre et peuvent comparer directement leurs montres.";
+        } else if (Math.abs(s - 3) < 0.01) {
+          timeOutput.textContent = "Étape 3 · Retrouvailles sur Zartha";
+          noteOutput.textContent = "Les trois montres sont réunies : Simon et Odile ont le même âge propre, Kara est plus jeune.";
+        } else {
+          timeOutput.textContent = "Entre deux rencontres · " + format(s) + " T";
+          noteOutput.textContent = "Les lectures sont des temps propres cumulés. Seules les rencontres permettent une comparaison directe des montres.";
+        }
+      }
+
+      timeControl.addEventListener("input", update);
+      speedControl.addEventListener("change", update);
+      update();
+    }
+  }
+</script>
+
+<style>
+  .three-travellers {
+    --ink: #20383b;
+    --simon: #176b65;
+    --odile: #a34f2b;
+    --kara: #65508d;
+    margin: 1.6rem 0;
+    padding: clamp(.8rem, 2.5vw, 1.35rem);
+    border: 1px solid #c9d0c7;
+    border-radius: .8rem;
+    color: var(--ink);
+    background: #f8faf5;
+    font: 500 .9rem/1.5 "DM Sans", sans-serif;
+  }
+  fieldset { display: grid; grid-template-columns: 1fr; gap: .85rem; border: 0; padding: 0; margin: 0 0 1rem; }
+  legend { margin-bottom: .7rem; font: 500 1.3rem/1.25 var(--serif); }
+  label { display: grid; gap: .35rem; }
+  select, input { accent-color: var(--ink); }
+  select { width: fit-content; min-height: 2.5rem; padding: .3rem .6rem; border: 1px solid #87938c; border-radius: .35rem; background: white; color: var(--ink); }
+  input[type="range"] { width: 100%; }
+  output { font-weight: 700; }
+  .worldline-layout { display: grid; gap: 1rem; align-items: center; }
+  svg { display: block; width: min(100%, 25rem); height: auto; margin-inline: auto; font: 500 12px "DM Sans", sans-serif; }
+  .axis, .grid, .planet, .line { fill: none; }
+  .axis { stroke: #53686a; stroke-width: 1.5; }
+  .grid { stroke: #c9d0c7; stroke-dasharray: 3 4; }
+  .planet { stroke-width: 2; stroke-dasharray: 2 4; opacity: .6; }
+  .earth { stroke: var(--simon); }
+  .zartha { stroke: var(--odile); }
+  .line { stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; }
+  .simon { stroke: var(--simon); }
+  .odile { stroke: var(--odile); }
+  .kara { stroke: var(--kara); }
+  .marker { stroke: #f8faf5; stroke-width: 2; }
+  .simon-marker { fill: var(--simon); }
+  .odile-marker { fill: var(--odile); }
+  .kara-marker { fill: var(--kara); }
+  .line-label { font-weight: 700; }
+  .simon-label { fill: var(--simon); }
+  .odile-label { fill: var(--odile); }
+  .kara-label { fill: var(--kara); }
+  .readouts { display: grid; gap: .6rem; }
+  .readout-intro { margin: 0 0 .25rem; color: #53686a; font-size: .82rem; }
+  .person { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .65rem .8rem; border-inline-start: 3px solid currentColor; background: #fff; }
+  .person strong { font: 600 1.25rem/1.2 var(--serif); font-variant-numeric: tabular-nums; }
+  .simon-readout { color: var(--simon); }
+  .odile-readout { color: var(--odile); }
+  .kara-readout { color: var(--kara); }
+  .event-note { margin: .4rem 0 0; padding: .75rem; background: #e9eee7; }
+  figcaption { margin-top: .9rem; padding-top: .65rem; border-top: 1px solid #c9d0c7; color: #53686a; font-size: .78rem; }
+  @media (min-width: 44rem) {
+    .worldline-layout { grid-template-columns: minmax(0, 1.4fr) minmax(13rem, 1fr); }
+    fieldset { grid-template-columns: minmax(8rem, .5fr) minmax(15rem, 1fr); align-items: end; }
+    legend { grid-column: 1 / -1; }
+  }
+</style>
