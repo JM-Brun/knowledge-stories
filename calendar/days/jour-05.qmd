@@ -5,6 +5,14 @@ description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, e
 ---
 
 > **En 7 à 9 minutes** — Deux distributions peuvent avoir le même support et ne pas laisser la même place à l'imprévu. Mais « incertitude » dépend toujours de la question posée.
+>
+> **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est rappelé à partir de son rôle dans le calcul de la surprise.
+>
+> **À la fin** — Vous saurez calculer une entropie binaire, distinguer surprise et incertitude moyenne, interpréter une entropie conditionnelle et expliquer pourquoi une faible entropie ne garantit pas une bonne prévision.
+
+## L'idée en une minute
+
+La surprise concerne une issue qui s'est produite ; l'entropie décrit la surprise moyenne attendue avant de connaître l'issue. Une distribution concentrée a une faible entropie, mais elle peut être fausse ou mal calibrée. Il faut donc distinguer l'incertitude annoncée par un modèle de sa qualité prédictive réelle.
 
 ## La question
 
@@ -35,7 +43,7 @@ On adopte la convention \(0\log_2(0)=0\), obtenue par continuité.
 Pour les trois distributions :
 
 - A : \(H(A)=1\) bit ;
-- B : \(H(B)\approx0{,}469\) bit ;
+- B : \(H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469\) bit ;
 - C : \(H(C)=0\) bit.
 
 Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont équiprobables, et minimale lorsqu'une issue est certaine.
@@ -56,6 +64,8 @@ Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont é
 </figure>
 
 
+
+Pour B, le calcul combine deux surprises pondérées par leurs probabilités : l'issue fréquente contribue peu, tandis que l'issue rare contribue davantage. L'entropie reste une moyenne : elle ne dit pas quelle issue sera effectivement observée.
 
 ## Pourquoi le logarithme ?
 
@@ -106,7 +116,7 @@ La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguït�
 
 ## À vous de raisonner
 
-1. Calculez l'entropie de (p=(0{,}5;0{,}5)) et de (p=(0{,}9;0{,}1)).
+1. Calculez l'entropie des distributions \(p=(0{,}5;0{,}5)\) et \(p=(0{,}9;0{,}1)\).
 2. Pourquoi une prédiction très confiante peut-elle être incorrecte ?
 3. Quelle différence entre surprise et entropie ?
 4. Si \(Y\) révèle exactement \(X\), que vaut \(H(X\mid Y)\) ?
@@ -127,6 +137,11 @@ La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguït�
 - L'entropie est une mesure moyenne dépendante de l'espace des événements.
 - Une faible entropie ne prouve ni la justesse ni la calibration d'un modèle.
 - L'information mutuelle quantifie une information partagée, pas une causalité.
+
+## Connexions utiles
+
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : voir ce que les résumés statistiques ne conservent pas.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre une autre source d'incertitude, liée à la dépendance.
 
 ## Pour aller plus loin
 
