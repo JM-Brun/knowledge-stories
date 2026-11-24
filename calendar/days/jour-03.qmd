@@ -5,6 +5,14 @@ description: "Voir comment des distributions très différentes peuvent partager
 ---
 
 > **En 9 à 11 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
+>
+> **Prérequis** — Savoir calculer une moyenne. La variance, la corrélation et les graphiques diagnostiques sont introduits progressivement.
+>
+> **À la fin** — Vous saurez expliquer ce qu'une moyenne et une variance résument, repérer ce qu'elles masquent et choisir un graphique adapté à une question exploratoire.
+
+## L'idée en une minute
+
+Un résumé statistique conserve certaines propriétés et en abandonne d'autres. Deux jeux de données peuvent partager une moyenne, voire plusieurs statistiques usuelles, tout en racontant des histoires très différentes. Le résumé n'est donc jamais neutre : il doit être choisi en fonction de la question.
 
 ## La question
 
