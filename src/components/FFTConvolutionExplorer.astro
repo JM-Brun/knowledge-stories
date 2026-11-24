@@ -9,20 +9,20 @@
     <div><span>Premier polynôme</span><strong>A(x) = 1 + 2x</strong><small>coefficients : [1, 2]</small></div>
     <div><span>Second polynôme</span><strong>B(x) = 3 + 4x</strong><small>coefficients : [3, 4]</small></div>
   </div>
-  <div class="fft-controls">
-    <button type="button" data-fft-step="0" aria-pressed="true">1 · Compléter</button>
-    <button type="button" data-fft-step="1" aria-pressed="false">2 · Transformer</button>
-    <button type="button" data-fft-step="2" aria-pressed="false">3 · Multiplier</button>
-    <button type="button" data-fft-step="3" aria-pressed="false">4 · Inverser</button>
+  <div class="fft-controls" role="group" aria-label="Étapes de l'atelier">
+    <button type="button" data-fft-step="0" aria-controls="fft-panel-0" aria-pressed="true">1 · Compléter</button>
+    <button type="button" data-fft-step="1" aria-controls="fft-panel-1" aria-pressed="false">2 · Transformer</button>
+    <button type="button" data-fft-step="2" aria-controls="fft-panel-2" aria-pressed="false">3 · Multiplier</button>
+    <button type="button" data-fft-step="3" aria-controls="fft-panel-3" aria-pressed="false">4 · Inverser</button>
   </div>
   <div class="fft-panel" aria-live="polite">
-    <div data-fft-panel="0">
+    <div data-fft-panel="0" id="fft-panel-0">
       <h4>1 — Ajouter un zéro pour éviter le repliement</h4>
       <p>Le produit de deux polynômes de degré 1 est de degré au plus 2 : il faut trois coefficients. On choisit ici N = 4, une longueur pratique pour une FFT radix 2.</p>
       <div class="sequence"><span>A</span><b>[1, 2, 0, 0]</b><span>B</span><b>[3, 4, 0, 0]</b></div>
       <p class="hint">Sans ce complément, une convolution circulaire de longueur 2 replierait le coefficient de degré 2 sur l'indice 0.</p>
     </div>
-    <div data-fft-panel="1" hidden>
+    <div data-fft-panel="1" id="fft-panel-1" hidden>
       <h4>2 — Évaluer aux racines quatrièmes de l'unité</h4>
       <p>On prend ω = i. Les quatre points sont 1, i, −1 et −i. La DFT évalue chaque polynôme sur ces quatre points.</p>
       <div class="eval-grid">
@@ -32,12 +32,12 @@
         <div><span>B(ωᵏ)</span><b>7</b><b>3+4i</b><b>−1</b><b>3−4i</b></div>
       </div>
     </div>
-    <div data-fft-panel="2" hidden>
+    <div data-fft-panel="2" id="fft-panel-2" hidden>
       <h4>3 — Une multiplication par point</h4>
       <p>La convolution devient quatre produits indépendants dans le domaine transformé.</p>
       <div class="sequence"><span>k = 0</span><b>3 × 7 = 21</b><span>k = 1</span><b>(1+2i)(3+4i) = −5+10i</b><span>k = 2</span><b>(−1)(−1) = 1</b><span>k = 3</span><b>(1−2i)(3−4i) = −5−10i</b></div>
     </div>
-    <div data-fft-panel="3" hidden>
+    <div data-fft-panel="3" id="fft-panel-3" hidden>
       <h4>4 — Appliquer la transformée inverse</h4>
       <p>La DFT inverse restitue les coefficients du produit, dans le même ordre :</p>
       <div class="inverse-result"><span>Convolution obtenue</span><strong>[3, 10, 8, 0]</strong><small>Le dernier zéro est le remplissage ; le produit polynomial vaut 3 + 10x + 8x².</small></div>
