@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { seriesInfo } from "../../data/series";
+import { formatReadingDuration, seriesInfo } from "../../data/series";
 
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
@@ -53,7 +53,7 @@ const themesFor = (domain: Domain) => [...new Set(
                     <p class="series-kicker">Parcours · {articlesForSeries(series).length} articles</p>
                     <h3 id={`series-${series}`}>{seriesInfo[series].title}</h3>
                     <p class="series-question">{seriesInfo[series].question}</p>
-                    <p class="series-duration">Durée cumulée estimée : <strong>{seriesReadingTime(series)} min</strong> · hors approfondissements externes</p>
+                    <p class="series-duration">Durée cumulée estimée : <strong>{formatReadingDuration(seriesReadingTime(series))}</strong> · hors approfondissements externes</p>
                   </div>
                   <span class="series-mark" aria-hidden="true">{series === "multiplication-karatsuba" ? "×" : "τ"}</span>
                 </header>
