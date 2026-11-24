@@ -12,6 +12,14 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content, headings } = await render(article);
 const sections = headings.filter(({ depth }) => depth === 2);
+const seriesTitles = {
+  "multiplication-karatsuba": "Multiplication de Karatsuba",
+  "paradoxe-des-jumeaux": "Paradoxe des jumeaux",
+} as const;
+const seriesArticles = article.data.series
+  ? (await getCollection("articles", ({ data }) => data.status === "published" && data.series === article.data.series))
+      .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999))
+  : [];
 const cover = {
   karatsuba: { Illustration: KaratsubaCover, href: "#atelier-karatsuba", label: "Essayer la multiplication" },
   jumeaux: { Illustration: TwinsCover, href: "#atelier-jumeaux", label: "Essayer les trois référentiels" },
@@ -103,6 +111,12 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
   .story-outline a { display: flex; min-height: 1.65rem; align-items: center; color: #514d42; font: 500 .8rem/1.35 "DM Sans", sans-serif; text-decoration: none; }
   .story-outline a:hover { color: #843c27; text-decoration: underline; text-underline-offset: .15em; }
 
+  .series-nav { margin: 1.5rem 0 2rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .55rem; background: #faf7ef; }
+  .series-nav p { margin: 0 0 .6rem; color: #75432f; font: 700 .76rem/1.4 "DM Sans", sans-serif; }
+  .series-nav ol { display: flex; flex-wrap: wrap; gap: .45rem 1rem; margin: 0; padding-left: 1.2rem; }
+  .series-nav li { color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
+  .series-nav a { color: #843c27; }
+  .series-nav .current { font-weight: 700; }
   .story-reading :global(.prose) { margin-top: clamp(1.8rem, 5vw, 3.4rem); color: #34352f; }
   .story-reading :global(.prose > h2) { margin-top: clamp(2.8rem, 7vw, 4.25rem); scroll-margin-top: 1.5rem; font-size: clamp(1.8rem, 4vw, 2.4rem); text-wrap: balance; }
   .story-reading :global(.prose a) { color: #843c27; }
