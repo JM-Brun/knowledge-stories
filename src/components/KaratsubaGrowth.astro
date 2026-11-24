@@ -17,7 +17,7 @@
         <div class="tree-level children four"><i></i><i></i><i></i><i></i></div>
         <div class="tree-leaves sixteen"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
-      <div class="growth-counts"><span>1</span><span>4</span><strong>16</strong></div>
+      <div class="growth-counts"><span><small>Racine</small>1</span><span><small>Après 1 découpage</small>4</span><strong><small>Après 2 découpages</small>16</strong></div>
       <p>À chaque étage, le nombre d’appels est multiplié par <b>4</b>.</p>
     </section>
     <section class="growth-method karatsuba" aria-label="Karatsuba : trois branches">
@@ -28,16 +28,16 @@
         <div class="tree-level children three"><i></i><i></i><i></i></div>
         <div class="tree-leaves nine"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
-      <div class="growth-counts"><span>1</span><span>3</span><strong>9</strong></div>
+      <div class="growth-counts"><span><small>Racine</small>1</span><span><small>Après 1 découpage</small>3</span><strong><small>Après 2 découpages</small>9</strong></div>
       <p>À chaque étage, le nombre d’appels est multiplié par <b>3</b>.</p>
     </section>
   </div>
   <div class="growth-conclusion">
     <span>APRÈS DEUX DÉCOUPAGES</span>
     <strong><span class="classic-count">16</span> contre <span class="karatsuba-count">9</span></strong>
-    <p>Les feuilles sont les multiplications élémentaires restantes. L’écart continue de se creuser à chaque niveau supplémentaire.</p>
+    <p>Les 16 et 9 nœuds sont les appels du deuxième niveau, pas nécessairement des multiplications terminales. Si la récursion continue, chaque nœud se subdivise à son tour : l’écart s’amplifie encore.</p>
   </div>
-  <figcaption>Arbres équilibrés simplifiés sur deux niveaux. Les nombres indiquent les appels au niveau correspondant, pas le coût total des additions et recompositions.</figcaption>
+  <figcaption>Arbres équilibrés simplifiés sur deux découpages. Les nombres indiquent les appels à chaque niveau ; les derniers nœuds ne sont pas nécessairement les feuilles terminales. Le schéma ne représente pas le coût des additions et recompositions.</figcaption>
 </figure>
 
 <style>
@@ -68,6 +68,7 @@
   .tree-leaves i { width:.38rem; height:.38rem; }
   .growth-counts { display:grid; grid-template-columns:repeat(3,1fr); gap:.25rem; margin:.65rem 0; text-align:center; }
   .growth-counts span,.growth-counts strong { padding:.4rem .2rem; border-radius:.3rem; background:#eee9df; color:#655f54; font:600 .95rem "DM Mono",monospace; }
+  .growth-counts small { display:block; margin-bottom:.2rem; color:#777166; font:500 .52rem/1.3 "DM Sans",sans-serif; letter-spacing:0; }
    .growth-counts strong { background:var(--term-common-soft, #e4f0ed); color:var(--term-common, #286d61); }
    .karatsuba .growth-counts strong { background:var(--term-aux-soft, #eee9f6); color:var(--term-aux, #70569b); }
   .growth-method>p { margin:.45rem 0 0; color:#666258; font:.7rem/1.5 "DM Sans",sans-serif; }

@@ -66,6 +66,7 @@ import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 import KaratsubaHero from "../../components/KaratsubaHero.astro";
 import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
+import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 
 <KaratsubaHero />
 
@@ -303,43 +304,7 @@ Pour Karatsuba, les niveaux successifs comptent donc :
 | &#92;(j&#92;) | &#92;(3^j&#92;) | &#92;(n/2^j&#92;) |
 
 
-<div className="complexity-visual" role="img" aria-label="Arbre de récursion de Karatsuba pour huit chiffres : un appel de taille huit engendre trois appels de taille quatre, puis neuf appels de taille deux, puis vingt-sept multiplications élémentaires.">
-  <p><strong>Visualiser l’arbre : chaque nœud engendre trois enfants</strong></p>
-  <svg viewBox="0 0 720 250" role="img" aria-labelledby="karatsuba-tree-title karatsuba-tree-desc" style="width:100%;height:auto">
-    <title id="karatsuba-tree-title">Arbre de récursion de Karatsuba pour n = 8</title>
-    <desc id="karatsuba-tree-desc">Les nombres d'appels sont 1, 3, 9 et 27, tandis que la taille des blocs est divisée par deux à chaque niveau.</desc>
-    <g fill="none" stroke="currentColor" strokeOpacity=".35" strokeWidth="1.5">
-      <path d="M360 38 L150 100 M360 38 L360 100 M360 38 L570 100"/>
-      <path d="M150 112 L80 174 M150 112 L150 174 M150 112 L220 174"/>
-      <path d="M360 112 L290 174 M360 112 L360 174 M360 112 L430 174"/>
-      <path d="M570 112 L500 174 M570 112 L570 174 M570 112 L640 174"/>
-    </g>
-    <g fill="currentColor">
-      <circle cx="360" cy="30" r="17"/>
-      <circle cx="150" cy="105" r="13"/><circle cx="360" cy="105" r="13"/><circle cx="570" cy="105" r="13"/>
-      <circle cx="80" cy="178" r="8"/><circle cx="150" cy="178" r="8"/><circle cx="220" cy="178" r="8"/>
-      <circle cx="290" cy="178" r="8"/><circle cx="360" cy="178" r="8"/><circle cx="430" cy="178" r="8"/>
-      <circle cx="500" cy="178" r="8"/><circle cx="570" cy="178" r="8"/><circle cx="640" cy="178" r="8"/>
-    </g>
-    <g fontSize="13" fill="currentColor" textAnchor="middle">
-      <text x="360" y="14">Niveau 0</text>
-      <text x="150" y="78">Niveau 1</text><text x="360" y="78">Niveau 1</text><text x="570" y="78">Niveau 1</text>
-      <text x="360" y="211">9 nœuds représentés</text>
-      <text x="360" y="237">Chaque nœud de ce niveau engendre 3 feuilles : 9 × 3 = 27</text>
-    </g>
-    <g fontSize="12" fill="currentColor" textAnchor="middle" fontWeight="600">
-      <text x="360" y="34" fill="white">1</text>
-      
-    </g>
-  </svg>
-  <div className="complexity-visual__levels">
-    <span><strong>Niveau 0</strong> · 1 appel · taille 8</span>
-    <span><strong>Niveau 1</strong> · 3 appels · taille 4</span>
-    <span><strong>Niveau 2</strong> · 9 appels · taille 2</span>
-    <span><strong>Niveau 3</strong> · 27 feuilles · taille 1</span>
-  </div>
-  <p className="math-caption">Le dessin développe les trois premiers niveaux ; la dernière ligne résume les 27 feuilles, sans toutes les dessiner individuellement.</p>
-</div>
+<KaratsubaGrowth />
 
 Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau &#92;(j&#92;), il y a &#92;(3^j&#92;) appels, chacun portant sur environ &#92;(n/2^j&#92;) chiffres.
 
@@ -347,12 +312,16 @@ Pour la méthode classique, le tableau est identique en remplaçant &#92;(3^j&#9
 
 Prenons un cas concret : &#92;(n=8=2^3&#92;). Il faut donc trois découpages pour arriver à des blocs d’un chiffre. Pour rendre visible le travail des additions, comptons une unité par chiffre traité dans chaque appel interne. Cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
 
+<div className="complexity-table-scroll">
+
 | Niveau | Taille des blocs | Appels classiques | Appels Karatsuba | Travail local classique | Travail local Karatsuba |
 |---:|---:|---:|---:|---:|---:|
 | 0 | 8 | 1 | 1 | 8 unités | 8 unités |
 | 1 | 4 | 4 | 3 | 16 unités | 12 unités |
 | 2 | 2 | 16 | 9 | 32 unités | 18 unités |
 | 3 · feuilles | 1 | 64 | 27 | 64 produits | 27 produits |
+
+</div>
 
 Le calcul du travail local est simple : **nombre d’appels × taille d’un appel**. Par exemple, au niveau 2 de Karatsuba, &#92;(9&#92;) appels traitent chacun &#92;(2&#92;) chiffres : &#92;(9\times2=18&#92;) unités. Au niveau des feuilles, on ne compte plus les additions de découpage, mais les multiplications élémentaires : &#92;(27&#92;) contre &#92;(64&#92;).
 
@@ -420,51 +389,72 @@ Le coût local cumulé de ce niveau vaut alors :
 Cette formule mérite d’être lue lentement : on multiplie **le nombre d’appels** par **le coût d’addition de chaque appel**.
 
 
-<div className="complexity-visual" role="img" aria-label="Comparaison du travail local cumulé par niveau : méthode classique 8, 16, 32 unités ; Karatsuba 8, 12, 18 unités pour les niveaux zéro à deux.">
-  <p><strong>Pourquoi les additions restent-elles maîtrisées ?</strong></p>
-  <svg viewBox="0 0 720 250" role="img" aria-labelledby="level-cost-title level-cost-desc" style="width:100%;height:auto">
-    <title id="level-cost-title">Travail local cumulé par niveau pour n égal à 8</title>
-    <desc id="level-cost-desc">Au niveau zéro, les deux méthodes coûtent huit unités. Au niveau un, seize contre douze. Au niveau deux, trente-deux contre dix-huit.</desc>
-    <g stroke="currentColor" strokeOpacity=".18" strokeWidth="1">
-      <path d="M150 25 V205 M270 25 V205 M390 25 V205 M510 25 V205 M630 25 V205"/>
-    </g>
-    <g fill="currentColor" fontSize="12">
-      <text x="150" y="222" textAnchor="middle">0</text><text x="270" y="222" textAnchor="middle">10</text><text x="390" y="222" textAnchor="middle">20</text><text x="510" y="222" textAnchor="middle">30</text><text x="630" y="222" textAnchor="middle">40 unités</text>
-    </g>
-    <g fill="currentColor" fontSize="13" textAnchor="end">
-      <text x="130" y="57">Niveau 0</text><text x="130" y="117">Niveau 1</text><text x="130" y="177">Niveau 2</text>
-    </g>
-    <g className="term-common" fill="currentColor">
-      <rect x="150" y="35" width="96" height="14" rx="3"/><rect x="150" y="95" width="192" height="14" rx="3"/><rect x="150" y="155" width="384" height="14" rx="3"/>
-    </g>
-    <g className="term-aux" fill="currentColor">
-      <rect x="150" y="53" width="96" height="14" rx="3"/><rect x="150" y="113" width="144" height="14" rx="3"/><rect x="150" y="173" width="216" height="14" rx="3"/>
-    </g>
-    <g fill="currentColor" fontSize="12" fontWeight="600">
-      <text x="252" y="47">8</text><text x="348" y="107">16</text><text x="540" y="167">32</text>
-      <text x="252" y="65">8</text><text x="300" y="125">12</text><text x="372" y="185">18</text>
-    </g>
-    <g fontSize="12" fill="currentColor">
-      <rect x="150" y="237" width="10" height="10" className="term-common" /><text x="166" y="246">Méthode classique</text>
-      <rect x="310" y="237" width="10" height="10" className="term-aux" /><text x="326" y="246">Karatsuba</text>
-    </g>
-  </svg>
-  <p className="math-caption">Unités simplifiées : nombre d’appels × taille d’un appel. Le graphique ne représente ni les multiplications aux feuilles ni un temps mesuré.</p>
-</div>
-
+<figure className="level-cost-figure" aria-labelledby="level-cost-title">
+  <div className="level-cost-heading">
+    <div>
+      <p className="level-cost-kicker">Exemple illustratif · n = 8</p>
+      <h4 id="level-cost-title">Le travail local total par niveau</h4>
+    </div>
+    <p>Nombre d’appels × taille de chaque appel, sans compter les feuilles.</p>
+  </div>
+  <div className="level-cost-chart" role="img" aria-label="Travail local par niveau : classique, 8 puis 16 puis 32 unités ; Karatsuba, 8 puis 12 puis 18 unités.">
+    <div className="level-cost-axis" aria-hidden="true">
+      <span>0</span><span>8</span><span>16</span><span>24</span><span>32 unités</span>
+    </div>
+    <div className="level-cost-row">
+      <h5>Niveau 0 <span>taille 8</span></h5>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Classique</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--classic" style="width:25%"></span></div><strong>8</strong>
+      </div>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Karatsuba</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--karatsuba" style="width:25%"></span></div><strong>8</strong>
+      </div>
+    </div>
+    <div className="level-cost-row">
+      <h5>Niveau 1 <span>taille 4</span></h5>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Classique</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--classic" style="width:50%"></span></div><strong>16</strong>
+      </div>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Karatsuba</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--karatsuba" style="width:37.5%"></span></div><strong>12</strong>
+      </div>
+    </div>
+    <div className="level-cost-row">
+      <h5>Niveau 2 <span>taille 2</span></h5>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Classique</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--classic" style="width:100%"></span></div><strong>32</strong>
+      </div>
+      <div className="level-cost-series">
+        <span className="level-cost-name">Karatsuba</span>
+        <div className="level-cost-track"><span className="level-cost-bar level-cost-bar--karatsuba" style="width:56.25%"></span></div><strong>18</strong>
+      </div>
+    </div>
+  </div>
+  <div className="level-cost-legend" aria-hidden="true">
+    <span><i className="level-cost-swatch level-cost-swatch--classic"></i>Méthode classique</span>
+    <span><i className="level-cost-swatch level-cost-swatch--karatsuba"></i>Karatsuba</span>
+  </div>
+  <figcaption>Modèle normalisé : une unité par chiffre et par appel, afin d’isoler l’effet du nombre de sous-problèmes. Les constantes réelles dépendent du nombre d’additions et de soustractions de chaque méthode ; ces barres ne représentent pas des durées mesurées. Les multiplications terminales sont comptées séparément.</figcaption>
+</figure>
 
 
 Les coûts des différents niveaux forment une somme géométrique :
 
 &#92;[
-O(n)+O(3n/2)+O(n(3/2)^2)+\cdots
+\begin&#123;aligned&#125;
+\sum_&#123;j=0&#125;^&#123;k-1&#125; O\left(n(3/2)^j\right)
+&= O\left(n\sum_&#123;j=0&#125;^&#123;k-1&#125;(3/2)^j\right) \\
+&= O\left(n\frac&#123;(3/2)^k-1&#125;&#123;(3/2)-1&#125;\right) \\
+&= O\left(n(3/2)^k\right).
+\end&#123;aligned&#125;
 &#92;]
 
-À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme &#92;(3/2&#92;) est supérieur à 1, les derniers niveaux coûtent davantage que les premiers. La somme est donc dominée, à un facteur constant près, par son dernier terme :
-
-&#92;[
-O\left(n(3/2)^k\right).
-&#92;]
+À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme cette raison est supérieure à 1, les derniers termes dominent la somme. Le calcul géométrique ci-dessus montre que son ordre de grandeur est celui de son dernier terme.
 
 Or &#92;(n=2^k&#92;), donc :
 
@@ -509,7 +499,16 @@ Le travail local au niveau &#92;(j&#92;) est <span class="term-common">&#92;(O(n
 4^j\times O(n/2^j)=O(n&#92;,2^j).
 &#92;]
 
-La somme des coûts internes est <span class="term-common">&#92;(O(n^2)&#92;)</span>, et les feuilles donnent une borne inférieure <span class="term-common">&#92;(\Omega(n^2)&#92;)</span>. La somme des coûts internes est dominée par les derniers niveaux. Les additions ne changent donc pas non plus l’exposant de la méthode classique :
+Les coûts locaux forment eux aussi une somme géométrique, cette fois de raison 2 :
+
+&#92;[
+\sum_&#123;j=0&#125;^&#123;k-1&#125; O(n2^j)
+= O\left(n(2^k-1)\right)
+= O(n^2),
+\qquad (n=2^k).
+&#92;]
+
+Les feuilles donnent par ailleurs une borne inférieure <span class="term-common">&#92;(\Omega(n^2)&#92;)</span>. Le coût total est donc <span class="term-common">&#92;(\Theta(n^2)&#92;)</span>, soit un ordre de grandeur quadratique <span class="term-common">&#92;(O(n^2)&#92;)</span> : les additions ne changent pas l’exposant de la méthode classique.
 
 <div class="math-display math-display--key complexity-equations term-common" role="math" aria-label="Complexité totale de la méthode classique">
   &#92;[
@@ -517,12 +516,16 @@ La somme des coûts internes est <span class="term-common">&#92;(O(n^2)&#92;)</s
   &#92;]
 </div>
 
+<div className="complexity-table-scroll">
+
 | Ce que l’on compte | <span class="term-common">Méthode classique</span> | <span class="term-aux">Karatsuba</span> |
 |---|---:|---:|
 | Sous-multiplications créées par appel | 4 | 3 |
 | Appels au niveau &#92;(j&#92;) | &#92;(4^j&#92;) | &#92;(3^j&#92;) |
 | Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^&#123;\log_2 3&#125;&#92;) |
 | Coût total | <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(\Theta(n^&#123;1&#123;,&#125;585&#125;)&#92;)</span> |
+
+</div>
 
 La différence ne vient pas de la disparition des additions : Karatsuba doit toujours additionner et soustraire des blocs pour reconstruire le produit. Le gain vient du fait qu’il crée **trois sous-multiplications au lieu de quatre**, et répète cette économie à tous les niveaux.
 
