@@ -258,6 +258,21 @@ Autrement dit, **la transformée d'une convolution est le produit terme à terme
 
 La DFT naïve coûte \(O(N^2)\). La FFT (*Fast Fourier Transform*) est une famille d'algorithmes qui calcule cette transformation en \(O(N\log N)\), en réutilisant les symétries des racines de l'unité et en décomposant récursivement le problème.
 
+**D'où vient le facteur \(N\log N\) ?** Séparons les coefficients d'indices pairs et impairs :
+
+\[
+P(x)=P_{\mathrm{pair}}(x^2)+xP_{\mathrm{impair}}(x^2).
+\]
+
+Une évaluation de longueur \(N\) se ramène alors à deux évaluations de longueur \(N/2\), puis à un nombre linéaire de combinaisons. Pour chaque indice \(k\), si \(E_k\) et \(O_k\) désignent les deux valeurs transformées de taille \(N/2\), les deux sorties associées sont :
+
+\[
+X_k=E_k+\omega^k O_k,
+\qquad
+X_{k+N/2}=E_k-\omega^k O_k.
+\]
+
+Cette paire d'additions et de soustractions, avec une multiplication par un facteur \(\omega^k\), forme une **opération papillon** (*butterfly*). On obtient la récurrence \(F(N)=2F(N/2)+O(N)\), donc \(F(N)=O(N\log N)\). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les \(N\) sommes de la DFT.
 ### 3.3 Un point crucial : éviter la convolution circulaire
 
 La DFT travaille sur des suites de longueur \(N\) et produit naturellement une convolution **circulaire** : les indices sont considérés modulo \(N\). Or le produit ordinaire de deux polynômes de degrés au plus \(m-1\) peut avoir le degré \(2m-2\).
