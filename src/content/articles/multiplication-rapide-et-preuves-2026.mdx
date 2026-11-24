@@ -25,22 +25,6 @@ sources:
     url: "https://gmplib.org/manual/Toom-3_002dWay-Multiplication"
     kind: "documentation"
     accessed: 2026-11-24
-  - title: "An algorithm for the machine calculation of complex Fourier series — Cooley et Tukey (1965)"
-    url: "https://doi.org/10.1090/S0025-5718-1965-0178586-1"
-    kind: "primary"
-    accessed: 2026-11-24
-  - title: "Fast multiplication of large numbers — Schönhage et Strassen (1971)"
-    url: "https://doi.org/10.1007/BF02242355"
-    kind: "primary"
-    accessed: 2026-11-24
-  - title: "Schönhage–Strassen multiplication — FLINT documentation"
-    url: "https://flintlib.org/doc/algorithms/fft/schonhage-strassen.html"
-    kind: "documentation"
-    accessed: 2026-11-24
-  - title: "Schönhage-Strassen's Algorithm — Pierrick Zimmermann"
-    url: "https://members.loria.fr/PZimmermann/papers/fft.pdf"
-    kind: "secondary"
-    accessed: 2026-11-24
 series: "multiplication-karatsuba"
 seriesOrder: 3
 relatedArticles: ["karatsuba-multiplication", "arbres-recursion-complexite", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026"]
@@ -50,22 +34,21 @@ import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
 import MultiplicationRecurrenceComparison from "../../components/MultiplicationRecurrenceComparison.astro";
 
 
-Cette note prolonge les deux premières étapes du parcours : [comprendre le mécanisme de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/), puis [calculer la complexité de son implémentation récursive](/knowledge-stories/atelier/arbres-recursion-complexite/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
+Cette étape prolonge [la présentation de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/) et [l'analyse de sa complexité](/knowledge-stories/atelier/arbres-recursion-complexite/). Elle étudie une généralisation de son idée : représenter les entiers comme des polynômes, les évaluer en quelques points, multiplier les valeurs obtenues, puis reconstruire le produit par interpolation. **L'objectif est de réduire encore le nombre de multiplications récursives**, au prix d'un travail d'évaluation et d'interpolation plus important.
 
 ### Objectifs et parcours de lecture
 
 À la fin de cette page, vous devriez pouvoir :
 
 - expliquer pourquoi une bibliothèque ne choisit pas toujours l'algorithme de meilleure complexité asymptotique ;
-- reconstruire l'idée de Karatsuba et l'interpolation de Toom–3 ;
-- relier le produit de polynômes à une convolution, puis à une DFT ;
-- distinguer convolution linéaire et circulaire, calcul flottant et calcul exact ;
-- expliquer le rôle du choix d'anneau dans Schönhage–Strassen ;
-- lire une borne de complexité en tenant compte du modèle de calcul et du statut de la preuve.
+- représenter une multiplication d'entiers par un produit de polynômes ;
+- comprendre pourquoi l'évaluation en quelques points transforme un produit de polynômes en plusieurs multiplications plus petites ;
+- reconstruire l'interpolation de Toom–3 sur un exemple ;
+- expliquer pourquoi le nombre de produits récursifs devient \(2k-1\) pour une décomposition en \(k\) blocs, et quels coûts supplémentaires cela entraîne.
 
-**Prérequis utiles :** division euclidienne, polynômes à coefficients entiers, logarithmes et récurrences simples. Les notions de racine de l'unité et de corps fini sont introduites au moment où elles deviennent nécessaires.
+**Prérequis utiles :** division euclidienne, polynômes à coefficients entiers et récurrences simples. Les calculs d'interpolation sont détaillés progressivement.
 
-**Trois niveaux de lecture :** les sections 1–2 construisent les idées algorithmiques ; la section 3 explique les transformations rapides et leur exactitude ; les sections 4–5 prennent du recul sur les résultats théoriques récents et leur formalisation. Les ateliers sont des points de vérification, pas des prérequis pour lire la suite.
+**Parcours :** la première section explique les seuils de choix des bibliothèques ; la seconde construit Toom–Cook et son compromis entre produits, évaluations et interpolation. L'étape suivante traite séparément la convolution et la FFT.
 
 ## 1. Pourquoi les bibliothèques combinent plusieurs méthodes
 
