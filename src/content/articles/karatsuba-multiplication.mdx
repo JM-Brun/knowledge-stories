@@ -188,6 +188,12 @@ Voici une version de référence en Python. Elle utilise les entiers de précisi
 
 ```python
 def karatsuba(x: int, y: int) -> int:
+    # Normaliser les signes avant le découpage décimal.
+    if x < 0:
+        return -karatsuba(-x, y)
+    if y < 0:
+        return -karatsuba(x, -y)
+
     if x < 10 or y < 10:
         return x * y
 
