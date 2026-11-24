@@ -110,14 +110,14 @@
 }
 :is(.story-page, .review-page):has(.karatsuba-hero) .complexity-method .math-line {
   overflow-wrap: anywhere;
-  font: 500 clamp(.7rem, 1.35vw, .9rem)/1.7 "DM Mono", monospace;
+  font: 500 clamp(.78rem, 1.2vw, .92rem)/1.7 "DM Mono", monospace;
 }
 @media(max-width:650px) {
   :is(.story-page, .review-page):has(.karatsuba-hero) .complexity-equations {
     padding: .75rem;
   }
   :is(.story-page, .review-page):has(.karatsuba-hero) .complexity-method .math-line {
-    font-size: .68rem;
+    font-size: .76rem;
   }
 }
 
