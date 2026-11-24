@@ -30,7 +30,7 @@ import RecursionTreeExplorer from "../../components/RecursionTreeExplorer.astro"
 
 ## Outil d’analyse : lire un arbre de récursion
 
-Pour analyser le coût de l'implémentation, il faut visualiser les appels récursifs qu'elle déclenche. L'arbre est ici un **outil**, pas le sujet de l'article : il rend visibles le nombre de sous-multiplications, leur taille et le travail effectué à chaque étape. Les définitions qui suivent donnent uniquement le vocabulaire nécessaire à la démonstration de Karatsuba. Elles pourront être développées dans une ressource autonome si ce détour prend davantage d'ampleur.
+Pour analyser le coût d'un algorithme récursif, il faut visualiser les appels qu'il déclenche et le travail effectué à chaque étape. L'arbre de récursion est un **outil d'analyse** : il rend visibles le nombre de sous-problèmes, leur taille et le coût local des appels. Ce guide présente la méthode générale, indépendamment d'un algorithme particulier, puis la met en pratique sur la recherche dichotomique, le tri fusion et Karatsuba. Pour une application détaillée à ce dernier, consultez l'article consacré au calcul de sa complexité.
 
 ### Le vocabulaire indispensable
 
