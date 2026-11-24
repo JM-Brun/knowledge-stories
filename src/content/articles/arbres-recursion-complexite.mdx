@@ -487,7 +487,7 @@ Le rapport &#92;(a/b^d&#92;) compare l'augmentation du nombre d'appels à la dim
 
 ### Cas 1 — Les premiers niveaux dominent
 
-Si &#92;(a/b^d\\lt 1&#92;), les contributions diminuent d'un niveau au suivant. La somme géométrique est dominée par les premiers niveaux : le travail interne total est &#92;(\Theta(n^d)&#92;).
+Si &#92;(a/b^d\lt 1&#92;), les contributions diminuent d'un niveau au suivant. La somme géométrique est dominée par les premiers niveaux : le travail interne total est &#92;(\Theta(n^d)&#92;).
 
 ### Cas 2 — Tous les niveaux contribuent autant
 
@@ -512,7 +512,7 @@ Le coût des feuilles est du même ordre si elles sont &#92;(\Theta(1)&#92;) cha
 
 | Comparaison | Évolution du coût par niveau | Contribution dominante |
 |---|---|---|
-| &#92;(a\\lt b^d&#92;) | Décroissante | Premiers niveaux |
+| &#92;(a\lt b^d&#92;) | Décroissante | Premiers niveaux |
 | &#92;(a=b^d&#92;) | Constante | Tous les niveaux |
 | &#92;(a>b^d&#92;) | Croissante | Derniers niveaux |
 
@@ -521,7 +521,7 @@ Cette comparaison donne l'intuition des trois cas du théorème maître. Pour un
 &#92;[
 T(n)=
 \begin&#123;cases&#125;
-\Theta(n^d), & a\\lt b^d,\\
+\Theta(n^d), & a\lt b^d,\\
 \Theta(n^d\log n), & a=b^d,\\
 \Theta(n^&#123;\log_b a&#125;), & a>b^d.
 \end&#123;cases&#125;
@@ -569,7 +569,7 @@ Pour chaque récurrence, comparez &#92;(a&#92;) et &#92;(b^d&#92;), puis identif
 **Correction.**
 
 1. &#92;(a=2=b^d&#92;) : chaque niveau coûte &#92;(\Theta(n)&#92;), donc le travail interne est &#92;(\Theta(n\log n)&#92;).
-2. &#92;(a=2\\lt 4=b^d&#92;) : les coûts décroissent ; les premiers niveaux dominent et le travail interne est &#92;(\Theta(n^2)&#92;).
+2. &#92;(a=2\lt 4=b^d&#92;) : les coûts décroissent ; les premiers niveaux dominent et le travail interne est &#92;(\Theta(n^2)&#92;).
 3. &#92;(a=4>2=b^d&#92;) : les coûts augmentent ; les derniers niveaux dominent et le coût total est &#92;(\Theta(n^2)&#92;).
 
 </details>
