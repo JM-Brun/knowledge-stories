@@ -35,7 +35,7 @@ test("classical multiplication complexity is consistently marked green", () => {
   ].map((path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8")).join("\\n");
   const expectedGreenExpressions = [
     String.raw`au lieu de <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> pour la`,
-    String.raw`Le travail local au niveau &#92;(j&#92;) est <span class="term-common">&#92;(O(n&#92;,2^j)&#92;)</span>`,
+    String.raw`Le travail local au niveau &#92;(j&#92;) est <span class="term-common">&#92;(O(n 2^j)&#92;)</span>`,
     String.raw`<span class="term-common">&#92;(O(n^2)&#92;)</span>`,
     String.raw`<span class="term-common">&#92;(\Omega(n^2)&#92;)</span>`,
   ];
