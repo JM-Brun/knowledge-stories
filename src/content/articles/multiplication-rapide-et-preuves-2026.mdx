@@ -318,7 +318,7 @@ Les algorithmes historiques de multiplication rapide, notamment Schönhage–Str
 |---|---|---|
 | FFT classique | Nombres complexes, en pratique flottants | Contrôle de l'erreur d'arrondi et de la reconstruction des coefficients |
 | NTT | Corps fini &#92;(&#92;mathbb F_p&#92;) | Calcul exact modulo &#92;(p&#92;), puis éventuellement plusieurs modules et CRT |
-| Schönhage–Strassen | Anneau &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;) | Calcul modulaire exact, bornes pour relever les coefficients et produits ponctuels récursifs |
+| Schönhage–Strassen | Anneau &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;) | Calcul modulaire exact, module assez grand pour identifier le produit entier et produits ponctuels récursifs |
 
 La différence entre **corps** et **anneau** compte : la NTT classique sur &#92;(&#92;mathbb F_p&#92;) exploite un corps fini, tandis que Schönhage–Strassen construit sa transformée dans un anneau de résidus qui n'est pas nécessairement un corps.
 
