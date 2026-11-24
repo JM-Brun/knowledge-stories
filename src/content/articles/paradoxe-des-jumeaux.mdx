@@ -40,7 +40,7 @@ relatedArticles: ["inertie-referentiels-principe-mach"]
 import TwinsExplorer from "../../components/TwinsExplorer.astro";
 import PersonName from "../../components/PersonName.astro";
 
-<p><strong>Repères de lecture :</strong> <PersonName name="Simon" /> reste sur Terre (bleu) ; <PersonName name="Kara" /> voyage dans le vaisseau (orange). Le violet, le vert et l’ocre distingueront les trois personnes de la seconde expérience.</p>
+<p><strong>Repères de lecture :</strong> <PersonName name="Simon" /> reste sur Terre (bleu) ; <PersonName name="Kara" /> voyage dans le vaisseau (orange). Odile sera distinguée en vert dans la seconde expérience ; Simon et Kara gardent leurs couleurs.</p>
 
 
 ## Avant Einstein : comment additionne-t-on les vitesses ?
@@ -250,21 +250,21 @@ Les deux afficheront **6 ans** si chacun effectue le trajet à 0,8 c avec un dem
 
 ## Une deuxième expérience : trois voyageurs et deux planètes
 
-Dans cette variante, les personnages sont <PersonName name="Milo" />, <PersonName name="Odile" /> et <PersonName name="Léa" />. Elle permet de comparer plusieurs histoires de mouvement sans confondre les protagonistes avec ceux du premier récit.
+Dans cette variante, les personnages sont <PersonName name="Simon" />, <PersonName name="Odile" /> et <PersonName name="Kara" />. Elle permet de comparer plusieurs histoires de mouvement sans confondre les protagonistes avec ceux du premier récit.
 
-Le voyage de <PersonName name="Simon" /> et <PersonName name="Kara" /> met en évidence le changement de simultanéité au demi-tour. Une autre expérience permet d'examiner plus directement ce que signifie « suivre une trajectoire différente » : faisons intervenir trois personnes du même âge, <PersonName name="Milo" />, <PersonName name="Odile" /> et <PersonName name="Léa" />, ainsi que deux lieux, la Terre et Zartha.
+Le voyage de <PersonName name="Simon" /> et <PersonName name="Kara" /> met en évidence le changement de simultanéité au demi-tour. Une autre expérience permet d'examiner plus directement ce que signifie « suivre une trajectoire différente » : faisons intervenir trois personnes du même âge, <PersonName name="Simon" />, <PersonName name="Odile" /> et <PersonName name="Kara" />, ainsi que deux lieux, la Terre et Zartha.
 
 L'intérêt de cette variante est de multiplier les rencontres. À chaque rencontre, les personnes présentes peuvent poser leurs montres côte à côte : la comparaison ne dépend alors d'aucune synchronisation à distance.
 
 ### Les trois étapes
 
-Au départ, <PersonName name="Milo" />, <PersonName name="Odile" /> et <PersonName name="Léa" /> sont réunis sur Terre. Leurs montres sont synchronisées et indiquent zéro. Dans le modèle, la Terre et Zartha sont immobiles l'une par rapport à l'autre dans un même référentiel inertiel.
+Au départ, <PersonName name="Simon" />, <PersonName name="Odile" /> et <PersonName name="Kara" /> sont réunis sur Terre. Leurs montres sont synchronisées et indiquent zéro. Dans le modèle, la Terre et Zartha sont immobiles l'une par rapport à l'autre dans un même référentiel inertiel.
 
-1. **Départ vers Zartha.** <PersonName name="Odile" /> et <PersonName name="Léa" /> voyagent ensemble de la Terre vers Zartha. <PersonName name="Milo" /> reste sur Terre. À l'arrivée, <PersonName name="Odile" /> et <PersonName name="Léa" /> se retrouvent et peuvent comparer leurs montres : elles ont suivi la même trajectoire et indiquent la même durée.
-2. **Séparation.** <PersonName name="Odile" /> reste sur Zartha. <PersonName name="Léa" /> repart vers la Terre. <PersonName name="Milo" /> est toujours sur Terre. Au retour de <PersonName name="Léa" />, <PersonName name="Milo" /> et elle se retrouvent : ils peuvent comparer directement leurs montres.
-3. **Retrouvailles sur Zartha.** <PersonName name="Milo" /> et <PersonName name="Léa" /> repartent ensemble vers Zartha. <PersonName name="Odile" /> les y attend. À leur arrivée, les trois personnes se retrouvent et comparent leurs montres.
+1. **Départ vers Zartha.** <PersonName name="Odile" /> et <PersonName name="Kara" /> voyagent ensemble de la Terre vers Zartha. <PersonName name="Simon" /> reste sur Terre. À l'arrivée, <PersonName name="Odile" /> et <PersonName name="Kara" /> se retrouvent et peuvent comparer leurs montres : elles ont suivi la même trajectoire et indiquent la même durée.
+2. **Séparation.** <PersonName name="Odile" /> reste sur Zartha. <PersonName name="Kara" /> repart vers la Terre. <PersonName name="Simon" /> est toujours sur Terre. Au retour de <PersonName name="Kara" />, <PersonName name="Simon" /> et elle se retrouvent : ils peuvent comparer directement leurs montres.
+3. **Retrouvailles sur Zartha.** <PersonName name="Simon" /> et <PersonName name="Kara" /> repartent ensemble vers Zartha. <PersonName name="Odile" /> les y attend. À leur arrivée, les trois personnes se retrouvent et comparent leurs montres.
 
-Cette construction fournit trois comparaisons locales : <PersonName name="Odile" />–<PersonName name="Léa" /> à Zartha après le premier trajet, <PersonName name="Milo" />–<PersonName name="Léa" /> sur Terre après le retour de <PersonName name="Léa" />, puis les trois personnes ensemble à Zartha à la fin.
+Cette construction fournit trois comparaisons locales : <PersonName name="Odile" />–<PersonName name="Kara" /> à Zartha après le premier trajet, <PersonName name="Simon" />–<PersonName name="Kara" /> sur Terre après le retour de <PersonName name="Kara" />, puis les trois personnes ensemble à Zartha à la fin.
 
 ### Hypothèses du calcul
 
@@ -289,52 +289,52 @@ L'approximation des changements de vitesse instantanés est un outil de calcul, 
 
 Notons les événements communs et les lectures cumulées depuis le départ :
 
-| Événement | <PersonName name="Milo" /> | <PersonName name="Odile" /> | <PersonName name="Léa" /> |
+| Événement | <PersonName name="Simon" /> | <PersonName name="Odile" /> | <PersonName name="Kara" /> |
 |---|---:|---:|---:|
 | Départ sur Terre | (0) | (0) | (0) |
 | Première arrivée sur Zartha | (T) | (T/gamma) | (T/gamma) |
-| Retour de <PersonName name="Léa" /> sur Terre | (2T) | (T+T/gamma) | (2T/gamma) |
+| Retour de <PersonName name="Kara" /> sur Terre | (2T) | (T+T/gamma) | (2T/gamma) |
 | Arrivée finale sur Zartha | (2T+T/gamma) | (2T+T/gamma) | (3T/gamma) |
 
 Les valeurs d'une même ligne sont les lectures des montres au même événement de rencontre. Les valeurs de personnes éloignées sur une même ligne sont leurs temps propres cumulés depuis le départ ; les comparer ne suppose pas qu'elles se soient rencontrées à cet instant.
 
-**Première rencontre : <PersonName name="Odile" /> et <PersonName name="Léa" />.** Elles ont voyagé ensemble de la Terre à Zartha. Leurs montres indiquent toutes deux (T/gamma). C'est une comparaison simple : même événement de départ, même trajectoire, même événement d'arrivée.
+**Première rencontre : <PersonName name="Odile" /> et <PersonName name="Kara" />.** Elles ont voyagé ensemble de la Terre à Zartha. Leurs montres indiquent toutes deux (T/gamma). C'est une comparaison simple : même événement de départ, même trajectoire, même événement d'arrivée.
 
-**Deuxième rencontre : <PersonName name="Milo" /> et <PersonName name="Léa" />.** <PersonName name="Milo" /> est resté sur Terre pendant (2T). <PersonName name="Léa" /> a effectué deux trajets à vitesse (v), chacun durant (T/gamma) sur sa montre. Au moment où ils se retrouvent :
+**Deuxième rencontre : <PersonName name="Simon" /> et <PersonName name="Kara" />.** <PersonName name="Simon" /> est resté sur Terre pendant (2T). <PersonName name="Kara" /> a effectué deux trajets à vitesse (v), chacun durant (T/gamma) sur sa montre. Au moment où ils se retrouvent :
 [
-	au_{mathrm{<PersonName name="Milo" />}}=2T,qquad
-	au_{mathrm{<PersonName name="Léa" />}}=rac{2T}{gamma}.
+	au_{mathrm{<PersonName name="Simon" />}}=2T,qquad
+	au_{mathrm{<PersonName name="Kara" />}}=rac{2T}{gamma}.
 ]
-<PersonName name="Milo" /> a donc davantage vieilli que <PersonName name="Léa" />. Cette comparaison est directe : les deux montres sont réunies sur Terre.
+<PersonName name="Simon" /> a donc davantage vieilli que <PersonName name="Kara" />. Cette comparaison est directe : les deux montres sont réunies sur Terre.
 
-**Troisième rencontre : les trois voyageurs.** <PersonName name="Milo" /> a attendu sur Terre pendant deux phases, puis a voyagé une phase. <PersonName name="Odile" /> a voyagé une phase, puis attendu sur Zartha pendant deux phases. Leurs durées propres sont donc égales :
+**Troisième rencontre : les trois voyageurs.** <PersonName name="Simon" /> a attendu sur Terre pendant deux phases, puis a voyagé une phase. <PersonName name="Odile" /> a voyagé une phase, puis attendu sur Zartha pendant deux phases. Leurs durées propres sont donc égales :
 [
-	au_{mathrm{<PersonName name="Milo" />}}=2T+rac{T}{gamma},
+	au_{mathrm{<PersonName name="Simon" />}}=2T+rac{T}{gamma},
 qquad
 	au_{mathrm{<PersonName name="Odile" />}}=rac{T}{gamma}+2T.
 ]
 Ainsi,
 [
-oxed{	au_{mathrm{<PersonName name="Milo" />}}=	au_{mathrm{<PersonName name="Odile" />}}}.
+oxed{	au_{mathrm{<PersonName name="Simon" />}}=	au_{mathrm{<PersonName name="Odile" />}}}.
 ]
 
-<PersonName name="Léa" /> a, elle, effectué les trois trajets :
+<PersonName name="Kara" /> a, elle, effectué les trois trajets :
 [
-	au_{mathrm{<PersonName name="Léa" />}}=rac{3T}{gamma}.
+	au_{mathrm{<PersonName name="Kara" />}}=rac{3T}{gamma}.
 ]
-Elle est plus jeune que <PersonName name="Milo" /> et <PersonName name="Odile" /> à la dernière rencontre, puisque
+Elle est plus jeune que <PersonName name="Simon" /> et <PersonName name="Odile" /> à la dernière rencontre, puisque
 [
 2T+rac{T}{gamma}-rac{3T}{gamma}
 =2Tleft(1-rac{1}{gamma}ight)>0.
 ]
 
-Le résultat n'est pas que « celui qui voyage est toujours plus jeune ». <PersonName name="Milo" /> a voyagé sur le dernier trajet et <PersonName name="Odile" /> sur le premier ; ils ont pourtant le même âge à la fin. <PersonName name="Léa" /> est la plus jeune parce que, dans cette configuration, elle a passé les trois phases en mouvement à la vitesse (v).
+Le résultat n'est pas que « celui qui voyage est toujours plus jeune ». <PersonName name="Simon" /> a voyagé sur le dernier trajet et <PersonName name="Odile" /> sur le premier ; ils ont pourtant le même âge à la fin. <PersonName name="Kara" /> est la plus jeune parce que, dans cette configuration, elle a passé les trois phases en mouvement à la vitesse (v).
 
-### Pourquoi <PersonName name="Milo" /> et <PersonName name="Odile" /> ont-ils le même âge ?
+### Pourquoi <PersonName name="Simon" /> et <PersonName name="Odile" /> ont-ils le même âge ?
 
 Le résultat vient de la symétrie précise de leurs histoires dans le référentiel commun :
 
-- <PersonName name="Milo" /> attend pendant (2T) sur Terre, puis voyage pendant une phase ;
+- <PersonName name="Simon" /> attend pendant (2T) sur Terre, puis voyage pendant une phase ;
 - <PersonName name="Odile" /> voyage pendant une phase, puis attend pendant (2T) sur Zartha.
 
 Ils accumulent chacun deux phases de durée propre (T) au repos et une phase de durée propre (T/gamma) en mouvement. Leurs trajectoires ne sont pas identiques, mais leurs contributions au temps propre total sont les mêmes.
@@ -354,9 +354,9 @@ Dans le référentiel inertiel commun, la durée propre d'une trajectoire est
 [
 	au=int sqrt{1-rac{v(t)^2}{c^2}},dt.
 ]
-Pour <PersonName name="Milo" /> et <PersonName name="Odile" />, les portions au repos et les portions en mouvement se répartissent différemment, mais donnent ici la même somme. Pour <PersonName name="Léa" />, les trois portions sont parcourues à la vitesse (v), d'où le résultat plus faible.
+Pour <PersonName name="Simon" /> et <PersonName name="Odile" />, les portions au repos et les portions en mouvement se répartissent différemment, mais donnent ici la même somme. Pour <PersonName name="Kara" />, les trois portions sont parcourues à la vitesse (v), d'où le résultat plus faible.
 
-Il faut enfin éviter une comparaison trompeuse : à la première arrivée sur Zartha, <PersonName name="Milo" /> est loin, sur Terre. On peut calculer le temps propre qu'il a accumulé, mais on ne peut pas prétendre que les personnages ont alors comparé leurs montres. La comparaison directe n'a lieu qu'aux événements où ils sont effectivement réunis.
+Il faut enfin éviter une comparaison trompeuse : à la première arrivée sur Zartha, <PersonName name="Simon" /> est loin, sur Terre. On peut calculer le temps propre qu'il a accumulé, mais on ne peut pas prétendre que les personnages ont alors comparé leurs montres. La comparaison directe n'a lieu qu'aux événements où ils sont effectivement réunis.
 
 ## Pour aller plus loin
 
