@@ -339,17 +339,17 @@ Cet exemple montre l'identité algébrique. Il ne constitue pas à lui seul une 
 
 ### 3.6 Schönhage–Strassen : rendre la FFT exacte et récursive
 
-La FFT précédente travaille sur des nombres complexes : elle explique le mécanisme de convolution rapide, mais ne suffit pas à construire un multiplicateur entier exact. La **NTT** répond à une première difficulté en remplaçant les complexes par des résidus modulo un nombre premier adapté. Schönhage–Strassen suit une autre voie : il réalise une transformée dans un anneau de la forme \\(\\mathbb Z/(2^N+1)\\mathbb Z\\), choisi pour que les facteurs de rotation soient des puissances de 2.
+La FFT précédente travaille sur des nombres complexes : elle explique le mécanisme de convolution rapide, mais ne suffit pas à construire un multiplicateur entier exact. La **NTT** répond à une première difficulté en remplaçant les complexes par des résidus modulo un nombre premier adapté. Schönhage–Strassen suit une autre voie : il réalise une transformée dans un anneau de la forme &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;), choisi pour que les facteurs de rotation soient des puissances de 2.
 
 L'idée est de relier trois représentations : entiers découpés en blocs, polynômes, puis convolution négacyclique. L'atelier suivant déroule ce passage et montre pourquoi les multiplications terme à terme peuvent, elles aussi, être traitées récursivement.
 
 <SchonhageStrassenExplorer />
 
-**Pourquoi cette construction est-elle rapide ?** Dans l'anneau modulo \\(2^N+1\\), on a \\(2^N\\equiv-1\\), donc \\(2^{2N}\\equiv1\\). Pour des paramètres choisis de façon compatible avec la longueur de transformée, certaines puissances de 2 jouent le rôle de racines de l'unité. Multiplier par une telle puissance revient essentiellement à décaler les bits et à gérer un éventuel bouclage avec changement de signe. On évite ainsi les multiplications générales pour les facteurs de rotation.
+**Pourquoi cette construction est-elle rapide ?** Dans l'anneau modulo &#92;(2^N+1&#92;), on a &#92;(2^N&#92;equiv-1&#92;), donc &#92;(2^{2N}&#92;equiv1&#92;). Pour des paramètres choisis de façon compatible avec la longueur de transformée, certaines puissances de 2 jouent le rôle de racines de l'unité. Multiplier par une telle puissance revient essentiellement à décaler les bits et à gérer un éventuel bouclage avec changement de signe. On évite ainsi les multiplications générales pour les facteurs de rotation.
 
-La transformée et son inverse organisent la convolution en \\(O(K\\log K)\\) opérations dans l'anneau pour une longueur \\(K\\). Mais chaque produit terme à terme est lui-même un produit d'entiers modulo \\(2^N+1\\) : on le calcule récursivement. L'analyse conjointe des tailles de blocs, des opérations dans l'anneau et de cette récursion conduit à la borne classique \\(O(n\\log n\\log\\log n)\\) en opérations binaires pour deux entiers de \\(n\\) bits.
+La transformée et son inverse organisent la convolution en &#92;(O(K&#92;log K)&#92;) opérations dans l'anneau pour une longueur &#92;(K&#92;). Mais chaque produit terme à terme est lui-même un produit d'entiers modulo &#92;(2^N+1&#92;) : on le calcule récursivement. L'analyse conjointe des tailles de blocs, des opérations dans l'anneau et de cette récursion conduit à la borne classique &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;) en opérations binaires pour deux entiers de &#92;(n&#92;) bits.
 
-Il faut donc éviter une simplification trompeuse : **la borne de Schönhage–Strassen ne découle pas de la seule FFT en \\(O(K\\log K)\\)**. Elle dépend aussi du coût des opérations sur les coefficients et de la récursion des produits ponctuels.
+Il faut donc éviter une simplification trompeuse : **la borne de Schönhage–Strassen ne découle pas de la seule FFT en &#92;(O(K&#92;log K)&#92;)**. Elle dépend aussi du coût des opérations sur les coefficients et de la récursion des produits ponctuels.
 
 ## 4. La frontière théorique : trois travaux à ne pas confondre
 
