@@ -73,6 +73,21 @@ import FFTButterflyDiagram from "../../components/FFTButterflyDiagram.astro";
 
 Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
 
+### Objectifs et parcours de lecture
+
+À la fin de cette page, vous devriez pouvoir :
+
+- expliquer pourquoi une bibliothèque ne choisit pas toujours l'algorithme de meilleure complexité asymptotique ;
+- reconstruire l'idée de Karatsuba et l'interpolation de Toom–3 ;
+- relier le produit de polynômes à une convolution, puis à une DFT ;
+- distinguer convolution linéaire et circulaire, calcul flottant et calcul exact ;
+- expliquer le rôle du choix d'anneau dans Schönhage–Strassen ;
+- lire une borne de complexité en tenant compte du modèle de calcul et du statut de la preuve.
+
+**Prérequis utiles :** division euclidienne, polynômes à coefficients entiers, logarithmes et récurrences simples. Les notions de racine de l'unité et de corps fini sont introduites au moment où elles deviennent nécessaires.
+
+**Trois niveaux de lecture :** les sections 1–2 construisent les idées algorithmiques ; la section 3 explique les transformations rapides et leur exactitude ; les sections 4–5 prennent du recul sur les résultats théoriques récents et leur formalisation. Les ateliers sont des points de vérification, pas des prérequis pour lire la suite.
+
 ## 1. Pourquoi les bibliothèques combinent plusieurs méthodes
 
 Les multiplications économisées par Karatsuba ont un prix. À petite taille, les additions, les allocations et la gestion des appels récursifs peuvent coûter davantage que les produits qu’elles remplacent. La complexité asymptotique décrit une croissance lorsque la taille tend vers l’infini ; elle ne détermine pas à elle seule le meilleur algorithme pour une taille donnée.
@@ -195,7 +210,19 @@ AC=R(B)=r_0+r_1B+r_2B^2+r_3B^3+r_4B^4.
 **Ce qu'il faut retenir.** Toom–Cook ne fait pas disparaître le travail : il échange neuf multiplications récursives contre cinq multiplications, mais ajoute des évaluations, des additions, des multiplications par de petites constantes et une interpolation. Le gain vient de la baisse du nombre de produits coûteux, pas d'une formule magique.
 </aside>
 
-**Pourquoi les divisions sont-elles exactes ?** Les formules d'interpolation font apparaître des divisions par 2 et par 3. Les valeurs &#92;(w_0,w_1,w_&#123;-1&#125;,w_2,w_&#92;infty&#92;) ne sont pas arbitraires : elles proviennent de produits de polynômes à coefficients entiers. Les numérateurs correspondants sont donc divisibles par les dénominateurs dans l'arithmétique exacte. Une implémentation doit néanmoins organiser les calculs pour préserver cette exactitude, gérer les signes et éviter les débordements dans ses types intermédiaires.
+**Pourquoi les divisions sont-elles exactes ?** Ce n'est pas une coïncidence numérique : les numérateurs sont des combinaisons des coefficients entiers de &#92;(R&#92;). En effet,
+&#92;[
+w_1-w_{-1}=2(r_1+r_3),
+&#92;qquad
+w_1+w_{-1}-2r_0-2r_4=2r_2.
+&#92;]
+La première division par 2 donne donc exactement &#92;(s_1=r_1+r_3&#92;), et la seconde donne &#92;(r_2&#92;). De même,
+&#92;[
+w_2-r_0-16r_4=2r_1+4r_2+8r_3,
+&#92;]
+d'où &#92;(t=r_1+2r_2+4r_3&#92;). En soustrayant &#92;(s_1+2r_2&#92;), il reste exactement &#92;(3r_3&#92;) : la division par 3 est donc entière elle aussi.
+
+Cette vérification est importante pour l'implémentation : elle justifie l'absence de fractions dans l'arithmétique exacte, mais ne dispense pas de gérer les signes, la taille des valeurs intermédiaires et les débordements des types machine.
 
 ### Vérifier l'interpolation sur un exemple numérique
 
@@ -255,7 +282,9 @@ Pour une longueur &#92;(N&#92;), choisissons une racine &#92;(N&#92;)-ième prim
 &#92;omega^N=1
 &#92;]
 
-et aucune puissance positive plus petite n'est égale à 1. La transformée de Fourier discrète (DFT) associe aux coefficients &#92;(a_0,&#92;ldots,a_&#123;N-1&#125;&#92;) les valeurs
+et aucune puissance positive plus petite n'est égale à 1. Cette condition signifie que les puissances &#92;(1,&#92;omega,\ldots,&#92;omega^{N-1}&#92;) sont toutes distinctes. Sur les nombres complexes, une telle racine existe pour toute longueur &#92;(N&#92;). Dans un corps fini, elle existe notamment si &#92;(N&#92;) divise l'ordre du groupe multiplicatif ; pour &#92;(\mathbb F_p&#92;), la condition usuelle est &#92;(N&#92;mid(p-1&#92;).
+
+La transformée de Fourier discrète (DFT) associe aux coefficients &#92;(a_0,&#92;ldots,a_&#123;N-1&#125;&#92;) les valeurs
 
 &#92;[
 &#92;widehat a_k=&#92;sum_&#123;j=0&#125;^&#123;N-1&#125;a_j&#92;omega^&#123;jk&#125;,
@@ -267,6 +296,16 @@ Elle évalue en quelque sorte le polynôme &#92;(P&#92;) aux points &#92;(1,&#92
 &#92;[
 &#92;widehat&#123;(a*b)&#125;_k=&#92;widehat a_k&#92;,&#92;widehat b_k.
 &#92;]
+
+Pour revenir aux coefficients, on utilise la transformée inverse :
+&#92;[
+a_j=&#92;frac1N&#92;sum_{k=0}^{N-1}&#92;widehat a_k&#92;omega^{-jk}.
+&#92;]
+Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(\widehat a_k&#92;) par sa définition, le coefficient de &#92;(a_\ell&#92;) devient
+&#92;[
+&#92;frac1N&#92;sum_{k=0}^{N-1}&#92;omega^{k(\ell-j)}.
+&#92;]
+Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(\ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(\mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N\mid p-1&#92;), et pour une longueur puissance de deux modulo un nombre impair comme &#92;(2^M+1&#92;).
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
