@@ -50,7 +50,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
   .prose :global(.math-lead) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; margin: 1.8rem 0; }
   .prose :global(.math-lead > div) { padding: 1rem; border: 1px solid var(--line); border-radius: .55rem; background: #f0ede4; }
   .prose :global(.math-lead strong) { display: block; color: #843c27; font: 600 1.35rem/1.2 "DM Mono", monospace; }
-  .prose :global(.math-lead span) { display: block; margin-top: .35rem; color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
+  .prose :global(.math-lead > div > span) { display: block; margin-top: .35rem; color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
   .prose :global(.comparison-figure) { margin: 2.5rem 0; }
   .review-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-bottom: 1.8rem; }
   .back-link { display: inline-block; color: #625b4d; }
