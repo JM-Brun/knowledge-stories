@@ -49,6 +49,10 @@ Les intitulés de l'index et les squelettes de la PR `wiki-knowledge#165` ont é
 
 Ces thèmes sont suffisamment riches pour terminer le calendrier sans détour par les Transformers ou la génération de texte.
 
+## Vérification de la durée — journée 1
+
+Le comptage du texte lisible de `jour-01.qmd`, en excluant les SVG, balises et code technique, donne environ 3 744 mots. À 200 mots/minute, cela représente environ 19 minutes, auxquelles s'ajoutent les pauses de lecture des figures et des équations. L'annonce « environ 20 minutes » est donc cohérente. L'estimation antérieure de 20–25 minutes était trop pessimiste ; aucune coupe n'est justifiée. Les sections sur la référence, la traçabilité, le mesurande et la propagation des erreurs sont conservées.
+
 ## Durées et structure
 
 La contrainte éditoriale est désormais **7 à 20 minutes par article** :
@@ -70,7 +74,7 @@ Le gabarit précédent indiquait 7–10 minutes, ce qui était trop restrictif e
 ## Prochaines actions
 
 1. Réviser J1 pour tenir dans 20 minutes au plus sans retirer de contenu conceptuel important.
-2. Ajouter un mini-exemple numérique d'information mutuelle à J5 et vérifier le calcul.
-3. Harmoniser les conventions (n) / (n-1) dans J4.
+2. J5 : ajouter un exemple numérique d'information mutuelle ; calcul vérifié (1 − H₂(0,1) ≈ 0,531 bit).
+3. J4 : expliciter les poids dans la formule de variance d'un agrégat et distinguer moments empiriques avec diviseur n et estimateurs corrigés avec n−1.
 4. Créer les pages 6–24 à partir des squelettes, en appliquant le test anti-doublon dès la conception.
 5. Vérifier les concepts canoniques dans Wiki Knowledge avant chaque création ou référence ; ne jamais créer un doublon de page pour un concept déjà traité dans LLM Lab ou dans le wiki général.
