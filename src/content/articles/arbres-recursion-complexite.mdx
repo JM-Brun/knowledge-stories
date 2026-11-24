@@ -95,13 +95,21 @@ W_j=\sum_&#123;v\text&#123; au niveau &#125;j&#125; C(v).
 
 ### Du coût des niveaux au coût total
 
-Le coût total additionne les niveaux internes et les feuilles :
+Le coût total doit compter **chaque nœud exactement une fois**, qu'il soit interne ou feuille. Notons &#92;(\mathcal I&#92;) l'ensemble des nœuds internes et &#92;(\mathcal L&#92;) l'ensemble des feuilles. Dans le cas général, y compris lorsque les branches s'arrêtent à des profondeurs différentes :
 
 &#92;[
-T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125;W_j+L_h,
+T(n)=\sum_&#123;v\in\mathcal I&#125; C(v)+\sum_&#123;\ell\in\mathcal L&#125; C(\ell).
 &#92;]
 
-où &#92;(h&#92;) est la profondeur maximale et &#92;(L_h&#92;) le coût cumulé des cas de base. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
+Comme &#92;(W_j&#92;) désigne le coût de **tous** les nœuds du niveau &#92;(j&#92;), on peut aussi écrire &#92;(T(n)=\sum_&#123;j=0&#125;^h W_j&#92;). Cette écriture inclut les feuilles à leur profondeur réelle.
+
+Dans le cas particulier d'un arbre équilibré dont toutes les feuilles sont au niveau &#92;(h&#92;), on peut séparer les deux contributions :
+
+&#92;[
+T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125; W_j^{\mathrm{int}}+L_h,
+&#92;]
+
+où &#92;(W_j^{\mathrm{int}}&#92;) est le coût des seuls nœuds internes du niveau &#92;(j&#92;) et &#92;(L_h&#92;) le coût cumulé des feuilles. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
 
 Dans l'exemple précédent, chaque niveau interne coûte &#92;(\Theta(n)&#92;), et il y a &#92;(\Theta(\log n)&#92;) niveaux. Les feuilles sont au nombre de &#92;(2^&#123;\log_2 n&#125;=n&#92;), chacune de coût constant. Ainsi :
 
