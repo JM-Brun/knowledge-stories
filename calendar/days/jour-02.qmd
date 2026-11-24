@@ -52,6 +52,8 @@ où \(W_A\) et \(W_B\) sont les proportions des groupes dans la population, et \
 
 L'enquête limitée au groupe A ne souffre pas simplement d'un échantillon « trop petit ». Elle estime correctement la moyenne de A, mais cette quantité n'est pas l'estimand choisi. C'est une distinction fondamentale : **un calcul peut être exact pour la mauvaise question**.
 
+**Ce que l'exemple permet — et ne permet pas — de comparer.** Il établit un contraste de couverture et de cible, pas un classement numérique de précision. Les variances individuelles à l'intérieur de A et de B ne sont pas données : on ne peut donc pas calculer l'erreur-type de l'estimateur stratifié ni affirmer de combien il serait plus précis. En revanche, le recensement de A élimine bien l'erreur de tirage pour la moyenne de A ; il ne transforme pas cette moyenne en moyenne de la population entière.
+
 Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple :
 
 \[
@@ -76,6 +78,38 @@ C'est utile de distinguer trois objets :
 - **Échantillon observé** : celles qui ont finalement répondu ou ont été mesurées.
 
 Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la non-réponse et de l'auto-sélection.
+
+<figure class="sampling-flow">
+<svg viewBox="0 0 760 270" role="img" aria-labelledby="sampling-flow-title sampling-flow-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="sampling-flow-title">De la population cible aux observations réellement analysées</title>
+  <desc id="sampling-flow-desc">Trois étapes successives : la population cible contient toutes les unités auxquelles on veut généraliser ; la base de sondage en couvre une partie ; parmi les unités sélectionnées, seules certaines répondent et sont observées. Les absences à chaque étape peuvent modifier la composition des données.</desc>
+  <rect x="1" y="1" width="758" height="268" rx="14" fill="#fbfcf8" stroke="#d9dfd4"/>
+  <g font-family="system-ui,sans-serif">
+    <rect x="22" y="32" width="210" height="154" rx="12" fill="#e7eee7" stroke="#6b8d75" stroke-width="1.5"/>
+    <text x="127" y="58" text-anchor="middle" fill="#294b3a" font-size="14" font-weight="700">Population cible</text>
+    <text x="127" y="81" text-anchor="middle" fill="#53665b" font-size="11">Toutes les unités visées</text>
+    <g fill="#47745b"><circle cx="58" cy="111" r="6"/><circle cx="86" cy="111" r="6"/><circle cx="114" cy="111" r="6"/><circle cx="142" cy="111" r="6"/><circle cx="170" cy="111" r="6"/><circle cx="198" cy="111" r="6"/><circle cx="58" cy="139" r="6"/><circle cx="86" cy="139" r="6"/><circle cx="114" cy="139" r="6"/><circle cx="142" cy="139" r="6"/><circle cx="170" cy="139" r="6"/><circle cx="198" cy="139" r="6"/></g>
+    <text x="127" y="169" text-anchor="middle" fill="#53665b" font-size="10">Référence de généralisation</text>
+    <path d="M242 109 H270 M262 101 L270 109 L262 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="280" y="32" width="210" height="154" rx="12" fill="#f4eddf" stroke="#b58b4d" stroke-width="1.5"/>
+    <text x="385" y="58" text-anchor="middle" fill="#765626" font-size="14" font-weight="700">Base de sondage</text>
+    <text x="385" y="81" text-anchor="middle" fill="#76664d" font-size="11">Unités accessibles</text>
+    <g fill="#b58b4d"><circle cx="316" cy="111" r="6"/><circle cx="344" cy="111" r="6"/><circle cx="372" cy="111" r="6"/><circle cx="400" cy="111" r="6"/><circle cx="428" cy="111" r="6"/><circle cx="456" cy="111" r="6"/><circle cx="316" cy="139" r="6"/><circle cx="344" cy="139" r="6"/><circle cx="372" cy="139" r="6"/></g>
+    <g fill="none" stroke="#b58b4d" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="400" cy="139" r="6"/><circle cx="428" cy="139" r="6"/><circle cx="456" cy="139" r="6"/></g>
+    <text x="385" y="169" text-anchor="middle" fill="#76664d" font-size="10">Défaut de couverture possible</text>
+    <path d="M500 109 H528 M520 101 L528 109 L520 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="538" y="32" width="200" height="154" rx="12" fill="#e8edf4" stroke="#7186a5" stroke-width="1.5"/>
+    <text x="638" y="58" text-anchor="middle" fill="#344b6b" font-size="14" font-weight="700">Échantillon observé</text>
+    <text x="638" y="81" text-anchor="middle" fill="#53647b" font-size="11">Réponses / mesures</text>
+    <g fill="#5877a0"><circle cx="574" cy="111" r="6"/><circle cx="602" cy="111" r="6"/><circle cx="630" cy="111" r="6"/><circle cx="658" cy="111" r="6"/><circle cx="686" cy="111" r="6"/><circle cx="714" cy="111" r="6"/></g>
+    <g fill="none" stroke="#7186a5" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="574" cy="139" r="6"/><circle cx="602" cy="139" r="6"/><circle cx="630" cy="139" r="6"/></g>
+    <text x="638" y="169" text-anchor="middle" fill="#53647b" font-size="10">Non-réponse / auto-sélection</text>
+    <path d="M127 205 V224 H638 V205" fill="none" stroke="#8a978d" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="382" y="246" text-anchor="middle" fill="#53665b" font-size="12" font-weight="600">À chaque passage, demander : qui disparaît, et pourquoi ?</text>
+  </g>
+</svg>
+<figcaption>Schéma conceptuel, non à l'échelle : les unités peuvent être perdues dès la constitution de la base, puis lors de la sélection ou de la réponse. Une correction statistique exige de connaître ou de modéliser ces mécanismes.</figcaption>
+</figure>
 
 ## Visualiser biais et incertitude séparément
 
@@ -268,6 +302,8 @@ Pour juger si un jeu de données permet de généraliser :
 7. **Tester la sensibilité** : poids extrêmes, taille effective, hypothèses de sélection et stabilité des conclusions.
 
 Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels, la taille effective et la population à laquelle les résultats peuvent raisonnablement être transportés.
+
+**Une règle pratique :** une correction par pondération est crédible seulement si les variables qui expliquent la participation et le résultat sont suffisamment observées, si chaque profil cible a une probabilité non nulle d'être représenté dans la source (*positivité*), et si le modèle de poids est adéquat. Si la participation dépend encore du résultat après conditionnement sur les variables observées, le biais peut persister. Il faut alors documenter cette hypothèse et tester la sensibilité des conclusions à des mécanismes de non-réponse plausibles.
 
 ## À retenir
 
