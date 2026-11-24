@@ -1,0 +1,109 @@
+---
+title: "Trois voyageurs, deux planètes : comparer plusieurs trajectoires"
+description: "Une expérience à trois personnes pour comparer les temps propres à plusieurs événements de rencontre."
+date: 2026-11-24
+category: "Physique"
+discipline: "Physique"
+domain: "physics"
+themes: ["Relativité restreinte", "Temps propre"]
+tags: ["temps propre", "trajectoires", "événements de rencontre", "paradoxe des jumeaux"]
+labels: ["Expérience de pensée", "Temps propre"]
+difficulty: "intermediate"
+readingTime: 10
+status: "review"
+featured: false
+sources:
+  - title: "Markus Pössel, The case of the travelling twins, Einstein Online"
+    url: "https://www.einstein-online.info/en/spotlight/twins/"
+    kind: "secondary"
+    accessed: 2026-11-24
+relatedArticles: ["paradoxe-des-jumeaux", "temps-propre-paradoxe-jumeaux"]
+---
+
+Le paradoxe classique compare deux personnes qui se retrouvent après un voyage. Une variante à trois voyageurs permet de multiplier les rencontres et de montrer qu’il n’existe pas de règle simpliste selon laquelle « celui qui voyage est toujours plus jeune ».
+
+## 1. Le scénario
+
+Simon, Odile et Kara ont le même âge. Ils se trouvent initialement sur Terre, synchronisent leurs montres et les mettent à zéro. La Terre et la planète Zartha sont au repos l’une par rapport à l’autre dans un référentiel inertiel commun.
+
+Le voyage se déroule en trois étapes :
+
+1. **Terre vers Zartha :** Odile et Kara voyagent ensemble ; Simon reste sur Terre. À l’arrivée, Odile et Kara comparent leurs montres.
+2. **Zartha vers Terre :** Odile reste sur Zartha ; Kara retourne sur Terre. À son retour, Kara retrouve Simon.
+3. **Terre vers Zartha :** Simon et Kara repartent ensemble vers Zartha, où Odile les attend. Les trois montres sont alors réunies.
+
+Les comparaisons directes ont lieu uniquement lors de ces rencontres. Entre deux personnes éloignées, on peut calculer les temps propres déjà accumulés, mais comparer leurs lectures à distance demande une convention de simultanéité.
+
+## 2. Hypothèses du modèle
+
+Notons \(L\) la distance Terre–Zartha dans le référentiel commun, \(v\) la valeur absolue de la vitesse de croisière et :
+
+\[
+T=\frac{L}{v},\qquad
+\gamma=\frac{1}{\sqrt{1-v^2/c^2}}.
+\]
+
+Les trois trajets sont parcourus à la même vitesse \(v\). Les changements de vitesse sont idéalisés comme instantanés et les planètes sont supposées ne pas présenter de différence gravitationnelle. Une phase de voyage dure \(T\) dans le référentiel commun et \(T/\gamma\) sur la montre du voyageur. Une phase d’attente sur une planète dure \(T\) sur la montre qui y reste au repos.
+
+Cette idéalisation simplifie le calcul ; un scénario réaliste demanderait d’intégrer le temps propre pendant les accélérations de durée finie.
+
+## 3. Les lectures aux rencontres
+
+| Rencontre | Simon | Odile | Kara |
+|---|---:|---:|---:|
+| Départ sur Terre | \(0\) | \(0\) | \(0\) |
+| Première arrivée sur Zartha | \(T\) | \(T/\gamma\) | \(T/\gamma\) |
+| Retour de Kara sur Terre | \(2T\) | \(T+T/\gamma\) | \(2T/\gamma\) |
+| Arrivée finale sur Zartha | \(2T+T/\gamma\) | \(2T+T/\gamma\) | \(3T/\gamma\) |
+
+Les valeurs d’une même ligne sont les lectures cumulées depuis le départ. Elles ne peuvent être comparées directement que pour les personnes présentes au même événement.
+
+**Première rencontre — Odile et Kara.** Elles ont suivi exactement la même trajectoire entre les deux rencontres. Leurs montres indiquent donc toutes deux \(T/\gamma\).
+
+**Deuxième rencontre — Simon et Kara.** Simon est resté sur Terre pendant \(2T\). Kara a effectué deux trajets de durée propre \(T/\gamma\). À leur retour sur Terre :
+
+\[
+\tau_{\mathrm{Simon}}=2T,
+\qquad
+\tau_{\mathrm{Kara}}=\frac{2T}{\gamma}.
+\]
+
+Simon a davantage vieilli.
+
+**Troisième rencontre — les trois voyageurs.** Simon a attendu deux phases puis voyagé une phase. Odile a voyagé une phase puis attendu deux phases. Leurs temps propres sont égaux :
+
+\[
+\tau_{\mathrm{Simon}}=2T+\frac{T}{\gamma}
+=\tau_{\mathrm{Odile}}.
+\]
+
+Kara a voyagé pendant les trois phases :
+
+\[
+\tau_{\mathrm{Kara}}=\frac{3T}{\gamma}.
+\]
+
+Comme \(\gamma>1\), elle est plus jeune que les deux autres à la dernière rencontre.
+
+## 4. Pourquoi Simon et Odile ont-ils le même âge ?
+
+Simon et Odile n’ont pas suivi la même trajectoire, mais leurs histoires comportent les mêmes contributions au temps propre : deux phases au repos de durée \(T\), et une phase en mouvement de durée \(T/\gamma\). L’ordre des phases ne change pas la somme.
+
+L’égalité ne signifie pas que deux personnes qui attendent sur des planètes différentes vieillissent toujours de la même façon. Elle dépend ici des hypothèses précises : mêmes durées, mêmes vitesses, même distance, référentiel commun et absence de différence gravitationnelle.
+
+## 5. Ce que l’expérience permet de conclure
+
+- **Une rencontre rend la comparaison locale.** Les montres réunies peuvent être comparées sans synchronisation à distance.
+- **La trajectoire complète compte.** Le temps propre s’accumule sur toute la ligne d’univers.
+- **Voyager n’est pas une cause suffisante.** Simon et Odile ont chacun voyagé une phase, mais à des moments différents ; ils ont le même âge final.
+- **L’accélération n’est pas une pénalité ajoutée.** Elle intervient dans la construction de la trajectoire ; le temps propre se calcule sur toute cette trajectoire.
+
+Dans le référentiel inertiel commun, la durée propre est :
+
+\[
+\tau=\int\sqrt{1-\frac{v(t)^2}{c^2}}\,dt.
+\]
+
+Ce sont les vitesses au cours du temps et les intervalles passés dans chaque phase qui déterminent la somme, pas une étiquette « voyageur » ou « sédentaire ».
+
+**Suite :** [Le temps propre : ce que mesure une montre](/atelier/temps-propre-paradoxe-jumeaux/).
