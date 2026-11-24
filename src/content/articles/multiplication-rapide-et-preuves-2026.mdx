@@ -197,8 +197,15 @@ Le principe se généralise. Avec \(k\) blocs, les deux polynômes ont un degré
 | Toom-4 | 4 | 7 |
 | Toom-\(k\) | \(k\) | \(2k-1\) |
 
-Augmenter \(k\) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. En pratique, les bibliothèques choisissent un degré adapté à la taille des opérandes et à l'architecture.
+<MultiplicationRecurrenceComparison />
 
+Augmenter \\(k\\) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. Dans le modèle simplifié où chaque appel porte sur des blocs de taille \\(n/k\\), la récurrence devient
+
+\\[
+T(n)=(2k-1)T(n/k)+O(n),
+\\]
+
+et le théorème maître donne l'exposant \\(\\log_k(2k-1)\\). Pour Toom–3, il s'agit de \\(\\log_3 5\\approx1{,}465\\), et pour Toom–4 de \\(\\log_4 7\\approx1{,}404\\). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
 ## 3. De Toom–Cook à la FFT : accélérer la convolution
 
 ### 3.1 Le produit de polynômes est une convolution
