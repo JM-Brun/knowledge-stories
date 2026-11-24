@@ -34,7 +34,7 @@
   </div>
   <div class="growth-conclusion">
     <span>APRÈS DEUX DÉCOUPAGES</span>
-    <strong>16 contre 9</strong>
+    <strong><span class="classic-count">16</span> contre <span class="karatsuba-count">9</span></strong>
     <p>Les feuilles sont les multiplications élémentaires restantes. L’écart continue de se creuser à chaque niveau supplémentaire.</p>
   </div>
   <figcaption>Arbres équilibrés simplifiés sur deux niveaux. Les nombres indiquent les appels au niveau correspondant, pas le coût total des additions et recompositions.</figcaption>
@@ -48,16 +48,16 @@
   .growth-heading>p { max-width:17rem; margin:0; color:#666258; font:.75rem/1.5 "DM Sans",sans-serif; }
   .growth-columns { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
   .growth-method { min-width:0; padding:.85rem; border:1px solid #d9d5ca; border-radius:.55rem; background:#fbfaf5; }
-  .growth-method.karatsuba { border-color:#b8c9b9; background:#f0f4ed; }
-  .growth-method header { display:flex; justify-content:space-between; gap:.4rem; align-items:center; color:#843c27; font:600 .58rem "DM Mono",monospace; letter-spacing:.04em; }
-  .growth-method.karatsuba header { color:#315b45; }
+   .growth-method.karatsuba { border-color:var(--term-aux-border, #8a70b4); background:var(--term-aux-soft, #f0eaf7); }
+   .growth-method header { display:flex; justify-content:space-between; gap:.4rem; align-items:center; color:var(--term-common, #286d61); font:600 .58rem "DM Mono",monospace; letter-spacing:.04em; }
+   .growth-method.karatsuba header { color:var(--term-aux, #70569b); }
   .growth-method header strong { font-size:.65rem; white-space:nowrap; }
   .growth-tree { display:grid; justify-items:center; margin:.9rem auto .4rem; max-width:17rem; }
   .tree-level { display:flex; justify-content:center; width:100%; }
-  .tree-level i,.tree-leaves i { display:block; width:.55rem; height:.55rem; border-radius:50%; background:#bd4b32; }
-  .karatsuba .tree-level i,.karatsuba .tree-leaves i { background:#47775a; }
-  .tree-level .root { width:.75rem; height:.75rem; background:#843c27; }
-  .karatsuba .tree-level .root { background:#315b45; }
+   .tree-level i,.tree-leaves i { display:block; width:.55rem; height:.55rem; border-radius:50%; background:var(--term-common, #286d61); }
+   .karatsuba .tree-level i,.karatsuba .tree-leaves i { background:var(--term-aux, #70569b); }
+   .tree-level .root { width:.75rem; height:.75rem; background:var(--term-common, #286d61); }
+   .karatsuba .tree-level .root { background:var(--term-aux, #70569b); }
   .tree-branches { display:flex; justify-content:space-around; width:100%; height:1.25rem; border-top:1px solid #c8b7a7; margin-top:.35rem; padding-top:.4rem; }
   .tree-branches i { display:block; width:1px; height:.75rem; background:#c8b7a7; transform:rotate(24deg); }
   .tree-branches.four i:nth-child(1),.tree-branches.four i:nth-child(4) { transform:rotate(-24deg); }
@@ -68,13 +68,15 @@
   .tree-leaves i { width:.38rem; height:.38rem; }
   .growth-counts { display:grid; grid-template-columns:repeat(3,1fr); gap:.25rem; margin:.65rem 0; text-align:center; }
   .growth-counts span,.growth-counts strong { padding:.4rem .2rem; border-radius:.3rem; background:#eee9df; color:#655f54; font:600 .95rem "DM Mono",monospace; }
-  .growth-counts strong { background:#eadbd1; color:#843c27; }
-  .karatsuba .growth-counts strong { background:#dce8da; color:#315b45; }
+   .growth-counts strong { background:var(--term-common-soft, #e4f0ed); color:var(--term-common, #286d61); }
+   .karatsuba .growth-counts strong { background:var(--term-aux-soft, #eee9f6); color:var(--term-aux, #70569b); }
   .growth-method>p { margin:.45rem 0 0; color:#666258; font:.7rem/1.5 "DM Sans",sans-serif; }
   .growth-method>p b { color:#252820; }
   .growth-conclusion { display:grid; grid-template-columns:auto auto 1fr; gap:.8rem; align-items:center; margin-top:.8rem; padding:.8rem; border-radius:.45rem; background:#263f33; color:#f5f1e7; }
   .growth-conclusion span { color:#d9b77e; font:600 .58rem "DM Mono",monospace; letter-spacing:.07em; }
-  .growth-conclusion strong { color:#f2d7a6; font:600 1.1rem "DM Mono",monospace; white-space:nowrap; }
+   .growth-conclusion strong { color:#f2f0e9; font:600 1.1rem "DM Mono",monospace; white-space:nowrap; }
+  .growth-conclusion .classic-count { color:#9bd2bd; }
+  .growth-conclusion .karatsuba-count { color:#c9b3ed; }
   .growth-conclusion p { margin:0; color:#d7ded4; font:.68rem/1.45 "DM Sans",sans-serif; }
   .growth-figure figcaption { margin-top:.75rem; color:#777166; font:.65rem/1.5 "DM Sans",sans-serif; }
   @media(max-width:560px) { .growth-heading { display:block; } .growth-heading>p { margin-top:.5rem; } .growth-columns { grid-template-columns:1fr; } .growth-conclusion { grid-template-columns:1fr auto; } .growth-conclusion p { grid-column:1/-1; } }
