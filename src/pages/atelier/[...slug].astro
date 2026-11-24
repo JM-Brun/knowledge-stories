@@ -47,11 +47,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
   .prose :global(.source-provenance) { margin: 0 0 2.5rem; padding: 1.2rem 1.35rem; border: 1px solid #c9d4c7; border-left: 5px solid #315b45; border-radius: .55rem; background: #edf2e9; color: #263b2e; font: .94rem/1.65 "DM Sans", sans-serif; }
   .prose :global(.source-provenance strong) { display: block; margin-bottom: .35rem; color: #244b37; font-size: .78rem; letter-spacing: .07em; text-transform: uppercase; }
   .prose :global(.source-provenance a) { color: #244b37; font-weight: 700; text-underline-offset: 3px; }
-  .prose :global(.math-lead) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; margin: 1.8rem 0; }
-  .prose :global(.math-lead > div) { padding: 1rem; border: 1px solid var(--line); border-radius: .55rem; background: #f0ede4; }
-  .prose :global(.math-lead strong) { display: block; color: #843c27; font: 600 1.35rem/1.2 "DM Mono", monospace; }
-  .prose :global(.math-lead > div > span) { display: block; margin-top: .35rem; color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
   .prose :global(.comparison-figure) { margin: 2.5rem 0; }
+  /* Karatsuba summary cards are styled centrally in global.css; do not redefine .math-lead here. */
   .review-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-bottom: 1.8rem; }
   .back-link { display: inline-block; color: #625b4d; }
   .edit-link { display: inline-block; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: .35rem; color: #843c27; font: 600 .78rem/1.4 "DM Sans", sans-serif; text-decoration: none; }
@@ -68,7 +65,6 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
   .sources li span { color: #625b4d; }
   .outline { margin: 1.5rem 0 0; padding: 1rem 0; border-block: 1px solid var(--line); }
   .outline ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem 1rem; padding-left: 1.1rem; }
-  @media (max-width: 620px) { .prose :global(.math-lead) { grid-template-columns: 1fr; } }
   .prose :global(.math-display) {
     display: grid;
     justify-items: center;
