@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **Environ 18 à 20 minutes** — Comparer plusieurs profils de capteurs, comprendre ce que les mots « précision », « biais » et « incertitude » recouvrent réellement, puis relier la mesure à la qualité des données.
+> **Environ 20 minutes** — Comparer plusieurs profils de capteurs, comprendre ce que les mots « précision », « biais » et « incertitude » recouvrent réellement, puis relier la mesure à la qualité des données.
 >
 > **Prérequis** — Aucun prérequis technique indispensable. Savoir lire une moyenne et un écart-type aide à suivre les exemples ; les notions statistiques sont définies au fil de l'article.
 >
@@ -300,43 +300,20 @@ La décomposition algébrique, son exemple numérique et les précautions d'inte
 
 ## À vous de raisonner
 
-Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
+Le capteur B est utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
 
-1. Si l'on multiplie par 100 le nombre de mesures collectées avec B, que devient la moyenne attendue dans le modèle simplifié ?
-2. Si l'on soustrait 0,97 °C à toutes ses mesures, a-t-on nécessairement corrigé le problème ?
-3. Si le biais varie avec la température ambiante, une correction constante suffit-elle ?
-4. Si les capteurs de certains bâtiments sont tous du même modèle, comment distinguer un effet du bâtiment d'un effet de l'instrument ?
-
-<details>
-<summary>Indice 1 — distinguer moyenne et biais</summary>
-
-Demandez-vous ce qui diminue quand on répète une mesure : la dispersion aléatoire, le décalage systématique, ou les deux ?
-
-</details>
+1. Que devient la moyenne si l'on collecte cent fois plus de mesures dans les mêmes conditions ?
+2. Peut-on corriger le capteur en soustrayant systématiquement 0,97 °C ?
+3. Si chaque bâtiment utilise un modèle de capteur différent, comment séparer l'effet du bâtiment de celui de l'instrument ?
 
 <details>
-<summary>Indice 2 — examiner la correction</summary>
+<summary>Afficher la correction expliquée</summary>
 
-Une correction estimée sur une plage et dans des conditions données reste-t-elle valable si la température, le temps ou l'instrument changent ?
+1. Si le décalage reste stable et si les erreurs aléatoires sont suffisamment indépendantes, davantage de mesures stabilisent la moyenne : son erreur-type décroît comme \(1/\sqrt{n}\) dans le modèle i.i.d. Mais son espérance reste décalée. Répéter réduit certaines fluctuations ; cela ne supprime pas un biais.
+2. Pas nécessairement. Les −0,97 °C sont un écart observé sur trois relevés, pas une correction universelle. Il faut estimer le décalage avec une référence adaptée, quantifier son incertitude et vérifier sa stabilité sur la plage et les conditions d'utilisation.
+3. Il faut rendre les facteurs identifiables : mesures simultanées avec plusieurs instruments, référence commune ou échange des capteurs entre sites. Si instrument et bâtiment varient toujours ensemble, leurs effets sont confondus et les données seules ne permettent pas de les séparer.
 
-</details>
-
-<details>
-<summary>Indice 3 — penser au protocole comparatif</summary>
-
-Pour séparer un effet « bâtiment » d'un effet « capteur », il faut que les deux facteurs puissent varier indépendamment, ou disposer d'une référence commune.
-
-</details>
-
-<details>
-<summary>Afficher la solution expliquée</summary>
-
-1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne observée tend à estimer l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Si le nombre de mesures est multiplié par 100, l'écart-type de la moyenne serait divisé par dix dans le modèle i.i.d. ; son espérance resterait décalée, et la moyenne ne convergerait pas vers 20,00 °C.
-2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
-3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
-4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
-
-**Le point important :** une correction n'est pas une opération cosmétique. C'est un modèle supplémentaire, qui possède lui aussi des hypothèses et une incertitude.
+**À retenir :** une correction est un modèle supplémentaire, avec ses propres hypothèses et son incertitude.
 
 </details>
 
