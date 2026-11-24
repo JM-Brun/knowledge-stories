@@ -1,0 +1,130 @@
+---
+title: "Après Karatsuba : multiplication rapide et preuves en 2026"
+description: "Des seuils des bibliothèques à la frontière théorique sous n log n : comparer les algorithmes, les modèles de calcul et les niveaux de preuve."
+date: 2026-11-24
+category: "Mathématiques et informatique"
+themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
+tags: ["multiplication-entière", "complexité", "algorithmes-rapides", "preuve-formelle", "Lean"]
+difficulty: "advanced"
+readingTime: 9
+status: "review"
+featured: false
+sources:
+  - title: "Multiplying integers — FLINT 3.7.0-dev documentation (generated 3 novembre 2026)"
+    url: "https://flintlib.org/doc/algorithms/integers/multiplication.html"
+    kind: "documentation"
+    accessed: 2026-11-24
+  - title: "Karatsuba Multiplication — GNU MP 6.3.0"
+    url: "https://gmplib.org/manual/Karatsuba-Multiplication"
+    kind: "documentation"
+    accessed: 2026-11-24
+  - title: "Toom 3-Way Multiplication — GNU MP 6.3.0"
+    url: "https://gmplib.org/manual/Toom-3_002dWay-Multiplication"
+    kind: "documentation"
+    accessed: 2026-11-24
+  - title: "Integer multiplication in time O(n log n) — Harvey et van der Hoeven (2021)"
+    url: "https://annals.math.princeton.edu/2021/193-2/p04"
+    kind: "primary"
+    accessed: 2026-11-20
+  - title: "Integer multiplication below n log n — OpenAI preprint (23 septembre 2026)"
+    url: "https://github.com/openai/math/blob/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026/build/main.tex"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "On the recently proposed o(n log n) integer multiplication algorithm — David Harvey"
+    url: "https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf"
+    kind: "secondary"
+    accessed: 2026-11-24
+  - title: "Cui, Liu et Woodruff — papier court (13 novembre 2026)"
+    url: "https://github.com/lockqueue/intmul/blob/main/IntMul_short_paper.pdf"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "Dépôt des auteurs : papier complet, formalisation Lean et implémentations — lockqueue/intmul"
+    url: "https://github.com/lockqueue/intmul/blob/main/README.md"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "Integer multiplication in Lean — formalisation Mathlib TM2, dépôt platypii"
+    url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
+    kind: "primary"
+    accessed: 2026-11-24
+relatedArticles: []
+---
+
+Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
+
+## Pourquoi les bibliothèques combinent plusieurs méthodes
+
+Les multiplications économisées par Karatsuba ont un prix. À petite taille, les additions, les allocations et la gestion des appels récursifs peuvent coûter davantage que les produits qu’elles remplacent. La complexité asymptotique décrit une croissance lorsque la taille tend vers l’infini ; elle ne détermine pas à elle seule le meilleur algorithme pour une taille donnée.
+
+Les bibliothèques choisissent donc des seuils de bascule à partir de mesures et de contraintes d’implémentation. Le [manuel de GNU MP 6.3.0](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à Toom et aux transformations rapides. Les seuils sont exprimés en *limbs*, unités de taille fixe de la représentation interne ; la taille relative des deux opérandes compte également. La documentation de [FLINT](https://flintlib.org/doc/algorithms/integers/multiplication.html) fournit un autre exemple de seuils dépendant de l’architecture et de l’implémentation. Elle signale que certaines parties de sa révision d’octobre 2026 ont été générées avec un modèle de langage : on peut l’utiliser pour s’orienter, mais les détails doivent être recoupés avec le manuel de GNU MP, le code source et des mesures reproductibles. Ce sont des documentations utiles pour comprendre les choix, pas des constantes universelles.
+
+La variante par différences de GNU MP répond au problème de retenue rencontré dans l’atelier Karatsuba. Au lieu de calculer le produit des sommes, on peut utiliser :
+
+\[
+ad+bc = ac+bd-(a-b)(c-d).
+\]
+
+La valeur absolue d’une différence entre deux blocs de \(m\) chiffres tient sur \(m\) chiffres, alors que leur somme peut en nécessiter \(m+1\). Cette variante évite donc l’allongement de l’opérande auxiliaire, au prix de la gestion du signe du produit des différences.
+
+## Du produit des blocs au produit de polynômes
+
+Reprenons \(1\,234\times5\,678\). Les deux nombres s’écrivent \(P(100)\) et \(Q(100)\), avec \(P(t)=12t+34\) et \(Q(t)=56t+78\). Leur produit est un polynôme de degré au plus deux. Le produit des blocs de droite \(bd\) donne son coefficient constant, celui des blocs de gauche \(ac\) donne le coefficient de \(t^2\), et le produit des sommes \((a+b)(c+d)\) donne sa valeur en \(t=1\). En retirant les coefficients constant et de \(t^2\), on retrouve le coefficient du milieu. Il reste à évaluer le polynôme en 100 pour retrouver le produit des entiers.
+
+La méthode de [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) généralise cette démarche. Avec trois blocs, chacun des deux polynômes est de degré au plus deux et leur produit comporte au plus cinq coefficients. Cinq évaluations distinctes suffisent à reconstruire ce produit par interpolation. On remplace ainsi les neuf produits de blocs du développement direct par cinq produits sur les valeurs évaluées, au prix de davantage de préparation et de recomposition. En arithmétique entière, les points d’évaluation et la formule d’interpolation doivent être choisis pour que les divisions intermédiaires soient exactes.
+
+## La frontière théorique : trois travaux à ne pas confondre
+
+Les résultats ci-dessous portent sur des bornes asymptotiques de complexité en bits. Ils ne disent pas qu’un programme donné est plus rapide sur une machine courante. Dans une borne de la forme \(O(n(\log n)^&#123;1-\kappa&#125;)\), une valeur de \(\kappa\) plus grande donne un exposant logarithmique plus favorable, mais les modèles de machines, les hypothèses et les constructions doivent être comparés avant d’en tirer un classement.
+
+### 2021 — la borne \(O(n\log n)\)
+
+Schönhage et Strassen avaient obtenu en 1971 une borne \(O(n\log n\log\log n)\) dans le modèle multitape, en exploitant des transformations rapides. Harvey et van der Hoeven établissent ensuite une borne \(O(n\log n)\) pour la multiplication de deux entiers de \(n\) bits dans le modèle multitape considéré par leur article. C’est le point de comparaison utilisé par les travaux ultérieurs.
+
+### 23 septembre 2026 — la prépublication OpenAI
+
+La prépublication [*Integer multiplication below n log n*](https://github.com/openai/math/tree/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026) annonce un algorithme déterministe exact en temps
+
+\[
+O\!\left(n(\log n)^&#123;1-\kappa&#125;\right),
+\qquad \kappa=2^&#123;-182&#125;,
+\]
+
+sur une machine de Turing à alphabet fini et à nombre fixe de rubans unidimensionnels. Le gain sur le facteur logarithmique est extrêmement faible ; les auteurs précisent que les constantes et les seuils sont immenses et que le résultat vise une borne de complexité, pas une amélioration pratique.
+
+Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf), co-auteur du résultat de 2021, juge la construction centrale plausible, tout en indiquant ne pas avoir vérifié la plupart des détails. Il signale notamment des points techniques à contrôler dans le coût des réorganisations de données sur machine multitape. Il s’agit d’un examen critique partiel, pas d’une validation complète ni d’un rejet du résultat.
+
+### 2026 — Cui, Liu et Woodruff : preuve écrite et preuve formalisée
+
+Le travail [*A simpler algorithm for integer multiplication below n log n, with a formally verified proof*](https://github.com/lockqueue/intmul) propose une construction plus simple et l’accompagne d’une formalisation Lean 4. Il faut distinguer les deux valeurs annoncées par le papier court :
+
+- **Preuve écrite :** \(\kappa=2^&#123;-56&#125;\), avec les constantes primitives retenues dans l’analyse écrite.
+- **Formalisation Lean 4 :** \(\kappa=2^&#123;-46&#125;\), grâce à des bornes de coupure et de garde affinées et vérifiées dans le développement formel.
+
+Cette distinction n’est pas une contradiction : les deux preuves exploitent des estimations différentes. Le dépôt des auteurs indique que le développement Lean vérifie la construction sans importer les résultats précédents comme axiomes ; l’algorithme réutilise néanmoins des réseaux linéaires étudiés dans la prépublication OpenAI. Le dépôt contient le papier court, le papier complet, le développement Lean et une implémentation Python de référence. Son sous-dossier compagnon contient par ailleurs un multiplicateur C/GMP en \(O(n\log n)\) ; ce dernier ne constitue pas une implémentation pratique de l’algorithme principal en dessous de \(n\log n\). Le README et les artefacts du dépôt ont été consultés le **24 novembre 2026**.
+
+La formalisation établit un théorème dans le modèle de machine multi-piles de Mathlib (TM2). Elle vérifie une preuve dans un cadre formel donné ; elle ne signifie ni que le papier a été évalué par les pairs, ni que chaque choix de modélisation a fait l’objet d’une validation indépendante par la communauté.
+
+### 24 novembre 2026 — une formalisation Mathlib distincte
+
+Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean) présente une autre formalisation, fondée elle aussi sur les machines finies de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
+
+\[
+\kappa=
+\frac&#123;4\,223\,103\,985&#125;&#123;2^&#123;46&#125;&#125;
+\approx 0&#123;,&#125;00006001392
+\approx 2^&#123;-14&#123;,&#125;02&#125;.
+\]
+
+Le numérateur est essentiel : \(2^&#123;-46&#125;\) seul vaut environ \(1&#123;,&#125;42\times10^&#123;-14&#125;\), et ne représente donc pas cette constante. La valeur \(4\,222\,422\,970\cdot2^&#123;-46&#125;\) relevée dans le retour initial ne correspond pas à celle affichée par le README lors de notre consultation : le dépôt indiquait alors \(4\,223\,103\,985/2^&#123;46&#125;\). Comme le dépôt évolue rapidement, cette valeur est datée du **24 novembre 2026**. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
+
+## Comment lire ces résultats
+
+Quatre questions doivent rester séparées :
+
+1. **La borne :** quel ordre de grandeur est démontré, et avec quelle constante explicite ?
+2. **Le modèle :** machine multitape à rubans, machine multi-piles Mathlib, encodage des entrées et mesure de la longueur.
+3. **Le statut de la preuve :** argument écrit, prépublication, formalisation vérifiée par Lean, examen indépendant ou évaluation par les pairs.
+4. **L’implémentation :** code de référence, programme réellement exécuté sur une machine pratique, seuils et mesures reproductibles.
+
+Les valeurs de \(\kappa\) ne suffisent pas à elles seules pour comparer les travaux : il faut d’abord aligner les modèles, les énoncés et les bases de confiance. De même, une borne asymptotique plus favorable n’implique pas un multiplicateur plus rapide pour les tailles accessibles aujourd’hui.
+
+---
