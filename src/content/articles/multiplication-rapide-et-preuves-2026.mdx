@@ -396,9 +396,9 @@ L'idée est de relier trois représentations : entiers découpés en blocs, poly
 
 <SchonhageStrassenExplorer />
 
-**Pourquoi cette construction est-elle rapide ?** On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre exactement &#92;(2N&#92;). En effet, &#92;(2^N&#92;equiv-1&#92;) implique &#92;(2^{2N}&#92;equiv1&#92;).
+**Pourquoi cette construction est-elle rapide ?** Dans cette sous-section, &#92;(N&#92;) désigne l'exposant du module et &#92;(K&#92;) la longueur de transformée (la notation &#92;(N&#92;) désignait la longueur de DFT dans les sections précédentes). On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre exactement &#92;(2N&#92;). En effet, &#92;(2^N&#92;equiv-1&#92;) implique &#92;(2^{2N}&#92;equiv1&#92;).
 
-Si une puissance &#92;(2^d&#92;) avec &#92;(0<d<N&#92;) valait déjà 1, alors &#92;(2^d-1&#92;) serait un multiple strictement positif du module, ce qui est impossible puisque &#92;(2^d-1<2^N+1&#92;). Si &#92;(N&#92;leq d<2N&#92;), écrivons &#92;(d=N+s&#92;) avec &#92;(0&#92;leq s<N&#92;) : on aurait alors &#92;(2^s&#92;equiv-1&#92;), impossible car &#92;(0<2^s+1<2^N+1&#92;). Aucune puissance positive inférieure à &#92;(2N&#92;) ne vaut donc 1.
+Si une puissance &#92;(2^d&#92;) avec &#92;(0&#92;ltd&#92;ltN&#92;) valait déjà 1, alors &#92;(2^d-1&#92;) serait un multiple strictement positif du module, ce qui est impossible puisque &#92;(2^d-1&#92;lt2^N+1&#92;). Si &#92;(N&#92;leq d&#92;lt2N&#92;), écrivons &#92;(d=N+s&#92;) avec &#92;(0&#92;leq s&#92;ltN&#92;) : on aurait alors &#92;(2^s&#92;equiv-1&#92;), impossible car &#92;(0&#92;lt2^s+1&#92;lt2^N+1&#92;). Aucune puissance positive inférieure à &#92;(2N&#92;) ne vaut donc 1.
 
 Comme &#92;(M=N/K&#92;), la puissance &#92;(ψ=2^M&#92;) est d'ordre &#92;(2K&#92;), et &#92;(ψ^K=2^N&#92;equiv-1&#92;). En posant &#92;(ω=ψ^2&#92;), on obtient une racine primitive &#92;(K&#92;)-ième de l'unité.
 
