@@ -6,10 +6,22 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const seriesLabels = {
-  "multiplication-karatsuba": "Série · Multiplication de Karatsuba",
-  "paradoxe-des-jumeaux": "Série · Paradoxe des jumeaux",
+const seriesInfo = {
+  "multiplication-karatsuba": {
+    title: "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
+    question: "Comment réduire le nombre d'opérations, analyser le gain, puis comprendre les méthodes qui repoussent les limites ?",
+    domain: "mathematics",
+    accent: "maths",
+  },
+  "paradoxe-des-jumeaux": {
+    title: "Le paradoxe des jumeaux : comparer deux temps vécus",
+    question: "De l'addition classique des vitesses au temps propre : construire pas à pas le raisonnement qui lève le paradoxe.",
+    domain: "physics",
+    accent: "physics",
+  },
 } as const;
+
+type SeriesId = keyof typeof seriesInfo;
 const domainLabels = {
   mathematics: "Mathématiques",
   computing: "Informatique et intelligence artificielle",
@@ -18,26 +30,25 @@ const domainLabels = {
 type Domain = keyof typeof domainLabels;
 const domains = (Object.keys(domainLabels) as Domain[])
   .filter((domain) => articles.some((article) => article.data.domain === domain));
-const seriesFor = (domain: Domain, theme: string) => [...new Set(
-  articles.filter((article) => article.data.domain === domain && article.data.themes[0] === theme && article.data.series).map((article) => article.data.series!),
-)];
-const articlesForSeries = (domain: Domain, theme: string, series: keyof typeof seriesLabels) => articles
-  .filter((article) => article.data.domain === domain && article.data.themes[0] === theme && article.data.series === series)
+const seriesFor = (domain: Domain) => (Object.keys(seriesInfo) as SeriesId[])
+  .filter((series) => seriesInfo[series].domain === domain && articles.some((article) => article.data.series === series));
+const articlesForSeries = (series: SeriesId) => articles
+  .filter((article) => article.data.series === series)
   .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999));
+const ungroupedArticles = (domain: Domain) => articles.filter(
+  (article) => article.data.domain === domain && !article.data.series,
+);
 const themesFor = (domain: Domain) => [...new Set(
-  articles.filter((article) => article.data.domain === domain).map((article) => article.data.themes[0]),
+  ungroupedArticles(domain).map((article) => article.data.themes[0]),
 )].sort((a, b) => a.localeCompare(b, "fr"));
 ---
-<BaseLayout title="Atelier de relecture — Knowledge Stories" description="Versions de travail classées par domaine, thème principal et labels." noindex>
+
+<BaseLayout title="Atelier de relecture — Knowledge Stories" description="Parcours de lecture et articles en cours de relecture." noindex>
   <main class="atelier-page">
     <p class="eyebrow">Espace éditorial · Versions de travail</p>
     <h1>Atelier de relecture</h1>
-    <p class="intro">Les textes en cours de relecture sont regroupés par domaine, puis par thème principal. Deux labels donnent immédiatement les notions qui permettent de repérer chaque article et de rapprocher les sujets.</p>
-    <div class="taxonomy-note" aria-label="Légende de classement">
-      <span><strong>Domaine</strong> reprend la taxonomie de référence.</span>
-      <span><strong>Thème</strong> précise le champ traité dans ce domaine.</span>
-      <span><strong>Labels</strong> signalent deux notions centrales de l’article.</span>
-    </div>
+    <p class="intro">Certains sujets sont développés en plusieurs articles courts. Retrouvez-les ici sous forme de séries : une question commune, un ordre de lecture et des étapes complémentaires. Les autres articles restent classés par domaine et par thème.</p>
+
     {articles.length > 0 ? (
       <div class="domain-list">
         {domains.map((domain) => (
@@ -46,45 +57,52 @@ const themesFor = (domain: Domain) => [...new Set(
               <h2 id={`domain-${domain}`}>{domainLabels[domain]}</h2>
               <span class="count">{articles.filter((article) => article.data.domain === domain).length} article(s)</span>
             </div>
+
+            {seriesFor(domain).map((series) => (
+              <section class:list={["series-panel", `series-panel--${seriesInfo[series].accent}`]} aria-labelledby={`series-${series}`}>
+                <header class="series-heading">
+                  <div>
+                    <p class="series-kicker">Parcours · {articlesForSeries(series).length} articles</p>
+                    <h3 id={`series-${series}`}>{seriesInfo[series].title}</h3>
+                    <p class="series-question">{seriesInfo[series].question}</p>
+                  </div>
+                  <span class="series-mark" aria-hidden="true">{series === "multiplication-karatsuba" ? "×" : "τ"}</span>
+                </header>
+                <ol class="series-grid">
+                  {articlesForSeries(series).map((article) => (
+                    <li>
+                      <a class="series-card" href={`${baseUrl}atelier/${article.slug}/`}>
+                        <span class="series-step">{article.data.seriesOrder === 0 ? "Introduction" : `Étape ${article.data.seriesOrder}`}</span>
+                        <span class="labels" aria-label="Concepts principaux">
+                          {article.data.labels.map((label) => <span class="label">{label}</span>)}
+                        </span>
+                        <strong>{article.data.title}</strong>
+                        <span class="description">{article.data.description}</span>
+                        <span class="card-footer">Lire cet article <span aria-hidden="true">→</span></span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ))}
+
             {themesFor(domain).map((theme) => (
               <section class="theme-section" aria-label={theme}>
                 <h3>{theme}</h3>
-                {seriesFor(domain, theme).map((series) => (
-                  <section class="series-group" aria-label={seriesLabels[series]}>
-                    <h4>{seriesLabels[series]}</h4>
-                    <ol class="review-grid">
-                      {articlesForSeries(domain, theme, series).map((article) => (
-                        <li>
-                          <a class="review-card" href={`${baseUrl}atelier/${article.slug}/`}>
-                            <span class="series-step">Étape {article.data.seriesOrder}</span>
-                            <span class="labels" aria-label="Deux labels principaux">
-                              {article.data.labels.map((label) => <span class="label">{label}</span>)}
-                            </span>
-                            <strong>{article.data.title}</strong>
-                            <span class="description">{article.data.description}</span>
-                            <span class="card-footer">Lire la version de travail <span aria-hidden="true">→</span></span>
-                          </a>
-                        </li>
-                      ))}
-                    </ol>
-                  </section>
-                ))}
-                {articles.filter((article) => article.data.domain === domain && article.data.themes[0] === theme && !article.data.series).length > 0 && (
-                  <ul class="review-grid">
-                    {articles.filter((article) => article.data.domain === domain && article.data.themes[0] === theme && !article.data.series).map((article) => (
-                      <li>
-                        <a class="review-card" href={`${baseUrl}atelier/${article.slug}/`}>
-                          <span class="labels" aria-label="Deux labels principaux">
-                            {article.data.labels.map((label) => <span class="label">{label}</span>)}
-                          </span>
-                          <strong>{article.data.title}</strong>
-                          <span class="description">{article.data.description}</span>
-                          <span class="card-footer">Lire la version de travail <span aria-hidden="true">→</span></span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ul class="review-grid">
+                  {ungroupedArticles(domain).filter((article) => article.data.themes[0] === theme).map((article) => (
+                    <li>
+                      <a class="review-card" href={`${baseUrl}atelier/${article.slug}/`}>
+                        <span class="labels" aria-label="Concepts principaux">
+                          {article.data.labels.map((label) => <span class="label">{label}</span>)}
+                        </span>
+                        <strong>{article.data.title}</strong>
+                        <span class="description">{article.data.description}</span>
+                        <span class="card-footer">Lire la version de travail <span aria-hidden="true">→</span></span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </section>
             ))}
           </section>
@@ -98,31 +116,35 @@ const themesFor = (domain: Domain) => [...new Set(
 </BaseLayout>
 
 <style>
-  .atelier-page { max-width: 76rem; min-height: 65vh; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem); }
+  .atelier-page { max-width: 78rem; min-height: 65vh; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem); }
   .eyebrow { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
   h1 { margin: .7rem 0 1rem; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 4rem)/1.05 "Newsreader", serif; }
-  .intro { max-width: 48rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
-  .taxonomy-note { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; margin: 1.5rem 0 3rem; color: #625b4d; font: .8rem/1.5 "DM Sans", sans-serif; }
-  .taxonomy-note strong { color: var(--ink); }
+  .intro { max-width: 54rem; margin-bottom: 3rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
   .discipline-section { margin: 3.5rem 0; }
   .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; padding-bottom: .7rem; border-bottom: 1px solid var(--line); }
   .section-heading h2 { margin: 0; color: var(--ink); font: 500 clamp(1.8rem, 4vw, 2.5rem)/1.1 "Newsreader", serif; }
   .count { color: #817968; font: .7rem/1.4 "DM Mono", monospace; }
-  .theme-section { margin-top: 1.8rem; }
+  .series-panel { margin: 1.5rem 0 2.5rem; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid #d8cbbb; border-radius: .8rem; background: #faf7ef; }
+  .series-panel--maths { border-top: 4px solid #52745c; }
+  .series-panel--physics { border-top: 4px solid #9a6630; }
+  .series-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .series-kicker { margin: 0 0 .5rem; color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .series-heading h3 { max-width: 36ch; margin: 0; color: var(--ink); font: 500 clamp(1.5rem, 3vw, 2.15rem)/1.12 "Newsreader", serif; }
+  .series-question { max-width: 58rem; margin: .65rem 0 0; color: #625b4d; font: .95rem/1.55 "DM Sans", sans-serif; }
+  .series-mark { display: grid; flex: 0 0 2.7rem; width: 2.7rem; height: 2.7rem; place-items: center; border: 1px solid #d8cbbb; border-radius: 50%; color: #75432f; font: 1.5rem/1 "Newsreader", serif; }
+  .series-grid, .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .85rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+  .series-card, .review-card { display: flex; min-height: 100%; flex-direction: column; gap: .6rem; padding: 1.1rem 1.15rem; border: 1px solid var(--line); border-radius: .55rem; color: inherit; background: #fffdf8; text-decoration: none; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease; }
+  .series-card:hover, .review-card:hover { transform: translateY(-2px); border-color: #843c27; box-shadow: 0 5px 18px #30251612; }
+  .series-card:focus-visible, .review-card:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
+  .series-step { color: #75432f; font: 600 .68rem/1.4 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+  .labels { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .label { padding: .2rem .5rem; border: 1px solid #d8cbbb; border-radius: 99px; color: #75432f; background: #f7f1e8; font: 500 .66rem/1.4 "DM Sans", sans-serif; }
+  .series-card strong, .review-card strong { color: var(--ink); font: 500 1.3rem/1.18 "Newsreader", serif; }
+  .description { color: #625b4d; font: .84rem/1.5 "DM Sans", sans-serif; }
+  .card-footer { display: flex; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: .5rem; color: #843c27; font: 600 .72rem/1.4 "DM Sans", sans-serif; }
+  .theme-section { margin-top: 2rem; }
   .theme-section h3 { margin: 0; color: #625b4d; font: 500 1.2rem/1.3 "DM Sans", sans-serif; }
-  .series-group { margin-top: 1.2rem; }
-  .series-group h4 { margin: 0 0 .7rem; color: #75432f; font: 600 .8rem/1.4 "DM Sans", sans-serif; letter-spacing: .02em; }
-  .series-step { color: #817968; font: 500 .68rem/1.4 "DM Mono", monospace; }
-  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; margin: 1rem 0 0; padding: 0; list-style: none; }
-  .review-card { display: flex; height: 100%; flex-direction: column; gap: .65rem; padding: 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: .55rem; color: inherit; text-decoration: none; transition: border-color .16s ease, background .16s ease, transform .16s ease; }
-  .review-card:hover { transform: translateY(-2px); border-color: #843c27; background: #faf7ef; }
-  .review-card:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
-  .labels { display: flex; flex-wrap: wrap; gap: .4rem; }
-  .label { padding: .22rem .55rem; border: 1px solid #d8cbbb; border-radius: 99px; color: #75432f; background: #f7f1e8; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
-  .review-card strong { color: var(--ink); font: 500 1.55rem/1.18 "Newsreader", serif; }
-  .description { color: #625b4d; font: .9rem/1.55 "DM Sans", sans-serif; }
-  .card-footer { display: flex; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: .55rem; color: #843c27; font: 600 .72rem/1.4 "DM Sans", sans-serif; }
   .empty, .notice { color: #625b4d; line-height: 1.6; }
   .notice { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .85rem; }
-  @media (prefers-reduced-motion: reduce) { .review-card { transition: none; } .review-card:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .series-card, .review-card { transition: none; } .series-card:hover, .review-card:hover { transform: none; } }
 </style>
