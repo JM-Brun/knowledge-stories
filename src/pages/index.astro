@@ -4,8 +4,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const articles = (await getCollection("articles", ({ data }) => data.status === "published"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const featured = articles.filter((article) => article.data.featured);
-const recent = articles.filter((article) => !article.data.featured);
+const featured = articles.filter((article) => article.data.featured && !article.data.series);
+const recent = articles.filter((article) => !article.data.featured && !article.data.series);
+const seriesInfo = {
+  "multiplication-karatsuba": {
+    title: "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
+    description: "Du calcul de Karatsuba à l'analyse de complexité, puis aux prolongements vers Toom–Cook et les transformations rapides.",
+    question: "Comment réduire le coût de la multiplication des grands entiers ?",
+  },
+  "paradoxe-des-jumeaux": {
+    title: "Le paradoxe des jumeaux : comparer deux temps vécus",
+    description: "De la composition des vitesses à la simultanéité, aux signaux lumineux et au temps propre.",
+    question: "Pourquoi deux horloges réunies peuvent-elles indiquer des durées différentes ?",
+  },
+} as const;
+type SeriesId = keyof typeof seriesInfo;
+const series = (Object.keys(seriesInfo) as SeriesId[]).map((id) => ({
+  id,
+  ...seriesInfo[id],
+  articles: articles.filter((article) => article.data.series === id)
+    .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999)),
+})).filter((item) => item.articles.length > 0);
 ---
 <BaseLayout title="Knowledge Stories" description="Des idées complexes, expliquées avec clarté, rigueur et imagination.">
   <main>
@@ -17,10 +36,50 @@ const recent = articles.filter((article) => !article.data.featured);
       <div class="hero-note"><span class="note-line"></span><span>Recherche · Pédagogie · Visualisation</span></div>
     </section>
     {featured.length > 0 && <section class="section" aria-labelledby="featured-title"><div class="section-heading"><p class="eyebrow">À la une</p><h2 id="featured-title">Pour commencer</h2></div><div class="featured-grid">{featured.map((article) => <a class="feature-card" href={`/knowledge-stories/articles/${article.id}/`}><span class="card-category">{article.data.category}</span><h3>{article.data.title}</h3><p>{article.data.description}</p><span class="card-arrow" aria-hidden="true">↗</span></a>)}</div></section>}
+    {series.length > 0 && <section class="section series-section" aria-labelledby="series-title">
+      <div class="section-heading"><p class="eyebrow">Parcours guidés</p><h2 id="series-title">Explorer par série</h2></div>
+      <div class="series-list">
+        {series.map((item) => <section class="home-series">
+          <div class="home-series-intro">
+            <p class="series-count">{item.articles.length} articles · Parcours</p>
+            <h3>{item.title}</h3>
+            <p>{item.question}</p>
+            <span>{item.description}</span>
+          </div>
+          <ol class="home-series-steps">
+            {item.articles.map((article) => <li>
+              <a href={`/knowledge-stories/articles/${article.id}/`}>
+                <span>{article.data.seriesOrder === 0 ? "Introduction" : `Étape ${article.data.seriesOrder}`}</span>
+                <strong>{article.data.title}</strong>
+                <span class="step-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>)}
+          </ol>
+        </section>)}
+      </div>
+    </section>}
     <section class="section" id="articles" aria-labelledby="articles-title">
-      <div class="section-heading"><p class="eyebrow">Le journal</p><h2 id="articles-title">Les dernières histoires</h2></div>
+      <div class="section-heading"><p class="eyebrow">Le journal</p><h2 id="articles-title">Les articles indépendants</h2></div>
       {recent.length > 0 ? <div class="article-list">{recent.map((article) => <a class="article-row" href={`/knowledge-stories/articles/${article.id}/`}><span class="row-category">{article.data.category}</span><span class="row-main"><strong>{article.data.title}</strong><span>{article.data.description}</span></span><span class="row-arrow" aria-hidden="true">↗</span></a>)}</div> : <div class="empty-state"><p class="empty-title">Les premières histoires se préparent.</p><p>Chaque article part d'un sujet étudié, d'une question précise et de sources vérifiables. Les publications apparaîtront ici après validation éditoriale.</p></div>}
     </section>
     <section class="manifesto"><p class="eyebrow">Notre intention</p><p class="manifesto-text">Rendre les idées <em>compréhensibles</em> sans les rendre simplistes.</p></section>
   </main>
+  <style>
+    .series-list { display: grid; gap: 1rem; }
+    .home-series { display: grid; grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.2fr); gap: 1.5rem; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--line); background: #faf7ef; }
+    .home-series-intro { align-self: start; }
+    .series-count { margin: 0 0 .7rem; color: var(--accent); font: 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .home-series h3 { margin: 0; color: var(--ink); font: 500 clamp(1.6rem, 3vw, 2.3rem)/1.1 var(--serif); }
+    .home-series-intro > p:not(.series-count) { margin: .8rem 0 .45rem; color: var(--ink); font: 500 1rem/1.5 var(--serif); }
+    .home-series-intro > span { color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .home-series-steps { display: grid; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+    .home-series-steps a { display: grid; grid-template-columns: 6.2rem minmax(0, 1fr) auto; align-items: center; gap: .7rem; min-height: 3.3rem; padding: .65rem .8rem; border: 1px solid var(--line); background: #fffdf8; color: var(--ink); text-decoration: none; }
+    .home-series-steps a:hover { border-color: var(--accent); }
+    .home-series-steps a > span:first-child { color: var(--muted); font: 9px var(--mono); text-transform: uppercase; }
+    .home-series-steps strong { font: 500 1rem/1.3 var(--serif); }
+    .home-series-steps .step-arrow { color: var(--accent); }
+    .home-series-steps a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    @media (max-width: 48rem) { .home-series { grid-template-columns: 1fr; } .home-series-steps a { grid-template-columns: 5.5rem minmax(0, 1fr) auto; } }
+    @media (prefers-reduced-motion: reduce) { .home-series-steps a { transition: none; } }
+  </style>
 </BaseLayout>
