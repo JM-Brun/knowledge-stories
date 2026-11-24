@@ -92,7 +92,27 @@ L'information mutuelle mesure la réduction moyenne d'incertitude apportée par 
 I(X;Y)=H(X)-H(X\mid Y).
 \]
 
-Elle est nulle si \(X\) et \(Y\) sont indépendantes, et positive sinon. Cette quantité permet de formaliser l'information partagée, sans pour autant établir une relation causale.
+Elle est toujours non négative. Elle vaut zéro exactement lorsque \(X\) et \(Y\) sont indépendantes (pour des variables discrètes et sous les conditions usuelles). Elle quantifie une information partagée, sans pour autant établir une relation causale.
+
+### Un exemple calculable : une information imparfaite
+
+Supposons que \(X\) soit une pièce équilibrée, codée par 0 ou 1. Une observation \(Y\) restitue la valeur de \(X\) avec une probabilité de 90 % et l'inverse avec une probabilité de 10 %. L'observation est donc informative, mais pas parfaite.
+
+Comme \(X\) est équilibrée, \(H(X)=1\) bit. Par symétrie, après observation de \(Y\), la probabilité que \(X\) ait la valeur observée est 0,9 et celle qu'elle soit différente est 0,1. L'incertitude résiduelle vaut donc :
+
+\[
+H(X\mid Y)
+=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)
+\approx 0{,}469\text{ bit}.
+\]
+
+L'information mutuelle est alors :
+
+\[
+I(X;Y)=1-0{,}469\approx 0{,}531\text{ bit}.
+\]
+
+Observer \(Y\) apporte en moyenne un peu plus de la moitié d'un bit d'information sur \(X\). Si l'observation était parfaite, l'entropie conditionnelle serait nulle et l'information mutuelle vaudrait 1 bit ; si \(Y\) était indépendant de \(X\), elle vaudrait zéro.
 
 ## Un piège : faible entropie ne veut pas dire bonne prévision
 
