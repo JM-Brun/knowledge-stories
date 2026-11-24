@@ -6,21 +6,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const seriesInfo = {
-  "multiplication-karatsuba": {
-    title: "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
-    question: "Comment réduire le nombre d'opérations, analyser le gain, puis comprendre les méthodes qui repoussent les limites ?",
-    domain: "mathematics",
-    accent: "maths",
-  },
-  "paradoxe-des-jumeaux": {
-    title: "Le paradoxe des jumeaux : comparer deux temps vécus",
-    question: "De l'addition classique des vitesses au temps propre : construire pas à pas le raisonnement qui lève le paradoxe.",
-    domain: "physics",
-    accent: "physics",
-  },
-} as const;
-
+const { seriesInfo } = await import("../../data/series");
 type SeriesId = keyof typeof seriesInfo;
 const domainLabels = {
   mathematics: "Mathématiques",
