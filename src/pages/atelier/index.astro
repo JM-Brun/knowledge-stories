@@ -5,24 +5,43 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const disciplines = [...new Set(articles.map((article) => article.data.discipline))]
+  .sort((a, b) => a.localeCompare(b, "fr"));
 ---
-<BaseLayout title="Atelier de relecture — Knowledge Stories" description="Espace discret de relecture éditoriale." noindex>
+<BaseLayout title="Atelier de relecture — Knowledge Stories" description="Versions de travail classées par discipline et par concepts principaux." noindex>
   <main class="atelier-page">
-    <p class="eyebrow">Espace éditorial</p>
+    <p class="eyebrow">Espace éditorial · Versions de travail</p>
     <h1>Atelier de relecture</h1>
-    <p class="intro">Versions de travail proposées pour relecture. Ces pages ne font pas partie des publications publiques.</p>
+    <p class="intro">Les textes en cours de relecture sont classés par discipline. Deux labels indiquent les notions centrales de chaque article : ils facilitent le repérage des sujets et des rapprochements entre textes.</p>
+    <div class="taxonomy-note" aria-label="Légende de classement">
+      <span><strong>Discipline</strong> situe le domaine de connaissance.</span>
+      <span><strong>Labels</strong> identifient les deux concepts principaux abordés.</span>
+    </div>
     {articles.length > 0 ? (
-      <ul class="review-list">
-        {articles.map((article) => (
-          <li>
-            <a href={`${baseUrl}atelier/${article.slug}/`}>
-              <span class="category">{article.data.category}</span>
-              <strong>{article.data.title}</strong>
-              <span>{article.data.description}</span>
-            </a>
-          </li>
+      <div class="discipline-list">
+        {disciplines.map((discipline) => (
+          <section class="discipline-section" aria-labelledby={`discipline-${discipline.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+            <div class="section-heading">
+              <h2 id={`discipline-${discipline.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>{discipline}</h2>
+              <span class="count">{articles.filter((article) => article.data.discipline === discipline).length} article(s)</span>
+            </div>
+            <ul class="review-grid">
+              {articles.filter((article) => article.data.discipline === discipline).map((article) => (
+                <li>
+                  <a class="review-card" href={`${baseUrl}atelier/${article.slug}/`}>
+                    <span class="labels" aria-label="Concepts principaux">
+                      {article.data.labels.map((label) => <span class="label">{label}</span>)}
+                    </span>
+                    <strong>{article.data.title}</strong>
+                    <span class="description">{article.data.description}</span>
+                    <span class="card-footer">Lire la version de travail <span aria-hidden="true">→</span></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
     ) : (
       <p class="empty">Aucun texte n'est actuellement soumis à relecture.</p>
     )}
@@ -31,15 +50,26 @@ const articles = (await getCollection("articles", ({ data }) => data.status === 
 </BaseLayout>
 
 <style>
-  .atelier-page { max-width: 58rem; min-height: 65vh; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem); }
-  .eyebrow, .category { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  .atelier-page { max-width: 76rem; min-height: 65vh; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem); }
+  .eyebrow { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
   h1 { margin: .7rem 0 1rem; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 4rem)/1.05 "Newsreader", serif; }
-  .intro { max-width: 42rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
-  .review-list { display: grid; gap: .75rem; margin: 2.5rem 0; padding: 0; list-style: none; }
-  .review-list a { display: grid; gap: .35rem; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: .45rem; color: inherit; text-decoration: none; }
-  .review-list a:hover { border-color: #843c27; background: #faf7ef; }
-  .review-list strong { color: var(--ink); font: 500 1.5rem/1.2 "Newsreader", serif; }
-  .review-list a > span:last-child { color: #625b4d; line-height: 1.5; }
+  .intro { max-width: 48rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
+  .taxonomy-note { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; margin: 1.5rem 0 3rem; color: #625b4d; font: .8rem/1.5 "DM Sans", sans-serif; }
+  .taxonomy-note strong { color: var(--ink); }
+  .discipline-section { margin: 3.5rem 0; }
+  .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; padding-bottom: .7rem; border-bottom: 1px solid var(--line); }
+  .section-heading h2 { margin: 0; color: var(--ink); font: 500 clamp(1.8rem, 4vw, 2.5rem)/1.1 "Newsreader", serif; }
+  .count { color: #817968; font: .7rem/1.4 "DM Mono", monospace; }
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; margin: 1.2rem 0 0; padding: 0; list-style: none; }
+  .review-card { display: flex; height: 100%; flex-direction: column; gap: .65rem; padding: 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: .55rem; color: inherit; text-decoration: none; transition: border-color .16s ease, background .16s ease, transform .16s ease; }
+  .review-card:hover { transform: translateY(-2px); border-color: #843c27; background: #faf7ef; }
+  .review-card:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
+  .labels { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .label { padding: .22rem .55rem; border: 1px solid #d8cbbb; border-radius: 99px; color: #75432f; background: #f7f1e8; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
+  .review-card strong { color: var(--ink); font: 500 1.55rem/1.18 "Newsreader", serif; }
+  .description { color: #625b4d; font: .9rem/1.55 "DM Sans", sans-serif; }
+  .card-footer { display: flex; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: .55rem; color: #843c27; font: 600 .72rem/1.4 "DM Sans", sans-serif; }
   .empty, .notice { color: #625b4d; line-height: 1.6; }
-  .notice { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .85rem; }
+  .notice { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .85rem; }
+  @media (prefers-reduced-motion: reduce) { .review-card { transition: none; } .review-card:hover { transform: none; } }
 </style>
