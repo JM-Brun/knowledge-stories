@@ -22,7 +22,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
     </div>
     <header class="story-header">
       <div class="review-actions"><a class="back-link" href={`${baseUrl}atelier/`}>← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
-      <p class="category">{article.data.discipline}</p>
+      <p class="category">{article.data.discipline} · {article.data.themes[0]}</p>
       {article.data.labels.length > 0 && <div class="article-labels" aria-label="Concepts principaux">{article.data.labels.map((label) => <span class="article-label">{label}</span>)}</div>}
       <h1>{article.data.title}</h1>
       <p class="deck">{article.data.description}</p>
