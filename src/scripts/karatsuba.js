@@ -29,7 +29,8 @@ export function calculateKaratsubaStep(left, right) {
 
 /** Describe the three operand pairs produced by one split, in p, q, r order. */
 export function getKaratsubaSubproblems({ x, y, a, b, c, d, p, q, r }) {
-  if (x < 10n && y < 10n) return [];
+  // The reference implementation stops as soon as either operand is one digit.
+  if (x < 10n || y < 10n) return [];
   return [
     { left: a, right: c, product: p },
     { left: b, right: d, product: q },
