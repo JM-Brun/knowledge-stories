@@ -104,3 +104,40 @@ Correctifs appliqués dans la branche :
 - mise à jour du test pour vérifier la notation corrigée sans relâcher l'exigence de marquage sémantique.
 
 Le contrôle Astro a réussi sur la première exécution (0 erreur, 0 avertissement, 0 hint). Le build a ensuite échoué sur le caractère `<` signalé ci-dessus ; les tests ont échoué sur les deux assertions décrites. Les correctifs ont été poussés dans la branche, mais ils ne sont pas considérés comme validés tant qu'une nouvelle exécution complète de `npm test`, `npm run check` et `npm run build` n'a pas réussi.
+
+
+## Deuxième itération — arbre annoté et coût des arbres irréguliers
+
+### Correction de fond
+
+La première formulation du coût total séparait les niveaux internes et un coût de feuilles unique au niveau maximal. Cette écriture ne couvrait pas les arbres dont certaines branches s'arrêtent plus tôt.
+
+La page distingue désormais :
+- le cas général, où chaque nœud interne et chaque feuille est compté exactement une fois ;
+- l'écriture par niveaux, où (W_j) comprend tous les nœuds présents au niveau (j) ;
+- le cas équilibré particulier, où toutes les feuilles sont au même niveau (h), ce qui autorise la séparation (sum_{j=0}^{h-1}W_j^{\mathrm{int}}+L_h).
+
+### Visualisation ajoutée
+
+Nouveau composant : `src/components/RecursionTreeExample.astro`.
+
+- Arbre SVG accessible (titre et description explicites).
+- Trois niveaux représentés pour (T(n)=2T(n/2)+cn).
+- Taille de chaque sous-problème affichée dans les nœuds.
+- Pour chaque niveau : nombre d'appels, taille, coût local et coût cumulé.
+- Légende qui précise que les nœuds du niveau 2 ne sont pas nécessairement les feuilles.
+- Mise en page responsive, avec une présentation en colonne sur petit écran.
+
+Le composant est inséré dans l'article avant le tableau général. Le tableau est conservé : il formalise le motif pour un niveau arbitraire (j), tandis que le schéma donne une représentation concrète des trois premiers niveaux.
+
+### Validation technique de l'itération
+
+Sur le commit `85b8d8ef2075577ab991388cf304a20de7c1d9c6) :
+
+- `npm test` : réussi.
+- `npm run check` : réussi.
+- `npm run build` : réussi.
+- Workflow de publication : contrôle Astro, build du site, installation de Quarto, rendu du calendrier et vérification de la publication combinée réussis.
+- L'étape d'upload de l'artefact est ignorée sur une pull request ; aucune publication Pages n'a été déclenchée depuis le workflow PR.
+
+La compilation ne remplace pas une revue visuelle dans un navigateur. La vérification fine du rendu desktop/mobile, du contraste en thème sombre et de la navigation clavier reste à faire. La PR #82 a ensuite été fusionnée dans `main` au commit `7ea146f50b0f089db1eb7346f172367d63e0998d`.
