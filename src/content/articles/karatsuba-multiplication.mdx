@@ -446,7 +446,7 @@ Cette formule mérite d’être lue lentement : on multiplie **le nombre d’app
 Les coûts des différents niveaux forment une somme géométrique :
 
 &#92;[
-\sum_{j=0}^{k-1} O\!\left(n(3/2)^j\right)
+\sum_{j=0}^{k-1} O\left(n(3/2)^j\right)
 &#92;]
 
 À chaque niveau, le coût est multiplié par &#92;(3/2&#92;) : il y a trois fois plus d’appels, chacun deux fois plus petit. Comme &#92;(3/2&#92;) est supérieur à 1, les derniers niveaux coûtent davantage que les premiers. La somme est donc dominée, à un facteur constant près, par son dernier terme :
