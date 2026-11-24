@@ -20,8 +20,8 @@ test("MathJax delimiters survive MDX parsing", () => {
 
 test("Karatsuba complexity exponents use explicit TeX grouping", () => {
   const source = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
-  assert.match(source, /4\^&#123;10&#125;=1\\,048\\,576/);
-  assert.match(source, /3\^&#123;10&#125;=59\\,049/);
+  assert.match(source, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
+  assert.match(source, /3\^&#123;10&#125;=59&#92;,049/);
   assert.match(source, /n\^&#123;\\log_2 3&#125;/);
   assert.match(source, /m_&#123;j\+1&#125;/);
 });
