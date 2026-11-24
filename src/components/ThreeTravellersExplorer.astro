@@ -80,6 +80,18 @@
       simonMarker && odileMarker && karaMarker &&
       simonValue && odileValue && karaValue
     ) {
+      // Capture narrowed DOM references before defining the event callback.
+      const timeControl: HTMLInputElement = slider;
+      const speedControl: HTMLSelectElement = speedSelect;
+      const timeOutput: HTMLOutputElement = timeLabel;
+      const noteOutput: HTMLElement = eventNote;
+      const simonDot: SVGCircleElement = simonMarker;
+      const odileDot: SVGCircleElement = odileMarker;
+      const karaDot: SVGCircleElement = karaMarker;
+      const simonClock: HTMLElement = simonValue;
+      const odileClock: HTMLElement = odileValue;
+      const karaClock: HTMLElement = karaValue;
+
       const gammaFactor = (beta: number): number => 1 / Math.sqrt(1 - beta * beta);
       const y = (s: number): number => 300 - 90 * s;
       const xSimon = (s: number): number => s <= 2 ? 48 : 48 + 262 * (s - 2);
@@ -90,43 +102,43 @@
         value.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
 
       function update(): void {
-        const s = Number(slider.value);
-        const beta = Number(speedSelect.value);
+        const s = Number(timeControl.value);
+        const beta = Number(speedControl.value);
         const gamma = gammaFactor(beta);
         const simon = s <= 2 ? s : 2 + (s - 2) / gamma;
         const odile = s <= 1 ? s / gamma : 1 / gamma + (s - 1);
         const kara = s / gamma;
 
-        simonMarker.setAttribute("cx", String(xSimon(s)));
-        simonMarker.setAttribute("cy", String(y(s)));
-        odileMarker.setAttribute("cx", String(xOdile(s)));
-        odileMarker.setAttribute("cy", String(y(s)));
-        karaMarker.setAttribute("cx", String(xKara(s)));
-        karaMarker.setAttribute("cy", String(y(s)));
-        simonValue.textContent = format(simon) + " T";
-        odileValue.textContent = format(odile) + " T";
-        karaValue.textContent = format(kara) + " T";
+        simonDot.setAttribute("cx", String(xSimon(s)));
+        simonDot.setAttribute("cy", String(y(s)));
+        odileDot.setAttribute("cx", String(xOdile(s)));
+        odileDot.setAttribute("cy", String(y(s)));
+        karaDot.setAttribute("cx", String(xKara(s)));
+        karaDot.setAttribute("cy", String(y(s)));
+        simonClock.textContent = format(simon) + " T";
+        odileClock.textContent = format(odile) + " T";
+        karaClock.textContent = format(kara) + " T";
 
         if (s < 0.005) {
-          timeLabel.textContent = "Départ · Terre";
-          eventNote.textContent = "Les trois montres sont synchronisées au départ.";
+          timeOutput.textContent = "Départ · Terre";
+          noteOutput.textContent = "Les trois montres sont synchronisées au départ.";
         } else if (Math.abs(s - 1) < 0.01) {
-          timeLabel.textContent = "Étape 1 · Arrivée sur Zartha";
-          eventNote.textContent = "Odile et Kara se retrouvent sur Zartha : leurs montres indiquent la même durée.";
+          timeOutput.textContent = "Étape 1 · Arrivée sur Zartha";
+          noteOutput.textContent = "Odile et Kara se retrouvent sur Zartha : leurs montres indiquent la même durée.";
         } else if (Math.abs(s - 2) < 0.01) {
-          timeLabel.textContent = "Étape 2 · Retour de Kara sur Terre";
-          eventNote.textContent = "Simon et Kara se retrouvent sur Terre et peuvent comparer directement leurs montres.";
+          timeOutput.textContent = "Étape 2 · Retour de Kara sur Terre";
+          noteOutput.textContent = "Simon et Kara se retrouvent sur Terre et peuvent comparer directement leurs montres.";
         } else if (Math.abs(s - 3) < 0.01) {
-          timeLabel.textContent = "Étape 3 · Retrouvailles sur Zartha";
-          eventNote.textContent = "Les trois montres sont réunies : Simon et Odile ont le même âge propre, Kara est plus jeune.";
+          timeOutput.textContent = "Étape 3 · Retrouvailles sur Zartha";
+          noteOutput.textContent = "Les trois montres sont réunies : Simon et Odile ont le même âge propre, Kara est plus jeune.";
         } else {
-          timeLabel.textContent = "Entre deux rencontres · " + format(s) + " T";
-          eventNote.textContent = "Les lectures sont des temps propres cumulés. Seules les rencontres permettent une comparaison directe des montres.";
+          timeOutput.textContent = "Entre deux rencontres · " + format(s) + " T";
+          noteOutput.textContent = "Les lectures sont des temps propres cumulés. Seules les rencontres permettent une comparaison directe des montres.";
         }
       }
 
-      slider.addEventListener("input", update);
-      speedSelect.addEventListener("change", update);
+      timeControl.addEventListener("input", update);
+      speedControl.addEventListener("change", update);
       update();
     }
   }
