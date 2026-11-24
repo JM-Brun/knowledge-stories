@@ -92,34 +92,78 @@ Il ne contrôle toutefois pas encore :
 - l'existence d'un article cible dans les liens de série ;
 - la cohérence entre le titre et la question directrice de la série, actuellement définis dans les pages Astro.
 
-## Recommandations priorisées
+## Travail restant — plan d'exécution
 
-### P1 — À faire
+Les changements d'affichage et la centralisation des métadonnées sont intégrés dans `main` via la PR [#113](https://github.com/JM-Brun/knowledge-stories/pull/113). Le travail restant porte sur la fiabilité des relations, la qualité pédagogique des parcours et la validation des estimations.
 
-1. Conserver les durées déclarées comme estimations éditoriales prioritaires ; ne pas les remplacer automatiquement par un ratio mots/minute.
-2. Ajouter un contrôle de cohérence des séquences : ordre unique, continu, et série contenant au moins deux articles si elle est affichée comme parcours.
-3. Vérifier les liens `relatedArticles` et les références de série contre les slugs réellement présents.
-4. Distinguer visuellement la durée cumulée d'une série de la durée de chaque article, ce que l'atelier commence à faire.
+### P1 — Fiabiliser les métadonnées et les liens
 
-### P2 — Amélioration éditoriale
+**P1.1 — Valider les séquences de série**
+- Contrôler qu'un `seriesOrder` n'est jamais dupliqué dans une même série.
+- Contrôler que les positions sont continues et commencent à la convention retenue (actuellement 0 pour l'introduction).
+- Signaler les séries déclarées mais ne contenant qu'un seul article, sans imposer artificiellement une série aux articles autonomes.
+- Produire des erreurs explicites indiquant la série et les articles concernés.
 
-1. Ajouter à chaque série une courte formulation « À la fin du parcours, vous saurez… ».
-2. Identifier les prérequis facultatifs et les approfondissements qui ne sont pas comptés dans la durée du parcours.
-3. Vérifier en lecture chronométrée les articles courts et denses signalés dans le tableau.
-4. Afficher, si utile, une durée de parcours arrondie en heures/minutes lorsque le total dépasse 60 minutes (par exemple « environ 1 h »), tout en conservant le détail par article.
+**Critère d'acceptation :** le build ou une commande de validation dédiée échoue sur une séquence invalide et passe sur le catalogue actuel.
 
-### P3 — Architecture
+**P1.2 — Vérifier les références entre articles**
+- Vérifier chaque slug de `relatedArticles` contre les identifiants réellement présents.
+- Vérifier les cibles des liens de navigation et les références de série.
+- Éviter les faux positifs liés aux contenus volontairement externes ou aux liens absolus.
 
-Les métadonnées existantes (titre, question directrice, domaine et accent visuel) sont désormais centralisées dans `src/data/series.ts`, partagé par l'index et les pages individuelles. Les objectifs, prérequis et compléments restent à ajouter à cette configuration lorsque leur rédaction éditoriale sera stabilisée.
+**Critère d'acceptation :** aucun lien interne cassé dans les relations déclarées ; les erreurs indiquent le fichier source et la cible absente.
 
-## État des actions engagées
+### P2 — Renforcer la valeur pédagogique des séries
+
+**P2.1 — Expliciter les acquis visés**
+- Ajouter pour chaque série un résultat d'apprentissage formulé en termes observables (« À la fin du parcours, vous saurez… »).
+- Vérifier que chaque étape contribue explicitement à cet objectif.
+- Distinguer l'objectif global de la simple question directrice déjà présente.
+
+**P2.2 — Rendre visibles les prérequis et les extensions**
+- Présenter « Arbres de récursion » comme complément/prérequis facultatif à l'analyse de complexité de Karatsuba, sans l'inclure dans les 61 minutes.
+- Présenter l'article sur l'inertie et le principe de Mach comme approfondissement facultatif, sans l'inclure dans les 58 minutes du paradoxe des jumeaux.
+- Indiquer clairement si un complément est nécessaire, recommandé ou simplement connexe.
+
+**Critère d'acceptation :** un lecteur peut déterminer avant de commencer ce qu'il apprendra, ce qu'il doit déjà connaître et ce qui est optionnel.
+
+### P2 — Vérifier les temps de lecture
+
+Effectuer une lecture chronométrée des articles signalés dans le tableau, en particulier les articles courts et mathématiquement denses du paradoxe des jumeaux ainsi que l'article sur les arbres de récursion.
+
+Protocole :
+1. Partir du rendu publié, pas uniquement du fichier MDX.
+2. Lire à un rythme normal en suivant les équations, figures, exemples et interactions nécessaires à la compréhension.
+3. Noter séparément le temps de lecture linéaire et, si pertinent, le temps nécessaire pour réaliser les exercices ou manipulations.
+4. Comparer à `readingTime` et ajuster manuellement uniquement si l'écart est significatif et reproductible.
+
+**Critère d'acceptation :** chaque durée révisée correspond à une observation documentée ; aucune valeur n'est modifiée sur la seule base d'un ratio mots/minute.
+
+### P3 — Vérifier le rendu et maintenir le système
+
+- Contrôler sur le site publié que les temps individuels et cumulés sont visibles, lisibles et non redondants sur mobile et desktop.
+- Vérifier les cas limites : article sans `readingTime`, article autonome, série d'un seul article, durée exactement égale à 60 minutes et durée supérieure à une heure.
+- Confirmer que les durées cumulées excluent explicitement les compléments facultatifs et les liens connexes.
+- À chaque ajout ou déplacement d'article, contrôler l'ordre de série, les relations et les durées cumulées.
+
+**Critère d'acceptation :** la navigation reste compréhensible sur mobile et desktop et les cas limites sont couverts par des tests ou une vérification reproductible.
+
+## État des actions
 
 - [x] Temps de lecture visible sur les cartes et les pages d'article.
-- [x] Durée cumulée visible sur les séries et formatée en heures/minutes au-delà de 60 minutes.
+- [x] Durée cumulée visible sur les séries, avec format heures/minutes au-delà de 60 minutes.
+- [x] Durée par étape visible dans la navigation de série.
 - [x] Métadonnées communes des séries centralisées dans `src/data/series.ts`.
-- [ ] Contrôles automatiques d'unicité des ordres, de continuité et de validité des articles liés.
-- [ ] Relecture chronométrée des articles courts et denses.
+- [ ] Validation automatique de l'unicité et de la continuité de `seriesOrder`.
+- [ ] Validation des références `relatedArticles` et des cibles de navigation.
+- [ ] Ajout d'objectifs d'apprentissage observables aux deux séries.
+- [ ] Qualification explicite des prérequis et approfondissements facultatifs.
+- [ ] Lecture chronométrée et éventuelle révision des estimations signalées.
+- [ ] Vérification visuelle du site publié sur mobile et desktop, y compris les cas limites.
 
+## Décision éditoriale
+
+Ne pas fusionner ni découper d'article sur la seule base du nombre de mots. Les durées déclarées restent la source éditoriale prioritaire ; le calcul automatique est un filet de sécurité pour les contenus qui n'ont pas de durée explicite. La priorité est de fiabiliser les métadonnées, puis de rendre les objectifs et les extensions pédagogiques explicites, avant de modifier la structure des séries.
 ## Décision
 
 Ne pas fusionner ni découper d'article sur la seule base du nombre de mots. La priorité est de vérifier les durées par une lecture chronométrée, puis d'améliorer les indications de prérequis et d'objectifs des deux séries. Le catalogue actuel est structurellement cohérent ; les améliorations les plus utiles concernent la transparence des parcours et la validation automatique des relations.
