@@ -311,6 +311,14 @@ Une stratégie consiste à utiliser une **transformée de Fourier sur un corps f
 
 Les algorithmes historiques de multiplication rapide, notamment Schönhage–Strassen, utilisent des variantes plus élaborées de transformations rapides dans des anneaux adaptés. Il ne faut donc pas identifier sans nuance « multiplication rapide » et « FFT complexe en virgule flottante » : la structure transformée est commune, mais les anneaux, les précautions d'exactitude et les détails algorithmiques diffèrent.
 
+| Approche | Domaine de calcul | Ce qui garantit l'exactitude |
+|---|---|---|
+| FFT classique | Nombres complexes, en pratique flottants | Contrôle de l'erreur d'arrondi et de la reconstruction des coefficients |
+| NTT | Corps fini \\(\\mathbb F_p\\) | Calcul exact modulo \\(p\\), puis éventuellement plusieurs modules et CRT |
+| Schönhage–Strassen | Anneau \\(\\mathbb Z/(2^N+1)\\mathbb Z\\) | Calcul modulaire exact, bornes pour relever les coefficients et produits ponctuels récursifs |
+
+La différence entre **corps** et **anneau** compte : la NTT classique sur &#92;(&#92;mathbb F_p&#92;) exploite un corps fini, tandis que Schönhage–Strassen construit sa transformée dans un anneau de résidus qui n'est pas nécessairement un corps.
+
 ### 3.5 La chaîne d'idées en une vue
 
 &#92;[
