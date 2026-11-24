@@ -62,16 +62,18 @@ npm run check     # vérification Astro et TypeScript
 
 Les articles en cours de relecture peuvent être générés sous `/atelier/{slug}/` avec `status: review`. L'index `/atelier/` n'est pas relié à la navigation, à l'accueil ou aux archives. Les contenus `status: draft` ne sont pas générés ; seuls les contenus `status: published` apparaissent dans les parcours publics. L'atelier est non indexé, mais pas privé : une URL partagée permet d'y accéder. Voir [le workflow éditorial](editorial/publication-workflow.md).
 
-## Calendrier Data Science & Machine Learning 2026
+## Calendriers et pistes éditoriales
 
-Les calendriers annuels sont regroupés dans une archive commune. Chaque édition est une page autonome qui réunit la présentation, les 24 cases, le fil conducteur facultatif et les accès directs aux journées :
+Les calendriers annuels sont regroupés dans une archive commune. Chaque édition est une page autonome qui réunit la présentation, les cases, le fil conducteur facultatif et les accès directs aux journées :
 
 - [Archives des calendriers](https://jm-brun.github.io/knowledge-stories/calendriers/)
 - [Édition 2026 — Data Science & Machine Learning](https://jm-brun.github.io/knowledge-stories/calendar/)
 
-Le site Astro et le projet Quarto sont construits ensemble par `.github/workflows/pages.yml`. Quarto génère le calendrier dans `dist/calendar/`, puis le même artefact est déployé sur GitHub Pages. Les cinq premières journées sont publiées ; les suivantes restent annoncées comme à paraître jusqu'à leur validation.
+Une future édition consacrée aux idées et phénomènes qui éclairent les LLM est cadrée séparément. Son principe est la complémentarité : proposer des récits scientifiques, historiques, linguistiques, mathématiques et critiques, sans transformer le parcours technique de LLM Lab en calendrier narratif. Voir le [cadrage éditorial du calendrier LLM](editorial/llm-calendar-concept.md). Ce document est un réservoir de pistes à qualifier, pas un programme de 24 journées validé.
 
-La conception du programme, les identifiants de concepts et les métadonnées éditoriales restent maintenus dans Wiki Knowledge. Le site public ne dépend pas du dépôt privé et ne synchronise pas automatiquement ses données.
+Le site Astro et le projet Quarto sont construits ensemble par `.github/workflows/pages.yml`. Quarto génère le calendrier 2026 dans `dist/calendar/`, puis le même artefact est déployé sur GitHub Pages. Les cinq premières journées sont publiées ; les suivantes restent annoncées comme à paraître jusqu'à leur validation.
+
+La conception des programmes, les identifiants de concepts et les métadonnées éditoriales peuvent être maintenus dans Wiki Knowledge. Le site public ne dépend pas du dépôt privé et ne synchronise pas automatiquement ses données.
 
 ## État du projet
 
