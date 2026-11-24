@@ -20,11 +20,12 @@ test("MathJax delimiters survive MDX parsing", () => {
 });
 
 test("Karatsuba complexity exponents use explicit TeX grouping", () => {
-  const source = readFileSync(new URL("../src/content/articles/arbres-recursion-complexite.mdx", import.meta.url), "utf8");
-  assert.match(source, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
-  assert.match(source, /3\^&#123;10&#125;=59&#92;,049/);
-  assert.match(source, /n\^&#123;\\log_2 3&#125;/);
-  assert.match(source, /m_&#123;j\+1&#125;/);
+  const article = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  const lesson = readFileSync(new URL("../src/content/articles/arbres-recursion-complexite.mdx", import.meta.url), "utf8");
+  assert.match(article, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
+  assert.match(article, /3\^&#123;10&#125;=59&#92;,049/);
+  assert.match(lesson, /n\^&#123;\\log_2 3&#125;/);
+  assert.match(lesson, /m_&#123;j\+1&#125;/);
 });
 
 test("classical multiplication complexity is consistently marked green", () => {
