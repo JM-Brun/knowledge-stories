@@ -39,17 +39,19 @@ Imaginons trois personnes du même âge : <PersonName name="Simon" /> reste d'ab
 
 On adopte un modèle idéal de relativité restreinte :
 
-- la Terre et Zartha sont au repos l'une par rapport à l'autre dans un même référentiel inertiel ;
-- leur distance propre dans ce référentiel est constante et vaut (L) ;
-- les voyageurs se déplacent à vitesse de valeur constante (v), avec (0 < v < c) ;
-- les départs, arrivées et demi-tours sont instantanés dans cette première modélisation ;
-- les trois montres sont mises à zéro au même événement de départ.
+- La Terre et Zartha sont au repos l'une par rapport à l'autre dans un même référentiel inertiel.
+- Leur distance mesurée dans ce référentiel est constante et vaut &#92;(L&#92;).
+- Les voyageurs se déplacent à vitesse de valeur constante &#92;(v&#92;), avec &#92;(0 &#92;lt v &#92;lt c&#92;).
+- Les départs, arrivées et demi-tours sont instantanés dans cette première modélisation.
+- Les trois montres sont mises à zéro au même événement de départ.
 
-On pose (T=L/v) et
-[
-gamma = rac{1}{sqrt{1-v^2/c^2}}.
-]
-Une phase de voyage qui dure (T) dans le référentiel des planètes dure (T/gamma) sur la montre du voyageur. Une phase d'attente sur une planète dure (T) pour la personne qui y reste au repos.
+On pose &#92;(T=L/v&#92;) et le facteur de Lorentz :
+
+&#92;[
+&#92;gamma = &#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;.
+&#92;]
+
+Une phase de voyage dure &#92;(T&#92;) dans le référentiel des planètes et &#92;(T/&#92;gamma&#92;) sur la montre du voyageur. Une phase d'attente sur une planète dure &#92;(T&#92;) pour la personne qui y reste au repos.
 
 L'hypothèse de transition instantanée est une idéalisation : elle permet de séparer nettement les phases de mouvement uniforme. Pour un voyage réaliste, il faudrait spécifier les accélérations et intégrer le temps propre pendant chacune d'elles.
 
@@ -63,57 +65,69 @@ Les histoires sont les suivantes :
 
 Les rencontres ont lieu à des événements précis :
 
-- au départ, les trois montres sont réunies sur Terre ;
-- à la première arrivée sur Zartha, Odile et Kara se retrouvent ;
-- au retour de Kara sur Terre, Simon et Kara se retrouvent ;
-- à l'arrivée finale sur Zartha, les trois personnes sont réunies.
+- Au départ, les trois montres sont réunies sur Terre.
+- À la première arrivée sur Zartha, Odile et Kara se retrouvent.
+- Au retour de Kara sur Terre, Simon et Kara se retrouvent.
+- À l'arrivée finale sur Zartha, les trois personnes sont réunies.
 
 Il faut distinguer une comparaison directe d'une comparaison calculée. À la première arrivée sur Zartha, Simon est loin : sa durée propre peut être calculée dans le référentiel commun, mais il ne compare pas physiquement sa montre à celles d'Odile et de Kara à cet événement.
 
 ## 3. Calculer les durées propres
 
-Pour une phase de voyage de durée coordonnée (T), la montre du voyageur accumule (T/gamma). Pour une phase au repos dans le référentiel commun, elle accumule (T).
+Pour une phase de voyage de durée coordonnée &#92;(T&#92;), la montre du voyageur accumule &#92;(T/&#92;gamma&#92;). Pour une phase au repos dans le référentiel commun, elle accumule &#92;(T&#92;).
 
 | Événement | Simon | Odile | Kara |
 |---|---:|---:|---:|
-| Départ sur Terre | (0) | (0) | (0) |
-| Première arrivée sur Zartha | (T) | (T/gamma) | (T/gamma) |
-| Retour de Kara sur Terre | (2T) | (T+T/gamma) | (2T/gamma) |
-| Arrivée finale sur Zartha | (2T+T/gamma) | (2T+T/gamma) | (3T/gamma) |
+| Départ sur Terre | &#92;(0&#92;) | &#92;(0&#92;) | &#92;(0&#92;) |
+| Première arrivée sur Zartha | &#92;(T&#92;) | &#92;(T/&#92;gamma&#92;) | &#92;(T/&#92;gamma&#92;) |
+| Retour de Kara sur Terre | &#92;(2T&#92;) | &#92;(T+T/&#92;gamma&#92;) | &#92;(2T/&#92;gamma&#92;) |
+| Arrivée finale sur Zartha | &#92;(2T+T/&#92;gamma&#92;) | &#92;(2T+T/&#92;gamma&#92;) | &#92;(3T/&#92;gamma&#92;) |
 
-À la première arrivée, Odile et Kara ont suivi la même trajectoire : leurs montres indiquent donc la même durée (T/gamma).
+À la première arrivée, Odile et Kara ont suivi la même trajectoire : leurs montres indiquent donc la même durée &#92;(T/&#92;gamma&#92;).
 
 À la deuxième rencontre, Simon a attendu deux phases sur Terre, tandis que Kara a effectué deux phases de voyage :
-[
-	au_S=2T,qquad 	au_K=rac{2T}{gamma}.
-]
+
+&#92;[
+&#92;tau_S=2T,
+&#92;qquad
+&#92;tau_K=&#92;frac&#123;2T&#125;&#123;&#92;gamma&#125;.
+&#92;]
+
 La comparaison est directe puisque les deux montres sont réunies.
 
 À la rencontre finale, Simon et Odile ont chacun passé deux phases au repos et une phase en mouvement :
-[
-	au_S=2T+rac{T}{gamma},
-qquad
-	au_O=rac{T}{gamma}+2T.
-]
+
+&#92;[
+&#92;tau_S=2T+&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;,
+&#92;qquad
+&#92;tau_O=&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;+2T.
+&#92;]
+
 Ils ont donc le même âge. Kara a voyagé pendant les trois phases :
-[
-	au_K=rac{3T}{gamma}.
-]
-La différence avec Simon vaut
-[
-	au_S-	au_K
-=2Tleft(1-rac{1}{gamma}ight)>0.
-]
+
+&#92;[
+&#92;tau_K=&#92;frac&#123;3T&#125;&#123;&#92;gamma&#125;.
+&#92;]
+
+La différence avec Simon vaut :
+
+&#92;[
+&#92;tau_S-&#92;tau_K
+=2T&#92;left(1-&#92;frac&#123;1&#125;&#123;&#92;gamma&#125;&#92;right)>0.
+&#92;]
 
 ## 4. Interpréter le résultat sans règle simpliste
 
-La conclusion n'est pas « la personne qui voyage est toujours plus jeune ». Simon voyage sur la dernière phase et Odile sur la première ; ils ont pourtant le même âge à la rencontre finale. Kara est plus jeune parce que son histoire comporte trois phases de mouvement à la vitesse (v), alors que Simon et Odile ont chacun deux phases d'attente au repos.
+La conclusion n'est pas « la personne qui voyage est toujours plus jeune ». Simon voyage sur la dernière phase et Odile sur la première ; ils ont pourtant le même âge à la rencontre finale. Kara est plus jeune parce que son histoire comporte trois phases de mouvement à la vitesse &#92;(v&#92;), alors que Simon et Odile ont chacun deux phases d'attente au repos.
 
-Le résultat dépend de la trajectoire complète, pas d'une étiquette (« voyageur » ou « sédentaire »). Le temps propre est une grandeur attachée à une ligne d'univers :
-[
-	au=int sqrt{1-rac{v(t)^2}{c^2}},dt
-]
-dans le référentiel inertiel commun choisi ici.
+Le résultat dépend de la trajectoire complète, pas d'une étiquette (« voyageur » ou « sédentaire »). Le temps propre est une grandeur attachée à une ligne d'univers. Dans le référentiel inertiel commun, pour une vitesse éventuellement variable, il s'écrit :
+
+&#92;[
+&#92;tau=&#92;int_{t_i}^{t_f}
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;\,dt.
+&#92;]
+
+Dans le scénario présent, la vitesse est constante par morceaux : cette intégrale se réduit à la somme des durées propres de chaque phase.
 
 ## 5. Ce que les rencontres permettent réellement d'affirmer
 
