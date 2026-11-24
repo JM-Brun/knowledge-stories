@@ -73,7 +73,7 @@ import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
-> **Prérequis** — Savoir développer une identité remarquable, manipuler les puissances de 10 et comprendre l’idée d’un coût asymptotique en notation \(O\). Le parcours vise un niveau fin de lycée scientifique à début de licence ; la preuve de complexité demande davantage d’aisance avec les suites et les récurrences.
+> **Prérequis** — Savoir développer une identité remarquable, manipuler les puissances de 10 et comprendre l’idée d’un coût asymptotique en notation &#92;(O&#92;). Le parcours vise un niveau fin de lycée scientifique à début de licence ; la preuve de complexité demande davantage d’aisance avec les suites et les récurrences.
 
 ## L'idée en une minute
 
@@ -81,13 +81,13 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
-On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en <span class="term-aux">\(\Theta(n^&#123;\log_2 3&#125;)\)</span>, soit environ <span class="term-aux">\(\Theta(n^&#123;1,585&#125;)\)</span>, au lieu de \(\Theta(n^2)\) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
+On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en <span class="term-aux">&#92;(\Theta(n^&#123;\log_2 3&#125;)&#92;)</span>, soit environ <span class="term-aux">&#92;(\Theta(n^&#123;1,585&#125;)&#92;)</span>, au lieu de &#92;(\Theta(n^2)&#92;) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
 **Le détail qui complique la récursion :** le produit auxiliaire porte sur les sommes des blocs. Une retenue peut leur ajouter un chiffre : avec 9 999 × 1 234, l’appel auxiliaire reçoit 198 × 46, alors que les autres appels portent sur des blocs de deux chiffres. Cette irrégularité ne change pas l’exposant, mais elle explique pourquoi le modèle idéal doit être nuancé.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong><span class="term-common">4</span> → <span class="term-aux">3</span></strong><span>multiplications de blocs à chaque étape</span></div>
-  <div><strong><span class="term-aux">\(n^&#123;1,585&#125;\)</span></strong><span>exposant de la complexité de Karatsuba</span></div>
+  <div><strong><span class="term-aux">&#92;(n^&#123;1,585&#125;&#92;)</span></strong><span>exposant de la complexité de Karatsuba</span></div>
 </div>
 
 <div className="term-legend" aria-label="Code couleur constant dans l’article">
@@ -98,7 +98,7 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 
 ## Construire l'intuition
 
-La <span class="term-common">méthode classique</span> combine chaque chiffre du premier opérande avec chacun des chiffres du second : son coût croît comme <span class="term-common">\(\Theta(n^2)\)</span>. <span class="term-aux">Karatsuba</span> cherche à réduire le nombre de multiplications récursives sans changer le résultat.
+La <span class="term-common">méthode classique</span> combine chaque chiffre du premier opérande avec chacun des chiffres du second : son coût croît comme <span class="term-common">&#92;(\Theta(n^2)&#92;)</span>. <span class="term-aux">Karatsuba</span> cherche à réduire le nombre de multiplications récursives sans changer le résultat.
 
 Prenons deux nombres et séparons chacun en deux blocs. En base dix, si l'on coupe après m chiffres :
 
@@ -150,7 +150,7 @@ Le produit final se recompose ainsi :
 </div>
 
 
-Le calcul des blocs comporte aussi des opérations auxiliaires : deux additions pour former <span class="term-aux">a + b</span> et <span class="term-aux">c + d</span>, puis deux soustractions pour isoler le terme croisé <span class="term-aux">r</span> − <span class="term-common">p</span> − <span class="term-common">q</span>. La méthode directe, elle, additionne simplement <span class="term-cross">ad</span> et <span class="term-cross">bc</span>. Dans les deux cas, la recomposition finale demande les mêmes deux décalages de blocs et deux additions. Ces opérations sur les chiffres coûtent \(O(n)\) par niveau : elles sont plus nombreuses avec Karatsuba, mais restent moins coûteuses asymptotiquement que les sous-multiplications récursives. Les trois produits <span class="term-common">p</span>, <span class="term-common">q</span> et <span class="term-aux">r</span> sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à \(n/2\), à un terme constant près.
+Le calcul des blocs comporte aussi des opérations auxiliaires : deux additions pour former <span class="term-aux">a + b</span> et <span class="term-aux">c + d</span>, puis deux soustractions pour isoler le terme croisé <span class="term-aux">r</span> − <span class="term-common">p</span> − <span class="term-common">q</span>. La méthode directe, elle, additionne simplement <span class="term-cross">ad</span> et <span class="term-cross">bc</span>. Dans les deux cas, la recomposition finale demande les mêmes deux décalages de blocs et deux additions. Ces opérations sur les chiffres coûtent &#92;(O(n)&#92;) par niveau : elles sont plus nombreuses avec Karatsuba, mais restent moins coûteuses asymptotiquement que les sous-multiplications récursives. Les trois produits <span class="term-common">p</span>, <span class="term-common">q</span> et <span class="term-aux">r</span> sont les seuls sous-problèmes qui nécessitent une multiplication récursive. En pratique, r peut porter sur un bloc d'un chiffre supplémentaire lorsque a + b ou c + d produit une retenue. Cela ne change pas l'ordre de grandeur : les tailles restent proportionnelles à &#92;(n/2&#92;), à un terme constant près.
 
 ## Un exemple pas à pas
 
@@ -213,16 +213,16 @@ Cette version privilégie la lisibilité. Le même m est utilisé pour les deux 
 <details>
 <summary>Correction</summary>
 
-On pose \(a=4\), \(b=7\), \(c=8\) et \(d=3\). Les trois produits sont \(ac=32\), \(bd=21\) et \((a+b)(c+d)=11\times11=121\). Le terme croisé vaut donc \(121-32-21=68\). Enfin, \(47\times83=32\times100+68\times10+21=3\,901\).
+On pose &#92;(a=4&#92;), &#92;(b=7&#92;), &#92;(c=8&#92;) et &#92;(d=3&#92;). Les trois produits sont &#92;(ac=32&#92;), &#92;(bd=21&#92;) et &#92;((a+b)(c+d)=11\times11=121&#92;). Le terme croisé vaut donc &#92;(121-32-21=68&#92;). Enfin, &#92;(47\times83=32\times100+68\times10+21=3&#92;,901&#92;).
 
 </details>
 
-**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^\left(10\right)\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, &#92;(1&#92;,024=2^&#123;10&#125;&#92;). Combien de produits aux feuilles obtient-on avec chaque méthode ?
 
 <details>
 <summary>Correction</summary>
 
-La <span class="term-common">méthode classique</span> en demande <span class="term-common">\(4^\left(10\right)=1\,048\,576\)</span>, tandis que <span class="term-aux">Karatsuba</span> en demande <span class="term-aux">\(3^\left(10\right)=59\,049\)</span>. Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+La <span class="term-common">méthode classique</span> en demande <span class="term-common">&#92;(4^&#123;10&#125;=1&#92;,048&#92;,576&#92;)</span>, tandis que <span class="term-aux">Karatsuba</span> en demande <span class="term-aux">&#92;(3^&#123;10&#125;=59&#92;,049&#92;)</span>. Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
 
 </details>
 
@@ -230,24 +230,24 @@ La <span class="term-common">méthode classique</span> en demande <span class="t
 
 Les feuilles ne représentent pas tout le travail : chaque appel doit aussi découper les blocs, effectuer des additions et recomposer le résultat. Le détail ci-dessous montre pourquoi ces opérations, de coût linéaire par appel, ne changent pas l'exposant de la complexité.
 
-Pour isoler le raisonnement, supposons d’abord que \(n\) soit une puissance de deux et que chaque découpage soit équilibré. On note \(T(n)\) le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent \(O(n)\). La différence entre la <span class="term-common">méthode classique</span> et <span class="term-aux">Karatsuba</span> tient donc au nombre de multiplications récursives. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) exposent explicitement ce modèle et les deux récurrences ; nous allons ici refaire le raisonnement avec l’arbre de récursion :
+Pour isoler le raisonnement, supposons d’abord que &#92;(n&#92;) soit une puissance de deux et que chaque découpage soit équilibré. On note &#92;(T(n)&#92;) le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent &#92;(O(n)&#92;). La différence entre la <span class="term-common">méthode classique</span> et <span class="term-aux">Karatsuba</span> tient donc au nombre de multiplications récursives. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) exposent explicitement ce modèle et les deux récurrences ; nous allons ici refaire le raisonnement avec l’arbre de récursion :
 
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences développées : quatre produits directs contre trois produits Karatsuba">
   <div class="complexity-method">
     <b class="term-common">Méthode classique · quatre sous-produits</b>
-    <div class="math-line"><span class="term-common">\(T(n)=T_ac(n/2)+T_ad(n/2)+T_bc(n/2)+T_bd(n/2)+O(n)\)</span></div>
-    <div class="math-line"><span class="term-common">\(=4T(n/2)+O(n)\)</span></div>
+    <div class="math-line"><span class="term-common">&#92;(T(n)=T_ac(n/2)+T_ad(n/2)+T_bc(n/2)+T_bd(n/2)+O(n)&#92;)</span></div>
+    <div class="math-line"><span class="term-common">&#92;(=4T(n/2)+O(n)&#92;)</span></div>
   </div>
   <div class="complexity-method">
     <b class="term-aux">Karatsuba · trois sous-produits</b>
-    <div class="math-line"><span class="term-aux">\(T(n)=T_p(n/2)+T_q(n/2)+T_r(n/2)+O(n)\)</span></div>
-    <div class="math-line"><span class="term-aux">\(=3T(n/2)+O(n)\)</span></div>
+    <div class="math-line"><span class="term-aux">&#92;(T(n)=T_p(n/2)+T_q(n/2)+T_r(n/2)+O(n)&#92;)</span></div>
+    <div class="math-line"><span class="term-aux">&#92;(=3T(n/2)+O(n)&#92;)</span></div>
   </div>
 </div>
 
-Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite \(n\) chiffres. Au niveau 1, il crée \(3\) appels de taille \(n/2\) ; au niveau 2, ces appels en créent \(9\) de taille \(n/4\). Plus généralement, au niveau \(j\), il existe \(3^j\) appels, chacun traitant environ \(n/2^j\) chiffres.
+Déroulons l’arbre de Karatsuba. Au niveau 0, un appel traite &#92;(n&#92;) chiffres. Au niveau 1, il crée &#92;(3&#92;) appels de taille &#92;(n/2&#92;) ; au niveau 2, ces appels en créent &#92;(9&#92;) de taille &#92;(n/4&#92;). Plus généralement, au niveau &#92;(j&#92;), il existe &#92;(3^j&#92;) appels, chacun traitant environ &#92;(n/2^j&#92;) chiffres.
 
-Pour rendre l’écart concret, prenons \(n=8=2^3\) chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compare les deux arbres dans le **modèle équilibré idéalisé**, où chaque appel divise exactement la taille par deux. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’une trace littérale de l’algorithme décimal, d’un chronométrage ni d’un décompte exact des opérations machine.
+Pour rendre l’écart concret, prenons &#92;(n=8=2^3&#92;) chiffres et arrêtons la récursion à des blocs d’un chiffre. Le tableau compare les deux arbres dans le **modèle équilibré idéalisé**, où chaque appel divise exactement la taille par deux. Pour les niveaux internes, il normalise le coût local à une unité par chiffre traité et par appel ; les feuilles comptent les multiplications élémentaires. Il s’agit d’un modèle de croissance, pas d’une trace littérale de l’algorithme décimal, d’un chronométrage ni d’un décompte exact des opérations machine.
 
 <div class="complexity-table-scroll" role="region" aria-label="Comparaison des appels et du travail à chaque niveau" tabindex="0">
   <table>
@@ -266,58 +266,58 @@ Pour rendre l’écart concret, prenons \(n=8=2^3\) chiffres et arrêtons la ré
 Le travail local d’un niveau est le nombre d’appels multiplié par le coût linéaire de chacun :
 
 <div class="math-display math-display--compact complexity-equations" role="math" aria-label="Coût du niveau j : trois puissance j fois le coût linéaire d’un bloc de taille n sur deux puissance j">
-  <div class="math-line"><span class="term-aux">\(3^j\times O(n/2^j)=O\!\left(n\left(3/2\right)^j\right)\)</span></div>
+  <div class="math-line"><span class="term-aux">&#92;(3^j\times O(n/2^j)=O&#92;!\left(n\left(3/2\right)^j\right)&#92;)</span></div>
 </div>
 
-La profondeur vaut \(k=\log_2(n)\). À la dernière profondeur, le nombre de feuilles est :
+La profondeur vaut &#92;(k=\log_2(n)&#92;). À la dernière profondeur, le nombre de feuilles est :
 
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Nombre de feuilles : trois puissance k égale n puissance logarithme base deux de trois">
-  <div class="math-line"><span class="term-aux">\(3^k=n^\left(\log_2 3\right)\)</span></div>
+  <div class="math-line"><span class="term-aux">&#92;(3^k=n^&#123;\log_2 3&#125;&#92;)</span></div>
 </div>
 
 La somme des coûts internes de Karatsuba est une série géométrique de raison **3/2**, supérieure à 1. Elle est donc dominée, à un facteur constant près, par son dernier terme :
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Somme géométrique des coûts internes de Karatsuba">
-  \[
-  \sum_&#123;j=0&#125;^&#123;k-1&#125; O\!\left(n\left(3/2\right)^j\right)
-  = O\!\left(n\left(3/2\right)^k\right)
+  &#92;[
+  \sum_&#123;j=0&#125;^&#123;k-1&#125; O&#92;!\left(n\left(3/2\right)^j\right)
+  = O&#92;!\left(n\left(3/2\right)^k\right)
   = O(3^k).
-  \]
+  &#92;]
 </div>
 
-Les feuilles coûtent elles-mêmes \(\Theta(3^k)\), puisque chacune effectue une multiplication de base sur un nombre constant de chiffres. Elles donnent donc aussi une borne inférieure en \(\Omega(3^k)\). En combinant les deux bornes :
+Les feuilles coûtent elles-mêmes &#92;(\Theta(3^k)&#92;), puisque chacune effectue une multiplication de base sur un nombre constant de chiffres. Elles donnent donc aussi une borne inférieure en &#92;(\Omega(3^k)&#92;). En combinant les deux bornes :
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Complexité asymptotique de Karatsuba">
-  \[
-  T(n)=\Theta(3^k)=\boxed&#123;\Theta\!\left(n^\left(\log_2 3\right)\right)&#125;.
-  \]
+  &#92;[
+  T(n)=\Theta(3^k)=\boxed&#123;\Theta&#92;!\left(n^&#123;\log_2 3&#125;\right)&#125;.
+  &#92;]
 </div>
 
-Comme <span class="term-aux">\( \log_2 3 \approx 1,58496 \)</span>, l’exposant de <span class="term-aux">Karatsuba</span> est souvent arrondi à <span class="term-aux">\(1,585\)</span>.
+Comme <span class="term-aux">&#92;( \log_2 3 \approx 1,58496 &#92;)</span>, l’exposant de <span class="term-aux">Karatsuba</span> est souvent arrondi à <span class="term-aux">&#92;(1,585&#92;)</span>.
 
-Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace \(3\) par \(4\). Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de <span class="term-common">\(4^k=(2^k)^2=n^2\)</span>. La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total de la <span class="term-common">méthode classique</span> est donc <span class="term-common">\(\Theta(n^2)\)</span>.
+Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace &#92;(3&#92;) par &#92;(4&#92;). Le travail local au niveau &#92;(j&#92;) est &#92;(O(n&#92;,2^j)&#92;), et les feuilles sont au nombre de <span class="term-common">&#92;(4^k=(2^k)^2=n^2&#92;)</span>. La somme des coûts internes est elle aussi &#92;(O(n^2)&#92;), tandis que les feuilles donnent une borne inférieure en &#92;(\Omega(n^2)&#92;). Le coût total de la <span class="term-common">méthode classique</span> est donc <span class="term-common">&#92;(\Theta(n^2)&#92;)</span>.
 
-Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=\)<span class="term-aux">\(3\)</span> pour <span class="term-aux">Karatsuba</span> et \(a=\)<span class="term-common">\(4\)</span> pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^k=n^\left(\log_2 3\right)\).
+Cette preuve par arbre est équivalente à l’application du théorème maître à &#92;(T(n)=aT(n/2)+O(n)&#92;) : ici &#92;(a=&#92;)<span class="term-aux">&#92;(3&#92;)</span> pour <span class="term-aux">Karatsuba</span> et &#92;(a=&#92;)<span class="term-common">&#92;(4&#92;)</span> pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;\log_2 3&#125;&#92;).
 
-**Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
+**Attention au modèle de calcul.** Ici, &#92;(n&#92;) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à &#92;(n&#92;) est comptée en &#92;(O(n)&#92;) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme &#92;(O(n)&#92;) de la récurrence.
 
-Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut toutefois nécessiter un chiffre supplémentaire. Si \(m_j\) désigne la taille maximale d’un sous-problème au niveau \(j\), on peut majorer cette évolution par :
+Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, &#92;(a+b&#92;) ou &#92;(c+d&#92;) peut toutefois nécessiter un chiffre supplémentaire. Si &#92;(m_j&#92;) désigne la taille maximale d’un sous-problème au niveau &#92;(j&#92;), on peut majorer cette évolution par :
 
 <div class="math-display math-display--compact complexity-equations term-aux" role="math" aria-label="Majoration de la taille des sous-problèmes">
-  \[
-  m_\left(j+1\right)\leq m_j/2+2.
-  \]
+  &#92;[
+  m_&#123;j+1&#125;\leq m_j/2+2.
+  &#92;]
 </div>
 
-En déroulant cette inégalité propre à la récursion de <span class="term-aux">Karatsuba</span>, on obtient <span class="term-aux">\(m_j\leq n/2^j+4\)</span>. La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau \(j\), le travail interne est donc borné par :
+En déroulant cette inégalité propre à la récursion de <span class="term-aux">Karatsuba</span>, on obtient <span class="term-aux">&#92;(m_j\leq n/2^j+4&#92;)</span>. La taille devient donc constante après &#92;(\log_2(n)+O(1)&#92;) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau &#92;(j&#92;), le travail interne est donc borné par :
 
 <div class="math-display math-display--compact complexity-equations term-aux" role="math" aria-label="Borne du travail interne au niveau j">
-  \[
-  O(3^j m_j)=O\!\left(n\left(3/2\right)^j+3^j\right).
-  \]
+  &#92;[
+  O(3^j m_j)=O&#92;!\left(n\left(3/2\right)^j+3^j\right).
+  &#92;]
 </div>
 
-Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est <span class="term-aux">\(O(n^\left(\log_2 3\right))\)</span>. Les feuilles sont en nombre <span class="term-aux">\(\Theta(3^k)=\Theta(n^\left(\log_2 3\right))\)</span> et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+Sur &#92;(\log_2(n)+O(1)&#92;) niveaux, la somme de ces coûts est <span class="term-aux">&#92;(O(n^&#123;\log_2 3&#125;)&#92;)</span>. Les feuilles sont en nombre <span class="term-aux">&#92;(\Theta(3^k)=\Theta(n^&#123;\log_2 3&#125;)&#92;)</span> et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences de <span class="term-aux">Karatsuba</span> évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 

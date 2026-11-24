@@ -215,3 +215,33 @@
   :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead { grid-template-columns: 1fr; }
   :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div { min-height: 92px; }
 }
+
+
+/* MathJax: keep long equations readable and scrollable on narrow screens. */
+.prose mjx-container {
+  max-width: 100%;
+}
+.prose mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: .15em 0 .35em;
+  overscroll-behavior-x: contain;
+}
+.prose mjx-container:not([display="true"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .math-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+@media (max-width: 650px) {
+  .prose mjx-container[display="true"] { text-align: left; }
+}
