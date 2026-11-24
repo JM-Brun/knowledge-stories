@@ -1,0 +1,87 @@
+---
+title: "24 investigations to see data differently"
+subtitle: "2026 edition · 24 scientific questions, 24 thought experiments"
+description: "Twenty-four independent investigations into data science, statistics and artificial intelligence."
+lang: en
+---
+
+<p class="language-switch"><a href="../">Version française ↗</a></p>
+
+<div class="calendar-intro">
+
+A measurement is not reality. A large sample is not necessarily representative. An average does not tell the whole story. And a model with a high score may not have learned what we think it has.
+
+From **December 1 to 24, 2026**, this edition brings together twenty-four short investigations built around scientific questions worth examining. Each one starts from a paradox, an experiment, a surprising result or a difficult decision, then develops a clear explanation and, where useful, an experiment or visualization.
+
+</div>
+
+<div class="calendar-status" aria-label="Publication status of the 2026 edition">
+  <div class="calendar-status-copy">
+    <strong>5 articles published out of 24</strong>
+    <span>19 editorial outlines available · further articles are scheduled from December 1</span>
+  </div>
+  <progress value="5" max="24" aria-label="5 articles published out of 24">5 of 24</progress>
+</div>
+
+::: {.callout-note}
+**How to use this edition.** This is not a 24-lesson course and it has no required reading order. Each investigation stands on its own: choose a question that interests you, move between topics, and return whenever you like. Links between days suggest connections, not prerequisites. **The five published articles are currently available in French**; the other links lead to public editorial outlines in French, not finished articles.
+:::
+
+## Six areas to explore
+
+These topic labels help you choose a question without imposing a sequence. Numbers refer to the calendar doors.
+
+<nav class="theme-index" aria-label="Investigation topics">
+  <a href="#day-01"><strong>Measurement and description</strong><span>01–05 · Data, sampling, distributions and information</span></a>
+  <a href="#day-06"><strong>Relationships and inference</strong><span>06–08 · Causality, simple learning and uncertainty</span></a>
+  <a href="#day-09"><strong>Building models</strong><span>09–14 · Objectives, optimization, regularization and learning</span></a>
+  <a href="#day-15"><strong>Rigorous evaluation</strong><span>15–20 · Generalization, leakage, metrics and comparisons</span></a>
+  <a href="#day-21"><strong>Exploring structure</strong><span>21–23 · Dimensionality reduction, clustering and time series</span></a>
+  <a href="#day-24"><strong>Decision-making</strong><span>24 · Moving from prediction to action</span></a>
+</nav>
+
+## Explore the calendar
+
+<div class="advent-calendar" aria-label="2026 Advent calendar, 24 days">
+
+<a class="advent-door" id="day-01" href="../days/jour-01.html" aria-label="Day 1, published article in French: Can a precise measurement be wrong?"><span class="door-date">December 1</span><span class="door-status published">Published · French</span><span class="door-number">01</span><span class="door-title">Can a precise measurement be wrong?</span><span class="door-action">Read the article ↗</span></a>
+<a class="advent-door" id="day-02" href="../days/jour-02.html" aria-label="Day 2, published article in French: Are 50,000 responses better than 1,000?"><span class="door-date">December 2</span><span class="door-status published">Published · French</span><span class="door-number">02</span><span class="door-title">Are 50,000 responses better than 1,000?</span><span class="door-action">Read the article ↗</span></a>
+<a class="advent-door" id="day-03" href="../days/jour-03.html" aria-label="Day 3, published article in French: Three distributions, one mean"><span class="door-date">December 3</span><span class="door-status published">Published · French</span><span class="door-number">03</span><span class="door-title">Three distributions, one mean</span><span class="door-action">Read the article ↗</span></a>
+<a class="advent-door" id="day-04" href="../days/jour-04.html" aria-label="Day 4, published article in French: When does covariance change the variance of a sum?"><span class="door-date">December 4</span><span class="door-status published">Published · French</span><span class="door-number">04</span><span class="door-title">When does covariance change the variance of a sum?</span><span class="door-action">Read the article ↗</span></a>
+<a class="advent-door" id="day-05" href="../days/jour-05.html" aria-label="Day 5, published article in French: Which distribution is more uncertain?"><span class="door-date">December 5</span><span class="door-status published">Published · French</span><span class="door-number">05</span><span class="door-title">Which distribution is more uncertain?</span><span class="door-action">Read the article ↗</span></a>
+<a class="advent-door skeleton" id="day-06" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-06.md" aria-label="Day 6, French editorial outline: Correlation is not causation"><span class="door-date">December 6</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">06</span><span class="door-title">Correlation is not causation</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-07" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-07.md" aria-label="Day 7, French editorial outline: Can a straight line learn?"><span class="door-date">December 7</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">07</span><span class="door-title">Can a straight line learn?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-08" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-08.md" aria-label="Day 8, French editorial outline: Recover the bias of a coin"><span class="door-date">December 8</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">08</span><span class="door-title">Recover the bias of a coin</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-09" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-09.md" aria-label="Day 9, French editorial outline: The model optimizes what we ask it to"><span class="door-date">December 9</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">09</span><span class="door-title">The model optimizes what we ask it to</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-10" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-10.md" aria-label="Day 10, French editorial outline: A step that is too large misses the valley"><span class="door-date">December 10</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">10</span><span class="door-title">A step that is too large misses the valley</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-11" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-11.md" aria-label="Day 11, French editorial outline: Paying for a simpler model"><span class="door-date">December 11</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">11</span><span class="door-title">Paying for a simpler model</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-12" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-12.md" aria-label="Day 12, French editorial outline: A stable model can be better than a precise one"><span class="door-date">December 12</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">12</span><span class="door-title">A stable model can be better than a precise one</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-13" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-13.md" aria-label="Day 13, French editorial outline: Learning by asking questions"><span class="door-date">December 13</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">13</span><span class="door-title">Learning by asking questions</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-14" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-14.md" aria-label="Day 14, French editorial outline: Correcting errors, one tree at a time"><span class="door-date">December 14</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">14</span><span class="door-title">Correcting errors, one tree at a time</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-15" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-15.md" aria-label="Day 15, French editorial outline: The test must resemble the future"><span class="door-date">December 15</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">15</span><span class="door-title">The test must resemble the future</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-16" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-16.md" aria-label="Day 16, French editorial outline: The perfect score hiding leakage"><span class="door-date">December 16</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">16</span><span class="door-title">The perfect score hiding leakage</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-17" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-17.md" aria-label="Day 17, French editorial outline: 99% accuracy: a good model or the wrong problem?"><span class="door-date">December 17</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">17</span><span class="door-title">99% accuracy: a good model or the wrong problem?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-18" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-18.md" aria-label="Day 18, French editorial outline: When does 80% really mean 80%?"><span class="door-date">December 18</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">18</span><span class="door-title">When does 80% really mean 80%?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-19" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-19.md" aria-label="Day 19, French editorial outline: Is a 0.3-point gain real?"><span class="door-date">December 19</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">19</span><span class="door-title">Is a 0.3-point gain real?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-20" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-20.md" aria-label="Day 20, French editorial outline: What actually improved the model?"><span class="door-date">December 20</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">20</span><span class="door-title">What actually improved the model?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-21" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-21.md" aria-label="Day 21, French editorial outline: Can we simplify data without losing its structure?"><span class="door-date">December 21</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">21</span><span class="door-title">Can we simplify data without losing its structure?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-22" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-22.md" aria-label="Day 22, French editorial outline: Can we discover groups without knowing the answers?"><span class="door-date">December 22</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">22</span><span class="door-title">Can we discover groups without knowing the answers?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-23" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-23.md" aria-label="Day 23, French editorial outline: Why is forecasting a time series not just guessing?"><span class="door-date">December 23</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">23</span><span class="door-title">Why is forecasting a time series not just guessing?</span><span class="door-action">View working outline ↗</span></a>
+<a class="advent-door skeleton" id="day-24" href="https://github.com/JM-Brun/knowledge-stories/blob/main/editorial/calendar-2026/skeletons/jour-24.md" aria-label="Day 24, French editorial outline: Does a good prediction lead to a good decision?"><span class="door-date">December 24</span><span class="door-status skeleton">In preparation · French outline</span><span class="door-number">24</span><span class="door-title">Does a good prediction lead to a good decision?</span><span class="door-action">View working outline ↗</span></a>
+
+</div>
+
+<div class="calendar-legend" aria-label="Calendar legend">
+  <span><i class="legend-swatch"></i> Published article (French)</span>
+  <span><i class="legend-swatch skeleton"></i> Public working outline (French)</span>
+</div>
+
+## Reading approach
+
+Each investigation is self-contained and introduces the definitions and tools needed to follow it. Thematic links suggest comparisons and further questions, not prerequisites. Choose a day out of curiosity, or use the six topic areas to find a subject.
+
+## About this edition
+
+This 2026 edition is an independent editorial collection about data science, statistics and artificial intelligence. Published articles can be read directly; the remaining doors link to working outlines so that the editorial process is visible without presenting unfinished material as complete.
+
+[Explore Knowledge Stories](../../) · [Browse the articles](../../#articles)
