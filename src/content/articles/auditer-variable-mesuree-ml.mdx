@@ -54,21 +54,21 @@ Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut pert
 
 Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
 
-Notons \(x\) l'entrée idéale, \(\tilde{x}\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle \(f\), maintenu fixe, pour les deux entrées. En ajoutant et retranchant \(f(x)\), on obtient :
+Notons &#92;(x&#92;) l'entrée idéale, &#92;(\tilde&#123;x&#125;&#92;) la valeur observée, &#92;(g(x)&#92;) la relation réelle et &#92;(f&#92;) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle &#92;(f&#92;), maintenu fixe, pour les deux entrées. En ajoutant et retranchant &#92;(f(x)&#92;), on obtient :
 
-\[
-f(\tilde{x}) - g(x)
+&#92;[
+f(\tilde&#123;x&#125;) - g(x)
 =
-\bigl[f(\tilde{x}) - f(x)\bigr]
+\bigl[f(\tilde&#123;x&#125;) - f(x)\bigr]
 +
 \bigl[f(x) - g(x)\bigr]
-\]
+&#92;]
 
 Les trois quantités ont une interprétation distincte :
 
-- **Erreur totale** : \(f(\tilde{x}) - g(x)\), écart entre la prédiction calculée à partir de l'entrée observée et la valeur cible.
-- **Effet de l'erreur de donnée** : \(f(\tilde{x}) - f(x)\), variation de la prédiction due au remplacement de l'entrée idéale par l'entrée mesurée, à modèle fixé.
-- **Écart du modèle** : \(f(x) - g(x)\), erreur du modèle lorsque l'entrée idéale est fournie.
+- **Erreur totale** : &#92;(f(\tilde&#123;x&#125;) - g(x)&#92;), écart entre la prédiction calculée à partir de l'entrée observée et la valeur cible.
+- **Effet de l'erreur de donnée** : &#92;(f(\tilde&#123;x&#125;) - f(x)&#92;), variation de la prédiction due au remplacement de l'entrée idéale par l'entrée mesurée, à modèle fixé.
+- **Écart du modèle** : &#92;(f(x) - g(x)&#92;), erreur du modèle lorsque l'entrée idéale est fournie.
 
 Cette égalité est une identité algébrique, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, il faut distinguer l'écart à la fonction cible de l'erreur par rapport à une réalisation bruitée. Enfin, si les données d'entraînement sont biaisées, elles peuvent modifier les paramètres appris ; cet effet indirect n'est pas isolé ici, puisque le modèle est maintenu fixe.
 
@@ -93,11 +93,11 @@ Cette égalité est une identité algébrique, pas une loi disant que deux varia
 <figcaption>Une erreur de mesure traverse le modèle ; l'écart de modélisation existe même lorsque l'entrée est exacte.</figcaption>
 </figure>
 
-**Exemple numérique indépendant des deux thermomètres précédents.** La relation réelle est \(g(x)=2x+3\), avec \(x=20\), donc une cible de 43. Supposons qu'un autre capteur fournisse \(\tilde{x}=20{,}8\), soit une erreur d'entrée de \(+0{,}8\), et que le modèle appris soit \(f(x)=2{,}1x+3{,}4\).
+**Exemple numérique indépendant des deux thermomètres précédents.** La relation réelle est &#92;(g(x)=2x+3&#92;), avec &#92;(x=20&#92;), donc une cible de 43. Supposons qu'un autre capteur fournisse &#92;(\tilde&#123;x&#125;=20&#123;,&#125;8&#92;), soit une erreur d'entrée de &#92;(+0&#123;,&#125;8&#92;), et que le modèle appris soit &#92;(f(x)=2&#123;,&#125;1x+3&#123;,&#125;4&#92;).
 
-- Écart du modèle : \(f(20)-g(20)=45{,}4-43=+2{,}4\).
-- Effet de la mesure : \(f(20{,}8)-f(20)=1{,}68\).
-- Erreur totale : \(47{,}08-43=+4{,}08\).
+- Écart du modèle : &#92;(f(20)-g(20)=45&#123;,&#125;4-43=+2&#123;,&#125;4&#92;).
+- Effet de la mesure : &#92;(f(20&#123;,&#125;8)-f(20)=1&#123;,&#125;68&#92;).
+- Erreur totale : &#92;(47&#123;,&#125;08-43=+4&#123;,&#125;08&#92;).
 
 Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient se compenser : une prédiction juste ne prouverait donc pas que les données et le modèle sont tous deux corrects.
 
@@ -111,21 +111,21 @@ La grille précédente peut devenir un protocole concret de revue de feature. Pr
 
 Une représentation simple est :
 
-\[
-x_{i,s,t}^{\mathrm{obs}}
+&#92;[
+x_&#123;i,s,t&#125;^&#123;\mathrm&#123;obs&#125;&#125;
 =
-x_{i,t}^{\ast}
+x_&#123;i,t&#125;^&#123;\ast&#125;
 +
 b_s
 +
-\varepsilon_{i,s,t},
-\]
+\varepsilon_&#123;i,s,t&#125;,
+&#92;]
 
 où :
 
-- \(x_{i,t}^{\ast}\) est la température que l'on cherche à caractériser ;
-- \(b_s\) est le décalage propre au capteur \(s\) ;
-- \(\varepsilon_{i,s,t}\) regroupe le bruit et les effets non modélisés.
+- &#92;(x_&#123;i,t&#125;^&#123;\ast&#125;&#92;) est la température que l'on cherche à caractériser ;
+- &#92;(b_s&#92;) est le décalage propre au capteur &#92;(s&#92;) ;
+- &#92;(\varepsilon_&#123;i,s,t&#125;&#92;) regroupe le bruit et les effets non modélisés.
 
 Ce modèle additif est une hypothèse de travail, pas une vérité universelle. Un biais peut dépendre de la température, de l'humidité, du vieillissement ou du protocole. Le point important est de rendre explicite la structure d'erreur que l'on suppose, plutôt que de traiter chaque valeur comme une observation interchangeable.
 
