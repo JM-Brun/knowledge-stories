@@ -35,7 +35,7 @@ const seriesFor = (domain: Domain) => (Object.keys(seriesInfo) as SeriesId[])
 const articlesForSeries = (series: SeriesId) => articles
   .filter((article) => article.data.series === series)
   .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999));
-const readingTimeFor = (article: (typeof articles)[number]) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\\s+/).filter(Boolean).length / 180));\nconst seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);\nconst ungroupedArticles = (domain: Domain) => articles.filter(
+const readingTimeFor = (article: (typeof articles)[number]) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));\nconst seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);\nconst ungroupedArticles = (domain: Domain) => articles.filter(
   (article) => article.data.domain === domain && !article.data.series,
 );
 const themesFor = (domain: Domain) => [...new Set(
