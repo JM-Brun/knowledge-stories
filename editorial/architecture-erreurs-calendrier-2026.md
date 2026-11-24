@@ -44,14 +44,21 @@ Il donne une seule décomposition illustrative de l'erreur de prédiction. Il ne
 | 23 | Attention | Pondération contextuelle et propagation de représentations ; ne pas confondre poids d'attention et explication causale. |
 | 24 | Autorégression | Accumulation des erreurs de prédiction au fil des étapes et dépendance des sorties aux tokens précédemment générés. |
 
-## Progression transversale
+## Réseau de correspondances éditoriales
 
-- **J1–J5 — données et information :** mesure, sélection, forme des distributions, dépendance et information.
-- **J6–J12 — interprétation et modèle mathématique :** causalité, domaine de validité, inférence, objectif, géométrie, complexité et stabilité.
-- **J13–J18 — apprentissage et évaluation :** annotation, correction séquentielle, généralisation, fuite, métriques et calibration.
-- **J19–J24 — décision et modèles de représentation/génération :** valeur réelle, attribution causale, tenseurs, softmax, attention et autorégression.
+Les numéros de jour déterminent la date de publication, pas un niveau de difficulté ni un ordre d'apprentissage. Le calendrier ne doit pas reproduire le plan d'un cours, d'un manuel ou d'un parcours de formation. Les sujets sont choisis d'abord pour leur pouvoir de curiosité : paradoxe, résultat contre-intuitif, expérience, controverse méthodologique ou décision concrète.
 
-Ce découpage est une aide à la navigation, pas une dépendance obligatoire. Chaque histoire doit rester compréhensible seule ; les liens entre journées sont des prolongements facultatifs.
+Le fil rouge des erreurs permet des rapprochements transversaux, sans transformer les journées en étapes successives. Quelques familles de correspondances possibles :
+
+- **Mesurer et représenter le réel :** J1, J2, J3, J10, J13, J21.
+- **Raisonner sous incertitude :** J4, J5, J8, J12, J18.
+- **Comprendre ce qu'un modèle apprend réellement :** J7, J9, J11, J14, J15.
+- **Évaluer une affirmation ou une décision :** J6, J16, J17, J19, J20.
+- **Comprendre les mécanismes des modèles de langue :** J21, J22, J23, J24.
+
+Ces familles sont des index de lecture, pas des blocs chronologiques. Elles peuvent se recouper : une même journée peut éclairer plusieurs questions. Les renvois entre journées doivent expliciter une analogie, une différence ou une limite ; ils ne doivent jamais laisser entendre qu'une journée est un prérequis implicite d'une autre.
+
+La grille des 24 cases reste chronologique pour respecter le calendrier de l'Avent, mais son ordre ne doit pas former une progression pédagogique déguisée. Lors des révisions des jours encore non publiés, varier volontairement les domaines et les formes d'enquête afin d'éviter les longues séquences homogènes (statistiques, puis apprentissage, puis évaluation, puis LLM).
 
 ## Règles de densité pour le jour 1
 
