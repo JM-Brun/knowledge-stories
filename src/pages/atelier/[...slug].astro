@@ -22,7 +22,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
     </div>
     <header class="story-header">
       <div class="review-actions"><a class="back-link" href={`${baseUrl}atelier/`}>← Index de relecture</a><a class="edit-link" href={`https://github.com/JM-Brun/knowledge-stories/edit/main/src/content/articles/${article.id}`} target="_blank" rel="noreferrer">Éditer la source sur GitHub ↗</a></div>
-      <p class="category">{article.data.category}</p>
+      <p class="category">{article.data.discipline}</p>
+      {article.data.labels.length > 0 && <div class="article-labels" aria-label="Concepts principaux">{article.data.labels.map((label) => <span class="article-label">{label}</span>)}</div>}
       <h1>{article.data.title}</h1>
       <p class="deck">{article.data.description}</p>
       <div class="meta"><time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time><span>{difficulty[article.data.difficulty]}</span>{article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}</div>
@@ -55,6 +56,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
   .edit-link:hover { background: #faf7ef; border-color: #843c27; }
   .edit-link:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
   .category { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+  .article-labels { display: flex; flex-wrap: wrap; gap: .4rem; margin: .75rem 0; }
+  .article-label { padding: .22rem .55rem; border: 1px solid #d8cbbb; border-radius: 99px; color: #75432f; background: #f7f1e8; font: 500 .68rem/1.4 "DM Sans", sans-serif; }
   h1 { max-width: 18ch; margin: .5rem 0; color: var(--ink); font: 500 clamp(2.5rem, 5.5vw, 5rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
   .deck { max-width: 43ch; color: #514d42; font: 1.3rem/1.5 "Newsreader", serif; }
   .meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; color: #625b4d; font: .75rem/1.4 "DM Mono", monospace; }
