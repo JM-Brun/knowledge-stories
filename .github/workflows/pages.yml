@@ -48,6 +48,7 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/calendar/index.html
+          test -f dist/calendar/en/index.html
           test -f dist/calendar/days/jour-01.html
           test -f dist/calendar/days/jour-05.html
           test -f dist/atelier/index.html
