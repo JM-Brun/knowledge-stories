@@ -80,6 +80,7 @@ C'est utile de distinguer trois objets :
 Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la non-réponse et de l'auto-sélection.
 
 <figure class="sampling-flow">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Schéma des trois étapes de sélection, défilable horizontalement sur petit écran">
 <svg viewBox="0 0 760 270" role="img" aria-labelledby="sampling-flow-title sampling-flow-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="sampling-flow-title">De la population cible aux observations réellement analysées</title>
   <desc id="sampling-flow-desc">Trois étapes successives : la population cible contient toutes les unités auxquelles on veut généraliser ; la base de sondage en couvre une partie ; parmi les unités sélectionnées, seules certaines répondent et sont observées. Les absences à chaque étape peuvent modifier la composition des données.</desc>
@@ -108,6 +109,7 @@ Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la n
     <text x="382" y="246" text-anchor="middle" fill="#53665b" font-size="12" font-weight="600">À chaque passage, demander : qui disparaît, et pourquoi ?</text>
   </g>
 </svg>
+</div>
 <figcaption>Schéma conceptuel, non à l'échelle : les unités peuvent être perdues dès la constitution de la base, puis lors de la sélection ou de la réponse. Une correction statistique exige de connaître ou de modéliser ces mécanismes.</figcaption>
 </figure>
 
