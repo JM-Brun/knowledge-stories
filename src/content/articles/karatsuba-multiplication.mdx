@@ -84,9 +84,9 @@ On passe ainsi de **quatre multiplications de taille réduite à trois**. Répé
 </div>
 
 <div className="term-legend" aria-label="Code couleur constant dans l’article">
-  <span><i className="legend-common" /> Produits communs aux deux méthodes : <b className="term-common">ac</b> et <b className="term-common">bd</b> (p et q)</span>
-  <span><i className="legend-cross" /> Terme croisé à reconstruire : <b className="term-cross">ad + bc</b></span>
-  <span><i className="legend-aux" /> Produit auxiliaire propre à Karatsuba : <b className="term-aux">(a + b)(c + d)</b> (r)</span>
+  <span><i className="legend-common" /> Référence classique et produits réutilisés : <b className="term-common">ac</b> et <b className="term-common">bd</b> (p et q)</span>
+  <span><i className="legend-cross" /> Terme croisé : <b className="term-cross">ad + bc</b></span>
+  <span><i className="legend-aux" /> Produit auxiliaire de Karatsuba : <b className="term-aux">(a + b)(c + d)</b> (r)</span>
 </div>
 
 ## Construire l'intuition
@@ -292,7 +292,7 @@ Comme \(\class&#123;term-aux&#125;&#123;\log_2 3 \approx 1&#123;,&#125;58496&#12
 
 Pour la <span class="term-common">méthode classique</span>, le même raisonnement remplace \(3\) par \(4\). Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de \(\class&#123;term-common&#125;&#123;4^k=(2^k)^2=n^2&#125;\). La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total de la <span class="term-common">méthode classique</span> est donc \(\class&#123;term-common&#125;&#123;\Theta(n^2)&#125;\).
 
-Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=\class&#123;term-aux&#125;&#123;3\) pour <span class="term-aux">Karatsuba</span> et \(a=\class&#123;term-common&#125;&#123;4\) pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
+Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=\class&#123;term-aux&#125;&#123;3&#125;\) pour <span class="term-aux">Karatsuba</span> et \(a=\class&#123;term-common&#125;&#123;4&#125;\) pour la <span class="term-common">méthode classique</span>. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
