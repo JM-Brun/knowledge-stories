@@ -73,24 +73,24 @@ Le nombre d'appels augmente, mais chacun devient moins coûteux. Ici, les deux e
 Posons quatre quantités :
 
 \[
-\begin{aligned}
-N_j &= \text{nombre de nœuds au niveau }j,\\
-S_j &= \text{taille d'un sous-problème à ce niveau},\\
-C_j &= \text{coût local d'un nœud de ce niveau},\\
-W_j &= \text{coût cumulé de tous les nœuds du niveau}.
-\end{aligned}
+\begin&#123;aligned&#125;
+N_j &= \text&#123;nombre de nœuds au niveau &#125;j,\\
+S_j &= \text&#123;taille d'un sous-problème à ce niveau&#125;,\\
+C_j &= \text&#123;coût local d'un nœud de ce niveau&#125;,\\
+W_j &= \text&#123;coût cumulé de tous les nœuds du niveau&#125;.
+\end&#123;aligned&#125;
 \]
 
 Lorsque les nœuds d'un même niveau ont la même taille et le même coût local :
 
 \[
-\boxed{W_j=N_j\,C_j}
+\boxed&#123;W_j=N_j\,C_j&#125;
 \]
 
 Cette formule évite de confondre trois questions : combien d'appels ? combien coûte chacun ? combien coûte le niveau entier ? Dans un arbre irrégulier, les coûts peuvent différer et il faut sommer :
 
 \[
-W_j=\sum_{v\text{ au niveau }j} C(v).
+W_j=\sum_&#123;v\text&#123; au niveau &#125;j&#125; C(v).
 \]
 
 ### Du coût des niveaux au coût total
@@ -98,12 +98,12 @@ W_j=\sum_{v\text{ au niveau }j} C(v).
 Le coût total additionne les niveaux internes et les feuilles :
 
 \[
-T(n)=\sum_{j=0}^{h-1}W_j+L_h,
+T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125;W_j+L_h,
 \]
 
 où \(h\) est la profondeur maximale et \(L_h\) le coût cumulé des cas de base. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
 
-Dans l'exemple précédent, chaque niveau interne coûte \(\Theta(n)\), et il y a \(\Theta(\log n)\) niveaux. Les feuilles sont au nombre de \(2^{\log_2 n}=n\), chacune de coût constant. Ainsi :
+Dans l'exemple précédent, chaque niveau interne coûte \(\Theta(n)\), et il y a \(\Theta(\log n)\) niveaux. Les feuilles sont au nombre de \(2^&#123;\log_2 n&#125;=n\), chacune de coût constant. Ainsi :
 
 \[
 T(n)=\Theta(n\log n)+\Theta(n)=\Theta(n\log n).
@@ -473,14 +473,14 @@ avec \(a\geq1\), \(b>1\) et \(d\geq0\). Chaque nœud crée \(a\) enfants de tail
 Au niveau \(j\), le nombre d'appels et la taille de chacun sont :
 
 \[
-N_j=a^j,\qquad S_j=\frac{n}{b^j}.
+N_j=a^j,\qquad S_j=\frac&#123;n&#125;&#123;b^j&#125;.
 \]
 
 Le coût local cumulé du niveau vaut donc :
 
 \[
 W_j=a^j\Theta\left((n/b^j)^d\right)
-=\Theta\left(n^d\left(\frac{a}{b^d}\right)^j\right).
+=\Theta\left(n^d\left(\frac&#123;a&#125;&#123;b^d&#125;\right)^j\right).
 \]
 
 Le rapport \(a/b^d\) compare l'augmentation du nombre d'appels à la diminution du coût de chaque appel.
@@ -504,8 +504,8 @@ C'est le mécanisme de \(T(n)=2T(n/2)+\Theta(n)\) : \(a=2\), \(b=2\), \(d=1\).
 Si \(a/b^d>1\), les contributions augmentent à chaque niveau. La somme est dominée par les derniers niveaux. Pour une profondeur \(h=\log_b n\), le travail interne est de l'ordre de :
 
 \[
-n^d\left(\frac{a}{b^d}\right)^{\log_b n}
-=n^{\log_b a}.
+n^d\left(\frac&#123;a&#125;&#123;b^d&#125;\right)^&#123;\log_b n&#125;
+=n^&#123;\log_b a&#125;.
 \]
 
 Le coût des feuilles est du même ordre si elles sont \(\Theta(1)\) chacune. C'est le régime de Karatsuba : \(a=3\), \(b=2\), \(d=1\), donc \(3/2>1\).
@@ -520,11 +520,11 @@ Cette comparaison donne l'intuition des trois cas du théorème maître. Pour un
 
 \[
 T(n)=
-\begin{cases}
+\begin&#123;cases&#125;
 \Theta(n^d), & a<b^d,\\
 \Theta(n^d\log n), & a=b^d,\\
-\Theta(n^{\log_b a}), & a>b^d.
-\end{cases}
+\Theta(n^&#123;\log_b a&#125;), & a>b^d.
+\end&#123;cases&#125;
 \]
 
 Le théorème maître formalise ce résultat et résout rapidement certaines récurrences. L'arbre explique pourquoi les trois cas existent. Les deux approches sont complémentaires : l'arbre construit l'intuition et détaille les contributions ; le théorème maître fournit un raccourci sous des hypothèses précises.
@@ -602,6 +602,6 @@ Cette procédure permet de justifier chaque terme de la complexité et de repér
 - Le nombre d'appels et le coût de chaque appel évoluent souvent en sens inverse : il faut les combiner pour obtenir le coût d'un niveau.
 - Le coût total est la somme des coûts internes et du coût des feuilles. Compter les seules feuilles peut être insuffisant.
 - Le rapport \(a/b^d\) indique si les contributions des niveaux diminuent, restent constantes ou augmentent dans le modèle régulier.
-- Pour Karatsuba, \(a=3\), \(b=2\), \(d=1\) : les derniers niveaux dominent et la complexité est \(\Theta(n^{\log_2 3})\).
+- Pour Karatsuba, \(a=3\), \(b=2\), \(d=1\) : les derniers niveaux dominent et la complexité est \(\Theta(n^&#123;\log_2 3&#125;)\).
 
 </div>
