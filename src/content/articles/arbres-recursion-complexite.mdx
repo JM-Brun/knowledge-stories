@@ -1,6 +1,6 @@
 ---
-title: "Des arbres de récursion à la complexité : comprendre l’exposant de Karatsuba"
-description: "Construisez l’arbre de récursion de Karatsuba, comptez ses feuilles et le travail de chaque niveau, puis démontrez pourquoi son coût est en Θ(n^{log₂ 3})."
+title: "Calculer la complexité de la multiplication de Karatsuba"
+description: "Établissez la récurrence du modèle équilibré de Karatsuba et démontrez Θ(n^{log₂ 3}), puis analysez les opérations auxiliaires et les écarts de tailles de l’implémentation."
 date: 2026-11-24
 category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
@@ -22,7 +22,7 @@ sources:
     url: "https://gmplib.org/manual/Karatsuba-Multiplication"
     kind: "documentation"
     accessed: 2026-11-24
-relatedArticles: ["karatsuba-multiplication"]
+relatedArticles: ["karatsuba-multiplication", "multiplication-rapide-et-preuves-2026"]
 ---
 
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
@@ -31,12 +31,12 @@ import RecursionTreeExplorer from "../../components/RecursionTreeExplorer.astro"
 
 <div class="complexity-lesson">
 
-<p class="lesson-context">Cette page reprend la démonstration de complexité initialement intégrée à l’article <a href="/knowledge-stories/atelier/karatsuba-multiplication/">« Karatsuba, trois produits au lieu de quatre »</a>. Elle peut se lire indépendamment si vous connaissez déjà le principe des trois multiplications de Karatsuba. Pour revoir la construction algébrique et l’algorithme, consultez <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à Karatsuba</a>.</p>
+<p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi le modèle équilibré conduit-il à <span>Θ(n<sup>log₂ 3</sup>)</span> ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
 
 
-## Lire un arbre de récursion : le modèle général
+## Outil d’analyse : lire un arbre de récursion
 
-Avant d'étudier Karatsuba, construisons un modèle réutilisable. Un arbre de récursion représente les appels produits par un algorithme récursif : chaque nœud correspond à un sous-problème, et ses enfants aux problèmes plus petits qu'il engendre.
+Pour analyser le coût de l'implémentation, il faut visualiser les appels récursifs qu'elle déclenche. L'arbre est ici un **outil**, pas le sujet de l'article : il rend visibles le nombre de sous-multiplications, leur taille et le travail effectué à chaque étape. Les définitions qui suivent donnent uniquement le vocabulaire nécessaire à la démonstration de Karatsuba. Elles pourront être développées dans une ressource autonome si ce détour prend davantage d'ampleur.
 
 ### Le vocabulaire indispensable
 
@@ -49,7 +49,7 @@ Avant d'étudier Karatsuba, construisons un modèle réutilisable. Un arbre de r
 
 Un arbre n'est pas nécessairement équilibré : certaines branches peuvent s'arrêter avant les autres. Nous commençons par un cas équilibré, puis reviendrons sur les hypothèses nécessaires.
 
-### Un exemple simple avant Karatsuba
+### Un exemple minimal pour comprendre le coût d’un niveau
 
 Considérons un algorithme qui divise un problème en deux sous-problèmes de taille moitié et effectue un travail linéaire pour les réunir :
 
@@ -128,10 +128,10 @@ Cet exemple montre pourquoi compter uniquement les feuilles ne suffit pas toujou
 
 > **Réflexe à acquérir :** ne concluez jamais à partir du seul nombre de feuilles. Calculez le coût de chaque niveau, puis comparez les contributions.
 
-## Étude de cas : démontrer l’exposant de Karatsuba à partir de l’arbre
+## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
 
-Nous savons maintenant que Karatsuba remplace quatre multiplications de blocs par trois. Mais pourquoi cette économie conduit-elle précisément à l’exposant &#92;(1&#123;,&#125;585&#92;) ? Pour le comprendre, suivons les appels récursifs dans un arbre.
+Karatsuba remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
 
 Avant de commencer, distinguons deux types d’opérations :
 
@@ -182,7 +182,7 @@ Le signe &#92;(+&#92;) signifie donc « additionner des coûts de calcul ». Il 
 **Une image concrète :** additionner deux nombres de 8 chiffres demande de parcourir leurs chiffres de droite à gauche, en gérant éventuellement une retenue. Le nombre d’étapes grandit proportionnellement à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba ne se résume pas à un seul parcours : on crée trois multiplications de blocs de 4 chiffres, qui créent à leur tour trois multiplications plus petites, et ainsi de suite. C’est cette répétition qui forme l’arbre.
 
 
-### 2. Pourquoi un arbre ?
+### 2. Visualiser les appels récursifs de Karatsuba
 
 Un appel de taille &#92;(n&#92;) est la racine de l’arbre. Chaque appel engendre plusieurs appels plus petits :
 
@@ -475,7 +475,7 @@ Une variante par différences de Karatsuba évite précisément cette retenue su
 
 
 
-## Généraliser : pourquoi trois régimes de croissance apparaissent
+## En complément : généraliser l’analyse à d’autres récurrences
 
 Karatsuba appartient à une famille de récurrences :
 
