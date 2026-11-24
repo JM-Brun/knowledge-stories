@@ -71,131 +71,131 @@ Les bibliothèques choisissent donc des seuils de bascule à partir de mesures e
 
 La variante par différences de GNU MP répond au problème de retenue rencontré dans l’atelier Karatsuba. Au lieu de calculer le produit des sommes, on peut utiliser :
 
-\[
+&#92;[
 ad+bc = ac+bd-(a-b)(c-d).
-\]
+&#92;]
 
-La valeur absolue d’une différence entre deux blocs de \(m\) chiffres tient sur \(m\) chiffres, alors que leur somme peut en nécessiter \(m+1\). Cette variante évite donc l’allongement de l’opérande auxiliaire, au prix de la gestion du signe du produit des différences.
+La valeur absolue d’une différence entre deux blocs de &#92;(m&#92;) chiffres tient sur &#92;(m&#92;) chiffres, alors que leur somme peut en nécessiter &#92;(m+1&#92;). Cette variante évite donc l’allongement de l’opérande auxiliaire, au prix de la gestion du signe du produit des différences.
 
 ## 2. De Karatsuba à Toom–Cook : penser en polynômes
 
 ### 2.1 Le changement de représentation
 
-Reprenons \(1\,234\times5\,678\), en découpant les nombres en blocs de deux chiffres :
+Reprenons &#92;(1&#92;,234&#92;times5&#92;,678&#92;), en découpant les nombres en blocs de deux chiffres :
 
-\[
-1\,234=12\times100+34,\qquad
-5\,678=56\times100+78.
-\]
+&#92;[
+1&#92;,234=12&#92;times100+34,&#92;qquad
+5&#92;,678=56&#92;times100+78.
+&#92;]
 
-On peut remplacer la base 100 par une variable \(x\) et considérer les polynômes
+On peut remplacer la base 100 par une variable &#92;(x&#92;) et considérer les polynômes
 
-\[
-P(x)=12x+34,\qquad Q(x)=56x+78.
-\]
+&#92;[
+P(x)=12x+34,&#92;qquad Q(x)=56x+78.
+&#92;]
 
 Le produit vaut
 
-\[
-R(x)=P(x)Q(x)=672x^2+2\,864x+2\,652.
-\]
+&#92;[
+R(x)=P(x)Q(x)=672x^2+2&#92;,864x+2&#92;,652.
+&#92;]
 
-En évaluant en \(x=100\), on retrouve bien \(1\,234\times5\,678\). L'intérêt de cette écriture n'est pas seulement esthétique : **multiplier des nombres découpés en blocs revient à multiplier des polynômes dont les coefficients sont ces blocs**.
+En évaluant en &#92;(x=100&#92;), on retrouve bien &#92;(1&#92;,234&#92;times5&#92;,678&#92;). L'intérêt de cette écriture n'est pas seulement esthétique : **multiplier des nombres découpés en blocs revient à multiplier des polynômes dont les coefficients sont ces blocs**.
 
-Le développement direct calcule quatre produits de blocs : \(12\times56\), \(12\times78\), \(34\times56\) et \(34\times78\). Karatsuba remarque qu'il suffit de trois produits :
+Le développement direct calcule quatre produits de blocs : &#92;(12&#92;times56&#92;), &#92;(12&#92;times78&#92;), &#92;(34&#92;times56&#92;) et &#92;(34&#92;times78&#92;). Karatsuba remarque qu'il suffit de trois produits :
 
-\[
-u=12\times56,\quad v=34\times78,\quad
+&#92;[
+u=12&#92;times56,&#92;quad v=34&#92;times78,&#92;quad
 w=(12+34)(56+78).
-\]
+&#92;]
 
-Le coefficient croisé est alors \(w-u-v\). C'est exactement le produit de deux polynômes de degré 1 reconstruit à partir de trois évaluations : en 0, en 1 et au point « infini » (qui donne le coefficient dominant). Karatsuba est donc déjà une petite méthode d'évaluation–interpolation.
+Le coefficient croisé est alors &#92;(w-u-v&#92;). C'est exactement le produit de deux polynômes de degré 1 reconstruit à partir de trois évaluations : en 0, en 1 et au point « infini » (qui donne le coefficient dominant). Karatsuba est donc déjà une petite méthode d'évaluation–interpolation.
 
 ### 2.2 Toom–Cook à trois blocs : de neuf produits à cinq
 
 Avec trois blocs, on écrit chaque entier sous la forme
 
-\[
-A=a_0+a_1B+a_2B^2,\qquad
+&#92;[
+A=a_0+a_1B+a_2B^2,&#92;qquad
 C=c_0+c_1B+c_2B^2,
-\]
+&#92;]
 
-où \(B\) est une puissance de la base de représentation (par exemple une puissance de 10, ou une puissance de 2 pour des blocs binaires). On associe les polynômes
+où &#92;(B&#92;) est une puissance de la base de représentation (par exemple une puissance de 10, ou une puissance de 2 pour des blocs binaires). On associe les polynômes
 
-\[
-P(x)=a_0+a_1x+a_2x^2,\qquad
+&#92;[
+P(x)=a_0+a_1x+a_2x^2,&#92;qquad
 Q(x)=c_0+c_1x+c_2x^2.
-\]
+&#92;]
 
-Le produit \(R(x)=P(x)Q(x)\) est de degré au plus 4 : il possède donc cinq coefficients. Le développement naïf effectue neuf multiplications de blocs. Toom–Cook exploite le fait qu'un polynôme de degré au plus 4 est entièrement déterminé par cinq valeurs distinctes.
+Le produit &#92;(R(x)=P(x)Q(x)&#92;) est de degré au plus 4 : il possède donc cinq coefficients. Le développement naïf effectue neuf multiplications de blocs. Toom–Cook exploite le fait qu'un polynôme de degré au plus 4 est entièrement déterminé par cinq valeurs distinctes.
 
-On choisit les points \(0,1,-1,2\) et le point à l'infini. On calcule cinq produits :
+On choisit les points &#92;(0,1,-1,2&#92;) et le point à l'infini. On calcule cinq produits :
 
-\[
-\begin{aligned}
-w_0&=P(0)Q(0), & w_1&=P(1)Q(1),\\
-w_{-1}&=P(-1)Q(-1), & w_2&=P(2)Q(2),\\
-w_\infty&=a_2c_2.
-\end{aligned}
-\]
+&#92;[
+&#92;begin{aligned}
+w_0&=P(0)Q(0), & w_1&=P(1)Q(1),&#92;&#92;
+w_{-1}&=P(-1)Q(-1), & w_2&=P(2)Q(2),&#92;&#92;
+w_&#92;infty&=a_2c_2.
+&#92;end{aligned}
+&#92;]
 
-Chacun est un produit de valeurs évaluées, donc un produit d'opérandes de taille comparable à celle des blocs. À partir de ces cinq résultats, on reconstruit les coefficients \(r_0,\ldots,r_4\) de \(R(x)\). Pour voir comment l'interpolation fonctionne, écrivons
+Chacun est un produit de valeurs évaluées, donc un produit d'opérandes de taille comparable à celle des blocs. À partir de ces cinq résultats, on reconstruit les coefficients &#92;(r_0,&#92;ldots,r_4&#92;) de &#92;(R(x)&#92;). Pour voir comment l'interpolation fonctionne, écrivons
 
-\[
+&#92;[
 R(x)=r_0+r_1x+r_2x^2+r_3x^3+r_4x^4.
-\]
+&#92;]
 
 Les évaluations en 0 et à l'infini donnent immédiatement les extrémités :
 
-\[
-r_0=w_0,\qquad r_4=w_\infty.
-\]
+&#92;[
+r_0=w_0,&#92;qquad r_4=w_&#92;infty.
+&#92;]
 
 Les valeurs en 1 et −1 permettent d'isoler les coefficients pairs et impairs :
 
-\[
-s_1=\frac{w_1-w_{-1}}{2}=r_1+r_3,
-\]
+&#92;[
+s_1=&#92;frac{w_1-w_{-1}}{2}=r_1+r_3,
+&#92;]
 
-\[
-r_2=\frac{w_1+w_{-1}}{2}-r_0-r_4.
-\]
+&#92;[
+r_2=&#92;frac{w_1+w_{-1}}{2}-r_0-r_4.
+&#92;]
 
 Enfin, l'évaluation en 2 fournit une équation supplémentaire :
 
-\[
-t=\frac{w_2-r_0-16r_4}{2}
+&#92;[
+t=&#92;frac{w_2-r_0-16r_4}{2}
 =r_1+2r_2+4r_3.
-\]
+&#92;]
 
 On en déduit successivement
 
-\[
-r_3=\frac{t-s_1-2r_2}{3},
-\qquad r_1=s_1-r_3.
-\]
+&#92;[
+r_3=&#92;frac{t-s_1-2r_2}{3},
+&#92;qquad r_1=s_1-r_3.
+&#92;]
 
-On connaît alors les cinq coefficients. Le produit entier s'obtient par recomposition en base \(B\) :
+On connaît alors les cinq coefficients. Le produit entier s'obtient par recomposition en base &#92;(B&#92;) :
 
-\[
+&#92;[
 AC=R(B)=r_0+r_1B+r_2B^2+r_3B^3+r_4B^4.
-\]
+&#92;]
 
 <aside>
 **Ce qu'il faut retenir.** Toom–Cook ne fait pas disparaître le travail : il échange neuf multiplications récursives contre cinq multiplications, mais ajoute des évaluations, des additions, des multiplications par de petites constantes et une interpolation. Le gain vient de la baisse du nombre de produits coûteux, pas d'une formule magique.
 </aside>
 
-**Pourquoi les divisions sont-elles exactes ?** Les formules d'interpolation font apparaître des divisions par 2 et par 3. Les valeurs \(w_0,w_1,w_{-1},w_2,w_\infty\) ne sont pas arbitraires : elles proviennent de produits de polynômes à coefficients entiers. Les numérateurs correspondants sont donc divisibles par les dénominateurs dans l'arithmétique exacte. Une implémentation doit néanmoins organiser les calculs pour préserver cette exactitude, gérer les signes et éviter les débordements dans ses types intermédiaires.
+**Pourquoi les divisions sont-elles exactes ?** Les formules d'interpolation font apparaître des divisions par 2 et par 3. Les valeurs &#92;(w_0,w_1,w_{-1},w_2,w_&#92;infty&#92;) ne sont pas arbitraires : elles proviennent de produits de polynômes à coefficients entiers. Les numérateurs correspondants sont donc divisibles par les dénominateurs dans l'arithmétique exacte. Une implémentation doit néanmoins organiser les calculs pour préserver cette exactitude, gérer les signes et éviter les débordements dans ses types intermédiaires.
 
 ### Vérifier l'interpolation sur un exemple numérique
 
-L'atelier suivant utilise \(P(x)=1+2x+3x^2\) et \(Q(x)=4+5x+6x^2\). Les cinq produits évalués sont calculés explicitement, puis les coefficients sont reconstruits un à un. Le choix de petits coefficients permet de contrôler les calculs sans perdre de vue la structure générale.
+L'atelier suivant utilise &#92;(P(x)=1+2x+3x^2&#92;) et &#92;(Q(x)=4+5x+6x^2&#92;). Les cinq produits évalués sont calculés explicitement, puis les coefficients sont reconstruits un à un. Le choix de petits coefficients permet de contrôler les calculs sans perdre de vue la structure générale.
 
 <ToomCookExplorer />
 
 ### 2.3 Pourquoi « trois blocs » n'est pas la fin de l'histoire
 
-Le principe se généralise. Avec \(k\) blocs, les deux polynômes ont un degré au plus \(k-1\), et leur produit un degré au plus \(2k-2\). Il faut donc \(2k-1\) évaluations pour reconstruire le produit, au lieu des \(k^2\) produits du développement direct.
+Le principe se généralise. Avec &#92;(k&#92;) blocs, les deux polynômes ont un degré au plus &#92;(k-1&#92;), et leur produit un degré au plus &#92;(2k-2&#92;). Il faut donc &#92;(2k-1&#92;) évaluations pour reconstruire le produit, au lieu des &#92;(k^2&#92;) produits du développement direct.
 
 | Méthode | Blocs par opérande | Produits récursifs |
 |---|---:|---:|
@@ -203,17 +203,17 @@ Le principe se généralise. Avec \(k\) blocs, les deux polynômes ont un degré
 | Karatsuba / Toom-2 | 2 | 3 |
 | Toom-3 | 3 | 5 |
 | Toom-4 | 4 | 7 |
-| Toom-\(k\) | \(k\) | \(2k-1\) |
+| Toom-&#92;(k&#92;) | &#92;(k&#92;) | &#92;(2k-1&#92;) |
 
 <MultiplicationRecurrenceComparison />
 
-Augmenter \(k\) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. Dans le modèle simplifié où chaque appel porte sur des blocs de taille \(n/k\), la récurrence devient
+Augmenter &#92;(k&#92;) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. Dans le modèle simplifié où chaque appel porte sur des blocs de taille &#92;(n/k&#92;), la récurrence devient
 
-\[
+&#92;[
 T(n)=(2k-1)T(n/k)+O(n),
-\]
+&#92;]
 
-et le théorème maître donne l'exposant \(\log_k(2k-1)\). Pour Toom–3, il s'agit de \(\log_3 5\approx1{,}465\), et pour Toom–4 de \(\log_4 7\approx1{,}404\). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
+et le théorème maître donne l'exposant &#92;(&#92;log_k(2k-1)&#92;). Pour Toom–3, il s'agit de &#92;(&#92;log_3 5&#92;approx1{,}465&#92;), et pour Toom–4 de &#92;(&#92;log_4 7&#92;approx1{,}404&#92;). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
 
 ## 3. De Toom–Cook à la FFT : accélérer la convolution
 
@@ -221,42 +221,42 @@ et le théorème maître donne l'exposant \(\log_k(2k-1)\). Pour Toom–3, il s'
 
 Soient deux polynômes
 
-\[
-P(x)=\sum_{i=0}^{m-1}a_ix^i,
-\qquad
-Q(x)=\sum_{j=0}^{m-1}b_jx^j.
-\]
+&#92;[
+P(x)=&#92;sum_{i=0}^{m-1}a_ix^i,
+&#92;qquad
+Q(x)=&#92;sum_{j=0}^{m-1}b_jx^j.
+&#92;]
 
-Le coefficient de degré \(k\) dans leur produit est
+Le coefficient de degré &#92;(k&#92;) dans leur produit est
 
-\[
-c_k=\sum_{i+j=k}a_ib_j.
-\]
+&#92;[
+c_k=&#92;sum_{i+j=k}a_ib_j.
+&#92;]
 
-Cette somme est une **convolution discrète** des suites de coefficients. Calculer chaque coefficient directement conduit à environ \(m^2\) produits élémentaires. C'est le même motif de calcul que dans la multiplication scolaire : chaque coefficient de l'un interagit avec plusieurs coefficients de l'autre.
+Cette somme est une **convolution discrète** des suites de coefficients. Calculer chaque coefficient directement conduit à environ &#92;(m^2&#92;) produits élémentaires. C'est le même motif de calcul que dans la multiplication scolaire : chaque coefficient de l'un interagit avec plusieurs coefficients de l'autre.
 
 Toom–Cook réduit le nombre de multiplications en évaluant les polynômes en quelques points, puis en interpolant. La FFT pousse cette idée plus loin : au lieu d'utiliser quelques points choisis pour un petit polynôme, elle exploite un ensemble structuré de points — les racines de l'unité — pour transformer la convolution en multiplications terme à terme.
 
 ### 3.2 L'idée de la transformée de Fourier discrète
 
-Pour une longueur \(N\), choisissons une racine \(N\)-ième primitive de l'unité \(\omega\), c'est-à-dire un nombre vérifiant
+Pour une longueur &#92;(N&#92;), choisissons une racine &#92;(N&#92;)-ième primitive de l'unité &#92;(&#92;omega&#92;), c'est-à-dire un nombre vérifiant
 
-\[
-\omega^N=1
-\]
+&#92;[
+&#92;omega^N=1
+&#92;]
 
-et aucune puissance positive plus petite n'est égale à 1. La transformée de Fourier discrète (DFT) associe aux coefficients \(a_0,\ldots,a_{N-1}\) les valeurs
+et aucune puissance positive plus petite n'est égale à 1. La transformée de Fourier discrète (DFT) associe aux coefficients &#92;(a_0,&#92;ldots,a_{N-1}&#92;) les valeurs
 
-\[
-\widehat a_k=\sum_{j=0}^{N-1}a_j\omega^{jk},
-\qquad 0\leq k<N.
-\]
+&#92;[
+&#92;widehat a_k=&#92;sum_{j=0}^{N-1}a_j&#92;omega^{jk},
+&#92;qquad 0&#92;leq k<N.
+&#92;]
 
-Elle évalue en quelque sorte le polynôme \(P\) aux points \(1,\omega,\omega^2,\ldots,\omega^{N-1}\). La propriété fondamentale est :
+Elle évalue en quelque sorte le polynôme &#92;(P&#92;) aux points &#92;(1,&#92;omega,&#92;omega^2,&#92;ldots,&#92;omega^{N-1}&#92;). La propriété fondamentale est :
 
-\[
-\widehat{(a*b)}_k=\widehat a_k\,\widehat b_k.
-\]
+&#92;[
+&#92;widehat{(a*b)}_k=&#92;widehat a_k&#92;,&#92;widehat b_k.
+&#92;]
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
@@ -264,55 +264,55 @@ Autrement dit, **la transformée d'une convolution est le produit terme à terme
 2. multiplier terme à terme les valeurs transformées ;
 3. appliquer la transformée inverse pour retrouver les coefficients du produit.
 
-La DFT naïve coûte \(O(N^2)\). La FFT (*Fast Fourier Transform*) est une famille d'algorithmes qui calcule cette transformation en \(O(N\log N)\), en réutilisant les symétries des racines de l'unité et en décomposant récursivement le problème.
+La DFT naïve coûte &#92;(O(N^2)&#92;). La FFT (*Fast Fourier Transform*) est une famille d'algorithmes qui calcule cette transformation en &#92;(O(N&#92;log N)&#92;), en réutilisant les symétries des racines de l'unité et en décomposant récursivement le problème.
 
-**D'où vient le facteur \(N\log N\) ?** Séparons les coefficients d'indices pairs et impairs :
+**D'où vient le facteur &#92;(N&#92;log N&#92;) ?** Séparons les coefficients d'indices pairs et impairs :
 
-\[
-P(x)=P_{\mathrm{pair}}(x^2)+xP_{\mathrm{impair}}(x^2).
-\]
+&#92;[
+P(x)=P_{&#92;mathrm{pair}}(x^2)+xP_{&#92;mathrm{impair}}(x^2).
+&#92;]
 
-Pour \\(N\\) puissance de deux, une évaluation de longueur \(N\) se ramène alors à deux évaluations de longueur \(N/2\), puis à un nombre linéaire de combinaisons. Pour chaque indice \(k\), si \(E_k\) et \(O_k\) désignent les deux valeurs transformées de taille \(N/2\), les deux sorties associées sont :
+Pour &#92;(N&#92;) puissance de deux, une évaluation de longueur &#92;(N&#92;) se ramène alors à deux évaluations de longueur &#92;(N/2&#92;), puis à un nombre linéaire de combinaisons. Pour chaque indice &#92;(k&#92;), si &#92;(E_k&#92;) et &#92;(O_k&#92;) désignent les deux valeurs transformées de taille &#92;(N/2&#92;), les deux sorties associées sont :
 
-\[
-X_k=E_k+\omega^k O_k,
-\qquad
-X_{k+N/2}=E_k-\omega^k O_k.
-\]
+&#92;[
+X_k=E_k+&#92;omega^k O_k,
+&#92;qquad
+X_{k+N/2}=E_k-&#92;omega^k O_k.
+&#92;]
 
-Cette paire d'additions et de soustractions, avec une multiplication par un facteur \(\omega^k\), forme une **opération papillon** (*butterfly*). On obtient la récurrence \(F(N)=2F(N/2)+O(N)\), donc \(F(N)=O(N\log N)\). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les \(N\) sommes de la DFT.
+Cette paire d'additions et de soustractions, avec une multiplication par un facteur &#92;(&#92;omega^k&#92;), forme une **opération papillon** (*butterfly*). On obtient la récurrence &#92;(F(N)=2F(N/2)+O(N)&#92;), donc &#92;(F(N)=O(N&#92;log N)&#92;). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les &#92;(N&#92;) sommes de la DFT.
 
 ### 3.3 Un point crucial : éviter la convolution circulaire
 
-La DFT travaille sur des suites de longueur \(N\) et produit naturellement une convolution **circulaire** : les indices sont considérés modulo \(N\). Or le produit ordinaire de deux polynômes de degrés au plus \(m-1\) peut avoir le degré \(2m-2\).
+La DFT travaille sur des suites de longueur &#92;(N&#92;) et produit naturellement une convolution **circulaire** : les indices sont considérés modulo &#92;(N&#92;). Or le produit ordinaire de deux polynômes de degrés au plus &#92;(m-1&#92;) peut avoir le degré &#92;(2m-2&#92;).
 
 Pour retrouver la convolution linéaire sans repliement des coefficients, on complète les deux suites par des zéros jusqu'à une longueur
 
-\[
-N\geq 2m-1.
-\]
+&#92;[
+N&#92;geq 2m-1.
+&#92;]
 
-Après cette extension, la convolution circulaire calculée par la DFT coïncide avec la convolution linéaire recherchée sur les coefficients utiles. Le choix de \(N\) dépend des longueurs acceptées efficacement par l'algorithme de transformée.
+Après cette extension, la convolution circulaire calculée par la DFT coïncide avec la convolution linéaire recherchée sur les coefficients utiles. Le choix de &#92;(N&#92;) dépend des longueurs acceptées efficacement par l'algorithme de transformée.
 
 ### 3.4 Comment cela devient-il une multiplication exacte d'entiers ?
 
 Il faut distinguer l'idée mathématique de sa réalisation numérique. Une FFT complexe classique utilise des nombres flottants. Les erreurs d'arrondi peuvent modifier un coefficient entier, même si le résultat mathématique est exact. Pour une multiplication entière exacte, il faut donc contrôler rigoureusement les erreurs ou travailler dans un cadre arithmétique exact.
 
-Une stratégie consiste à utiliser une **transformée de Fourier sur un corps fini**, souvent appelée NTT (*Number-Theoretic Transform*). On choisit un nombre premier \(p\) tel que le corps \(\mathbb{F}_p\) contienne une racine de l'unité de l'ordre requis ; en particulier, la condition \(N\mid(p-1)\) garantit l'existence d'une racine primitive d'ordre \(N\) dans \(\mathbb{F}_p^\times\). Les calculs sont alors exacts modulo \(p\). Si les coefficients recherchés peuvent être trop grands pour être reconstruits à partir d'un seul module, on utilise plusieurs modules premiers et le théorème chinois des restes pour reconstituer les entiers.
+Une stratégie consiste à utiliser une **transformée de Fourier sur un corps fini**, souvent appelée NTT (*Number-Theoretic Transform*). On choisit un nombre premier &#92;(p&#92;) tel que le corps &#92;(&#92;mathbb{F}_p&#92;) contienne une racine de l'unité de l'ordre requis ; en particulier, la condition &#92;(N&#92;mid(p-1)&#92;) garantit l'existence d'une racine primitive d'ordre &#92;(N&#92;) dans &#92;(&#92;mathbb{F}_p^&#92;times&#92;). Les calculs sont alors exacts modulo &#92;(p&#92;). Si les coefficients recherchés peuvent être trop grands pour être reconstruits à partir d'un seul module, on utilise plusieurs modules premiers et le théorème chinois des restes pour reconstituer les entiers.
 
 Les algorithmes historiques de multiplication rapide, notamment Schönhage–Strassen, utilisent des variantes plus élaborées de transformations rapides dans des anneaux adaptés. Il ne faut donc pas identifier sans nuance « multiplication rapide » et « FFT complexe en virgule flottante » : la structure transformée est commune, mais les anneaux, les précautions d'exactitude et les détails algorithmiques diffèrent.
 
 ### 3.5 La chaîne d'idées en une vue
 
-\[
-\boxed{\text{blocs d'entiers}}
-\longrightarrow
-\boxed{\text{polynômes}}
-\longrightarrow
-\boxed{\text{convolution}}
-\longrightarrow
-\boxed{\text{transformée rapide}}
-\]
+&#92;[
+&#92;boxed{&#92;text{blocs d'entiers}}
+&#92;longrightarrow
+&#92;boxed{&#92;text{polynômes}}
+&#92;longrightarrow
+&#92;boxed{&#92;text{convolution}}
+&#92;longrightarrow
+&#92;boxed{&#92;text{transformée rapide}}
+&#92;]
 
 - **Karatsuba** : trois produits au lieu de quatre pour deux blocs.
 - **Toom–Cook** : évaluer en plusieurs points, multiplier les valeurs, interpoler ; par exemple cinq produits au lieu de neuf avec trois blocs.
@@ -322,7 +322,7 @@ Ces méthodes ne sont pas trois recettes indépendantes. Elles exploitent une m�
 
 ### Suivre une convolution de bout en bout
 
-Prenons \(A(x)=1+2x\) et \(B(x)=3+4x\). Leur produit possède trois coefficients utiles : \([3,10,8]\). Pour illustrer la DFT, on complète les suites à la longueur \(N=4\), puis on évalue aux quatre racines quatrièmes de l'unité \(1,i,-1,-i\). L'atelier déroule les quatre opérations : remplissage, transformation, produits terme à terme et transformée inverse.
+Prenons &#92;(A(x)=1+2x&#92;) et &#92;(B(x)=3+4x&#92;). Leur produit possède trois coefficients utiles : &#92;([3,10,8]&#92;). Pour illustrer la DFT, on complète les suites à la longueur &#92;(N=4&#92;), puis on évalue aux quatre racines quatrièmes de l'unité &#92;(1,i,-1,-i&#92;). L'atelier déroule les quatre opérations : remplissage, transformation, produits terme à terme et transformée inverse.
 
 <FFTConvolutionExplorer />
 
@@ -330,20 +330,20 @@ Cet exemple montre l'identité algébrique. Il ne constitue pas à lui seul une 
 
 ## 4. La frontière théorique : trois travaux à ne pas confondre
 
-Les résultats ci-dessous portent sur des bornes asymptotiques de complexité en bits. Ils ne disent pas qu’un programme donné est plus rapide sur une machine courante. Dans une borne de la forme \(O(n(\log n)^{1-\kappa})\), une valeur de \(\kappa\) plus grande donne un exposant logarithmique plus favorable, mais les modèles de machines, les hypothèses et les constructions doivent être comparés avant d’en tirer un classement.
+Les résultats ci-dessous portent sur des bornes asymptotiques de complexité en bits. Ils ne disent pas qu’un programme donné est plus rapide sur une machine courante. Dans une borne de la forme &#92;(O(n(&#92;log n)^{1-&#92;kappa})&#92;), une valeur de &#92;(&#92;kappa&#92;) plus grande donne un exposant logarithmique plus favorable, mais les modèles de machines, les hypothèses et les constructions doivent être comparés avant d’en tirer un classement.
 
-### 2021 — la borne \(O(n\log n)\)
+### 2021 — la borne &#92;(O(n&#92;log n)&#92;)
 
-Schönhage et Strassen avaient obtenu en 1971 une borne \(O(n\log n\log\log n)\) dans le modèle multitape, en exploitant des transformations rapides. Harvey et van der Hoeven établissent ensuite une borne \(O(n\log n)\) pour la multiplication de deux entiers de \(n\) bits dans le modèle multitape considéré par leur article. C’est le point de comparaison utilisé par les travaux ultérieurs.
+Schönhage et Strassen avaient obtenu en 1971 une borne &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;) dans le modèle multitape, en exploitant des transformations rapides. Harvey et van der Hoeven établissent ensuite une borne &#92;(O(n&#92;log n)&#92;) pour la multiplication de deux entiers de &#92;(n&#92;) bits dans le modèle multitape considéré par leur article. C’est le point de comparaison utilisé par les travaux ultérieurs.
 
 ### 23 septembre 2026 — la prépublication OpenAI
 
 La prépublication [*Integer multiplication below n log n*](https://github.com/openai/math/tree/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026) annonce un algorithme déterministe exact en temps
 
-\[
-O\!\left(n(\log n)^{1-\kappa}\right),
-\qquad \kappa=2^{-182},
-\]
+&#92;[
+O&#92;!&#92;left(n(&#92;log n)^{1-&#92;kappa}&#92;right),
+&#92;qquad &#92;kappa=2^{-182},
+&#92;]
 
 sur une machine de Turing à alphabet fini et à nombre fixe de rubans unidimensionnels. Le gain sur le facteur logarithmique est extrêmement faible ; les auteurs précisent que les constantes et les seuils sont immenses et que le résultat vise une borne de complexité, pas une amélioration pratique.
 
@@ -353,10 +353,10 @@ Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~d
 
 Le travail [*A simpler algorithm for integer multiplication below n log n, with a formally verified proof*](https://github.com/lockqueue/intmul) propose une construction plus simple et l’accompagne d’une formalisation Lean 4. Il faut distinguer les deux valeurs annoncées par le papier court :
 
-- **Preuve écrite :** \(\kappa=2^{-56}\), avec les constantes primitives retenues dans l’analyse écrite.
-- **Formalisation Lean 4 :** \(\kappa=2^{-46}\), grâce à des bornes de coupure et de garde affinées et vérifiées dans le développement formel.
+- **Preuve écrite :** &#92;(&#92;kappa=2^{-56}&#92;), avec les constantes primitives retenues dans l’analyse écrite.
+- **Formalisation Lean 4 :** &#92;(&#92;kappa=2^{-46}&#92;), grâce à des bornes de coupure et de garde affinées et vérifiées dans le développement formel.
 
-Cette distinction n’est pas une contradiction : les deux preuves exploitent des estimations différentes. Le dépôt des auteurs indique que le développement Lean vérifie la construction sans importer les résultats précédents comme axiomes ; l’algorithme réutilise néanmoins des réseaux linéaires étudiés dans la prépublication OpenAI. Le dépôt contient le papier court, le papier complet, le développement Lean et une implémentation Python de référence. Son sous-dossier compagnon contient par ailleurs un multiplicateur C/GMP en \(O(n\log n)\) ; ce dernier ne constitue pas une implémentation pratique de l’algorithme principal en dessous de \(n\log n\). Le README et les artefacts du dépôt ont été consultés le **24 novembre 2026**.
+Cette distinction n’est pas une contradiction : les deux preuves exploitent des estimations différentes. Le dépôt des auteurs indique que le développement Lean vérifie la construction sans importer les résultats précédents comme axiomes ; l’algorithme réutilise néanmoins des réseaux linéaires étudiés dans la prépublication OpenAI. Le dépôt contient le papier court, le papier complet, le développement Lean et une implémentation Python de référence. Son sous-dossier compagnon contient par ailleurs un multiplicateur C/GMP en &#92;(O(n&#92;log n)&#92;) ; ce dernier ne constitue pas une implémentation pratique de l’algorithme principal en dessous de &#92;(n&#92;log n&#92;). Le README et les artefacts du dépôt ont été consultés le **24 novembre 2026**.
 
 La formalisation établit un théorème dans le modèle de machine multi-piles de Mathlib (TM2). Elle vérifie une preuve dans un cadre formel donné ; elle ne signifie ni que le papier a été évalué par les pairs, ni que chaque choix de modélisation a fait l’objet d’une validation indépendante par la communauté.
 
@@ -364,14 +364,14 @@ La formalisation établit un théorème dans le modèle de machine multi-piles d
 
 Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean) présente une autre formalisation, fondée elle aussi sur les machines finies de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
 
-\[
-\kappa=
-\frac{4\,223\,103\,985}{2^{46}}
-\approx 0{,}00006001392
-\approx 2^{-14{,}02}.
-\]
+&#92;[
+&#92;kappa=
+&#92;frac{4&#92;,223&#92;,103&#92;,985}{2^{46}}
+&#92;approx 0{,}00006001392
+&#92;approx 2^{-14{,}02}.
+&#92;]
 
-Le numérateur est essentiel : \(2^{-46}\) seul vaut environ \(1{,}42\times10^{-14}\), et ne représente donc pas cette constante. La valeur \(4\,222\,422\,970\cdot2^{-46}\) relevée dans le retour initial ne correspond pas à celle affichée par le README lors de notre consultation : le dépôt indiquait alors \(4\,223\,103\,985/2^{46}\). Comme le dépôt évolue rapidement, cette valeur est datée du **24 novembre 2026**. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
+Le numérateur est essentiel : &#92;(2^{-46}&#92;) seul vaut environ &#92;(1{,}42&#92;times10^{-14}&#92;), et ne représente donc pas cette constante. La valeur &#92;(4&#92;,222&#92;,422&#92;,970&#92;cdot2^{-46}&#92;) relevée dans le retour initial ne correspond pas à celle affichée par le README lors de notre consultation : le dépôt indiquait alors &#92;(4&#92;,223&#92;,103&#92;,985/2^{46}&#92;). Comme le dépôt évolue rapidement, cette valeur est datée du **24 novembre 2026**. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
 
 ## 5. Comment lire ces résultats
 
@@ -382,13 +382,13 @@ Quatre questions doivent rester séparées :
 3. **Le statut de la preuve :** argument écrit, prépublication, formalisation vérifiée par Lean, examen indépendant ou évaluation par les pairs.
 4. **L’implémentation :** code de référence, programme réellement exécuté sur une machine pratique, seuils et mesures reproductibles.
 
-Les valeurs de \(\kappa\) ne suffisent pas à elles seules pour comparer les travaux : il faut d’abord aligner les modèles, les énoncés et les bases de confiance. De même, une borne asymptotique plus favorable n’implique pas un multiplicateur plus rapide pour les tailles accessibles aujourd’hui.
+Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comparer les travaux : il faut d’abord aligner les modèles, les énoncés et les bases de confiance. De même, une borne asymptotique plus favorable n’implique pas un multiplicateur plus rapide pour les tailles accessibles aujourd’hui.
 
 ## 6. Pour vérifier que l'on a compris
 
-1. **Karatsuba.** Pourquoi le calcul de \((a+b)(c+d)\) permet-il de retrouver les deux termes croisés sans les calculer séparément ?
+1. **Karatsuba.** Pourquoi le calcul de &#92;((a+b)(c+d)&#92;) permet-il de retrouver les deux termes croisés sans les calculer séparément ?
 2. **Toom–3.** Pourquoi le produit de deux polynômes de degré 2 nécessite-t-il cinq évaluations, et non trois ?
-3. **Interpolation.** À quoi servent les évaluations en \(1\) et \(-1\) dans la reconstruction des coefficients ?
+3. **Interpolation.** À quoi servent les évaluations en &#92;(1&#92;) et &#92;(-1&#92;) dans la reconstruction des coefficients ?
 4. **FFT.** Pourquoi faut-il compléter les suites par des zéros avant d'appliquer une DFT pour multiplier deux polynômes ?
 5. **Exactitude.** Pourquoi une FFT flottante ne garantit-elle pas, à elle seule, une multiplication entière exacte ?
 6. **Complexité.** Pourquoi une méthode asymptotiquement meilleure peut-elle être plus lente sur des opérandes de taille modérée ?
