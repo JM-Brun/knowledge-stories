@@ -1,0 +1,48 @@
+---
+---
+<figure class="fft-butterfly" aria-labelledby="butterfly-caption">
+  <svg viewBox="0 0 920 300" role="img" aria-labelledby="butterfly-title butterfly-desc">
+    <title id="butterfly-title">Décomposition en papillon de la DFT de longueur quatre</title>
+    <desc id="butterfly-desc">Les coefficients d'indices pairs et impairs forment deux sous-transformées. Leurs sorties sont recombinées en quatre valeurs par additions et soustractions, avec les facteurs i et moins i.</desc>
+    <defs>
+      <marker id="butterfly-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#bd4b32" stroke-width="1.2"/>
+      </marker>
+    </defs>
+    <rect x="12" y="12" width="255" height="276" rx="12" fill="#f4f1e9" stroke="#d9d5ca"/>
+    <rect x="332" y="12" width="255" height="276" rx="12" fill="#f4f1e9" stroke="#d9d5ca"/>
+    <rect x="652" y="12" width="256" height="276" rx="12" fill="#f4f1e9" stroke="#d9d5ca"/>
+    <g fill="#77776d" font-family="system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="1">
+      <text x="30" y="39">ENTRÉES</text><text x="350" y="39">SOUS-TRANSFORMÉES</text><text x="670" y="39">PAPILLON FINAL</text>
+    </g>
+    <g fill="#22241f" font-family="ui-monospace,monospace" font-size="16">
+      <text x="42" y="88">x₀</text><text x="42" y="128">x₂</text>
+      <text x="42" y="204">x₁</text><text x="42" y="244">x₃</text>
+      <text x="112" y="88" fill="#bd4b32">pairs</text><text x="112" y="204" fill="#77776d">impairs</text>
+      <text x="358" y="91">E₀ = x₀ + x₂</text><text x="358" y="132">E₁ = x₀ − x₂</text>
+      <text x="358" y="207">O₀ = x₁ + x₃</text><text x="358" y="248">O₁ = x₁ − x₃</text>
+      <text x="674" y="88">X₀ = E₀ + O₀</text><text x="674" y="128">X₂ = E₀ − O₀</text>
+      <text x="674" y="204">X₁ = E₁ + i O₁</text><text x="674" y="244">X₃ = E₁ − i O₁</text>
+    </g>
+    <g fill="none" stroke="#bd4b32" stroke-width="1.8" marker-end="url(#butterfly-arrow)">
+      <path d="M250 100 H318"/><path d="M250 216 H318"/>
+      <path d="M570 100 H638"/><path d="M570 216 H638"/>
+    </g>
+    <g fill="#bd4b32" font-family="system-ui,sans-serif" font-size="11">
+      <text x="277" y="88">pair</text><text x="274" y="204">pair</text>
+      <text x="594" y="88">±</text><text x="594" y="204">±i</text>
+    </g>
+    <g fill="#77776d" font-family="system-ui,sans-serif" font-size="11">
+      <text x="30" y="273">Indices pairs / impairs</text>
+      <text x="350" y="273">Deux DFT de taille 2</text>
+      <text x="670" y="273">Quatre valeurs transformées</text>
+    </g>
+  </svg>
+  <figcaption id="butterfly-caption">Pour la convention &#92;(X_k=&#92;sum_j x_j i^{jk}&#92;), la DFT de longueur 4 se ramène à deux sous-transformées de longueur 2, puis à quatre combinaisons. Les facteurs &#92;(i&#92;) et &#92;(-i&#92;) sont les « rotations » du papillon.</figcaption>
+</figure>
+<style>
+  .fft-butterfly{margin:1.4rem 0;padding:1rem;border:1px solid var(--line,#d9d5ca);border-radius:.8rem;background:#eae6dc}
+  .fft-butterfly svg{display:block;width:100%;height:auto}
+  .fft-butterfly figcaption{margin:.7rem .2rem 0;color:var(--muted,#77776d);font-size:.84rem;line-height:1.55}
+  @media(max-width:620px){.fft-butterfly{padding:.55rem}.fft-butterfly svg{min-width:620px}.fft-butterfly{overflow-x:auto}}
+</style>
