@@ -147,6 +147,21 @@ W_j=a^j\Theta\left((n/b^j)^d\right)
 
 Le rapport &#92;(a/b^d&#92;) compare l'augmentation du nombre d'appels à la diminution du coût de chaque appel.
 
+Posons &#92;(r=a/b^d&#92;). Le coût du niveau &#92;(j&#92;) est donc &#92;(W_j=&#92;Theta(n^d r^j)&#92;). Pour les &#92;(h&#92;) niveaux internes, le travail cumulé s'obtient en additionnant ces contributions :
+
+&#92;[
+&#92;sum_&#123;j=0&#125;^&#123;h-1&#125; W_j
+=&#92;Theta(n^d)&#92;sum_&#123;j=0&#125;^&#123;h-1&#125; r^j.
+&#92;]
+
+Lorsque &#92;(r&#92;neq1&#92;), la somme géométrique vaut &#92;((1-r^h)/(1-r)&#92;). Lorsque &#92;(r=1&#92;), elle vaut &#92;(h&#92;). On retrouve ainsi les trois situations détaillées ci-dessous : les premiers niveaux dominent si &#92;(r&#92;lt 1&#92;), les niveaux contribuent également si &#92;(r=1&#92;), et les derniers niveaux dominent si &#92;(r&#92;gt 1&#92;).
+
+Il faut enfin comparer le coût des feuilles à celui des niveaux internes. Si chaque feuille coûte &#92;(&#92;Theta(1)&#92;), leur contribution est :
+
+&#92;[
+&#92;Theta(a^h)=&#92;Theta(n^&#123;&#92;log_b a&#125;).
+&#92;]
+
 ### Cas 1 — Les premiers niveaux dominent
 
 Si &#92;(a/b^d\lt 1&#92;), les contributions diminuent d'un niveau au suivant. La somme géométrique est dominée par les premiers niveaux : le travail interne total est &#92;(\Theta(n^d)&#92;).

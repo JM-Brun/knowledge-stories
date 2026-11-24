@@ -193,3 +193,32 @@ Deux exercices supplémentaires font comparer des arbres de même hauteur, mais 
 ### Limite de validation
 
 La tentative de clonage du dépôt depuis l'environnement d'exécution a échoué car l'accès réseau à GitHub n'est pas disponible. Les scripts `npm test`, `npm run check` et `npm run build` n'ont donc pas été exécutés ici. Aucun résultat CI ne doit être supposé. Le code a été relu statiquement, mais la compilation Astro et le rendu navigateur restent à confirmer.
+
+
+## Cinquième itération — démontrer les trois régimes par la somme géométrique
+
+### Apport mathématique
+
+La démonstration a été intégrée au guide autonome `arbres-recursion-guide.mdx`, à la suite du calcul du coût d'un niveau. Elle explicite :
+
+`W_j = Theta(n^d r^j)`, avec `r=a/b^d`, puis
+
+`sum(W_j) = Theta(n^d) sum(r^j)`.
+
+La formule de la somme géométrique établit les trois régimes (`r<1`, `r=1`, `r>1`). La contribution des feuilles est calculée séparément sous l'hypothèse d'un coût constant par feuille.
+
+### Adaptation à la nouvelle architecture
+
+La branche principale a évolué pendant la correction : la PR #90 a extrait le guide général dans `arbres-recursion-guide.mdx` et recentré `arbres-recursion-complexite.mdx` sur l'analyse de Karatsuba. La démonstration est donc ajoutée au guide autonome, et non à l'article Karatsuba.
+
+### Correction MDX
+
+Les premières tentatives de correction ont échoué au build : MDX interprétait les accolades des indices et exposants comme des expressions JavaScript. Les accolades mathématiques sont désormais écrites sous forme d'entités HTML dans le bloc mathématique. La CI doit confirmer le rendu et la compilation.
+
+### Validation
+
+- [ ] `npm test`
+- [ ] `npm run check`
+- [ ] `npm run build`
+- [ ] Workflow de publication
+- [ ] Revue visuelle desktop/mobile, thème sombre et navigation clavier
