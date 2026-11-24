@@ -5,9 +5,9 @@
   <h3 id="worked-comparison-title">1 234 × 5 678 : méthode directe ou Karatsuba ?</h3>
   <p class="worked-intro">Les deux colonnes partent du même découpage et reconstruisent le même produit.</p>
   <div class="worked-legend" aria-label="Code couleur constant dans l’article">
-    <span><i class="legend-common"></i> Produits communs : <b class="common-text">ac</b> et <b class="common-text">bd</b></span>
-    <span><i class="legend-cross"></i> Terme croisé : <b class="cross-text">ad + bc</b></span>
-    <span><i class="legend-aux"></i> Produit auxiliaire de Karatsuba : <b class="aux-text">(a+b)(c+d)</b></span>
+    <span><i class="legend-common"></i><span class="legend-copy">Produits communs : <b class="common-text">ac</b> et <b class="common-text">bd</b></span></span>
+    <span><i class="legend-cross"></i><span class="legend-copy">Terme croisé : <b class="cross-text">ad + bc</b></span></span>
+    <span><i class="legend-aux"></i><span class="legend-copy">Produit auxiliaire de Karatsuba : <b class="aux-text">(a+b)(c+d)</b></span></span>
   </div>
   <div class="worked-split" aria-label="Découpage commun aux deux méthodes">
     <div><span>Premier nombre</span><strong>1 234 = 12 × 100 + 34</strong></div>
@@ -55,7 +55,8 @@
   .worked-comparison h3 { margin: .5rem 0; font: 500 clamp(1.5rem, 3.5vw, 2.1rem)/1.12 "Newsreader", Georgia, serif; }
   .worked-intro { max-width: 58rem; margin: 0; color: #5f5b51; font: .9rem/1.6 "DM Sans", sans-serif; }
   .worked-legend { display: flex; flex-wrap: wrap; gap: .55rem 1rem; margin: 1rem 0; color: #514f47; font: .7rem/1.4 "DM Sans", sans-serif; }
-  .worked-legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .worked-legend > span { display: inline-flex; align-items: flex-start; gap: .4rem; }
+  .worked-legend .legend-copy { display: inline; min-width: 0; }
   .worked-legend i { width: .72rem; height: .72rem; border-radius: .2rem; display: inline-block; }
   .legend-common { background: var(--term-common-soft); border: 1px solid var(--term-common-border); }
   .legend-cross { background: var(--term-cross-soft); border: 1px solid var(--term-cross-border); }
