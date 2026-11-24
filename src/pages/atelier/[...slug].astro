@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { seriesInfo } from "../../data/series";
+import { formatReadingDuration, seriesInfo } from "../../data/series";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => data.status === "review");
@@ -43,7 +43,7 @@ const seriesTotalReadingTime = seriesArticles.reduce((total, item) => total + re
             <p class="series-kicker">Parcours de lecture</p>
             <h2>{seriesTitles[article.data.series]}</h2>
           </div>
-          <span>{seriesArticles.length} articles · {seriesTotalReadingTime} min au total</span>
+          <span>{seriesArticles.length} articles · {formatReadingDuration(seriesTotalReadingTime)} au total</span>
         </div>
         <ol>
           {seriesArticles.map((item) => (
