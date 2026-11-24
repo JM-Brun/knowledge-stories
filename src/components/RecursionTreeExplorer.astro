@@ -21,30 +21,22 @@ const width = (value: bigint) => `${Number(value * 100n / maxTotal)}%`;
   <div class="explorer-controls">
     <label>Enfants par appel · <i>a</i>
       <select data-param="a">
-        {#each [2, 3, 4, 5] as value}
-          <option value={value} selected={value === defaults.a}>{value}</option>
-        {/each}
+        {[2, 3, 4, 5].map((value) => <option value={value} selected={value === defaults.a}>{value}</option>)}
       </select>
     </label>
     <label>Réduction de taille · <i>b</i>
       <select data-param="b">
-        {#each [2, 3, 4] as value}
-          <option value={value} selected={value === defaults.b}>{value}</option>
-        {/each}
+        {[2, 3, 4].map((value) => <option value={value} selected={value === defaults.b}>{value}</option>)}
       </select>
     </label>
     <label>Exposant du coût local · <i>d</i>
       <select data-param="d">
-        {#each [0, 1, 2, 3] as value}
-          <option value={value} selected={value === defaults.d}>{value}</option>
-        {/each}
+        {[0, 1, 2, 3].map((value) => <option value={value} selected={value === defaults.d}>{value}</option>)}
       </select>
     </label>
     <label>Profondeur · <i>k</i>
       <select data-param="k">
-        {#each [3, 4, 5, 6, 7, 8] as value}
-          <option value={value} selected={value === defaults.k}>{value}</option>
-        {/each}
+        {[3, 4, 5, 6, 7, 8].map((value) => <option value={value} selected={value === defaults.k}>{value}</option>)}
       </select>
     </label>
   </div>
