@@ -302,6 +302,45 @@ Pour Karatsuba, les niveaux successifs comptent donc :
 | 3 | &#92;(27=3^3&#92;) | &#92;(n/8&#92;) |
 | &#92;(j&#92;) | &#92;(3^j&#92;) | &#92;(n/2^j&#92;) |
 
+
+<div className="complexity-visual" role="img" aria-label="Arbre de récursion de Karatsuba pour huit chiffres : un appel de taille huit engendre trois appels de taille quatre, puis neuf appels de taille deux, puis vingt-sept multiplications élémentaires.">
+  <p><strong>Visualiser l’arbre : chaque nœud engendre trois enfants</strong></p>
+  <svg viewBox="0 0 720 250" role="img" aria-labelledby="karatsuba-tree-title karatsuba-tree-desc" style="width:100%;height:auto">
+    <title id="karatsuba-tree-title">Arbre de récursion de Karatsuba pour n = 8</title>
+    <desc id="karatsuba-tree-desc">Les nombres d'appels sont 1, 3, 9 et 27, tandis que la taille des blocs est divisée par deux à chaque niveau.</desc>
+    <g fill="none" stroke="currentColor" strokeOpacity=".35" strokeWidth="1.5">
+      <path d="M360 38 L150 100 M360 38 L360 100 M360 38 L570 100"/>
+      <path d="M150 112 L80 174 M150 112 L150 174 M150 112 L220 174"/>
+      <path d="M360 112 L290 174 M360 112 L360 174 M360 112 L430 174"/>
+      <path d="M570 112 L500 174 M570 112 L570 174 M570 112 L640 174"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="360" cy="30" r="17"/>
+      <circle cx="150" cy="105" r="13"/><circle cx="360" cy="105" r="13"/><circle cx="570" cy="105" r="13"/>
+      <circle cx="80" cy="178" r="8"/><circle cx="150" cy="178" r="8"/><circle cx="220" cy="178" r="8"/>
+      <circle cx="290" cy="178" r="8"/><circle cx="360" cy="178" r="8"/><circle cx="430" cy="178" r="8"/>
+      <circle cx="500" cy="178" r="8"/><circle cx="570" cy="178" r="8"/><circle cx="640" cy="178" r="8"/>
+    </g>
+    <g fontSize="13" fill="currentColor" textAnchor="middle">
+      <text x="360" y="14">Niveau 0</text>
+      <text x="150" y="78">Niveau 1</text><text x="360" y="78">Niveau 1</text><text x="570" y="78">Niveau 1</text>
+      <text x="360" y="211">9 nœuds représentés</text>
+      <text x="360" y="237">Chaque nœud de ce niveau engendre 3 feuilles : 9 × 3 = 27</text>
+    </g>
+    <g fontSize="12" fill="currentColor" textAnchor="middle" fontWeight="600">
+      <text x="360" y="34" fill="white">1</text>
+      
+    </g>
+  </svg>
+  <div className="complexity-visual__levels">
+    <span><strong>Niveau 0</strong> · 1 appel · taille 8</span>
+    <span><strong>Niveau 1</strong> · 3 appels · taille 4</span>
+    <span><strong>Niveau 2</strong> · 9 appels · taille 2</span>
+    <span><strong>Niveau 3</strong> · 27 feuilles · taille 1</span>
+  </div>
+  <p className="math-caption">Le dessin développe les trois premiers niveaux ; la dernière ligne résume les 27 feuilles, sans toutes les dessiner individuellement.</p>
+</div>
+
 Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau &#92;(j&#92;), il y a &#92;(3^j&#92;) appels, chacun portant sur environ &#92;(n/2^j&#92;) chiffres.
 
 Pour la méthode classique, le tableau est identique en remplaçant &#92;(3^j&#92;) par &#92;(4^j&#92;).
@@ -379,6 +418,41 @@ Le coût local cumulé de ce niveau vaut alors :
 </div>
 
 Cette formule mérite d’être lue lentement : on multiplie **le nombre d’appels** par **le coût d’addition de chaque appel**.
+
+
+<div className="complexity-visual" role="img" aria-label="Comparaison du travail local cumulé par niveau : méthode classique 8, 16, 32 unités ; Karatsuba 8, 12, 18 unités pour les niveaux zéro à deux.">
+  <p><strong>Pourquoi les additions restent-elles maîtrisées ?</strong></p>
+  <svg viewBox="0 0 720 250" role="img" aria-labelledby="level-cost-title level-cost-desc" style="width:100%;height:auto">
+    <title id="level-cost-title">Travail local cumulé par niveau pour n égal à 8</title>
+    <desc id="level-cost-desc">Au niveau zéro, les deux méthodes coûtent huit unités. Au niveau un, seize contre douze. Au niveau deux, trente-deux contre dix-huit.</desc>
+    <g stroke="currentColor" strokeOpacity=".18" strokeWidth="1">
+      <path d="M150 25 V205 M270 25 V205 M390 25 V205 M510 25 V205 M630 25 V205"/>
+    </g>
+    <g fill="currentColor" fontSize="12">
+      <text x="150" y="222" textAnchor="middle">0</text><text x="270" y="222" textAnchor="middle">10</text><text x="390" y="222" textAnchor="middle">20</text><text x="510" y="222" textAnchor="middle">30</text><text x="630" y="222" textAnchor="middle">40 unités</text>
+    </g>
+    <g fill="currentColor" fontSize="13" textAnchor="end">
+      <text x="130" y="57">Niveau 0</text><text x="130" y="117">Niveau 1</text><text x="130" y="177">Niveau 2</text>
+    </g>
+    <g className="term-common" fill="currentColor">
+      <rect x="150" y="35" width="96" height="14" rx="3"/><rect x="150" y="95" width="192" height="14" rx="3"/><rect x="150" y="155" width="384" height="14" rx="3"/>
+    </g>
+    <g className="term-aux" fill="currentColor">
+      <rect x="150" y="53" width="96" height="14" rx="3"/><rect x="150" y="113" width="144" height="14" rx="3"/><rect x="150" y="173" width="216" height="14" rx="3"/>
+    </g>
+    <g fill="currentColor" fontSize="12" fontWeight="600">
+      <text x="252" y="47">8</text><text x="348" y="107">16</text><text x="540" y="167">32</text>
+      <text x="252" y="65">8</text><text x="300" y="125">12</text><text x="372" y="185">18</text>
+    </g>
+    <g fontSize="12" fill="currentColor">
+      <rect x="150" y="237" width="10" height="10" className="term-common" /><text x="166" y="246">Méthode classique</text>
+      <rect x="310" y="237" width="10" height="10" className="term-aux" /><text x="326" y="246">Karatsuba</text>
+    </g>
+  </svg>
+  <p className="math-caption">Unités simplifiées : nombre d’appels × taille d’un appel. Le graphique ne représente ni les multiplications aux feuilles ni un temps mesuré.</p>
+</div>
+
+
 
 Les coûts des différents niveaux forment une somme géométrique :
 
