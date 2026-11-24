@@ -168,6 +168,16 @@
 }
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:first-child { border-top-color: var(--term-common); }
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:last-child { border-top-color: var(--term-aux); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:first-child {
+  border-color: var(--term-common-border);
+  border-top-color: var(--term-common);
+  background: var(--term-common-soft);
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:last-child {
+  border-color: var(--term-aux-border);
+  border-top-color: var(--term-aux);
+  background: var(--term-aux-soft);
+}
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead strong {
   display: block;
   color: #252820;
@@ -192,9 +202,20 @@
   padding: .8rem .85rem;
   border: 1px solid #ded9cc;
   border-radius: .5rem;
-  background: #fffefa;
   color: #55564f;
   font: .72rem/1.5 "DM Sans", sans-serif;
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend > span:has(.legend-common) {
+  border-color: var(--term-common-border);
+  background: var(--term-common-soft);
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend > span:has(.legend-cross) {
+  border-color: var(--term-cross-border);
+  background: var(--term-cross-soft);
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .term-legend > span:has(.legend-aux) {
+  border-color: var(--term-aux-border);
+  background: var(--term-aux-soft);
 }
 :is(.story-page, .review-page):has(.karatsuba-hero) .term-legend > span > i {
   display: block;
