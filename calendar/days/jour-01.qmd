@@ -388,6 +388,14 @@ Considérons maintenant un réseau de capteurs de température déployé dans pl
 <figcaption>La donnée analysée est le produit d'une chaîne de transformations. La qualité doit être examinée tout au long de cette chaîne.</figcaption>
 </figure>
 
+Avant d'examiner ces conséquences, distinguons trois niveaux d'erreur qui se succèdent sans se confondre :
+
+- **Erreur de mesure** — le signal ne représente pas exactement le mesurande : biais, bruit, résolution insuffisante, temps de réponse ou perturbation du phénomène.
+- **Erreur de constitution des données** — le signal est mal acquis, horodaté, agrégé, associé à une unité d'observation ou transformé. Une mesure correcte peut ainsi devenir une donnée incorrecte.
+- **Erreur de modélisation** — la représentation statistique ou algorithmique ne capture pas correctement la relation recherchée, même lorsque les données d'entrée sont adéquates.
+
+Ces niveaux interagissent. Un biais instrumental peut être amplifié par une agrégation, devenir un artefact corrélé à une variable de groupe, puis être exploité par le modèle. À l'inverse, une transformation peut atténuer un défaut — ou le masquer sans le corriger. **La qualité ne se vérifie donc pas uniquement à l'arrivée, dans la table d'entraînement : elle se documente à chaque transformation.**
+
 Trois conséquences pour la Data Science :
 
 1. **Biais dans les variables d'entrée :** lorsque le type d'instrument est confondu avec le site ou le groupe, le modèle peut apprendre les particularités de mesure plutôt que le phénomène étudié.
