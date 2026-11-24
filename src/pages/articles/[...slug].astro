@@ -62,7 +62,7 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
             <p>Dans cette série · {seriesTitles[article.data.series!]}</p>
             <ol>
               {seriesArticles.map((item, index) => (
-                <li class:current={item.id === article.id}>
+                <li class:list={[{ current: item.id === article.id }]}>
                   {item.id === article.id
                     ? <span aria-current="page">{index + 1}. {item.data.title}</span>
                     : <a href={`${import.meta.env.BASE_URL}articles/${item.slug}/`}>{index + 1}. {item.data.title}</a>}
