@@ -1,0 +1,61 @@
+<section class="ss-lab" aria-labelledby="ss-title">
+  <div class="ss-head">
+    <div><p class="eyebrow">Atelier guidé · Schönhage–Strassen</p><h3 id="ss-title">Faire une FFT sans nombres complexes</h3></div>
+    <p>Le changement décisif n'est pas seulement d'accélérer la transformée : c'est de choisir un anneau où les rotations deviennent des décalages binaires.</p>
+  </div>
+  <div class="ss-controls" role="group" aria-label="Étapes de l'algorithme">
+    <button type="button" data-ss-step="0" aria-pressed="true">1 · Découper</button>
+    <button type="button" data-ss-step="1" aria-pressed="false">2 · Enrouler</button>
+    <button type="button" data-ss-step="2" aria-pressed="false">3 · Transformer</button>
+    <button type="button" data-ss-step="3" aria-pressed="false">4 · Reconstituer</button>
+  </div>
+  <div class="ss-panel" aria-live="polite">
+    <div data-ss-panel="0">
+      <h4>1 — Écrire les entiers comme des polynômes</h4>
+      <p>Choisissons une taille de bloc de <strong>M bits</strong>. En base B = 2ᴹ, chaque entier est une suite de blocs :</p>
+      <div class="ss-equation">a = a₀ + a₁B + a₂B² + ··· + aₖ₋₁Bᵏ⁻¹</div>
+      <div class="ss-equation">A(X) = a₀ + a₁X + a₂X² + ··· + aₖ₋₁Xᵏ⁻¹</div>
+      <p>On construit de même b et B(X). Évaluer A en X = 2ᴹ redonne exactement l'entier a. Multiplier les entiers revient donc à multiplier ces polynômes, puis à réinterpréter leurs coefficients.</p>
+    </div>
+    <div data-ss-panel="1" hidden>
+      <h4>2 — Faire apparaître une convolution négacyclique</h4>
+      <p>On travaille modulo 2ᴺ + 1, avec N = KM. Dans cet anneau, 2ᴺ ≡ −1. Or Bᴷ = (2ᴹ)ᴷ = 2ᴺ : la relation entre les puissances devient donc :</p>
+      <div class="ss-equation">Xᴷ ≡ −1  (lorsqu'on évalue X = 2ᴹ modulo 2ᴺ + 1)</div>
+      <p>Les termes de degré au moins K reviennent ainsi dans les K premières positions avec un signe négatif. C'est une <strong>convolution négacyclique</strong>, analogue à la convolution circulaire de la DFT, mais avec un changement de signe au bouclage.</p>
+      <p class="ss-note">Ce signe n'est pas un détail : il permet de représenter le produit modulo 2ᴺ + 1 sans perdre l'information nécessaire à la recomposition.</p>
+    </div>
+    <div data-ss-panel="2" hidden>
+      <h4>3 — Choisir un anneau adapté à la FFT</h4>
+      <p>Schönhage–Strassen utilise l'anneau R = ℤ/(2ᴺ + 1)ℤ. Comme 2ᴺ ≡ −1, on a 2²ᴺ ≡ 1. Pour des paramètres compatibles, des puissances de 2 fournissent les racines de l'unité requises par la transformée.</p>
+      <div class="ss-equation">Multiplier par 2ʲ = décaler de j bits, puis réduire modulo 2ᴺ + 1</div>
+      <p>Les facteurs de rotation de la FFT ne demandent donc pas une multiplication générale : ils se réalisent par des décalages et, au passage de la borne, des changements de signe. On transforme les deux suites, on multiplie les valeurs correspondantes, puis on applique la transformée inverse.</p>
+    </div>
+    <div data-ss-panel="3" hidden>
+      <h4>4 — Garantir l'exactitude et recommencer à plus petite échelle</h4>
+      <p>La transformée fournit des coefficients modulo un entier. On choisit les paramètres et les bornes de coefficients pour pouvoir relever sans ambiguïté les représentants entiers recherchés. On choisit aussi N assez grand pour que le produit complet soit déterminé par son résidu modulo 2ᴺ + 1.</p>
+      <p>Il reste les multiplications terme à terme dans l'anneau. Elles sont elles-mêmes des multiplications d'entiers plus petits : l'algorithme les traite récursivement avec la même stratégie.</p>
+      <div class="ss-result"><span>Complexité en bits</span><strong>O(n log n log log n)</strong><small>Pour deux entiers de n bits, dans l'analyse classique de Schönhage–Strassen.</small></div>
+    </div>
+  </div>
+  <p class="ss-foot">À retenir : la FFT explique comment calculer vite une convolution ; Schönhage–Strassen choisit un anneau arithmétique qui rend cette transformation compatible avec une multiplication entière exacte et récursive.</p>
+</section>
+<script>
+  document.querySelectorAll("[data-ss-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const root = button.closest(".ss-lab");
+      if (!root) return;
+      const selected = button.getAttribute("data-ss-step");
+      root.querySelectorAll("[data-ss-step]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      root.querySelectorAll("[data-ss-panel]").forEach((panel) => {
+        panel.toggleAttribute("hidden", panel.getAttribute("data-ss-panel") !== selected);
+      });
+    });
+  });
+</script>
+<style>
+  .ss-lab{margin:2rem 0;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--line,#d9d5ca);border-radius:1rem;background:#eae6dc;color:var(--ink,#22241f)}
+  .ss-head{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;align-items:end}.eyebrow{margin:0 0 .3rem;color:var(--accent,#bd4b32);font-size:.76rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}.ss-head h3{margin:.1rem 0;font-size:1.3rem}.ss-head>p{margin:0;color:var(--muted,#77776d);font-size:.94rem}
+  .ss-controls{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.1rem 0 .7rem}.ss-controls button{border:1px solid var(--line,#d9d5ca);border-radius:999px;background:var(--paper,#f4f1e9);padding:.55rem .8rem;color:inherit;font:inherit;font-size:.85rem;cursor:pointer}.ss-controls button[aria-pressed="true"]{background:var(--accent,#bd4b32);border-color:var(--accent,#bd4b32);color:#fff}
+  .ss-panel{padding:1rem;border:1px solid var(--line,#d9d5ca);border-radius:.7rem;background:var(--paper,#f4f1e9)}.ss-panel h4{margin:0 0 .55rem}.ss-panel p{margin:.55rem 0;line-height:1.6}.ss-equation{margin:.6rem 0;padding:.7rem .8rem;border-radius:.45rem;background:#eae6dc;font: .9rem/1.6 ui-monospace,monospace;overflow-wrap:anywhere}.ss-note,.ss-foot{color:var(--muted,#77776d);font-size:.85rem}.ss-result{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;margin-top:.8rem;padding:.85rem;border-radius:.6rem;background:#eae6dc}.ss-result span,.ss-result small{color:var(--muted,#77776d)}.ss-result strong{font:600 1.15rem ui-monospace,monospace;color:var(--accent,#bd4b32)}.ss-result small{grid-column:1/-1}.ss-foot{margin:.85rem 0 0}
+  @media(max-width:650px){.ss-head{grid-template-columns:1fr}.ss-result{grid-template-columns:1fr}.ss-result small{grid-column:auto}}
+</style>
