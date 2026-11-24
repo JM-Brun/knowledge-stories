@@ -88,6 +88,82 @@ Au demi-tour, <code>t = 5 ans</code> et <code>x = 4 années-lumière</code>. Sur
 
 </details>
 
+## Pourquoi les situations ne sont-elles pas symétriques, concrètement ?
+
+Dire que « Noé accélère et Clara non » identifie une différence physique, mais ne montre pas encore comment cette différence résout la réciprocité apparente. Reprenons les événements avec les nombres du voyage.
+
+### Clara garde une seule description inertielle
+
+Dans le référentiel de la station, les événements sont les suivants :
+
+| Événement | Temps de Clara | Position du vaisseau |
+|---|---:|---:|
+| Départ | 0 an | 0 année-lumière |
+| Demi-tour | 5 ans | 4 années-lumière |
+| Retrouvailles | 10 ans | 0 année-lumière |
+
+Clara reste au repos dans ce référentiel pendant tout le voyage. Son accéléromètre idéal reste à zéro. Elle décrit Noé comme un voyageur qui part à 0,8 c, change de vitesse au demi-tour, puis revient à −0,8 c. Elle n'a pas besoin de changer de référentiel pour raconter les trois événements.
+
+### Noé doit changer de référentiel inertiel
+
+Pendant l'aller, Noé est au repos dans un référentiel qui se déplace à 0,8 c par rapport à la station. Pendant le retour, il est au repos dans un autre référentiel inertiel, qui se déplace à −0,8 c par rapport à la station.
+
+Le changement est mesurable à bord : son accéléromètre détecte la poussée pendant le demi-tour. Dans l'idéalisation où le virage est instantané, cette phase est représentée par un changement brusque de référentiel. Dans un voyage réel, l'accélération dure un temps fini et le changement de référentiel est continu.
+
+Il ne faut pas confondre deux choses :
+
+- Noé ne voit pas physiquement l'horloge de Clara sauter de 1,8 à 8,2 ans.
+- Noé change la règle qui lui permet de répondre à la question : « Quel événement sur Terre est simultané avec cet instant de mon voyage ? »
+
+### Le calcul du décalage de simultanéité
+
+Au demi-tour, Noé se trouve à 4 années-lumière de la station, à l'instant 5 ans dans le référentiel de Clara. Dans le référentiel inertiel de l'aller, la simultanéité avec cet événement associe à la station la date :
+
+`5 - 0,8 × 4 = 1,8 an.`
+
+Dans le référentiel inertiel du retour, la simultanéité associe au même événement du vaisseau la date :
+
+`5 + 0,8 × 4 = 8,2 ans.`
+
+La différence entre les deux dates terrestres attribuées est donc :
+
+`8,2 - 1,8 = 6,4 ans.`
+
+C'est le cœur de la résolution : **au voisinage du demi-tour, Noé change de famille d'événements terrestres qu'il juge simultanés avec son présent**. La montre de Clara, située à distance, continue évidemment d'avancer sans saut. Les 6,4 ans ne sont pas un vieillissement soudain de Clara ; ils représentent un changement de datation à distance.
+
+| Point de vue de Noé | Date terrestre attribuée au demi-tour |
+|---|---:|
+| Juste avant le changement de référentiel | 1,8 an |
+| Juste après le changement de référentiel | 8,2 ans |
+| Écart entre les deux attributions | 6,4 ans |
+
+### Pourquoi Clara ne fait-elle pas le même changement ?
+
+Clara ne change pas de référentiel inertiel : elle conserve celui de la station. Elle attribue donc toujours 5 ans à l'événement terrestre qui se produit au moment où Noé fait demi-tour, et elle voit sa propre horloge avancer continûment de 0 à 10 ans.
+
+Noé, lui, additionne trois contributions à la durée terrestre qu'il attribue successivement :
+
+- 1,8 an pendant l'aller ;
+- 6,4 ans dus au changement de simultanéité au demi-tour ;
+- 1,8 an pendant le retour.
+
+Soit `1,8 + 6,4 + 1,8 = 10 ans`. Il retrouve ainsi la durée de Clara, sans que sa propre montre ait mesuré plus de 6 ans.
+
+### Et si Noé prétend que c'est Clara qui fait demi-tour ?
+
+On peut choisir des coordonnées où le vaisseau reste à l'origine pendant une partie du voyage et où la station change de vitesse. Mais cela ne rend pas les deux expériences physiques équivalentes. Les coordonnées peuvent attribuer une accélération à la station ; l'accéléromètre de Clara reste à zéro tandis que celui de Noé détecte la poussée. **Une accélération de coordonnées dépend du référentiel ; l'accélération propre mesurée localement ne dépend pas de ce choix.**
+
+La symétrie de la vitesse relative pendant une phase uniforme est donc réelle, mais elle ne s'étend pas à l'ensemble du voyage : Noé change de référentiel inertiel et subit une accélération propre ; Clara conserve un seul référentiel inertiel dans le modèle. C'est cette différence globale, et non une préférence arbitraire pour le point de vue terrestre, qui rend les deux lignes d'univers différentes.
+
+<details>
+<summary>Vérifier la compréhension : qu'est-ce qui « saute » au demi-tour ?</summary>
+
+La montre de Clara, la montre de Noé, ou la date terrestre que Noé attribue à l'événement simultané avec son présent ?
+
+**Réponse :** seule la date attribuée par simultanéité change brusquement dans le modèle du demi-tour instantané. Les deux montres continuent d'évoluer continûment le long de leurs trajectoires. Pour un demi-tour de durée finie, même cette réattribution est progressive.
+
+</details>
+
 ## Les montres aux retrouvailles
 
 Le vaisseau rejoint la station. Clara et Noé posent les deux montres sur la même table. Cette fois, aucune procédure de synchronisation à distance n’entre en jeu.
