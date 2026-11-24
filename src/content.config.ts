@@ -35,6 +35,10 @@ const articles = defineCollection({
     if ((data.series === undefined) !== (data.seriesOrder === undefined)) {
       context.addIssue({ code: "custom", path: ["series"], message: "Une appartenance à une série et son ordre doivent être renseignés ensemble." });
     }
+    const domainBySeries = { "multiplication-karatsuba": "mathematics", "paradoxe-des-jumeaux": "physics" } as const;
+    if (data.series && data.domain !== domainBySeries[data.series]) {
+      context.addIssue({ code: "custom", path: ["domain"], message: `La série ${data.series} appartient au domaine ${domainBySeries[data.series]}.` });
+    }
   }),
 });
 
