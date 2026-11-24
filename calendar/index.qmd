@@ -4,6 +4,8 @@ subtitle: "Édition 2026 · 24 questions scientifiques, 24 expériences de pens�
 description: "Une collection de 24 enquêtes autonomes en data science, statistiques et intelligence artificielle."
 ---
 
+<p class="language-switch"><a href="en/">English version ↗</a></p>
+
 <div class="calendar-intro">
 
 Une donnée n'est pas le réel. Un grand échantillon n'est pas nécessairement représentatif. Une moyenne ne raconte pas toute l'histoire. Et un modèle qui obtient un bon score n'a pas forcément appris ce que l'on croit.
