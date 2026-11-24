@@ -17,7 +17,7 @@ const seriesTitles = {
   "multiplication-karatsuba": "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
   "paradoxe-des-jumeaux": "Le paradoxe des jumeaux : comparer deux temps vécus",
 } as const;
-const seriesArticles = article.data.series
+const readingTimeFor = (entry: (typeof article) ) => entry.data.readingTime ?? Math.max(1, Math.ceil(entry.body.replace(/```[\\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\\s+/).filter(Boolean).length / 180));\nconst seriesArticles = article.data.series
   ? (await getCollection("articles", ({ data }) => data.status === "review" && data.series === article.data.series))
       .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999))
   : [];
@@ -34,7 +34,7 @@ const seriesArticles = article.data.series
       {article.data.labels.length > 0 && <div class="article-labels" aria-label="Concepts principaux">{article.data.labels.map((label) => <span class="article-label">{label}</span>)}</div>}
       <h1>{article.data.title}</h1>
       <p class="deck">{article.data.description}</p>
-      <div class="meta"><time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time><span>{difficulty[article.data.difficulty]}</span>{article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}</div>
+      <div class="meta"><time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time><span>{difficulty[article.data.difficulty]}</span><span>{readingTimeFor(article)} min de lecture</span></div>
     </header>
     {seriesArticles.length > 1 && article.data.series && (
       <nav class="review-series" aria-label={`Série ${seriesTitles[article.data.series]}`}>
@@ -43,13 +43,13 @@ const seriesArticles = article.data.series
             <p class="series-kicker">Parcours de lecture</p>
             <h2>{seriesTitles[article.data.series]}</h2>
           </div>
-          <span>{seriesArticles.length} articles</span>
+          <span>{seriesArticles.length} articles · {seriesTotalReadingTime} min au total</span>
         </div>
         <ol>
           {seriesArticles.map((item) => (
             <li class:list={[{ current: item.id === article.id }]}>
               {item.id === article.id
-                ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</span>
+                ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`} · {readingTimeFor(item)} min</small>{item.data.title}</span>
                 : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</a>}
             </li>
           ))}
