@@ -244,13 +244,13 @@ Le principe se généralise. Avec &#92;(k&#92;) blocs, les deux polynômes ont u
 
 <MultiplicationRecurrenceComparison />
 
-Augmenter &#92;(k&#92;) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. Dans le modèle simplifié où chaque appel porte sur des blocs de taille &#92;(n/k&#92;), la récurrence devient
+Augmenter &#92;(k&#92;) réduit le nombre de produits récursifs, mais rend l'évaluation et l'interpolation plus coûteuses et augmente la taille des valeurs intermédiaires. Pour un &#92;(k&#92;) fixé, les valeurs évaluées restent de taille proportionnelle à celle des blocs, à une constante additive près. Dans le modèle simplifié où chaque appel porte sur des blocs de taille &#92;(n/k&#92;), la récurrence devient
 
 &#92;[
-T(n)=(2k-1)T(n/k)+O(n),
+T(n)=(2k-1)T(n/k)+O(n).
 &#92;]
 
-et le théorème maître donne l'exposant &#92;(&#92;log_k(2k-1)&#92;). Pour Toom–3, il s'agit de &#92;(&#92;log_3 5&#92;approx1&#123;,&#125;465&#92;), et pour Toom–4 de &#92;(&#92;log_4 7&#92;approx1&#123;,&#125;404&#92;). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
+Posons &#92;(a=2k-1&#92;) et &#92;(b=k&#92;). Comme &#92;(a>b&#92;), l'exposant critique &#92;(p=&#92;log_b a&#92;) est strictement supérieur à 1 ; le terme de combinaison &#92;(O(n)&#92;) est donc d'ordre inférieur à &#92;(n^p&#92;). Sous les hypothèses usuelles du théorème maître, on obtient &#92;(T(n)=&#92;Theta(n^p)&#92;), et le théorème donne l'exposant &#92;(&#92;log_k(2k-1)&#92;). Pour Toom–3, il s'agit de &#92;(&#92;log_3 5&#92;approx1&#123;,&#125;465&#92;), et pour Toom–4 de &#92;(&#92;log_4 7&#92;approx1&#123;,&#125;404&#92;). Ces exposants sont des modèles asymptotiques : les évaluations, interpolations, retenues et seuils réels déterminent si une variante est effectivement avantageuse à une taille donnée.
 
 ## 3. De Toom–Cook à la FFT : accélérer la convolution
 
