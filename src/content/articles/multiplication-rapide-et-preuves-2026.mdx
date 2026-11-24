@@ -6,7 +6,7 @@ category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["multiplication-entière", "complexité", "algorithmes-rapides", "preuve-formelle", "Lean", "Toom-Cook", "FFT"]
 difficulty: "advanced"
-readingTime: 24
+readingTime: 26
 status: "review"
 featured: false
 sources:
@@ -305,7 +305,7 @@ Pourquoi cette formule fonctionne-t-elle ? En remplaçant &#92;(&#92;widehat a_k
 &#92;[
 &#92;frac1N&#92;sum_&#123;k=0&#125;^&#123;N-1&#125;&#92;omega^&#123;k(&#92;ell-j)&#125;.
 &#92;]
-Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(&#92;mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N&#92;mid p-1&#92;), et pour une longueur puissance de deux modulo un nombre impair comme &#92;(2^M+1&#92;).
+Cette somme vaut 1 après division par &#92;(N&#92;) si &#92;(&#92;ell=j&#92;), et 0 sinon : c'est la somme géométrique des puissances d'une racine primitive. On retrouve donc exactement &#92;(a_j&#92;). Cette inversion suppose que &#92;(N&#92;) soit inversible dans l'anneau de calcul ; c'est automatique sur &#92;(&#92;mathbb C&#92;), dans le cas usuel d'une NTT avec &#92;(N&#92;mid p-1&#92;), et pour une longueur de transformée puissance de deux dans l'anneau modulo &#92;(2^M+1&#92;), qui est impair.
 
 Autrement dit, **la transformée d'une convolution est le produit terme à terme des transformées**. On peut donc multiplier deux polynômes en trois temps :
 
@@ -376,6 +376,7 @@ La différence entre **corps** et **anneau** compte : la NTT classique sur &#92;
 - **Karatsuba** : trois produits au lieu de quatre pour deux blocs.
 - **Toom–Cook** : évaluer en plusieurs points, multiplier les valeurs, interpoler ; par exemple cinq produits au lieu de neuf avec trois blocs.
 - **FFT / NTT** : transformer toute la convolution pour obtenir un coût quasi-linéaire en nombre de coefficients, sous les hypothèses et dans l'arithmétique appropriées.
+- **Schönhage–Strassen** : choisir un anneau modulaire où les facteurs de rotation sont des décalages binaires, puis récursiver les multiplications ponctuelles pour obtenir une multiplication entière exacte.
 
 Ces méthodes ne sont pas trois recettes indépendantes. Elles exploitent une même structure — le produit de polynômes — à des échelles différentes.
 
@@ -467,6 +468,8 @@ Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comp
 4. **FFT.** Pourquoi faut-il compléter les suites par des zéros avant d'appliquer une DFT pour multiplier deux polynômes ?
 5. **Exactitude.** Pourquoi une FFT flottante ne garantit-elle pas, à elle seule, une multiplication entière exacte ?
 6. **Complexité.** Pourquoi une méthode asymptotiquement meilleure peut-elle être plus lente sur des opérandes de taille modérée ?
+7. **Transformée inverse.** Quelle propriété des racines de l'unité permet-elle d'annuler les termes correspondant à &#92;(\ell&#92;ne j&#92;) ? Pourquoi faut-il que la longueur de transformée soit inversible dans l'anneau ?
+8. **Toom–3.** Pourquoi les divisions par 2 et par 3 de l'interpolation donnent-elles des entiers, même si l'on travaille sur des coefficients quelconques dans &#92;(\mathbb Z&#92;) ?
 
 Une bonne réponse ne consiste pas seulement à réciter les formules : elle doit identifier la représentation utilisée, le coût dominant et les hypothèses nécessaires.
 
