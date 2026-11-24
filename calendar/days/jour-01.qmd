@@ -4,7 +4,15 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **En 20 à 25 minutes** — Une comparaison de cinq profils de capteurs, une visualisation de la dispersion et du biais, puis un détour par la métrologie, l'incertitude et les conséquences pour les modèles.
+> **Environ 20 minutes** — Comparer plusieurs profils de capteurs, comprendre ce que les mots « précision », « biais » et « incertitude » recouvrent réellement, puis relier la mesure à la qualité des données.
+>
+> **Prérequis** — Aucun prérequis technique indispensable. Savoir lire une moyenne et un écart-type aide à suivre les exemples ; les notions statistiques sont définies au fil de l'article.
+>
+> **À la fin** — Vous saurez distinguer dispersion et décalage, expliquer pourquoi répéter une mesure ne supprime pas un biais, et formuler les premières questions à poser avant d'utiliser une variable mesurée.
+
+## L'idée en une minute
+
+Une donnée n'est pas le phénomène lui-même : elle résulte d'une définition, d'un protocole, d'un instrument et de transformations. Une série peut être très stable tout en restant décalée ; une moyenne proche d'une référence ne suffit pas non plus à démontrer la qualité d'une mesure. La question utile n'est donc pas seulement « les valeurs se ressemblent-elles ? », mais « que représentent-elles, dans quelles conditions et avec quelle incertitude ? ».
 
 ## La question : peut-on mesurer très précisément… la mauvaise chose ?
 
@@ -78,142 +86,32 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
 
 Le capteur B illustre le cas d'un instrument stable mais décalé : une correction ne serait pertinente qu'après vérification de sa stabilité et de son domaine de validité.
 
-### Il n'existe pas de capteur optimal sur tous les critères
+### Un capteur n'est jamais optimal sur tous les critères
 
-Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Les cinq profils illustrent des propriétés différentes, mais trois relevés ne suffisent pas à caractériser un instrument. Il faut aussi examiner ce que le tableau ne montre pas : dérive, temps de réponse, environnement et incertitude de la référence.
 
-Les valeurs précédentes illustrent quelques contrastes, mais trois relevés ne disent presque rien de la dérive à long terme, de la dynamique de réponse ou de la résistance à l'environnement. Ces dimensions doivent être caractérisées séparément.
+| Dimension | Ce qu'il faut vérifier | Question de décision |
+|---|---|---|
+| **Référence** | La valeur de comparaison possède une source, une traçabilité et une incertitude documentées. | La référence est-elle assez fiable pour l'usage visé ? |
+| **Stabilité** | Un décalage peut évoluer avec le vieillissement, l'encrassement ou les conditions de fonctionnement. | Le comportement reste-t-il stable sur toute la période ? |
+| **Dynamique** | Le temps de réponse et le filtrage déterminent quelles variations le capteur transmet. | Quelle durée d'événement faut-il détecter ? |
+| **Résolution** | La plus petite variation perceptible de l'indication dépend de l'instrument et des conditions. | Quelle variation minimale change la décision ? |
+| **Environnement** | Chocs, vibrations, poussière, humidité et température ambiante peuvent dégrader les performances. | L'instrument est-il qualifié dans les conditions réelles ? |
 
-<figure class="sensor-showcase measurement-checks" aria-labelledby="measurement-checks-caption">
-<div class="sensor-gallery" role="list">
-  <article class="sensor-card sensor-a" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="35" r="25" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 10v50M23 35h50" stroke="currentColor" stroke-width="2"/><circle cx="48" cy="35" r="6" fill="currentColor"/></svg>
-    <span class="sensor-kicker">Référence</span>
-    <h4>Une référence a aussi une incertitude</h4>
-    <p>La valeur de 20,00 °C est fixée pour l'exercice. En pratique, la référence est elle-même établie par une chaîne de mesure et possède une incertitude.</p>
-    <p class="sensor-limit"><strong>À documenter :</strong> source, certificat, date et incertitude associée.</p>
-  </article>
-  <article class="sensor-card sensor-b" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 54h66M22 48l14-10 14 4 14-18 12-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 16h8v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    <span class="sensor-kicker">Stabilité</span>
-    <h4>Un capteur peut dériver</h4>
-    <p>Un instrument stable pendant quelques minutes peut évoluer avec le vieillissement, l'encrassement, l'humidité ou les conditions de fonctionnement.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> dérive dans le temps et périodicité des contrôles.</p>
-  </article>
-  <article class="sensor-card sensor-c" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M12 37h12l8-18 12 36 10-28 9 10h21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 60h72" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg>
-    <span class="sensor-kicker">Dynamique</span>
-    <h4>Fréquence et temps de réponse diffèrent</h4>
-    <p>Enregistrer à 10 Hz ne garantit pas de capter un phénomène rapide : le capteur et son filtrage doivent transmettre les variations recherchées.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> temps de réponse, bande passante et fréquence d'échantillonnage.</p>
-  </article>
-  <article class="sensor-card sensor-d" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 8 76 19v17c0 15-12 24-28 29C32 60 20 51 20 36V19z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Environnement</span>
-    <h4>La robustesse dépend du terrain</h4>
-    <p>Chocs, vibrations, poussière, humidité et température ambiante peuvent modifier les performances ou dégrader l'instrument.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> conditions d'emploi réelles et qualification dans cet environnement.</p>
-  </article>
-</div>
-<figcaption id="measurement-checks-caption">Quatre dimensions importantes qui ne peuvent pas être déduites des trois valeurs affichées dans le tableau.</figcaption>
-</figure>
+La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit pas une mesure exacte à 0,1 °C : le bruit, l'étalonnage et les conditions d'emploi comptent également.
 
-Ces dimensions complètent les profils A à E : les relevés illustrent quelques propriétés, mais ne suffisent pas à caractériser un instrument dans toutes ses conditions d'utilisation.
+La fréquence d'échantillonnage et le temps de réponse sont deux paramètres distincts. À 10 Hz, deux acquisitions sont espacées de 100 ms ; un événement plus bref peut être manqué selon sa position entre les échantillons. Augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Pour C, une moyenne journalière pourrait être pertinente si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois valeurs illustratives ne permettent pas de le conclure. Un tel moyennage pourrait en revanche masquer un pic de quelques secondes.
+### Choisir selon l'usage, pas selon un classement universel
 
-| Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
-|---|---|---|---|
-| **Bruit / biais** | Mesures peu dispersées ou moyenne proche de la référence | Le moyennage réduit le bruit aléatoire, pas un biais stable | Cherche-t-on une lecture instantanée ou une moyenne ? |
-| **Résolution / plage** | Détecter de très petites variations ou couvrir une grande plage | La résolution utile dépend de la plage, du bruit et de la technologie | Quelle est la plus petite variation qui change la décision ? |
-| **Temps de réponse / filtrage** | Signal lissé ou réaction rapide | Le filtrage peut retarder ou atténuer un événement | Quelle durée d'événement faut-il détecter ? |
-| **Fréquence / autonomie** | Échantillonnage fréquent | Consommation, stockage et transmission augmentent souvent | À quelle vitesse le phénomène évolue-t-il réellement ? |
-| **Robustesse / sensibilité** | Résister à l'environnement ou détecter de faibles variations | Le boîtier, le montage et le principe de mesure imposent des compromis | Quelles contraintes environnementales sont non négociables ? |
+- **Comparer des valeurs absolues** : privilégier une référence traçable et un instrument caractérisé ; les trois relevés du profil A ne remplacent pas un étalonnage.
+- **Suivre une tendance** : la stabilité dans le temps et la comparabilité priment. Le profil B pourrait convenir si son décalage est stable, documenté et corrigé dans son domaine de validité.
+- **Détecter un pic bref** : examiner ensemble fréquence d'acquisition, temps de réponse, bande passante et filtrage ; le profil E ne suffit pas à lui seul.
+- **Mesurer en environnement difficile** : qualifier la robustesse dans les conditions réelles, sans supposer qu'elle garantit justesse ou résolution.
 
-La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.
+Le profil C rappelle enfin qu'une moyenne observée égale à la référence sur trois valeurs ne démontre pas que le bruit est centré dans la population. Une moyenne peut être utile si une série suffisamment longue confirme les hypothèses, mais elle peut aussi masquer un événement bref.
 
-Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont deux paramètres distincts : augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
-
-Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
-
-<style>
-.sensor-decision{border:1px solid #b8cbbb;border-radius:12px;padding:1rem;margin:1rem 0;background:#f5f8f5;color:#20352d}
-.sensor-decision label{display:block;margin-bottom:.5rem}
-.sensor-decision select{display:block;width:100%;max-width:100%;padding:.65rem;border:1px solid #789482;border-radius:7px;background:white;color:#20352d;font:inherit}
-.sensor-decision-result{margin-top:.9rem;padding:.8rem;background:white;border-left:4px solid #4f8064;border-radius:4px}
-.sensor-decision-result p:last-child{margin-bottom:0}
-@media (max-width:600px){.sensor-decision{padding:.75rem}.sensor-decision-result{padding:.7rem}}
-</style>
-
-### Choisir un capteur selon l'usage
-
-Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
-
-<div class="sensor-decision" id="sensor-decision">
-  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
-  <select id="sensor-use">
-    <option value="absolute">Comparer des températures absolues à une référence</option>
-    <option value="trend">Suivre une tendance sur plusieurs jours</option>
-    <option value="peak">Détecter un pic bref ou une variation rapide</option>
-    <option value="small">Détecter une très petite variation</option>
-    <option value="harsh">Mesurer dans un environnement difficile</option>
-  </select>
-  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
-    <strong>Point de départ : étalon + profil A caractérisé.</strong>
-    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
-    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
-  </div>
-  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
-</div>
-<script>
-(() => {
-  const root = document.getElementById('sensor-decision');
-  if (!root || root.dataset.ready === 'true') return;
-  root.dataset.ready = 'true';
-  const select = root.querySelector('#sensor-use');
-  const result = root.querySelector('#sensor-use-result');
-  const guidance = {
-    absolute: {
-      title: 'Point de départ : étalon + profil A caractérisé.',
-      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
-      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
-    },
-    trend: {
-      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
-      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
-      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
-    },
-    peak: {
-      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
-      body: 'À 10 Hz, deux échantillons successifs sont espacés de 100 ms : un événement plus bref peut être manqué selon sa position entre les acquisitions. Une fréquence élevée aide donc à décrire les événements rapides, sans suffire à les mesurer : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
-      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
-    },
-    small: {
-      title: 'Point de départ : instrument caractérisé à faible incertitude.',
-      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
-      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
-    },
-    harsh: {
-      title: 'Point de départ : profil D robuste, après qualification.',
-      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
-      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
-    }
-  };
-  select.addEventListener('change', () => {
-    const item = guidance[select.value];
-    result.replaceChildren();
-    const title = document.createElement('strong');
-    title.textContent = item.title;
-    const body = document.createElement('p');
-    body.textContent = item.body;
-    const tradeoff = document.createElement('p');
-    const label = document.createElement('strong');
-    label.textContent = 'Compromis à vérifier : ';
-    tradeoff.append(label, document.createTextNode(item.tradeoff));
-    result.append(title, body, tradeoff);
-  });
-})();
-</script>
+Le bon instrument est celui dont les performances sont suffisantes pour l'usage visé. Les compromis dépendent du principe de mesure, du dimensionnement, de l'environnement et du coût : aucune caractéristique isolée ne fournit un classement valable dans toutes les situations.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
@@ -314,22 +212,13 @@ Cette cible est pertinente ici parce qu'elle rend visible la distinction biais�
 
 **Attention au vocabulaire :** dans le modèle de mesure, \(b\) désigne la composante systématique sous-jacente, supposée constante ; ce n'est pas sa valeur estimée. Dans le VIM, le [**biais de mesure**](https://jcgm.bipm.org/vim/fr/2.18.html) est une estimation de l'erreur systématique de mesure. Le biais d'estimation \(\mathbb{E}[\hat{\theta}]-\theta\), représenté sur la cible, désigne quant à lui l'écart moyen d'un estimateur à sa quantité cible sur des échantillonnages répétés. Ces notions sont apparentées, mais elles ne portent pas sur le même objet.
 
-## Mesure-t-on toujours une chose qui existe directement ?
+## Une mesure représente toujours un choix
 
-Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
+Une température est une grandeur physique ; la confiance, la compétence ou la satisfaction sont des construits que l'on ne peut pas observer directement. Il faut choisir des indicateurs pour les opérationnaliser, puis justifier que ces indicateurs représentent bien le concept visé. La stabilité d'un score ne suffit pas à établir sa validité.
 
-On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
+La mesure peut aussi modifier ce qu'elle observe : un instrument peut perturber un circuit, un questionnaire influencer une réponse ou un indicateur de performance changer les comportements. Ces mécanismes sont différents, mais rappellent qu'une donnée est produite par une interaction avec le phénomène.
 
-Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** concerne l'interprétation que l'on fait des scores et l'usage qui en est tiré. Elle demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
-
-De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
-
-## La mesure peut-elle changer ce qu'elle observe ?
-
-Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure : par exemple, un voltmètre dont la résistance d'entrée n'est pas infinie peut modifier la tension du circuit qu'il mesure. Le VIM signale explicitement cette possibilité dans sa définition du [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html). Dans les sciences humaines et les systèmes sociotechniques, un questionnaire peut influencer les réponses et un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation physique, réactivité des personnes, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
-
-**Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
-
+Les notions de **construit**, d'**opérationnalisation**, de **validité de construit** et de **réactivité de la mesure** sont approfondies dans [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
 ## Le piège suivant : la référence n'est pas la vérité absolue
 
 Dans notre exemple, nous avons traité 20,00 °C comme une référence. C'est utile pour apprendre, mais une mesure de référence est elle-même le résultat d'une chaîne métrologique. Elle est associée à une incertitude.
@@ -402,187 +291,37 @@ Trois conséquences pour la Data Science :
 2. **Fausse différence entre groupes :** un protocole différent peut être confondu avec un effet du groupe.
 3. **Dérive :** vieillissement, changement logiciel ou nouveau protocole modifient le sens des entrées.
 
-### Quand les erreurs se combinent
+### Quand une mesure imparfaite rencontre un modèle
 
-Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
+Une erreur d'entrée peut déplacer une prédiction, tandis qu'un modèle imparfait peut déjà se tromper avec une entrée idéale. Ces contributions peuvent se renforcer ou se compenser : une prédiction proche de la cible ne prouve donc pas, à elle seule, que les données et le modèle sont fiables.
 
-Notons \(x\) l'entrée idéale, \(\tilde{x}\) la valeur observée, \(g(x)\) la relation réelle et \(f\) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle \(f\), maintenu fixe, pour les deux entrées. En ajoutant et retranchant \(f(x)\), on obtient :
-
-\[
-f(\tilde{x}) - g(x)
-=
-\bigl[f(\tilde{x}) - f(x)\bigr]
-+
-\bigl[f(x) - g(x)\bigr]
-\]
-
-Les trois quantités ont une interprétation distincte :
-
-- **Erreur totale** : \(f(\tilde{x}) - g(x)\), écart entre la prédiction calculée à partir de l'entrée observée et la valeur cible.
-- **Effet de l'erreur de donnée** : \(f(\tilde{x}) - f(x)\), variation de la prédiction due au remplacement de l'entrée idéale par l'entrée mesurée, à modèle fixé.
-- **Écart du modèle** : \(f(x) - g(x)\), erreur du modèle lorsque l'entrée idéale est fournie.
-
-Cette égalité est une identité algébrique, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, il faut distinguer l'écart à la fonction cible de l'erreur par rapport à une réalisation bruitée. Enfin, si les données d'entraînement sont biaisées, elles peuvent modifier les paramètres appris ; cet effet indirect n'est pas isolé ici, puisque le modèle est maintenu fixe.
-
-<figure class="error-figure">
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Décomposition de l'erreur de prédiction, défilable horizontalement sur petit écran">
-<svg viewBox="0 0 720 190" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
-  <title id="error-budget-title">Deux sources contribuent à l'erreur de prédiction</title>
-  <desc id="error-budget-desc">L'effet d'une donnée erronée et l'écart propre au modèle se combinent pour former l'erreur totale. Les contributions peuvent se renforcer ou se compenser.</desc>
-  <defs><marker id="error-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#64748b" stroke-width="1.2"/></marker></defs>
-  <rect x="10" y="12" width="700" height="166" rx="12" fill="#fbfcfa" stroke="#d8e2d8"/>
-  <rect x="28" y="48" width="190" height="58" rx="9" fill="#e7f0eb" stroke="#78a58a"/>
-  <text x="123" y="72" text-anchor="middle" fill="#244637" font-size="13" font-weight="700">Erreur de donnée</text><text x="123" y="91" text-anchor="middle" fill="#315d49" font-size="12">f(x̃) − f(x)</text>
-  <rect x="28" y="119" width="190" height="42" rx="9" fill="#eee9f8" stroke="#9c8ac2"/>
-  <text x="123" y="145" text-anchor="middle" fill="#51416f" font-size="13" font-weight="700">Écart du modèle : f(x) − g(x)</text>
-  <path d="M220 77 H280 V94 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
-  <path d="M220 140 H280 V110 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
-  <rect x="325" y="65" width="355" height="60" rx="10" fill="#20352d"/>
-  <text x="502" y="89" text-anchor="middle" fill="#fffaf0" font-size="14" font-weight="700">Erreur totale de prédiction</text>
-  <text x="502" y="109" text-anchor="middle" fill="#fffaf0" font-size="12">contributions signées : renforcement ou compensation</text>
-</svg>
-</div>
-<figcaption>Une erreur de mesure traverse le modèle ; l'écart de modélisation existe même lorsque l'entrée est exacte.</figcaption>
-</figure>
-
-**Exemple numérique indépendant des deux thermomètres précédents.** La relation réelle est \(g(x)=2x+3\), avec \(x=20\), donc une cible de 43. Supposons qu'un autre capteur fournisse \(\tilde{x}=20{,}8\), soit une erreur d'entrée de \(+0{,}8\), et que le modèle appris soit \(f(x)=2{,}1x+3{,}4\).
-
-- Écart du modèle : \(f(20)-g(20)=45{,}4-43=+2{,}4\).
-- Effet de la mesure : \(f(20{,}8)-f(20)=1{,}68\).
-- Erreur totale : \(47{,}08-43=+4{,}08\).
-
-Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient se compenser : une prédiction juste ne prouverait donc pas que les données et le modèle sont tous deux corrects.
-
-**À retenir :** la qualité des données et celle du modèle doivent être examinées ensemble. Les journées suivantes détailleront séparément les mécanismes — échantillonnage, variabilité, dépendance, spécification, stabilité et généralisation — sans les empiler tous ici.
+La décomposition algébrique, son exemple numérique et les précautions d'interprétation sont développés dans l'article complémentaire **[Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/)**.
 
 
 ## À vous de raisonner
 
-Reprenez les deux capteurs et imaginez maintenant que le capteur B soit utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
+Le capteur B est utilisé pour entraîner un modèle qui prédit la température d'un bâtiment.
 
-1. Si l'on multiplie par 100 le nombre de mesures collectées avec B, que devient la moyenne attendue dans le modèle simplifié ?
-2. Si l'on soustrait 0,97 °C à toutes ses mesures, a-t-on nécessairement corrigé le problème ?
-3. Si le biais varie avec la température ambiante, une correction constante suffit-elle ?
-4. Si les capteurs de certains bâtiments sont tous du même modèle, comment distinguer un effet du bâtiment d'un effet de l'instrument ?
+1. Que devient la moyenne si l'on collecte cent fois plus de mesures dans les mêmes conditions ?
+2. Peut-on corriger le capteur en soustrayant systématiquement 0,97 °C ?
+3. Si chaque bâtiment utilise un modèle de capteur différent, comment séparer l'effet du bâtiment de celui de l'instrument ?
 
 <details>
-<summary>Indice 1 — distinguer moyenne et biais</summary>
+<summary>Afficher la correction expliquée</summary>
 
-Demandez-vous ce qui diminue quand on répète une mesure : la dispersion aléatoire, le décalage systématique, ou les deux ?
+1. Si le décalage reste stable et si les erreurs aléatoires sont suffisamment indépendantes, davantage de mesures stabilisent la moyenne : son erreur-type décroît comme \(1/\sqrt{n}\) dans le modèle i.i.d. Mais son espérance reste décalée. Répéter réduit certaines fluctuations ; cela ne supprime pas un biais.
+2. Pas nécessairement. Les −0,97 °C sont un écart observé sur trois relevés, pas une correction universelle. Il faut estimer le décalage avec une référence adaptée, quantifier son incertitude et vérifier sa stabilité sur la plage et les conditions d'utilisation.
+3. Il faut rendre les facteurs identifiables : mesures simultanées avec plusieurs instruments, référence commune ou échange des capteurs entre sites. Si instrument et bâtiment varient toujours ensemble, leurs effets sont confondus et les données seules ne permettent pas de les séparer.
+
+**À retenir :** une correction est un modèle supplémentaire, avec ses propres hypothèses et son incertitude.
 
 </details>
 
-<details>
-<summary>Indice 2 — examiner la correction</summary>
+## Transfert vers la Data Science : auditer une variable
 
-Une correction estimée sur une plage et dans des conditions données reste-t-elle valable si la température, le temps ou l'instrument changent ?
+Avant d'entraîner un modèle, il faut documenter ce que représente une variable, comment elle est produite, quelles erreurs peuvent l'affecter et à quelle population ou période elle est comparable. Une validation aléatoire par lignes peut être trompeuse si plusieurs mesures proviennent du même capteur ou du même site.
 
-</details>
-
-<details>
-<summary>Indice 3 — penser au protocole comparatif</summary>
-
-Pour séparer un effet « bâtiment » d'un effet « capteur », il faut que les deux facteurs puissent varier indépendamment, ou disposer d'une référence commune.
-
-</details>
-
-<details>
-<summary>Afficher la solution expliquée</summary>
-
-1. Si le décalage reste stable et que les erreurs aléatoires sont suffisamment indépendantes, la moyenne observée tend à estimer l'espérance des mesures du capteur, estimée ici à environ 19,03 °C à partir de seulement trois relevés. Si le nombre de mesures est multiplié par 100, l'écart-type de la moyenne serait divisé par dix dans le modèle i.i.d. ; son espérance resterait décalée, et la moyenne ne convergerait pas vers 20,00 °C.
-2. Pas nécessairement. La correction est fondée sur une estimation du décalage dans les conditions testées. Il faut tenir compte de son incertitude et vérifier qu'elle reste valable dans les conditions d'usage.
-3. Non. Il faut caractériser la réponse de l'instrument sur la plage de températures concernée et envisager une correction dépendante de la température, validée sur des données adaptées.
-4. Il faut concevoir une comparaison permettant de séparer les effets : mesures simultanées avec plusieurs instruments, étalons communs, échanges d'instruments entre sites ou protocole d'étalonnage documenté. Sans variation permettant de distinguer les causes, les effets peuvent être confondus.
-
-**Le point important :** une correction n'est pas une opération cosmétique. C'est un modèle supplémentaire, qui possède lui aussi des hypothèses et une incertitude.
-
-</details>
-
-## Auditer une variable avant de l'utiliser dans un modèle
-
-La grille précédente peut devenir un protocole concret de revue de feature. Prenons une variable de température collectée par plusieurs capteurs, dans plusieurs bâtiments, puis utilisée pour prédire une consommation énergétique.
-
-### 1. Écrire le modèle de mesure, même approximatif
-
-Une représentation simple est :
-
-\[
-x_{i,s,t}^{\mathrm{obs}}
-=
-x_{i,t}^{\ast}
-+
-b_s
-+
-\varepsilon_{i,s,t},
-\]
-
-où :
-
-- \(x_{i,t}^{\ast}\) est la température que l'on cherche à caractériser ;
-- \(b_s\) est le décalage propre au capteur \(s\) ;
-- \(\varepsilon_{i,s,t}\) regroupe le bruit et les effets non modélisés.
-
-Ce modèle additif est une hypothèse de travail, pas une vérité universelle. Un biais peut dépendre de la température, de l'humidité, du vieillissement ou du protocole. Le point important est de rendre explicite la structure d'erreur que l'on suppose, plutôt que de traiter chaque valeur comme une observation interchangeable.
-
-### 2. Vérifier si l'erreur est associée à la cible ou aux groupes
-
-Comparer les distributions et les résidus par capteur, bâtiment, période et conditions de fonctionnement. Une différence entre groupes peut venir du phénomène étudié, du système de mesure, ou des deux.
-
-Si chaque bâtiment possède un modèle de capteur différent, l'effet « bâtiment » et l'effet « instrument » sont confondus. Une régression ne peut pas les séparer à partir des seules données si le plan de collecte ne permet pas de les identifier. Il faut alors des mesures de référence, des capteurs croisés, ou un protocole où les instruments et les sites varient indépendamment.
-
-### 3. Tester la généralisation dans le bon régime
-
-Un découpage aléatoire par lignes peut placer des mesures du même capteur dans l'entraînement et le test. Il évalue alors surtout l'interpolation vers de nouvelles observations de capteurs déjà connus. Si le cas d'usage est le déploiement sur un nouveau capteur ou un nouveau bâtiment, ce n'est pas le bon test.
-
-Le groupe de validation doit reproduire la nouveauté attendue en production : nouveau capteur, nouveau site, nouvelle période, ou combinaison de ces facteurs. Pour une validation par capteur, le principe peut être illustré avec scikit-learn :
-
-```python
-from sklearn.model_selection import GroupKFold, cross_validate
-from sklearn.pipeline import make_pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Ridge
-
-# Ici, feature_columns contient uniquement des variables numériques.
-X = data[feature_columns]
-y = data["energy_consumption"]
-groups = data["sensor_id"]
-
-model = make_pipeline(
-    SimpleImputer(strategy="median"),
-    StandardScaler(),
-    Ridge()
-)
-
-cv = GroupKFold(n_splits=5)
-scores = cross_validate(
-    model,
-    X,
-    y,
-    cv=cv.split(X, y, groups=groups),
-    scoring=("neg_mean_absolute_error", "r2")
-)
-```
-
-Ce code suppose que les variables explicatives sont numériques et n'est pertinent que si le déploiement vise effectivement des capteurs absents de l'entraînement et si cinq groupes indépendants au moins sont disponibles. Pour un déploiement sur de nouveaux bâtiments, il faut grouper par bâtiment ; pour anticiper le futur, il faut aussi respecter l'ordre temporel. Si des hyperparamètres sont sélectionnés, cette sélection doit elle aussi respecter les groupes, idéalement dans une validation imbriquée. Le découpage doit découler de la question de généralisation, pas d'une recette appliquée systématiquement.
-
-### 4. Apprendre toute correction dans l'entraînement, jamais sur le test
-
-Si l'on estime une correction à partir de mesures appariées avec une référence, cette estimation fait partie du prétraitement appris. Elle doit être ajustée uniquement sur les données d'entraînement de chaque pli, puis appliquée sans réestimation au pli de validation. Estimer le décalage sur l'ensemble du jeu de données avant la validation ferait fuiter de l'information du test vers l'entraînement.
-
-Après correction, vérifier les résidus par plage de température, capteur, site et période. Une correction moyenne peut masquer une non-linéarité ou une dérive ; elle doit être validée sur son domaine d'utilisation et accompagnée de son incertitude.
-
-### 5. Relier le diagnostic à une décision
-
-| Diagnostic | Risque pour le modèle | Action à envisager |
-|---|---|---|
-| Décalage stable et documenté | Comparabilité biaisée entre instruments | Correction validée ou effet instrument explicitement modélisé |
-| Bruit important | Sous les hypothèses classiques d'une erreur additive indépendante, atténuation possible des coefficients ; prédictions moins précises | Caractériser le bruit, agréger seulement si le phénomène le permet |
-| Biais dépendant de la plage | Erreur systématique variable selon les conditions | Calibration sur la plage utile et validation hors échantillon |
-| Dérive temporelle | Dégradation après déploiement | Suivi de dérive, contrôles périodiques et stratégie de recalibration |
-| Instrument confondu avec le site | Effets impossibles à identifier séparément | Revoir le plan de collecte ; le modèle seul ne résout pas la confusion |
-
-Avant de calculer une moyenne ou d'entraîner un modèle, le data scientist doit donc documenter le sens de la variable, sa provenance, son mécanisme de mesure, sa comparabilité, le régime de généralisation visé et l'incertitude acceptable pour la décision. La qualité d'une feature ne se réduit ni à son type numérique, ni à l'absence de valeurs manquantes, ni à sa capacité prédictive sur un split aléatoire.
+Le protocole détaillé — modèle de mesure, diagnostic par groupes, validation adaptée au déploiement, correction sans fuite de données et exemple `GroupKFold` — est présenté dans **[Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/)**.
 
 ## À retenir
 

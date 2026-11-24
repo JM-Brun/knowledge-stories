@@ -1,0 +1,197 @@
+---
+title: "Auditer une variable mesurée avant de l'utiliser en machine learning"
+description: "Relier le mécanisme de mesure, les erreurs de données et le protocole de validation pour éviter qu'un modèle apprenne un artefact instrumental."
+date: 2026-11-24
+category: "Data Science"
+discipline: "Informatique"
+domain: "computing"
+themes: ["Qualité des données", "Statistiques et inférence", "Évaluation expérimentale"]
+labels: ["Mesure", "Machine learning"]
+tags: ["mesure", "biais", "incertitude", "validation", "machine-learning"]
+difficulty: "intermediate"
+readingTime: 10
+status: "review"
+featured: false
+sources:
+  - title: "Vocabulaire international de métrologie — JCGM 200:2012"
+    url: "https://doi.org/10.59161/JCGM200-2012"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "GroupKFold — scikit-learn documentation"
+    url: "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html"
+    kind: "documentation"
+    accessed: 2026-11-24
+  - title: "cross_validate — scikit-learn documentation"
+    url: "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html"
+    kind: "documentation"
+    accessed: 2026-11-24
+relatedArticles: []
+---
+
+> **Question de départ** — Un modèle prédit mal la température d'un bâtiment. Le problème vient-il du modèle, du capteur, du protocole de collecte ou de la manière dont les données ont été découpées ?
+
+**Prérequis** — Comprendre la différence entre une variable d'entrée, une cible et un jeu d'entraînement. Les notions de biais, de bruit et de validation sont rappelées au fil du texte.
+
+**Lien avec le calendrier** — Cet approfondissement prolonge [Jour 1 — Une mesure précise peut-elle être fausse ?](/knowledge-stories/calendar/days/jour-01.html). Il transforme le raisonnement métrologique en protocole de revue d'une variable destinée à un modèle.
+
+## Mesure-t-on toujours une chose qui existe directement ?
+
+Jusqu'ici, le phénomène était une température. On peut comparer un thermomètre à une référence physique, au moins en principe. Mais beaucoup de variables utilisées en Data Science ne sont pas directement observables : la confiance, la motivation, la compétence, la douleur, le niveau de risque ou même la « qualité » d'un service.
+
+On ne mesure pas directement la confiance : on choisit des indicateurs (questionnaire, comportement, délai, déclaration). Cette **opérationnalisation** pose une question plus profonde que la précision instrumentale : les observations représentent-elles le concept visé ?
+
+Un test de programmation peut mesurer surtout la familiarité avec son format ; un score de satisfaction, la facilité d'utilisation plutôt que la qualité globale. En évaluation, la **validité de construit** concerne l'interprétation que l'on fait des scores et l'usage qui en est tiré. Elle demande des éléments montrant que les indicateurs se comportent comme la théorie le prévoit : convergence avec des mesures proches, distinction d'autres concepts et prédiction de conséquences pertinentes. La stabilité ou la cohérence interne ne suffisent pas.
+
+De même, 90 % sur un benchmark établit d'abord une performance sur ses items et conditions. Inférer une capacité générale exige de justifier le lien entre le score et le construit visé.
+
+## La mesure peut-elle changer ce qu'elle observe ?
+
+Un instrument n'est pas toujours extérieur au phénomène. Un capteur peut perturber physiquement ce qu'il mesure : par exemple, un voltmètre dont la résistance d'entrée n'est pas infinie peut modifier la tension du circuit qu'il mesure. Le VIM signale explicitement cette possibilité dans sa définition du [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html). Dans les sciences humaines et les systèmes sociotechniques, un questionnaire peut influencer les réponses et un indicateur de performance modifier les comportements lorsque les acteurs l'optimisent. Perturbation physique, réactivité des personnes, optimisation et sélection des événements sont des mécanismes distincts, mais tous rappellent qu'une mesure est une interaction avec le monde, pas une extraction neutre.
+
+**Question de méthode :** si la mesure influence le phénomène, quelle stratégie permettrait de vérifier que le comportement observé existait aussi avant la mesure ou en dehors du dispositif ?
+
+## Quand les erreurs se combinent
+
+Une prédiction dépend à la fois de l'information fournie au modèle et de la manière dont celui-ci représente le phénomène. Une mesure décalée peut déplacer la prédiction ; un modèle imparfait peut déjà se tromper même avec une entrée exacte.
+
+Notons &#92;(x&#92;) l'entrée idéale, &#92;(\tilde&#123;x&#125;&#92;) la valeur observée, &#92;(g(x)&#92;) la relation réelle et &#92;(f&#92;) le modèle ajusté. Pour cette décomposition, on suppose la relation cible déterministe et on compare les sorties du même modèle &#92;(f&#92;), maintenu fixe, pour les deux entrées. En ajoutant et retranchant &#92;(f(x)&#92;), on obtient :
+
+&#92;[
+f(\tilde&#123;x&#125;) - g(x)
+=
+\bigl[f(\tilde&#123;x&#125;) - f(x)\bigr]
++
+\bigl[f(x) - g(x)\bigr]
+&#92;]
+
+Les trois quantités ont une interprétation distincte :
+
+- **Erreur totale** : &#92;(f(\tilde&#123;x&#125;) - g(x)&#92;), écart entre la prédiction calculée à partir de l'entrée observée et la valeur cible.
+- **Effet de l'erreur de donnée** : &#92;(f(\tilde&#123;x&#125;) - f(x)&#92;), variation de la prédiction due au remplacement de l'entrée idéale par l'entrée mesurée, à modèle fixé.
+- **Écart du modèle** : &#92;(f(x) - g(x)&#92;), erreur du modèle lorsque l'entrée idéale est fournie.
+
+Cette égalité est une identité algébrique, pas une loi disant que deux variances s'additionnent. Les contributions sont signées : elles peuvent se renforcer ou se compenser. Si la cible comporte un bruit aléatoire, il faut distinguer l'écart à la fonction cible de l'erreur par rapport à une réalisation bruitée. Enfin, si les données d'entraînement sont biaisées, elles peuvent modifier les paramètres appris ; cet effet indirect n'est pas isolé ici, puisque le modèle est maintenu fixe.
+
+<figure class="error-figure">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Décomposition de l'erreur de prédiction, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 720 190" role="img" aria-labelledby="error-budget-title error-budget-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="error-budget-title">Deux sources contribuent à l'erreur de prédiction</title>
+  <desc id="error-budget-desc">L'effet d'une donnée erronée et l'écart propre au modèle se combinent pour former l'erreur totale. Les contributions peuvent se renforcer ou se compenser.</desc>
+  <defs><marker id="error-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#64748b" stroke-width="1.2"/></marker></defs>
+  <rect x="10" y="12" width="700" height="166" rx="12" fill="#fbfcfa" stroke="#d8e2d8"/>
+  <rect x="28" y="48" width="190" height="58" rx="9" fill="#e7f0eb" stroke="#78a58a"/>
+  <text x="123" y="72" text-anchor="middle" fill="#244637" font-size="13" font-weight="700">Erreur de donnée</text><text x="123" y="91" text-anchor="middle" fill="#315d49" font-size="12">f(x̃) − f(x)</text>
+  <rect x="28" y="119" width="190" height="42" rx="9" fill="#eee9f8" stroke="#9c8ac2"/>
+  <text x="123" y="145" text-anchor="middle" fill="#51416f" font-size="13" font-weight="700">Écart du modèle : f(x) − g(x)</text>
+  <path d="M220 77 H280 V94 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
+  <path d="M220 140 H280 V110 H315" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#error-arrow)"/>
+  <rect x="325" y="65" width="355" height="60" rx="10" fill="#20352d"/>
+  <text x="502" y="89" text-anchor="middle" fill="#fffaf0" font-size="14" font-weight="700">Erreur totale de prédiction</text>
+  <text x="502" y="109" text-anchor="middle" fill="#fffaf0" font-size="12">contributions signées : renforcement ou compensation</text>
+</svg>
+</div>
+<figcaption>Une erreur de mesure traverse le modèle ; l'écart de modélisation existe même lorsque l'entrée est exacte.</figcaption>
+</figure>
+
+**Exemple numérique indépendant des deux thermomètres précédents.** La relation réelle est &#92;(g(x)=2x+3&#92;), avec &#92;(x=20&#92;), donc une cible de 43. Supposons qu'un autre capteur fournisse &#92;(\tilde&#123;x&#125;=20&#123;,&#125;8&#92;), soit une erreur d'entrée de &#92;(+0&#123;,&#125;8&#92;), et que le modèle appris soit &#92;(f(x)=2&#123;,&#125;1x+3&#123;,&#125;4&#92;).
+
+- Écart du modèle : &#92;(f(20)-g(20)=45&#123;,&#125;4-43=+2&#123;,&#125;4&#92;).
+- Effet de la mesure : &#92;(f(20&#123;,&#125;8)-f(20)=1&#123;,&#125;68&#92;).
+- Erreur totale : &#92;(47&#123;,&#125;08-43=+4&#123;,&#125;08&#92;).
+
+Ici, les deux erreurs se renforcent. Avec des signes opposés, elles pourraient se compenser : une prédiction juste ne prouverait donc pas que les données et le modèle sont tous deux corrects.
+
+**À retenir :** la qualité des données et celle du modèle doivent être examinées ensemble. Les journées suivantes détailleront séparément les mécanismes — échantillonnage, variabilité, dépendance, spécification, stabilité et généralisation — sans les empiler tous ici.
+
+## Auditer une variable avant de l'utiliser dans un modèle
+
+La grille précédente peut devenir un protocole concret de revue de feature. Prenons une variable de température collectée par plusieurs capteurs, dans plusieurs bâtiments, puis utilisée pour prédire une consommation énergétique.
+
+### 1. Écrire le modèle de mesure, même approximatif
+
+Une représentation simple est :
+
+&#92;[
+x_&#123;i,s,t&#125;^&#123;\mathrm&#123;obs&#125;&#125;
+=
+x_&#123;i,t&#125;^&#123;\ast&#125;
++
+b_s
++
+\varepsilon_&#123;i,s,t&#125;,
+&#92;]
+
+où :
+
+- &#92;(x_&#123;i,t&#125;^&#123;\ast&#125;&#92;) est la température que l'on cherche à caractériser ;
+- &#92;(b_s&#92;) est le décalage propre au capteur &#92;(s&#92;) ;
+- &#92;(\varepsilon_&#123;i,s,t&#125;&#92;) regroupe le bruit et les effets non modélisés.
+
+Ce modèle additif est une hypothèse de travail, pas une vérité universelle. Un biais peut dépendre de la température, de l'humidité, du vieillissement ou du protocole. Le point important est de rendre explicite la structure d'erreur que l'on suppose, plutôt que de traiter chaque valeur comme une observation interchangeable.
+
+### 2. Vérifier si l'erreur est associée à la cible ou aux groupes
+
+Comparer les distributions et les résidus par capteur, bâtiment, période et conditions de fonctionnement. Une différence entre groupes peut venir du phénomène étudié, du système de mesure, ou des deux.
+
+Si chaque bâtiment possède un modèle de capteur différent, l'effet « bâtiment » et l'effet « instrument » sont confondus. Une régression ne peut pas les séparer à partir des seules données si le plan de collecte ne permet pas de les identifier. Il faut alors des mesures de référence, des capteurs croisés, ou un protocole où les instruments et les sites varient indépendamment.
+
+### 3. Tester la généralisation dans le bon régime
+
+Un découpage aléatoire par lignes peut placer des mesures du même capteur dans l'entraînement et le test. Il évalue alors surtout l'interpolation vers de nouvelles observations de capteurs déjà connus. Si le cas d'usage est le déploiement sur un nouveau capteur ou un nouveau bâtiment, ce n'est pas le bon test.
+
+Le groupe de validation doit reproduire la nouveauté attendue en production : nouveau capteur, nouveau site, nouvelle période, ou combinaison de ces facteurs. Pour une validation par capteur, le principe peut être illustré avec scikit-learn :
+
+```python
+from sklearn.model_selection import GroupKFold, cross_validate
+from sklearn.pipeline import make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import Ridge
+
+# Ici, feature_columns contient uniquement des variables numériques.
+X = data[feature_columns]
+y = data["energy_consumption"]
+groups = data["sensor_id"]
+
+model = make_pipeline(
+    SimpleImputer(strategy="median"),
+    StandardScaler(),
+    Ridge()
+)
+
+cv = GroupKFold(n_splits=5)
+scores = cross_validate(
+    model,
+    X,
+    y,
+    cv=cv.split(X, y, groups=groups),
+    scoring=("neg_mean_absolute_error", "r2")
+)
+```
+
+Ce code suppose que les variables explicatives sont numériques et n'est pertinent que si le déploiement vise effectivement des capteurs absents de l'entraînement et si cinq groupes indépendants au moins sont disponibles. Pour un déploiement sur de nouveaux bâtiments, il faut grouper par bâtiment ; pour anticiper le futur, il faut aussi respecter l'ordre temporel. Si des hyperparamètres sont sélectionnés, cette sélection doit elle aussi respecter les groupes, idéalement dans une validation imbriquée. Le découpage doit découler de la question de généralisation, pas d'une recette appliquée systématiquement.
+
+### 4. Apprendre toute correction dans l'entraînement, jamais sur le test
+
+Si l'on estime une correction à partir de mesures appariées avec une référence, cette estimation fait partie du prétraitement appris. Elle doit être ajustée uniquement sur les données d'entraînement de chaque pli, puis appliquée sans réestimation au pli de validation. Estimer le décalage sur l'ensemble du jeu de données avant la validation ferait fuiter de l'information du test vers l'entraînement.
+
+Après correction, vérifier les résidus par plage de température, capteur, site et période. Une correction moyenne peut masquer une non-linéarité ou une dérive ; elle doit être validée sur son domaine d'utilisation et accompagnée de son incertitude.
+
+### 5. Relier le diagnostic à une décision
+
+| Diagnostic | Risque pour le modèle | Action à envisager |
+|---|---|---|
+| Décalage stable et documenté | Comparabilité biaisée entre instruments | Correction validée ou effet instrument explicitement modélisé |
+| Bruit important | Sous les hypothèses classiques d'une erreur additive indépendante, atténuation possible des coefficients ; prédictions moins précises | Caractériser le bruit, agréger seulement si le phénomène le permet |
+| Biais dépendant de la plage | Erreur systématique variable selon les conditions | Calibration sur la plage utile et validation hors échantillon |
+| Dérive temporelle | Dégradation après déploiement | Suivi de dérive, contrôles périodiques et stratégie de recalibration |
+| Instrument confondu avec le site | Effets impossibles à identifier séparément | Revoir le plan de collecte ; le modèle seul ne résout pas la confusion |
+
+Avant de calculer une moyenne ou d'entraîner un modèle, le data scientist doit donc documenter le sens de la variable, sa provenance, son mécanisme de mesure, sa comparabilité, le régime de généralisation visé et l'incertitude acceptable pour la décision. La qualité d'une feature ne se réduit ni à son type numérique, ni à l'absence de valeurs manquantes, ni à sa capacité prédictive sur un split aléatoire.
+
+## À retenir
+
+- Une erreur de mesure peut se propager jusqu'à la prédiction ; elle ne se confond pas avec l'erreur propre au modèle.
+- Un découpage train/test doit reproduire l'unité indépendante et le contexte de généralisation visés.
+- Une correction estimée à partir des données doit être ajustée dans chaque pli d'entraînement, jamais sur le jeu de test.
+- Un score prédictif ne valide ni le mesurande, ni la provenance, ni la comparabilité des observations.
