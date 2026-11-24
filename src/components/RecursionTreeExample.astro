@@ -10,7 +10,7 @@
     <div class="recursion-tree-canvas">
       <svg viewBox="0 0 560 282" role="img" aria-labelledby="recursion-tree-svg-title recursion-tree-svg-desc">
         <title id="recursion-tree-svg-title">Arbre de récursion à deux sous-problèmes par appel</title>
-        <desc id="recursion-tree-svg-desc">Une racine de taille n crée deux appels de taille n sur 2. Chacun crée deux appels de taille n sur 4.</desc>
+        <desc id="recursion-tree-svg-desc">Une racine de taille n crée deux appels de taille n/2. Chacun crée deux appels de taille n/4.</desc>
         <g class="tree-level-labels">
           <text x="12" y="49">j = 0</text><text x="12" y="140">j = 1</text><text x="12" y="240">j = 2</text>
         </g>
@@ -53,10 +53,10 @@
   .recursion-tree-layout { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(15rem,.85fr); gap:1rem; align-items:center; }
   .recursion-tree-canvas { min-width:0; padding:.5rem; border:1px solid var(--border-subtle,#d8d5ca); border-radius:.55rem; background:var(--surface-primary,#fbfaf6); }
   .recursion-tree-canvas svg { display:block; width:100%; height:auto; overflow:visible; }
-  .tree-level-labels { fill:var(--text-secondary,#68675f); font:600 11px "DM Mono",monospace; }
+  .tree-level-labels { fill:var(--text-secondary,#68675f); font:600 13px "DM Mono",monospace; }
   .tree-edges path { fill:none; stroke:var(--border-strong,#a9a69b); stroke-width:1.8; }
   .tree-node rect { fill:var(--term-common-soft,#e4f0ed); stroke:var(--term-common-border,#8bb9ad); stroke-width:1.2; }
-  .tree-node text { fill:var(--term-common,#286d61); text-anchor:middle; dominant-baseline:middle; font:600 14px "DM Mono",monospace; }
+  .tree-node text { fill:var(--term-common,#286d61); text-anchor:middle; dominant-baseline:middle; font:600 18px "DM Mono",monospace; }
   .tree-node.root-node rect { fill:var(--term-common,#286d61); stroke:var(--term-common,#286d61); }
   .tree-node.root-node text { fill:white; }
   .recursion-tree-note { margin:.2rem .35rem .1rem; color:var(--text-secondary,#68675f); font:.65rem/1.45 "DM Sans",sans-serif; }
