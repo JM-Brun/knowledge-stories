@@ -11,7 +11,7 @@ labels: ["Relativité", "Temps propre"]
 series: "paradoxe-des-jumeaux"
 seriesOrder: 0
 difficulty: "introductory"
-readingTime: 6
+readingTime: 7
 status: "review"
 featured: false
 cover: "jumeaux"
@@ -49,6 +49,22 @@ La difficulté vient de la réciprocité du mouvement uniforme : pendant chaque 
 Simon reste dans une station terrestre idéalisée et Kara embarque dans un vaisseau. Ils mettent leurs montres à zéro au départ. Le vaisseau s’éloigne à 0,8 c, fait demi-tour à 4 années-lumière, puis revient à la station. Pour isoler la relativité restreinte, on assimile la station à un référentiel inertiel et on néglige la gravitation ainsi que la rotation de la Terre.
 
 Dans le référentiel de Simon, le demi-tour a lieu après 5 ans et les retrouvailles après 10 ans. Le vaisseau met 5 ans pour chaque trajet. Avec un facteur de Lorentz gamma = 5/3, la montre de Kara accumule 3 ans par trajet, soit 6 ans au total.
+
+## Vérifier le résultat sans encore résoudre toute l'explication
+
+Pour chaque branche inertielle, le temps propre de Kara est relié au temps coordonné terrestre par le facteur de Lorentz. Ici, sa vitesse vaut &#92;(v=0&#123;,&#125;8c&#92;), donc
+
+&#92;[
+&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;=&#92;frac&#123;5&#125;&#123;3&#125;,
+&#92;qquad
+&#92;Delta&#92;tau=&#92;frac&#123;&#92;Delta t&#125;&#123;&#92;gamma&#125;
+=5&#92;times&#92;frac&#123;3&#125;&#123;5&#125;=3&#92; &#92;text&#123;ans&#125;.
+&#92;]
+
+Les deux branches donnent ainsi &#92;(3+3=6&#92;) ans pour Kara, contre 10 ans pour Simon. Ce calcul établit la différence entre les lectures au rendez-vous ; il ne suffit pas, à lui seul, à expliquer pourquoi l'argument de réciprocité ne conduit pas à une contradiction.
+
+Le piège consiste à appliquer deux fois le même raisonnement comme si chaque jumeau restait dans un unique référentiel inertiel pendant tout le voyage. Ce n'est pas le cas : Simon conserve le même référentiel idéal, tandis que Kara passe du référentiel inertiel de l'aller à celui du retour. Ces deux descriptions ne découpent pas de la même façon les événements terrestres simultanés avec le demi-tour. La prochaine étape du dossier rendra ce changement précis ; les épisodes suivants sépareront ensuite les dates attribuées, les signaux reçus et le temps réellement accumulé par chaque montre.
+
 
 ## Explorer le demi-tour
 
@@ -105,3 +121,10 @@ Le modèle suppose un espace-temps plat, une vitesse constante par morceaux et u
 ## Pour aller plus loin
 
 La discussion historique de Langevin et Nordmann complète le raisonnement physique. Pour examiner la question de l’inertie et des référentiels à une autre échelle, consultez [L’inertie a-t-elle besoin des étoiles ? Le principe de Mach et les référentiels](/knowledge-stories/atelier/inertie-referentiels-principe-mach/).
+
+## Dans Wiki Knowledge
+
+- **Concept canonique :** [Paradoxe des jumeaux et temps propre](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/paradoxe-des-jumeaux.md).
+- **Synthèse de série :** [Paradoxe des jumeaux, inertie et principe de Mach](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/syntheses/jumeaux-inertie-et-principe-de-mach.md).
+
+Les notions spécifiques qui ne disposent pas d'une page conceptuelle autonome dans Wiki Knowledge restent expliquées dans les épisodes correspondants ; aucun identifiant de concept n'est créé implicitement.
