@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatReadingDuration, seriesInfo } from "../../data/series";
+import { getReadingTime } from "../../utils/reading-time.mjs";
 
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
@@ -21,7 +22,10 @@ const seriesFor = (domain: Domain) => (Object.keys(seriesInfo) as SeriesId[])
 const articlesForSeries = (series: SeriesId) => articles
   .filter((article) => article.data.series === series)
   .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999));
-const readingTimeFor = (article: { data: { readingTime?: number }; body: string }) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));
+const readingTimeFor = getReadingTime;
+const totalReadingTime = articles.reduce((total, article) => total + readingTimeFor(article), 0);
+const seriesCount = (Object.keys(seriesInfo) as SeriesId[]).filter((series) => articlesForSeries(series).length > 0).length;
+const standaloneCount = articles.filter((article) => !article.data.series).length;
 const seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);
 const ungroupedArticles = (domain: Domain) => articles.filter(
   (article) => article.data.domain === domain && !article.data.series,
@@ -36,6 +40,13 @@ const themesFor = (domain: Domain) => [...new Set(
     <p class="eyebrow">Espace éditorial · Versions de travail</p>
     <h1>Atelier de relecture</h1>
     <p class="intro">Certains sujets sont développés en plusieurs articles courts. Retrouvez-les ici sous forme de séries : une question commune, un ordre de lecture et des étapes complémentaires. Les autres articles restent classés par domaine et par thème.</p>
+
+    <dl class="atelier-overview" aria-label="Vue d'ensemble de l'atelier">
+      <div><dt>Articles en relecture</dt><dd>{articles.length}</dd></div>
+      <div><dt>Parcours structurés</dt><dd>{seriesCount}</dd></div>
+      <div><dt>Articles autonomes</dt><dd>{standaloneCount}</dd></div>
+      <div><dt>Lecture cumulée</dt><dd>{formatReadingDuration(totalReadingTime)}</dd></div>
+    </dl>
 
     {articles.length > 0 ? (
       <div class="domain-list">
@@ -111,6 +122,10 @@ const themesFor = (domain: Domain) => [...new Set(
   .eyebrow { color: #843c27; font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
   h1 { margin: .7rem 0 1rem; color: var(--ink); font: 500 clamp(2.4rem, 6vw, 4rem)/1.05 "Newsreader", serif; }
   .intro { max-width: 54rem; margin-bottom: 3rem; color: #514d42; font: 400 1.2rem/1.55 "Newsreader", serif; }
+  .atelier-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .65rem; margin: 0 0 3rem; }
+  .atelier-overview > div { padding: .85rem 1rem; border: 1px solid var(--line); border-radius: .5rem; background: #fffdf8; }
+  .atelier-overview dt { color: #625b4d; font: .68rem/1.4 "DM Mono", monospace; }
+  .atelier-overview dd { margin: .3rem 0 0; color: var(--ink); font: 500 1.45rem/1.15 "Newsreader", serif; font-variant-numeric: tabular-nums; }
   .discipline-section { margin: 3.5rem 0; }
   .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; padding-bottom: .7rem; border-bottom: 1px solid var(--line); }
   .section-heading h2 { margin: 0; color: var(--ink); font: 500 clamp(1.8rem, 4vw, 2.5rem)/1.1 "Newsreader", serif; }
