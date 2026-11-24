@@ -15,7 +15,9 @@ Les durées n'ont pas été chronométrées sur le site publié. Le code et les 
 
 ## Synthèse
 
-Les deux séries sont scientifiquement et pédagogiquement solides dans leur architecture générale. Les corrections prioritaires sont ciblées :
+Les deux séries sont scientifiquement et pédagogiquement solides dans leur architecture générale. Un contrôle complémentaire des 15 articles du catalogue confirme que toutes les valeurs `readingTime` sont présentes, que toutes les cibles `relatedArticles` existent et que les liens Markdown internes vers des articles de l'atelier pointent vers des slugs présents. Les ordres sont continus : Karatsuba utilise 1–5, tandis que le dossier des jumeaux utilise 0–6. Le validateur futur ne doit donc pas imposer une origine unique (0 ou 1) à toutes les séries ; il doit vérifier la continuité à partir de la convention de chaque série.
+
+Les corrections prioritaires sont ciblées :
 1. expliciter la portée du modèle asymptotique équilibré de Karatsuba ;
 2. séparer plus nettement modèle théorique et code concret ;
 3. réduire les répétitions du calcul 1,8 → 8,2 ans sans supprimer les reprises nécessaires à des explications différentes ;
@@ -103,9 +105,9 @@ L'ordre actuel des cinq articles est cohérent : mécanisme → complexité → 
 
 **Réussites :** synchronisation opérationnelle ; heure coordonnée distinguée de la lecture locale ; calcul 1,8 puis 8,2 ans correct dans le modèle instantané ; distinction entre simultanéité et image reçue.
 
-**Répétition :** le calcul 1,8 → 8,2 est repris dans l'introduction, l'article sur l'asymétrie et celui sur le Doppler. La démonstration complète doit rester ici ; les autres articles doivent annoncer leur angle propre (trajectoire/accélération ou signaux reçus) plutôt que refaire le même calcul.
+**Répétition :** le calcul 1,8 → 8,2 est démontré ici. Les articles sur l'asymétrie et le Doppler le rappellent brièvement, mais ne refont pas la démonstration : le premier l'utilise pour parler des trajectoires et du changement de référentiel, le second pour distinguer simultanéité et signal reçu. Cette répétition courte est fonctionnelle et ne justifie pas une suppression.
 
-**Décision :** conserver la démonstration ici et réduire les répétitions ailleurs.
+**Décision :** conserver la démonstration et les rappels contextualisés ; aucune correction de fond nécessaire sur ce point.
 
 ### B4. Le paradoxe des jumeaux : où se trouve l'asymétrie ? — 9 min
 
@@ -206,9 +208,9 @@ La série et son ordre doivent rester distincts des relations. Ne pas implément
 - [x] Préciser la portée de `Theta(n^log₂3)` dans l'article Karatsuba (modèle équilibré, opérandes de taille comparable).
 - [x] Qualifier dans l'article d'entrée des jumeaux la préparation, le parcours essentiel, le point de vue complémentaire et l'extension.
 - [ ] Remonter un repère vers la section sur les tailles réelles et la borne de l'implémentation dans l'article de complexité.
-- [ ] Réduire les répétitions du calcul 1,8 → 8,2 sans supprimer la démonstration complète.
+- [x] Vérifier les reprises du résultat 1,8 → 8,2 : la démonstration complète reste dans l'article sur la simultanéité ; les autres occurrences sont des rappels contextualisés et utiles.
 
-**Vérifications de fond déjà satisfaites :** l'article de complexité traite correctement l'arrêt anticipé et distingue borne supérieure de l'implémentation pédagogique et borne inférieure du modèle équilibré ; l'article Toom–3 justifie déjà les divisions exactes par 2 et 3. Ces deux points ne nécessitent pas de correction mathématique.
+**Vérifications de fond déjà satisfaites :** l'article de complexité traite correctement l'arrêt anticipé et distingue borne supérieure de l'implémentation pédagogique et borne inférieure du modèle équilibré ; l'article Toom–3 justifie déjà les divisions exactes par 2 et 3. Ces deux points ne nécessitent pas de correction mathématique. Les contrôles automatisables sur le catalogue ont également été exécutés : durées présentes, relations résolues, liens d'articles internes valides et séquences sans trou, avec des conventions de départ différentes selon la série.
 
 ### P2 — Pédagogie
 - [ ] Différencier le guide général des arbres de récursion de l'application à Karatsuba.
