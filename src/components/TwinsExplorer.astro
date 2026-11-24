@@ -36,8 +36,8 @@ const frames = [
       <svg viewBox="0 0 326 370" role="img" aria-labelledby="twins-plot-title twins-plot-description">
         <title id="twins-plot-title">Le voyage dans les coordonnées de la Terre</title>
         <desc id="twins-plot-description">
-          Clara reste à la position zéro de l’an 0 à l’an 10. Noé s’éloigne jusqu’à la position
-          4 années-lumière à l’an 5, puis rejoint Clara à l’an 10. Le pointillé relie le
+          Simon reste à la position zéro de l’an 0 à l’an 10. Kara s’éloigne jusqu’à la position
+          4 années-lumière à l’an 5, puis rejoint Simon à l’an 10. Le pointillé relie le
           demi-tour à l’événement sur Terre qui lui est simultané dans le référentiel choisi.
           Sa date est affichée sous le diagramme.
         </desc>
@@ -80,13 +80,13 @@ const frames = [
 
       <div class="plot-caption">
         <ul aria-label="Légende">
-          <li class="earth-key">Clara · Terre</li>
-          <li class="ship-key">Noé · Vaisseau</li>
+          <li class="earth-key">Simon · Terre</li>
+          <li class="ship-key">Kara · Vaisseau</li>
           <li class="time-key">Instants simultanés</li>
         </ul>
         {frames.map(({ id, earthTime }) => (
           <p class={`state readout ${id}`}>
-            <span>Date sur la montre de Clara</span>
+            <span>Date sur la montre de Simon</span>
             <strong>{format.format(earthTime)} {earthTime < 2 ? "an" : "ans"}</strong>
           </p>
         ))}
@@ -99,8 +99,8 @@ const frames = [
 <style>
   .twins-explorer {
     --chart-ink: #173139;
-    --earth: #116765;
-    --ship: #a54425;
+    --earth: #245FA8;
+    --ship: #B85A24;
     --simultaneous: #65478a;
     margin: 1.6rem 0;
     padding: clamp(.8rem, 2.5vw, 1.35rem);
