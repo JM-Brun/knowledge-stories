@@ -15,6 +15,7 @@
     <button type="button" data-fft-step="2" aria-controls="fft-panel-2" aria-pressed="false">3 · Multiplier</button>
     <button type="button" data-fft-step="3" aria-controls="fft-panel-3" aria-pressed="false">4 · Inverser</button>
   </div>
+  <noscript><p class="lab-foot">JavaScript est désactivé : toutes les étapes sont affichées successivement ci-dessous.</p></noscript>
   <div class="fft-panel" aria-live="polite">
     <div data-fft-panel="0" id="fft-panel-0">
       <h4>1 — Ajouter un zéro pour éviter le repliement</h4>
@@ -22,7 +23,7 @@
       <div class="sequence"><span>A</span><b>[1, 2, 0, 0]</b><span>B</span><b>[3, 4, 0, 0]</b></div>
       <p class="hint">Sans ce complément, une convolution circulaire de longueur 2 replierait le coefficient de degré 2 sur l'indice 0.</p>
     </div>
-    <div data-fft-panel="1" id="fft-panel-1" hidden>
+    <div data-fft-panel="1" id="fft-panel-1">
       <h4>2 — Évaluer aux racines quatrièmes de l'unité</h4>
       <p>On prend ω = i. Les quatre points sont 1, i, −1 et −i. La DFT évalue chaque polynôme sur ces quatre points.</p>
       <div class="eval-grid">
@@ -32,12 +33,12 @@
         <div><span>B(ωᵏ)</span><b>7</b><b>3+4i</b><b>−1</b><b>3−4i</b></div>
       </div>
     </div>
-    <div data-fft-panel="2" id="fft-panel-2" hidden>
+    <div data-fft-panel="2" id="fft-panel-2">
       <h4>3 — Une multiplication par point</h4>
       <p>La convolution devient quatre produits indépendants dans le domaine transformé.</p>
       <div class="sequence"><span>k = 0</span><b>3 × 7 = 21</b><span>k = 1</span><b>(1+2i)(3+4i) = −5+10i</b><span>k = 2</span><b>(−1)(−1) = 1</b><span>k = 3</span><b>(1−2i)(3−4i) = −5−10i</b></div>
     </div>
-    <div data-fft-panel="3" id="fft-panel-3" hidden>
+    <div data-fft-panel="3" id="fft-panel-3">
       <h4>4 — Appliquer la transformée inverse</h4>
       <p>La DFT inverse restitue les coefficients du produit, dans le même ordre :</p>
       <div class="inverse-result"><span>Convolution obtenue</span><strong>[3, 10, 8, 0]</strong><small>Le dernier zéro est le remplissage ; le produit polynomial vaut 3 + 10x + 8x².</small></div>
@@ -47,6 +48,11 @@
   <p class="lab-foot">Ici, les calculs sont exacts dans ℂ pour illustrer la propriété algébrique. Une FFT numérique flottante doit contrôler les erreurs d’arrondi ; une NTT remplace les complexes par des calculs exacts modulo un entier premier adapté.</p>
 </section>
 <script>
+  document.querySelectorAll(".fft-lab").forEach((root) => {
+    root.querySelectorAll("[data-fft-panel]").forEach((panel) => {
+      panel.toggleAttribute("hidden", panel.getAttribute("data-fft-panel") !== "0");
+    });
+  });
   document.querySelectorAll("[data-fft-step]").forEach((button) => {
     button.addEventListener("click", () => {
       const root = button.closest(".fft-lab");
