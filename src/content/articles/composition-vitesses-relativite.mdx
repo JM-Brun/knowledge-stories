@@ -1,0 +1,68 @@
+---
+title: "De l’addition classique des vitesses à la relativité"
+description: "Pourquoi les vitesses s’additionnent-elles en mécanique classique, et pourquoi cette règle doit-elle changer près de la vitesse de la lumière ?"
+date: 2026-11-24
+category: "Physique"
+discipline: "Physique"
+domain: "physics"
+themes: ["Relativité restreinte", "Cinématique"]
+tags: ["composition des vitesses", "transformation de Galilée", "transformation de Lorentz", "vitesse de la lumière"]
+labels: ["Cinématique", "Relativité"]
+difficulty: "introductory"
+readingTime: 7
+status: "review"
+featured: false
+sources:
+  - title: "Albert Einstein (1905), On the Electrodynamics of Moving Bodies, § 1 et 5"
+    url: "https://sites.pitt.edu/~jdnorton/teaching/Einstein_graduate/pdfs/Einstein_STR_1905_English_reset.pdf"
+    kind: "primary"
+    accessed: 2026-11-24
+relatedArticles: ["paradoxe-des-jumeaux", "simultaneite-relativite-restreinte"]
+---
+
+Pour comprendre le paradoxe des jumeaux, il faut d’abord abandonner une intuition familière : **les vitesses ne s’additionnent pas toujours comme dans la vie quotidienne**. Ce changement n’est pas une subtilité réservée aux fusées. Il découle du fait que les observateurs inertiels ne mesurent pas les mêmes intervalles de temps et de distance.
+
+## 1. L’addition des vitesses dans la mécanique classique
+
+Imaginons Simon sur un quai et Kara dans un train avançant à 100 km/h. Kara lance une balle vers l’avant à 20 km/h par rapport au train. Dans le modèle classique, Simon mesure :
+
+\[
+v_{\text{balle/quai}}=v_{\text{balle/train}}+v_{\text{train/quai}}
+=20+100=120\;\mathrm{km/h}.
+\]
+
+Si Kara lance la balle vers l’arrière, sa vitesse relative au train est négative : Simon mesure 80 km/h. Cette règle est la **composition galiléenne des vitesses**.
+
+Elle s’appuie sur deux hypothèses implicites : les durées mesurées par deux horloges en mouvement relatif sont identiques, et les distances se transforment par une simple translation. Le temps est universel ; changer de référentiel ne change pas la durée entre deux événements.
+
+## 2. La lumière met cette règle en défaut
+
+Dans le vide, tout observateur inertiel mesure la même vitesse de la lumière, notée \(c\), environ 300 000 km/s. Si une fusée poursuit un rayon lumineux, la mesure n’est pas \(c+v\). Elle reste égale à \(c\).
+
+La composition classique ne peut donc pas être exacte à toutes les vitesses. Pour des mouvements colinéaires, la relativité restreinte donne :
+
+\[
+w=\frac{u+v}{1+uv/c^2}.
+\]
+
+Ici, \(u\) est la vitesse de l’objet dans le référentiel mobile et \(v\) celle de ce référentiel par rapport au premier. Les vitesses sont signées : le sens du mouvement compte.
+
+Avec \(u=v=0{,}8c\), l’addition classique donnerait \(1{,}6c\), tandis que la formule relativiste donne :
+
+\[
+w=\frac{1{,}6}{1{,}64}c\simeq0{,}976c.
+\]
+
+La vitesse composée reste inférieure à \(c\). Lorsque \(|u|\) et \(|v|\) sont très petits devant \(c\), le terme \(uv/c^2\) devient négligeable : on retrouve l’addition classique comme approximation.
+
+## 3. Ce qui change réellement
+
+La formule relativiste n’est pas une correction arbitraire. Elle vient des **transformations de Lorentz**, qui relient les coordonnées d’espace et de temps utilisées par deux référentiels inertiels. Contrairement aux transformations de Galilée, elles mélangent espace et temps.
+
+Ce mélange entraîne une conséquence essentielle : deux événements éloignés que l’un des observateurs juge simultanés ne le sont généralement pas pour l’autre. La relativité du temps ne signifie donc pas que chacun possède une montre locale qui accélère ou ralentit mystérieusement. Elle signifie que la comparaison d’horloges éloignées dépend aussi de la convention physique de synchronisation.
+
+C’est le point de départ du paradoxe des jumeaux. Pendant une phase de mouvement uniforme, chacun peut décrire l’autre comme mobile et lui attribuer un rythme de montre plus lent. Pour comprendre les retrouvailles, il faudra suivre l’ensemble des trajectoires et préciser comment chacun date les événements éloignés.
+
+**À retenir :** l’addition classique est une excellente approximation à faible vitesse. À grande vitesse, la constance de \(c\) impose de transformer ensemble les mesures de temps et d’espace.
+
+**Suite :** [La simultanéité en relativité restreinte](/atelier/simultaneite-relativite-restreinte/), puis [le dossier du paradoxe des jumeaux](/atelier/paradoxe-des-jumeaux/).
