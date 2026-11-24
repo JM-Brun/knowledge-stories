@@ -272,7 +272,7 @@ La DFT naïve coûte \(O(N^2)\). La FFT (*Fast Fourier Transform*) est une famil
 P(x)=P_{\mathrm{pair}}(x^2)+xP_{\mathrm{impair}}(x^2).
 \]
 
-Une évaluation de longueur \(N\) se ramène alors à deux évaluations de longueur \(N/2\), puis à un nombre linéaire de combinaisons. Pour chaque indice \(k\), si \(E_k\) et \(O_k\) désignent les deux valeurs transformées de taille \(N/2\), les deux sorties associées sont :
+Pour \\(N\\) puissance de deux, une évaluation de longueur \(N\) se ramène alors à deux évaluations de longueur \(N/2\), puis à un nombre linéaire de combinaisons. Pour chaque indice \(k\), si \(E_k\) et \(O_k\) désignent les deux valeurs transformées de taille \(N/2\), les deux sorties associées sont :
 
 \[
 X_k=E_k+\omega^k O_k,
