@@ -53,7 +53,7 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
         {article.data.sources.length > 0 && (
           <section class="sources" aria-labelledby="bibliographie">
             <h2 id="bibliographie">Bibliographie</h2>
-            <ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({sourceKinds[source.kind]})</span></li>)}</ol>
+            <ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({sourceKinds[source.kind]}{source.accessed ? ` · consulté le ${date.format(source.accessed)}` : ""})</span></li>)}</ol>
           </section>
         )}
       </div>

@@ -30,7 +30,7 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
     <div class="review-layout">
       {sections.length > 0 && <nav class="outline" aria-label="Sommaire de la version de travail"><strong>Dans cet article</strong><ul>{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ul></nav>}
       <article class="prose"><Content />
-        {article.data.sources.length > 0 && <section class="sources"><h2>Sources déclarées</h2><ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({source.kind})</span></li>)}</ol></section>}
+        {article.data.sources.length > 0 && <section class="sources"><h2>Sources déclarées</h2><ol>{article.data.sources.map((source) => <li><a href={source.url} rel="noreferrer">{source.title}</a> <span>({source.kind}{source.accessed ? ` · consulté le ${date.format(source.accessed)}` : ""})</span></li>)}</ol></section>}
       </article>
     </div>
   </main>
