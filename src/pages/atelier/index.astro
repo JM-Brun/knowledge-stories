@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { seriesInfo } from "../../data/series";
 
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const articles = (await getCollection("articles", ({ data }) => data.status === "review"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const { seriesInfo } = await import("../../data/series");
 type SeriesId = keyof typeof seriesInfo;
 const domainLabels = {
   mathematics: "Mathématiques",
