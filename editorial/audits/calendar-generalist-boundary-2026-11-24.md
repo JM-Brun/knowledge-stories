@@ -21,11 +21,11 @@ Le dépôt contient actuellement cinq pages quotidiennes rédigées (`jour-01.qm
 
 | Jour | Noyau | Verdict | Action |
 |---|---|---|---|
-| 1 | Mesure, métrologie, biais, incertitude | Généraliste | Conserver. Réduire les ruptures de fil ; durée annoncée autour de 20 min, mais l'audit antérieur estime 20–25 min : resserrer pour respecter le plafond de 20 min sans supprimer les distinctions utiles. |
+| 1 | Mesure, métrologie, biais, incertitude | Généraliste | Conserver intégralement. Le texte lisible compte environ 3 744 mots, soit environ 19 min à 200 mots/min ; l'annonce d'environ 20 min est cohérente. Aucune coupe justifiée. |
 | 2 | Population, échantillonnage, sélection, transportabilité | Généraliste | Conserver. Les liens vers l'évaluation ML sont transversaux et ne constituent pas un doublon LLM. |
 | 3 | Distributions, moyenne, variance, quartette d'Anscombe | Généraliste | Conserver. Rendre explicite la différence entre distribution empirique et loi. |
-| 4 | Covariance, dépendance, variance d'une somme | Généraliste | Conserver. Harmoniser les conventions empiriques (n) et (n-1). |
-| 5 | Entropie de Shannon, information mutuelle | Généraliste après correction | Le transfert vers les prochains tokens et la température de génération a été remplacé par des exemples de classification, contrôle qualité, sondage et apprentissage actif. |
+| 4 | Covariance, dépendance, variance d'une somme | Généraliste | Ajout effectué dans la PR #110 : formule développée pour les agrégats pondérés et distinction entre moments empiriques avec diviseur n et estimateurs corrigés avec n−1. |
+| 5 | Entropie de Shannon, information mutuelle | Généraliste après correction | Transfert généraliste conservé ; PR #110 ajoute un exemple numérique d'information mutuelle (0,531 bit) et corrige la propriété de non-négativité. |
 
 ### Jours 6 à 20 — squelettes
 
@@ -60,21 +60,20 @@ La contrainte éditoriale est désormais **7 à 20 minutes par article** :
 - 7 à 20 minutes : plage cible ;
 - plus de 20 minutes : hiérarchiser, resserrer ou scinder sans perte d'information.
 
-Le gabarit précédent indiquait 7–10 minutes, ce qui était trop restrictif et incohérent avec cette règle. Il a été corrigé dans cette branche. Le jour 1 est le premier candidat à une révision de longueur ; il ne faut pas réduire les autres journées par simple symétrie.
+Le gabarit précédent indiquait 7–10 minutes, ce qui était trop restrictif et incohérent avec cette règle. Il a été corrigé et intégré à main par la PR #109. La durée de chaque article doit être estimée à partir du texte réellement lu, en tenant compte de la densité mathématique et des figures, et non du nombre brut de mots du fichier.
 
 ## État de réalisation et limites
 
-- Correction du transfert LLM de J5 : effectuée dans la PR `knowledge-stories#109`.
-- Titres des jours 21–24 dans l'index : corrigés dans la même PR.
-- Gabarit éditorial : plage 7–20 min et test anti-doublon LLM ajoutés dans la même PR.
+- PR `knowledge-stories#109` : fusionnée dans `main` ; transfert LLM de J5 remplacé, intitulés J21–J24 recentrés et gabarit 7–20 min avec test anti-doublon intégrés.
+- PR `knowledge-stories#110` : ouverte en brouillon ; ajouts J4/J5 et mise à jour du présent audit.
 - Pages quotidiennes 6–24 : absentes du dépôt à la date de l'audit ; elles ne peuvent pas être considérées comme relues ou validées.
 - Squelettes 1–24 : leur modélisation est dans `wiki-knowledge#165`, qui reste une PR distincte et non fusionnée.
-- Aucun rendu navigateur, test clavier/mobile ou calcul indépendant n'est revendiqué par cet audit.
+- Les formules ajoutées en J4 et l'exemple d'information mutuelle de J5 ont été vérifiés analytiquement ; aucun script de calcul indépendant n'a été exécuté.
+- Aucun rendu Quarto, test clavier/mobile ou contrôle visuel desktop/mobile n'est revendiqué. Les workflows GitHub de la PR #110 sont ignorés parce que la PR est en brouillon ; ils ne constituent pas une validation réussie.
 
 ## Prochaines actions
 
-1. Réviser J1 pour tenir dans 20 minutes au plus sans retirer de contenu conceptuel important.
-2. J5 : ajouter un exemple numérique d'information mutuelle ; calcul vérifié (1 − H₂(0,1) ≈ 0,531 bit).
-3. J4 : expliciter les poids dans la formule de variance d'un agrégat et distinguer moments empiriques avec diviseur n et estimateurs corrigés avec n−1.
-4. Créer les pages 6–24 à partir des squelettes, en appliquant le test anti-doublon dès la conception.
-5. Vérifier les concepts canoniques dans Wiki Knowledge avant chaque création ou référence ; ne jamais créer un doublon de page pour un concept déjà traité dans LLM Lab ou dans le wiki général.
+1. J3 : rendre explicite la différence entre distribution empirique et loi de probabilité, sans alourdir les explications déjà présentes.
+2. Produire les pages 6–24 à partir des squelettes validés, en conservant le périmètre généraliste et le test anti-doublon.
+3. Vérifier les concepts canoniques dans Wiki Knowledge avant chaque création ou référence ; ne pas dupliquer les pages existantes du wiki ou les concepts spécialisés de LLM Lab.
+4. Faire passer la PR #110 en revue non brouillon lorsque les changements seront prêts, afin de déclencher les workflows de validation et de rendu.
