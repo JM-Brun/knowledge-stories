@@ -35,7 +35,7 @@ const seriesFor = (domain: Domain) => (Object.keys(seriesInfo) as SeriesId[])
 const articlesForSeries = (series: SeriesId) => articles
   .filter((article) => article.data.series === series)
   .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999));
-const readingTimeFor = (article: (typeof articles)[number]) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));
+const readingTimeFor = (article: { data: { readingTime?: number }; body: string }) => article.data.readingTime ?? Math.max(1, Math.ceil(article.body.replace(/```[\s\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));
 const seriesReadingTime = (series: SeriesId) => articlesForSeries(series).reduce((total, article) => total + readingTimeFor(article), 0);
 const ungroupedArticles = (domain: Domain) => articles.filter(
   (article) => article.data.domain === domain && !article.data.series,
@@ -81,6 +81,7 @@ const themesFor = (domain: Domain) => [...new Set(
                         </span>
                         <strong>{article.data.title}</strong>
                         <span class="description">{article.data.description}</span>
+                        <span class="reading-time">{readingTimeFor(article)} min de lecture</span>
                         <span class="card-footer">Lire cet article <span aria-hidden="true">→</span></span>
                       </a>
                     </li>
@@ -101,6 +102,7 @@ const themesFor = (domain: Domain) => [...new Set(
                         </span>
                         <strong>{article.data.title}</strong>
                         <span class="description">{article.data.description}</span>
+                        <span class="reading-time">{readingTimeFor(article)} min de lecture</span>
                         <span class="card-footer">Lire la version de travail <span aria-hidden="true">→</span></span>
                       </a>
                     </li>
