@@ -1,14 +1,12 @@
 ---
 interface Props {
-  name: "Simon" | "Kara" | "Milo" | "Odile" | "Léa";
+  name: "Simon" | "Kara" | "Odile";
 }
 const { name } = Astro.props;
 const tone = {
   Simon: "simon",
   Kara: "kara",
-  Milo: "milo",
   Odile: "odile",
-  Léa: "lea",
 }[name];
 ---
 
@@ -18,9 +16,7 @@ const tone = {
   .person-name { font-weight: 650; white-space: nowrap; }
   .simon { color: #245fa8; }
   .kara { color: #b85a24; }
-  .milo { color: #6550a0; }
   .odile { color: #26734d; }
-  .lea { color: #9b5b16; }
   @media (forced-colors: active) {
     .person-name { text-decoration: underline; text-decoration-style: dotted; }
   }
