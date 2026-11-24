@@ -106,10 +106,10 @@ Comme &#92;(W_j&#92;) désigne le coût de **tous** les nœuds du niveau &#92;(j
 Dans le cas particulier d'un arbre équilibré dont toutes les feuilles sont au niveau &#92;(h&#92;), on peut séparer les deux contributions :
 
 &#92;[
-T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125; W_j^{\mathrm{int}}+L_h,
+T(n)=\sum_&#123;j=0&#125;^&#123;h-1&#125; W_j^&#123;\mathrm&#123;int&#125;&#125;+L_h,
 &#92;]
 
-où &#92;(W_j^{\mathrm{int}}&#92;) est le coût des seuls nœuds internes du niveau &#92;(j&#92;) et &#92;(L_h&#92;) le coût cumulé des feuilles. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
+où &#92;(W_j^&#123;\mathrm&#123;int&#125;&#125;&#92;) est le coût des seuls nœuds internes du niveau &#92;(j&#92;) et &#92;(L_h&#92;) le coût cumulé des feuilles. Un arbre décrit la structure des appels ; il ne donne pas automatiquement leur coût. Il faut annoter les nœuds ou les niveaux avec le travail qu'ils effectuent.
 
 Dans l'exemple précédent, chaque niveau interne coûte &#92;(\Theta(n)&#92;), et il y a &#92;(\Theta(\log n)&#92;) niveaux. Les feuilles sont au nombre de &#92;(2^&#123;\log_2 n&#125;=n&#92;), chacune de coût constant. Ainsi :
 
