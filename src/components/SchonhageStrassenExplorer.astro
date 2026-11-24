@@ -9,6 +9,7 @@
     <button type="button" data-ss-step="2" aria-controls="ss-panel-2" aria-pressed="false">3 · Transformer</button>
     <button type="button" data-ss-step="3" aria-controls="ss-panel-3" aria-pressed="false">4 · Reconstituer</button>
   </div>
+  <noscript><p class="lab-foot">JavaScript est désactivé : toutes les étapes sont affichées successivement ci-dessous.</p></noscript>
   <div class="ss-panel" aria-live="polite">
     <div data-ss-panel="0" id="ss-panel-0">
       <h4>1 — Découper et prévoir assez de place</h4>
@@ -16,7 +17,7 @@
       <div class="ss-equation">a = Σ aⱼBʲ = A(B) ; b = Σ bⱼBʲ = C(B)</div>
       <p>Les polynômes A et C ont au plus K coefficients. Le remplissage par des zéros ne change pas les entiers ; il prépare une transformée de longueur K. La condition N ≥ u + v servira à retrouver le produit entier sans ambiguïté.</p>
     </div>
-    <div data-ss-panel="1" id="ss-panel-1" hidden>
+    <div data-ss-panel="1" id="ss-panel-1">
       <h4>2 — Transformer le repliement en convolution négacyclique</h4>
       <p>On calcule modulo 2ᴺ + 1. Comme B = 2ᴹ et N = KM, on a Bᴷ = 2ᴺ ≡ −1. Dans l'anneau quotient, cela revient à imposer Xᴷ = −1 :</p>
       <div class="ss-equation">Xᴷ ≡ −1  (modulo Xᴷ + 1)</div>
@@ -24,14 +25,14 @@
       <div class="ss-equation">dᵣ = Σᵢ₊ⱼ₌ᵣ aᵢcⱼ − Σᵢ₊ⱼ₌ᵣ₊K aᵢcⱼ</div>
       <p>C'est la convolution <strong>négacyclique</strong>. En évaluant ensuite X en B = 2ᴹ modulo 2ᴺ + 1, on retrouve le produit ab modulo 2ᴺ + 1.</p>
     </div>
-    <div data-ss-panel="2" id="ss-panel-2" hidden>
+    <div data-ss-panel="2" id="ss-panel-2">
       <h4>3 — Le « twist » qui permet d'utiliser une FFT cyclique</h4>
       <p>Une FFT ordinaire calcule une convolution cyclique. Ici N est une puissance de deux ; dans l'anneau modulo 2ᴺ + 1, le résidu de 2 est d'ordre 2N. Comme N = KM, ψ = 2ᴹ est donc d'ordre 2K, puis ω = ψ² est une racine primitive K-ième :</p>
       <div class="ss-equation">ψ = 2ᴹ ; ψᴷ = −1 ; ω = ψ²</div>
       <p>On multiplie d'abord le coefficient aⱼ par ψʲ et cⱼ par ψʲ. On applique ensuite la DFT cyclique de longueur K avec ω, on multiplie les valeurs transformées terme à terme, puis on applique la DFT inverse et on retire le twist en multipliant le coefficient d'indice r par ψ⁻ʳ.</p>
       <p>Comme ψ et ω sont des puissances de 2 modulo 2ᴺ + 1, ces facteurs se réalisent par des décalages binaires et des réductions modulaires, avec changement de signe au bouclage. Le modulo est impair : les puissances négatives existent donc bien.</p>
     </div>
-    <div data-ss-panel="3" id="ss-panel-3" hidden>
+    <div data-ss-panel="3" id="ss-panel-3">
       <h4>4 — Retrouver le produit entier et récursiver</h4>
       <p>La transformée donne le produit modulo 2ᴺ + 1. Or, pour des entiers positifs de u et v bits, ab &lt; 2ᵘ⁺ᵛ ≤ 2ᴺ. Le produit est donc déjà compris entre 0 et le modulo : son résidu détermine exactement ab. On n'a pas besoin de reconstruire séparément chaque coefficient de convolution.</p>
       <p>Les produits terme à terme dans la transformée sont eux-mêmes des multiplications modulaires d'entiers plus petits. Schönhage–Strassen les traite récursivement ; le choix des tailles de blocs et le coût de ces opérations font partie de l'analyse de complexité.</p>
@@ -41,6 +42,11 @@
   <p class="ss-foot">À retenir : la FFT explique comment calculer vite une convolution ; Schönhage–Strassen choisit un anneau arithmétique qui rend cette transformation compatible avec une multiplication entière exacte et récursive.</p>
 </section>
 <script>
+  document.querySelectorAll(".ss-lab").forEach((root) => {
+    root.querySelectorAll("[data-ss-panel]").forEach((panel) => {
+      panel.toggleAttribute("hidden", panel.getAttribute("data-ss-panel") !== "0");
+    });
+  });
   document.querySelectorAll("[data-ss-step]").forEach((button) => {
     button.addEventListener("click", () => {
       const root = button.closest(".ss-lab");
@@ -56,6 +62,7 @@
 <style>
   .ss-lab{margin:2rem 0;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--line,#d9d5ca);border-radius:1rem;background:#eae6dc;color:var(--ink,#22241f)}
   .ss-head{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;align-items:end}.eyebrow{margin:0 0 .3rem;color:var(--accent,#bd4b32);font-size:.76rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}.ss-head h3{margin:.1rem 0;font-size:1.3rem}.ss-head>p{margin:0;color:var(--muted,#77776d);font-size:.94rem}
+  .ss-lab [hidden]{display:none!important}.ss-lab button:focus-visible{outline:3px solid var(--accent,#bd4b32);outline-offset:3px}
   .ss-controls{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.1rem 0 .7rem}.ss-controls button{border:1px solid var(--line,#d9d5ca);border-radius:999px;background:var(--paper,#f4f1e9);padding:.55rem .8rem;color:inherit;font:inherit;font-size:.85rem;cursor:pointer}.ss-controls button[aria-pressed="true"]{background:var(--accent,#bd4b32);border-color:var(--accent,#bd4b32);color:#fff}
   .ss-panel{padding:1rem;border:1px solid var(--line,#d9d5ca);border-radius:.7rem;background:var(--paper,#f4f1e9)}.ss-panel h4{margin:0 0 .55rem}.ss-panel p{margin:.55rem 0;line-height:1.6}.ss-equation{margin:.6rem 0;padding:.7rem .8rem;border-radius:.45rem;background:#eae6dc;font: .9rem/1.6 ui-monospace,monospace;overflow-wrap:anywhere}.ss-note,.ss-foot{color:var(--muted,#77776d);font-size:.85rem}.ss-result{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;margin-top:.8rem;padding:.85rem;border-radius:.6rem;background:#eae6dc}.ss-result span,.ss-result small{color:var(--muted,#77776d)}.ss-result strong{font:600 1.15rem ui-monospace,monospace;color:var(--accent,#bd4b32)}.ss-result small{grid-column:1/-1}.ss-foot{margin:.85rem 0 0}
   @media(max-width:650px){.ss-head{grid-template-columns:1fr}.ss-result{grid-template-columns:1fr}.ss-result small{grid-column:auto}}
