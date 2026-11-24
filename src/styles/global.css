@@ -168,6 +168,16 @@
 }
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:first-child { border-top-color: var(--term-common); }
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:last-child { border-top-color: var(--term-aux); }
+:is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:first-child {
+  border-color: var(--term-common-border);
+  border-top-color: var(--term-common);
+  background: var(--term-common-soft);
+}
+:is(.story-page, .review-page):has(.karatsuba-hero) .math-lead > div:last-child {
+  border-color: var(--term-aux-border);
+  border-top-color: var(--term-aux);
+  background: var(--term-aux-soft);
+}
 :is(.story-page, .review-page):has(.karatsuba-hero) .math-lead strong {
   display: block;
   color: #252820;
