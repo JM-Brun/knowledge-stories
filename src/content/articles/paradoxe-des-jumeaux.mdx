@@ -277,9 +277,9 @@ Pour isoler l'effet cinématique, adoptons d'abord un modèle idéal :
 - les phases de voyage ont donc toutes la même durée de coordonnées (T=L/v).
 
 On note
-[
-gamma = rac{1}{sqrt{1-v^2/c^2}}.
-]
+&#92;[
+&#92;gamma = &#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;.
+&#92;]
 
 Pendant une phase de voyage à vitesse constante (v), une durée de coordonnées (T) correspond à une durée propre (T/gamma) sur la montre du voyageur. Pendant une attente sur l'une des planètes, au repos dans le référentiel commun, la montre accumule la durée (T).
 
@@ -301,32 +301,31 @@ Les valeurs d'une même ligne sont les lectures des montres au même événement
 **Première rencontre : <PersonName name="Odile" /> et <PersonName name="Kara" />.** Elles ont voyagé ensemble de la Terre à Zartha. Leurs montres indiquent toutes deux (T/gamma). C'est une comparaison simple : même événement de départ, même trajectoire, même événement d'arrivée.
 
 **Deuxième rencontre : <PersonName name="Simon" /> et <PersonName name="Kara" />.** <PersonName name="Simon" /> est resté sur Terre pendant (2T). <PersonName name="Kara" /> a effectué deux trajets à vitesse (v), chacun durant (T/gamma) sur sa montre. Au moment où ils se retrouvent :
-[
-	au_{mathrm{<PersonName name="Simon" />}}=2T,qquad
-	au_{mathrm{<PersonName name="Kara" />}}=rac{2T}{gamma}.
-]
+&#92;[
+&#92;tau_{&#92;mathrm&#123;Simon&#125;}=2T,&#92;qquad
+&#92;tau_{&#92;mathrm&#123;Kara&#125;}=&#92;frac&#123;2T&#125;&#123;&#92;gamma&#125;.
+&#92;]
 <PersonName name="Simon" /> a donc davantage vieilli que <PersonName name="Kara" />. Cette comparaison est directe : les deux montres sont réunies sur Terre.
 
 **Troisième rencontre : les trois voyageurs.** <PersonName name="Simon" /> a attendu sur Terre pendant deux phases, puis a voyagé une phase. <PersonName name="Odile" /> a voyagé une phase, puis attendu sur Zartha pendant deux phases. Leurs durées propres sont donc égales :
-[
-	au_{mathrm{<PersonName name="Simon" />}}=2T+rac{T}{gamma},
-qquad
-	au_{mathrm{<PersonName name="Odile" />}}=rac{T}{gamma}+2T.
-]
+&#92;[
+&#92;tau_{&#92;mathrm&#123;Simon&#125;}=2T+&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;,&#92;qquad
+&#92;tau_{&#92;mathrm&#123;Odile&#125;}=&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;+2T.
+&#92;]
 Ainsi,
-[
-oxed{	au_{mathrm{<PersonName name="Simon" />}}=	au_{mathrm{<PersonName name="Odile" />}}}.
-]
+&#92;[
+&#92;boxed&#123;&#92;tau_{&#92;mathrm&#123;Simon&#125;}=&#92;tau_{&#92;mathrm&#123;Odile&#125;}&#125;.
+&#92;]
 
 <PersonName name="Kara" /> a, elle, effectué les trois trajets :
-[
-	au_{mathrm{<PersonName name="Kara" />}}=rac{3T}{gamma}.
-]
+&#92;[
+&#92;tau_{&#92;mathrm&#123;Kara&#125;}=&#92;frac&#123;3T&#125;&#123;&#92;gamma&#125;.
+&#92;]
 Elle est plus jeune que <PersonName name="Simon" /> et <PersonName name="Odile" /> à la dernière rencontre, puisque
-[
-2T+rac{T}{gamma}-rac{3T}{gamma}
-=2Tleft(1-rac{1}{gamma}ight)>0.
-]
+&#92;[
+2T+&#92;frac&#123;T&#125;&#123;&#92;gamma&#125;-&#92;frac&#123;3T&#125;&#123;&#92;gamma&#125;
+=2T&#92;left(1-&#92;frac&#123;1&#125;&#123;&#92;gamma&#125;&#92;right)>0.
+&#92;]
 
 Le résultat n'est pas que « celui qui voyage est toujours plus jeune ». <PersonName name="Simon" /> a voyagé sur le dernier trajet et <PersonName name="Odile" /> sur le premier ; ils ont pourtant le même âge à la fin. <PersonName name="Kara" /> est la plus jeune parce que, dans cette configuration, elle a passé les trois phases en mouvement à la vitesse (v).
 
@@ -351,9 +350,9 @@ Cette expérience complète le paradoxe classique sur plusieurs points :
 - **L'accélération n'est pas un supplément de vieillissement à ajouter mécaniquement.** Elle permet de changer de trajectoire et de rejoindre les autres. Le calcul des durées repose sur l'intégrale du temps propre, y compris pendant les phases accélérées si elles sont modélisées.
 
 Dans le référentiel inertiel commun, la durée propre d'une trajectoire est
-[
-	au=int sqrt{1-rac{v(t)^2}{c^2}},dt.
-]
+&#92;[
+&#92;tau=&#92;int &#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt.
+&#92;]
 Pour <PersonName name="Simon" /> et <PersonName name="Odile" />, les portions au repos et les portions en mouvement se répartissent différemment, mais donnent ici la même somme. Pour <PersonName name="Kara" />, les trois portions sont parcourues à la vitesse (v), d'où le résultat plus faible.
 
 Il faut enfin éviter une comparaison trompeuse : à la première arrivée sur Zartha, <PersonName name="Simon" /> est loin, sur Terre. On peut calculer le temps propre qu'il a accumulé, mais on ne peut pas prétendre que les personnages ont alors comparé leurs montres. La comparaison directe n'a lieu qu'aux événements où ils sont effectivement réunis.
