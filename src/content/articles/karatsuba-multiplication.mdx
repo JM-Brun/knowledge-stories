@@ -234,7 +234,7 @@ La <span class="term-common">méthode classique</span> en demande <span class="t
 
 ## Démontrer l’exposant à partir de l’arbre
 
-Nous savons maintenant que Karatsuba remplace quatre multiplications de blocs par trois. Mais pourquoi cette économie conduit-elle précisément à l’exposant &#92;(1{,}585&#92;) ? Pour le comprendre, suivons les appels récursifs dans un arbre.
+Nous savons maintenant que Karatsuba remplace quatre multiplications de blocs par trois. Mais pourquoi cette économie conduit-elle précisément à l’exposant &#92;(1&#123;,&#125;585&#92;) ? Pour le comprendre, suivons les appels récursifs dans un arbre.
 
 Avant de commencer, distinguons deux types d’opérations :
 
@@ -257,7 +257,7 @@ Dans les deux cas, il faut aussi effectuer des additions, des soustractions et l
     <b class="term-common">Méthode classique · 4 sous-multiplications</b>
     <div class="math-line">
       <span>&#92;(T(n)=&#92;)</span>
-      <span class="term-common">&#92;(T_{ac}(n/2)&#92;)</span> + <span class="term-cross">&#92;(T_{ad}(n/2)&#92;)</span> + <span class="term-cross">&#92;(T_{bc}(n/2)&#92;)</span> + <span class="term-common">&#92;(T_{bd}(n/2)&#92;)</span> &#92;(+O(n)&#92;)
+      <span class="term-common">&#92;(T_&#123;ac&#125;(n/2)&#92;)</span> + <span class="term-cross">&#92;(T_&#123;ad&#125;(n/2)&#92;)</span> + <span class="term-cross">&#92;(T_&#123;bc&#125;(n/2)&#92;)</span> + <span class="term-common">&#92;(T_&#123;bd&#125;(n/2)&#92;)</span> &#92;(+O(n)&#92;)
     </div>
     <div class="math-line"><span class="term-common">&#92;(=4T(n/2)&#92;)</span> &#92;(+O(n)&#92;)</div>
   </div>
@@ -327,7 +327,7 @@ La récursion s’arrête lorsque les blocs sont assez petits pour être multipl
 Après &#92;(k&#92;) découpages, la taille d’un bloc est :
 
 &#92;[
-\frac{n}{2^k}=1
+\frac&#123;n&#125;&#123;2^k&#125;=1
 \qquad\Longrightarrow\qquad
 k=\log_2(n).
 &#92;]
@@ -343,24 +343,24 @@ Comme chaque appel de Karatsuba en crée trois, le nombre de feuilles est :
 Remplaçons &#92;(k&#92;) par &#92;(\log_2(n)&#92;) :
 
 &#92;[
-3^k=3^{\log_2(n)}.
+3^k=3^&#123;\log_2(n)&#125;.
 &#92;]
 
 Puis utilisons l’identité de changement de base des puissances :
 
 &#92;[
-3^{\log_2(n)}
-=n^{\log_2(3)}.
+3^&#123;\log_2(n)&#125;
+=n^&#123;\log_2(3)&#125;.
 &#92;]
 
 C’est l’origine de l’exposant : **la taille est divisée par 2 à chaque niveau, tandis que le nombre d’appels est multiplié par 3**. Ces deux nombres donnent le logarithme &#92;(\log_2(3)&#92;).
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Nombre de feuilles égal à n puissance logarithme base deux de trois">
-  <div class="math-line">&#92;(3^k=n^{\log_2 3}&#92;)</div>
+  <div class="math-line">&#92;(3^k=n^&#123;\log_2 3&#125;&#92;)</div>
   <div class="math-caption">Le nombre de feuilles est le nombre de multiplications élémentaires dans ce modèle.</div>
 </div>
 
-Puisque &#92;(\log_2(3)\approx1{,}58496&#92;), les multiplications élémentaires sont donc au nombre de l’ordre de &#92;(n^{1{,}585}&#92;).
+Puisque &#92;(\log_2(3)\approx1&#123;,&#125;58496&#92;), les multiplications élémentaires sont donc au nombre de l’ordre de &#92;(n^&#123;1&#123;,&#125;585&#125;&#92;).
 
 ### 4. Mais les additions ont-elles été oubliées ?
 
@@ -398,17 +398,17 @@ Or &#92;(n=2^k&#92;), donc :
 n(3/2)^k=2^k(3/2)^k=3^k.
 &#92;]
 
-Et nous avons déjà montré que &#92;(3^k=n^{\log_2 3}&#92;). Le coût cumulé des additions et soustractions est donc lui aussi :
+Et nous avons déjà montré que &#92;(3^k=n^&#123;\log_2 3&#125;&#92;). Le coût cumulé des additions et soustractions est donc lui aussi :
 
 &#92;[
-O(n^{\log_2 3}).
+O(n^&#123;\log_2 3&#125;).
 &#92;]
 
-Les multiplications aux feuilles coûtent &#92;(\Theta(n^{\log_2 3})&#92;), et les opérations locales de tous les niveaux coûtent &#92;(O(n^{\log_2 3})&#92;). En réunissant les deux contributions, on obtient :
+Les multiplications aux feuilles coûtent &#92;(\Theta(n^&#123;\log_2 3&#125;)&#92;), et les opérations locales de tous les niveaux coûtent &#92;(O(n^&#123;\log_2 3&#125;)&#92;). En réunissant les deux contributions, on obtient :
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Complexité totale de Karatsuba">
   &#92;[
-  \boxed{T(n)=\Theta\left(n^{\log_2 3}\right)\approx\Theta(n^{1{,}585})}
+  \boxed&#123;T(n)=\Theta\left(n^&#123;\log_2 3&#125;\right)\approx\Theta(n^&#123;1&#123;,&#125;585&#125;)&#125;
   &#92;]
   <span class="math-caption">Cette complexité inclut les multiplications, additions, soustractions et recompositions.</span>
 </div>
@@ -439,7 +439,7 @@ La somme des coûts internes est <span class="term-common">&#92;(O(n^2)&#92;)</s
 
 <div class="math-display math-display--key complexity-equations term-common" role="math" aria-label="Complexité totale de la méthode classique">
   &#92;[
-  \boxed{T_{\text{classique}}(n)=\Theta(n^2)}
+  \boxed&#123;T_&#123;\text&#123;classique&#125;&#125;(n)=\Theta(n^2)&#125;
   &#92;]
 </div>
 
@@ -447,8 +447,8 @@ La somme des coûts internes est <span class="term-common">&#92;(O(n^2)&#92;)</s
 |---|---:|---:|
 | Sous-multiplications créées par appel | 4 | 3 |
 | Appels au niveau &#92;(j&#92;) | &#92;(4^j&#92;) | &#92;(3^j&#92;) |
-| Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^{\log_2 3}&#92;) |
-| Coût total | <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(\Theta(n^{1{,}585})&#92;)</span> |
+| Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^&#123;\log_2 3&#125;&#92;) |
+| Coût total | <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(\Theta(n^&#123;1&#123;,&#125;585&#125;)&#92;)</span> |
 
 La différence ne vient pas de la disparition des additions : Karatsuba doit toujours additionner et soustraire des blocs pour reconstruire le produit. Le gain vient du fait qu’il crée **trois sous-multiplications au lieu de quatre**, et répète cette économie à tous les niveaux.
 
@@ -462,10 +462,10 @@ T(n)=aT(n/2)+O(n),
 
 où &#92;(a&#92;) est le nombre de sous-multiplications créées par un appel.
 
-- Pour Karatsuba, &#92;(a=3&#92;), donc &#92;(T(n)=\Theta(n^{\log_2 3})&#92;).
-- Pour la méthode classique, &#92;(a=4&#92;), donc &#92;(T(n)=\Theta(n^{\log_2 4})=\Theta(n^2)&#92;).
+- Pour Karatsuba, &#92;(a=3&#92;), donc &#92;(T(n)=\Theta(n^&#123;\log_2 3&#125;)&#92;).
+- Pour la méthode classique, &#92;(a=4&#92;), donc &#92;(T(n)=\Theta(n^&#123;\log_2 4&#125;)=\Theta(n^2)&#92;).
 
-La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^{\log_2 3}&#92;).
+La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;\log_2 3&#125;&#92;).
 
 ### 7. Une précision sur les tailles réelles des blocs
 
@@ -485,7 +485,7 @@ Au niveau &#92;(j&#92;), le travail interne est alors borné par :
 O(3^j m_j)=O\left(n(3/2)^j+3^j\right).
 &#92;]
 
-Sur &#92;(\log_2(n)+O(1)&#92;) niveaux, la somme reste &#92;(O(n^{\log_2 3})&#92;). Les feuilles sont en nombre &#92;(\Theta(n^{\log_2 3})&#92;) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut donc aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+Sur &#92;(\log_2(n)+O(1)&#92;) niveaux, la somme reste &#92;(O(n^&#123;\log_2 3&#125;)&#92;). Les feuilles sont en nombre &#92;(\Theta(n^&#123;\log_2 3&#125;)&#92;) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut donc aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences de Karatsuba évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
@@ -493,7 +493,7 @@ Une variante par différences de Karatsuba évite précisément cette retenue su
 
 1. Chaque niveau divise la taille des blocs par 2.
 2. Chaque appel crée 3 sous-multiplications : après &#92;(k&#92;) niveaux, il y a &#92;(3^k&#92;) feuilles.
-3. Comme &#92;(k=\log_2(n)&#92;), &#92;(3^k=n^{\log_2 3}&#92;).
+3. Comme &#92;(k=\log_2(n)&#92;), &#92;(3^k=n^&#123;\log_2 3&#125;&#92;).
 4. Les additions et soustractions sont comptées à chaque niveau ; leur coût cumulé est du même ordre et ne change pas l’exposant.
 
 ## Et après Karatsuba ?
