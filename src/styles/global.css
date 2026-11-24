@@ -310,7 +310,7 @@
 :is(.story-page, .review-page):has(.karatsuba-hero) .level-cost-axis {
   display: flex;
   justify-content: space-between;
-  margin: 0 2rem 0 6.15rem;
+  margin: 0 2rem 0 11.7rem;
   padding-bottom: .35rem;
   border-bottom: 1px solid #cfc9bb;
   color: #777166;
@@ -422,7 +422,7 @@
     grid-template-columns: 4.2rem minmax(0, 1fr);
     gap: .35rem .4rem;
   }
-  :is(.story-page, .review-page):has(.karatsuba-hero) .level-cost-axis { margin-left: 4.6rem; margin-right: 1.8rem; }
+  :is(.story-page, .review-page):has(.karatsuba-hero) .level-cost-axis { margin-left: 9.4rem; margin-right: 1.8rem; }
   :is(.story-page, .review-page):has(.karatsuba-hero) .level-cost-series {
     grid-template-columns: 4.5rem minmax(0, 1fr) 1.35rem;
     gap: .3rem;
