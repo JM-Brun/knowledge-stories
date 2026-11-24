@@ -5,6 +5,14 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 ---
 
 > **En 7 à 9 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
+>
+> **Prérequis** — Connaître la variance et la moyenne. La covariance et la corrélation sont définies à partir d'un exemple numérique.
+>
+> **À la fin** — Vous saurez calculer la variance d'une somme, interpréter le signe de la covariance et expliquer pourquoi des mesures ou des modèles corrélés apportent moins de diversité qu'on pourrait le croire.
+
+## L'idée en une minute
+
+La variance mesure l'amplitude des fluctuations d'une somme. Si deux variables fluctuent ensemble, leurs écarts se renforcent ; si elles évoluent en sens opposé, ils peuvent se compenser. La covariance quantifie cette contribution commune. Ignorer ce terme revient à supposer, souvent à tort, que les variables ne covarient pas.
 
 ## La question
 
@@ -28,12 +36,18 @@ Ici, \(Y=2X\). Les moyennes sont \(\mathbb E[X]=2\) et \(\mathbb E[Y]=4\). En ut
 
 La corrélation empirique vaut 1. Les deux variables augmentent ensemble de manière parfaitement linéaire.
 
-La formule de la variance d'une somme est :
+La formule de la variance d'une somme se déduit en développant le carré centré :
 
 \[
-\operatorname{Var}(X+Y)=
-\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
+\begin{aligned}
+\operatorname{Var}(X+Y)
+&=\mathbb E\left[((X-\mu_X)+(Y-\mu_Y))^2\right]\\
+&=\operatorname{Var}(X)+\operatorname{Var}(Y)
++2\operatorname{Cov}(X,Y).
+\end{aligned}
 \]
+
+Le terme croisé apparaît parce que le carré d'une somme contient deux fois le produit des écarts. La covariance n'est donc pas une correction ajoutée arbitrairement : elle est déjà présente dans l'algèbre de la somme.
 
 On obtient donc :
 
@@ -140,6 +154,11 @@ Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes
 - Des mesures nombreuses mais corrélées apportent moins d'information indépendante.
 - La covariance nulle n'implique pas l'indépendance.
 - La diversification agit sur les dépendances ; elle ne supprime pas les biais communs.
+
+## Connexions utiles
+
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : la covariance complète le diagnostic au-delà des résumés marginaux.
+- [Jour 5 — Quelle distribution est la plus incertaine ?](jour-05.html) : passer de la dépendance entre variables à la mesure de l'incertitude d'une distribution.
 
 ## Pour aller plus loin
 
