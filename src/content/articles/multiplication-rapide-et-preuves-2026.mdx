@@ -49,6 +49,9 @@ sources:
 relatedArticles: []
 ---
 
+import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
+import FFTConvolutionExplorer from "../../components/FFTConvolutionExplorer.astro";
+
 Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
 
 ## 1. Pourquoi les bibliothèques combinent plusieurs méthodes
@@ -175,6 +178,12 @@ AC=R(B)=r_0+r_1B+r_2B^2+r_3B^3+r_4B^4.
 
 **Pourquoi les divisions sont-elles exactes ?** Les formules d'interpolation font apparaître des divisions par 2 et par 3. Les valeurs \(w_0,w_1,w_{-1},w_2,w_\infty\) ne sont pas arbitraires : elles proviennent de produits de polynômes à coefficients entiers. Les numérateurs correspondants sont donc divisibles par les dénominateurs dans l'arithmétique exacte. Une implémentation doit néanmoins organiser les calculs pour préserver cette exactitude, gérer les signes et éviter les débordements dans ses types intermédiaires.
 
+### Vérifier l'interpolation sur un exemple numérique
+
+L'atelier suivant utilise \(P(x)=1+2x+3x^2\) et \(Q(x)=4+5x+6x^2\). Les cinq produits évalués sont calculés explicitement, puis les coefficients sont reconstruits un à un. Le choix de petits coefficients permet de contrôler les calculs sans perdre de vue la structure générale.
+
+<ToomCookExplorer />
+
 ### 2.3 Pourquoi « trois blocs » n'est pas la fin de l'histoire
 
 Le principe se généralise. Avec \(k\) blocs, les deux polynômes ont un degré au plus \(k-1\), et leur produit un degré au plus \(2k-2\). Il faut donc \(2k-1\) évaluations pour reconstruire le produit, au lieu des \(k^2\) produits du développement direct.
@@ -277,6 +286,14 @@ Les algorithmes historiques de multiplication rapide, notamment Schönhage–Str
 - **FFT / NTT** : transformer toute la convolution pour obtenir un coût quasi-linéaire en nombre de coefficients, sous les hypothèses et dans l'arithmétique appropriées.
 
 Ces méthodes ne sont pas trois recettes indépendantes. Elles exploitent une même structure — le produit de polynômes — à des échelles différentes.
+
+### Suivre une convolution de bout en bout
+
+Prenons \(A(x)=1+2x\) et \(B(x)=3+4x\). Leur produit possède trois coefficients utiles : \([3,10,8]\). Pour illustrer la DFT, on complète les suites à la longueur \(N=4\), puis on évalue aux quatre racines quatrièmes de l'unité \(1,i,-1,-i\). L'atelier déroule les quatre opérations : remplissage, transformation, produits terme à terme et transformée inverse.
+
+<FFTConvolutionExplorer />
+
+Cet exemple montre l'identité algébrique. Il ne constitue pas à lui seul une implémentation de multiplication entière rapide : il ne traite ni le choix optimal de longueur, ni les bornes de coefficients, ni la précision numérique. Ces questions deviennent essentielles dès que les coefficients sont grands.
 
 ## 4. La frontière théorique : trois travaux à ne pas confondre
 
