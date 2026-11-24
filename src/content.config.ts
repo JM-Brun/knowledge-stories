@@ -8,6 +8,8 @@ const articles = defineCollection({
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     category: z.string(),
+    discipline: z.enum(["Mathématiques", "Informatique", "Physique", "Sciences sociales", "Sciences de la vie", "Sciences de l’ingénieur", "Autres"]).default("Autres"),
+    labels: z.array(z.string()).length(2).default([]),
     tags: z.array(z.string()).default([]),
     themes: z.array(z.string()).default([]),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
