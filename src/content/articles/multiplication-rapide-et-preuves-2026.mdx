@@ -273,6 +273,7 @@ X_{k+N/2}=E_k-\omega^k O_k.
 \]
 
 Cette paire d'additions et de soustractions, avec une multiplication par un facteur \(\omega^k\), forme une **opération papillon** (*butterfly*). On obtient la récurrence \(F(N)=2F(N/2)+O(N)\), donc \(F(N)=O(N\log N)\). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les \(N\) sommes de la DFT.
+
 ### 3.3 Un point crucial : éviter la convolution circulaire
 
 La DFT travaille sur des suites de longueur \(N\) et produit naturellement une convolution **circulaire** : les indices sont considérés modulo \(N\). Or le produit ordinaire de deux polynômes de degrés au plus \(m-1\) peut avoir le degré \(2m-2\).
@@ -289,7 +290,7 @@ Après cette extension, la convolution circulaire calculée par la DFT coïncide
 
 Il faut distinguer l'idée mathématique de sa réalisation numérique. Une FFT complexe classique utilise des nombres flottants. Les erreurs d'arrondi peuvent modifier un coefficient entier, même si le résultat mathématique est exact. Pour une multiplication entière exacte, il faut donc contrôler rigoureusement les erreurs ou travailler dans un cadre arithmétique exact.
 
-Une stratégie consiste à utiliser une **transformée de Fourier sur un corps fini**, souvent appelée NTT (*Number-Theoretic Transform*). On choisit un nombre premier \(p\) tel que le corps modulo \(p\) contienne une racine de l'unité de l'ordre requis. Les calculs sont alors exacts modulo \(p\). Si les coefficients recherchés peuvent être trop grands pour être reconstruits à partir d'un seul module, on utilise plusieurs modules premiers et le théorème chinois des restes pour reconstituer les entiers.
+Une stratégie consiste à utiliser une **transformée de Fourier sur un corps fini**, souvent appelée NTT (*Number-Theoretic Transform*). On choisit un nombre premier \(p\) tel que le corps \(\mathbb{F}_p\) contienne une racine de l'unité de l'ordre requis ; en particulier, la condition \(N\mid(p-1)\) garantit l'existence d'une racine primitive d'ordre \(N\) dans \(\mathbb{F}_p^\times\). Les calculs sont alors exacts modulo \(p\). Si les coefficients recherchés peuvent être trop grands pour être reconstruits à partir d'un seul module, on utilise plusieurs modules premiers et le théorème chinois des restes pour reconstituer les entiers.
 
 Les algorithmes historiques de multiplication rapide, notamment Schönhage–Strassen, utilisent des variantes plus élaborées de transformations rapides dans des anneaux adaptés. Il ne faut donc pas identifier sans nuance « multiplication rapide » et « FFT complexe en virgule flottante » : la structure transformée est commune, mais les anneaux, les précautions d'exactitude et les détails algorithmiques diffèrent.
 
