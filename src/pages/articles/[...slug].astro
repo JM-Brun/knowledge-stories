@@ -61,11 +61,11 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
           <nav class="series-nav" aria-label={`Série ${seriesTitles[article.data.series!]}`}>
             <p>Dans cette série · {seriesTitles[article.data.series!]}</p>
             <ol>
-              {seriesArticles.map((item, index) => (
+              {seriesArticles.map((item) => (
                 <li class:list={[{ current: item.id === article.id }]}>
                   {item.id === article.id
-                    ? <span aria-current="page">{index + 1}. {item.data.title}</span>
-                    : <a href={`${import.meta.env.BASE_URL}articles/${item.slug}/`}>{index + 1}. {item.data.title}</a>}
+                    ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</span>
+                    : <a href={`${import.meta.env.BASE_URL}articles/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</a>}
                 </li>
               ))}
             </ol>
@@ -127,10 +127,13 @@ const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UT
 
   .series-nav { margin: 1.5rem 0 2rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .55rem; background: #faf7ef; }
   .series-nav p { margin: 0 0 .6rem; color: #75432f; font: 700 .76rem/1.4 "DM Sans", sans-serif; }
-  .series-nav ol { display: flex; flex-wrap: wrap; gap: .45rem 1rem; margin: 0; padding-left: 1.2rem; }
-  .series-nav li { color: #625b4d; font: .78rem/1.45 "DM Sans", sans-serif; }
-  .series-nav a { color: #843c27; }
-  .series-nav .current { font-weight: 700; }
+  .series-nav ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .55rem; margin: 0; padding: 0; list-style: none; }
+  .series-nav li { min-width: 0; }
+  .series-nav a, .series-nav li > span { display: flex; height: 100%; flex-direction: column; gap: .3rem; padding: .65rem .75rem; border: 1px solid var(--line); border-radius: .4rem; color: #514d42; background: #fffdf8; font: 500 .78rem/1.45 "DM Sans", sans-serif; text-decoration: none; }
+  .series-nav a:hover { border-color: #843c27; color: #843c27; }
+  .series-nav li.current > span { border-color: #843c27; background: #f2eadc; color: #352d25; font-weight: 700; }
+  .series-nav small { color: #843c27; font: 500 .65rem/1.4 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+  .series-nav a:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
   .story-reading :global(.prose) { margin-top: clamp(1.8rem, 5vw, 3.4rem); color: #34352f; }
   .story-reading :global(.prose > h2) { margin-top: clamp(2.8rem, 7vw, 4.25rem); scroll-margin-top: 1.5rem; font-size: clamp(1.8rem, 4vw, 2.4rem); text-wrap: balance; }
   .story-reading :global(.prose a) { color: #843c27; }
