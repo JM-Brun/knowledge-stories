@@ -18,8 +18,8 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
         loader: { load: ["[tex]/html"] },
         tex: {
           packages: { "[+]": ["html"] },
-          inlineMath: [["\(", "\)"]],
-          displayMath: [["\[", "\]"]],
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]],
           processEscapes: true
         },
         options: {
