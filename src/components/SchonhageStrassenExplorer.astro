@@ -26,7 +26,7 @@
     </div>
     <div data-ss-panel="2" id="ss-panel-2" hidden>
       <h4>3 — Le « twist » qui permet d'utiliser une FFT cyclique</h4>
-      <p>Une FFT ordinaire calcule une convolution cyclique. Pour obtenir la convolution négacyclique, on introduit une racine primitive ψ d'ordre 2K, puis ω = ψ², racine primitive K-ième :</p>
+      <p>Une FFT ordinaire calcule une convolution cyclique. Ici N est une puissance de deux ; dans l'anneau modulo 2ᴺ + 1, le résidu de 2 est d'ordre 2N. Comme N = KM, ψ = 2ᴹ est donc d'ordre 2K, puis ω = ψ² est une racine primitive K-ième :</p>
       <div class="ss-equation">ψ = 2ᴹ ; ψᴷ = −1 ; ω = ψ²</div>
       <p>On multiplie d'abord le coefficient aⱼ par ψʲ et cⱼ par ψʲ. On applique ensuite la DFT cyclique de longueur K avec ω, on multiplie les valeurs transformées terme à terme, puis on applique la DFT inverse et on retire le twist en multipliant le coefficient d'indice r par ψ⁻ʳ.</p>
       <p>Comme ψ et ω sont des puissances de 2 modulo 2ᴺ + 1, ces facteurs se réalisent par des décalages binaires et des réductions modulaires, avec changement de signe au bouclage. Le modulo est impair : les puissances négatives existent donc bien.</p>
