@@ -15,13 +15,13 @@ const width = (value: bigint) => `${Number(value * 100n / maxTotal)}%`;
       <p class="explorer-kicker">Atelier interactif · modèle général</p>
       <h3 id="recursion-explorer-title">Faites varier la forme de l’arbre</h3>
     </div>
-    <p>Modifiez le nombre d’enfants, le facteur de réduction et le coût local. Observez quel niveau concentre le travail.</p>
+    <p>Modifiez le nombre d’enfants (y compris un seul appel récursif), le facteur de réduction et le coût local. Observez quel niveau concentre le travail.</p>
   </header>
 
   <div class="explorer-controls">
     <label>Enfants par appel · <i>a</i>
       <select data-param="a">
-        {[2, 3, 4, 5].map((value) => <option value={value} selected={value === defaults.a}>{value}</option>)}
+        {[1, 2, 3, 4, 5].map((value) => <option value={value} selected={value === defaults.a}>{value}</option>)}
       </select>
     </label>
     <label>Réduction de taille · <i>b</i>
