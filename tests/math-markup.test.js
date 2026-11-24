@@ -25,3 +25,11 @@ test("Karatsuba complexity exponents use explicit TeX grouping", () => {
   assert.match(source, /n\^&#123;\\log_2 3&#125;/);
   assert.match(source, /m_&#123;j\+1&#125;/);
 });
+
+test("classical multiplication complexity is consistently marked green", () => {
+  const source = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  assert.match(source, /au lieu de <span class="term-common">&#92;\\\\\(\\\\Theta\\\\(n\\^2\\)&#92;\\\\)<\\/span> pour la/);
+  assert.match(source, /Le travail local au niveau &#92;\\\\\(j&#92;\\\\\) est <span class="term-common">&#92;\\\\\(O\\\\(n&#92;\\\\,2\\^j\\\\)&#92;\\\\)<\\/span>/);
+  assert.match(source, /<span class="term-common">&#92;\\\\\(O\\\\(n\\^2\\)&#92;\\\\)<\\/span>/);
+  assert.match(source, /<span class="term-common">&#92;\\\\\(\\\\Omega\\\\(n\\^2\\)&#92;\\\\)<\\/span>/);
+});
