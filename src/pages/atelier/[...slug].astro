@@ -13,6 +13,14 @@ const sections = headings.filter(({ depth }) => depth === 2);
 const date = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeZone: "UTC" });
 const difficulty = { introductory: "Introduction", intermediate: "Intermédiaire", advanced: "Avancé" };
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const seriesTitles = {
+  "multiplication-karatsuba": "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
+  "paradoxe-des-jumeaux": "Le paradoxe des jumeaux : comparer deux temps vécus",
+} as const;
+const seriesArticles = article.data.series
+  ? (await getCollection("articles", ({ data }) => data.status === "review" && data.series === article.data.series))
+      .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999))
+  : [];
 ---
 <BaseLayout title={`Relecture — ${article.data.title} — Knowledge Stories`} description={article.data.description} noindex>
   <main class="review-page">
@@ -28,6 +36,26 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
       <p class="deck">{article.data.description}</p>
       <div class="meta"><time datetime={article.data.date.toISOString().slice(0, 10)}>{date.format(article.data.date)}</time><span>{difficulty[article.data.difficulty]}</span>{article.data.readingTime && <span>{article.data.readingTime} min de lecture</span>}</div>
     </header>
+    {seriesArticles.length > 1 && article.data.series && (
+      <nav class="review-series" aria-label={`Série ${seriesTitles[article.data.series]}`}>
+        <div class="review-series-heading">
+          <div>
+            <p class="series-kicker">Parcours de lecture</p>
+            <h2>{seriesTitles[article.data.series]}</h2>
+          </div>
+          <span>{seriesArticles.length} articles</span>
+        </div>
+        <ol>
+          {seriesArticles.map((item) => (
+            <li class:list={[{ current: item.id === article.id }]}>
+              {item.id === article.id
+                ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</span>
+                : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`}</small>{item.data.title}</a>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
     <div class="review-layout">
       {sections.length > 0 && <nav class="outline" aria-label="Sommaire de la version de travail"><strong>Dans cet article</strong><ul>{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ul></nav>}
       <article class="prose"><Content />
@@ -61,6 +89,18 @@ const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_UR
   h1 { max-width: 18ch; margin: .5rem 0; color: var(--ink); font: 500 clamp(2.5rem, 5.5vw, 5rem)/1 "Newsreader", serif; letter-spacing: -.04em; }
   .deck { max-width: 43ch; color: #514d42; font: 1.3rem/1.5 "Newsreader", serif; }
   .meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; color: #625b4d; font: .75rem/1.4 "DM Mono", monospace; }
+  .review-series { max-width: 64rem; margin: 1.5rem auto 0; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: .6rem; background: #faf7ef; }
+  .review-series-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 1rem; }
+  .review-series-heading .series-kicker { margin: 0 0 .35rem; color: #843c27; font: 500 .68rem/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .review-series-heading h2 { margin: 0; color: var(--ink); font: 500 clamp(1.25rem, 3vw, 1.7rem)/1.15 "Newsreader", serif; }
+  .review-series-heading > span { color: #817968; font: .68rem/1.4 "DM Mono", monospace; }
+  .review-series ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .55rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+  .review-series li { min-width: 0; }
+  .review-series a, .review-series li > span { display: flex; height: 100%; flex-direction: column; gap: .3rem; padding: .7rem .8rem; border: 1px solid #e1dacb; border-radius: .4rem; color: #514d42; background: #fffdf8; font: 500 .83rem/1.4 "DM Sans", sans-serif; text-decoration: none; }
+  .review-series a:hover { border-color: #843c27; color: #843c27; }
+  .review-series li.current > span { border-color: #843c27; background: #f2eadc; color: #352d25; font-weight: 700; }
+  .review-series small { color: #843c27; font: 500 .65rem/1.4 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+  .review-series a:focus-visible { outline: 2px solid #843c27; outline-offset: 3px; }
   .review-layout { display: grid; max-width: 67rem; margin: 0 auto; }
   .prose { max-width: 44rem; margin: 2.5rem auto 0; color: #34352f; line-height: 1.75; }
   .prose :global(h2) { margin-top: 2.8rem; scroll-margin-top: 1.5rem; font: 500 clamp(1.8rem, 4vw, 2.4rem)/1.15 "Newsreader", serif; }

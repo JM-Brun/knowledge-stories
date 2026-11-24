@@ -24,11 +24,20 @@ const articles = defineCollection({
       kind: z.enum(["primary", "secondary", "data", "documentation"]),
       accessed: z.coerce.date().optional(),
     })).default([]),
+    series: z.enum(["multiplication-karatsuba", "paradoxe-des-jumeaux"]).optional(),
+    seriesOrder: z.number().int().nonnegative().optional(),
     relatedArticles: z.array(z.string()).default([]),
   }).superRefine((data, context) => {
     const disciplineByDomain = { mathematics: "Mathématiques", computing: "Informatique", physics: "Physique" } as const;
     if (data.discipline !== disciplineByDomain[data.domain]) {
       context.addIssue({ code: "custom", path: ["discipline"], message: `La discipline doit correspondre au domaine ${data.domain}.` });
+    }
+    if ((data.series === undefined) !== (data.seriesOrder === undefined)) {
+      context.addIssue({ code: "custom", path: ["series"], message: "Une appartenance à une série et son ordre doivent être renseignés ensemble." });
+    }
+    const domainBySeries = { "multiplication-karatsuba": "mathematics", "paradoxe-des-jumeaux": "physics" } as const;
+    if (data.series && data.domain !== domainBySeries[data.series]) {
+      context.addIssue({ code: "custom", path: ["domain"], message: `La série ${data.series} appartient au domaine ${domainBySeries[data.series]}.` });
     }
   }),
 });

@@ -62,7 +62,9 @@ sources:
     url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
     kind: "primary"
     accessed: 2026-11-24
-relatedArticles: ["arbres-recursion-complexite", "multiplication-rapide-et-preuves-2026"]
+series: "multiplication-karatsuba"
+seriesOrder: 1
+relatedArticles: ["arbres-recursion-complexite", "multiplication-rapide-et-preuves-2026", "frontiere-theorique-multiplication-entiere-2026"]
 ---
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
@@ -78,7 +80,7 @@ import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 > **Prérequis** — Savoir développer une identité remarquable, manipuler les puissances de 10 et comprendre l’idée d’un coût asymptotique en notation &#92;(O&#92;). Le parcours vise un niveau fin de lycée scientifique à début de licence ; la preuve de complexité demande davantage d’aisance avec les suites et les récurrences.
 
-> **Pour approfondir** — Cet article présente le mécanisme de Karatsuba. Pour démontrer précisément la complexité de son implémentation, poursuivez avec [le calcul de la complexité de la multiplication de Karatsuba](/knowledge-stories/atelier/arbres-recursion-complexite/). Pour découvrir les généralisations vers Toom–Cook, FFT et les preuves récentes, consultez [Après Karatsuba : multiplication rapide et preuves](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/).
+> **Pour approfondir** — Cet article présente le mécanisme de Karatsuba. Pour démontrer précisément la complexité de son implémentation, poursuivez avec [le calcul de la complexité de la multiplication de Karatsuba](/knowledge-stories/atelier/arbres-recursion-complexite/). Pour découvrir les généralisations algorithmiques, consultez [Après Karatsuba : Toom–Cook et FFT](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/). Pour les résultats de complexité les plus récents et leur statut de vérification, lisez [La frontière théorique de la multiplication entière](/knowledge-stories/atelier/frontiere-theorique-multiplication-entiere-2026/).
 
 ## L'idée en une minute
 
@@ -251,6 +253,6 @@ Cette analyse commence par un découpage équilibré pour rendre l’origine de 
 
 Karatsuba est une étape dans une famille de méthodes : les bibliothèques choisissent leurs algorithmes selon la taille des opérandes, leur représentation interne et les seuils mesurés sur la machine cible. Toom-Cook généralise l’idée par évaluation et interpolation ; les transformations rapides ouvrent ensuite la voie aux algorithmes quasi linéaires.
 
-La frontière théorique a encore évolué en 2026. Les bornes récentes sont des résultats de complexité dans des modèles de machines précis ; elles ne doivent pas être interprétées comme des gains pratiques mesurés. Les statuts des preuves, les constantes annoncées et les développements Lean sont détaillés dans la [note complémentaire sur la multiplication entière rapide](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/), consultée et actualisée le 24 novembre 2026.
+La frontière théorique a encore évolué en 2026. Les bornes récentes sont des résultats de complexité dans des modèles de machines précis ; elles ne doivent pas être interprétées comme des gains pratiques mesurés. Les statuts des preuves, les constantes annoncées et les développements Lean sont détaillés dans [La frontière théorique de la multiplication entière : résultats et preuves en 2026](/knowledge-stories/atelier/frontiere-theorique-multiplication-entiere-2026/), consultée et actualisée le 24 novembre 2026.
 
 ---

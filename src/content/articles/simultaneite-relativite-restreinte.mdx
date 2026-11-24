@@ -1,0 +1,91 @@
+---
+title: "La simultanéité en relativité restreinte : qu’est-ce qui se passe maintenant ?"
+description: "Comprendre la synchronisation des horloges, la relativité de la simultanéité et le changement de datation au demi-tour."
+date: 2026-11-24
+category: "Physique"
+discipline: "Physique"
+domain: "physics"
+themes: ["Relativité restreinte", "Mesure et référentiels"]
+tags: ["simultanéité", "synchronisation", "transformations de Lorentz", "temps distant"]
+labels: ["Simultanéité", "Relativité"]
+difficulty: "intermediate"
+readingTime: 9
+status: "review"
+featured: false
+sources:
+  - title: "Albert Einstein (1905), On the Electrodynamics of Moving Bodies, § 1"
+    url: "https://sites.pitt.edu/~jdnorton/teaching/Einstein_graduate/pdfs/Einstein_STR_1905_English_reset.pdf"
+    kind: "primary"
+    accessed: 2026-11-24
+  - title: "Markus Pössel, The case of the travelling twins, Einstein Online"
+    url: "https://www.einstein-online.info/en/spotlight/twins/"
+    kind: "secondary"
+    accessed: 2026-11-24
+series: "paradoxe-des-jumeaux"
+seriesOrder: 2
+relatedArticles: ["paradoxe-des-jumeaux", "composition-vitesses-relativite", "signaux-doppler-relativiste"]
+---
+
+Quand une horloge est devant nous, nous pouvons lire son cadran. Mais que signifie l’heure qu’elle indique « maintenant » lorsqu’elle se trouve à plusieurs années-lumière ? La lumière met du temps à nous parvenir. Pour parler de l’heure actuelle d’une horloge distante, il faut donc définir une procédure de synchronisation.
+
+En relativité restreinte, cette procédure dépend du référentiel inertiel choisi. C’est la **relativité de la simultanéité**.
+
+## 1. Synchroniser des horloges éloignées
+
+Plaçons deux horloges A et B au repos dans un même référentiel inertiel. On peut synchroniser leurs indications à l’aide de signaux lumineux : un signal part de A, est réfléchi par B et revient à A. En supposant la propagation isotrope de la lumière dans ce référentiel, l’horloge B est réglée de sorte que l’événement de réflexion soit à mi-chemin, en temps, entre l’émission et la réception.
+
+Cette procédure donne un réseau d’horloges synchronisées. Elle permet d’attribuer une coordonnée temporelle aux événements qui se produisent en différents lieux.
+
+Il faut distinguer cette heure coordonnée d’une lecture locale : chaque horloge mesure directement le temps qui s’écoule à son emplacement. La synchronisation établit une convention opérationnelle cohérente pour comparer des lieux éloignés.
+
+## 2. Deux référentiels, deux découpages du « maintenant »
+
+Considérons deux événements éloignés A et B. Dans un référentiel inertiel, ils peuvent être simultanés. Dans un autre référentiel en mouvement par rapport au premier, ils ne le sont généralement pas.
+
+Pour un mouvement colinéaire, la transformation de Lorentz s’écrit :
+
+&#92;[
+t'=&#92;gamma&#92;left(t-&#92;frac&#123;ux&#125;&#123;c^2&#125;&#92;right),
+&#92;qquad
+&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-u^2/c^2&#125;&#125;.
+&#92;]
+
+À temps &#92;(t'&#92;) constant, les événements simultanés vérifient :
+
+&#92;[
+t-&#92;frac&#123;ux&#125;&#123;c^2&#125;=&#92;text&#123;constante&#125;.
+&#92;]
+
+Le terme en &#92;(x&#92;) est décisif : à distance non nulle, changer de vitesse de référentiel modifie les événements considérés comme simultanés. Ce n’est pas une illusion optique ; c’est une différence entre coordonnées temporelles attribuées à des événements distincts.
+
+## 3. Application au demi-tour des jumeaux
+
+Dans l’expérience idéale, Simon reste sur Terre. Kara voyage à &#92;(0&#123;,&#125;8c&#92;), atteint un point situé à 4 années-lumière après 5 ans selon Simon, puis revient. Le demi-tour est ici supposé instantané afin de simplifier le calcul.
+
+Au même événement du vaisseau, les coordonnées terrestres sont &#92;(t=5&#92;) ans et &#92;(x=4&#92;) années-lumière. Juste avant le demi-tour, Kara utilise le référentiel de l’aller, de vitesse &#92;(+0&#123;,&#125;8c&#92;). L’événement terrestre simultané vérifie :
+
+&#92;[
+t_&#123;&#92;mathrm&#123;Terre&#125;&#125;=5-0&#123;,&#125;8&#92;times4=1&#123;,&#125;8&#92; &#92;text&#123;an&#125;.
+&#92;]
+
+Juste après, elle utilise le référentiel du retour, de vitesse &#92;(-0&#123;,&#125;8c&#92;) :
+
+&#92;[
+t_&#123;&#92;mathrm&#123;Terre&#125;&#125;=5+0&#123;,&#125;8&#92;times4=8&#123;,&#125;2&#92; &#92;text&#123;ans&#125;.
+&#92;]
+
+L’écart entre ces deux attributions est de 6,4 ans. **Aucune horloge terrestre ne saute de 1,8 à 8,2 ans.** Kara change le référentiel inertiel qui définit les événements terrestres simultanés avec son présent.
+
+Dans un demi-tour de durée finie, le référentiel instantanément comobile de Kara change progressivement : la réattribution est alors continue. Le saut est propre à l’idéalisation d’un changement instantané de vitesse.
+
+## 4. Trois notions à ne pas confondre
+
+- **Lecture locale :** ce qu’indique une horloge à l’événement où elle se trouve.
+- **Date attribuée par simultanéité :** la coordonnée temporelle d’un événement distant que le référentiel considère simultané avec un événement donné.
+- **Image reçue :** ce que l’observateur voit après propagation de la lumière, donc avec un retard.
+
+Ces trois réponses peuvent être différentes sans contradiction. La suite distingue précisément les dates attribuées des signaux effectivement reçus.
+
+**À retenir :** la relativité de la simultanéité ne fait pas vieillir une personne à distance. Elle change la manière dont un référentiel associe des événements éloignés à un même instant.
+
+**Suite :** [Les signaux lumineux et l’effet Doppler relativiste](/knowledge-stories/atelier/signaux-doppler-relativiste/).
