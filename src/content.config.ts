@@ -24,6 +24,8 @@ const articles = defineCollection({
       kind: z.enum(["primary", "secondary", "data", "documentation"]),
       accessed: z.coerce.date().optional(),
     })).default([]),
+    series: z.enum(["multiplication-karatsuba", "paradoxe-des-jumeaux"]).optional(),
+    seriesOrder: z.number().int().nonnegative().optional(),
     relatedArticles: z.array(z.string()).default([]),
   }).superRefine((data, context) => {
     const disciplineByDomain = { mathematics: "Mathématiques", computing: "Informatique", physics: "Physique" } as const;
