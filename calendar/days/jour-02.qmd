@@ -5,6 +5,14 @@ description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la c
 ---
 
 > **En 12 à 15 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
+>
+> **Prérequis** — Aucun prérequis formel. Savoir lire une moyenne et une proportion suffit ; la notion d'estimateur est expliquée dans l'article.
+>
+> **À la fin** — Vous saurez distinguer population cible, base de sondage et échantillon observé, expliquer pourquoi un grand échantillon peut rester biaisé et reconnaître les hypothèses nécessaires à une correction par pondération.
+
+## L'idée en une minute
+
+La taille d'un échantillon contrôle surtout la variabilité liée au tirage. Elle ne garantit ni que les bonnes personnes pouvaient être sélectionnées, ni que celles qui ont été sollicitées ont répondu. Avant de demander « combien de données ? », il faut demander « qui pouvait entrer dans les données, et qui manque ? ».
 
 ## La question
 
