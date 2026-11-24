@@ -76,11 +76,11 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
-On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie donne un coût en \(\Theta(n^{\log_2 3})\), soit environ \(\Theta(n^{1{,}585})\), au lieu de \(\Theta(n^2)\) pour la méthode classique. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
+On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie donne un coût en \(\Theta(n^&#123;\log_2 3&#125;)\), soit environ \(\Theta(n^&#123;1&#123;,&#125;585&#125;)\), au lieu de \(\Theta(n^2)\) pour la méthode classique. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong>4 → 3</strong><span>multiplications de blocs à chaque étape</span></div>
-  <div><strong>\(n^{1{,}585}\)</strong><span>exposant de la complexité asymptotique</span></div>
+  <div><strong>\(n^&#123;1&#123;,&#125;585&#125;\)</strong><span>exposant de la complexité asymptotique</span></div>
 </div>
 
 <div className="term-legend" aria-label="Code couleur constant dans l’article">
@@ -209,12 +209,12 @@ On pose \(a=4\), \(b=7\), \(c=8\) et \(d=3\). Les trois produits sont \(ac=32\),
 
 </details>
 
-**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^{10}\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
+**2. Comparer les nombres de produits pour 1 024 chiffres.** Dans le modèle équilibré, \(1\,024=2^&#123;10&#125;\). Combien de produits aux feuilles obtient-on avec chaque méthode ?
 
 <details>
 <summary>Correction</summary>
 
-La méthode classique en demande \(4^{10}=1\,048\,576\), tandis que Karatsuba en demande \(3^{10}=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
+La méthode classique en demande \(4^&#123;10&#125;=1\,048\,576\), tandis que Karatsuba en demande \(3^&#123;10&#125;=59\,049\). Le rapport vaut environ 17,8. Ce rapport augmente avec la profondeur, car chaque niveau multiplie le nombre de sous-problèmes par 4 ou par 3.
 
 </details>
 
@@ -270,13 +270,13 @@ Le travail local d’un niveau est le nombre d’appels multiplié par le coût 
 La profondeur vaut \(k=\log_2(n)\). À la dernière profondeur, le nombre de feuilles est :
 
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Nombre de feuilles égal à trois puissance k égal à n puissance logarithme base deux de trois">
-  <div class="math-line"><span class="term-aux">\(3^k=3^{\log_2 n}=n^{\log_2 3}\)</span></div>
+  <div class="math-line"><span class="term-aux">\(3^k=3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\)</span></div>
 </div>
 
 La somme des coûts internes de Karatsuba est une série géométrique de raison **3/2**, supérieure à 1. Elle est donc dominée, à un facteur constant près, par son dernier terme :
 
 \[
-\sum_{j=0}^{k-1} O\!\left(n(3/2)^j\right)
+\sum_&#123;j=0&#125;^&#123;k-1&#125; O\!\left(n(3/2)^j\right)
 = O\!\left(n(3/2)^k\right)
 = O(3^k).
 \]
@@ -285,28 +285,28 @@ Les feuilles coûtent elles-mêmes \(\Theta(3^k)\), puisque chacune effectue une
 
 \[
 T(n)=\Theta(3^k)
-=\boxed{\Theta\!\left(n^{\log_2 3}\right)}.
+=\boxed&#123;\Theta\!\left(n^&#123;\log_2 3&#125;\right)&#125;.
 \]
 
-Comme \(\log_2 3 \approx 1{,}58496\), l’exposant est souvent arrondi à \(1{,}585\).
+Comme \(\log_2 3 \approx 1&#123;,&#125;58496\), l’exposant est souvent arrondi à \(1&#123;,&#125;585\).
 
 Pour la méthode classique, le même raisonnement remplace \(3\) par \(4\). Le travail local au niveau \(j\) est \(O(n\,2^j)\), et les feuilles sont au nombre de \(4^k=(2^k)^2=n^2\). La somme des coûts internes est elle aussi \(O(n^2)\), tandis que les feuilles donnent une borne inférieure en \(\Omega(n^2)\). Le coût total est donc \(\Theta(n^2)\).
 
-Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^{\log_2 n}=n^{\log_2 3}\).
+Cette preuve par arbre est équivalente à l’application du théorème maître à \(T(n)=aT(n/2)+O(n)\) : ici \(a=3\) pour Karatsuba et \(a=4\) pour la méthode classique. Les [notes de cours de H. Zantema (Radboud University), section « Karatsuba’s algorithm »](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) donnent précisément ces deux récurrences et leur résolution. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre de son côté le comptage des feuilles et le changement de base \(3^&#123;\log_2 n&#125;=n^&#123;\log_2 3&#125;\).
 
 **Attention au modèle de calcul.** Ici, \(n\) désigne le nombre de chiffres (ou de bits, si l’on choisit la base 2), et l’addition/soustraction de deux blocs de taille proportionnelle à \(n\) est comptée en \(O(n)\) opérations élémentaires. Le nombre « deux additions et deux soustractions » du comparatif précédent compte des opérations sur des blocs entiers, pas des opérations élémentaires sur les chiffres. C’est précisément parce que leur coût total par appel est linéaire qu’elles figurent dans le terme \(O(n)\) de la récurrence.
 
 Le modèle précédent divise exactement les tailles par deux. Dans l’algorithme avec sommes, \(a+b\) ou \(c+d\) peut toutefois nécessiter un chiffre supplémentaire. Si \(m_j\) désigne la taille maximale d’un sous-problème au niveau \(j\), on peut majorer cette évolution par
 
 \[
-m_{j+1}\leq \frac{m_j}{2}+2.
+m_&#123;j+1&#125;\leq \frac&#123;m_j&#125;&#123;2&#125;+2.
 \]
 
 En déroulant cette inégalité, on obtient \(m_j\leq n/2^j+4\). La taille devient donc constante après \(\log_2(n)+O(1)\) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau. Au niveau \(j\), le travail interne est donc borné par
 \[
 O(3^j m_j)=O\!\left(n(3/2)^j+3^j\right).
 \]
-Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^{\log_2 3})\). Les feuilles sont en nombre \(\Theta(3^{\log_2 n})=\Theta(n^{\log_2 3})\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
+Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est \(O(n^&#123;\log_2 3&#125;)\). Les feuilles sont en nombre \(\Theta(3^&#123;\log_2 n&#125;)=\Theta(n^&#123;\log_2 3&#125;)\) et imposent la borne inférieure correspondante. L’exposant démontré plus haut vaut ainsi aussi pour la variante avec sommes, malgré cette petite irrégularité de taille.
 
 Une variante par différences évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
@@ -332,7 +332,7 @@ La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multi
 
 Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de n bits en temps
 
-\[O\!\left(n(\log n)^{1-\kappa}\right),\qquad \kappa=2^{-182}.\]
+\[O\!\left(n(\log n)^&#123;1-\kappa&#125;\right),\qquad \kappa=2^&#123;-182&#125;.\]
 
 sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que \(O(n\log n)\) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
 
@@ -340,13 +340,13 @@ Le statut doit être présenté avec précision. Il s'agit d'une prépublication
 
 **Une nouvelle étape apparaît le 13 novembre 2026.** Piaoyang Cui, Yiming Liu et David P. Woodruff publient *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*. Leur construction atteint une borne de la forme
 
-\\[O\\!\\left(n(\\log n)^{1-\\kappa}\\right),\\qquad \\kappa=2^{-46}.\\]
+\\[O\\!\\left(n(\\log n)^&#123;1-\\kappa&#125;\\right),\\qquad \\kappa=2^&#123;-46&#125;.\\]
 
 et s'accompagne d'une formalisation en Lean 4. Le dépôt des auteurs fournit le papier court, le papier complet et le développement Lean. Sa documentation indique que la preuve formalisée établit la borne à partir de la construction et des définitions de machine retenues, sans prendre les résultats du préprint OpenAI ni ceux de Harvey–van der Hoeven comme hypothèses ou axiomes. Le noyau Lean et les définitions Mathlib utilisées, ainsi que les trois axiomes logiques standards de Lean, font partie de la base de confiance déclarée.
 
 Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en \(O(n\log n)\), pas une implémentation pratique du nouvel algorithme en temps inférieur à n log n.
 
-Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce \(\kappa=2^{-56}\) avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint \(\kappa=2^{-46}\). Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
+Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce \(\kappa=2^&#123;-56&#125;\) avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint \(\kappa=2^&#123;-46&#125;\). Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
 
 Une borne asymptotique, une preuve examinée, une implémentation et un gain de performance mesuré répondent à quatre questions différentes. La méthode de Karatsuba permet d’observer ces distinctions à l’échelle d’un calcul complet.
 
