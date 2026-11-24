@@ -52,6 +52,13 @@
 .article-page:has(.karatsuba-hero) .math-display .term-cross { color: var(--term-cross); }
 .article-page:has(.karatsuba-hero) .math-display .term-aux { color: var(--term-aux); }
 
+/* Same semantic palette inside MathJax-rendered TeX expressions. */
+.article-page:has(.karatsuba-hero) mjx-container .term-common { color: var(--term-common) !important; }
+.article-page:has(.karatsuba-hero) mjx-container .term-cross { color: var(--term-cross) !important; }
+.article-page:has(.karatsuba-hero) mjx-container .term-aux { color: var(--term-aux) !important; }
+.article-page:has(.karatsuba-hero) mjx-container { max-width: 100%; }
+
+
 
 /* Karatsuba: extend semantic term colors to prose, callouts and displayed derivations. */
 .article-page:has(.karatsuba-hero) .prose .term-common,
