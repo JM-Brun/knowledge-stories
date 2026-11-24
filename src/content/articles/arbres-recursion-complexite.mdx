@@ -26,6 +26,7 @@ relatedArticles: ["karatsuba-multiplication"]
 ---
 
 import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
+import RecursionTreeExample from "../../components/RecursionTreeExample.astro";
 
 <div class="complexity-lesson">
 
@@ -58,6 +59,10 @@ T(n)=2T(n/2)+cn,\qquad T(1)=d,
 où &#92;(c&#92;) et &#92;(d&#92;) sont des constantes positives.
 
 Au niveau 0, un appel traite &#92;(n&#92;) éléments. Au niveau 1, deux appels traitent chacun &#92;(n/2&#92;) éléments. Au niveau 2, quatre appels traitent chacun &#92;(n/4&#92;) éléments. Le motif se poursuit.
+
+Le schéma rend visibles les trois dimensions à suivre simultanément : le nombre de nœuds, la taille des sous-problèmes et le coût cumulé du niveau.
+
+<RecursionTreeExample />
 
 | Niveau &#92;(j&#92;) | Nombre d'appels &#92;(N_j&#92;) | Taille par appel &#92;(S_j&#92;) | Coût local par appel | Coût du niveau &#92;(W_j&#92;) |
 |---:|---:|---:|---:|---:|
