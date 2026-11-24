@@ -17,7 +17,7 @@ const seriesTitles = {
   "multiplication-karatsuba": "Multiplier plus vite : de Karatsuba aux algorithmes rapides",
   "paradoxe-des-jumeaux": "Le paradoxe des jumeaux : comparer deux temps vécus",
 } as const;
-const readingTimeFor = (entry: (typeof article) ) => entry.data.readingTime ?? Math.max(1, Math.ceil(entry.body.replace(/```[\\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\\s+/).filter(Boolean).length / 180));\nconst seriesArticles = article.data.series
+const readingTimeFor = (entry: (typeof article) ) => entry.data.readingTime ?? Math.max(1, Math.ceil(entry.body.replace(/```[\s\\S]*?```/g, " ").replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 180));\nconst seriesArticles = article.data.series
   ? (await getCollection("articles", ({ data }) => data.status === "review" && data.series === article.data.series))
       .sort((a, b) => (a.data.seriesOrder ?? 999) - (b.data.seriesOrder ?? 999))
   : [];
