@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Observer avant de modéliser"
 description: "Pourquoi une mesure stable peut être biaisée, pourquoi une référence n'est jamais magique et ce que la métrologie apprend à la Data Science."
 ---
 
-> **Environ 16 à 18 minutes** — Comparer plusieurs profils de capteurs, comprendre ce que les mots « précision », « biais » et « incertitude » recouvrent réellement, puis relier la mesure à la qualité des données.
+> **Environ 18 à 20 minutes** — Comparer plusieurs profils de capteurs, comprendre ce que les mots « précision », « biais » et « incertitude » recouvrent réellement, puis relier la mesure à la qualité des données.
 >
 > **Prérequis** — Aucun prérequis technique indispensable. Savoir lire une moyenne et un écart-type aide à suivre les exemples ; les notions statistiques sont définies au fil de l'article.
 >
@@ -86,142 +86,32 @@ La ligne verticale représente la référence de 20,00 °C. Chaque ligne corresp
 
 Le capteur B illustre le cas d'un instrument stable mais décalé : une correction ne serait pertinente qu'après vérification de sa stabilité et de son domaine de validité.
 
-### Il n'existe pas de capteur optimal sur tous les critères
+### Un capteur n'est jamais optimal sur tous les critères
 
-Dans un système réel, le choix d'un capteur engage plusieurs propriétés qui ne s'améliorent pas toujours ensemble.
+Les cinq profils illustrent des propriétés différentes, mais trois relevés ne suffisent pas à caractériser un instrument. Il faut aussi examiner ce que le tableau ne montre pas : dérive, temps de réponse, environnement et incertitude de la référence.
 
-Les valeurs précédentes illustrent quelques contrastes, mais trois relevés ne disent presque rien de la dérive à long terme, de la dynamique de réponse ou de la résistance à l'environnement. Ces dimensions doivent être caractérisées séparément.
+| Dimension | Ce qu'il faut vérifier | Question de décision |
+|---|---|---|
+| **Référence** | La valeur de comparaison possède une source, une traçabilité et une incertitude documentées. | La référence est-elle assez fiable pour l'usage visé ? |
+| **Stabilité** | Un décalage peut évoluer avec le vieillissement, l'encrassement ou les conditions de fonctionnement. | Le comportement reste-t-il stable sur toute la période ? |
+| **Dynamique** | Le temps de réponse et le filtrage déterminent quelles variations le capteur transmet. | Quelle durée d'événement faut-il détecter ? |
+| **Résolution** | La plus petite variation perceptible de l'indication dépend de l'instrument et des conditions. | Quelle variation minimale change la décision ? |
+| **Environnement** | Chocs, vibrations, poussière, humidité et température ambiante peuvent dégrader les performances. | L'instrument est-il qualifié dans les conditions réelles ? |
 
-<figure class="sensor-showcase measurement-checks" aria-labelledby="measurement-checks-caption">
-<div class="sensor-gallery" role="list">
-  <article class="sensor-card sensor-a" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><circle cx="48" cy="35" r="25" fill="none" stroke="currentColor" stroke-width="3"/><path d="M48 10v50M23 35h50" stroke="currentColor" stroke-width="2"/><circle cx="48" cy="35" r="6" fill="currentColor"/></svg>
-    <span class="sensor-kicker">Référence</span>
-    <h4>Une référence a aussi une incertitude</h4>
-    <p>La valeur de 20,00 °C est fixée pour l'exercice. En pratique, la référence est elle-même établie par une chaîne de mesure et possède une incertitude.</p>
-    <p class="sensor-limit"><strong>À documenter :</strong> source, certificat, date et incertitude associée.</p>
-  </article>
-  <article class="sensor-card sensor-b" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M15 54h66M22 48l14-10 14 4 14-18 12-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M68 16h8v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    <span class="sensor-kicker">Stabilité</span>
-    <h4>Un capteur peut dériver</h4>
-    <p>Un instrument stable pendant quelques minutes peut évoluer avec le vieillissement, l'encrassement, l'humidité ou les conditions de fonctionnement.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> dérive dans le temps et périodicité des contrôles.</p>
-  </article>
-  <article class="sensor-card sensor-c" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M12 37h12l8-18 12 36 10-28 9 10h21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 60h72" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4"/></svg>
-    <span class="sensor-kicker">Dynamique</span>
-    <h4>Fréquence et temps de réponse diffèrent</h4>
-    <p>Enregistrer à 10 Hz ne garantit pas de capter un phénomène rapide : le capteur et son filtrage doivent transmettre les variations recherchées.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> temps de réponse, bande passante et fréquence d'échantillonnage.</p>
-  </article>
-  <article class="sensor-card sensor-d" role="listitem">
-    <svg viewBox="0 0 96 72" aria-hidden="true"><path d="M48 8 76 19v17c0 15-12 24-28 29C32 60 20 51 20 36V19z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m35 36 9 9 18-20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="sensor-kicker">Environnement</span>
-    <h4>La robustesse dépend du terrain</h4>
-    <p>Chocs, vibrations, poussière, humidité et température ambiante peuvent modifier les performances ou dégrader l'instrument.</p>
-    <p class="sensor-limit"><strong>À vérifier :</strong> conditions d'emploi réelles et qualification dans cet environnement.</p>
-  </article>
-</div>
-<figcaption id="measurement-checks-caption">Quatre dimensions importantes qui ne peuvent pas être déduites des trois valeurs affichées dans le tableau.</figcaption>
-</figure>
+La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit pas une mesure exacte à 0,1 °C : le bruit, l'étalonnage et les conditions d'emploi comptent également.
 
-Ces dimensions complètent les profils A à E : les relevés illustrent quelques propriétés, mais ne suffisent pas à caractériser un instrument dans toutes ses conditions d'utilisation.
+La fréquence d'échantillonnage et le temps de réponse sont deux paramètres distincts. À 10 Hz, deux acquisitions sont espacées de 100 ms ; un événement plus bref peut être manqué selon sa position entre les échantillons. Augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
 
-Les profils ne se classent pas sur une échelle unique. Un capteur B peut convenir à une surveillance relative si son décalage est stable et documenté ; il devient inadapté si l'on doit comparer des valeurs absolues sans correction fiable. Pour C, une moyenne journalière pourrait être pertinente si une série suffisamment longue confirme un bruit centré et des conditions stables ; les trois valeurs illustratives ne permettent pas de le conclure. Un tel moyennage pourrait en revanche masquer un pic de quelques secondes.
+### Choisir selon l'usage, pas selon un classement universel
 
-| Arbitrage à examiner | Priorité possible | Contrepartie à accepter | Question de décision |
-|---|---|---|---|
-| **Bruit / biais** | Mesures peu dispersées ou moyenne proche de la référence | Le moyennage réduit le bruit aléatoire, pas un biais stable | Cherche-t-on une lecture instantanée ou une moyenne ? |
-| **Résolution / plage** | Détecter de très petites variations ou couvrir une grande plage | La résolution utile dépend de la plage, du bruit et de la technologie | Quelle est la plus petite variation qui change la décision ? |
-| **Temps de réponse / filtrage** | Signal lissé ou réaction rapide | Le filtrage peut retarder ou atténuer un événement | Quelle durée d'événement faut-il détecter ? |
-| **Fréquence / autonomie** | Échantillonnage fréquent | Consommation, stockage et transmission augmentent souvent | À quelle vitesse le phénomène évolue-t-il réellement ? |
-| **Robustesse / sensibilité** | Résister à l'environnement ou détecter de faibles variations | Le boîtier, le montage et le principe de mesure imposent des compromis | Quelles contraintes environnementales sont non négociables ? |
+- **Comparer des valeurs absolues** : privilégier une référence traçable et un instrument caractérisé ; les trois relevés du profil A ne remplacent pas un étalonnage.
+- **Suivre une tendance** : la stabilité dans le temps et la comparabilité priment. Le profil B pourrait convenir si son décalage est stable, documenté et corrigé dans son domaine de validité.
+- **Détecter un pic bref** : examiner ensemble fréquence d'acquisition, temps de réponse, bande passante et filtrage ; le profil E ne suffit pas à lui seul.
+- **Mesurer en environnement difficile** : qualifier la robustesse dans les conditions réelles, sans supposer qu'elle garantit justesse ou résolution.
 
-La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) mérite une attention particulière : elle décrit la plus petite variation de grandeur qui provoque une variation perceptible de l'indication. Elle n'est ni la justesse ni l'incertitude. Un afficheur qui incrémente de 0,1 °C ne garantit donc pas une mesure exacte à 0,1 °C ; le bruit, l'étalonnage et les conditions d'emploi comptent aussi.
+Le profil C rappelle enfin qu'une moyenne observée égale à la référence sur trois valeurs ne démontre pas que le bruit est centré dans la population. Une moyenne peut être utile si une série suffisamment longue confirme les hypothèses, mais elle peut aussi masquer un événement bref.
 
-Le temps de réponse propre du capteur et la fréquence d'échantillonnage sont deux paramètres distincts : augmenter la fréquence d'enregistrement ne permet pas de récupérer une dynamique que le capteur ou son filtrage ne transmet pas.
-
-Ces arbitrages sont fréquents, mais pas des lois universelles : leur intensité dépend du principe de mesure, du dimensionnement, de l'environnement et du budget. Le bon capteur est celui dont les performances sont suffisantes pour l'usage visé — pas celui qui maximise isolément une caractéristique.
-
-<style>
-.sensor-decision{border:1px solid #b8cbbb;border-radius:12px;padding:1rem;margin:1rem 0;background:#f5f8f5;color:#20352d}
-.sensor-decision label{display:block;margin-bottom:.5rem}
-.sensor-decision select{display:block;width:100%;max-width:100%;padding:.65rem;border:1px solid #789482;border-radius:7px;background:white;color:#20352d;font:inherit}
-.sensor-decision-result{margin-top:.9rem;padding:.8rem;background:white;border-left:4px solid #4f8064;border-radius:4px}
-.sensor-decision-result p:last-child{margin-bottom:0}
-@media (max-width:600px){.sensor-decision{padding:.75rem}.sensor-decision-result{padding:.7rem}}
-</style>
-
-### Choisir un capteur selon l'usage
-
-Il n'existe pas de classement universel : le choix dépend du phénomène à observer et de la décision à prendre. Sélectionnez un objectif pour voir quels profils méritent d'être examinés en premier. Ce guide donne une orientation, pas une spécification technique ni une garantie de performance.
-
-<div class="sensor-decision" id="sensor-decision">
-  <label for="sensor-use"><strong>Quel est l'objectif prioritaire ?</strong></label>
-  <select id="sensor-use">
-    <option value="absolute">Comparer des températures absolues à une référence</option>
-    <option value="trend">Suivre une tendance sur plusieurs jours</option>
-    <option value="peak">Détecter un pic bref ou une variation rapide</option>
-    <option value="small">Détecter une très petite variation</option>
-    <option value="harsh">Mesurer dans un environnement difficile</option>
-  </select>
-  <div class="sensor-decision-result" id="sensor-use-result" aria-live="polite">
-    <strong>Point de départ : étalon + profil A caractérisé.</strong>
-    <p>Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.</p>
-    <p><strong>Compromis à vérifier :</strong> coût, plage d'utilisation, dérive et incertitude de la chaîne complète.</p>
-  </div>
-  <noscript><p>Sans JavaScript, le choix initial reste visible : pour une mesure absolue, privilégier une référence traçable et un instrument caractérisé.</p></noscript>
-</div>
-<script>
-(() => {
-  const root = document.getElementById('sensor-decision');
-  if (!root || root.dataset.ready === 'true') return;
-  root.dataset.ready = 'true';
-  const select = root.querySelector('#sensor-use');
-  const result = root.querySelector('#sensor-use-result');
-  const guidance = {
-    absolute: {
-      title: 'Point de départ : étalon + profil A caractérisé.',
-      body: 'Une mesure absolue exige une référence traçable et une incertitude connue. A est le profil illustratif le plus proche de la référence dans cet exemple, mais trois lectures ne remplacent pas un étalonnage.',
-      tradeoff: 'Coût, plage d’utilisation, dérive et incertitude de la chaîne complète.'
-    },
-    trend: {
-      title: 'Point de départ : profil B éventuellement corrigé, ou A.',
-      body: 'Pour suivre une évolution, la stabilité dans le temps et la comparabilité priment. B peut être utile si son décalage reste stable et si la correction est validée ; A constitue un point de comparaison plus proche de la référence dans cet exemple.',
-      tradeoff: 'Une dérive du biais, un changement de montage ou une différence entre instruments peut créer une fausse tendance.'
-    },
-    peak: {
-      title: 'Point de départ : profil E, sous réserve du temps de réponse.',
-      body: 'À 10 Hz, deux échantillons successifs sont espacés de 100 ms : un événement plus bref peut être manqué selon sa position entre les acquisitions. Une fréquence élevée aide donc à décrire les événements rapides, sans suffire à les mesurer : le capteur, le conditionnement et le filtrage doivent transmettre la dynamique recherchée.',
-      tradeoff: 'Autonomie, stockage, transmission, bruit et risque de manquer un pic entre deux échantillons.'
-    },
-    small: {
-      title: 'Point de départ : instrument caractérisé à faible incertitude.',
-      body: 'Le profil D est explicitement peu résolu dans cet exemple : ses pas de 0,5 °C peuvent masquer une variation plus petite. Il faut choisir une résolution adaptée, mais aussi vérifier bruit, justesse et incertitude.',
-      tradeoff: 'Une résolution d’affichage fine ne garantit pas une variation réellement détectable.'
-    },
-    harsh: {
-      title: 'Point de départ : profil D robuste, après qualification.',
-      body: 'D représente un instrument conçu pour résister aux chocs, à l’humidité ou aux vibrations. Cette robustesse ne renseigne pas à elle seule sur sa justesse ou sa résolution dans les conditions réelles.',
-      tradeoff: 'Protection mécanique, temps de réponse, maintenance et performance métrologique.'
-    }
-  };
-  select.addEventListener('change', () => {
-    const item = guidance[select.value];
-    result.replaceChildren();
-    const title = document.createElement('strong');
-    title.textContent = item.title;
-    const body = document.createElement('p');
-    body.textContent = item.body;
-    const tradeoff = document.createElement('p');
-    const label = document.createElement('strong');
-    label.textContent = 'Compromis à vérifier : ';
-    tradeoff.append(label, document.createTextNode(item.tradeoff));
-    result.append(title, body, tradeoff);
-  });
-})();
-</script>
+Le bon instrument est celui dont les performances sont suffisantes pour l'usage visé. Les compromis dépendent du principe de mesure, du dimensionnement, de l'environnement et du coût : aucune caractéristique isolée ne fournit un classement valable dans toutes les situations.
 
 ## Les mots comptent : fidélité, répétabilité, justesse, exactitude
 
