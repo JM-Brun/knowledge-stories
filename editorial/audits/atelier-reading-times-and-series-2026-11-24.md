@@ -110,7 +110,15 @@ Il ne contrôle toutefois pas encore :
 
 ### P3 — Architecture
 
-Centraliser les métadonnées des séries (titre, question directrice, domaine, ordre, objectifs, prérequis et compléments) dans une seule configuration partagée par l'index et les pages individuelles. Éviter de dupliquer ces informations dans plusieurs composants Astro.
+Les métadonnées existantes (titre, question directrice, domaine et accent visuel) sont désormais centralisées dans `src/data/series.ts`, partagé par l'index et les pages individuelles. Les objectifs, prérequis et compléments restent à ajouter à cette configuration lorsque leur rédaction éditoriale sera stabilisée.
+
+## État des actions engagées
+
+- [x] Temps de lecture visible sur les cartes et les pages d'article.
+- [x] Durée cumulée visible sur les séries et formatée en heures/minutes au-delà de 60 minutes.
+- [x] Métadonnées communes des séries centralisées dans `src/data/series.ts`.
+- [ ] Contrôles automatiques d'unicité des ordres, de continuité et de validité des articles liés.
+- [ ] Relecture chronométrée des articles courts et denses.
 
 ## Décision
 
