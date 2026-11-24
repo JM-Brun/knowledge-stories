@@ -55,13 +55,16 @@ sources:
     url: "https://annals.math.princeton.edu/2021/193-2/p04"
     kind: "primary"
     accessed: 2026-11-20
+  - title: "Integer multiplication in Lean — formalisation Mathlib TM2 (état consulté le 24 novembre 2026)"
+    url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
+    kind: "primary"
+    accessed: 2026-11-24
 relatedArticles: []
 ---
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
 import KaratsubaWorkedComparison from "../../components/KaratsubaWorkedComparison.astro";
 import KaratsubaHero from "../../components/KaratsubaHero.astro";
-import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 <KaratsubaHero />
@@ -70,6 +73,8 @@ import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 > **Question de départ** — Faut-il nécessairement effectuer quatre multiplications pour multiplier deux nombres que l'on a chacun découpés en deux morceaux ?
 
+> **Prérequis** — Savoir développer une identité remarquable, manipuler les puissances de 10 et comprendre l’idée d’un coût asymptotique en notation \(O\). Le parcours vise un niveau fin de lycée scientifique à début de licence ; la preuve de complexité demande davantage d’aisance avec les suites et les récurrences.
+
 ## L'idée en une minute
 
 Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bloc de poids fort et un bloc de poids faible. Le développement habituel fait apparaître quatre produits entre ces blocs.
@@ -77,6 +82,8 @@ Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bl
 Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
 On passe ainsi de **quatre multiplications de taille réduite à trois**. Répétée récursivement, cette économie propre à <span class="term-aux">Karatsuba</span> donne un coût en <span class="term-aux">\(\Theta(n^\lbrace\log_2 3\rbrace)\)</span>, soit environ <span class="term-aux">\(\Theta(n^\lbrace1,585\rbrace)\)</span>, au lieu de \(\Theta(n^2)\) pour la <span class="term-common">méthode classique</span>. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
+
+**Le détail qui complique la récursion :** le produit auxiliaire porte sur les sommes des blocs. Une retenue peut leur ajouter un chiffre : avec 9 999 × 1 234, l’appel auxiliaire reçoit 198 × 46, alors que les autres appels portent sur des blocs de deux chiffres. Cette irrégularité ne change pas l’exposant, mais elle explique pourquoi le modèle idéal doit être nuancé.
 
 <div class="math-lead" aria-label="Les deux repères clés de Karatsuba">
   <div><strong><span class="term-common">4</span> → <span class="term-aux">3</span></strong><span>multiplications de blocs à chaque étape</span></div>
@@ -123,7 +130,7 @@ Calculons plutôt :
 En retirant les deux produits que nous connaissons déjà, il reste exactement ce qui nous manque :
 
 <div className="math-display math-display--key math-display--cross" role="math" aria-label="a d plus b c égale a plus b fois c plus d moins a c moins b d">
-  <div className="math-line"><span className="term-cross"><i>ad</i> + <i>bc</i></span> = <span className="term-aux">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span> − <span className="term-common"><i>ac</i> + <i>bd</i></span></div>
+  <div className="math-line"><span className="term-cross"><i>ad</i> + <i>bc</i></span> = <span className="term-aux">(<i>a</i> + <i>b</i>)(<i>c</i> + <i>d</i>)</span> − <span className="term-common"><i>ac</i></span> − <span className="term-common"><i>bd</i></span></div>
   <span className="math-caption">Le produit des sommes contient exactement les deux termes croisés recherchés.</span>
 </div>
 
@@ -184,6 +191,7 @@ def karatsuba(x: int, y: int) -> int:
     if x < 10 or y < 10:
         return x * y
 
+    # Même m pour les deux opérandes : les blocs doivent partager la base 10**m.
     m = max(len(str(x)), len(str(y))) // 2
     base = 10**m
     a, b = divmod(x, base)
@@ -196,7 +204,7 @@ def karatsuba(x: int, y: int) -> int:
     return ac * base**2 + cross * base + bd
 ```
 
-Cette version privilégie la lisibilité. Une bibliothèque de calcul entière peut choisir une autre variante, une représentation interne en blocs binaires et un seuil de bascule vers Karatsuba. Le code n'est donc pas une description de l'implémentation de Python lui-même.
+Cette version privilégie la lisibilité. Le même m est utilisé pour les deux opérandes : avec deux bases différentes, les décalages de recomposition ne seraient plus cohérents. Le cas de base est atteint dès que l’un des deux opérandes tient sur un chiffre ; ce seuil est volontairement minuscule pour l’exemple, pas réaliste pour une bibliothèque, qui bascule généralement vers la multiplication scolaire bien avant une telle profondeur. Enfin, len(str(x)) convertit l’entier en chaîne : cette approche pédagogique rencontre la limite de conversion décimale de Python pour les très grands entiers, ainsi que sa limite de profondeur de récursion. sys.setrecursionlimit permet de modifier cette dernière avec prudence, mais ne transforme pas cet exemple en multiplicateur industriel ; pour les très grandes tailles, il faut utiliser une bibliothèque optimisée.
 
 ## Exercices pour vérifier l'idée
 
@@ -218,22 +226,16 @@ La <span class="term-common">méthode classique</span> en demande <span class="t
 
 </details>
 
-## Que se passe-t-il quand on double la taille ?
-
-Dans le modèle équilibré, doubler la taille des opérandes ajoute un étage à l’arbre. Pour passer de quatre à huit chiffres, la <span class="term-common">méthode classique</span> passe de <span class="term-common">\(16\to64\)</span> produits aux feuilles, et <span class="term-aux">Karatsuba</span> de <span class="term-aux">\(9\to27\)</span>. Chaque doublement répète ce contraste : **quatre fois plus de feuilles d’un côté, trois fois plus de l’autre**. La différence grandit parce qu’elle se répète à chaque étage.
-
-<KaratsubaGrowth />
+## Démontrer l’exposant à partir de l’arbre
 
 Les feuilles ne représentent pas tout le travail : chaque appel doit aussi découper les blocs, effectuer des additions et recomposer le résultat. Le détail ci-dessous montre pourquoi ces opérations, de coût linéaire par appel, ne changent pas l'exposant de la complexité.
-
-## Démontrer l’exposant à partir de l’arbre
 
 Pour isoler le raisonnement, supposons d’abord que \(n\) soit une puissance de deux et que chaque découpage soit équilibré. On note \(T(n)\) le coût total, mesuré en opérations élémentaires sur les chiffres. À chaque appel, les additions, soustractions, décalages et recompositions coûtent \(O(n)\). La différence entre la <span class="term-common">méthode classique</span> et <span class="term-aux">Karatsuba</span> tient donc au nombre de multiplications récursives. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) exposent explicitement ce modèle et les deux récurrences ; nous allons ici refaire le raisonnement avec l’arbre de récursion :
 
 <div class="math-display math-display--key complexity-equations" role="math" aria-label="Récurrences développées : quatre produits directs contre trois produits Karatsuba">
   <div class="complexity-method">
     <b class="term-common">Méthode classique · quatre sous-produits</b>
-    <div class="math-line"><span class="term-common">\(T_ac(n/2)+T_ad(n/2)+T_bc(n/2)+T_bd(n/2)+O(n)\)</span></div>
+    <div class="math-line"><span class="term-common">\(T(n)=T_ac(n/2)+T_ad(n/2)+T_bc(n/2)+T_bd(n/2)+O(n)\)</span></div>
     <div class="math-line"><span class="term-common">\(=4T(n/2)+O(n)\)</span></div>
   </div>
   <div class="complexity-method">
@@ -277,8 +279,8 @@ La somme des coûts internes de Karatsuba est une série géométrique de raison
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Somme géométrique des coûts internes de Karatsuba">
   \[
-  O\!\left(n\left(3/2\right)^k\right)
-  = O(3^k).
+  \sum_{j=0}^{k-1} O\!\left(n\left(3/2\right)^j\right)
+  = O\!\left(n\left(3/2\right)^k\right)
   = O(3^k).
   \]
 </div>
@@ -287,7 +289,7 @@ Les feuilles coûtent elles-mêmes \(\Theta(3^k)\), puisque chacune effectue une
 
 <div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Complexité asymptotique de Karatsuba">
   \[
-  T(n)=\Theta(3^k)=\Theta\!\left(n^\left(\log_2 3\right)\right).
+  T(n)=\Theta(3^k)=\boxed{\Theta\!\left(n^\left(\log_2 3\right)\right)}.
   \]
 </div>
 
@@ -319,54 +321,10 @@ Sur \(\log_2(n)+O(1)\) niveaux, la somme de ces coûts est <span class="term-aux
 
 Une variante par différences de <span class="term-aux">Karatsuba</span> évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
 
-## Pourquoi une bibliothèque combine plusieurs méthodes
+## Et après Karatsuba ?
 
-Les multiplications économisées ont un prix. À petite taille, les additions, les allocations et la gestion des appels peuvent coûter plus que les produits qu’elles remplacent. La complexité asymptotique décrit comment le travail croît avec la taille. Pour déterminer un seuil de bascule, il faut mesurer une implémentation sur la machine visée.
+Karatsuba est une étape dans une famille de méthodes : les bibliothèques choisissent leurs algorithmes selon la taille des opérandes, leur représentation interne et les seuils mesurés sur la machine cible. Toom-Cook généralise l’idée par évaluation et interpolation ; les transformations rapides ouvrent ensuite la voie aux algorithmes quasi linéaires.
 
-Le [manuel de GNU MP](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à des variantes de Toom et à la FFT. Les seuils sont exprimés en nombre de *limbs*, les unités de taille fixe utilisées par la représentation interne. La taille relative des deux opérandes compte aussi. La documentation de FLINT donne un deuxième exemple de seuils qui varient selon les architectures.
-
-La [variante par différences de GNU MP](https://gmplib.org/manual/Karatsuba-Multiplication) répond directement au problème de retenue observé dans l’atelier. Le terme croisé s’écrit aussi <code class="term-cross">ad + bc</code> = <code class="term-common">ac + bd</code> − <code class="term-aux">(a − b)(c − d)</code>. La valeur absolue d’une différence entre deux blocs de **m** chiffres tient sur **m** chiffres, alors que leur somme peut en prendre **m + 1**. Le calcul doit alors gérer le signe du produit des différences.
-
-## Du produit des blocs au produit de polynômes
-
-Reprenons 1 234 × 5 678. Les deux nombres s’écrivent **P(100)** et **Q(100)**, avec \(P(t)=12t+34\) et \(Q(t)=56t+78\). On cherche le produit des deux polynômes, qui a trois coefficients. Le produit des blocs de droite <span class="term-common">bd</span> donne le coefficient constant, celui des blocs de gauche <span class="term-common">ac</span> donne le coefficient de \(t^2\), et le produit des sommes <span class="term-aux">(a+b)(c+d)</span> donne la valeur en \(t=1\). En retirant les coefficients constant et de t² de cette valeur, on retrouve le coefficient du milieu. Il reste à évaluer le résultat en 100 pour retrouver le produit des entiers.
-
-La variante [Toom à trois blocs](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) généralise cette démarche. Avec trois blocs, chacun des deux polynômes est de degré au plus deux et leur produit comporte au plus cinq coefficients. Cinq évaluations distinctes suffisent à reconstruire ce produit par interpolation, c’est-à-dire à retrouver ses coefficients à partir de ses valeurs. Cela remplace les neuf produits de blocs du développement direct par cinq produits sur les valeurs évaluées, au prix de davantage de travail de préparation et de recomposition. Sur des entiers, les points d’évaluation et la formule d’interpolation doivent être choisis pour que les divisions intermédiaires soient exactes ; le coût de ces opérations fait partie de l’algorithme, même si le décompte pédagogique met d’abord l’accent sur les multiplications.
-
-- **Schönhage–Strassen** exploite les transformations rapides pour obtenir une borne quasi linéaire, dans un modèle de calcul précis.
-- **Harvey et van der Hoeven (2021)** établissent une borne \(O(n\log n)\) pour multiplier deux entiers de n bits sur une machine de Turing à plusieurs rubans.
-
-<details>
-<summary>Lire les résultats de 2026 et leur statut de preuve</summary>
-
-Une annonce plus récente pousse encore la frontière théorique. Dans une prépublication datée du 23 septembre 2026, OpenAI décrit un algorithme déterministe qui multiplierait exactement deux entiers de n bits en temps
-
-\[O\!\left(n(\log n)^\left(1-\kappa\right)\right),\qquad \kappa=2^\left(-182\right).\]
-
-sur une machine de Turing à nombre fixe de rubans unidimensionnels et à alphabet fini. Si la preuve tient, cette borne est asymptotiquement plus petite que \(O(n\log n)\) dans ce modèle. Le gain annoncé porte sur un facteur logarithmique extrêmement faible ; le document précise que les constantes et les seuils sont très grands et que l'objectif est d'établir une borne de complexité en bits, pas de fournir un programme plus rapide sur les ordinateurs actuels.
-
-Le statut doit être présenté avec précision. Il s'agit d'une prépublication, pas d'un résultat que nous pouvons présenter ici comme définitivement validé par la communauté. Dans sa note du 20 octobre 2026, David Harvey, co-auteur du résultat \(O(n\log n)\) de 2021 sur lequel le nouveau travail s'appuie, juge la revendication plausible, mais indique explicitement ne pas avoir vérifié la plupart des détails. Son examen identifie encore des points techniques à contrôler, notamment les coûts de réorganisation des données dans le modèle multitape. Cette appréciation porte sur la prépublication OpenAI de septembre : elle précède les travaux présentés ensuite.
-
-**Une nouvelle étape apparaît le 13 novembre 2026.** Piaoyang Cui, Yiming Liu et David P. Woodruff publient *A simpler algorithm for integer multiplication below n log n, with a formally verified proof*. Leur construction atteint une borne de la forme
-
-\[O\!\left(n(\log n)^\left(1-\kappa\right)\right),\qquad \kappa=2^\left(-46\right).\]
-
-et s'accompagne d'une formalisation en Lean 4. Le dépôt des auteurs fournit le papier court, le papier complet et le développement Lean. Sa documentation indique que la preuve formalisée établit la borne à partir de la construction et des définitions de machine retenues, sans prendre les résultats du préprint OpenAI ni ceux de Harvey–van der Hoeven comme hypothèses ou axiomes. Le noyau Lean et les définitions Mathlib utilisées, ainsi que les trois axiomes logiques standards de Lean, font partie de la base de confiance déclarée.
-
-Il faut distinguer trois niveaux. Une preuve vérifiée par Lean est un progrès important par rapport à une preuve seulement rédigée et non vérifiée par logiciel ; elle ne signifie pas que chaque choix de modélisation a été validé indépendamment par des spécialistes, ni que le papier est évalué par les pairs. Le développement formalise le modèle de machine de Turing multi-piles de Mathlib (TM2) ; il faut donc garder explicites les conventions de machine et d'encodage lorsqu'on le compare au modèle multitape à rubans fixes du préprint OpenAI. Enfin, le dépôt distingue l'algorithme principal de ses outils de démonstration : l'implémentation Python de référence n'est pas un multiplicateur rapide et ne mesure pas les déplacements de tête d'une machine de Turing ; le code C/GMP fourni dans le sous-dossier compagnon concerne un multiplicateur interne en \(O(n\log n)\), pas une implémentation pratique du nouvel algorithme en temps inférieur à \(n\log n\).
-
-Le papier distingue aussi les constantes selon le niveau de preuve : son raisonnement écrit annonce \(\kappa=2^\left(-56\right)\) avec les constantes primitives initiales, tandis que le théorème formalisé en Lean atteint \(\kappa=2^\left(-46\right)\). Il vaut mieux conserver cette distinction que de présenter ces deux valeurs comme interchangeables.
-
-Une borne asymptotique, une preuve examinée, une implémentation et un gain de performance mesuré répondent à quatre questions différentes. La méthode de Karatsuba permet d’observer ces distinctions à l’échelle d’un calcul complet.
-
-</details>
-
-## Pour aller plus loin
-
-- **La publication originale.** La notice de Math-Net donne la référence de l'article de Karatsuba et Ofman, publié en 1962 dans *Doklady Akademii Nauk SSSR*, volume 145, pages 293–294. Elle permet de retrouver le texte original et son contexte historique.
-- **Une présentation de la récurrence.** Les notes de cours de H. Zantema (Radboud University, version du 28 mars 2019) détaillent le passage de quatre à trois multiplications et la résolution par le théorème maître.
-- **Les choix d'implémentation.** La documentation de FLINT présente une identité de Karatsuba, une preuve de la borne et des considérations concrètes sur les seuils et les architectures. Sa page signale toutefois qu’une partie de la révision d’octobre 2026 a été générée par un modèle de langage : elle est utile pour s’orienter, mais les détails importants doivent être recoupés avec le manuel de GNU MP et les mesures publiées.
-- **Un cours d'algorithmique.** Le cours CS 173 de l'université de l'Illinois propose une explication progressive de l'identité et de la complexité.
-- **Une étape théorique récente.** Le dépôt de Cui, Liu et Woodruff donne accès au papier court, au papier complet et à la formalisation Lean 4 de leur borne asymptotique en dessous de n log n. Il permet de distinguer le résultat écrit, sa vérification formelle, le modèle de machine utilisé et les implémentations de référence.
+La frontière théorique a encore évolué en 2026. Les bornes récentes sont des résultats de complexité dans des modèles de machines précis ; elles ne doivent pas être interprétées comme des gains pratiques mesurés. Les statuts des preuves, les constantes annoncées et les formalisation Lean sont détaillés dans la [note complémentaire sur la multiplication entière rapide](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/), consultée et actualisée le 24 novembre 2026.
 
 ---
