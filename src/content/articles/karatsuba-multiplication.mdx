@@ -474,7 +474,7 @@ Le modèle précédent suppose que chaque sous-problème a exactement la moitié
 Si &#92;(m_j&#92;) désigne la taille maximale d’un sous-problème au niveau &#92;(j&#92;), on peut majorer cette évolution par :
 
 &#92;[
-m_{j+1}\leq m_j/2+2.
+m_&#123;j+1&#125;\leq m_j/2+2.
 &#92;]
 
 En déroulant cette inégalité, on obtient &#92;(m_j\leq n/2^j+4&#92;). La taille devient donc constante après &#92;(\log_2(n)+O(1)&#92;) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Le nombre d’appels reste multiplié par trois à chaque niveau.
