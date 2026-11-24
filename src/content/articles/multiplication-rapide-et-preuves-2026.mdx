@@ -6,7 +6,7 @@ category: "Mathématiques et informatique"
 themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["multiplication-entière", "complexité", "algorithmes-rapides", "preuve-formelle", "Lean", "Toom-Cook", "FFT"]
 difficulty: "advanced"
-readingTime: 23
+readingTime: 24
 status: "review"
 featured: false
 sources:
@@ -69,6 +69,7 @@ import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
 import FFTConvolutionExplorer from "../../components/FFTConvolutionExplorer.astro";
 import MultiplicationRecurrenceComparison from "../../components/MultiplicationRecurrenceComparison.astro";
 import SchonhageStrassenExplorer from "../../components/SchonhageStrassenExplorer.astro";
+import FFTButterflyDiagram from "../../components/FFTButterflyDiagram.astro";
 
 Cette note complète l’article [« Karatsuba, trois produits au lieu de quatre »](/knowledge-stories/atelier/karatsuba-multiplication/). Elle rassemble les prolongements qui éclairent la place de Karatsuba dans les bibliothèques et dans la recherche contemporaine. Le fil directeur est le suivant : **réduire le nombre de produits, transformer le problème en produit de polynômes, puis accélérer ce produit par des transformations rapides**. Les dépôts et prépublications évoluent rapidement : les dates de consultation ci-dessus font partie de l’information à conserver lors d’une mise à jour.
 
@@ -291,6 +292,8 @@ X_&#123;k+N/2&#125;=E_k-&#92;omega^k O_k.
 
 Cette paire d'additions et de soustractions, avec une multiplication par un facteur &#92;(&#92;omega^k&#92;), forme une **opération papillon** (*butterfly*). On obtient la récurrence &#92;(F(N)=2F(N/2)+O(N)&#92;), donc &#92;(F(N)=O(N&#92;log N)&#92;). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les &#92;(N&#92;) sommes de la DFT.
 
+<FFTButterflyDiagram />
+
 ### 3.3 Un point crucial : éviter la convolution circulaire
 
 La DFT travaille sur des suites de longueur &#92;(N&#92;) et produit naturellement une convolution **circulaire** : les indices sont considérés modulo &#92;(N&#92;). Or le produit ordinaire de deux polynômes de degrés au plus &#92;(m-1&#92;) peut avoir le degré &#92;(2m-2&#92;).
@@ -315,7 +318,7 @@ Les algorithmes historiques de multiplication rapide, notamment Schönhage–Str
 |---|---|---|
 | FFT classique | Nombres complexes, en pratique flottants | Contrôle de l'erreur d'arrondi et de la reconstruction des coefficients |
 | NTT | Corps fini &#92;(&#92;mathbb F_p&#92;) | Calcul exact modulo &#92;(p&#92;), puis éventuellement plusieurs modules et CRT |
-| Schönhage–Strassen | Anneau &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;) | Calcul modulaire exact, bornes pour relever les coefficients et produits ponctuels récursifs |
+| Schönhage–Strassen | Anneau &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;) | Calcul modulaire exact, module assez grand pour identifier le produit entier et produits ponctuels récursifs |
 
 La différence entre **corps** et **anneau** compte : la NTT classique sur &#92;(&#92;mathbb F_p&#92;) exploite un corps fini, tandis que Schönhage–Strassen construit sa transformée dans un anneau de résidus qui n'est pas nécessairement un corps.
 
@@ -353,9 +356,11 @@ L'idée est de relier trois représentations : entiers découpés en blocs, poly
 
 <SchonhageStrassenExplorer />
 
-**Pourquoi cette construction est-elle rapide ?** Dans l'anneau modulo &#92;(2^N+1&#92;), on a &#92;(2^N&#92;equiv-1&#92;), donc &#92;(2^&#123;2N&#125;&#92;equiv1&#92;). Dans le cas classique où &#92;(N&#92;) est une puissance de deux, le résidu de 2 modulo &#92;(2^N+1&#92;) est d'ordre &#92;(2N&#92;). Pour une longueur &#92;(K&#92;) puissance de deux qui divise &#92;(2N&#92;), on peut donc choisir &#92;(&#92;omega=2^&#123;2N/K&#125;&#92;) comme racine primitive &#92;(K&#92;)-ième de l'unité. Multiplier par une puissance de &#92;(&#92;omega&#92;) revient essentiellement à décaler les bits et à gérer un éventuel bouclage avec changement de signe. On évite ainsi les multiplications générales pour les facteurs de rotation.
+**Pourquoi cette construction est-elle rapide ?** On choisit &#92;(N=KM&#92;) avec &#92;(N&#92;) une puissance de deux et &#92;(K&#92;) une longueur de transformée qui divise &#92;(N&#92;). Dans l'anneau modulo &#92;(2^N+1&#92;), le résidu de 2 est d'ordre &#92;(2N&#92;). Ainsi, &#92;(ψ=2^M&#92;) est une racine primitive d'ordre &#92;(2K&#92;) : &#92;(ψ^K=2^N&#92;equiv-1&#92;). En posant &#92;(ω=ψ^2&#92;), on obtient une racine primitive &#92;(K&#92;)-ième de l'unité.
 
-La transformée et son inverse organisent la convolution en &#92;(O(K&#92;log K)&#92;) opérations dans l'anneau pour une longueur &#92;(K&#92;). Mais chaque produit terme à terme est lui-même un produit d'entiers modulo &#92;(2^N+1&#92;) : on le calcule récursivement. L'analyse conjointe des tailles de blocs, des opérations dans l'anneau et de cette récursion conduit à la borne classique &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;) en opérations binaires pour deux entiers de &#92;(n&#92;) bits.
+Il reste une subtilité essentielle : une DFT ordinaire avec &#92;(ω&#92;) calcule une convolution **cyclique**, pas négacyclique. On effectue donc un *twist* avant la transformée : on multiplie le coefficient d'indice &#92;(j&#92;) par &#92;(ψ^j&#92;), on applique la DFT cyclique de racine &#92;(ω&#92;), puis on retire le twist après la transformée inverse en multipliant le coefficient d'indice &#92;(r&#92;) par &#92;(ψ^{-r}&#92;). C'est ce changement de phase qui transforme le bouclage cyclique en bouclage avec signe négatif. Comme ces racines sont des puissances de 2 modulo &#92;(2^N+1&#92;), les multiplications correspondantes se ramènent à des décalages binaires et à des réductions modulaires.
+
+Pour retrouver le produit entier, on complète d'abord les blocs par des zéros et on choisit &#92;(N&#92;) assez grand pour que &#92;(N&#92;geq u+v&#92;), où &#92;(u&#92;) et &#92;(v&#92;) sont les longueurs en bits des deux opérandes. Alors &#92;(ab<2^{u+v}&#92;leq2^N&#92;) : le résidu modulo &#92;(2^N+1&#92;) est bien le produit entier, et non seulement une valeur congruente. Les produits terme à terme dans la transformée restent des multiplications modulaires ; Schönhage–Strassen les traite récursivement. C'est l'analyse conjointe de cette récursion et du coût des opérations dans l'anneau qui conduit à la borne classique &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;), pas la seule DFT en &#92;(O(K&#92;log K)&#92;).
 
 Il faut donc éviter une simplification trompeuse : **la borne de Schönhage–Strassen ne découle pas de la seule FFT en &#92;(O(K&#92;log K)&#92;)**. Elle dépend aussi du coût des opérations sur les coefficients et de la récursion des produits ponctuels.
 

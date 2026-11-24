@@ -14,20 +14,20 @@
     <div><span>x = 2</span><b>17 × 38</b><strong>646</strong><small>w₂</small></div>
     <div><span>x = ∞</span><b>3 × 6</b><strong>18</strong><small>w∞</small></div>
   </div>
-  <div class="toom-controls">
-    <button type="button" data-toom-step="0" aria-pressed="true">1 · Évaluer</button>
-    <button type="button" data-toom-step="1" aria-pressed="false">2 · Interpoler</button>
-    <button type="button" data-toom-step="2" aria-pressed="false">3 · Recomposer</button>
+  <div class="toom-controls" role="group" aria-label="Étapes de l'atelier">
+    <button type="button" data-toom-step="0" aria-controls="toom-panel-0" aria-pressed="true">1 · Évaluer</button>
+    <button type="button" data-toom-step="1" aria-controls="toom-panel-1" aria-pressed="false">2 · Interpoler</button>
+    <button type="button" data-toom-step="2" aria-controls="toom-panel-2" aria-pressed="false">3 · Recomposer</button>
   </div>
   <div class="toom-explanation" aria-live="polite">
-    <div data-toom-panel="0">
+    <div data-toom-panel="0" id="toom-panel-0">
       <h4>Étape 1 — cinq produits, cinq informations</h4>
       <p>Le produit R(x) est de degré au plus 4. Il possède donc cinq coefficients inconnus. Les cinq produits évalués fournissent cinq contraintes indépendantes.</p>
       <p class="equation">w₀ = 4 · 1 = 4 ; w₁ = 6 · 15 = 90</p>
       <p class="equation">w₋₁ = 2 · 5 = 10 ; w₂ = 17 · 38 = 646</p>
       <p class="equation">w∞ = 3 · 6 = 18</p>
     </div>
-    <div data-toom-panel="1" hidden>
+    <div data-toom-panel="1" id="toom-panel-1" hidden>
       <h4>Étape 2 — isoler les coefficients</h4>
       <p>Les points 0 et ∞ donnent les coefficients extrêmes. Les points 1 et −1 séparent les contributions paires et impaires.</p>
       <div class="coefficient-grid">
@@ -41,7 +41,7 @@
       </div>
       <p>On retrouve ainsi les cinq coefficients : (4, 13, 28, 27, 18). Les divisions sont exactes parce que les valeurs proviennent ici du produit de deux polynômes à coefficients entiers.</p>
     </div>
-    <div data-toom-panel="2" hidden>
+    <div data-toom-panel="2" id="toom-panel-2" hidden>
       <h4>Étape 3 — revenir aux entiers</h4>
       <p>On remplace x par la base B = 10. Les coefficients deviennent les blocs du résultat.</p>
       <p class="equation">R(x) = 4 + 13x + 28x² + 27x³ + 18x⁴</p>
