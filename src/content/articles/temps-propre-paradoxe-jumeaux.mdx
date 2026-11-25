@@ -60,12 +60,12 @@ Cette relation est la définition géométrique locale du temps propre dans l’
 Pour obtenir la formule usuelle, divisons par &#92;(c^2dt^2&#92;) :
 
 &#92;[
-&#92;left(&#92;frac{d&#92;tau}{dt}&#92;right)^2
-=1-&#92;frac{1}{c^2}
+&#92;left(&#92;frac&#123;d&#92;tau&#125;&#123;dt&#125;&#92;right)^2
+=1-&#92;frac&#123;1&#125;&#123;c^2&#125;
 &#92;left[
-&#92;left(&#92;frac{dx}{dt}&#92;right)^2+
-&#92;left(&#92;frac{dy}{dt}&#92;right)^2+
-&#92;left(&#92;frac{dz}{dt}&#92;right)^2
+&#92;left(&#92;frac&#123;dx&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dy&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dz&#125;&#123;dt&#125;&#92;right)^2
 &#92;right].
 &#92;]
 
@@ -73,15 +73,15 @@ La vitesse &#92;(v(t)&#92;) mesurée dans ce référentiel vérifie
 
 &#92;[
 v(t)^2=
-&#92;left(&#92;frac{dx}{dt}&#92;right)^2+
-&#92;left(&#92;frac{dy}{dt}&#92;right)^2+
-&#92;left(&#92;frac{dz}{dt}&#92;right)^2.
+&#92;left(&#92;frac&#123;dx&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dy&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dz&#125;&#123;dt&#125;&#92;right)^2.
 &#92;]
 
 Comme &#92;(d&#92;tau&#92;) et &#92;(dt&#92;) sont des durées positives le long d’une trajectoire future, on prend la racine positive :
 
 &#92;[
-&#92;boxed{d&#92;tau=dt&#92;sqrt{1-&#92;frac{v(t)^2}{c^2}}.}
+&#92;boxed&#123;d&#92;tau=dt&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;.&#125;
 &#92;]
 
 La formule ne suppose pas que l’horloge se déplace à vitesse constante. Elle vaut le long de toute trajectoire temporelle décrite dans ce référentiel inertiel ; &#92;(v(t)&#92;) peut varier, notamment pendant une accélération.
@@ -89,9 +89,9 @@ La formule ne suppose pas que l’horloge se déplace à vitesse constante. Elle
 En intégrant entre les coordonnées temporelles &#92;(t_1&#92;) et &#92;(t_2&#92;) des événements de départ et d’arrivée :
 
 &#92;[
-&#92;boxed{&#92;Delta&#92;tau=
-&#92;int_{t_1}^{t_2}
-&#92;sqrt{1-&#92;frac{v(t)^2}{c^2}}&#92;,dt.}
+&#92;boxed&#123;&#92;Delta&#92;tau=
+&#92;int_&#123;t_1&#125;^&#123;t_2&#125;
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt.&#125;
 &#92;]
 
 Cette intégrale additionne les durées infinitésimales mesurées par l’horloge tout au long de sa ligne d’univers. Le résultat est le temps propre écoulé entre les deux événements.
@@ -100,27 +100,27 @@ Cette intégrale additionne les durées infinitésimales mesurées par l’horlo
 
 ## 3. Le calcul des deux jumeaux
 
-Reprenons le voyage : Kara part de la Terre à &#92;(0{,}8c&#92;), atteint un point situé à 4 années-lumière, puis revient à la même vitesse en valeur absolue. Dans le référentiel inertiel de Simon, chaque tronçon dure 5 ans : la distance divisée par la vitesse donne &#92;(4/0{,}8=5&#92;) ans.
+Reprenons le voyage : Kara part de la Terre à &#92;(0&#123;,&#125;8c&#92;), atteint un point situé à 4 années-lumière, puis revient à la même vitesse en valeur absolue. Dans le référentiel inertiel de Simon, chaque tronçon dure 5 ans : la distance divisée par la vitesse donne &#92;(4/0&#123;,&#125;8=5&#92;) ans.
 
 Sur chaque tronçon, la vitesse de Kara est constante. Le facteur sous la racine est donc constant :
 
 &#92;[
-&#92;sqrt{1-&#92;frac{v^2}{c^2}}
-=&#92;sqrt{1-0{,}8^2}
-=0{,}6.
+&#92;sqrt&#123;1-&#92;frac&#123;v^2&#125;&#123;c^2&#125;&#125;
+=&#92;sqrt&#123;1-0&#123;,&#125;8^2&#125;
+=0&#123;,&#125;6.
 &#92;]
 
 La durée propre de Kara sur un tronçon est :
 
 &#92;[
-&#92;Delta&#92;tau=5&#92;times0{,}6=3&#92; &#92;text{ans}.
+&#92;Delta&#92;tau=5&#92;times0&#123;,&#125;6=3&#92; &#92;text&#123;ans&#125;.
 &#92;]
 
 On peut aussi introduire le facteur de Lorentz,
 
 &#92;[
-&#92;gamma=&#92;frac{1}{&#92;sqrt{1-v^2/c^2}}
-=&#92;frac{5}{3},
+&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;
+=&#92;frac&#123;5&#125;&#123;3&#125;,
 &#92;]
 
 et retrouver &#92;(&#92;Delta&#92;tau=&#92;Delta t/&#92;gamma=5/(5/3)=3&#92;) ans.
@@ -136,17 +136,17 @@ On peut le démontrer directement. Choisissons le référentiel inertiel dans le
 Pour toute autre trajectoire temporelle reliant ces événements, la vitesse vérifie &#92;(0&#92;leq v(t)<c&#92;). Ainsi,
 
 &#92;[
-&#92;sqrt{1-&#92;frac{v(t)^2}{c^2}}&#92;leq1,
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;leq1,
 &#92;]
 
 et donc
 
 &#92;[
 &#92;Delta&#92;tau
-=&#92;int_{t_1}^{t_2}
-&#92;sqrt{1-&#92;frac{v(t)^2}{c^2}}&#92;,dt
+=&#92;int_&#123;t_1&#125;^&#123;t_2&#125;
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt
 &#92;leq
-&#92;int_{t_1}^{t_2}dt
+&#92;int_&#123;t_1&#125;^&#123;t_2&#125;dt
 =&#92;Delta t.
 &#92;]
 
@@ -170,7 +170,7 @@ Supposons maintenant que Simon et Kara partent en sens opposés, à la même vit
 
 Cela confirme qu’« avoir accéléré » ne suffit pas à déterminer qui vieillit le moins. Ce sont les trajectoires complètes, avec les événements de rencontre et la géométrie de l’espace-temps, qui déterminent le résultat.
 
-**À retenir :** une montre mesure le temps propre le long de sa ligne d’univers. La formule &#92;(d&#92;tau=dt&#92;sqrt{1-v^2/c^2}&#92;) découle de l’intervalle de Minkowski ; elle s’intègre sur toute la trajectoire, même si la vitesse varie. Pour comparer deux âges, il faut comparer les durées propres accumulées entre les mêmes événements de rencontre.
+**À retenir :** une montre mesure le temps propre le long de sa ligne d’univers. La formule &#92;(d&#92;tau=dt&#92;sqrt&#123;1-v^2/c^2&#125;&#92;) découle de l’intervalle de Minkowski ; elle s’intègre sur toute la trajectoire, même si la vitesse varie. Pour comparer deux âges, il faut comparer les durées propres accumulées entre les mêmes événements de rencontre.
 
 **Pour approfondir :** [où se trouve l’asymétrie ?](/knowledge-stories/atelier/asymetrie-paradoxe-jumeaux/) et [le principe de Mach et les référentiels](/knowledge-stories/atelier/inertie-referentiels-principe-mach/).
 
