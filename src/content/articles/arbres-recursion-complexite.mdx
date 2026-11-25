@@ -69,13 +69,13 @@ Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ;
 
 ### D’où viennent les trois sous-multiplications ?
 
-La construction algébrique a été détaillée dans l’article précédent, **[Karatsuba, trois produits au lieu de quatre](/knowledge-stories/atelier/karatsuba-multiplication/)** : le produit auxiliaire \\( (a+b)(c+d) \\), combiné aux produits \\(ac\\) et \\(bd\\), permet de retrouver la somme des produits croisés sans calculer séparément \\(ad\\) et \\(bc\\).
+La construction algébrique a été détaillée dans l’article précédent, **[Karatsuba, trois produits au lieu de quatre](/knowledge-stories/atelier/karatsuba-multiplication/)** : le produit auxiliaire &#92;( (a+b)(c+d) &#92;), combiné aux produits &#92;(ac&#92;) et &#92;(bd&#92;), permet de retrouver la somme des produits croisés sans calculer séparément &#92;(ad&#92;) et &#92;(bc&#92;).
 
 Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
 
-\\[
-p=ac, \\qquad q=bd, \\qquad r=(a+b)(c+d).
-\\]
+&#92;[
+p=ac, &#92;qquad q=bd, &#92;qquad r=(a+b)(c+d).
+&#92;]
 
 **Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
 
