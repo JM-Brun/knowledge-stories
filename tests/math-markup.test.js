@@ -29,6 +29,7 @@ test("Karatsuba complexity exponents use explicit TeX grouping", () => {
   assert.match(article, /3\^&#123;10&#125;=59&#92;,049/);
   assert.ok(lesson.includes("n^&#123;&#92;log_2 3&#125;"));
   assert.ok(lesson.includes("m_&#123;j+1&#125;"));
+  assert.ok(lesson.includes("&#92;boxed&#123;ad+bc=(a+b)(c+d)-ac-bd&#125;"));
 });
 
 test("classical multiplication complexity is consistently marked green", () => {
