@@ -70,30 +70,30 @@ Prenons deux opérandes de huit chiffres, déjà découpés comme dans la page p
 
 Avec une coupure après quatre chiffres, on obtient :
 
-\[
+&#92;[
 \begin{aligned}
 12\,345\,678 &= 1\,234\times 10^4+5\,678,\\
 87\,654\,321 &= 8\,765\times 10^4+4\,321.
 \end{aligned}
-\]
+&#92;]
 
 L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse est **la structure des trois appels** créés par l'appel courant.
 
 | Appel récursif | Opération | Tailles des opérandes |
 |---|---|---:|
-| \(p=ac\) | \(1\,234\times8\,765\) | 4 × 4 chiffres |
-| \(q=bd\) | \(5\,678\times4\,321\) | 4 × 4 chiffres |
-| \(r=(a+b)(c+d)\) | \(6\,912\times13\,086\) | 4 × 5 chiffres |
+| &#92;(p=ac&#92;) | &#92;(1\,234\times8\,765&#92;) | 4 × 4 chiffres |
+| &#92;(q=bd&#92;) | &#92;(5\,678\times4\,321&#92;) | 4 × 4 chiffres |
+| &#92;(r=(a+b)(c+d)&#92;) | &#92;(6\,912\times13\,086&#92;) | 4 × 5 chiffres |
 
-Le troisième appel est légèrement plus grand : \(c+d=13\,086\) a cinq chiffres à cause d'une retenue. Si \(T(m)\) désigne le coût d'un appel dont le plus long opérande comporte \(m\) chiffres, la trace concrète s'écrit donc :
+Le troisième appel est légèrement plus grand : &#92;(c+d=13\,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
 
-\[
+&#92;[
 T(8)=T_p(4)+T_q(4)+T_r(5)+O(8).
-\]
+&#92;]
 
-Les trois tailles 4, 4 et 5 sont toutes égales à \(8/2+O(1)\). À l'échelle asymptotique, cette différence d'un chiffre conduit au modèle équilibré \(T(n)=3T(n/2)+O(n)\), que nous allons justifier puis résoudre.
+Les trois tailles 4, 4 et 5 sont toutes égales à &#92;(8/2+O(1)&#92;). À l'échelle asymptotique, cette différence d'un chiffre conduit au modèle équilibré &#92;(T(n)=3T(n/2)+O(n)&#92;), que nous allons justifier puis résoudre.
 
-Le terme \(3T(n/2)\) comptera le coût des trois appels ; le terme \(O(n)\) comptera le travail effectué ici, sans récursion : former les deux sommes, soustraire les produits pour isoler le terme croisé et recomposer le résultat. Il reste à établir pourquoi ce travail local est linéaire et comment les trois appels se répètent aux niveaux suivants.
+Le terme &#92;(3T(n/2)&#92;) comptera le coût des trois appels ; le terme &#92;(O(n)&#92;) comptera le travail effectué ici, sans récursion : former les deux sommes, soustraire les produits pour isoler le terme croisé et recomposer le résultat. Il reste à établir pourquoi ce travail local est linéaire et comment les trois appels se répètent aux niveaux suivants.
 
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
@@ -121,7 +121,7 @@ Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ;
 
 Pour un opérande de &#92;(n&#92;) chiffres, on coupe la représentation en deux blocs aussi équilibrés que possible. Si &#92;(n&#92;) est pair, chacun a exactement &#92;(n/2&#92;) chiffres ; s’il est impair, leurs tailles diffèrent d’au plus un chiffre. On peut aussi compléter l’écriture par un zéro à gauche pour raisonner sur une longueur paire.
 
-Dans l’exemple suivi, les deux produits diagonaux portent sur des blocs de quatre chiffres, tandis que le produit auxiliaire reçoit un opérande de cinq chiffres. En général, les deux moitiés ont au plus \(\lceil n/2\rceil\) chiffres et leur somme au plus \(\lceil n/2\rceil+1\) : chaque sous-problème a donc une taille \(n/2+O(1)\). La notation \(T(n/2)\) est le **modèle équilibré simplifié** ; la section sur les tailles réelles précisera ce que cette approximation implique.
+Dans l’exemple suivi, les deux produits diagonaux portent sur des blocs de quatre chiffres, tandis que le produit auxiliaire reçoit un opérande de cinq chiffres. En général, les deux moitiés ont au plus &#92;(\lceil n/2\rceil&#92;) chiffres et leur somme au plus &#92;(\lceil n/2\rceil+1&#92;) : chaque sous-problème a donc une taille &#92;(n/2+O(1)&#92;). La notation &#92;(T(n/2)&#92;) est le **modèle équilibré simplifié** ; la section sur les tailles réelles précisera ce que cette approximation implique.
 
 ### 1. Ce que signifie la récurrence
 
@@ -191,7 +191,7 @@ Pour Karatsuba, les niveaux successifs comptent donc :
 
 <KaratsubaGrowth />
 
-Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau \(j\), il y a \(3^j\) appels, chacun portant sur environ \(n/2^j\) chiffres. Pour notre modèle à huit chiffres, cela donne successivement 1 appel de taille 8, 3 appels de taille 4, puis 9 appels de taille 2.
+Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau &#92;(j&#92;), il y a &#92;(3^j&#92;) appels, chacun portant sur environ &#92;(n/2^j&#92;) chiffres. Pour notre modèle à huit chiffres, cela donne successivement 1 appel de taille 8, 3 appels de taille 4, puis 9 appels de taille 2.
 
 Pour la <span className="term-common">méthode classique</span>, le tableau est identique en remplaçant &#92;(3^j&#92;) par &#92;(4^j&#92;).
 
@@ -259,11 +259,11 @@ Puisque &#92;(&#92;log_2(3)&#92;approx1&#123;,&#125;58496&#92;), les multiplicat
 
 Non. Elles ont lieu à chaque niveau de l’arbre. Il faut maintenant vérifier que leur coût total ne dépasse pas celui des multiplications.
 
-Reprenons les valeurs du tableau : pour \(n=8\), le travail local de Karatsuba vaut 8 unités à la racine, puis 12 (trois appels de taille 4), puis 18 (neuf appels de taille 2). On voit apparaître le facteur \(3/2\) entre deux niveaux : le nombre d’appels est multiplié par trois, tandis que la taille de chacun est divisée par deux.
+Reprenons les valeurs du tableau : pour &#92;(n=8&#92;), le travail local de Karatsuba vaut 8 unités à la racine, puis 12 (trois appels de taille 4), puis 18 (neuf appels de taille 2). On voit apparaître le facteur &#92;(3/2&#92;) entre deux niveaux : le nombre d’appels est multiplié par trois, tandis que la taille de chacun est divisée par deux.
 
-Au niveau \(j\) :
+Au niveau &#92;(j&#92;) :
 
-1. il y a \(3^j\) appels ;
+1. il y a &#92;(3^j&#92;) appels ;
 2. chaque appel manipule des blocs de &#92;(n/2^j&#92;) chiffres ;
 3. le coût des additions et soustractions d’un appel est donc &#92;(O(n/2^j)&#92;).
 
