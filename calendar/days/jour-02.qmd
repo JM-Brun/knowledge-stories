@@ -271,7 +271,6 @@ Si quelques observations portent presque tout le poids, $n_{\\mathrm{eff}}$ peut
 | Profils cible absents de la source | Collecte complémentaire ou restriction explicite du domaine d'usage | Que le modèle sait généraliser sans données ni hypothèses |
 | Sélection dépendant de variables non observées | Étude de sensibilité, données externes, hypothèses causales explicites | Qu'une pondération estimée sur les seules features observées élimine le biais |
 
-La validation doit donc préciser l'unité de généralisation et le mécanisme de collecte. Une validation aléatoire peut être correcte pour prédire de nouvelles lignes issues du même régime, mais trompeuse pour de nouveaux utilisateurs, de nouveaux sites ou une période future.
 
 ## À vous de raisonner
 
