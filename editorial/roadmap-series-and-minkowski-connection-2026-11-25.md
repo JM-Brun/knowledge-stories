@@ -282,7 +282,7 @@ Il existe un parallèle encore plus précis que la seule comparaison cercle / hy
 
 Pour les nombres complexes ordinaires, l'unité imaginaire vérifie \(i^2=-1\). Avec \(z=x+iy\), le produit par \(e^{i\theta}=\cos\theta+i\sin\theta\) réalise une rotation euclidienne et conserve \(x^2+y^2\).
 
-Pour les **nombres complexes déployés** (split-complex, aussi appelés nombres hyperboliques), on introduit une unité \(j\) telle que \(j^2=+1\), avec \(j\ne 1\). Pour \(w=u+jv\), la conjugaison \(u-jv\) donne la forme quadratique associée
+Pour les **nombres complexes déployés** (split-complex, aussi appelés nombres hyperboliques), on introduit une unité \(j\) telle que \(j^2=+1\), avec \(j\ne\pm1\). Pour \(w=u+jv\), la conjugaison \(u-jv\) donne la forme quadratique associée
 \[
 w\bar w=u^2-v^2.
 \]
