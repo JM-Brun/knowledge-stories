@@ -18,7 +18,7 @@ const articles = defineCollection({
     articleType: z.enum(["conceptual", "analysis", "tutorial", "reference"]).optional(),
     // Capacités observables que le lecteur doit acquérir.
     learningObjectives: z.array(z.string().trim().min(1)).default([]),
-    // Identifiants stables de concepts, destinés aux index et graphes de connaissances.
+    // Identifiants de concepts canoniques du Wiki Knowledge, destinés aux index et graphes.
     concepts: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les identifiants de concepts doivent être uniques.").default([]),
     // Slugs d’articles utiles avant lecture, sans en faire des prérequis bloquants.
     recommendedPrerequisites: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les prérequis recommandés doivent être uniques.").default([]),
