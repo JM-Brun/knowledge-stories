@@ -71,24 +71,24 @@ Prenons deux opérandes de huit chiffres, déjà découpés comme dans la page p
 Avec une coupure après quatre chiffres, on obtient :
 
 &#92;[
-\begin{aligned}
-12\,345\,678 &= 1\,234\times 10^4+5\,678,\\
-87\,654\,321 &= 8\,765\times 10^4+4\,321.
-\end{aligned}
+&#92;begin{aligned}
+12&#92;,345&#92;,678 &= 1&#92;,234&#92;times 10^4+5&#92;,678,&#92;&#92;
+87&#92;,654&#92;,321 &= 8&#92;,765&#92;times 10^4+4&#92;,321.
+&#92;end{aligned}
 &#92;]
 
 L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse est **la structure des trois appels** créés par l'appel courant.
 
 | Appel récursif | Opération | Tailles des opérandes |
 |---|---|---:|
-| &#92;(p=ac&#92;) | &#92;(1\,234\times8\,765&#92;) | 4 × 4 chiffres |
-| &#92;(q=bd&#92;) | &#92;(5\,678\times4\,321&#92;) | 4 × 4 chiffres |
-| &#92;(r=(a+b)(c+d)&#92;) | &#92;(6\,912\times13\,086&#92;) | 4 × 5 chiffres |
+| &#92;(p=ac&#92;) | &#92;(1&#92;,234&#92;times8&#92;,765&#92;) | 4 × 4 chiffres |
+| &#92;(q=bd&#92;) | &#92;(5&#92;,678&#92;times4&#92;,321&#92;) | 4 × 4 chiffres |
+| &#92;(r=(a+b)(c+d)&#92;) | &#92;(6&#92;,912&#92;times13&#92;,086&#92;) | 4 × 5 chiffres |
 
-Le troisième appel est légèrement plus grand : &#92;(c+d=13\,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
+Le troisième appel est légèrement plus grand : &#92;(c+d=13&#92;,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
 
 &#92;[
-T(8)=T_p(4)+T_q(4)+T_r(5)+O(8).
+T(8)=T(4)+T(4)+T(5)+O(8).
 &#92;]
 
 Les trois tailles 4, 4 et 5 sont toutes égales à &#92;(8/2+O(1)&#92;). À l'échelle asymptotique, cette différence d'un chiffre conduit au modèle équilibré &#92;(T(n)=3T(n/2)+O(n)&#92;), que nous allons justifier puis résoudre.
@@ -121,7 +121,7 @@ Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ;
 
 Pour un opérande de &#92;(n&#92;) chiffres, on coupe la représentation en deux blocs aussi équilibrés que possible. Si &#92;(n&#92;) est pair, chacun a exactement &#92;(n/2&#92;) chiffres ; s’il est impair, leurs tailles diffèrent d’au plus un chiffre. On peut aussi compléter l’écriture par un zéro à gauche pour raisonner sur une longueur paire.
 
-Dans l’exemple suivi, les deux produits diagonaux portent sur des blocs de quatre chiffres, tandis que le produit auxiliaire reçoit un opérande de cinq chiffres. En général, les deux moitiés ont au plus &#92;(\lceil n/2\rceil&#92;) chiffres et leur somme au plus &#92;(\lceil n/2\rceil+1&#92;) : chaque sous-problème a donc une taille &#92;(n/2+O(1)&#92;). La notation &#92;(T(n/2)&#92;) est le **modèle équilibré simplifié** ; la section sur les tailles réelles précisera ce que cette approximation implique.
+Dans l’exemple suivi, les deux produits diagonaux portent sur des blocs de quatre chiffres, tandis que le produit auxiliaire reçoit un opérande de cinq chiffres. En général, les deux moitiés ont au plus &#92;(&#92;lceil n/2&#92;rceil&#92;) chiffres et leur somme au plus &#92;(&#92;lceil n/2&#92;rceil+1&#92;) : chaque sous-problème a donc une taille &#92;(n/2+O(1)&#92;). La notation &#92;(T(n/2)&#92;) est le **modèle équilibré simplifié** ; la section sur les tailles réelles précisera ce que cette approximation implique.
 
 ### 1. Ce que signifie la récurrence
 
