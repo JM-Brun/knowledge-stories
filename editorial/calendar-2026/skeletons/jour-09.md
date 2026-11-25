@@ -128,7 +128,13 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 ## 7. Vérification des acquis
 
-**Activité proposée :** Choisir une perte pour un scénario à coûts asymétriques et justifier ce que le modèle sera incité à privilégier.
+**Activité proposée — relier la perte à la décision :**
+
+1. Reprendre \(0,0,0,0,10\) et vérifier que la moyenne minimise la somme des carrés tandis que la médiane minimise la somme des valeurs absolues.
+2. Dans un système d'alerte de panne, expliquer pourquoi une perte qui traite de la même façon faux négatifs et faux positifs peut être inadéquate si leurs coûts diffèrent fortement.
+3. Distinguer trois leviers : changer la perte d'entraînement, déplacer le seuil de décision, changer la métrique de compte rendu. Dans quel cas chacun modifie-t-il réellement le comportement ou seulement son évaluation ?
+
+La correction doit éviter la réponse simpliste « prendre toujours la perte qui pénalise le plus l'erreur coûteuse » : préciser la cible, la distribution, la calibration éventuelle et la règle de décision.
 
 Prévoir 2 à 4 questions graduées :
 1. compréhension ou calcul direct ;
