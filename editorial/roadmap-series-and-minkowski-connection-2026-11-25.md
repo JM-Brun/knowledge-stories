@@ -276,7 +276,7 @@ La connexion pédagogique forte est donc :
 - racines de l'unité : symétries circulaires exploitées par la DFT ;
 - rapidité : paramètre additif des boosts colinéaires, analogue formellement à l'angle des rotations.
 
-### 7.3 Le pont algébrique le plus précis : les nombres complexes dédoublés
+### 7.3 Le pont algébrique le plus précis : les nombres complexes déployés
 
 Il existe un parallèle encore plus précis que la seule comparaison cercle / hyperbole. Il faut toutefois introduire une algèbre distincte des nombres complexes usuels.
 
