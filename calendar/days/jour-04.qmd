@@ -4,7 +4,7 @@ subtitle: "Jour 4 · Les variables ne varient pas toujours indépendamment"
 description: "Comprendre comment la dépendance modifie l'incertitude d'un agrégat, d'une moyenne ou d'un portefeuille de mesures."
 ---
 
-> **En 7 à 9 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
+> **En 10 à 12 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
 >
 > **Prérequis** — Connaître la variance et la moyenne. La covariance et la corrélation sont définies à partir d'un exemple numérique.
 >
@@ -12,13 +12,13 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 
 ## L'idée en une minute
 
-La variance mesure l'amplitude des fluctuations d'une somme. Si deux variables fluctuent ensemble, leurs écarts se renforcent ; si elles évoluent en sens opposé, ils peuvent se compenser. La covariance quantifie cette contribution commune. Ignorer ce terme revient à supposer, souvent à tort, que les variables ne covarient pas.
+La variance mesure l'amplitude des fluctuations d'une somme. Si deux variables fluctuent ensemble, leurs écarts se renforcent ; si elles évoluent en sens opposé, ils peuvent se compenser. La covariance quantifie le sens et l'ampleur de cette variation commune. Elle intervient dans la variance d'une somme parce que le carré d'une somme contient un terme croisé. Elle ne décrit toutefois pas toute forme de dépendance.
 
 ## La question
 
 Pourquoi la variance de \(X+Y\) n'est-elle pas toujours égale à la somme des variances de \(X\) et de \(Y\) ? Parce que la somme dépend aussi de la manière dont les deux variables fluctuent ensemble.
 
-## Un cas parfaitement dépendant
+## Un exemple calculé : deux variables qui évoluent ensemble
 
 Considérons trois couples équiprobables :
 
@@ -26,46 +26,80 @@ Considérons trois couples équiprobables :
 (X,Y)\in\{(1,2),(2,4),(3,6)\}.
 \]
 
-Ici, \(Y=2X\). Les moyennes sont \(\mathbb E[X]=2\) et \(\mathbb E[Y]=4\). En utilisant le diviseur \(n=3\) pour les variances et la covariance empiriques :
+Ici, \(Y=2X\). Les moyennes sont \(\mathbb E[X]=2\) et \(\mathbb E[Y]=4\). Pour rendre les calculs transparents, traitons ces trois couples comme une distribution empirique équipondérée : chaque couple a un poids de \(1/3\).
+
+La covariance est la moyenne des produits des écarts à leurs moyennes :
 
 \[
-\operatorname{Var}_n(X)=\frac23,\quad
-\operatorname{Var}_n(Y)=\frac83,\quad
-\operatorname{Cov}_n(X,Y)=\frac43.
+\operatorname{Cov}(X,Y)
+=\mathbb E[(X-\mu_X)(Y-\mu_Y)],
+\]
+où \(\mu_X=\mathbb E[X]\) et \(\mu_Y=\mathbb E[Y]\). Pour cette distribution empirique, l'espérance est simplement la moyenne des trois valeurs.
+
+| Couple | Écart de X à 2 | Écart de Y à 4 | Produit des écarts |
+|---|---:|---:|---:|
+| (1, 2) | −1 | −2 | 2 |
+| (2, 4) | 0 | 0 | 0 |
+| (3, 6) | 1 | 2 | 2 |
+
+On obtient donc :
+
+\[
+\operatorname{Cov}_n(X,Y)=\frac{2+0+2}{3}=\frac43.
 \]
 
-Ces trois couples sont traités ici comme la distribution empirique équipondérée de l'exemple : on calcule donc ses moments avec le diviseur \(n\). Si on les interprétait plutôt comme un échantillon destiné à estimer les moments d'une population, les estimateurs corrigés utiliseraient \(n-1\) pour la variance et la covariance. Le coefficient de corrélation, lui, reste égal à 1.
+Avec la même convention de diviseur \(n=3\) :
 
+\[
+\operatorname{Var}_n(X)=\frac23,\qquad
+\operatorname{Var}_n(Y)=\frac83.
+\]
 
-La corrélation empirique vaut 1. Les deux variables augmentent ensemble de manière parfaitement linéaire.
+La corrélation, qui normalise la covariance par les écarts-types, vaut :
 
-La formule de la variance d'une somme se déduit en développant le carré centré :
+\[
+\rho_n
+=\frac{\operatorname{Cov}_n(X,Y)}
+{\sqrt{\operatorname{Var}_n(X)\operatorname{Var}_n(Y)}}=1.
+\]
+
+Les variables évoluent ensemble de manière parfaitement linéaire. La covariance vaut \(4/3\), tandis que la corrélation vaut 1 : la première dépend des unités de mesure, la seconde est sans unité et comprise entre −1 et 1.
+
+**Convention statistique.** Ici, on décrit exactement les trois couples équiprobables et on divise par \(n\). Si ces couples étaient un échantillon utilisé pour estimer les moments d'une population inconnue, on utiliserait les estimateurs corrigés avec \(n-1\) pour la variance et la covariance. La corrélation reste égale à 1 dans cet exemple.
+
+### D'où vient le terme de covariance ?
+
+Posons \(\mu_X=\mathbb E[X]\) et \(\mu_Y=\mathbb E[Y]\). En développant le carré centré :
 
 \[
 \begin{aligned}
 \operatorname{Var}(X+Y)
 &=\mathbb E\left[((X-\mu_X)+(Y-\mu_Y))^2\right]\\
+&=\operatorname{Var}(X)+\operatorname{Var}(Y)\\
+&\quad+2\mathbb E[(X-\mu_X)(Y-\mu_Y)]\\
 &=\operatorname{Var}(X)+\operatorname{Var}(Y)
 +2\operatorname{Cov}(X,Y).
 \end{aligned}
 \]
 
-Le terme croisé apparaît parce que le carré d'une somme contient deux fois le produit des écarts. La covariance n'est donc pas une correction ajoutée arbitrairement : elle est déjà présente dans l'algèbre de la somme.
+Le facteur 2 vient des deux termes croisés identiques dans le développement. La covariance n'est donc pas une correction ajoutée arbitrairement : elle est déjà présente dans l'algèbre de la somme.
 
-On obtient donc :
+Pour nos trois couples, \(X+Y\) prend les valeurs 3, 6 et 9, de moyenne 6. Sa variance vaut :
 
 \[
-\operatorname{Var}_n(X+Y)=\frac23+\frac83+2\times\frac43=6.
+\operatorname{Var}_n(X+Y)
+=\frac23+\frac83+2\times\frac43=6.
 \]
 
-Oublier la covariance donnerait \(10/3\), soit presque deux fois moins.
+Si l'on ignorait la covariance, on calculerait seulement \(2/3+8/3=10/3\). On sous-estimerait ici la variance réelle d'un facteur 1,8. Ce n'est pas une petite correction : le terme croisé est du même ordre que les variances individuelles.
 
 ## Trois régimes de dépendance
 
-Pour deux variables de même variance \(\sigma^2\), la variance de leur moyenne vaut :
+Pour deux variables de même variance \(\sigma^2\), on a \(\operatorname{Cov}(X,Y)=\rho\sigma^2\). En reportant cette égalité dans la formule de la variance d'une somme, puis en divisant par quatre :
 
 \[
 \operatorname{Var}\left(\frac{X+Y}{2}\right)
+=\frac14(2\sigma^2+2\rho\sigma^2)
 =\frac{\sigma^2}{2}(1+\rho),
 \]
 
@@ -78,9 +112,9 @@ où \(\rho\) est leur corrélation, si les variances sont finies et non nulles.
 La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**.
 
 <figure>
-<svg viewBox="0 0 760 245" role="img" aria-labelledby="cov-title cov-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="cov-title">Trois structures de covariance entre deux variables</title>
-  <desc id="cov-desc">Trois petits nuages de points montrent une corrélation positive, nulle et négative. Les marges peuvent avoir une dispersion comparable, mais la somme des deux variables ne présente pas la même variance.</desc>
+<svg viewBox="0 0 760 245" role="img" aria-labelledby="corr-title corr-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="corr-title">Trois structures de corrélation entre deux variables</title>
+  <desc id="corr-desc">Trois schémas de nuages de points illustrent une corrélation positive, proche de zéro et négative.</desc>
   <rect x="1" y="1" width="758" height="243" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <g fill="#334155" font-size="13" font-weight="700" text-anchor="middle"><text x="130" y="26">Corrélation positive</text><text x="380" y="26">Corrélation nulle</text><text x="630" y="26">Corrélation négative</text></g>
   <g stroke="#94a3b8" stroke-width="1"><rect x="25" y="38" width="210" height="165" fill="#fff"/><rect x="275" y="38" width="210" height="165" fill="#fff"/><rect x="525" y="38" width="210" height="165" fill="#fff"/></g>
@@ -90,40 +124,56 @@ La formule met en évidence une idée souvent oubliée : **multiplier les mesure
     <circle cx="555" cy="62" r="5"/><circle cx="582" cy="88" r="5"/><circle cx="608" cy="111" r="5"/><circle cx="635" cy="137" r="5"/><circle cx="664" cy="160" r="5"/><circle cx="702" cy="181" r="5"/>
   </g>
   <g stroke="#b45309" stroke-width="2" stroke-dasharray="5 4"><path d="M45 186 L215 52"/><path d="M545 52 L715 186"/></g>
-  <g fill="#475569" font-size="11" text-anchor="middle"><text x="130" y="222">Cov(X,Y) &gt; 0</text><text x="380" y="222">Cov(X,Y) ≈ 0</text><text x="630" y="222">Cov(X,Y) &lt; 0</text></g>
+  <g fill="#475569" font-size="11" text-anchor="middle"><text x="130" y="222">Corr(X,Y) &gt; 0</text><text x="380" y="222">Corr(X,Y) ≈ 0</text><text x="630" y="222">Corr(X,Y) &lt; 0</text></g>
 </svg>
-<figcaption>La covariance déplace la variance de la somme : elle l'augmente si les variables fluctuent ensemble, la réduit si elles se compensent.</figcaption>
+<figcaption>Ces schémas illustrent le signe de la corrélation. Comme les écarts-types sont positifs, la covariance a le même signe ; c'est elle qui intervient dans la variance de la somme. Schémas qualitatifs, pas données observées.</figcaption>
 </figure>
 
-## Une visualisation mentale : erreurs communes et erreurs propres
+## Pourquoi dix capteurs ne valent pas dix mesures indépendantes
 
-Imaginons dix capteurs qui mesurent le même phénomène. Chacun possède une erreur propre, mais ils subissent aussi tous une perturbation commune : une variation de température dans la pièce, une horloge mal synchronisée ou une calibration partagée.
-
-Moyenner les dix mesures peut réduire les erreurs indépendantes propres à chaque capteur. En revanche, la perturbation commune subsiste dans la moyenne. La redondance ne remplace donc pas la diversité des sources d'erreur.
-
-La même logique s'applique à un ensemble de modèles entraînés sur des données très proches : dix prédicteurs fortement corrélés ne valent pas nécessairement dix sources d'information indépendantes.
-
-### Le cas général : des poids différents
-
-La formule précédente concerne une somme à poids égaux. Pour un agrégat \(S=\sum_i w_iX_i\), chaque covariance entre deux composantes contribue avec le produit de leurs poids :
+Imaginons dix capteurs qui mesurent le même phénomène. Chaque mesure contient une perturbation commune \(U\) — par exemple une fluctuation de température affectant tous les appareils — et une erreur propre \(\varepsilon_i\) :
 
 \[
-\operatorname{Var}(S)
-=\sum_i w_i^2\operatorname{Var}(X_i)
-+2\sum_{i<j}w_iw_j\operatorname{Cov}(X_i,X_j).
+X_i=\theta+U+\varepsilon_i.
 \]
 
-Le facteur 2 vient des deux termes symétriques \((i,j)\) et \((j,i)\) dans \(w^\top\Sigma w\). Un poids élevé amplifie donc à la fois la variance propre de la composante et ses covariances avec les autres. Deux agrégats ayant les mêmes poids et les mêmes variances marginales peuvent avoir des incertitudes différentes si leurs structures de dépendance diffèrent.
+Supposons, pour isoler le mécanisme, que \(U\) soit centrée, que les \(\varepsilon_i\) soient centrées, indépendantes entre elles et indépendantes de \(U\), avec :
+
+\[
+\operatorname{Var}(U)=\tau^2,\qquad
+\operatorname{Var}(\varepsilon_i)=\sigma^2.
+\]
+
+La moyenne des \(m\) capteurs est :
+
+\[
+\overline X=\theta+U+\frac1m\sum_{i=1}^{m}\varepsilon_i.
+\]
+
+Par indépendance des erreurs propres :
+
+\[
+\operatorname{Var}(\overline X)
+=\tau^2+\frac{\sigma^2}{m}.
+\]
+
+Augmenter le nombre de capteurs réduit la partie indépendante \(\sigma^2/m\), mais ne réduit pas la perturbation commune \(\tau^2\). La variance atteint donc un plancher. C'est une façon concrète de voir pourquoi la corrélation entre mesures limite le gain du moyennage.
+
+**Ne confondons pas biais et variance.** Si tous les capteurs partagent plutôt un décalage systématique constant \(b\), alors \(\mathbb E[X_i]=\theta+b\) : la moyenne conserve ce biais. Un biais commun n'est pas une variance ; le moyennage ne le corrige pas non plus.
+
+Le même raisonnement vaut pour des modèles qui partagent les mêmes données, variables ou défauts : augmenter leur nombre ne garantit pas de diversifier leurs erreurs.
 
 ## De la somme à une combinaison pondérée
 
-Pour un vecteur aléatoire \(X\) et des poids \(w\), la variance de l'agrégat linéaire s'écrit :
+La formule précédente concerne deux variables à poids égaux. Pour un vecteur aléatoire \(X=(X_1,\ldots,X_m)^\top\) et des poids \(w=(w_1,\ldots,w_m)^\top\), la variance de l'agrégat linéaire s'écrit :
 
 \[
 \operatorname{Var}(w^\top X)=w^\top\Sigma w,
 \]
 
-où \(\Sigma\) est la matrice de covariance. Les termes diagonaux représentent les variances individuelles ; les termes hors diagonale représentent les covariances. En développant cette expression, on obtient :
+où \(\Sigma\) est la matrice de covariance. Ses termes diagonaux sont les variances individuelles ; ses termes hors diagonale sont les covariances entre paires de variables.
+
+En développant :
 
 \[
 \operatorname{Var}\left(\sum_i w_iX_i\right)
@@ -131,9 +181,9 @@ où \(\Sigma\) est la matrice de covariance. Les termes diagonaux représentent 
 +2\sum_{i<j}w_iw_j\operatorname{Cov}(X_i,X_j).
 \]
 
-Le facteur 2 vient des deux termes symétriques \((i,j)\) et \((j,i)\) dans la matrice. Chaque covariance contribue donc avec le produit des poids concernés. Un poids élevé amplifie à la fois la variance propre de la composante et ses covariances avec les autres. Deux agrégats ayant les mêmes poids et les mêmes variances marginales peuvent avoir des incertitudes différentes si leurs structures de dépendance diffèrent.
+Le facteur 2 vient des deux termes symétriques \((i,j)\) et \((j,i)\) dans \(w^\top\Sigma w\). Chaque covariance contribue avec le produit des poids concernés. Un poids élevé amplifie donc à la fois la variance propre de la composante et ses covariances avec les autres.
 
-Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs, en portefeuille financier et en agrégation de prédictions. La diversification réduit le risque lorsque les composantes ne sont pas parfaitement corrélées ; elle ne supprime pas un risque commun à toutes.
+Cette écriture est centrale en propagation d'incertitude, en fusion de capteurs et en agrégation de prédictions. En finance, elle intervient aussi dans le calcul du risque d'un portefeuille. La diversification peut réduire la variance lorsque les composantes ne sont pas parfaitement corrélées ; elle ne supprime pas un risque commun à toutes.
 
 ## Covariance nulle n'est pas indépendance
 
@@ -146,18 +196,20 @@ Prenons \(X\) uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\). On a :
 \mathbb E[XY]=0.
 \]
 
-Ainsi, \(\operatorname{Cov}(X,Y)=0\), alors que \(Y\) est entièrement déterminée par \(X\). Les variables sont dépendantes malgré une covariance nulle.
+Ainsi, \(\operatorname{Cov}(X,Y)=\mathbb E[XY]-\mathbb E[X]\mathbb E[Y]=0\). Pourtant, connaître \(X\) détermine exactement \(Y\) : les variables sont dépendantes malgré une covariance nulle.
 
 ## Transfert : agréger des modèles ou des mesures
 
-Dans un système de mesure, les erreurs communes peuvent dominer le gain apporté par plusieurs capteurs. En ML, les erreurs de plusieurs modèles peuvent être corrélées parce qu'ils partagent les mêmes données, variables ou biais inductifs.
+Dans un ensemble de modèles, considérons les erreurs de prédiction \(E_i=\widehat Y_i-Y\). La variance de l'erreur moyenne dépend des covariances entre ces erreurs, exactement comme pour les capteurs. Si les modèles se trompent sur les mêmes observations, leur moyenne apporte moins de réduction de variance que si leurs erreurs se compensent partiellement.
 
-Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes au même endroit. Mais la diversité doit être évaluée sur les erreurs, pas déduite du nombre de modèles.
+Cela ne signifie pas qu'une faible covariance garantit un bon ensemble : les modèles peuvent partager un biais, être mal calibrés ou être individuellement peu performants. Il faut donc examiner les résidus ou erreurs sur un jeu de validation commun, et pas seulement compter les modèles ou comparer leurs prédictions entre elles.
+
+La règle opérationnelle est simple : **évaluer la diversité des erreurs, pas le nombre de prédicteurs.**
 
 ## À vous de raisonner
 
 1. Que devient la variance de la moyenne de deux variables identiques parfaitement corrélées ?
-2. Pourquoi dix capteurs soumis au même biais ne corrigent-ils pas ce biais par moyennage ?
+2. Dans le modèle des capteurs, quelle partie de la variance diminue quand on augmente leur nombre, et quelle partie demeure ? Pourquoi un biais constant commun pose-t-il un problème différent ?
 3. Que représente la matrice \(\Sigma\) dans \(\operatorname{Var}(w^\top X)\) ?
 4. Donnez un exemple de variables dépendantes mais de covariance nulle.
 
@@ -165,7 +217,7 @@ Une moyenne d'ensemble est utile lorsque les erreurs ne se produisent pas toutes
 <summary>Afficher la solution expliquée</summary>
 
 1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
-2. Le biais commun est présent dans chaque mesure et donc aussi dans leur moyenne.
+2. La composante indépendante diminue comme \(\sigma^2/m\), mais la perturbation commune \(\tau^2\) demeure. Un biais constant déplace l'espérance : il n'est pas une variance et reste présent après moyennage.
 3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
 4. \(X\) est uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\) : \(Y\) dépend de \(X\), mais leur covariance est nulle.
 
