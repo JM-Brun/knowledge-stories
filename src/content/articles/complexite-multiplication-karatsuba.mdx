@@ -59,13 +59,13 @@ Si ces notions sont nouvelles, ou si vous souhaitez les réutiliser sur d’autr
 
 ### Rappel algébrique : pourquoi trois produits suffisent
 
-Écrivons les deux entiers sous la forme \(x=aB+b\) et \(y=cB+d\), où \(B=10^m\) est la puissance de dix correspondant à la largeur du bloc faible. Le développement donne :
+Écrivons les deux entiers sous la forme &#92;(x=aB+b&#92;) et &#92;(y=cB+d&#92;), où &#92;(B=10^m&#92;) est la puissance de dix correspondant à la largeur du bloc faible. Le développement donne :
 
 &#92;[
 xy=acB^2+(ad+bc)B+bd.
 &#92;]
 
-La méthode directe calcule séparément les quatre produits \(ac\), \(ad\), \(bc\) et \(bd\). Karatsuba observe que :
+La méthode directe calcule séparément les quatre produits &#92;(ac&#92;), &#92;(ad&#92;), &#92;(bc&#92;) et &#92;(bd&#92;). Karatsuba observe que :
 
 &#92;[
 (a+b)(c+d)=ac+ad+bc+bd,
@@ -74,10 +74,10 @@ La méthode directe calcule séparément les quatre produits \(ac\), \(ad\), \(b
 d'où l'identité centrale :
 
 &#92;[
-\boxed{ad+bc=(a+b)(c+d)-ac-bd}.
+&#92;boxed{ad+bc=(a+b)(c+d)-ac-bd}.
 &#92;]
 
-Il suffit donc de calculer trois produits, \(p=ac\), \(q=bd\) et \(r=(a+b)(c+d)\), puis de former \(r-p-q\). C'est cette réduction de quatre multiplications de blocs à trois qui modifie la récurrence ; les additions et soustractions supplémentaires seront comptées comme travail local.
+Il suffit donc de calculer trois produits, &#92;(p=ac&#92;), &#92;(q=bd&#92;) et &#92;(r=(a+b)(c+d)&#92;), puis de former &#92;(r-p-q&#92;). C'est cette réduction de quatre multiplications de blocs à trois qui modifie la récurrence ; les additions et soustractions supplémentaires seront comptées comme travail local.
 
 
 
@@ -252,14 +252,14 @@ Les produits &#92;(ac&#92;) et &#92;(bd&#92;) portent donc sur des blocs d’env
 
 #### Contrepoint numérique : une somme sans retenue
 
-Gardons le premier opérande de l'exemple principal, mais remplaçons le second par \(12\,344\,321\). Le découpage donne alors \(a=1\,234\), \(b=5\,678\), \(c=1\,234\) et \(d=4\,321\). Les sommes qui forment le produit auxiliaire sont :
+Gardons le premier opérande de l'exemple principal, mais remplaçons le second par &#92;(12&#92;,344&#92;,321&#92;). Le découpage donne alors &#92;(a=1&#92;,234&#92;), &#92;(b=5&#92;,678&#92;), &#92;(c=1&#92;,234&#92;) et &#92;(d=4&#92;,321&#92;). Les sommes qui forment le produit auxiliaire sont :
 
 &#92;[
-a+b=1\,234+5\,678=6\,912,\qquad
-c+d=1\,234+4\,321=5\,555.
+a+b=1&#92;,234+5&#92;,678=6&#92;,912,&#92;qquad
+c+d=1&#92;,234+4&#92;,321=5&#92;,555.
 &#92;]
 
-Elles restent toutes deux sur quatre chiffres. Dans l'exemple principal, \(c+d=8\,765+4\,321=13\,086\) en demandait cinq. **La seule information utile ici est la taille des opérandes du troisième sous-problème** : recalculer les produits et le résultat final n'apporterait rien à l'analyse de complexité. Ce contrepoint confirme que le débordement dépend des valeurs, alors que la borne \(n/2+O(1)\) reste valable dans les deux cas.
+Elles restent toutes deux sur quatre chiffres. Dans l'exemple principal, &#92;(c+d=8&#92;,765+4&#92;,321=13&#92;,086&#92;) en demandait cinq. **La seule information utile ici est la taille des opérandes du troisième sous-problème** : recalculer les produits et le résultat final n'apporterait rien à l'analyse de complexité. Ce contrepoint confirme que le débordement dépend des valeurs, alors que la borne &#92;(n/2+O(1)&#92;) reste valable dans les deux cas.
 
 ### 1. Ce que signifie la récurrence
 
