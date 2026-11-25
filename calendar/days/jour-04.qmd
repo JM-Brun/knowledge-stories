@@ -58,9 +58,9 @@ Avec la même convention de diviseur \(n=3\) :
 La corrélation, qui normalise la covariance par les écarts-types, vaut :
 
 \[
-\rho_{X,Y}
-=\frac{\operatorname{Cov}(X,Y)}
-{\sqrt{\operatorname{Var}(X)\operatorname{Var}(Y)}}=1.
+\rho_n
+=\frac{\operatorname{Cov}_n(X,Y)}
+{\sqrt{\operatorname{Var}_n(X)\operatorname{Var}_n(Y)}}=1.
 \]
 
 Les variables évoluent ensemble de manière parfaitement linéaire. La covariance vaut \(4/3\), tandis que la corrélation vaut 1 : la première dépend des unités de mesure, la seconde est sans unité et comprise entre −1 et 1.
@@ -95,10 +95,11 @@ Si l'on ignorait la covariance, on calculerait seulement \(2/3+8/3=10/3\). On so
 
 ## Trois régimes de dépendance
 
-Pour deux variables de même variance \(\sigma^2\), la variance de leur moyenne vaut :
+Pour deux variables de même variance \(\sigma^2\), on a \(\operatorname{Cov}(X,Y)=\rho\sigma^2\). En reportant cette égalité dans la formule de la variance d'une somme, puis en divisant par quatre :
 
 \[
 \operatorname{Var}\left(\frac{X+Y}{2}\right)
+=\frac14(2\sigma^2+2\rho\sigma^2)
 =\frac{\sigma^2}{2}(1+\rho),
 \]
 
@@ -111,9 +112,9 @@ où \(\rho\) est leur corrélation, si les variances sont finies et non nulles.
 La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**.
 
 <figure>
-<svg viewBox="0 0 760 245" role="img" aria-labelledby="cov-title cov-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="cov-title">Trois structures de covariance entre deux variables</title>
-  <desc id="cov-desc">Trois petits nuages de points montrent une corrélation positive, nulle et négative. Les marges peuvent avoir une dispersion comparable, mais la somme des deux variables ne présente pas la même variance.</desc>
+<svg viewBox="0 0 760 245" role="img" aria-labelledby="corr-title corr-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="corr-title">Trois structures de corrélation entre deux variables</title>
+  <desc id="corr-desc">Trois schémas de nuages de points illustrent une corrélation positive, proche de zéro et négative.</desc>
   <rect x="1" y="1" width="758" height="243" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <g fill="#334155" font-size="13" font-weight="700" text-anchor="middle"><text x="130" y="26">Corrélation positive</text><text x="380" y="26">Corrélation nulle</text><text x="630" y="26">Corrélation négative</text></g>
   <g stroke="#94a3b8" stroke-width="1"><rect x="25" y="38" width="210" height="165" fill="#fff"/><rect x="275" y="38" width="210" height="165" fill="#fff"/><rect x="525" y="38" width="210" height="165" fill="#fff"/></g>
@@ -123,9 +124,9 @@ La formule met en évidence une idée souvent oubliée : **multiplier les mesure
     <circle cx="555" cy="62" r="5"/><circle cx="582" cy="88" r="5"/><circle cx="608" cy="111" r="5"/><circle cx="635" cy="137" r="5"/><circle cx="664" cy="160" r="5"/><circle cx="702" cy="181" r="5"/>
   </g>
   <g stroke="#b45309" stroke-width="2" stroke-dasharray="5 4"><path d="M45 186 L215 52"/><path d="M545 52 L715 186"/></g>
-  <g fill="#475569" font-size="11" text-anchor="middle"><text x="130" y="222">Cov(X,Y) &gt; 0</text><text x="380" y="222">Cov(X,Y) ≈ 0</text><text x="630" y="222">Cov(X,Y) &lt; 0</text></g>
+  <g fill="#475569" font-size="11" text-anchor="middle"><text x="130" y="222">Corr(X,Y) &gt; 0</text><text x="380" y="222">Corr(X,Y) ≈ 0</text><text x="630" y="222">Corr(X,Y) &lt; 0</text></g>
 </svg>
-<figcaption>La covariance déplace la variance de la somme : elle l'augmente si les variables fluctuent ensemble, la réduit si elles se compensent.</figcaption>
+<figcaption>Ces schémas illustrent le signe de la corrélation. Comme les écarts-types sont positifs, la covariance a le même signe ; c'est elle qui intervient dans la variance de la somme. Schémas qualitatifs, pas données observées.</figcaption>
 </figure>
 
 ## Pourquoi dix capteurs ne valent pas dix mesures indépendantes
@@ -195,7 +196,7 @@ Prenons \(X\) uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\). On a :
 \mathbb E[XY]=0.
 \]
 
-Ainsi, \(\operatorname{Cov}(X,Y)=0\), alors que \(Y\) est entièrement déterminée par \(X\). Les variables sont dépendantes malgré une covariance nulle.
+Ainsi, \(\operatorname{Cov}(X,Y)=\mathbb E[XY]-\mathbb E[X]\mathbb E[Y]=0\). Pourtant, connaître \(X\) détermine exactement \(Y\) : les variables sont dépendantes malgré une covariance nulle.
 
 ## Transfert : agréger des modèles ou des mesures
 
@@ -216,7 +217,7 @@ La règle opérationnelle est simple : **évaluer la diversité des erreurs, pas
 <summary>Afficher la solution expliquée</summary>
 
 1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
-2. La composante indépendante diminue comme \\(\\sigma^2/m\\), mais la perturbation commune \\(\\tau^2\\) demeure. Un biais constant déplace l'espérance : il n'est pas une variance et reste présent après moyennage.
+2. La composante indépendante diminue comme \(\sigma^2/m\), mais la perturbation commune \(\tau^2\) demeure. Un biais constant déplace l'espérance : il n'est pas une variance et reste présent après moyennage.
 3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
 4. \(X\) est uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\) : \(Y\) dépend de \(X\), mais leur covariance est nulle.
 
