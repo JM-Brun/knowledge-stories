@@ -178,7 +178,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
   5. Calculer $γ=5/3$, puis 10 ans pour la station et 6 ans pour le voyageur.
 - **Claims et preuves publiques :** calcul des temps propres ; da Câmara et al. (2025) borne explicitement la propriété de maximalité au Minkowski simplement connexe dans le scénario considéré.
 - **Démonstration ou calcul à développer :** preuve élémentaire de maximalité dans $R^{1,3}$, avec mêmes événements de départ et d'arrivée et trajectoires temporelles admissibles.
-- **Exemple vérifiable :** vitesse constante par morceaux à (0{,}8c), puis un profil de vitesse variable simple pour montrer que l'intégrale dépend de toute la trajectoire.
+- **Exemple vérifiable :** vitesse constante par morceaux à $0,8c$, puis un profil de vitesse variable simple pour montrer que l'intégrale dépend de toute la trajectoire.
 - **Contre-exemple / limite / idée fausse :** ne pas transformer la maximalité en une loi sur toute géodésique de tout espace-temps ; Barrow–Levin et Gomes illustrent des limites topologiques ou géométriques distinctes.
 - **Média envisagé et fonction pédagogique :** diagramme de lignes d'univers accompagné d'un calcul intégral, sans substituer une analogie spatiale à la métrique.
 - **Transition vers la suite :** « Les âges finaux sont maintenant établis ; les signaux reçus répondent à une autre question. »
@@ -265,9 +265,9 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 | Synchronisation et transformation de Lorentz | Fondations | Fondations et simultanéité | Dérivation depuis les postulats et application | Calculer une transformation avec une autre vitesse | Construire une simultanéité nouvelle | Partiel actuellement ; fondations manquantes |
 | Simultanéité à distance | Simultanéité | Simultanéité | Calcul 1,8 / 8,2 ans | Prédire le signe avant substitution | Changer vitesse et position du demi-tour | Présent ; conventions et exercices à renforcer |
 | Temps propre | Fondations et temps propre | Temps propre | Dérivation depuis l'intervalle et intégrale | Calcul guidé à vitesse variable | Comparer une trajectoire non uniforme | Présent ; démonstration à consolider |
-| Maximalité dans Minkowski | Temps propre | Temps propre | Inégalité de l'intégrale dans (mathbb{R}^{1,3}) | Identifier les hypothèses du théorème | Distinguer Minkowski, topologie compacte et courbure | Partiel ; domaine à préciser |
+| Maximalité dans Minkowski | Temps propre | Temps propre | Inégalité de l'intégrale dans $ℝ^{1,3}$ | Identifier les hypothèses du théorème | Distinguer Minkowski, topologie compacte et courbure | Partiel ; domaine à préciser |
 | Asymétrie et accélération | Asymétrie | Asymétrie | Comparaison de référentiels successifs et trajets miroirs | Diagnostiquer l'erreur « accélération = pénalité » | Appliquer à un profil d'accélération fini | Présent ; transitions à clarifier |
-| Signaux et Doppler | Article facultatif | Article Doppler | Calcul des facteurs et tops reçus | Distinguer émission, réception, simultanéité | Modifier (eta) et le sens du mouvement | Présent ; conventions à expliciter |
+| Signaux et Doppler | Article facultatif | Article Doppler | Calcul des facteurs et tops reçus | Distinguer émission, réception, simultanéité | Modifier $β$ et le sens du mouvement | Présent ; conventions à expliciter |
 | Limites de généralisation | Temps propre et encadrés avancés | Approfondissements ciblés | Contre-exemples topologiques et courbes | Classer un résultat par hypothèses et géométrie | Évaluer une nouvelle configuration | Partiel ; garder hors du récit central |
 | Dossier Vavryčuk–Křížek / Lambare | Encadré ou approfondissement | Dossier apparié | Reconstitution des calculs à terminer | Distinguer affirmation, critique et preuve | Analyser une controverse nouvelle | Non validé ; texte intégral et calculs requis |
 
