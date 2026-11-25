@@ -38,51 +38,47 @@ relatedArticles: ["composition-vitesses-relativite", "simultaneite-relativite-re
 import TwinsExplorer from "../../components/TwinsExplorer.astro";
 import TwinsConceptDiagrams from "../../components/TwinsConceptDiagrams.astro";
 
-<TwinsConceptDiagrams />
-
 Le paradoxe des jumeaux pose une question simple en apparence : deux personnes partent du même endroit, l’une voyage à grande vitesse puis revient, et elles comparent leurs montres. Pourquoi n’indiquent-elles pas la même durée ?
 
 La difficulté vient de la réciprocité du mouvement uniforme : pendant chaque phase inertielle, chacun peut décrire l’autre comme mobile et lui attribuer une horloge plus lente. Mais les deux histoires ne sont pas symétriques entre le départ et les retrouvailles. Pour le comprendre, il faut distinguer les référentiels, la simultanéité à distance, les signaux reçus et le temps propre.
 
-## Avant de commencer : trois repères
+## Le cadre du modèle
 
-Le scénario se comprend avec quelques notions que nous allons utiliser dans un sens précis.
+On note \(c\) la vitesse de la lumière dans le vide ; une vitesse de \(0&#123;,&#125;8c\) représente 80 % de cette valeur. Une **année-lumière** est une distance — celle parcourue par la lumière en un an — et non une durée. Un **référentiel** associe des coordonnées de lieu et de temps aux événements. Un référentiel **inertiel** est un cadre dans lequel un corps isolé reste au repos ou en mouvement rectiligne uniforme ; nous idéalisons la station de Simon comme tel et négligeons la gravitation.
 
-- La vitesse de la lumière dans le vide est notée &#92;(c&#92;). Dire qu’un vaisseau voyage à &#92;(0&#123;,&#125;8c&#92;) signifie que sa vitesse vaut 80 % de cette vitesse limite.
-- Une **année-lumière** est une distance : celle que la lumière parcourt dans le vide en une année. Ce n’est pas une unité de durée.
-- Un **référentiel** est un cadre qui permet d’attribuer des coordonnées de lieu et de temps aux événements. Un référentiel **inertiel** est celui dans lequel un corps isolé reste au repos ou en mouvement rectiligne uniforme. Dans cette expérience idéalisée, nous traitons la station terrestre comme un référentiel inertiel et négligeons la gravitation.
-
-Une horloge mesure sa propre durée le long de son trajet. Cette durée s’appelle le **temps propre**. Pour un mouvement à vitesse constante &#92;(v&#92;) dans un référentiel inertiel, elle est reliée à la durée coordonnée &#92;(&#92;Delta t&#92;) de ce référentiel par :
-
-&#92;[
-&#92;Delta&#92;tau=&#92;frac&#123;&#92;Delta t&#125;&#123;&#92;gamma&#125;,
-&#92;qquad
-&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;.
-&#92;]
-
-Le facteur &#92;(&#92;gamma&#92;) est appelé **facteur de Lorentz**. Il vaut 1 au repos et augmente avec la vitesse. Pour &#92;(v=0&#123;,&#125;8c&#92;), il vaut &#92;(5/3&#92;). Nous allons utiliser cette relation pour vérifier le résultat numérique, puis le dossier expliquera pourquoi il faut raisonner sur les trajectoires complètes plutôt que comparer deux mouvements uniformes isolés.
+Aucun prérequis mathématique avancé n'est nécessaire pour suivre le problème. Les notions de transformation de Lorentz, de simultanéité et de temps propre seront introduites au moment où elles deviennent utiles.
 
 ## Le scénario de référence
 
 Simon reste dans une station terrestre idéalisée et Kara embarque dans un vaisseau. Ils mettent leurs montres à zéro au départ. Le vaisseau s’éloigne à 0,8 c, fait demi-tour à 4 années-lumière, puis revient à la station. Pour isoler la relativité restreinte, on assimile la station à un référentiel inertiel et on néglige la gravitation ainsi que la rotation de la Terre.
 
-Dans le référentiel de Simon, le demi-tour a lieu après 5 ans et les retrouvailles après 10 ans. Le vaisseau met 5 ans pour chaque trajet : il parcourt 4 années-lumière à la vitesse de 0,8 fois la vitesse de la lumière. Sur chaque branche à vitesse constante, le facteur de Lorentz vaut &#92;(5/3&#92;), donc la montre de Kara accumule 3 ans par trajet, soit 6 ans au total.
+Dans le référentiel de Simon, le demi-tour a lieu après 5 ans et les retrouvailles après 10 ans. Le vaisseau met 5 ans pour chaque trajet : il parcourt 4 années-lumière à la vitesse de 0,8 fois la vitesse de la lumière. Au rendez-vous, la montre de Simon indique 10 ans et celle de Kara 6 ans. Nous prenons ce résultat comme point de départ ; le chapitre sur le temps propre en établira le calcul.
 
-## Vérifier le résultat sans encore résoudre toute l'explication
+## Pourquoi la réciprocité ne conduit-elle pas à une contradiction ?
 
-Pour chaque branche inertielle, le temps propre de Kara est relié au temps coordonné terrestre par le facteur de Lorentz. Ici, sa vitesse vaut &#92;(v=0&#123;,&#125;8c&#92;), donc
+Pendant chaque phase de mouvement uniforme, l'argument semble symétrique : dans le référentiel de Simon, Kara est en mouvement ; dans le référentiel inertiel instantané de Kara, c'est Simon qui est en mouvement. On pourrait donc croire que chacun doit attribuer à l'autre une horloge qui retarde de la même façon.
 
-&#92;[
-&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;=&#92;frac&#123;5&#125;&#123;3&#125;,
-&#92;qquad
-&#92;Delta&#92;tau=&#92;frac&#123;&#92;Delta t&#125;&#123;&#92;gamma&#125;
-=5&#92;times&#92;frac&#123;3&#125;&#123;5&#125;=3&#92; &#92;text&#123;ans&#125;.
-&#92;]
+Mais cette comparaison oublie un fait essentiel : **Simon conserve le même référentiel inertiel pendant tout le voyage, tandis que Kara passe du référentiel de l'aller à celui du retour**. Le changement de référentiel modifie les événements terrestres que Kara associe à son « maintenant ».
 
-Les deux branches donnent ainsi &#92;(3+3=6&#92;) ans pour Kara, contre 10 ans pour Simon. Ce calcul établit la différence entre les lectures au rendez-vous ; il ne suffit pas, à lui seul, à expliquer pourquoi l'argument de réciprocité ne conduit pas à une contradiction.
+### Le demi-tour change la simultanéité attribuée à distance
 
-Le piège consiste à appliquer deux fois le même raisonnement comme si chaque jumeau restait dans un unique référentiel inertiel pendant tout le voyage. Ce n'est pas le cas : Simon conserve le même référentiel idéal, tandis que Kara passe du référentiel inertiel de l'aller à celui du retour. Ces deux descriptions ne découpent pas de la même façon les événements terrestres simultanés avec le demi-tour. La prochaine étape du dossier rendra ce changement précis ; les épisodes suivants sépareront ensuite les dates attribuées, les signaux reçus et le temps réellement accumulé par chaque montre.
+Dans le référentiel terrestre, le demi-tour a lieu après 5 ans, à 4 années-lumière de la station. Juste avant le demi-tour, le référentiel inertiel de Kara associe à son présent l'événement terrestre daté de **1,8 an**. Juste après, le référentiel du retour associe au demi-tour l'événement terrestre daté de **8,2 ans**.
 
+La différence est de **6,4 ans**. Elle ne correspond pas à un saut de la montre de Simon : au demi-tour, celle-ci indique toujours 5 ans et continue normalement. C'est la date attribuée à distance qui change lorsque Kara passe d'un référentiel inertiel à l'autre.
+
+Ce changement est le pivot de la résolution : la réciprocité des descriptions pendant chaque phase uniforme ne peut pas être prolongée comme si Kara conservait un seul référentiel pendant tout le voyage. Le chapitre [sur la simultanéité](/knowledge-stories/atelier/simultaneite-relativite-restreinte/) détaille la synchronisation des horloges et la dérivation de ces deux dates.
+ 
+### Trois notions temporelles à ne pas confondre
+
+| Question | Ce qu'elle désigne |
+|---|---|
+| Que lit une montre portée par le voyageur ? | Le **temps propre**, accumulé le long de sa trajectoire. |
+| Quel événement terrestre est « maintenant » pour le voyageur ? | Un événement **simultané à distance**, défini dans son référentiel. |
+| Quelle heure voit-il dans son télescope ? | Un signal lumineux reçu, émis dans le passé à cause du **temps de propagation**. |
+
+La série traite ces questions séparément : la simultanéité résout le piège de la réciprocité ; l'article sur les signaux explique ce que les voyageurs voient effectivement ; celui sur le temps propre calcule ce que leurs montres accumulent.
+
+Le demi-tour instantané est une idéalisation qui permet de distinguer nettement les deux phases inertielles. Une manœuvre réelle dure un temps fini : le référentiel du vaisseau évolue alors continûment, sans saut physique de l'horloge terrestre. Le résultat final se calcule en intégrant le temps propre sur toute la trajectoire.
 
 ## Explorer le demi-tour
 
@@ -92,7 +88,7 @@ L’atelier ci-dessous permet de comparer les événements simultanés dans le r
 
 ## Parcours du dossier
 
-Le dossier rassemble plusieurs angles complémentaires plutôt qu'un parcours obligatoire et strictement linéaire. La composition des vitesses prépare le vocabulaire relativiste ; la simultanéité, l'asymétrie des trajectoires et le temps propre forment le parcours essentiel ; l'effet Doppler apporte un point de vue observationnel ; les trois voyageurs généralisent ensuite le raisonnement. Vous pouvez donc adapter l'ordre à vos connaissances et à votre objectif.
+Le dossier distingue un **parcours essentiel**, qui suffit à comprendre pourquoi les deux montres divergent, et des **approfondissements facultatifs**. Suivez d'abord les trois chapitres essentiels dans l'ordre : le temps propre (la grandeur mesurée), la simultanéité (la datation des événements distants), puis l'asymétrie (la réconciliation des points de vue). Les autres articles éclairent des questions connexes sans être des prérequis.
 
 ### Préparation recommandée — Partir de la mécanique classique
 
@@ -100,23 +96,23 @@ Le dossier rassemble plusieurs angles complémentaires plutôt qu'un parcours ob
 
 Comprendre pourquoi les vitesses s’additionnent en mécanique classique, puis pourquoi la constance de la vitesse de la lumière impose la composition relativiste et les transformations de Lorentz.
 
-### Parcours essentiel 1 — Définir ce que signifie « maintenant »
-
-**[La simultanéité en relativité restreinte](/knowledge-stories/atelier/simultaneite-relativite-restreinte/)**
-
-Synchroniser des horloges éloignées, distinguer une lecture locale d’une date coordonnée et comprendre le changement de simultanéité au demi-tour.
-
-### Parcours essentiel 2 — Identifier l’asymétrie physique
-
-**[Le paradoxe des jumeaux : où se trouve l’asymétrie ?](/knowledge-stories/atelier/asymetrie-paradoxe-jumeaux/)**
-
-Distinguer accélération propre et accélération de coordonnées, puis comprendre pourquoi la réciprocité des vitesses ne rend pas les trajectoires globales équivalentes.
-
-### Parcours essentiel 3 — Calculer ce que mesurent les montres
+### Parcours essentiel 1 — Définir la grandeur que mesurent les montres
 
 **[Le temps propre : ce que mesure une montre](/knowledge-stories/atelier/temps-propre-paradoxe-jumeaux/)**
 
-Intégrer le temps propre le long d’une ligne d’univers et retrouver les 10 ans de Simon et les 6 ans de Kara dans le modèle idéal.
+Partir des événements et des lignes d’univers, définir le temps propre avec la métrique de Minkowski, puis calculer les 10 ans de Simon et les 6 ans de Kara. Ce premier chapitre établit ce qui est effectivement comparé aux retrouvailles.
+
+### Parcours essentiel 2 — Définir ce que signifie « maintenant »
+
+**[La simultanéité en relativité restreinte](/knowledge-stories/atelier/simultaneite-relativite-restreinte/)**
+
+Synchroniser des horloges éloignées, distinguer une lecture locale d’une date coordonnée et calculer le changement de simultanéité attribué au demi-tour.
+
+### Parcours essentiel 3 — Identifier et résoudre l’asymétrie
+
+**[Le paradoxe des jumeaux : où se trouve l’asymétrie ?](/knowledge-stories/atelier/asymetrie-paradoxe-jumeaux/)**
+
+Réconcilier la réciprocité locale avec les trajectoires complètes, distinguer accélération propre et accélération de coordonnées, et comprendre pourquoi l’accélération n’est pas une pénalité ajoutée au temps propre.
 
 ### Point de vue complémentaire — Distinguer voir et dater
 
@@ -132,13 +128,19 @@ Comparer les lectures de Simon, Odile et Kara à plusieurs événements de renco
 
 ## Le résultat en bref
 
-Au départ et aux retrouvailles, Simon et Kara sont au même endroit. Dans le référentiel terrestre, Simon mesure 10 ans ; Kara, qui se déplace à 0,8 c pendant deux phases de 5 ans, mesure 6 ans. La différence se calcule par le temps propre accumulé sur chaque trajectoire, et non par une pénalité ajoutée à l’accélération.
+Au départ et aux retrouvailles, Simon et Kara sont au même endroit. Simon mesure 10 ans entre ces deux rencontres ; Kara en mesure 6. Le changement de simultanéité au demi-tour explique pourquoi la réciprocité apparente des phases uniformes ne crée pas de contradiction. La différence d'âge est déterminée par les trajectoires complètes, pas par une pénalité ajoutée à l'accélération.
 
 Le modèle suppose un espace-temps plat, une vitesse constante par morceaux et un demi-tour instantané. Une manœuvre réelle dure un temps fini ; il faudrait alors intégrer le temps propre pendant l’accélération.
 
 ## Pour aller plus loin
 
 La discussion historique de Langevin et Nordmann complète le raisonnement physique. Pour examiner la question de l’inertie et des référentiels à une autre échelle, consultez [L’inertie a-t-elle besoin des étoiles ? Le principe de Mach et les référentiels](/knowledge-stories/atelier/inertie-referentiels-principe-mach/).
+
+## Repères visuels
+
+Les schémas suivants donnent trois vues complémentaires : la limite imposée à la composition des vitesses, l'origine géométrique de la dilatation du temps et les deux lignes d'univers qui se rejoignent aux mêmes événements.
+
+<TwinsConceptDiagrams />
 
 ## Dans Wiki Knowledge
 

@@ -24,7 +24,7 @@ Les statuts distinguent :
 - **à faire** : le travail n'est pas réalisé ;
 - **à vérifier** : le texte existe, mais un contrôle ciblé reste nécessaire.
 
-La PR #126 porte les premières modifications du dossier des jumeaux et le suivi de leur mise en œuvre. Une tâche mentionnée ici n'est pas réputée intégrée à main tant que la PR correspondante n'est pas fusionnée.
+La PR #127 porte la réorganisation de la page d'entrée et du parcours de la série des jumeaux ; elle reste à valider et n'est pas fusionnée. Une tâche mentionnée ici n'est pas réputée intégrée à main tant que la PR correspondante n'est pas fusionnée.
 
 ## 2. Vue d'ensemble
 
@@ -108,7 +108,7 @@ Le dossier doit fonctionner comme un ensemble de points de vue reliés, et non c
 
 - **Entrée** : paradoxe des jumeaux et scénario numérique.
 - **Préparation facultative** : composition des vitesses et transformations de Lorentz.
-- **Parcours essentiel** : simultanéité → asymétrie des trajectoires → temps propre.
+- **Parcours essentiel** : temps propre → simultanéité → asymétrie des trajectoires.
 - **Complément observationnel** : signaux reçus et effet Doppler.
 - **Extension** : trois voyageurs et plusieurs événements de rencontre.
 - **Approfondissement connexe** : inertie, référentiels et principe de Mach, sans en faire une condition de résolution du paradoxe.
@@ -117,7 +117,7 @@ Le dossier doit fonctionner comme un ensemble de points de vue reliés, et non c
 
 #### P0 — Ordre et navigation
 
-- [ ] Aligner seriesOrder sur le rôle pédagogique annoncé. L'état examiné place encore le Doppler à l'ordre 4 et le temps propre à l'ordre 5, alors que le Doppler est présenté comme complément et le temps propre comme dernière étape essentielle.
+- [x] Réordonner les articles selon leur rôle : temps propre (1), simultanéité (2), asymétrie (3), préparation sur la composition des vitesses (4), Doppler (5), puis extension des trois voyageurs (à confirmer dans la navigation rendue).
 - [ ] Vérifier les cartes, le bandeau précédent/suivant et la page d'entrée après réordonnancement : une seule séquence doit être présentée au lecteur.
 - [ ] Distinguer durée indicative du parcours essentiel et durée de l'ensemble des compléments. Les 58 minutes actuelles additionnent des rôles différents ; l'audit pédagogique estime le parcours essentiel à environ 34 minutes, entrée comprise, mais les durées restent des estimations non chronométrées.
 - [ ] Tester les transitions réelles entre la page d'entrée, la simultanéité, l'asymétrie et le temps propre ; retirer les répétitions qui n'apportent pas un nouvel angle, sans supprimer les rappels utiles.
@@ -415,3 +415,38 @@ Ces sources sont des pistes documentaires pour la rédaction, pas encore une bib
 - [ ] Liens internes, navigation précédent/suivant et relations d'articles contrôlés.
 
 Une modification de texte n'est qu'une étape. Une série est terminée lorsque son parcours est cohérent, ses affirmations contrôlables et son rendu effectivement utilisable.
+
+
+## 8. Audit des idées fausses et ingestion documentaire du paradoxe des jumeaux
+
+Un registre dédié a été ajouté : [Audit des idées fausses sur le paradoxe des jumeaux](twin-paradox-misconceptions-audit-2026-11-25.md). Il recense 22 confusions fréquentes (temps qui « ralentit », réciprocité, accélération, saut de simultanéité, signaux, temps propre, géométrie de Minkowski, généralisation abusive à la relativité générale, etc.), attribue chaque correction à un article existant et qualifie la couverture initiale.
+
+### Travail éditorial
+
+- [ ] Traiter les clarifications P0 de la page d'entrée : absence de repos absolu, résolution en relativité restreinte, sens de « paradoxe », idéalisation du référentiel terrestre.
+- [ ] Vérifier la démonstration d'invariance du temps propre et les hypothèses exactes du résultat de maximalité.
+- [ ] Contrôler la synchronisation opérationnelle, les conventions de signe et les dates attribuées dans l'article sur la simultanéité.
+- [ ] Distinguer accélération propre, changement de référentiel et intégrale du temps propre dans l'article sur l'asymétrie.
+- [ ] Vérifier les facteurs Doppler et les dates d'émission/réception dans le chapitre observationnel.
+- [ ] Distinguer les tests expérimentaux des mécanismes relativistes d'une réalisation littérale du voyage des jumeaux.
+- [ ] Refaire l'audit sur le rendu publié après modifications, puis mesurer les durées de lecture réelles.
+
+### Travail documentaire — Wiki Knowledge
+
+Le concept canonique et les synthèses contiennent déjà un corpus conséquent. Il faut donc commencer par l'inventaire des captures, fiches sources et claims existants, et non par une ingestion en doublon.
+
+Le suivi côté Wiki Knowledge est ouvert dans [l'issue #167](https://github.com/JM-Brun/wiki-knowledge/issues/167). Elle organise :
+- l'audit du corpus existant et de la traçabilité source → claim → concept → synthèse ;
+- l'ingestion éventuelle de da Câmara et al. (2025), Herrmann & Pohlig (2024), du tutoriel CJP (2019) et de travaux avancés sur les espaces-temps courbes ;
+- l'examen apparié d'une controverse sur les référentiels en chute libre et sa réponse ;
+- l'extraction atomique, la qualification des domaines de validité, les alertes et la validation des calculs.
+
+La séparation des responsabilités reste stricte : Wiki Knowledge conserve les sources, claims, variantes, controverses et synthèses canoniques ; Knowledge Stories construit des articles publics autonomes et ne reprend que les éléments revérifiés et autorisés.
+
+### Critères de clôture complémentaires
+
+- [ ] Chaque entrée M01–M22 est corrigée dans un article existant ou explicitement hors périmètre avec un renvoi.
+- [ ] Les sources déjà capturées sont distinguées des URL seulement citées.
+- [ ] Les sources contradictoires sont étudiées ensemble et leurs hypothèses comparées.
+- [ ] Aucune idée fausse ne devient un nouvel article autonome si elle peut être corrigée dans le chapitre où elle apparaît.
+- [ ] Les contenus restent dans la cible de 7 à 15 minutes réelles par article, sans perte de démonstration ni d'information.
