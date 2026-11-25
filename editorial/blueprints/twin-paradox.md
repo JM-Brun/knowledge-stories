@@ -22,7 +22,7 @@
 1. **Décrire** les événements de départ et de retrouvailles, les lignes d'univers des deux jumeaux et le référentiel utilisé pour chaque comparaison.
 2. **Construire** la synchronisation d'Einstein et expliquer le rôle des transformations de Lorentz dans l'attribution de dates à des événements distants.
 3. **Calculer** les dates terrestres 1,8 ans et 8,2 ans associées au demi-tour dans les référentiels inertiels d'aller et de retour, sans interpréter leur différence comme un saut physique d'horloge.
-4. **Dériver** la formule du temps propre depuis l'intervalle de Minkowski et retrouver 10 ans contre 6 ans pour le scénario à (0{,}8c) et 4 années-lumière à l'aller.
+4. **Dériver** la formule du temps propre depuis l'intervalle de Minkowski et retrouver 10 ans contre 6 ans pour le scénario à $0,8c$ et 4 années-lumière à l'aller.
 5. **Expliquer** pourquoi la réciprocité des descriptions inertielle locales n'impose pas l'égalité des temps propres aux retrouvailles, sans attribuer l'écart à une pénalité additive d'accélération.
 6. **Distinguer** les durées propres, les dates simultanées attribuées et les signaux effectivement reçus.
 7. **Évaluer** la portée d'une affirmation en identifiant les événements communs, la géométrie, la topologie, les observateurs de référence et le domaine de validité.
@@ -89,7 +89,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
   3. Faire émerger la réciprocité apparente et annoncer les trois comparaisons à distinguer.
 - **Claims et preuves publiques :** le calcul détaillé sera établi dans les chapitres sur la simultanéité et le temps propre ; la page d'entrée ne doit pas anticiper leur démonstration.
 - **Démonstration ou calcul à développer :** aucune démonstration complète ; calcul de scénario uniquement si les grandeurs sont définies.
-- **Exemple vérifiable :** vitesse (0{,}8c), distance aller 4 années-lumière, durée terrestre 10 ans, durée embarquée 6 ans.
+- **Exemple vérifiable :** vitesse $0,8c$, distance aller 4 années-lumière, durée terrestre 10 ans, durée embarquée 6 ans.
 - **Contre-exemple / limite / idée fausse :** même départ et même arrivée n'impliquent pas la même durée vécue.
 - **Média envisagé et fonction pédagogique :** diagramme d'espace-temps sobre pour identifier événements et trajectoires ; pas de décoration qui remplace le raisonnement.
 - **Transition vers la suite :** « Pour comprendre les comparaisons, il faut d'abord savoir ce qu'est un événement et comment deux référentiels datent le même événement. »
@@ -108,7 +108,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
   1. Définir un événement par ses coordonnées dans un référentiel et distinguer événement et objet.
   2. Construire opérationnellement la synchronisation d'horloges distantes par échanges lumineux.
   3. Énoncer les postulats de la relativité restreinte et les hypothèses de linéarité/homogénéité utilisées.
-  4. Dériver les transformations de Lorentz ; contrôler la conservation de la vitesse de la lumière et définir (gamma).
+  4. Dériver les transformations de Lorentz ; contrôler la conservation de la vitesse de la lumière et définir $γ$.
 - **Claims et preuves publiques :** transformations de Lorentz et synchronisation ; références universitaires et sources primaires à citer dans la version finale.
 - **Démonstration ou calcul à développer :** dérivation guidée des transformations, avec conventions d'axes, signe de la vitesse et unités.
 - **Exemple vérifiable :** transformation des coordonnées d'un même événement entre un quai et un train.
@@ -128,11 +128,11 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 - **Concepts réutilisés :** référentiel inertiel, événement, lumière.
 - **Étapes du raisonnement :**
   1. Fixer les axes, les unités et la convention de signe.
-  2. Identifier l'événement de demi-tour ((t,x)=(5 mathrm{ans},4 mathrm{al})).
-  3. Appliquer (t'=gamma(t-vx/c^2)) pour (v=+0{,}8c), puis (v=-0{,}8c).
+  2. Identifier l'événement de demi-tour $(t,x)=(5\ \text{ans},4\ \text{al})$.
+  3. Appliquer $t' = γ(t-vx/c²)$ pour $v=+0,8c$, puis $v=-0,8c$.
   4. Interpréter 1,8 ans et 8,2 ans comme deux événements terrestres différents associés au même événement du voyageur.
 - **Claims et preuves publiques :** calcul des dates simultanées dans le scénario standard ; Eagle (2005) complète la discussion des référentiels successifs.
-- **Démonstration ou calcul à développer :** substitutions numériques avec (c=1 mathrm{al/an}), axes et signes annoncés.
+- **Démonstration ou calcul à développer :** substitutions numériques avec $c=1\ \text{al/an}$, axes et signes annoncés.
 - **Exemple vérifiable :** refaire le calcul pour une autre vitesse et prédire le sens du déplacement des dates attribuées.
 - **Contre-exemple / limite / idée fausse :** l'horloge terrestre ne saute pas physiquement de 1,8 à 8,2 ans ; ce sont les événements simultanés attribués qui changent.
 - **Média envisagé et fonction pédagogique :** diagramme unique montrant les lignes d'univers, les deux plans de simultanéité et les événements terrestres correspondants.
@@ -171,13 +171,13 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 - **Concepts introduits :** temps propre, intervalle de Minkowski, intégration le long d'une trajectoire.
 - **Concepts réutilisés :** événements communs, vitesse, facteur de Lorentz.
 - **Étapes du raisonnement :**
-  1. Annoncer la signature choisie, par exemple (ds^2=c^2dt^2-dx^2-dy^2-dz^2).
-  2. Pour une trajectoire temporelle, poser (ds^2=c^2d	au^2) et retrouver (d	au=dtsqrt{1-v^2/c^2}).
+  1. Annoncer la signature choisie, par exemple $ds²=c²dt²-dx²-dy²-dz²$.
+  2. Pour une trajectoire temporelle, poser $ds²=c²dτ²$ et retrouver $dτ=dt√(1-v²/c²)$.
   3. Intégrer le long de chaque trajectoire entre les mêmes événements.
-  4. Dans le référentiel inertiel de la station, comparer (	au=intsqrt{1-v(t)^2/c^2},dt) à (Delta t) et préciser les conditions d'égalité.
-  5. Calculer (gamma=5/3), puis 10 ans pour la station et 6 ans pour le voyageur.
+  4. Dans le référentiel inertiel de la station, comparer $τ=∫√(1-v(t)²/c²)\,dt$ à $Δt$ et préciser les conditions d'égalité.
+  5. Calculer $γ=5/3$, puis 10 ans pour la station et 6 ans pour le voyageur.
 - **Claims et preuves publiques :** calcul des temps propres ; da Câmara et al. (2025) borne explicitement la propriété de maximalité au Minkowski simplement connexe dans le scénario considéré.
-- **Démonstration ou calcul à développer :** preuve élémentaire de maximalité dans (mathbb{R}^{1,3}), avec mêmes événements de départ et d'arrivée et trajectoires temporelles admissibles.
+- **Démonstration ou calcul à développer :** preuve élémentaire de maximalité dans $R^{1,3}$, avec mêmes événements de départ et d'arrivée et trajectoires temporelles admissibles.
 - **Exemple vérifiable :** vitesse constante par morceaux à (0{,}8c), puis un profil de vitesse variable simple pour montrer que l'intégrale dépend de toute la trajectoire.
 - **Contre-exemple / limite / idée fausse :** ne pas transformer la maximalité en une loi sur toute géodésique de tout espace-temps ; Barrow–Levin et Gomes illustrent des limites topologiques ou géométriques distinctes.
 - **Média envisagé et fonction pédagogique :** diagramme de lignes d'univers accompagné d'un calcul intégral, sans substituer une analogie spatiale à la métrique.
@@ -189,10 +189,10 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 
 - **Rôle dans le parcours :** application des transformations.
 - **Question locale :** pourquoi les vitesses ne s'additionnent-elles pas selon la règle galiléenne ?
-- **Objectif observable :** dériver (w=(u+v)/(1+uv/c^2)) pour des vitesses colinéaires et vérifier la limite classique.
+- **Objectif observable :** dériver $w=(u+v)/(1+uv/c²)$ pour des vitesses colinéaires et vérifier la limite classique.
 - **Prérequis :** transformations de Lorentz.
 - **Concepts introduits :** composition relativiste des vitesses.
-- **Concepts réutilisés :** référentiels inertiels, vitesse, (gamma).
+- **Concepts réutilisés :** référentiels inertiels, vitesse, $γ$.
 - **Étapes du raisonnement :** partir des transformations, dériver la loi, vérifier (c) et la limite (v/c	o0).
 - **Claims et preuves publiques :** manuel universitaire et dérivation dans le chapitre existant.
 - **Démonstration ou calcul à développer :** dérivation colinéaire complète.
@@ -211,7 +211,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 - **Prérequis :** temps propre et simultanéité.
 - **Concepts introduits :** fréquence reçue, effet Doppler relativiste, propagation lumineuse.
 - **Concepts réutilisés :** événements, temps propre, référentiels.
-- **Étapes du raisonnement :** définir émetteur et récepteur ; annoncer le signe de (eta) ; calculer les facteurs (1/3) et (3) à (eta=0{,}8) ; compter les tops sur chaque phase.
+- **Étapes du raisonnement :** définir émetteur et récepteur ; annoncer le signe de $β$ ; calculer les facteurs $1/3$ et $3$ à $β=0,8$ ; compter les tops sur chaque phase.
 - **Claims et preuves publiques :** calculs de réception du dossier ; da Câmara et al. (2025) avertit qu'aucune relation Doppler–vieillissement n'est universelle en espace-temps générique.
 - **Démonstration ou calcul à développer :** facteurs Doppler et durée de réception, sans confondre émission et réception.
 - **Exemple vérifiable :** compter les tops reçus par chacun dans le scénario principal.
