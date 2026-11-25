@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 
 const articlePaths = [
   "src/content/articles/karatsuba-multiplication.mdx",
-  "src/content/articles/arbres-recursion-complexite.mdx",
+  "src/content/articles/complexite-multiplication-karatsuba.mdx",
   "src/content/articles/multiplication-rapide-et-preuves-2026.mdx",
   "src/content/articles/multiplication-fft-convolution-2026.mdx",
   "src/content/articles/frontiere-theorique-multiplication-entiere-2026.mdx",
@@ -24,23 +24,23 @@ test("MathJax delimiters survive MDX parsing", () => {
 
 test("Karatsuba complexity exponents use explicit TeX grouping", () => {
   const article = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
-  const lesson = readFileSync(new URL("../src/content/articles/arbres-recursion-complexite.mdx", import.meta.url), "utf8");
+  const lesson = readFileSync(new URL("../src/content/articles/complexite-multiplication-karatsuba.mdx", import.meta.url), "utf8");
   assert.match(article, /4\^&#123;10&#125;=1&#92;,048&#92;,576/);
   assert.match(article, /3\^&#123;10&#125;=59&#92;,049/);
-  assert.match(lesson, /n\^&#123;\\log_2 3&#125;/);
-  assert.match(lesson, /m_&#123;j\+1&#125;/);
+  assert.ok(lesson.includes("n^&#123;&#92;log_2 3&#125;"));
+  assert.ok(lesson.includes("m_&#123;j+1&#125;"));
 });
 
 test("classical multiplication complexity is consistently marked green", () => {
   const source = [
     "src/content/articles/karatsuba-multiplication.mdx",
-    "src/content/articles/arbres-recursion-complexite.mdx",
+    "src/content/articles/complexite-multiplication-karatsuba.mdx",
   ].map((path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8")).join("\\n");
   const expectedGreenExpressions = [
     String.raw`au lieu de <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> pour la`,
-    String.raw`Le travail local au niveau &#92;(j&#92;) est <span class="term-common">&#92;(O(n 2^j)&#92;)</span>`,
+    String.raw`<span class="term-common">&#92;(&#92;Omega(n^2)&#92;)</span>`,
+    String.raw`<span class="term-common">&#92;(&#92;Theta(n^2)&#92;)</span>`,
     String.raw`<span class="term-common">&#92;(O(n^2)&#92;)</span>`,
-    String.raw`<span class="term-common">&#92;(\Omega(n^2)&#92;)</span>`,
   ];
   for (const expression of expectedGreenExpressions) {
     assert.ok(source.includes(expression), `Missing green semantic class around: ${expression}`);

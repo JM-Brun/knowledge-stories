@@ -64,7 +64,7 @@ sources:
     accessed: 2026-11-24
 series: "multiplication-karatsuba"
 seriesOrder: 1
-relatedArticles: ["arbres-recursion-complexite", "multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026"]
+relatedArticles: ["complexite-multiplication-karatsuba", "multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026"]
 ---
 
 import KaratsubaExplorer from "../../components/KaratsubaExplorer.astro";
@@ -80,7 +80,7 @@ import KaratsubaSourceNote from "../../components/KaratsubaSourceNote.astro";
 
 > **Prérequis** — Savoir développer une identité remarquable, manipuler les puissances de 10 et comprendre l’idée d’un coût asymptotique en notation &#92;(O&#92;). Le parcours vise un niveau fin de lycée scientifique à début de licence ; la preuve de complexité demande davantage d’aisance avec les suites et les récurrences.
 
-> **Pour approfondir** — Cet article présente le mécanisme de Karatsuba. Pour démontrer précisément la complexité de son implémentation, poursuivez avec [le calcul de la complexité de la multiplication de Karatsuba](/knowledge-stories/atelier/arbres-recursion-complexite/). Pour découvrir les généralisations algorithmiques, consultez [Après Karatsuba : Toom–Cook et FFT](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/). Pour les résultats de complexité les plus récents et leur statut de vérification, lisez [La frontière théorique de la multiplication entière](/knowledge-stories/atelier/frontiere-theorique-multiplication-entiere-2026/).
+> **Pour approfondir** — Cet article présente le mécanisme de Karatsuba. Pour démontrer précisément la complexité de son implémentation, poursuivez avec [le calcul de la complexité de la multiplication de Karatsuba](/knowledge-stories/atelier/complexite-multiplication-karatsuba/). Pour découvrir les généralisations algorithmiques, consultez [Après Karatsuba : Toom–Cook et FFT](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/). Pour les résultats de complexité les plus récents et leur statut de vérification, lisez [La frontière théorique de la multiplication entière](/knowledge-stories/atelier/frontiere-theorique-multiplication-entiere-2026/).
 
 ## L'idée en une minute
 
@@ -245,7 +245,7 @@ Nous avons vu comment Karatsuba remplace quatre multiplications de blocs par tro
 
 La démonstration complète est désormais présentée dans une page autonome : elle construit l’arbre de récursion, compte les feuilles, évalue le travail des additions à chaque niveau, compare avec la méthode classique et précise les limites du modèle idéal.
 
-**[Lire la démonstration : des arbres de récursion à la complexité — comprendre l’exposant de Karatsuba](/knowledge-stories/atelier/arbres-recursion-complexite/)**
+**[Lire la démonstration : des arbres de récursion à la complexité — comprendre l’exposant de Karatsuba](/knowledge-stories/atelier/complexite-multiplication-karatsuba/)**
 
 Cette analyse commence par un découpage équilibré pour rendre l’origine de l’exposant visible. Elle revient ensuite sur les retenues, les tailles réelles des blocs et la distinction entre borne supérieure et borne inférieure pour une implémentation donnée.
 
