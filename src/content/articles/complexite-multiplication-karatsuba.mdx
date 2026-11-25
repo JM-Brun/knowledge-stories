@@ -37,6 +37,12 @@ import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 <p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi le modèle équilibré conduit-il à <span>Θ(n<sup>log₂ 3</sup>)</span> ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
 
 
+<div className="term-legend" aria-label="Code couleur repris de l’article sur Karatsuba">
+  <span><i className="legend-common" /><span className="legend-copy">Référence classique et produits diagonaux réutilisés : <b className="term-common">ac</b> et <b className="term-common">bd</b> (p et q)</span></span>
+  <span><i className="legend-cross" /><span className="legend-copy">Produits croisés : <b className="term-cross">ad</b>, <b className="term-cross">bc</b> et leur somme</span></span>
+  <span><i className="legend-aux" /><span className="legend-copy">Produit auxiliaire de <b className="term-aux">Karatsuba</b> : <b className="term-aux">(a + b)(c + d)</b> (r)</span></span>
+</div>
+
 ## Préparer l’analyse : les notions utiles
 
 Pour suivre la démonstration, il suffit de distinguer un **appel récursif**, les appels qu’il engendre, les niveaux de l’arbre et les cas de base. Le point essentiel est de calculer, à chaque niveau, le nombre d’appels et le coût local de chacun, puis de sommer ces contributions.
@@ -201,7 +207,7 @@ La construction algébrique a été détaillée dans l’article précédent, **
 Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
 
 \[
-p=ac, \qquad q=bd, \qquad r=(a+b)(c+d).
+\class{term-common}{p=ac}, \qquad \class{term-common}{q=bd}, \qquad \class{term-aux}{r=(a+b)(c+d)}.
 \]
 
 **Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
@@ -250,7 +256,7 @@ T(n)=\underbrace&#123;T_p(n/2)+T_q(n/2)+T_r(n/2)&#125;_&#123;\text&#123;somme de
 avec \(C_&#123;local&#125;(n)=O(n)\). Si les trois sous-problèmes ont la même taille dans le modèle équilibré, leurs coûts sont identiques et l’on abrège cette expression en :
 
 \[
-T(n)=3T(n/2)+O(n).
+T(n)=\class{term-aux}{3T(n/2)}+O(n).
 \]
 
 **Le signe « \(+\) » est bien le signe plus habituel.** Il n’a pas besoin d’une nouvelle notation : ce qui change, c’est la nature des quantités qu’il relie. Dans le développement algébrique, \(a+b\) additionne deux nombres ; dans la récurrence, \(T_p+T_q+T_r\) additionne trois coûts de calcul. On pourrait annoter chaque plus par « somme de coûts », mais inventer un opérateur spécial serait une convention inutile et moins standard.
