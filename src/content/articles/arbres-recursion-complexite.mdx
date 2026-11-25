@@ -67,41 +67,17 @@ Chaque position demande un nombre constant d’opérations élémentaires sur de
 
 Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ; il ne faut pas le confondre avec le coût d’une addition de deux nombres machine de taille fixe, qui est considéré constant dans un modèle à mots de taille fixe. Ici, la taille étudiée est précisément le nombre de chiffres.
 
-### Pourquoi Karatsuba n’effectue-t-il que trois sous-multiplications ?
+### D’où viennent les trois sous-multiplications ?
 
-Ce nombre n’est ni une convention arbitraire ni une propriété imposée à toute multiplication récursive : c’est **le choix de conception rendu possible par une identité algébrique**.
+La construction algébrique a été détaillée dans l’article précédent, **[Karatsuba, trois produits au lieu de quatre](/knowledge-stories/atelier/karatsuba-multiplication/)** : le produit auxiliaire \\( (a+b)(c+d) \\), combiné aux produits \\(ac\\) et \\(bd\\), permet de retrouver la somme des produits croisés sans calculer séparément \\(ad\\) et \\(bc\\).
 
-Découpons chaque opérande en deux blocs de &#92;(m&#92;) chiffres. En posant &#92;(B=10^m&#92;), on écrit :
+Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
 
-&#92;[
-x=aB+b, \qquad y=cB+d.
-&#92;]
+\\[
+p=ac, \\qquad q=bd, \\qquad r=(a+b)(c+d).
+\\]
 
-Le développement direct donne :
-
-&#92;[
-xy=acB^2+(ad+bc)B+bd.
-&#92;]
-
-Il semble donc falloir calculer quatre produits de blocs : &#92;(ac&#92;), &#92;(ad&#92;), &#92;(bc&#92;) et &#92;(bd&#92;). Karatsuba remarque que les deux produits croisés peuvent être obtenus indirectement :
-
-&#92;[
-(a+b)(c+d)=ac+ad+bc+bd.
-&#92;]
-
-En calculant les trois produits
-
-&#92;[
-p=ac, \qquad q=bd, \qquad r=(a+b)(c+d),
-&#92;]
-
-on retrouve la somme des produits croisés par soustraction :
-
-&#92;[
-ad+bc=r-p-q.
-&#92;]
-
-Il suffit donc de **trois multiplications récursives** au lieu de quatre. Les additions et soustractions supplémentaires sont moins coûteuses : elles parcourent des blocs de chiffres et ne déclenchent pas de nouveaux problèmes de multiplication. C’est précisément l’échange recherché par Karatsuba : accepter davantage de travail local pour économiser un appel récursif.
+**Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
 
 ### Pourquoi parle-t-on de blocs de taille approximative &#92;(n/2&#92;) ?
 
