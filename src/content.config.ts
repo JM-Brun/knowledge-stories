@@ -15,7 +15,7 @@ const articles = defineCollection({
     themes: z.array(z.string().trim().min(1)).min(1),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
     // Forme éditoriale de l’article ; distincte de sa difficulté.
-    articleType: z.enum(["conceptual", "analysis", "tutorial", "reference"]).default("conceptual"),
+    articleType: z.enum(["conceptual", "analysis", "tutorial", "reference"]).optional(),
     // Capacités observables que le lecteur doit acquérir.
     learningObjectives: z.array(z.string().trim().min(1)).default([]),
     // Identifiants stables de concepts, destinés aux index et graphes de connaissances.
