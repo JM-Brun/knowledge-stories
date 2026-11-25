@@ -1,6 +1,6 @@
 ---
 title: "Calculer la complexité de la multiplication de Karatsuba"
-description: "Établissez la récurrence du modèle équilibré de Karatsuba et démontrez Θ(n^{log₂ 3}), puis analysez les opérations auxiliaires et les écarts de tailles de l’implémentation."
+description: "Établissez la récurrence de Karatsuba, démontrez sa complexité dans le modèle équilibré et analysez le coût des opérations auxiliaires ainsi que les écarts de taille de l’implémentation."
 date: 2026-11-24
 updated: 2026-11-25
 category: "Mathématiques"
@@ -43,7 +43,7 @@ import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
 
 <div class="complexity-lesson">
 
-<p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi le modèle équilibré conduit-il à <span>Θ(n<sup>log₂ 3</sup>)</span> ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
+<p class="lesson-context">Cette page prolonge <a href="/knowledge-stories/atelier/karatsuba-multiplication/">l’article consacré à l’algorithme de Karatsuba</a> en répondant à une question précise : comment calculer la complexité de son implémentation récursive, et pourquoi le modèle équilibré conduit-il à &#92;(T(n)=&#92;Theta(n^&#123;&#92;log_2 3&#125;)&#92;) ? L’objectif est l’analyse de l’algorithme de multiplication. Les arbres de récursion ne sont qu’un outil de lecture et de démonstration ; les notions nécessaires sont rappelées au début. Pour les prolongements vers Toom–Cook, FFT et les résultats théoriques, consultez aussi <a href="/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/">l’article sur la multiplication rapide et ses preuves</a>.</p>
 
 
 <div className="term-legend" aria-label="Code couleur repris de l’article sur Karatsuba">
@@ -384,7 +384,7 @@ Puis utilisons l’identité de changement de base des puissances :
 
 C’est l’origine de l’exposant : **la taille est divisée par 2 à chaque niveau, tandis que le nombre d’appels est multiplié par 3**. Ces deux nombres donnent le logarithme &#92;(&#92;log_2(3)&#92;).
 
-<div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Nombre de feuilles égal à n puissance logarithme base deux de trois">
+<div class="math-display math-display--key math-display--karatsuba complexity-equations" role="math" aria-label="Nombre de feuilles égal à n puissance logarithme base deux de trois">
   <div class="math-line">&#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;)</div>
   <div class="math-caption">Le nombre de feuilles est le nombre de multiplications élémentaires dans ce modèle.</div>
 </div>
@@ -491,7 +491,7 @@ O(n^&#123;&#92;log_2 3&#125;).
 
 Les multiplications aux feuilles coûtent &#92;(&#92;Theta(n^&#123;&#92;log_2 3&#125;)&#92;), et les opérations locales de tous les niveaux coûtent &#92;(O(n^&#123;&#92;log_2 3&#125;)&#92;). En réunissant les deux contributions, on obtient :
 
-<div class="math-display math-display--key complexity-equations term-aux" role="math" aria-label="Complexité totale de Karatsuba">
+<div class="math-display math-display--key math-display--karatsuba complexity-equations" role="math" aria-label="Complexité totale de Karatsuba">
   &#92;[
   &#92;boxed&#123;T(n)=&#92;Theta&#92;left(n^&#123;&#92;log_2 3&#125;&#92;right)&#92;approx&#92;Theta(n^&#123;1&#123;,&#125;585&#125;)&#125;
   &#92;]
