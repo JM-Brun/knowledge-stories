@@ -445,3 +445,27 @@
   font-weight: 650;
   text-underline-offset: 3px;
 }
+
+
+/* Karatsuba semantic-color contract: cover every equation context without
+   coloring an entire equation container by accidental parent inheritance. */
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations .term-common,
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations mjx-container .term-common {
+  color: var(--term-common) !important;
+}
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations .term-cross,
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations mjx-container .term-cross {
+  color: var(--term-cross) !important;
+}
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations .term-aux,
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .complexity-equations mjx-container .term-aux {
+  color: var(--term-aux) !important;
+}
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .math-display--karatsuba {
+  border-left-color: var(--term-aux);
+  background: linear-gradient(90deg, var(--term-aux-soft), #fffefa 58%);
+  color: var(--term-aux);
+}
+:is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .math-display--karatsuba .math-caption {
+  color: #625a6d;
+}
