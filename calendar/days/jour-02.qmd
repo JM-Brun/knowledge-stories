@@ -246,20 +246,20 @@ Un diagnostic utile suit un ordre précis : définir ce que l'on veut transporte
 1. **Définir l'estimand et le domaine cible** : quelle population, quelle période, quelle unité et quelle quantité ? Préciser s'il s'agit de nouveaux utilisateurs, de nouveaux sites, d'une autre période ou d'un autre canal d'acquisition.
 2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ? Examiner les taux de couverture et de réponse, ainsi que les variables susceptibles d'expliquer la participation.
 3. **Comparer source et cible** : distributions marginales et conjointes des features, valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
-4. **Formuler le changement plausible** : $P(X)$, $P(Y)$, $P(X\\mid Y)$ ou $P(Y\\mid X)$ ? Ces mécanismes peuvent coexister ; la différence entre deux histogrammes ne suffit pas à établir lequel est à l'œuvre.
-5. **Vérifier le support commun et les labels** : la cible contient-elle des profils absents de la source ? Dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\\mid X)$ par période ou groupe. Sans labels cible, la stabilité de cette relation ne peut pas être vérifiée directement.
+4. **Formuler le changement plausible** : $P(X)$, $P(Y)$, $P(X\mid Y)$ ou $P(Y\mid X)$ ? Ces mécanismes peuvent coexister ; la différence entre deux histogrammes ne suffit pas à établir lequel est à l'œuvre.
+5. **Vérifier le support commun et les labels** : la cible contient-elle des profils absents de la source ? Dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\mid X)$ par période ou groupe. Sans labels cible, la stabilité de cette relation ne peut pas être vérifiée directement.
 6. **Choisir une validation fidèle au déploiement** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Une validation aléatoire n'est adaptée que si elle reproduit réellement le régime visé.
 7. **Évaluer la stabilité de la correction** : inspecter la distribution des poids, les poids extrêmes et la taille effective ; tester la sensibilité des conclusions aux choix de modélisation et aux hypothèses de sélection.
 
 Une mesure utile de concentration des poids est la taille effective d'échantillon :
 
 $$
-n_{\\mathrm{eff}}=
-\\frac{\\left(\\sum_{i=1}^{n}w_i\\right)^2}
-{\\sum_{i=1}^{n}w_i^2}.
+n_{\mathrm{eff}}=
+\frac{\left(\sum_{i=1}^{n}w_i\right)^2}
+{\sum_{i=1}^{n}w_i^2}.
 $$
 
-Si quelques observations portent presque tout le poids, $n_{\\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
+Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
 
 ### Quelle action selon le diagnostic ?
 
