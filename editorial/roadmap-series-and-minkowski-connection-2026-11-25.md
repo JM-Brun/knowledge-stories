@@ -249,6 +249,8 @@ Son rattachement thématique à Karatsuba est utile, mais son niveau et son stat
 
 ## 7. Ajouter une connexion entre nombres complexes et espace-temps de Minkowski
 
+> **Note technique de référence :** les définitions, dérivations, conventions, limites algébriques et physiques, références de travail et critères de validation sont maintenant consolidés dans [Du plan complexe à la géométrie de Minkowski](notes/complex-numbers-and-minkowski-geometry.md). Cette section conserve la synthèse de la décision éditoriale et le plan d'intégration dans les articles.
+
 ### 7.1 Constat dans les articles existants
 
 La connexion est déjà latente dans deux endroits :
