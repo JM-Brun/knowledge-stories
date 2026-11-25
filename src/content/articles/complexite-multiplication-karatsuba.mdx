@@ -100,9 +100,11 @@ La <span className="term-common">méthode classique</span> calcule séparément 
 Les deux produits croisés sont ensuite additionnés :
 
 \[
-<span className="term-cross">\(ad+bc\)</span>
-=5\,332\,114+49\,767\,670
-=\boxed{55\,099\,784}.
+\begin{aligned}
+ad+bc
+&=5\,332\,114+49\,767\,670\\
+&=\boxed{55\,099\,784}.
+\end{aligned}
 \]
 
 La recomposition donne :
@@ -178,6 +180,61 @@ Les deux méthodes donnent bien le même entier. À ce niveau de découpage, la 
 Le même exemple sert ainsi de fil conducteur entre l'identité arithmétique, le découpage récursif et la récurrence de complexité. La section suivante peut maintenant compter les appels à chaque niveau sans perdre de vue ce qu'ils calculent concrètement.
 
 
+### Un cas contrasté : les sommes ne débordent pas
+
+Gardons le premier opérande et changeons seulement le second :
+
+\[
+12\,345\,678\times12\,344\,321.
+\]
+
+Le découpage donne :
+
+\[
+\begin{aligned}
+12\,345\,678&=1\,234\times10^4+5\,678,\\
+12\,344\,321&=1\,234\times10^4+4\,321.
+\end{aligned}
+\]
+
+Cette fois, les deux sommes utilisées par le produit auxiliaire restent sur quatre chiffres :
+
+\[
+1\,234+5\,678=6\,912,\qquad
+1\,234+4\,321=5\,555.
+\]
+
+Il n’y a donc pas de chiffre supplémentaire dans les opérandes du troisième produit. Les trois multiplications de Karatsuba sont :
+
+| Rôle | Calcul | Résultat |
+|---|---:|---:|
+| <span className="term-common">\(p=ac\)</span> | \(1\,234\times1\,234\) | **1 522 756** |
+| <span className="term-common">\(q=bd\)</span> | \(5\,678\times4\,321\) | **24 534 638** |
+| <span className="term-aux">\(r=(a+b)(c+d)\)</span> | \(6\,912\times5\,555\) | **38 396 160** |
+
+Le terme croisé vaut alors :
+
+\[
+r-p-q
+=38\,396\,160-1\,522\,756-24\,534\,638
+=12\,338\,766.
+\]
+
+Et la recomposition donne :
+
+\[
+\begin{aligned}
+xy
+&=1\,522\,756\times10^8
++12\,338\,766\times10^4
++24\,534\,638\\
+&=\boxed{152\,399\,012\,194\,638}.
+\end{aligned}
+\]
+
+Ce second calcul n'a pas besoin d'être développé aussi longuement que le premier : il sert uniquement de **contrepoint**. Le premier exemple montrait une retenue dans une somme de blocs ; celui-ci montre le cas où les tailles des trois sous-problèmes restent conformes au découpage attendu. Les deux cas éclairent la même analyse, sans introduire une nouvelle méthode ni une nouvelle notation.
+
+
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
 
@@ -207,7 +264,7 @@ La construction algébrique a été détaillée dans l’article précédent, **
 Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
 
 \[
-<span className="term-common">\(p=ac\)</span>, \qquad <span className="term-common">\(q=bd\)</span>, \qquad <span className="term-aux">\(r=(a+b)(c+d)\)</span>.
+p=ac,\qquad q=bd,\qquad r=(a+b)(c+d).
 \]
 
 **Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
