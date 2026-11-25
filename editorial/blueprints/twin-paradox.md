@@ -52,7 +52,7 @@ Entrée → fondations de relativité restreinte → simultanéité → asymétr
 - Trois voyageurs : laboratoire de transfert à plusieurs trajectoires.
 - Inertie et principe de Mach : approfondissement connexe, hors du parcours obligatoire.
 - Deux satellites sur des orbites circulaires opposées de même rayon : étude avancée de la symétrie des temps propres en Schwarzschild, distincte du cas standard de relativité restreinte.
-- Topologie et espaces-temps courbes : limites de généralisation, ainsi que le cas des deux satellites en orbites circulaires opposées de même rayon en Schwarzschild ; à présenter comme approfondissements, pas comme conditions de résolution du cas standard.
+- Topologie et espaces-temps courbes : limites de généralisation à présenter comme approfondissements, pas comme conditions de résolution du cas standard.
 
 ### Décision éditoriale proposée
 
@@ -70,8 +70,8 @@ Créer un article autonome de fondations plutôt que d'ajouter une longue sectio
 | F1 — Composition des vitesses | Comment les vitesses se composent-elles ? | Dériver la loi colinéaire et contrôler sa limite classique | Étape 1 | Transformation de Lorentz, vitesse relative | Application facultative des fondations |
 | F2 — Signaux et Doppler | Que reçoivent effectivement les deux voyageurs ? | Calculer les cadences reçues et les distinguer des dates simultanées | Étape 4 | Propagation lumineuse, fréquence, Doppler | Complète le point de vue observationnel |
 | F3 — Trois voyageurs | Que change l'ajout d'une troisième trajectoire ? | Comparer plusieurs temps propres entre événements de rencontre définis | Étape 4 | Temps propre, événements, lignes d'univers | Transfert à une configuration nouvelle |
-| F5 — Deux satellites en orbites opposées | Deux satellites symétriques peuvent-ils vieillir de façon égale sans réfuter la dilatation temporelle ? | Montrer l'égalité de leurs temps propres par symétrie et la distinguer d'une comparaison avec un observateur statique | Étape 4 | Métrique de Schwarzschild, géodésique circulaire, temps propre | Étude de cas avancée, hors parcours essentiel |
 | F4 — Inertie et Mach | Le calcul des âges détermine-t-il l'origine des référentiels inertiels ? | Séparer prédiction conditionnelle, identification du référentiel et question sur l'inertie | Étapes 3 et 4 | Accélération propre, inertie, principe de Mach | Approfondissement connexe, non nécessaire |
+| F5 — Deux satellites en orbites opposées | Deux satellites symétriques peuvent-ils vieillir de façon égale sans réfuter la dilatation temporelle ? | Montrer l'égalité de leurs temps propres par symétrie et la distinguer d'une comparaison des taux avec un observateur statique | Étape 4 | Métrique de Schwarzschild, géodésique circulaire, temps propre | Étude de cas avancée, hors parcours essentiel |
 
 Les branches facultatives ne doivent pas interrompre le parcours essentiel ni être présentées comme des prérequis.
 
@@ -263,7 +263,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 
 - **Rôle dans le parcours :** comparaison avancée et limite de généralisation.
 - **Question locale :** deux satellites géodésiques de même rayon et de sens opposés peuvent-ils accumuler le même temps propre sans réfuter la dilatation temporelle ?
-- **Objectif observable :** établir l'égalité des temps propres par symétrie, puis distinguer cette paire d'observateurs d'une comparaison avec un observateur statique au même rayon.
+- **Objectif observable :** établir l'égalité des temps propres par symétrie, puis comparer les taux d'accumulation du temps propre des satellites et d'un observateur statique au même rayon, sans prétendre qu'ils partagent les mêmes deux événements.
 - **Prérequis :** temps propre, géodésique, métrique et événements de rencontre.
 - **Concepts introduits :** métrique de Schwarzschild, symétrie de réflexion, orbite circulaire géodésique.
 - **Concepts réutilisés :** temps propre, ligne d'univers, observateur statique.
@@ -271,13 +271,13 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
   1. Définir l'extérieur de Schwarzschild, le rayon orbital, les événements de rencontre et les hypothèses idéalisées.
   2. Montrer que la transformation de réflexion φ → −φ échange les deux lignes d'univers et laisse la métrique inchangée.
   3. En déduire que les intégrales de temps propre des deux satellites sont égales entre événements de rencontre correspondants.
-  4. Comparer séparément une orbite circulaire géodésique à un observateur statique au même rayon ; expliquer pourquoi cette autre paire accumule des temps propres différents.
+  4. En unités géométriques (G=c=1), établir pour une orbite circulaire géodésique timelike (r>3M, stable si r>6M) dτ/dt=√(1−3M/r), et pour un observateur statique au même rayon dτ/dt=√(1−2M/r). Comparer ces taux sur un même intervalle de temps de Schwarzschild Δt ; préciser qu'il s'agit d'une comparaison de taux coordonnée, pas de deux horloges réunies aux mêmes événements.
   5. Identifier l'erreur qui consiste à étendre une transformation de Lorentz locale sur toute l'orbite ou à imposer x=0 et x'=0 le long de deux lignes distinctes.
 - **Claims et preuves publiques :** Vavryčuk–Křížek (2024), Lambare (2025) et da Câmara et al. (2025), à lire avec leurs périmètres et limites documentaires.
-- **Démonstration ou calcul à développer :** dériver l'égalité des deux intégrales par symétrie de la métrique ; ne pas dépendre de la seule affirmation d'un auteur.
-- **Exemple vérifiable :** comparer les deux satellites entre deux rencontres, puis comparer l'un d'eux à l'observateur statique au même rayon.
+- **Démonstration ou calcul à développer :** dériver l'égalité des deux intégrales par l'isométrie φ → −φ ; dériver les deux taux dτ/dt depuis la métrique de Schwarzschild. Ne pas dépendre de la seule affirmation d'un auteur.
+- **Exemple vérifiable :** comparer les deux satellites entre deux rencontres successives ; comparer ensuite leurs taux et celui de l'observateur statique pour un même Δt de Schwarzschild, en signalant l'absence de paire d'événements communs pour cette seconde comparaison.
 - **Contre-exemple / limite / idée fausse :** l'égalité des temps propres de deux observateurs symétriques ne signifie pas que la dilatation temporelle n'existe pas ou que toute paire d'observateurs vieillit de la même façon.
-- **Média envisagé et fonction pédagogique :** diagramme orbital et tableau des trois lignes d'univers, avec distinction explicite des deux comparaisons.
+- **Média envisagé et fonction pédagogique :** diagramme orbital des deux satellites et ligne statique, accompagné d'un tableau distinguant (i) la comparaison directe aux rencontres entre satellites et (ii) la comparaison des taux dτ/dt sur un même Δt.
 - **Transition vers la suite :** revenir au cadre général : les résultats dépendent des trajectoires, des événements et de la métrique.
 - **Critère de sortie :** le lecteur explique l'égalité par symétrie et réfute l'inférence générale contre la dilatation temporelle.
 - **Statut :** approfondissement facultatif ; preuve à intégrer et revue scientifique requise.
@@ -294,7 +294,7 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 | Asymétrie et accélération | Asymétrie | Asymétrie | Comparaison de référentiels successifs et trajets miroirs | Diagnostiquer l'erreur « accélération = pénalité » | Appliquer à un profil d'accélération fini | Présent ; transitions à clarifier |
 | Signaux et Doppler | Article facultatif | Article Doppler | Calcul des facteurs et tops reçus | Distinguer émission, réception, simultanéité | Modifier $β$ et le sens du mouvement | Présent ; conventions à expliciter |
 | Limites de généralisation | Temps propre et encadrés avancés | Approfondissements ciblés | Contre-exemples topologiques, Schwarzschild et point conjugué | Classer un résultat par hypothèses et géométrie | Évaluer une nouvelle configuration | Partiel ; garder hors du récit central |
-| Orbites circulaires opposées en Schwarzschild | Approfondissement F5 | Métrique et symétrie des trajectoires | Égalité des intégrales de temps propre ; contraste avec l'observateur statique | Vérifier le rôle de la symétrie et des événements de rencontre | Distinguer égalité de deux horloges et absence générale de dilatation | Résultat géométrique clair ; rédaction de la démonstration à faire |
+| Orbites circulaires opposées en Schwarzschild | Approfondissement F5 | Métrique et symétrie des trajectoires | Égalité des intégrales de temps propre ; comparaison séparée des taux dτ/dt | Vérifier le rôle de la symétrie et des événements de rencontre | Distinguer égalité de deux horloges et comparaison de taux référés au temps de Schwarzschild | Résultat géométrique clair ; dérivation détaillée à rédiger |
 | Dossier Vavryčuk–Křížek / Lambare | Approfondissement sur les orbites symétriques | Dossier apparié | Égalité des temps propres par symétrie ; critique de l'extension globale des référentiels locaux | Distinguer résultat géométrique, argument de Lorentz et portée de la conclusion | Comparer à un observateur statique au même rayon | Résultat géométrique établi par symétrie ; preuve détaillée de Lambare à vérifier sur le texte intégral |
 
 Ne pas traiter une notion simplement nommée comme acquise. Toute formule utilisée doit avoir été définie, motivée et reliée à une question physique.
@@ -309,8 +309,8 @@ Ne pas traiter une notion simplement nommée comme acquise. Toute formule utilis
 | Gomes (2026), [article](https://doi.org/10.1119/5.0332126) | Toute géodésique maximise-t-elle globalement le temps propre ? | Modèle calculé en champ faible et point conjugué | Comparaison de trois trajectoires dans un modèle terrestre idéal | Dépend des hypothèses et ne constitue pas une règle générale pour tout espace-temps | Approfondissement sur les limites des slogans géodésiques |
 | Herrmann & Pohlig (2024), [article](https://doi.org/10.31349/RevMexFisE.21.010202) | Le travel effect et le skyscraper effect sont-ils deux mécanismes distincts ? | Rapprochement pédagogique dans un modèle homogène plat | Approximations analytiques et changement de référentiel | Le champ homogène idéal ne décrit pas toute situation gravitationnelle réelle | Encadré sur la comparaison des horloges et les descriptions dépendantes du référentiel |
 | da Câmara et al. (2025), [article](https://doi.org/10.1590/1806-9126-RBEF-2025-0049) | Quelles intuitions du paradoxe standard se généralisent ? | Cadre de temps propre, contre-exemples topologiques et Schwarzschild, limites du Doppler | Analyse géométrique et comparaisons de trajectoires | Les résultats avancés restent conditionnels ; toutes les courbes ne sont pas reproduites indépendamment | Référence principale pour borner les généralisations |
-| Vavryčuk & Křížek (2024), [article](https://doi.org/10.1016/j.physleta.2024.129886) | Deux satellites en orbites opposées constituent-ils un paradoxe symétrique ? | La configuration implique l'égalité des temps propres des deux orbites ; les auteurs en tirent une conclusion plus générale contre la dilatation temporelle | Construction de vitesse relative instantanée et interprétation de l'invariance d'intervalle | L'égalité des deux orbites est compatible avec la symétrie de Schwarzschild ; l'inférence générale contre la dilatation temporelle ne suit pas. Les conditions x=0 et x'=0 ne décrivent pas deux lignes d'univers confondues | Étude de cas avancée distinguant résultat et argument |
-| Lambare (2025), [commentaire](https://doi.org/10.1016/j.physleta.2025.130579) | Le principe d'équivalence autorise-t-il une comparaison globale de satellites ? | Rappelle la portée locale de l'équivalence et rapporte l'égalité des temps propres dans la métrique de Schwarzschild | Commentaire et solution rapportée dans la métrique de Schwarzschild | Le texte intégral n'est pas vérifié ; la conclusion géométrique peut être établie indépendamment par la symétrie des deux orbites | Approfondissement apparié ; ne pas attribuer à Lambare une démonstration non consultée |
+| Vavryčuk & Křížek (2024), [article](https://doi.org/10.1016/j.physleta.2024.129886) | Article et PDF auteur ; §§ 2–3, équations (1)–(13), appendice A | Article de recherche primaire ; source de l'argument sur deux orbites opposées | Licence indiquée dans la capture comme CC BY 4.0, à confirmer sur la version éditeur ; attribution requise. Vérifier indépendamment la dérivation et les événements comparés. |
+| Lambare (2025), [commentaire](https://doi.org/10.1016/j.physleta.2025.130579) | Notice éditeur, abstract et extraits accessibles ; texte intégral non archivé | Commentaire scientifique sur le principe d'équivalence et le calcul en Schwarzschild | Licence non confirmée ; ne pas reproduire de contenu. Limiter explicitement les affirmations aux passages consultés. |
 
 Le nombre de sources n'est pas un indicateur de preuve. Les sources pédagogiques servent à identifier les difficultés et les formes d'explication ; les affirmations scientifiques décisives doivent être vérifiées dans les publications et les calculs.
 
