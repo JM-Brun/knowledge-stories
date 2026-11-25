@@ -4,7 +4,7 @@ subtitle: "Jour 3 · Ce qu'un résumé statistique ne montre pas"
 description: "Voir comment des distributions très différentes peuvent partager des statistiques descriptives et conduire à des interprétations opposées."
 ---
 
-> **En 15 à 18 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
+> **En 12 à 15 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
 >
 > **Prérequis** — Savoir calculer une moyenne. La variance, la corrélation et les graphiques diagnostiques sont introduits progressivement.
 >
