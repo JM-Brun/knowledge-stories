@@ -67,7 +67,8 @@ Les articles en cours de relecture peuvent être générés sous `/atelier/{slug
 Les calendriers annuels sont regroupés dans une archive commune. Chaque édition est une page autonome qui réunit la présentation, les 24 cases, le fil conducteur facultatif et les accès directs aux journées :
 
 - [Archives des calendriers](https://jm-brun.github.io/knowledge-stories/calendriers/)
-- [Édition 2026 — Data Science & Machine Learning](https://jm-brun.github.io/knowledge-stories/calendar/)
+- [Édition 2026 — Data Science & Machine Learning (français)](https://jm-brun.github.io/knowledge-stories/calendar/)
+- [2026 edition — Data Science & Machine Learning (English overview)](https://jm-brun.github.io/knowledge-stories/calendar/en/)
 
 Le site Astro et le projet Quarto sont construits ensemble par `.github/workflows/pages.yml`. Quarto génère le calendrier dans `dist/calendar/`, puis le même artefact est déployé sur GitHub Pages. Les cinq premières journées sont publiées ; les suivantes restent annoncées comme à paraître jusqu'à leur validation.
 
