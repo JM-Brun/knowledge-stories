@@ -276,7 +276,39 @@ La connexion pédagogique forte est donc :
 - racines de l'unité : symétries circulaires exploitées par la DFT ;
 - rapidité : paramètre additif des boosts colinéaires, analogue formellement à l'angle des rotations.
 
-### 7.3 La limite à expliquer explicitement
+### 7.3 Le pont algébrique le plus précis : les nombres complexes dédoublés
+
+Il existe un parallèle encore plus précis que la seule comparaison cercle / hyperbole. Il faut toutefois introduire une algèbre distincte des nombres complexes usuels.
+
+Pour les nombres complexes ordinaires, l'unité imaginaire vérifie \(i^2=-1\). Avec \(z=x+iy\), le produit par \(e^{i\theta}=\cos\theta+i\sin\theta\) réalise une rotation euclidienne et conserve \(x^2+y^2\).
+
+Pour les **nombres complexes dédoublés** (aussi appelés nombres hyperboliques ou split-complex), on introduit une unité \(j\) telle que \(j^2=+1\), avec \(j\ne 1\). Pour \(w=u+jv\), la conjugaison \(u-jv\) donne la norme algébrique
+\[
+w\bar w=u^2-v^2.
+\]
+La multiplication par
+\[
+e^{-j\varphi}=\cosh\varphi-j\sinh\varphi
+\]
+transforme les coordonnées selon
+\[
+u'=u\cosh\varphi-v\sinh\varphi,\qquad
+v'=v\cosh\varphi-u\sinh\varphi.
+\]
+Cette transformation conserve exactement \(u^2-v^2\). En prenant \(u=ct\) et \(v=x\), on retrouve la forme d'un boost de Lorentz en \(1+1\) dimensions, à convention de signe près.
+
+Le parallèle est donc structurel :
+
+| Algèbre | Unité | Norme | Transformation préservant la norme |
+|---|---|---|---|
+| Complexes ordinaires | \(i^2=-1\) | \(x^2+y^2\) | Rotation circulaire, \(\cos\theta,\sin\theta\) |
+| Complexes dédoublés | \(j^2=+1\) | \(u^2-v^2\) | Boost hyperbolique, \(\cosh\varphi,\sinh\varphi\) |
+
+Cette connexion est particulièrement féconde : les nombres complexes ordinaires sont naturellement adaptés aux rotations euclidiennes et aux racines de l'unité de la FFT ; les nombres complexes dédoublés encodent naturellement les boosts de Lorentz en dimension \(1+1\). Elle explique algébriquement pourquoi les fonctions trigonométriques circulaires apparaissent dans le premier cas et les fonctions hyperboliques dans le second.
+
+Il faudra cependant préciser que cette algèbre dédoublée est un outil de représentation des transformations en \(1+1\), pas une affirmation selon laquelle les coordonnées physiques de l'espace-temps seraient des nombres complexes. En \(3+1\), la structure complète des transformations de Lorentz demande une représentation plus riche ; ne pas extrapoler directement le modèle \(1+1\).
+
+### 7.4 La limite à expliquer explicitement
 
 Il serait trompeur de dire que l'espace-temps de Minkowski est simplement un plan complexe, ou que le temps est physiquement une coordonnée imaginaire.
 
