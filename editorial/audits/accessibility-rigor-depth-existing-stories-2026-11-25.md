@@ -277,3 +277,53 @@ Les corrections doivent viser les fondations manquantes, la hiérarchie des nive
 Le critère de clôture reste la double lecture : un novice motivé peut-il reconstruire le raisonnement, et un lecteur averti y trouve-t-il une valeur qui dépasse le rappel des notions usuelles ?
 
 Cet audit constitue un diagnostic de contenu et un plan de correction. Il ne vaut ni validation de publication ni certification de l'accessibilité des rendus.
+
+
+## 7. Mise en œuvre du plan de correction
+
+L'audit est conçu comme un diagnostic actionnable. Les corrections sont suivies séparément afin de distinguer le constat, la modification éditoriale et sa validation technique.
+
+### Première tranche — Fondations du temps propre
+
+**Statut : implémentation commencée sur la branche `improve/twin-proper-time-foundations`.**
+
+L'article `src/content/articles/temps-propre-paradoxe-jumeaux.mdx` a été réécrit sur les points suivants :
+
+- introduction explicite des événements, des référentiels inertiels et des lignes d'univers ;
+- annonce du cadre physique : relativité restreinte, espace-temps plat, absence de champ gravitationnel ;
+- convention de signature de la métrique explicitée (`- + + +`) ;
+- dérivation algébrique complète de `dτ = dt √(1 − v²/c²)` depuis l'intervalle de Minkowski ;
+- définition de la vitesse comme norme de la vitesse coordonnée dans le référentiel inertiel choisi ;
+- justification de la racine positive et intégration sur une trajectoire dont la vitesse peut varier ;
+- distinction explicite entre coordonnées dépendantes du référentiel et temps propre invariant ;
+- démonstration de la maximalité du temps propre de la trajectoire inertielle entre deux événements de genre temps ;
+- clarification du rôle du demi-tour de durée finie et de l'idéalisation instantanée.
+
+Le calcul numérique du scénario des jumeaux et les distinctions conceptuelles utiles de l'article ont été conservés. Le temps de lecture affiché a été porté de 9 à 12 minutes pour refléter l'ajout de la dérivation.
+
+**À vérifier avant clôture de cette tranche :**
+- rendu effectif des équations dans Astro/MDX ;
+- cohérence du vocabulaire et des conventions avec les autres articles de la série ;
+- cohérence de la démonstration de maximalité avec les hypothèses affichées ;
+- relecture novice et relecture physique indépendante ;
+- build, responsive, clavier et lecteur d'écran.
+
+### Tranches suivantes
+
+| Priorité | Contenus | Action attendue | Statut |
+|---|---|---|---|
+| P0 | Article d'entrée du paradoxe des jumeaux | Expliciter les prérequis et baliser le parcours novice / approfondissements | À faire |
+| P0 | Toom–Cook et FFT | Construire une progression visible et expliciter les changements de cadre algébrique | À faire |
+| P0 | Calendrier, jour 1 | Recentrer la progression sur le modèle de mesure et hiérarchiser les approfondissements | À faire |
+| P0 | Calendrier, jour 2 | Attacher systématiquement les hypothèses aux méthodes de correction de sélection | À faire |
+| P1 | Karatsuba et analyse de complexité | Faire apparaître plus tôt les hypothèses du modèle et les différences avec l'implémentation | À faire |
+| P1 | Frontière théorique de la multiplication | Ajouter une voie de lecture graduée et revalider les résultats contemporains | À faire |
+| P1 | Calendrier, jours 3–5 | Vérifier la perte d'information des résumés, les conventions de covariance et le tracé de l'entropie | À faire |
+| P1 | Article ML | Ajouter un exercice de choix du protocole de validation selon le scénario de généralisation | À faire |
+| P2 | Tous les contenus rendus | Tests chronométrés, responsive, zoom, clavier, VoiceOver et alternatives textuelles | À faire |
+
+### Règle de progression
+
+Une tranche n'est pas considérée comme terminée parce que le texte a été modifié. Elle doit passer une relecture de fond, une vérification des formules et hypothèses, puis les contrôles de rendu pertinents. Les contenus restent en statut `review` tant que les critères de publication ne sont pas satisfaits.
+
+Les corrections ne doivent pas supprimer les approfondissements existants pour réduire artificiellement la longueur. En cas de surcharge, privilégier une hiérarchie explicite entre parcours essentiel et développements avancés, sans rendre le texte dépendant d'un prérequis non expliqué.
