@@ -239,24 +239,27 @@ Les observations occasionnelles pèsent donc neuf fois plus que les observations
 
 En pratique, les ratios de densité sont rarement connus. On peut les estimer à partir d'un échantillon source et d'un échantillon cible non étiqueté, par exemple avec un classifieur qui prédit l'appartenance au domaine. Mais cette estimation peut être instable, surtout en grande dimension ou lorsque les domaines se recouvrent peu.
 
-### Diagnostiquer avant de corriger
+### Du diagnostic à l'action
 
-1. **Définir le domaine cible** : nouveaux utilisateurs, nouveaux sites, autre période, autre canal d'acquisition ? Décrire la population et l'unité de généralisation.
-2. **Comparer les features** : distributions marginales et conjointes, taux de valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
-3. **Vérifier le support commun** : la cible contient-elle des profils qui n'existent pas dans la source ? Sans recouvrement, la repondération devient impossible ou repose sur une extrapolation.
-4. **Examiner les labels** : dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\mid X)$ par période ou groupe. Sans labels cible, on ne peut pas vérifier directement la stabilité de cette relation.
-5. **Choisir le protocole de validation** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Le test doit reproduire la nouveauté attendue.
-6. **Quantifier la stabilité des poids** : inspecter leur distribution et la taille effective d'échantillon.
+Un diagnostic utile suit un ordre précis : définir ce que l'on veut transporter, comprendre comment les observations ont été produites, puis seulement choisir une correction.
+
+1. **Définir l'estimand et le domaine cible** : quelle population, quelle période, quelle unité et quelle quantité ? Préciser s'il s'agit de nouveaux utilisateurs, de nouveaux sites, d'une autre période ou d'un autre canal d'acquisition.
+2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ? Examiner les taux de couverture et de réponse, ainsi que les variables susceptibles d'expliquer la participation.
+3. **Comparer source et cible** : distributions marginales et conjointes des features, valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
+4. **Formuler le changement plausible** : $P(X)$, $P(Y)$, $P(X\\mid Y)$ ou $P(Y\\mid X)$ ? Ces mécanismes peuvent coexister ; la différence entre deux histogrammes ne suffit pas à établir lequel est à l'œuvre.
+5. **Vérifier le support commun et les labels** : la cible contient-elle des profils absents de la source ? Dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\\mid X)$ par période ou groupe. Sans labels cible, la stabilité de cette relation ne peut pas être vérifiée directement.
+6. **Choisir une validation fidèle au déploiement** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Une validation aléatoire n'est adaptée que si elle reproduit réellement le régime visé.
+7. **Évaluer la stabilité de la correction** : inspecter la distribution des poids, les poids extrêmes et la taille effective ; tester la sensibilité des conclusions aux choix de modélisation et aux hypothèses de sélection.
 
 Une mesure utile de concentration des poids est la taille effective d'échantillon :
 
 $$
-n_{\mathrm{eff}}=
-\frac{\left(\sum_{i=1}^{n}w_i\right)^2}
-{\sum_{i=1}^{n}w_i^2}.
+n_{\\mathrm{eff}}=
+\\frac{\\left(\\sum_{i=1}^{n}w_i\\right)^2}
+{\\sum_{i=1}^{n}w_i^2}.
 $$
 
-Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
+Si quelques observations portent presque tout le poids, $n_{\\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
 
 ### Quelle action selon le diagnostic ?
 
@@ -290,22 +293,6 @@ La validation doit donc préciser l'unité de généralisation et le mécanisme 
 6. Si des profils sont absents de la source, il manque le support nécessaire à la repondération : il faut collecter des données ou restreindre le domaine d'usage. Si $P(Y\mid X)$ a changé, la relation prédictive elle-même n'est plus stable : il faut obtenir des labels récents, réévaluer et envisager une adaptation ou un réentraînement.
 
 </details>
-
-## Un protocole de diagnostic en pratique
-
-Pour juger si un jeu de données permet de généraliser :
-
-1. **Écrire l'estimand** : quelle population, quelle période, quelle unité et quelle quantité ?
-2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ?
-3. **Comparer source et cible** : distributions, taux de couverture et de réponse, catégories inédites et profils absents.
-4. **Formuler le type de changement plausible** : $P(X)$, $P(Y)$, $P(X\mid Y)$ ou $P(Y\mid X)$ ? Ne pas choisir une correction avant d'avoir formulé son hypothèse.
-5. **Examiner le support commun** : quelles régions de la cible sont couvertes par la source ?
-6. **Choisir une validation fidèle au déploiement** et, lorsque c'est possible, évaluer sur des labels cible.
-7. **Tester la sensibilité** : poids extrêmes, taille effective, hypothèses de sélection et stabilité des conclusions.
-
-Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels, la taille effective et la population à laquelle les résultats peuvent raisonnablement être transportés.
-
-**Une règle pratique :** une correction par pondération est crédible seulement si les variables qui expliquent la participation et le résultat sont suffisamment observées, si chaque profil cible a une probabilité non nulle d'être représenté dans la source (*positivité*), et si le modèle de poids est adéquat. Si la participation dépend encore du résultat après conditionnement sur les variables observées, le biais peut persister. Il faut alors documenter cette hypothèse et tester la sensibilité des conclusions à des mécanismes de non-réponse plausibles.
 
 ## À retenir
 
