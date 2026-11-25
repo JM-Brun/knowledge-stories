@@ -282,10 +282,11 @@ Il existe un parallèle encore plus précis que la seule comparaison cercle / hy
 
 Pour les nombres complexes ordinaires, l'unité imaginaire vérifie \(i^2=-1\). Avec \(z=x+iy\), le produit par \(e^{i\theta}=\cos\theta+i\sin\theta\) réalise une rotation euclidienne et conserve \(x^2+y^2\).
 
-Pour les **nombres complexes dédoublés** (aussi appelés nombres hyperboliques ou split-complex), on introduit une unité \(j\) telle que \(j^2=+1\), avec \(j\ne 1\). Pour \(w=u+jv\), la conjugaison \(u-jv\) donne la norme algébrique
+Pour les **nombres complexes déployés** (split-complex, aussi appelés nombres hyperboliques), on introduit une unité \(j\) telle que \(j^2=+1\), avec \(j\ne 1\). Pour \(w=u+jv\), la conjugaison \(u-jv\) donne la forme quadratique associée
 \[
 w\bar w=u^2-v^2.
 \]
+Cette forme est indéfinie : elle peut être positive, négative ou nulle pour un élément non nul. En particulier, \((1+j)(1-j)=0\) : l'algèbre possède des diviseurs de zéro et n'est pas un corps. Les directions \(u=\pm v\), de forme quadratique nulle, correspondent aux deux directions du cône de lumière en \(1+1\) dimensions.
 La multiplication par
 \[
 e^{-j\varphi}=\cosh\varphi-j\sinh\varphi
@@ -368,6 +369,15 @@ Un comparateur à deux panneaux pourrait montrer :
 - les coordonnées avant/après et l'invariant calculé sous les deux figures.
 
 Le visuel doit montrer que les fonctions trigonométriques circulaires et hyperboliques ne jouent pas le même rôle géométrique. Les paramètres ne doivent pas être assimilés : angle et rapidité ont des domaines et interprétations différents. Un diagramme statique avec calculs vérifiables est préférable à une animation si l'interaction ne sert pas une question précise.
+
+### Références de travail pour préparer ce développement
+
+- [The Split Complex Numbers — Oregon State University, Geometry of Euclidean and Lorentzian Geometries](https://books.physics.oregonstate.edu/GELG/csplit.html) : définition de l'algèbre, forme quadratique indéfinie, diviseurs de zéro et lien avec le plan de Minkowski.
+- [MAT6702 lecture notes — Ohio State University](https://www.asc.ohio-state.edu/terekcouto.1/texts/MAT6702_OSU-USP19_notes.pdf) : définition des split-complex numbers et structure algébrique.
+- [Particles and Symmetries — University of Washington, chapitre Minkowski spacetime](https://courses.washington.edu/partsym/15Spr/ch02.pdf) : rapidité, relations entre \(\gamma\), \(v/c\), \(\cosh\) et \(\sinh\), et matrice de boost.
+- [Minkowski spacetime — Introductory University Physics](https://mochizuki-tus.github.io/UnivPhys_Textbook_EN/ch56_minkowski_spacetime.html) : comparaison explicite entre rotation euclidienne et boost hyperbolique.
+
+Ces sources sont des pistes documentaires pour la rédaction, pas encore une bibliographie validée de l'article final. Vérifier les conventions de signature et les formules dans les textes retenus avant publication.
 
 ### 7.6 Décision proposée
 
