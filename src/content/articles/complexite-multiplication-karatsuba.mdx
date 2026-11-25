@@ -207,10 +207,7 @@ Les deux méthodes donnent bien le même entier. À ce niveau de découpage, la 
 - **Le coût récursif** : les trois produits &#92;(p&#92;), &#92;(q&#92;) et &#92;(r&#92;) sont les trois appels récursifs ; les additions, soustractions et décalages sont le travail local.
 - **La taille réelle des appels** : une retenue peut ajouter un chiffre à une somme de blocs, comme ici avec &#92;(13&#92;,086&#92;). Le modèle &#92;(n/2&#92;) est donc une approximation asymptotique, pas une égalité exacte à chaque appel.
 
-Le même exemple sert ainsi de fil conducteur entre l'identité arithmétique, le découpage récursif et la récurrence de complexité. La section suivante peut maintenant compter les appels à chaque niveau sans perdre de vue ce qu'ils calculent concrètement.
-
-
-Le calcul complet a établi l'identité sur des valeurs concrètes et montré qu'une somme de blocs peut gagner un chiffre. Pour l'analyse asymptotique, il reste à préciser pourquoi ce débordement change les tailles exactes sans changer leur ordre de grandeur.
+Ce calcul relie l'identité arithmétique au découpage récursif et montre concrètement qu'une somme de blocs peut gagner un chiffre. Il reste à préciser pourquoi ce débordement change les tailles exactes sans changer leur ordre de grandeur.
 
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
@@ -239,7 +236,7 @@ Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ;
 Le rappel algébrique précédent a justifié les trois produits :
 
 &#92;[
-p=ac,\qquad q=bd,\qquad r=(a+b)(c+d).
+p=ac,&#92;qquad q=bd,&#92;qquad r=(a+b)(c+d).
 &#92;]
 
 À ce stade, leur identité algébrique est établie. Pour la complexité, la question est désormais celle de leur **taille** : combien de chiffres comporte chaque opérande, et quel travail local faut-il ajouter pour les sommes, les soustractions et la recomposition ?
