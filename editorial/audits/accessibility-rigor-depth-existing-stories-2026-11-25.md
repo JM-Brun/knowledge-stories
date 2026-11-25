@@ -308,11 +308,24 @@ Le calcul numérique du scénario des jumeaux et les distinctions conceptuelles 
 - relecture novice et relecture physique indépendante ;
 - build, responsive, clavier et lecteur d'écran.
 
+### Deuxième modification — Article d'entrée du paradoxe des jumeaux
+
+**Statut : première passe éditoriale réalisée sur la même branche.**
+
+Dans `src/content/articles/paradoxe-des-jumeaux.mdx` :
+- ajout d'un bloc de prérequis minimaux définissant `c`, l'année-lumière, le référentiel et le référentiel inertiel ;
+- définition du temps propre comme durée mesurée le long du trajet de l'horloge ;
+- introduction du facteur de Lorentz et de la relation valable sur une branche à vitesse constante ;
+- clarification du calcul des 5 ans par trajet à partir de 4 années-lumière et de `0,8c` ;
+- temps de lecture estimé ajusté de 7 à 9 minutes.
+
+Cette modification rend l'entrée plus autonome, mais ne constitue pas encore une validation complète du parcours novice. Il reste à vérifier la progression entre cette introduction, la simultanéité, l'asymétrie et le temps propre, ainsi que le fonctionnement de l'explorateur interactif.
+
 ### Tranches suivantes
 
 | Priorité | Contenus | Action attendue | Statut |
 |---|---|---|---|
-| P0 | Article d'entrée du paradoxe des jumeaux | Expliciter les prérequis et baliser le parcours novice / approfondissements | À faire |
+| P0 | Article d'entrée du paradoxe des jumeaux | Vérifier transitions et parcours novice / approfondissements | Relecture à faire |
 | P0 | Toom–Cook et FFT | Construire une progression visible et expliciter les changements de cadre algébrique | À faire |
 | P0 | Calendrier, jour 1 | Recentrer la progression sur le modèle de mesure et hiérarchiser les approfondissements | À faire |
 | P0 | Calendrier, jour 2 | Attacher systématiquement les hypothèses aux méthodes de correction de sélection | À faire |
