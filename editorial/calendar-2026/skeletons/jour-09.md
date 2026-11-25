@@ -70,6 +70,35 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 **Dispositif proposé :** Sur un petit jeu contenant une valeur extrême, calculer les pertes absolues et quadratiques de deux prédicteurs constants et comparer leurs minimisateurs.
 
+### Exemple numérique à intégrer
+
+Considérer les cinq valeurs \(0,0,0,0,10\) et un prédicteur constant \(a\).
+
+Pour la perte quadratique, le risque empirique est proportionnel à
+\[
+R_2(a)=\frac{1}{5}\sum_{i=1}^{5}(y_i-a)^2.
+\]
+Son minimiseur est la moyenne, soit \(a=2\). La somme des carrés vaut alors 80 (risque moyen 16). Pour la perte absolue,
+\[
+R_1(a)=\frac{1}{5}\sum_{i=1}^{5}|y_i-a|,
+\]
+un minimiseur est la médiane, soit \(a=0\), et la somme des erreurs absolues vaut 10 (risque moyen 2).
+
+Ce contraste ne signifie pas qu'une perte est universellement meilleure : les deux objectifs répondent à des préférences différentes. La perte quadratique pénalise fortement les grands écarts ; la perte absolue est moins sensible à la valeur extrême. Il faut comparer les prédicteurs sous une même unité de coût avant de conclure.
+
+### De l'objectif observé à la décision
+
+Faire expliciter quatre niveaux qui sont souvent confondus :
+
+1. **Résidu / erreur** : écart entre une observation et une prédiction.
+2. **Perte** : transformation de cet écart en coût, selon une convention choisie.
+3. **Risque empirique** : moyenne (éventuellement pondérée) des pertes sur l'échantillon d'entraînement.
+4. **Risque populationnel** : espérance de la perte sur la population ou le processus futur visé.
+
+Le minimum du risque empirique n'assure pas le minimum du risque futur. Le choix de la perte encode une préférence, mais la généralisation dépend aussi de l'échantillonnage, de la capacité du modèle, de la procédure d'entraînement et du décalage entre entraînement et déploiement.
+
+Pour le transfert, prendre un exemple de coûts asymétriques (détection d'une panne, tri de défauts) et demander quelle erreur coûte le plus cher. Distinguer alors la perte d'entraînement, le seuil de décision et la métrique d'évaluation : modifier l'un ne revient pas automatiquement à modifier les deux autres.
+
 **Matériel à préparer :**
 - données ou paramètres explicitement documentés ;
 - calculs reproductibles et vérifiés indépendamment ;
@@ -99,7 +128,13 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 ## 7. Vérification des acquis
 
-**Activité proposée :** Choisir une perte pour un scénario à coûts asymétriques et justifier ce que le modèle sera incité à privilégier.
+**Activité proposée — relier la perte à la décision :**
+
+1. Reprendre \(0,0,0,0,10\) et vérifier que la moyenne minimise la somme des carrés tandis que la médiane minimise la somme des valeurs absolues.
+2. Dans un système d'alerte de panne, expliquer pourquoi une perte qui traite de la même façon faux négatifs et faux positifs peut être inadéquate si leurs coûts diffèrent fortement.
+3. Distinguer trois leviers : changer la perte d'entraînement, déplacer le seuil de décision, changer la métrique de compte rendu. Dans quel cas chacun modifie-t-il réellement le comportement ou seulement son évaluation ?
+
+La correction doit éviter la réponse simpliste « prendre toujours la perte qui pénalise le plus l'erreur coûteuse » : préciser la cible, la distribution, la calibration éventuelle et la règle de décision.
 
 Prévoir 2 à 4 questions graduées :
 1. compréhension ou calcul direct ;

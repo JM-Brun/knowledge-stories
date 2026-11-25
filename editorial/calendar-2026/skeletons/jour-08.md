@@ -70,6 +70,33 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 **Dispositif proposé :** Tracer la log-vraisemblance pour plusieurs p et comparer le maximum à la fréquence observée. Ajouter un petit échantillon pour visualiser l'incertitude.
 
+### Démonstration calculée à intégrer
+
+Prendre une séquence de 10 lancers contenant 7 piles et 3 faces. Sous l'hypothèse de lancers indépendants et de probabilité constante p d'obtenir pile, la vraisemblance de cette séquence ordonnée est :
+
+\[
+L(p)=p^7(1-p)^3, \qquad 0\leq p\leq 1.
+\]
+
+Son logarithme est \(\ell(p)=7\log p+3\log(1-p)\). Pour \(0<p<1\),
+
+\[
+\ell'(p)=\frac{7}{p}-\frac{3}{1-p}=0
+\quad\Longrightarrow\quad
+\widehat p_{MV}=\frac{7}{10}=0{,}7.
+\]
+
+La dérivée seconde est strictement négative sur cet intervalle : le point critique est donc le maximum unique. Pour ce jeu de données, la vraisemblance en \(p=0{,}7\) est environ 2,28 fois celle en \(p=0{,}5\). Ce rapport compare deux valeurs de paramètre pour les données observées ; il ne signifie pas que « p = 0,7 a 2,28 fois plus de probabilité d'être vrai ».
+
+Préciser que si l'on observe seulement le nombre de piles, la loi binomiale ajoute le facteur \(\binom{10}{7}\), indépendant de p : le maximum ne change pas. Traiter aussi les cas limites \(k=0\) et \(k=n\), où l'estimateur vaut respectivement 0 et 1.
+
+### Ce que l'estimation ne dit pas
+
+- \(\widehat p=0{,}7\) est une estimation ponctuelle, pas une preuve que la pièce est biaisée ni une mesure complète de l'incertitude.
+- Avec seulement dix lancers, des valeurs assez éloignées de 0,7 restent compatibles avec les données ; toute conclusion sur un biais exige un protocole et une méthode d'incertitude (intervalle de confiance ou approche bayésienne, à distinguer).
+- Le modèle suppose des lancers indépendants et une probabilité stable. Une pièce lancée avec une mécanique différente, ou une pièce qui change de comportement, ne respecte pas nécessairement ces hypothèses.
+- Ne pas confondre maximiser la vraisemblance avec maximiser la probabilité du paramètre : cette dernière notion nécessite notamment un modèle bayésien et un a priori.
+
 **Matériel à préparer :**
 - données ou paramètres explicitement documentés ;
 - calculs reproductibles et vérifiés indépendamment ;
@@ -99,7 +126,13 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 ## 7. Vérification des acquis
 
-**Activité proposée :** Pour une séquence donnée, calculer k/n, écrire la vraisemblance et expliciter les hypothèses nécessaires.
+**Activité proposée — estimer sans surinterpréter :**
+
+1. Une autre séquence de 8 lancers contient 6 piles. Écrire la vraisemblance et calculer l'estimateur du maximum de vraisemblance : \(\widehat p=6/8=0{,}75\).
+2. Une séquence contient 8 piles sur 8. L'estimateur vaut 1. Est-ce une preuve que la pièce donne toujours pile ? Non : c'est le maximum dans le modèle sur cet échantillon ; l'incertitude reste importante.
+3. Expliquer pourquoi le rapport de vraisemblance entre deux valeurs de p n'est pas une probabilité que l'une d'elles soit vraie. Pour parler de probabilité du paramètre, il faut spécifier un cadre bayésien et un a priori.
+
+La correction doit distinguer calcul de l'estimateur, hypothèses du modèle et conclusion statistique. Ne pas demander un test de biais sans préciser le niveau, la règle de décision et le protocole.
 
 Prévoir 2 à 4 questions graduées :
 1. compréhension ou calcul direct ;
