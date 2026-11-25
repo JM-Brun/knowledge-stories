@@ -300,10 +300,10 @@ Cette transformation conserve exactement \(u^2-v^2\). En prenant \(u=ct\) et \(v
 
 Le parallèle est donc structurel :
 
-| Algèbre | Unité | Norme | Transformation préservant la norme |
+| Algèbre | Unité | Forme quadratique préservée | Transformation associée |
 |---|---|---|---|
 | Complexes ordinaires | \(i^2=-1\) | \(x^2+y^2\) | Rotation circulaire, \(\cos\theta,\sin\theta\) |
-| Complexes dédoublés | \(j^2=+1\) | \(u^2-v^2\) | Boost hyperbolique, \(\cosh\varphi,\sinh\varphi\) |
+| Complexes déployés | \(j^2=+1\) | \(u^2-v^2\) | Boost hyperbolique, \(\cosh\varphi,\sinh\varphi\) |
 
 Cette connexion est particulièrement féconde : les nombres complexes ordinaires sont naturellement adaptés aux rotations euclidiennes et aux racines de l'unité de la FFT ; les nombres complexes dédoublés encodent naturellement les boosts de Lorentz en dimension \(1+1\). Elle explique algébriquement pourquoi les fonctions trigonométriques circulaires apparaissent dans le premier cas et les fonctions hyperboliques dans le second.
 
@@ -317,7 +317,7 @@ L'écriture formelle \(x^0=ict\) peut transformer algébriquement la forme de Mi
 
 Autre différence essentielle : le plan complexe usuel est muni d'une métrique euclidienne définie positive ; la métrique de Minkowski est indéfinie, de signature \((- +)\) en 1+1 ou \((- + + +)\) en 3+1. La différence de signe est précisément ce qui change les cercles en hyperboles et autorise la structure causale relativiste.
 
-### 7.4 Forme éditoriale recommandée : trois niveaux
+### 7.5 Forme éditoriale recommandée : trois niveaux
 
 **Niveau 1 — Ajout local dans l'article FFT (à faire).**
 
@@ -359,7 +359,7 @@ Parcours possible :
 
 Ce texte serait un **complément transversal**, pas un prérequis des deux séries. Il ne faut le créer que si les ajouts locaux révèlent une vraie question pédagogique commune et si l'article peut apporter plus qu'une juxtaposition de deux rappels.
 
-### 7.5 Dispositif visuel ou interactif pertinent
+### 7.6 Dispositif visuel ou interactif pertinent
 
 Un comparateur à deux panneaux pourrait montrer :
 - à gauche, un point tournant sur le cercle unité et la conservation de \(x^2+y^2\) ;
@@ -379,7 +379,7 @@ Le visuel doit montrer que les fonctions trigonométriques circulaires et hyperb
 
 Ces sources sont des pistes documentaires pour la rédaction, pas encore une bibliographie validée de l'article final. Vérifier les conventions de signature et les formules dans les textes retenus avant publication.
 
-### 7.6 Décision proposée
+### 7.7 Décision proposée
 
 - [ ] Ne pas ouvrir immédiatement une nouvelle série ou un nouvel article autonome.
 - [ ] Ajouter d'abord le socle complexe dans l'article FFT.
