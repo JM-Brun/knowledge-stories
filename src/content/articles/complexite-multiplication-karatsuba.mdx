@@ -52,6 +52,8 @@ import KaratsubaGrowth from "../../components/KaratsubaGrowth.astro";
   <span><i className="legend-aux" /><span className="legend-copy">Produit auxiliaire de <b className="term-aux">Karatsuba</b> : <b className="term-aux">(a + b)(c + d)</b> (r)</span></span>
 </div>
 
+> **Portée du résultat.** La borne \\(T(n)=\\Theta(n^{\\log_2 3})\\) démontrée dans le modèle équilibré concerne des sous-problèmes de tailles comparables jusqu’au cas de base ; elle ne décrit pas uniformément toute paire dont le plus long opérande a \\(n\\) chiffres. Dans l’implémentation pédagogique, un opérande peut atteindre le cas de base avant l’autre. La **section 7, « Une précision sur les tailles réelles des blocs »**, revient sur cet arrêt anticipé et établit la borne supérieure correspondante, sans confondre celle-ci avec la borne inférieure du modèle équilibré. [Aller directement à cette analyse](#une-precision-sur-les-tailles-reelles-des-blocs).
+
 ## Préparer l’analyse : les notions utiles
 
 Pour suivre la démonstration, il suffit de distinguer un **appel récursif**, les appels qu’il engendre, les niveaux de l’arbre et les cas de base. Le point essentiel est de calculer, à chaque niveau, le nombre d’appels et le coût local de chacun, puis de sommer ces contributions.
