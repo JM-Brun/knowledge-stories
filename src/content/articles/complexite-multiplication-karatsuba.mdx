@@ -13,7 +13,7 @@ difficulty: "intermediate"
 articleType: "analysis"
 learningObjectives:
   - "Établir la récurrence de Karatsuba à partir de ses trois sous-multiplications et de son travail local."
-  - "Démontrer la borne Θ(n^{log₂ 3}) dans le modèle équilibré."
+  - "Démontrer l’ordre de grandeur de la complexité dans le modèle équilibré."
   - "Distinguer le modèle asymptotique des tailles exactes produites par les retenues."
   - "Comparer le coût par niveau et interpréter la contribution des feuilles."
 concepts: ["multiplication-de-karatsuba"]
@@ -403,7 +403,7 @@ Au niveau &#92;(j&#92;) :
 
 Le coût local cumulé de ce niveau vaut alors :
 
-<div class="math-display math-display--compact complexity-equations term-aux" role="math" aria-label="Travail d'addition au niveau j">
+<div class="math-display math-display--compact math-display--karatsuba complexity-equations" role="math" aria-label="Travail d'addition au niveau j">
   <div class="math-line">&#92;(3^j&#92;times O(n/2^j)=O(n(3/2)^j)&#92;)</div>
 </div>
 
