@@ -122,7 +122,13 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 ## 7. Vérification des acquis
 
-**Activité proposée :** Pour plusieurs valeurs de η, prédire convergence, oscillation ou divergence sur la fonction quadratique choisie.
+**Activité proposée — prédire avant de calculer :**
+
+1. Pour \(x_0=2\) et \(\eta=0{,}75\), calculer \(x_1\), puis \(x_2\). Le facteur vaut −0,5 : les signes alternent et la valeur absolue est divisée par deux à chaque itération.
+2. Pour \(\eta=1{,}1\), calculer les deux premières itérations et expliquer pourquoi l'erreur augmente malgré une direction opposée au gradient.
+3. Si la fonction devient \(f(x)=5x^2/2\), identifier la nouvelle borne sur \(\eta\) et expliquer le rôle de la courbure.
+
+La correction doit distinguer direction de descente locale, diminution effective de l'objectif et convergence asymptotique. Ne pas généraliser les seuils obtenus sur une quadratique à toute fonction.
 
 Prévoir 2 à 4 questions graduées :
 1. compréhension ou calcul direct ;
