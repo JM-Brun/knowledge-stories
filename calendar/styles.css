@@ -169,3 +169,25 @@ main.content, #quarto-content main { max-width: 76rem; }
 .advent-door.skeleton .door-action { color:#62796a; }
 .advent-door.skeleton .door-title { color:#294b3a; }
 .legend-swatch.skeleton { background:#e8eee5; border:1px dashed #8fa996; }
+
+
+/* Day 2 — make the sampling pipeline a compact, legible editorial figure. */
+#quarto-content figure.sampling-flow {
+  padding: .75rem;
+  background: linear-gradient(145deg, #fffefa, #f1f5ef);
+}
+#quarto-content figure.sampling-flow svg {
+  max-height: 19rem;
+}
+#quarto-content figure.sampling-flow figcaption {
+  max-width: 76ch;
+  margin-inline: auto;
+}
+@media (max-width: 700px) {
+  #quarto-content figure.sampling-flow svg {
+    min-width: 620px;
+  }
+  #quarto-content figure.sampling-flow .diagram-scroll {
+    overflow-x: auto;
+  }
+}
