@@ -143,7 +143,7 @@ L'ordre actuel des cinq articles est cohérent : mécanisme → complexité → 
 
 ### Bilan de la série des jumeaux
 
-La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Une première clarification a été appliquée dans l'article d'entrée : les chapitres sont maintenant annoncés selon leur rôle (préparation recommandée, parcours essentiel, point de vue complémentaire, extension). Proposition de rôles :
+La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Une première clarification a été appliquée dans l'article d'entrée : les chapitres sont annoncés selon leur rôle (préparation recommandée, parcours essentiel, point de vue complémentaire, extension). Le parcours essentiel est également présenté sans intercaler le complément Doppler : simultanéité → asymétrie → temps propre ; le Doppler vient ensuite. Proposition de rôles :
 - entrée : article introductif ;
 - préparation recommandée : composition des vitesses ;
 - parcours essentiel : simultanéité → asymétrie → temps propre ;
@@ -215,7 +215,7 @@ La série et son ordre doivent rester distincts des relations. Ne pas implément
 ### P2 — Pédagogie
 - [ ] Différencier le guide général des arbres de récursion de l'application à Karatsuba.
 - [ ] Ajouter des repères de lecture aux sections algébriques avancées de l'article FFT.
-- [ ] Faire du temps propre l'aboutissement explicite du parcours essentiel.
+- [x] Faire du temps propre l'aboutissement explicite du parcours essentiel : le lien vers le Doppler est désormais placé après les trois étapes essentielles, comme complément observationnel.
 - [ ] Distinguer les durées du parcours obligatoire et des extensions.
 
 ### P3 — Vérifications empiriques
