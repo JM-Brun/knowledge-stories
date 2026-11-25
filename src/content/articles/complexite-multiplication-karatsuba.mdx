@@ -60,7 +60,7 @@ La récurrence abstraite devient plus tangible si l’on suit une même multipli
   <div className="math-line">12 345 678 × 87 654 321</div>
 </div>
 
-Nous allons comparer la méthode classique et Karatsuba sur les mêmes blocs. Le choix de quatre chiffres par bloc permet de voir les produits intermédiaires sans noyer le raisonnement dans une longue liste de multiplications élémentaires.
+Nous allons comparer la <span className="term-common">méthode classique</span> et <span className="term-aux">Karatsuba</span> sur les mêmes blocs. Le choix de quatre chiffres par bloc permet de voir les produits intermédiaires sans noyer le raisonnement dans une longue liste de multiplications élémentaires.
 
 ### Étape 1 — Découper les deux opérandes
 
@@ -88,7 +88,7 @@ xy=\underbrace{ac}_{\text{bloc de poids fort}}\,10^8
 
 ### Étape 2 — Référence : les quatre produits de la méthode classique
 
-La méthode classique calcule séparément les quatre produits de blocs :
+La <span className="term-common">méthode classique</span> calcule séparément les quatre produits de blocs :
 
 | Produit | Calcul | Résultat |
 |---|---:|---:|
@@ -100,7 +100,7 @@ La méthode classique calcule séparément les quatre produits de blocs :
 Les deux produits croisés sont ensuite additionnés :
 
 \[
-\class{term-cross}{ad+bc}
+<span className="term-cross">\(ad+bc\)</span>
 =5\,332\,114+49\,767\,670
 =\boxed{55\,099\,784}.
 \]
@@ -119,7 +119,7 @@ xy
 
 ### Étape 3 — Karatsuba : former les trois produits
 
-Karatsuba conserve les deux produits diagonaux, mais remplace les deux produits croisés par un seul produit auxiliaire. Calculons d’abord les sommes des blocs :
+<span className="term-aux">Karatsuba</span> conserve les deux produits diagonaux, mais remplace les deux <span className="term-cross">produits croisés</span> par un seul <span className="term-aux">produit auxiliaire</span>. Calculons d’abord les sommes des blocs :
 
 \[
 a+b=1\,234+5\,678=6\,912,
@@ -150,7 +150,7 @@ ad+bc
 \end{aligned}
 \]
 
-On retrouve exactement la somme obtenue par les deux multiplications croisées de la méthode classique, mais avec un seul produit auxiliaire.
+On retrouve exactement la somme obtenue par les deux <span className="term-cross">multiplications croisées</span> de la <span className="term-common">méthode classique</span>, mais avec un seul <span className="term-aux">produit auxiliaire</span>.
 
 ### Étape 5 — Recomposer le résultat
 
@@ -167,7 +167,7 @@ xy
 \end{aligned}
 \]
 
-Les deux méthodes donnent bien le même entier. À ce niveau de découpage, la différence est nette : la méthode classique demande quatre multiplications de blocs, tandis que Karatsuba en demande trois. Dans l’algorithme récursif, chacun de ces sous-produits est à son tour traité de la même manière jusqu’au seuil choisi pour la multiplication directe.
+Les deux méthodes donnent bien le même entier. À ce niveau de découpage, la différence est nette : la <span className="term-common">méthode classique</span> demande quatre multiplications de blocs, tandis que <span className="term-aux">Karatsuba</span> en demande trois. Dans l’algorithme récursif, chacun de ces sous-produits est à son tour traité de la même manière jusqu’au seuil choisi pour la multiplication directe.
 
 ### Ce que cet exemple permet de distinguer
 
@@ -181,7 +181,7 @@ Le même exemple sert ainsi de fil conducteur entre l'identité arithmétique, l
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
 
-Karatsuba remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
+<span className="term-aux">Karatsuba</span> remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
 
 Avant d’écrire une récurrence, séparons les deux sortes de travail qu’un appel effectue :
 
@@ -207,7 +207,7 @@ La construction algébrique a été détaillée dans l’article précédent, **
 Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
 
 \[
-\class{term-common}{p=ac}, \qquad \class{term-common}{q=bd}, \qquad \class{term-aux}{r=(a+b)(c+d)}.
+<span className="term-common">\(p=ac\)</span>, \qquad <span className="term-common">\(q=bd\)</span>, \qquad <span className="term-aux">\(r=(a+b)(c+d)\)</span>.
 \]
 
 **Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
@@ -256,7 +256,7 @@ T(n)=\underbrace&#123;T_p(n/2)+T_q(n/2)+T_r(n/2)&#125;_&#123;\text&#123;somme de
 avec \(C_&#123;local&#125;(n)=O(n)\). Si les trois sous-problèmes ont la même taille dans le modèle équilibré, leurs coûts sont identiques et l’on abrège cette expression en :
 
 \[
-T(n)=\class{term-aux}{3T(n/2)}+O(n).
+T(n)=3T(n/2)+O(n).
 \]
 
 **Le signe « \(+\) » est bien le signe plus habituel.** Il n’a pas besoin d’une nouvelle notation : ce qui change, c’est la nature des quantités qu’il relie. Dans le développement algébrique, \(a+b\) additionne deux nombres ; dans la récurrence, \(T_p+T_q+T_r\) additionne trois coûts de calcul. On pourrait annoter chaque plus par « somme de coûts », mais inventer un opérateur spécial serait une convention inutile et moins standard.
@@ -288,7 +288,7 @@ Pour Karatsuba, les niveaux successifs comptent donc :
 
 Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau \(j\), il y a \(3^j\) appels, chacun portant sur environ \(n/2^j\) chiffres.
 
-Pour la méthode classique, le tableau est identique en remplaçant \(3^j\) par \(4^j\).
+Pour la <span className="term-common">méthode classique</span>, le tableau est identique en remplaçant \(3^j\) par \(4^j\).
 
 Prenons un cas concret : \(n=8=2^3\). Il faut donc trois découpages pour arriver à des blocs d’un chiffre. Pour rendre visible le travail des additions, comptons une unité par chiffre traité dans chaque appel interne. Cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
 
