@@ -4,7 +4,7 @@ subtitle: "Jour 3 · Ce qu'un résumé statistique ne montre pas"
 description: "Voir comment des distributions très différentes peuvent partager des statistiques descriptives et conduire à des interprétations opposées."
 ---
 
-> **En 9 à 11 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
+> **En 15 à 18 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
 >
 > **Prérequis** — Savoir calculer une moyenne. La variance, la corrélation et les graphiques diagnostiques sont introduits progressivement.
 >
@@ -31,18 +31,25 @@ Les trois sommes valent 25 et chaque série contient cinq valeurs. Leur moyenne 
 Avec le diviseur \(n\), la variance empirique est définie par :
 
 \[
-s_n^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2.
+v_n = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2.
 \]
 
-Pour les trois séries, on obtient respectivement :
+Le calcul est entièrement vérifiable. Comme la moyenne vaut 5 dans les trois cas, les écarts à la moyenne sont :
 
+| Série | Écarts à la moyenne | Somme des carrés | Variance avec diviseur n |
+|---|---|---:|---:|
+| A | −1, 0, 0, 0, 1 | 2 | 0,4 |
+| B | −4, −2, 0, 2, 4 | 40 | 8 |
+| C | −10, 0, 0, 0, 10 | 200 | 40 |
+
+On calcule donc, par exemple, pour B :
 \[
-s_n^2(A)=0{,}4,\qquad
-s_n^2(B)=8,\qquad
-s_n^2(C)=40.
+v_n(B)=\frac{(-4)^2+(-2)^2+0^2+2^2+4^2}{5}=8.
 \]
 
-La moyenne identique masque ici des dispersions radicalement différentes. La série C contient deux valeurs extrêmes ; B est étalée régulièrement ; A est concentrée autour du centre.
+La moyenne ne permet pas de distinguer ces séries ; la variance révèle leur dispersion, mais ne décrit toujours pas toute leur forme.
+
+**Convention importante.** Ici, les cinq valeurs constituent la série que l'on décrit : on divise par n. Si elles étaient un échantillon utilisé pour estimer la variance d'une population inconnue, on discuterait l'estimateur corrigé avec le diviseur n−1. Les deux quantités répondent à des questions différentes.
 
 <figure>
 <svg viewBox="0 0 760 250" role="img" aria-labelledby="dist-title dist-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
@@ -101,53 +108,63 @@ Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est compos
 
 Le message n'est pas « les statistiques ne servent à rien ». Il est que les statistiques résumées répondent à des questions précises et ne remplacent pas l'examen de la structure.
 
-## Pourquoi un graphique change le diagnostic
+## Lire un graphique comme un test d'hypothèse
 
-Une moyenne et une variance ne disent pas :
+Un graphique est utile lorsqu'il permet de mettre à l'épreuve une interprétation précise. Le quartette d'Anscombe ne montre pas seulement que « les images sont parlantes » : il fournit quatre contre-exemples à l'idée qu'une moyenne, une variance, une corrélation et une droite de régression suffiraient à caractériser une relation.
 
-- si la distribution est multimodale ;
-- si une relation est non linéaire ;
-- si un point influence fortement une régression ;
-- si plusieurs sous-populations sont mélangées ;
-- si les observations sont ordonnées dans le temps et présentent une dérive.
+Dans le premier jeu, une relation linéaire est plausible. Dans le deuxième, la structure est courbe : une droite résume mal la relation. Dans le troisième, un point atypique vertical perturbe l'ajustement. Dans le quatrième, presque tous les points ont la même abscisse et un seul point à fort levier détermine largement la droite.
 
-Un histogramme, un nuage de points, une fonction de répartition empirique ou un graphique temporel rendent visibles des aspects différents. Aucun graphique n'est neutre : le choix des classes, de l'échelle, du lissage ou de la fenêtre temporelle peut lui aussi masquer une structure.
+La bonne lecture consiste donc à demander : **quelle hypothèse mon résumé ou mon modèle suppose-t-il, et quel graphique pourrait la mettre en défaut ?**
 
-## Une petite expérience de diagnostic
+| Question | Vue utile | Ce qu'elle peut révéler |
+|---|---|---|
+| Comment une variable se répartit-elle ? | Histogramme et fonction de répartition empirique | Asymétrie, plusieurs modes, queues, valeurs extrêmes |
+| Deux variables suivent-elles une relation linéaire ? | Nuage de points | Courbure, groupes, points influents |
+| Le modèle laisse-t-il une structure dans ses erreurs ? | Résidus selon les valeurs ajustées | Non-linéarité, variance non constante |
+| Le phénomène change-t-il au cours du temps ? | Série temporelle | Tendance, rupture, saisonnalité, dérive |
+| La relation est-elle homogène ? | Graphiques stratifiés par groupe | Sous-populations et effets masqués |
 
-Avant d'ajuster un modèle linéaire, comparer au minimum :
+Aucun de ces graphiques n'est une preuve automatique. Les classes d'un histogramme, les échelles, le lissage et le choix des sous-groupes influencent ce que l'on voit.
 
-1. le nuage de points ;
-2. les résidus en fonction des valeurs ajustées ;
-3. la distribution des résidus ;
-4. les observations influentes ;
-5. les performances sur des sous-groupes pertinents.
+## Une mini-enquête : que faut-il regarder avant de modéliser ?
 
-Une même corrélation globale peut résulter de relations différentes dans chaque sous-groupe — voire s'inverser après stratification, comme dans le paradoxe de Simpson. L'agrégation peut donc masquer l'hétérogénéité et parfois inverser une comparaison.
+Supposons qu'un nuage de points semble suivre une droite et que la corrélation soit élevée. Avant d'ajuster une régression, trois vérifications changent concrètement le diagnostic :
 
-## Passer du résumé au diagnostic exploratoire
+1. **Tracer les points.** Une courbure ou un groupe distinct peut rendre la droite trompeuse.
+2. **Tracer les résidus.** Une structure résiduelle indique que le modèle n'a pas capturé toute l'information systématique.
+3. **Examiner les points influents.** Un point à fort levier peut modifier fortement la pente, même si son résidu n'est pas le plus grand.
 
-L'analyse exploratoire des données (*exploratory data analysis*, EDA) ne consiste pas à produire un maximum de graphiques. Elle consiste à choisir des vues qui peuvent réfuter une première interprétation.
+Une quatrième vérification consiste à stratifier par site, période ou sous-population lorsque le protocole le justifie. Une relation agrégée peut différer des relations observées dans les groupes ; le paradoxe de Simpson en est un cas particulier. Il faut toutefois définir les groupes avant d'interpréter les écarts, et éviter de multiplier les découpages opportunistes.
 
-Un parcours minimal peut suivre cet ordre :
+Cette enquête n'est pas une checklist universelle : elle illustre une règle. **Choisir la vue en fonction de l'hypothèse que l'on veut éprouver.**
 
-1. **Structure** — effectifs, types, unités, valeurs manquantes, doublons et granularité des lignes.
-2. **Univarié** — histogrammes, quantiles, fonctions de répartition et valeurs extrêmes.
-3. **Bivarié** — nuages de points, relations non linéaires et différences entre groupes.
-4. **Conditionnel** — mêmes graphiques par site, période, segment ou sous-population pertinente.
-5. **Temporel** — ordre des observations, ruptures, saisonnalité et dérive.
+## Une démarche exploratoire proportionnée à la question
 
-Le choix dépend de la question. Une moyenne peut être suffisante pour suivre une grandeur additive stable ; elle devient insuffisante si les queues de distribution, les sous-groupes ou les événements rares déterminent le risque.
+L'analyse exploratoire des données (*exploratory data analysis*, EDA) ne consiste pas à produire le plus grand nombre possible de graphiques. Elle consiste à chercher les structures susceptibles de réfuter une première lecture.
 
-Cette exploration doit aussi respecter le plan d'observation. Si plusieurs lignes proviennent du même individu, bâtiment ou appareil, elles ne sont pas nécessairement indépendantes. Les traiter comme autant d'unités indépendantes peut donner une impression artificielle de précision (*pseudoréplication*).
+Un ordre de travail raisonnable est :
 
-## Le lien avec la compression de l'information
+1. vérifier les effectifs, les types, les unités, les valeurs manquantes et la granularité des lignes ;
+2. examiner chaque variable avec des quantiles et une représentation de sa distribution ;
+3. comparer les variables pertinentes avec des nuages de points ou des tableaux croisés ;
+4. répéter les vues par groupe lorsque le plan d'observation ou la question scientifique le justifie ;
+5. conserver l'ordre temporel lorsque les observations sont datées.
 
-Calculer une moyenne consiste à transformer un vecteur de nombreuses observations en un seul nombre. C'est une opération de compression : plusieurs jeux de données distincts sont envoyés vers la même valeur.
+Le plan d'observation compte autant que le graphique. Si plusieurs lignes proviennent du même individu, bâtiment ou appareil, elles ne sont pas nécessairement indépendantes. Les traiter comme autant d'unités indépendantes peut créer une précision artificielle : c'est le problème de la *pseudoréplication*. Ce point relève du protocole statistique, pas d'un choix de visualisation.
 
-Cette perte d'information est souvent souhaitable. Un résumé permet de comparer rapidement des groupes, de suivre un indicateur ou de communiquer un résultat. Le problème apparaît lorsqu'on oublie ce que la transformation a éliminé.
+## Un résumé est une compression avec perte — et c'est parfois utile
 
-On peut penser à une projection : une ombre en deux dimensions peut être identique pour des objets tridimensionnels différents. Le résumé statistique joue un rôle comparable : il conserve certaines propriétés et en efface d'autres. L'analogie est utile, mais une statistique n'est pas nécessairement une projection linéaire au sens algébrique.
+La moyenne transforme une série de n observations en un seul nombre :
+\[
+(x_1,\ldots,x_n)\longmapsto \overline{x}.
+\]
+Cette transformation est **plusieurs-vers-un** : les séries A, B et C ont des formes différentes, mais donnent toutes la même moyenne 5. À partir de cette seule valeur, il est impossible de reconstruire la série d'origine.
+
+Cette perte d'information n'est pas un défaut en soi. Un résumé est utile précisément parce qu'il simplifie : il facilite une comparaison, un suivi ou une communication. Le problème apparaît lorsque l'on demande au résumé de répondre à une question qu'il ne conserve pas.
+
+La question pratique devient : **quelles propriétés dois-je préserver pour la décision que je veux prendre ?** Si la queue de distribution détermine le risque, la moyenne seule est insuffisante. Si l'on cherche une tendance temporelle, il faut conserver l'ordre des observations. Si l'on étudie une relation, il faut regarder la structure conjointe, pas seulement les résumés marginaux.
+
+La notion de statistique suffisante formalise, dans un modèle probabiliste donné, les résumés qui conservent toute l'information pertinente sur un paramètre. Ce statut dépend du modèle et de la question : il ne se déduit pas du seul fait qu'un résumé est commode.
 
 ## Relier les trois premières journées : une chaîne de raisonnement
 
@@ -163,11 +180,18 @@ On peut résumer la chaîne ainsi : **mesurer correctement ne garantit pas d'obs
 
 Cette distinction est utile pour auditer un jeu de données avant tout apprentissage. Elle évite de demander au modèle de compenser des défauts qui relèvent en réalité du protocole de mesure, du plan d'échantillonnage ou du choix des résumés.
 
-## Transfert vers le Machine Learning
+## Transfert vers le Machine Learning : ne pas s'arrêter au score global
 
-Un score moyen peut masquer une dégradation sévère sur un sous-groupe. Une erreur moyenne faible peut cacher une queue d'erreurs catastrophiques. Une corrélation élevée peut être dominée par quelques observations influentes. Et un benchmark global peut masquer une performance très inégale selon la langue, le site ou le type d'entrée.
+Un score agrégé est lui aussi un résumé. Une accuracy globale, une erreur moyenne ou une corrélation calculée sur toutes les observations peuvent masquer une performance très différente selon les sous-groupes, les périodes ou les types d'entrée.
 
-La bonne question n'est donc pas « quelle statistique dois-je calculer ? », mais « quelle propriété de la distribution ou du processus de décision dois-je contrôler ? ».
+Avant d'interpréter un score, demander :
+
+- quelle population et quelles observations contribuent au calcul ;
+- si les erreurs sont concentrées dans certains groupes ;
+- si quelques valeurs extrêmes dominent la moyenne ;
+- si le résultat reste stable dans le temps.
+
+Le lien avec les journées précédentes est direct : la qualité de la mesure (jour 1), la sélection des observations (jour 2) et le choix des résumés (jour 3) conditionnent ce que le score d'un modèle permet réellement de conclure.
 
 ## Frontière de validité
 
@@ -190,17 +214,17 @@ Visualiser ne garantit pas de comprendre. Un graphique peut être trompeur, et u
 
 </details>
 
-## Une règle de décision pour choisir ses résumés
+## Choisir un résumé : partir de la question
 
-Avant de retenir une statistique, expliciter ce qu'elle doit préserver :
+| Ce que l'on veut savoir | Résumés ou vues à examiner | Limite à garder en tête |
+|---|---|---|
+| Le niveau typique | Moyenne, médiane, quantiles | La moyenne est sensible aux valeurs extrêmes |
+| La dispersion | Écart-type, intervalle interquartile, queues | Une dispersion identique ne garantit pas une forme identique |
+| La relation entre variables | Nuage de points, résidus, sous-groupes | Une corrélation ne décrit pas toute la relation |
+| L'évolution | Série temporelle, fenêtres glissantes | L'agrégation détruit l'ordre temporel |
+| Le risque d'une décision | Quantiles extrêmes, fréquence et gravité des erreurs | Une faible erreur moyenne peut masquer des cas graves |
 
-- Pour un **niveau moyen**, regarder moyenne, médiane et quantiles.
-- Pour la **variabilité**, regarder écart-type, intervalle interquartile et queues.
-- Pour une **relation**, examiner le nuage de points, les résidus et les sous-groupes.
-- Pour une **évolution**, conserver l'ordre temporel et examiner les ruptures.
-- Pour une **décision à risque**, examiner les erreurs extrêmes et leur fréquence, pas seulement leur moyenne.
-
-Il n'existe pas de résumé universellement suffisant. Le bon résumé est celui dont les pertes d'information sont compatibles avec la question scientifique et la décision envisagée.
+Il n'existe pas de résumé universellement suffisant. Le bon choix dépend de la propriété que la question scientifique ou la décision doit préserver.
 
 ## À retenir
 
