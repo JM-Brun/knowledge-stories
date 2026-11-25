@@ -143,7 +143,7 @@ L'ordre actuel des cinq articles est cohérent : mécanisme → complexité → 
 
 ### Bilan de la série des jumeaux
 
-La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Une première clarification a été appliquée dans l'article d'entrée : les chapitres sont annoncés selon leur rôle (préparation recommandée, parcours essentiel, point de vue complémentaire, extension). Le parcours essentiel est également présenté sans intercaler le complément Doppler : simultanéité → asymétrie → temps propre ; le Doppler vient ensuite. Proposition de rôles :
+La séquence actuelle mélange préparation, résolution, point de vue complémentaire et généralisation. Une première clarification a été appliquée dans l'article d'entrée : les chapitres sont annoncés selon leur rôle (préparation recommandée, parcours essentiel, point de vue complémentaire, extension). Le parcours essentiel est également présenté sans intercaler le complément Doppler : simultanéité → asymétrie → temps propre ; le Doppler vient ensuite. Les cartes de série et le bandeau de navigation affichent désormais les rôles pédagogiques (« Préparation recommandée », « Parcours essentiel », « Complément », « Extension ») au lieu de présenter chaque article comme une étape obligatoire. Proposition de rôles :
 - entrée : article introductif ;
 - préparation recommandée : composition des vitesses ;
 - parcours essentiel : simultanéité → asymétrie → temps propre ;
