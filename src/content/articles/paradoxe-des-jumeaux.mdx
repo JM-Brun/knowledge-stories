@@ -11,7 +11,7 @@ labels: ["Relativité", "Temps propre"]
 series: "paradoxe-des-jumeaux"
 seriesOrder: 0
 difficulty: "introductory"
-readingTime: 7
+readingTime: 9
 status: "review"
 featured: false
 cover: "jumeaux"
@@ -44,11 +44,29 @@ Le paradoxe des jumeaux pose une question simple en apparence : deux personnes p
 
 La difficulté vient de la réciprocité du mouvement uniforme : pendant chaque phase inertielle, chacun peut décrire l’autre comme mobile et lui attribuer une horloge plus lente. Mais les deux histoires ne sont pas symétriques entre le départ et les retrouvailles. Pour le comprendre, il faut distinguer les référentiels, la simultanéité à distance, les signaux reçus et le temps propre.
 
+## Avant de commencer : trois repères
+
+Le scénario se comprend avec quelques notions que nous allons utiliser dans un sens précis.
+
+- La vitesse de la lumière dans le vide est notée &#92;(c&#92;). Dire qu’un vaisseau voyage à &#92;(0{,}8c&#92;) signifie que sa vitesse vaut 80 % de cette vitesse limite.
+- Une **année-lumière** est une distance : celle que la lumière parcourt dans le vide en une année. Ce n’est pas une unité de durée.
+- Un **référentiel** est un cadre qui permet d’attribuer des coordonnées de lieu et de temps aux événements. Un référentiel **inertiel** est celui dans lequel un corps isolé reste au repos ou en mouvement rectiligne uniforme. Dans cette expérience idéalisée, nous traitons la station terrestre comme un référentiel inertiel et négligeons la gravitation.
+
+Une horloge mesure sa propre durée le long de son trajet. Cette durée s’appelle le **temps propre**. Pour un mouvement à vitesse constante &#92;(v&#92;) dans un référentiel inertiel, elle est reliée à la durée coordonnée &#92;(&#92;Delta t&#92;) de ce référentiel par :
+
+&#92;[
+&#92;Delta&#92;tau=&#92;frac{&#92;Delta t}{&#92;gamma},
+&#92;qquad
+&#92;gamma=&#92;frac{1}{&#92;sqrt{1-v^2/c^2}}.
+&#92;]
+
+Le facteur &#92;(&#92;gamma&#92;) est appelé **facteur de Lorentz**. Il vaut 1 au repos et augmente avec la vitesse. Pour &#92;(v=0{,}8c&#92;), il vaut &#92;(5/3&#92;). Nous allons utiliser cette relation pour vérifier le résultat numérique, puis le dossier expliquera pourquoi il faut raisonner sur les trajectoires complètes plutôt que comparer deux mouvements uniformes isolés.
+
 ## Le scénario de référence
 
 Simon reste dans une station terrestre idéalisée et Kara embarque dans un vaisseau. Ils mettent leurs montres à zéro au départ. Le vaisseau s’éloigne à 0,8 c, fait demi-tour à 4 années-lumière, puis revient à la station. Pour isoler la relativité restreinte, on assimile la station à un référentiel inertiel et on néglige la gravitation ainsi que la rotation de la Terre.
 
-Dans le référentiel de Simon, le demi-tour a lieu après 5 ans et les retrouvailles après 10 ans. Le vaisseau met 5 ans pour chaque trajet. Avec un facteur de Lorentz gamma = 5/3, la montre de Kara accumule 3 ans par trajet, soit 6 ans au total.
+Dans le référentiel de Simon, le demi-tour a lieu après 5 ans et les retrouvailles après 10 ans. Le vaisseau met 5 ans pour chaque trajet : il parcourt 4 années-lumière à la vitesse de 0,8 fois la vitesse de la lumière. Sur chaque branche à vitesse constante, le facteur de Lorentz vaut &#92;(5/3&#92;), donc la montre de Kara accumule 3 ans par trajet, soit 6 ans au total.
 
 ## Vérifier le résultat sans encore résoudre toute l'explication
 
