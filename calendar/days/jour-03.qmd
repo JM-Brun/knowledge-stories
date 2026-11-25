@@ -126,31 +126,17 @@ La bonne lecture consiste donc à demander : **quelle hypothèse mon résumé ou
 
 Aucun de ces graphiques n'est une preuve automatique. Les classes d'un histogramme, les échelles, le lissage et le choix des sous-groupes influencent ce que l'on voit.
 
-## Une mini-enquête : que faut-il regarder avant de modéliser ?
+## Une mini-enquête : quelle hypothèse faut-il mettre à l'épreuve ?
 
-Supposons qu'un nuage de points semble suivre une droite et que la corrélation soit élevée. Avant d'ajuster une régression, trois vérifications changent concrètement le diagnostic :
+Supposons qu'un nuage de points semble suivre une droite et que la corrélation soit élevée. Avant d'ajuster une régression, trois vérifications changent le diagnostic :
 
-1. **Tracer les points.** Une courbure ou un groupe distinct peut rendre la droite trompeuse.
-2. **Tracer les résidus.** Une structure résiduelle indique que le modèle n'a pas capturé toute l'information systématique.
-3. **Examiner les points influents.** Un point à fort levier peut modifier fortement la pente, même si son résidu n'est pas le plus grand.
+1. **Tracer les points.** Une courbure, un groupe distinct ou un point à fort levier peut rendre la droite trompeuse.
+2. **Tracer les résidus selon les valeurs ajustées.** Une structure résiduelle indique que le modèle n'a pas capturé toute l'information systématique.
+3. **Stratifier lorsque le protocole le justifie.** Une relation agrégée peut différer de celles observées dans les groupes ; le paradoxe de Simpson en est un cas particulier.
 
-Une quatrième vérification consiste à stratifier par site, période ou sous-population lorsque le protocole le justifie. Une relation agrégée peut différer des relations observées dans les groupes ; le paradoxe de Simpson en est un cas particulier. Il faut toutefois définir les groupes avant d'interpréter les écarts, et éviter de multiplier les découpages opportunistes.
+Avant ces graphiques, vérifier aussi les effectifs, les unités, les valeurs manquantes et la granularité des lignes. Si plusieurs lignes proviennent du même individu, bâtiment ou appareil, elles ne sont pas nécessairement indépendantes : les traiter comme autant d'unités indépendantes crée une précision artificielle (*pseudoréplication*).
 
-Cette enquête n'est pas une checklist universelle : elle illustre une règle. **Choisir la vue en fonction de l'hypothèse que l'on veut éprouver.**
-
-## Une démarche exploratoire proportionnée à la question
-
-L'analyse exploratoire des données (*exploratory data analysis*, EDA) ne consiste pas à produire le plus grand nombre possible de graphiques. Elle consiste à chercher les structures susceptibles de réfuter une première lecture.
-
-Un ordre de travail raisonnable est :
-
-1. vérifier les effectifs, les types, les unités, les valeurs manquantes et la granularité des lignes ;
-2. examiner chaque variable avec des quantiles et une représentation de sa distribution ;
-3. comparer les variables pertinentes avec des nuages de points ou des tableaux croisés ;
-4. répéter les vues par groupe lorsque le plan d'observation ou la question scientifique le justifie ;
-5. conserver l'ordre temporel lorsque les observations sont datées.
-
-Le plan d'observation compte autant que le graphique. Si plusieurs lignes proviennent du même individu, bâtiment ou appareil, elles ne sont pas nécessairement indépendantes. Les traiter comme autant d'unités indépendantes peut créer une précision artificielle : c'est le problème de la *pseudoréplication*. Ce point relève du protocole statistique, pas d'un choix de visualisation.
+L'enjeu n'est pas d'appliquer une checklist universelle, mais de choisir une vue capable de réfuter l'hypothèse que l'on est en train de faire.
 
 ## Un résumé est une compression avec perte — et c'est parfois utile
 
@@ -195,7 +181,7 @@ Le lien avec les journées précédentes est direct : la qualité de la mesure (
 
 ## Frontière de validité
 
-Visualiser ne garantit pas de comprendre. Un graphique peut être trompeur, et une anomalie visuelle peut venir du bruit d'échantillonnage. L'exploration doit être complétée par des hypothèses explicites, des analyses de sensibilité et, lorsque c'est nécessaire, une validation sur de nouvelles données.
+Visualiser ne garantit pas de comprendre. Un graphique peut être trompeur, et une anomalie visuelle peut venir du bruit d'échantillonnage. Les découpages en sous-groupes doivent être justifiés par la question ou le protocole, pas multipliés jusqu'à faire apparaître un résultat. Enfin, si plusieurs observations appartiennent à une même unité (patient, appareil, site), leur dépendance doit être prise en compte : les considérer comme indépendantes peut conduire à sous-estimer l'incertitude. L'exploration doit être complétée par des hypothèses explicites, des analyses de sensibilité et, lorsque c'est nécessaire, une validation sur de nouvelles données.
 
 ## À vous de raisonner
 
