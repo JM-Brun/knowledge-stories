@@ -235,6 +235,8 @@ xy
 Ce second calcul n'a pas besoin d'être développé aussi longuement que le premier : il sert uniquement de **contrepoint**. Le premier exemple montrait une retenue dans une somme de blocs ; celui-ci montre le cas où les tailles des trois sous-problèmes restent conformes au découpage attendu. Les deux cas éclairent la même analyse, sans introduire une nouvelle méthode ni une nouvelle notation.
 
 
+Les deux calculs numériques ont maintenant établi le mécanisme au premier niveau : l’un montre une retenue, l’autre son absence. Les produits de blocs y ont été évalués directement pour garder le calcul lisible. La suite change d’échelle : elle étudie ce qui arrive lorsque ces produits sont eux-mêmes calculés récursivement.
+
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
 
@@ -320,7 +322,7 @@ T(n)=3T(n/2)+O(n).
 
 Le terme \(3T(n/2)\) ne signifie donc ni trois additions ni une multiplication numérique effectuée par l’algorithme : il représente le coût cumulé de **trois appels récursifs distincts**. Le terme \(O(n)\) ajoute le travail local de l’appel courant — additions, soustractions et recomposition — qui est linéaire en la taille des blocs.
 
-**Une image concrète :** additionner deux nombres de 8 chiffres demande de traiter leurs 8 positions, avec une retenue éventuelle : le travail est proportionnel à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba crée trois problèmes de multiplication portant chacun sur environ 4 chiffres ; chacun engendre à son tour trois problèmes plus petits. L’addition locale se fait à chaque nœud, tandis que les multiplications forment les branches de l’arbre.
+Le calcul sur huit chiffres a rendu visibles les trois produits du premier découpage. Il reste à comprendre ce qui se passe **à l’intérieur de chacun d’eux** : Karatsuba leur applique à nouveau le même procédé, jusqu’à atteindre le seuil de multiplication directe. C’est cette répétition — et non le seul calcul des trois produits affichés — que l’arbre de récursion va compter.
 
 
 ### 2. Visualiser les appels récursifs de Karatsuba
@@ -347,7 +349,7 @@ Deux phénomènes se produisent simultanément : **le nombre d’appels augmente
 
 Pour la <span className="term-common">méthode classique</span>, le tableau est identique en remplaçant \(3^j\) par \(4^j\).
 
-Prenons un cas concret : \(n=8=2^3\). Il faut donc trois découpages pour arriver à des blocs d’un chiffre. Pour rendre visible le travail des additions, comptons une unité par chiffre traité dans chaque appel interne. Cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
+Reprenons la taille de huit chiffres de l’exemple précédent : \(n=8=2^3\). Dans le modèle équilibré idéal, trois découpages suffisent pour arriver à des blocs d’un chiffre. Pour isoler le coût lié à la structure de l’arbre, supposons ici que chaque division donne exactement deux blocs de même taille. C’est un modèle de comptage, non la trace exacte des tailles de tous les appels : les retenues du produit auxiliaire peuvent créer des blocs légèrement plus longs, comme nous l’avons vu. Comptons une unité par chiffre traité dans chaque appel interne ; cette unité est un repère pédagogique, pas un décompte exact des instructions de l’ordinateur.
 
 <div className="complexity-table-scroll">
 
