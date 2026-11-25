@@ -14,9 +14,13 @@ const articles = defineCollection({
     tags: z.array(z.string()).default([]),
     themes: z.array(z.string().trim().min(1)).min(1),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
+    // Forme éditoriale de l’article ; distincte de sa difficulté.
     articleType: z.enum(["conceptual", "analysis", "tutorial", "reference"]).default("conceptual"),
+    // Capacités observables que le lecteur doit acquérir.
     learningObjectives: z.array(z.string().trim().min(1)).default([]),
+    // Identifiants stables de concepts, destinés aux index et graphes de connaissances.
     concepts: z.array(z.string().trim().min(1)).default([]),
+    // Slugs d’articles utiles avant lecture, sans en faire des prérequis bloquants.
     recommendedPrerequisites: z.array(z.string().trim().min(1)).default([]),
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
