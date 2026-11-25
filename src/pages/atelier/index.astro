@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatReadingDuration, seriesInfo } from "../../data/series";
+import { formatReadingDuration, getSeriesRoleLabel, seriesInfo } from "../../data/series";
 import { getReadingTime } from "../../utils/reading-time.mjs";
 
 const baseUrl = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -72,7 +72,7 @@ const themesFor = (domain: Domain) => [...new Set(
                   {articlesForSeries(series).map((article) => (
                     <li>
                       <a class="series-card" href={`${baseUrl}atelier/${article.slug}/`}>
-                        <span class="series-step">{article.data.seriesOrder === 0 ? "Introduction" : `Étape ${article.data.seriesOrder}`}</span>
+                        <span class="series-step">{getSeriesRoleLabel(article.slug, article.data.seriesOrder)}</span>
                         <span class="labels" aria-label="Concepts principaux">
                           {article.data.labels.map((label) => <span class="label">{label}</span>)}
                         </span>
