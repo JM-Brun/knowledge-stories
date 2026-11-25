@@ -26,17 +26,17 @@ Du **1er au 24 décembre 2026**, cette édition rassemble vingt-quatre enquêtes
 **Comment lire cette édition ?** Ce calendrier n'est pas un cours découpé en 24 leçons et ne suppose aucun ordre de lecture. Chaque enquête se suffit à elle-même : choisissez une question parce qu'elle vous intrigue, passez d'un domaine à un autre, revenez plus tard. Les liens entre journées signalent des échos ou des prolongements, pas des prérequis. Les solutions des défis sont repliées sous chaque activité.
 :::
 
-## Six territoires à explorer
+## Six portes d'entrée thématiques
 
-Ces repères aident à choisir une question sans imposer de progression. Les numéros renvoient aux cases du calendrier.
+Les enquêtes ne sont pas réparties en blocs chronologiques. Une même journée peut éclairer plusieurs questions : les correspondances ci-dessous forment donc un **réseau de thèmes qui se recoupent**, pas six parcours indépendants ni une progression obligatoire. Sélectionnez un numéro pour rejoindre directement la case.
 
-<nav class="theme-index" aria-label="Thèmes des enquêtes">
-  <a href="#jour-01"><strong>Mesurer et décrire</strong><span>01–05 · Données, échantillons, distributions et information</span></a>
-  <a href="#jour-06"><strong>Relier et inférer</strong><span>06–08 · Causalité, apprentissage simple et incertitude</span></a>
-  <a href="#jour-09"><strong>Construire des modèles</strong><span>09–14 · Objectifs, optimisation, régularisation et apprentissage</span></a>
-  <a href="#jour-15"><strong>Évaluer avec rigueur</strong><span>15–20 · Généralisation, fuites, métriques et comparaison</span></a>
-  <a href="#jour-21"><strong>Explorer les structures</strong><span>21–23 · Réduction, regroupement et séries temporelles</span></a>
-  <a href="#jour-24"><strong>Décider</strong><span>24 · Passer de la prédiction à l'action</span></a>
+<nav class="theme-index" aria-label="Réseau des thèmes et journées associées">
+  <div><strong>Mesurer et décrire</strong><span>Définir ce que représentent les données et ce que leurs résumés masquent.</span><span class="theme-days"><a href="#jour-01">01</a><a href="#jour-02">02</a><a href="#jour-03">03</a><a href="#jour-04">04</a><a href="#jour-05">05</a><a href="#jour-21">21</a></span></div>
+  <div><strong>Inférer sous incertitude</strong><span>Relier les observations, distinguer hasard et structure, quantifier ce que l'on sait.</span><span class="theme-days"><a href="#jour-04">04</a><a href="#jour-05">05</a><a href="#jour-06">06</a><a href="#jour-08">08</a><a href="#jour-18">18</a><a href="#jour-19">19</a></span></div>
+  <div><strong>Apprendre et optimiser</strong><span>Comprendre comment un modèle ajuste ses paramètres et construit ses prédictions.</span><span class="theme-days"><a href="#jour-07">07</a><a href="#jour-09">09</a><a href="#jour-10">10</a><a href="#jour-13">13</a><a href="#jour-14">14</a></span></div>
+  <div><strong>Généraliser et évaluer</strong><span>Tester la robustesse, détecter les fuites et interpréter les performances.</span><span class="theme-days"><a href="#jour-12">12</a><a href="#jour-15">15</a><a href="#jour-16">16</a><a href="#jour-17">17</a><a href="#jour-18">18</a><a href="#jour-19">19</a><a href="#jour-20">20</a></span></div>
+  <div><strong>Explorer les structures</strong><span>Réduire, regrouper et comprendre les dépendances dans les données.</span><span class="theme-days"><a href="#jour-03">03</a><a href="#jour-04">04</a><a href="#jour-21">21</a><a href="#jour-22">22</a><a href="#jour-23">23</a></span></div>
+  <div><strong>Arbitrer et décider</strong><span>Mettre en balance complexité, stabilité, objectifs et conséquences des prédictions.</span><span class="theme-days"><a href="#jour-09">09</a><a href="#jour-11">11</a><a href="#jour-12">12</a><a href="#jour-17">17</a><a href="#jour-20">20</a><a href="#jour-24">24</a></span></div>
 </nav>
 
 ## Ouvrir une case

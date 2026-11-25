@@ -27,17 +27,17 @@ From **December 1 to 24, 2026**, this edition brings together twenty-four short 
 **How to use this edition.** This is not a 24-lesson course and it has no required reading order. Each investigation stands on its own: choose a question that interests you, move between topics, and return whenever you like. Links between days suggest connections, not prerequisites. **The five published articles are currently available in French**; the other links lead to public editorial outlines in French, not finished articles.
 :::
 
-## Six areas to explore
+## Six thematic entry points
 
-These topic labels help you choose a question without imposing a sequence. Numbers refer to the calendar doors.
+The investigations are not divided into chronological blocks. A day can illuminate several questions, so the connections below form an **overlapping network of themes**, not six separate courses or a required sequence. Select a number to jump to its calendar door.
 
-<nav class="theme-index" aria-label="Investigation topics">
-  <a href="#day-01"><strong>Measurement and description</strong><span>01–05 · Data, sampling, distributions and information</span></a>
-  <a href="#day-06"><strong>Relationships and inference</strong><span>06–08 · Causality, simple learning and uncertainty</span></a>
-  <a href="#day-09"><strong>Building models</strong><span>09–14 · Objectives, optimization, regularization and learning</span></a>
-  <a href="#day-15"><strong>Rigorous evaluation</strong><span>15–20 · Generalization, leakage, metrics and comparisons</span></a>
-  <a href="#day-21"><strong>Exploring structure</strong><span>21–23 · Dimensionality reduction, clustering and time series</span></a>
-  <a href="#day-24"><strong>Decision-making</strong><span>24 · Moving from prediction to action</span></a>
+<nav class="theme-index" aria-label="Network of themes and related days">
+  <div><strong>Measurement and description</strong><span>Define what data represent and what summaries can hide.</span><span class="theme-days"><a href="#day-01">01</a><a href="#day-02">02</a><a href="#day-03">03</a><a href="#day-04">04</a><a href="#day-05">05</a><a href="#day-21">21</a></span></div>
+  <div><strong>Inference under uncertainty</strong><span>Connect observations, distinguish chance from structure, and quantify what is known.</span><span class="theme-days"><a href="#day-04">04</a><a href="#day-05">05</a><a href="#day-06">06</a><a href="#day-08">08</a><a href="#day-18">18</a><a href="#day-19">19</a></span></div>
+  <div><strong>Learning and optimization</strong><span>Understand how a model adjusts parameters and constructs predictions.</span><span class="theme-days"><a href="#day-07">07</a><a href="#day-09">09</a><a href="#day-10">10</a><a href="#day-13">13</a><a href="#day-14">14</a></span></div>
+  <div><strong>Generalization and evaluation</strong><span>Test robustness, detect leakage, and interpret model performance.</span><span class="theme-days"><a href="#day-12">12</a><a href="#day-15">15</a><a href="#day-16">16</a><a href="#day-17">17</a><a href="#day-18">18</a><a href="#day-19">19</a><a href="#day-20">20</a></span></div>
+  <div><strong>Exploring structure</strong><span>Reduce dimensions, discover groups, and understand dependencies in data.</span><span class="theme-days"><a href="#day-03">03</a><a href="#day-04">04</a><a href="#day-21">21</a><a href="#day-22">22</a><a href="#day-23">23</a></span></div>
+  <div><strong>Trade-offs and decisions</strong><span>Balance complexity, stability, objectives, and the consequences of predictions.</span><span class="theme-days"><a href="#day-09">09</a><a href="#day-11">11</a><a href="#day-12">12</a><a href="#day-17">17</a><a href="#day-20">20</a><a href="#day-24">24</a></span></div>
 </nav>
 
 ## Explore the calendar
