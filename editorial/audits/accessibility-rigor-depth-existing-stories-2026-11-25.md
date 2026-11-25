@@ -340,3 +340,10 @@ Cette modification rend l'entrée plus autonome, mais ne constitue pas encore un
 Une tranche n'est pas considérée comme terminée parce que le texte a été modifié. Elle doit passer une relecture de fond, une vérification des formules et hypothèses, puis les contrôles de rendu pertinents. Les contenus restent en statut `review` tant que les critères de publication ne sont pas satisfaits.
 
 Les corrections ne doivent pas supprimer les approfondissements existants pour réduire artificiellement la longueur. En cas de surcharge, privilégier une hiérarchie explicite entre parcours essentiel et développements avancés, sans rendre le texte dépendant d'un prérequis non expliqué.
+
+
+## 8. Feuille de route consolidée
+
+Le suivi détaillé des travaux restants par série, par journée du calendrier et par article hors série, ainsi que l'étude de la connexion entre nombres complexes et géométrie de Minkowski, est désormais centralisé dans [la feuille de route éditoriale](../roadmap-series-and-minkowski-connection-2026-11-25.md).
+
+Cette feuille de route distingue les modifications déjà commencées, les vérifications encore nécessaires et les développements proposés. Elle recommande de tester d'abord deux ajouts locaux (plan complexe dans l'article FFT ; diagramme de Minkowski dans l'article sur le temps propre) avant de décider de créer une story transversale autonome.
