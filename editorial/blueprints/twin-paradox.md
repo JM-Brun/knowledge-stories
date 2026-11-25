@@ -51,7 +51,7 @@ Entrée → fondations de relativité restreinte → simultanéité → asymétr
 - Signaux lumineux et Doppler : point de vue observationnel complémentaire.
 - Trois voyageurs : laboratoire de transfert à plusieurs trajectoires.
 - Inertie et principe de Mach : approfondissement connexe, hors du parcours obligatoire.
-- Topologie et espaces-temps courbes : limites de généralisation, à présenter comme encadrés ou approfondissements, pas comme conditions de résolution du cas standard.
+- Topologie et espaces-temps courbes : limites de généralisation, ainsi que le cas des deux satellites en orbites circulaires opposées de même rayon en Schwarzschild ; à présenter comme approfondissements, pas comme conditions de résolution du cas standard.
 
 ### Décision éditoriale proposée
 
@@ -268,8 +268,9 @@ Les branches facultatives ne doivent pas interrompre le parcours essentiel ni ê
 | Maximalité dans Minkowski | Temps propre | Temps propre | Inégalité de l'intégrale dans $ℝ^{1,3}$ | Identifier les hypothèses du théorème | Distinguer Minkowski, topologie compacte et courbure | Partiel ; domaine à préciser |
 | Asymétrie et accélération | Asymétrie | Asymétrie | Comparaison de référentiels successifs et trajets miroirs | Diagnostiquer l'erreur « accélération = pénalité » | Appliquer à un profil d'accélération fini | Présent ; transitions à clarifier |
 | Signaux et Doppler | Article facultatif | Article Doppler | Calcul des facteurs et tops reçus | Distinguer émission, réception, simultanéité | Modifier $β$ et le sens du mouvement | Présent ; conventions à expliciter |
-| Limites de généralisation | Temps propre et encadrés avancés | Approfondissements ciblés | Contre-exemples topologiques et courbes | Classer un résultat par hypothèses et géométrie | Évaluer une nouvelle configuration | Partiel ; garder hors du récit central |
-| Dossier Vavryčuk–Křížek / Lambare | Encadré ou approfondissement | Dossier apparié | Reconstitution des calculs à terminer | Distinguer affirmation, critique et preuve | Analyser une controverse nouvelle | Non validé ; texte intégral et calculs requis |
+| Limites de généralisation | Temps propre et encadrés avancés | Approfondissements ciblés | Contre-exemples topologiques, Schwarzschild et point conjugué | Classer un résultat par hypothèses et géométrie | Évaluer une nouvelle configuration | Partiel ; garder hors du récit central |
+| Orbites circulaires opposées en Schwarzschild | Approfondissement F5 | Métrique et symétrie des trajectoires | Égalité des intégrales de temps propre ; contraste avec l'observateur statique | Vérifier le rôle de la symétrie et des événements de rencontre | Distinguer égalité de deux horloges et absence générale de dilatation | Résultat géométrique clair ; rédaction de la démonstration à faire |
+| Dossier Vavryčuk–Křížek / Lambare | Approfondissement sur les orbites symétriques | Dossier apparié | Égalité des temps propres par symétrie ; critique de l'extension globale des référentiels locaux | Distinguer résultat géométrique, argument de Lorentz et portée de la conclusion | Comparer à un observateur statique au même rayon | Résultat géométrique établi par symétrie ; preuve détaillée de Lambare à vérifier sur le texte intégral |
 
 Ne pas traiter une notion simplement nommée comme acquise. Toute formule utilisée doit avoir été définie, motivée et reliée à une question physique.
 
@@ -284,7 +285,7 @@ Ne pas traiter une notion simplement nommée comme acquise. Toute formule utilis
 | Herrmann & Pohlig (2024), [article](https://doi.org/10.31349/RevMexFisE.21.010202) | Le travel effect et le skyscraper effect sont-ils deux mécanismes distincts ? | Rapprochement pédagogique dans un modèle homogène plat | Approximations analytiques et changement de référentiel | Le champ homogène idéal ne décrit pas toute situation gravitationnelle réelle | Encadré sur la comparaison des horloges et les descriptions dépendantes du référentiel |
 | da Câmara et al. (2025), [article](https://doi.org/10.1590/1806-9126-RBEF-2025-0049) | Quelles intuitions du paradoxe standard se généralisent ? | Cadre de temps propre, contre-exemples topologiques et Schwarzschild, limites du Doppler | Analyse géométrique et comparaisons de trajectoires | Les résultats avancés restent conditionnels ; toutes les courbes ne sont pas reproduites indépendamment | Référence principale pour borner les généralisations |
 | Vavryčuk & Křížek (2024), [article](https://doi.org/10.1016/j.physleta.2024.129886) | Deux satellites en orbites opposées constituent-ils un paradoxe symétrique ? | Argument critique fondé sur la symétrie et l'interprétation de Lorentz | Construction de vitesse relative instantanée et intégration d'un facteur variable | Argument contesté ; l'usage de (x=0) et (x'=0) doit être contrôlé sur les événements communs | Étude de cas critique, jamais présentée comme consensus |
-| Lambare (2025), [commentaire](https://doi.org/10.1016/j.physleta.2025.130579) | Le principe d'équivalence autorise-t-il une comparaison globale de satellites ? | Rappelle la portée locale de l'équivalence et propose un calcul Schwarzschild | Commentaire et solution rapportée dans la métrique de Schwarzschild | Texte intégral non vérifié dans le dossier de recherche ; la démonstration reste à contrôler | Présenter la controverse avec incertitudes explicites, pas comme conclusion définitive |
+| Lambare (2025), [commentaire](https://doi.org/10.1016/j.physleta.2025.130579) | Le principe d'équivalence autorise-t-il une comparaison globale de satellites ? | Rappelle la portée locale de l'équivalence et rapporte l'égalité des temps propres dans la métrique de Schwarzschild | Commentaire et solution rapportée dans la métrique de Schwarzschild | Le texte intégral n'est pas vérifié ; la conclusion géométrique peut être établie indépendamment par la symétrie des deux orbites | Approfondissement apparié ; ne pas attribuer à Lambare une démonstration non consultée |
 
 Le nombre de sources n'est pas un indicateur de preuve. Les sources pédagogiques servent à identifier les difficultés et les formes d'explication ; les affirmations scientifiques décisives doivent être vérifiées dans les publications et les calculs.
 
@@ -325,7 +326,7 @@ Les schémas et animations de la série doivent être originaux. Les référence
 
 ### Questions scientifiques
 
-- Récupérer le texte intégral de Lambare ou maintenir explicitement la portée limitée des affirmations utilisées.
+- Récupérer le texte intégral de Lambare ou maintenir explicitement la portée limitée des affirmations qui lui sont attribuées. La conclusion d'égalité des deux orbites peut être établie indépendamment par la symétrie de la métrique.
 - Refaire la dérivation de Vavryčuk–Křížek, en vérifiant les événements auxquels s'appliquent les transformations et la compatibilité des conditions (x=0) et (x'=0).
 - Confronter la réponse de Lambare au calcul des temps propres en Schwarzschild sans traiter l'autorité d'un commentaire comme une preuve suffisante.
 - Déterminer si la reproduction complète des familles de courbes de da Câmara est nécessaire pour les affirmations retenues.
