@@ -21,3 +21,16 @@ export const formatReadingDuration = (minutes: number): string => {
   const remainder = minutes % 60;
   return remainder === 0 ? `${hours} h` : `${hours} h ${remainder} min`;
 };
+
+
+const twinSeriesRoles: Record<string, string> = {
+  "composition-vitesses-relativite": "Préparation recommandée",
+  "simultaneite-relativite-restreinte": "Parcours essentiel",
+  "asymetrie-paradoxe-jumeaux": "Parcours essentiel",
+  "temps-propre-paradoxe-jumeaux": "Parcours essentiel",
+  "signaux-doppler-relativiste": "Complément",
+  "trois-voyageurs-deux-planetes": "Extension",
+};
+
+export const getSeriesRoleLabel = (slug: string, order?: number): string =>
+  twinSeriesRoles[slug] ?? (order === 0 ? "Introduction" : `Étape ${order ?? "—"}`);
