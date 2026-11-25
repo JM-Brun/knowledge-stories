@@ -64,7 +64,7 @@ const themesFor = (domain: Domain) => [...new Set(
                     <p class="series-kicker">Parcours · {articlesForSeries(series).length} articles</p>
                     <h3 id={`series-${series}`}>{seriesInfo[series].title}</h3>
                     <p class="series-question">{seriesInfo[series].question}</p>
-                    <p class="series-duration">Durée cumulée estimée : <strong>{formatReadingDuration(seriesReadingTime(series))}</strong> · hors approfondissements externes</p>
+                    <p class="series-duration">Durée estimée de l'ensemble des articles : <strong>{formatReadingDuration(seriesReadingTime(series))}</strong></p>
                   </div>
                   <span class="series-mark" aria-hidden="true">{series === "multiplication-karatsuba" ? "×" : "τ"}</span>
                 </header>
