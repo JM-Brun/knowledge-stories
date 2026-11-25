@@ -70,6 +70,29 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 **Dispositif proposé :** Simuler les itérations sur f(x)=x² pour plusieurs valeurs de η, avec tableau des positions et visualisation de la trajectoire.
 
+### Démonstration calculée à intégrer
+
+Pour \(f(x)=x^2\), le gradient vaut \(f'(x)=2x\). La mise à jour par descente de gradient est donc
+\[
+x_{t+1}=x_t-\eta 2x_t=(1-2\eta)x_t.
+\]
+En partant de \(x_0=1\), on obtient :
+
+| Pas \(\eta\) | Facteur \(1-2\eta\) | Premier point \(x_1\) | Lecture |
+|---:|---:|---:|---|
+| 0,25 | 0,5 | 0,5 | convergence géométrique |
+| 0,5 | 0 | 0 | optimum atteint en une étape |
+| 1 | −1 | −1 | oscillation sans diminution |
+| 1,1 | −1,2 | −1,2 | oscillation avec divergence |
+
+La suite vérifie \(x_t=(1-2\eta)^t x_0\). Elle converge vers 0 si et seulement si \(|1-2\eta|<1\), donc pour \(0<\eta<1\). À \(\eta=1\), elle ne converge pas malgré une direction de gradient correcte ; au-delà, elle diverge. Le cas \(\eta=0\) ne diverge pas mais ne progresse pas.
+
+### Généralisation et limites à expliciter
+
+Pour une fonction quadratique unidimensionnelle \(f(x)=\frac{\lambda}{2}x^2\), avec \(\lambda>0\), la condition devient \(0<\eta<2/\lambda\). La courbure change donc l'échelle des pas admissibles. En dimension supérieure, les directions de forte courbure peuvent imposer un pas bien plus petit que les directions plates : c'est une intuition du mauvais conditionnement.
+
+Ne pas transformer ce résultat particulier en garantie universelle. La convergence dépend des hypothèses sur la fonction (convexité, régularité du gradient, bornes de courbure), du choix du pas et, pour les variantes stochastiques, du bruit du gradient. Un paysage non convexe peut contenir des minima locaux et des points selles ; la descente de gradient ne garantit pas en général de trouver un minimum global.
+
 **Matériel à préparer :**
 - données ou paramètres explicitement documentés ;
 - calculs reproductibles et vérifiés indépendamment ;
