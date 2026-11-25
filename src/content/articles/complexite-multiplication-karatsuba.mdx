@@ -18,7 +18,7 @@ learningObjectives:
   - "Comparer le coût par niveau et interpréter la contribution des feuilles."
 concepts: ["multiplication-de-karatsuba"]
 recommendedPrerequisites: ["karatsuba-multiplication"]
-readingTime: 16
+readingTime: 12
 status: "review"
 featured: false
 sources:
@@ -255,9 +255,9 @@ C’est l’origine de l’exposant : **la taille est divisée par 2 à chaque n
 
 Puisque &#92;(&#92;log_2(3)&#92;approx1&#123;,&#125;58496&#92;), les multiplications élémentaires sont donc au nombre de l’ordre de &#92;(n^&#123;1&#123;,&#125;585&#125;&#92;).
 
-### 4. Mais les additions ont-elles été oubliées ?
+### Ajouter le coût des opérations locales
 
-Non. Elles ont lieu à chaque niveau de l’arbre. Il faut maintenant vérifier que leur coût total ne dépasse pas celui des multiplications.
+Les additions ne sont pas oubliées : elles ont lieu à chaque niveau de l’arbre. Il faut vérifier que leur coût total ne dépasse pas celui des multiplications.
 
 Reprenons les valeurs du tableau : pour &#92;(n=8&#92;), le travail local de Karatsuba vaut 8 unités à la racine, puis 12 (trois appels de taille 4), puis 18 (neuf appels de taille 2). On voit apparaître le facteur &#92;(3/2&#92;) entre deux niveaux : le nombre d’appels est multiplié par trois, tandis que la taille de chacun est divisée par deux.
 
