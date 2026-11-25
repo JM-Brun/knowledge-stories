@@ -84,4 +84,4 @@ Le workflow GitHub Actions construit et déploie le site sur GitHub Pages à cha
 
 ## Contribuer
 
-Lire [CONTRIBUTING.md](CONTRIBUTING.md), [la charte éditoriale](editorial/editorial-charter.md), le [standard d'accessibilité, de rigueur et de profondeur](editorial/accessibility-rigor-depth.md), [le workflow de publication](editorial/publication-workflow.md) et le [contrat d'intégration inter-projets](docs/ecosystem-integration.md). Les premières pistes sont recensées dans [le backlog éditorial](editorial/pitch-backlog.md).
+Lire [CONTRIBUTING.md](CONTRIBUTING.md), [la charte éditoriale](editorial/editorial-charter.md), le [standard d'accessibilité, de rigueur et de profondeur](editorial/accessibility-rigor-depth.md), [le workflow de publication](editorial/publication-workflow.md), [la feuille de route des séries et du calendrier](editorial/roadmap-series-and-minkowski-connection-2026-11-25.md) et le [contrat d'intégration inter-projets](docs/ecosystem-integration.md). Les premières pistes sont recensées dans [le backlog éditorial](editorial/pitch-backlog.md).

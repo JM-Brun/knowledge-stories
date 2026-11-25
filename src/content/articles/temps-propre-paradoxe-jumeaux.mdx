@@ -1,6 +1,6 @@
 ---
 title: "Le temps propre : ce que mesure une montre"
-description: "Calculer les durées vécues le long de trajectoires différentes et comprendre pourquoi le voyageur retrouve son jumeau plus jeune."
+description: "Dériver le temps propre depuis la géométrie de Minkowski, calculer les durées vécues le long de trajectoires différentes et comprendre pourquoi le voyageur retrouve son jumeau plus jeune."
 date: 2026-11-24
 category: "Physique"
 discipline: "Physique"
@@ -9,7 +9,7 @@ themes: ["Relativité restreinte", "Espace-temps"]
 tags: ["temps propre", "ligne d’univers", "dilatation du temps", "paradoxe des jumeaux"]
 labels: ["Temps propre", "Espace-temps"]
 difficulty: "intermediate"
-readingTime: 9
+readingTime: 12
 status: "review"
 featured: false
 sources:
@@ -28,63 +28,149 @@ relatedArticles: ["paradoxe-des-jumeaux", "asymetrie-paradoxe-jumeaux"]
 
 Quand deux montres se retrouvent au même endroit, on peut comparer directement leurs indications. Aucune synchronisation à distance n’est nécessaire. Si elles ont suivi des trajectoires différentes entre les mêmes événements de rencontre, elles peuvent afficher des durées différentes.
 
-La grandeur mesurée par une horloge le long de sa trajectoire est le **temps propre**.
+La grandeur mesurée par une horloge le long de sa trajectoire est le **temps propre**. Pour comprendre sa formule, il faut d’abord préciser ce qu’est une trajectoire dans l’espace-temps et comment la géométrie relativiste mesure une durée.
 
-## 1. Une durée attachée à une trajectoire
+## 1. Événements, référentiels et trajectoires
 
-Dans un référentiel inertiel de l’espace-temps plat, une horloge qui se déplace à la vitesse &#92;(v(t)&#92;) accumule :
+Un **événement** est quelque chose qui se produit en un lieu et à un instant : par exemple, le départ d’un vaisseau ou la rencontre de deux horloges. Dans un référentiel donné, on lui associe quatre coordonnées : le temps &#92;(t&#92;) et les trois coordonnées spatiales &#92;(x,y,z&#92;).
 
-&#92;[
-d&#92;tau=dt&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;.
-&#92;]
+Un **référentiel inertiel** est un cadre de coordonnées dans lequel un corps isolé se déplace en ligne droite à vitesse constante. En relativité restreinte, les référentiels inertiels sont reliés par des transformations de Lorentz. On suppose ici que l’espace-temps est plat, sans champ gravitationnel : sa géométrie est celle de Minkowski.
 
-Sa durée totale entre deux événements est l’intégrale :
+L’ensemble des événements successifs occupés par une horloge forme sa **ligne d’univers**. Une horloge peut accélérer : sa ligne d’univers n’est alors pas une droite, mais elle reste une trajectoire physique dans l’espace-temps. Le temps propre dépend de cette ligne d’univers, et non du seul état de mouvement à un instant donné.
 
-&#92;[
-&#92;tau=&#92;int_&#123;t_1&#125;^&#123;t_2&#125;&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt.
-&#92;]
+## 2. De l’intervalle de Minkowski au temps propre
 
-Cette expression ne dit pas que la montre « ralentit mécaniquement » parce qu’une force agit sur elle. Elle relie le temps propre mesuré par la montre au temps coordonné du référentiel choisi. Pour une vitesse constante, le facteur sous la racine est constant.
-
-## 2. Le calcul des deux jumeaux
-
-Reprenons le voyage : Kara part de la Terre à &#92;(0&#123;,&#125;8c&#92;), atteint un point situé à 4 années-lumière, puis revient à la même vitesse en valeur absolue. Dans le référentiel de Simon, chaque tronçon dure 5 ans.
-
-Le facteur de Lorentz vaut :
+Dans un référentiel inertiel, deux événements infiniment proches ont des écarts de coordonnées &#92;(dt,dx,dy,dz&#92;). Avec la convention de signature &#92;((- + + +)&#92;), l’intervalle d’espace-temps s’écrit :
 
 &#92;[
-&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-0&#123;,&#125;8^2&#125;&#125;=&#92;frac&#123;5&#125;&#123;3&#125;.
+ds^2=-c^2dt^2+dx^2+dy^2+dz^2,
 &#92;]
 
-La durée propre de Kara sur chaque tronçon est donc :
+où &#92;(c&#92;) désigne la vitesse de la lumière dans le vide.
+
+Pour une horloge matérielle, les événements successifs de sa ligne d’univers sont séparés par un intervalle **de genre temps** : sa vitesse est inférieure à &#92;(c&#92;), et l’expression &#92;(c^2dt^2-dx^2-dy^2-dz^2&#92;) est positive. Le temps propre &#92;(d&#92;tau&#92;) est précisément la durée infinitésimale indiquée par une horloge idéale qui suit cette trajectoire. Pour une horloge réelle, cette identification suppose que son fonctionnement est suffisamment proche de celui d’une horloge idéale : des effets internes liés à sa construction ou aux contraintes mécaniques peuvent perturber sa marche. Dans le cadre relativiste usuel, on isole ces effets instrumentaux ; l’accélération n’ajoute pas, à elle seule, un terme correctif au temps propre. On le définit par :
 
 &#92;[
-&#92;Delta&#92;tau=&#92;frac&#123;5&#125;&#123;&#92;gamma&#125;=3&#92; &#92;text&#123;ans&#125;.
+c^2d&#92;tau^2=-ds^2
+=c^2dt^2-dx^2-dy^2-dz^2.
 &#92;]
 
-Elle accumule 6 ans au total. Simon, au repos dans le référentiel terrestre pendant 10 ans, accumule 10 ans. À leurs retrouvailles, les montres indiquent donc 10 ans et 6 ans.
+Cette relation est la définition géométrique locale du temps propre dans l’espace-temps de Minkowski. Elle n’est pas une formule supplémentaire sur un mécanisme interne des horloges : elle exprime la géométrie qui relie les coordonnées d’un référentiel inertiel à la durée mesurée le long d’une trajectoire.
 
-## 3. Pourquoi la ligne droite maximise-t-elle le temps propre ?
+Pour obtenir la formule usuelle, divisons par &#92;(c^2dt^2&#92;) :
 
-Dans l’espace-temps de Minkowski, entre deux événements séparés dans le temps, la trajectoire inertielle maximise le temps propre parmi les trajectoires qui relient ces mêmes événements. C’est l’inverse de l’intuition euclidienne : le chemin spatial le plus court n’est pas le critère pertinent.
+&#92;[
+&#92;left(&#92;frac&#123;d&#92;tau&#125;&#123;dt&#125;&#92;right)^2
+=1-&#92;frac&#123;1&#125;&#123;c^2&#125;
+&#92;left[
+&#92;left(&#92;frac&#123;dx&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dy&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dz&#125;&#123;dt&#125;&#92;right)^2
+&#92;right].
+&#92;]
 
-On peut le voir dans le référentiel où Simon reste au repos. Sa vitesse vaut zéro et son temps propre est égal au temps coordonné : 10 ans. Kara a une vitesse non nulle pendant les phases de croisière ; chaque intervalle contribue moins que &#92;(dt&#92;) à son temps propre. Le résultat total est inférieur.
+La vitesse &#92;(v(t)&#92;) mesurée dans ce référentiel vérifie
 
-Ce résultat suppose l’espace-temps plat et les mêmes événements de départ et de retrouvailles. En présence d’un champ gravitationnel, il faut intégrer le temps propre avec la métrique de l’espace-temps considérée.
+&#92;[
+v(t)^2=
+&#92;left(&#92;frac&#123;dx&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dy&#125;&#123;dt&#125;&#92;right)^2+
+&#92;left(&#92;frac&#123;dz&#125;&#123;dt&#125;&#92;right)^2.
+&#92;]
 
-## 4. L’accélération n’est pas une pénalité ajoutée au calcul
+Comme &#92;(d&#92;tau&#92;) et &#92;(dt&#92;) sont des durées positives le long d’une trajectoire future, on prend la racine positive :
+
+&#92;[
+&#92;boxed&#123;d&#92;tau=dt&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;.&#125;
+&#92;]
+
+La formule ne suppose pas que l’horloge se déplace à vitesse constante. Elle vaut le long de toute trajectoire temporelle décrite dans ce référentiel inertiel ; &#92;(v(t)&#92;) peut varier, notamment pendant une accélération.
+
+En intégrant entre les coordonnées temporelles &#92;(t_1&#92;) et &#92;(t_2&#92;) des événements de départ et d’arrivée :
+
+&#92;[
+&#92;boxed&#123;&#92;Delta&#92;tau=
+&#92;int_&#123;t_1&#125;^&#123;t_2&#125;
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt.&#125;
+&#92;]
+
+Cette intégrale additionne les durées infinitésimales mesurées par l’horloge tout au long de sa ligne d’univers. Le résultat est le temps propre écoulé entre les deux événements.
+
+**Ce qui dépend du référentiel et ce qui n’en dépend pas.** Les coordonnées &#92;(t,x,y,z&#92;), la vitesse &#92;(v(t)&#92;) et les éléments &#92;(dt&#92;) dépendent du référentiel choisi. En revanche, la durée totale &#92;(&#92;Delta&#92;tau&#92;) le long d’une ligne d’univers donnée est un invariant : tous les référentiels inertiels calculent la même valeur lorsqu’ils décrivent la même trajectoire et les mêmes événements. C’est précisément ce qui permet de comparer les indications des horloges à leur rencontre.
+
+## 3. Le calcul des deux jumeaux
+
+Reprenons le voyage : Kara part de la Terre à &#92;(0&#123;,&#125;8c&#92;), atteint un point situé à 4 années-lumière, puis revient à la même vitesse en valeur absolue. Dans le référentiel inertiel de Simon, chaque tronçon dure 5 ans : la distance divisée par la vitesse donne &#92;(4/0&#123;,&#125;8=5&#92;) ans.
+
+Sur chaque tronçon, la vitesse de Kara est constante. Le facteur sous la racine est donc constant :
+
+&#92;[
+&#92;sqrt&#123;1-&#92;frac&#123;v^2&#125;&#123;c^2&#125;&#125;
+=&#92;sqrt&#123;1-0&#123;,&#125;8^2&#125;
+=0&#123;,&#125;6.
+&#92;]
+
+La durée propre de Kara sur un tronçon est :
+
+&#92;[
+&#92;Delta&#92;tau=5&#92;times0&#123;,&#125;6=3&#92; &#92;text&#123;ans&#125;.
+&#92;]
+
+On peut aussi introduire le facteur de Lorentz,
+
+&#92;[
+&#92;gamma=&#92;frac&#123;1&#125;&#123;&#92;sqrt&#123;1-v^2/c^2&#125;&#125;
+=&#92;frac&#123;5&#125;&#123;3&#125;,
+&#92;]
+
+et retrouver &#92;(&#92;Delta&#92;tau=&#92;Delta t/&#92;gamma=5/(5/3)=3&#92;) ans.
+
+Kara accumule donc 6 ans au total. Simon reste au repos dans le référentiel terrestre pendant 10 ans : pour lui, &#92;(v=0&#92;), donc &#92;(d&#92;tau=dt&#92;), et il accumule 10 ans. À leurs retrouvailles, les montres indiquent 10 ans et 6 ans.
+
+## 4. Pourquoi la trajectoire inertielle maximise-t-elle le temps propre ?
+
+Dans l’espace-temps plat, entre deux événements séparés par un intervalle de genre temps, la ligne d’univers inertielle qui les relie maximise le temps propre parmi les trajectoires temporelles futures reliant ces mêmes événements.
+
+On peut le démontrer directement. Choisissons le référentiel inertiel dans lequel les deux événements considérés ont le même lieu spatial. Une telle transformation est possible parce que leur séparation est de genre temps. Dans ce référentiel, une horloge qui suit la trajectoire inertielle reste au repos : son temps propre vaut &#92;(&#92;Delta t&#92;).
+
+Pour toute autre trajectoire temporelle reliant ces événements, la vitesse vérifie &#92;(0&#92;leq v(t)&#60;c&#92;). Ainsi,
+
+&#92;[
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;leq1,
+&#92;]
+
+et donc
+
+&#92;[
+&#92;Delta&#92;tau
+=&#92;int_&#123;t_1&#125;^&#123;t_2&#125;
+&#92;sqrt&#123;1-&#92;frac&#123;v(t)^2&#125;&#123;c^2&#125;&#125;&#92;,dt
+&#92;leq
+&#92;int_&#123;t_1&#125;^&#123;t_2&#125;dt
+=&#92;Delta t.
+&#92;]
+
+L’égalité n’est atteinte que si la vitesse est nulle tout au long du trajet dans ce référentiel, c’est-à-dire pour la ligne d’univers inertielle. Ce résultat est parfois appelé propriété de maximalité du temps propre. Il ne signifie pas que le voyageur « subit une pénalité » due à une force : il compare les durées géométriques de trajectoires différentes entre les mêmes événements.
+
+Dans le scénario des jumeaux, Simon suit précisément la trajectoire inertielle au repos dans le référentiel terrestre entre le départ et les retrouvailles. Kara suit une autre trajectoire entre ces mêmes événements. Son temps propre est donc inférieur.
+
+Cette conclusion suppose l’espace-temps plat et des événements de départ et de retrouvailles fixés. En présence d’un champ gravitationnel, la métrique pertinente n’est plus celle de Minkowski et le calcul doit être adapté.
+
+## 5. L’accélération n’est pas une pénalité ajoutée au calcul
 
 Le demi-tour permet à Kara de rejoindre Simon. Il ne faut pas ajouter une « quantité de vieillissement perdue » proportionnelle à l’accélération. La durée mesurée est calculée le long de toute la ligne d’univers, y compris pendant une phase d’accélération de durée finie.
 
-Dans le modèle simplifié où le demi-tour est instantané, cette phase n’a aucune durée propre. C’est une idéalisation : un vaisseau réel accélère pendant un intervalle fini. En rendant cet intervalle très bref tout en gardant les mêmes événements limites, on retrouve les valeurs limites de 10 et 6 ans.
+Dans le modèle simplifié où le demi-tour est instantané, la vitesse change brutalement de direction en un événement. Cet événement isolé ne contribue pas à l’intégrale par une durée propre finie : les deux tronçons de croisière suffisent au calcul. C’est une idéalisation mathématique, pas une manœuvre réalisable par un vaisseau.
 
-## 5. Une expérience de symétrie
+Pour un demi-tour de durée finie, il faut intégrer la formule avec la vitesse variable pendant la manœuvre. La contribution de cette phase dépend de son profil de vitesse et de sa durée coordonnée ; elle ne peut pas être remplacée arbitrairement par une « pénalité d’accélération ». Le modèle instantané est une limite utile lorsque la durée de manœuvre devient négligeable devant les durées de croisière, avec les événements limites du scénario maintenus.
+
+## 6. Une expérience de symétrie
 
 Supposons maintenant que Simon et Kara partent en sens opposés, à la même vitesse dans le référentiel de la station, puis fassent demi-tour au même instant dans ce référentiel avant de s’y retrouver. Leurs trajectoires sont symétriques et leurs vitesses ont la même valeur absolue à chaque instant. Leurs temps propres sont égaux.
 
 Cela confirme qu’« avoir accéléré » ne suffit pas à déterminer qui vieillit le moins. Ce sont les trajectoires complètes, avec les événements de rencontre et la géométrie de l’espace-temps, qui déterminent le résultat.
 
-**À retenir :** une montre mesure le temps propre le long de sa ligne d’univers. Pour comparer deux âges, il faut comparer les durées accumulées entre les mêmes événements de rencontre.
+**À retenir :** une montre mesure le temps propre le long de sa ligne d’univers. La formule &#92;(d&#92;tau=dt&#92;sqrt&#123;1-v^2/c^2&#125;&#92;) découle de l’intervalle de Minkowski ; elle s’intègre sur toute la trajectoire, même si la vitesse varie. Pour comparer deux âges, il faut comparer les durées propres accumulées entre les mêmes événements de rencontre.
 
 **Pour approfondir :** [où se trouve l’asymétrie ?](/knowledge-stories/atelier/asymetrie-paradoxe-jumeaux/) et [le principe de Mach et les référentiels](/knowledge-stories/atelier/inertie-referentiels-principe-mach/).
 
