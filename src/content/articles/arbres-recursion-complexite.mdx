@@ -50,12 +50,40 @@ Si ces notions sont nouvelles, ou si vous souhaitez les réutiliser sur d’autr
 
 Karatsuba remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
 
-Avant de commencer, distinguons deux types d’opérations :
+Avant d’écrire une récurrence, séparons les deux sortes de travail qu’un appel effectue :
 
-- **Une multiplication de blocs** déclenche un nouveau problème de multiplication. Cet appel va, lui aussi, découper ses blocs et recommencer. C’est le travail récursif.
-- **Une addition ou une soustraction de blocs** parcourt leurs chiffres pour produire un résultat. Additionner deux nombres de &#92;(n&#92;) chiffres demande un nombre d’opérations proportionnel à &#92;(n&#92;) : son coût est &#92;(O(n)&#92;).
+- **Le travail récursif** : les multiplications de blocs déclenchent de nouveaux appels, qui découperont à leur tour leurs opérandes.
+- **Le travail local** : les additions, soustractions et décalages de blocs sont exécutés dans l’appel courant, sans créer de nouvel appel de multiplication.
 
-Une addition de grands nombres n’est donc pas gratuite. Mais elle est moins coûteuse qu’une multiplication récursive de grands nombres. Toute la démonstration consiste à compter séparément ces deux contributions.
+### Pourquoi une addition coûte-t-elle un temps linéaire ?
+
+Écrivons deux entiers positifs sur &#92;(n&#92;) chiffres, en complétant éventuellement le plus court par des zéros à gauche. Pour les additionner en base 10, l’algorithme scolaire parcourt les positions de droite à gauche :
+
+1. il additionne les deux chiffres de la position courante et la retenue entrante ;
+2. il écrit le chiffre des unités du résultat ;
+3. il transmet la retenue éventuelle à la position suivante.
+
+Chaque position demande un nombre constant d’opérations élémentaires sur des chiffres. Il y a &#92;(n&#92;) positions : le nombre total d’opérations est donc majoré par &#92;(cn&#92;) pour une constante &#92;(c&#92;). Dans le modèle usuel où l’on compte les opérations sur les chiffres, l’addition de deux nombres de &#92;(n&#92;) chiffres a ainsi un coût **&#92;(\Theta(n)&#92;)** dans le pire cas. La soustraction avec gestion d’emprunt suit le même principe et possède le même ordre de grandeur.
+
+Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ; il ne faut pas le confondre avec le coût d’une addition de deux nombres machine de taille fixe, qui est considéré constant dans un modèle à mots de taille fixe. Ici, la taille étudiée est précisément le nombre de chiffres.
+
+### D’où viennent les trois sous-multiplications ?
+
+La construction algébrique a été détaillée dans l’article précédent, **[Karatsuba, trois produits au lieu de quatre](/knowledge-stories/atelier/karatsuba-multiplication/)** : le produit auxiliaire &#92;( (a+b)(c+d) &#92;), combiné aux produits &#92;(ac&#92;) et &#92;(bd&#92;), permet de retrouver la somme des produits croisés sans calculer séparément &#92;(ad&#92;) et &#92;(bc&#92;).
+
+Pour l’analyse de complexité, retenons simplement les trois appels récursifs :
+
+&#92;[
+p=ac, &#92;qquad q=bd, &#92;qquad r=(a+b)(c+d).
+&#92;]
+
+**Le nombre trois est donc un choix algorithmique justifié par cette identité**, et non une convention de notation. Notre question est maintenant différente : quelle taille ont ces trois sous-problèmes, et quel coût faut-il ajouter pour les additions, les soustractions et la recomposition ? C’est ce que nous allons quantifier.
+
+### Pourquoi parle-t-on de blocs de taille approximative &#92;(n/2&#92;) ?
+
+Pour un opérande de &#92;(n&#92;) chiffres, on coupe la représentation en deux blocs aussi équilibrés que possible. Si &#92;(n&#92;) est pair, chacun a exactement &#92;(n/2&#92;) chiffres ; s’il est impair, leurs tailles diffèrent d’au plus un chiffre. On peut aussi compléter l’écriture par un zéro à gauche pour raisonner sur une longueur paire.
+
+Les produits &#92;(ac&#92;) et &#92;(bd&#92;) portent donc sur des blocs d’environ &#92;(n/2&#92;) chiffres. Le produit auxiliaire &#92;(r=(a+b)(c+d)&#92;) peut être légèrement plus grand : une retenue dans une somme peut ajouter un chiffre. Sa taille reste toutefois de l’ordre de &#92;(n/2&#92;), plus précisément &#92;(n/2+O(1)&#92;). C’est pourquoi la récurrence utilise &#92;(T(n/2)&#92;) comme **modèle équilibré simplifié**, et pourquoi une section ultérieure revient sur les tailles réelles.
 
 ### 1. Ce que signifie la récurrence
 
@@ -85,18 +113,24 @@ Dans les deux cas, il faut aussi effectuer des additions, des soustractions et l
   </div>
 </div>
 
-**Comment lire &#92;(3T(n/2)+O(n)&#92;) ?** Le nombre 3 compte les trois appels récursifs. &#92;(T(n/2)&#92;) est le coût de chacun d’eux. Le signe &#92;(+&#92;) additionne leurs coûts. Enfin, &#92;(O(n)&#92;) représente le travail supplémentaire effectué par l’appel courant : additions, soustractions et recomposition.
+**Comment lire cette récurrence ?** Ici, &#92;(T(n)&#92;) désigne le coût total — par exemple le nombre d’opérations élémentaires — nécessaire pour multiplier deux opérandes de &#92;(n&#92;) chiffres dans le modèle étudié. Les trois sous-problèmes doivent tous être résolus. Dans un calcul séquentiel, leurs coûts s’additionnent :
 
-Attention à une confusion fréquente : le 3 ne désigne pas trois additions. Il indique que le problème engendre trois nouveaux problèmes de multiplication. Les additions sont comptées séparément dans &#92;(O(n)&#92;).
+&#92;[
+T(n)=&#92;underbrace&#123;T_p(n/2)+T_q(n/2)+T_r(n/2)&#125;_&#123;&#92;text&#123;somme des coûts des trois appels&#125;&#125;
++&#92;underbrace&#123;C_&#123;&#92;mathrm&#123;local&#125;&#125;(n)&#125;_&#123;&#92;text&#123;travail de l’appel courant&#125;&#125;,
+&#92;]
 
-On peut aussi lire la formule comme un **compte de temps**, et non comme une opération sur les nombres que l’on multiplie :
+avec &#92;(C_&#123;local&#125;(n)=O(n)&#92;). Si les trois sous-problèmes ont la même taille dans le modèle équilibré, leurs coûts sont identiques et l’on abrège cette expression en :
 
-- &#92;(3T(n/2)&#92;) : trois tâches de multiplication distinctes sont lancées ; on additionne leurs durées, car elles doivent toutes être terminées ;
-- &#92;(+O(n)&#92;) : l’appel courant effectue aussi un travail local proportionnel à la taille des blocs.
+&#92;[
+T(n)=3T(n/2)+O(n).
+&#92;]
 
-Le signe &#92;(+&#92;) signifie donc « additionner des coûts de calcul ». Il ne signifie pas que l’algorithme remplace une multiplication numérique par une addition numérique.
+**Le signe « &#92;(+&#92;) » est bien le signe plus habituel.** Il n’a pas besoin d’une nouvelle notation : ce qui change, c’est la nature des quantités qu’il relie. Dans le développement algébrique, &#92;(a+b&#92;) additionne deux nombres ; dans la récurrence, &#92;(T_p+T_q+T_r&#92;) additionne trois coûts de calcul. On pourrait annoter chaque plus par « somme de coûts », mais inventer un opérateur spécial serait une convention inutile et moins standard.
 
-**Une image concrète :** additionner deux nombres de 8 chiffres demande de parcourir leurs chiffres de droite à gauche, en gérant éventuellement une retenue. Le nombre d’étapes grandit proportionnellement à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba ne se résume pas à un seul parcours : on crée trois multiplications de blocs de 4 chiffres, qui créent à leur tour trois multiplications plus petites, et ainsi de suite. C’est cette répétition qui forme l’arbre.
+Le terme &#92;(3T(n/2)&#92;) ne signifie donc ni trois additions ni une multiplication numérique effectuée par l’algorithme : il représente le coût cumulé de **trois appels récursifs distincts**. Le terme &#92;(O(n)&#92;) ajoute le travail local de l’appel courant — additions, soustractions et recomposition — qui est linéaire en la taille des blocs.
+
+**Une image concrète :** additionner deux nombres de 8 chiffres demande de traiter leurs 8 positions, avec une retenue éventuelle : le travail est proportionnel à 8. Multiplier deux nombres de 8 chiffres avec Karatsuba crée trois problèmes de multiplication portant chacun sur environ 4 chiffres ; chacun engendre à son tour trois problèmes plus petits. L’addition locale se fait à chaque nœud, tandis que les multiplications forment les branches de l’arbre.
 
 
 ### 2. Visualiser les appels récursifs de Karatsuba
@@ -405,7 +439,6 @@ La généralisation aux autres récurrences, l’exploration interactive des par
 ## Dans Wiki Knowledge
 
 - **Concepts canoniques :** [Multiplication de Karatsuba](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/multiplication-de-karatsuba.md).
-- **Parcours de référence :** [Parcours canonique — algorithmique et complexité](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/mathematiques/index.md#algorithmique-et-complexite). Il s'agit d'un portail de navigation, pas d'un concept autonome.
 - **Parcours de référence :** [Parcours canonique — algorithmique et complexité](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/concepts/mathematiques/index.md#algorithmique-et-complexite). Il s'agit d'un portail de navigation, pas d'un concept autonome.
 - **Synthèse de série :** [Multiplication des entiers : des algorithmes scolaires aux bornes quasi linéaires](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/syntheses/multiplication-entiers-algorithmes-rapides.md).
 
