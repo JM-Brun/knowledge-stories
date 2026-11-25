@@ -126,7 +126,13 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 ## 7. Vérification des acquis
 
-**Activité proposée :** Pour une séquence donnée, calculer k/n, écrire la vraisemblance et expliciter les hypothèses nécessaires.
+**Activité proposée — estimer sans surinterpréter :**
+
+1. Une autre séquence de 8 lancers contient 6 piles. Écrire la vraisemblance et calculer l'estimateur du maximum de vraisemblance : \(\widehat p=6/8=0{,}75\).
+2. Une séquence contient 8 piles sur 8. L'estimateur vaut 1. Est-ce une preuve que la pièce donne toujours pile ? Non : c'est le maximum dans le modèle sur cet échantillon ; l'incertitude reste importante.
+3. Expliquer pourquoi le rapport de vraisemblance entre deux valeurs de p n'est pas une probabilité que l'une d'elles soit vraie. Pour parler de probabilité du paramètre, il faut spécifier un cadre bayésien et un a priori.
+
+La correction doit distinguer calcul de l'estimateur, hypothèses du modèle et conclusion statistique. Ne pas demander un test de biais sans préciser le niveau, la règle de décision et le protocole.
 
 Prévoir 2 à 4 questions graduées :
 1. compréhension ou calcul direct ;
