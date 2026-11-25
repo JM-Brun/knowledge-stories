@@ -44,7 +44,7 @@ const seriesTotalReadingTime = seriesArticles.reduce((total, item) => total + re
             <p class="series-kicker">Parcours de lecture</p>
             <h2>{seriesInfo[article.data.series].title}</h2>
           </div>
-          <span>{seriesArticles.length} articles · {formatReadingDuration(seriesTotalReadingTime)} au total</span>
+          <span>{seriesArticles.length} articles · {formatReadingDuration(seriesTotalReadingTime)} pour l'ensemble</span>
         </div>
         <ol>
           {seriesArticles.map((item) => (
