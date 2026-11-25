@@ -160,3 +160,12 @@ Le diagramme actuel est statique et l'interaction change la droite de simultané
 ## 8. Définition du terminé
 
 Un novice peut suivre le parcours essentiel sans accepter une transformation ou une formule comme une boîte noire ; un lecteur qui connaît déjà l'anecdote comprend précisément où son raisonnement intuitif échoue ; un lecteur avancé peut vérifier les conventions, hypothèses, équations, unités et limites du modèle. Les résultats numériques sont reproductibles, les notions de temps propre, simultanéité et réception sont distinguées, les extensions sont accessibles sans être imposées, et les interactions ont été testées plutôt que simplement inspectées dans le code.
+
+
+## 9. Nouvelle borne de validité — maximalité et topologie
+
+La démonstration de l'article `temps-propre-paradoxe-jumeaux` compare des trajectoires temporelles reliant deux événements dans le Minkowski standard. La formulation « espace-temps plat » doit être comprise ici comme `\mathbb{R}^{1,3}`, sans identification topologique.
+
+da Câmara et al. (2025), § 3 et figure 2, distinguent explicitement le Minkowski simplement connexe d'un espace-temps plat à topologie cylindrique, où plusieurs géodésiques lisses peuvent relier les mêmes événements. La preuve élémentaire par choix d'un référentiel inertiel où les événements ont le même lieu spatial ne doit donc pas être présentée comme un théorème global sur tout espace-temps localement plat.
+
+**Décision éditoriale :** ajouter une seule phrase de périmètre dans l'article sur le temps propre, sans introduire la topologie cylindrique dans le récit principal. Le résultat reste entièrement valable pour le scénario standard de la série. La variante topologique demeure un approfondissement avancé documenté dans [Wiki Knowledge](https://github.com/JM-Brun/wiki-knowledge/blob/main/wiki/sources/da-camara-lemos-calvao-sasse-2025-twins-relativistic-spacetimes.md).
