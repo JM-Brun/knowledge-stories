@@ -81,8 +81,8 @@ On peut le voir sans refaire le calcul de Karatsuba : pour &#92;(9&#92;,999&#92;
 Les trois sous-problèmes doivent être résolus ; dans une exécution séquentielle, leurs coûts s’additionnent. En notant &#92;(T(n)&#92;) le coût d’une multiplication de deux opérandes de taille &#92;(n&#92;), le modèle équilibré remplace leurs tailles exactes par &#92;(n/2&#92;) et donne :
 
 <div class="math-display math-display--key math-display--karatsuba complexity-equations" role="math" aria-label="Récurrence de Karatsuba : trois appels récursifs et un coût local linéaire">
-  <div class="math-line">&#92;(T(n)=T_p(n/2)+T_q(n/2)+T_r(n/2)+O(n)&#92;)</div>
-  <div class="math-line">&#92;(=3T(n/2)+O(n)&#92;)</div>
+  <div class="math-line"><span class="term-common">&#92;(T_p(n/2)+T_q(n/2)&#92;)</span> + <span class="term-aux">&#92;(T_r(n/2)&#92;)</span> + &#92;(O(n)&#92;)</div>
+  <div class="math-line"><span class="term-aux">&#92;(=3T(n/2)+O(n)&#92;)</span></div>
 </div>
 
 Le signe plus additionne ici des **coûts d’appels distincts**, et non des valeurs arithmétiques. Le facteur 3 compte les trois sous-multiplications ; le terme &#92;(O(n)&#92;) regroupe le travail local. La suite consiste à déployer cette récurrence pour compter les appels à chaque niveau, puis à sommer leur coût.
@@ -90,9 +90,6 @@ Le signe plus additionne ici des **coûts d’appels distincts**, et non des val
 ## Déployer la récurrence : l’arbre d’appels
 
 
-
-
-<span className="term-aux">Karatsuba</span> remplace quatre multiplications de blocs par trois. Il faut maintenant traduire cette structure en coût de calcul : combien d’appels sont créés, quelle taille ont-ils, et quel travail reste à effectuer dans chaque appel ? L’arbre sert à répondre à ces questions, puis à établir la récurrence et son ordre de grandeur.
 
 ### Compter les appels à chaque niveau
 
@@ -180,7 +177,7 @@ Puisque &#92;(&#92;log_2(3)&#92;approx1&#123;,&#125;58496&#92;), les multiplicat
 
 ### Ajouter le coût des opérations locales
 
-Non. Elles ont lieu à chaque niveau de l’arbre. Il faut maintenant vérifier que leur coût total ne dépasse pas celui des multiplications.
+Les additions ne sont pas oubliées : elles ont lieu à chaque niveau de l’arbre. Il faut vérifier que leur coût total ne dépasse pas celui des multiplications.
 
 Au niveau &#92;(j&#92;) :
 
