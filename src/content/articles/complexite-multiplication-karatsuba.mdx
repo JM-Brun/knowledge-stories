@@ -58,157 +58,36 @@ Pour suivre la démonstration, il suffit de distinguer un **appel récursif**, l
 
 Si ces notions sont nouvelles, ou si vous souhaitez les réutiliser sur d’autres algorithmes, consultez le guide autonome **[Arbres de récursion : compter le travail à chaque niveau](/knowledge-stories/atelier/arbres-recursion-guide/)**. Ici, nous les mobilisons directement pour analyser Karatsuba.
 
-### Rappel algébrique : pourquoi trois produits suffisent
+La page précédente, [consacrée au mécanisme de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/), établit pourquoi l’identité algébrique permet de remplacer quatre produits de blocs par trois ; nous nous appuyons ici sur ce résultat pour analyser le coût de leur exécution récursive.
 
-Écrivons les deux entiers sous la forme &#92;(x=aB+b&#92;) et &#92;(y=cB+d&#92;), où &#92;(B=10^m&#92;) est la puissance de dix correspondant à la largeur du bloc faible. Le développement donne :
+## Suivre un appel concret jusqu’à la récurrence
 
-&#92;[
-xy=acB^2+(ad+bc)B+bd.
-&#92;]
-
-La méthode directe calcule séparément les quatre produits &#92;(ac&#92;), &#92;(ad&#92;), &#92;(bc&#92;) et &#92;(bd&#92;). Karatsuba observe que :
-
-&#92;[
-(a+b)(c+d)=ac+ad+bc+bd,
-&#92;]
-
-d'où l'identité centrale :
-
-&#92;[
-&#92;boxed&#123;ad+bc=(a+b)(c+d)-ac-bd&#125;.
-&#92;]
-
-Il suffit donc de calculer trois produits, &#92;(p=ac&#92;), &#92;(q=bd&#92;) et &#92;(r=(a+b)(c+d)&#92;), puis de former &#92;(r-p-q&#92;). C'est cette réduction de quatre multiplications de blocs à trois qui modifie la récurrence ; les additions et soustractions supplémentaires seront comptées comme travail local.
-
-
-
-
-## Un calcul complet sur deux entiers de huit chiffres
-
-La récurrence abstraite devient plus tangible si l’on suit une même multiplication du début à la fin. Prenons :
+Prenons deux opérandes de huit chiffres, déjà découpés comme dans la page précédente :
 
 <div className="math-display math-display--key" role="math" aria-label="12345678 multiplié par 87654321">
   <div className="math-line">12 345 678 × 87 654 321</div>
 </div>
 
-Nous allons comparer la <span className="term-common">méthode classique</span> et <span className="term-aux">Karatsuba</span> sur les mêmes blocs. Le choix de quatre chiffres par bloc permet de voir les produits intermédiaires sans noyer le raisonnement dans une longue liste de multiplications élémentaires.
+Avec une coupure après quatre chiffres, on obtient :
 
-### Étape 1 — Découper les deux opérandes
+\[
+\begin{aligned}
+12\,345\,678 &= 1\,234\times 10^4+5\,678,\\
+87\,654\,321 &= 8\,765\times 10^4+4\,321.
+\end{aligned}
+\]
 
-On coupe après les quatre derniers chiffres. La base de recomposition est donc &#92;(10^4=10&#92;,000&#92;) :
+L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse est **la structure des trois appels** créés par l'appel courant.
 
-&#92;[
-&#92;begin&#123;aligned&#125;
-12&#92;,345&#92;,678 &= 1&#92;,234&#92;times 10^4+5&#92;,678,&#92;&#92;
-87&#92;,654&#92;,321 &= 8&#92;,765&#92;times 10^4+4&#92;,321.
-&#92;end&#123;aligned&#125;
-&#92;]
+| Appel récursif | Opération | Tailles des opérandes |
+|---|---|---:|
+| \(p=ac\) | \(1\,234\times8\,765\) | 4 × 4 chiffres |
+| \(q=bd\) | \(5\,678\times4\,321\) | 4 × 4 chiffres |
+| \(r=(a+b)(c+d)\) | \(6\,912\times13\,086\) | 4 × 5 chiffres |
 
-On identifie les quatre blocs :
+Le troisième appel est légèrement plus grand : \(c+d=13\,086\) a cinq chiffres à cause d'une retenue. Les trois appels restent néanmoins de taille proportionnelle à la moitié de la taille initiale. Cette observation conduit au modèle équilibré \(T(n)=3T(n/2)+O(n)\), que nous allons justifier puis résoudre.
 
-- &#92;(a=1&#92;,234&#92;) et &#92;(b=5&#92;,678&#92;) pour le premier nombre ;
-- &#92;(c=8&#92;,765&#92;) et &#92;(d=4&#92;,321&#92;) pour le second.
-
-Le produit se développe en :
-
-&#92;[
-xy=&#92;underbrace&#123;ac&#125;_&#123;&#92;text&#123;bloc de poids fort&#125;&#125;&#92;,10^8
-+&#92;underbrace&#123;(ad+bc)&#125;_&#123;&#92;text&#123;termes croisés&#125;&#125;&#92;,10^4
-+&#92;underbrace&#123;bd&#125;_&#123;&#92;text&#123;bloc de poids faible&#125;&#125;.
-&#92;]
-
-### Étape 2 — Référence : les quatre produits de la méthode classique
-
-La <span className="term-common">méthode classique</span> calcule séparément les quatre produits de blocs :
-
-| Produit | Calcul | Résultat |
-|---|---:|---:|
-| <span className="term-common">&#92;(ac&#92;)</span> | &#92;(1&#92;,234&#92;times8&#92;,765&#92;) | **10 816 010** |
-| <span className="term-cross">&#92;(ad&#92;)</span> | &#92;(1&#92;,234&#92;times4&#92;,321&#92;) | **5 332 114** |
-| <span className="term-cross">&#92;(bc&#92;)</span> | &#92;(5&#92;,678&#92;times8&#92;,765&#92;) | **49 767 670** |
-| <span className="term-common">&#92;(bd&#92;)</span> | &#92;(5&#92;,678&#92;times4&#92;,321&#92;) | **24 534 638** |
-
-Les deux produits croisés sont ensuite additionnés :
-
-&#92;[
-&#92;begin&#123;aligned&#125;
-ad+bc
-&=5&#92;,332&#92;,114+49&#92;,767&#92;,670&#92;&#92;
-&=&#92;boxed&#123;55&#92;,099&#92;,784&#125;.
-&#92;end&#123;aligned&#125;
-&#92;]
-
-La recomposition donne :
-
-&#92;[
-&#92;begin&#123;aligned&#125;
-xy
-&=10&#92;,816&#92;,010&#92;times10^8&#92;&#92;
-&&#92;quad+55&#92;,099&#92;,784&#92;times10^4&#92;&#92;
-&&#92;quad+24&#92;,534&#92;,638&#92;&#92;
-&=&#92;boxed&#123;1&#92;,082&#92;,152&#92;,022&#92;,374&#92;,638&#125;.
-&#92;end&#123;aligned&#125;
-&#92;]
-
-### Étape 3 — Karatsuba : former les trois produits
-
-<span className="term-aux">Karatsuba</span> conserve les deux produits diagonaux, mais remplace les deux <span className="term-cross">produits croisés</span> par un seul <span className="term-aux">produit auxiliaire</span>. Calculons d’abord les sommes des blocs :
-
-&#92;[
-a+b=1&#92;,234+5&#92;,678=6&#92;,912,
-&#92;qquad
-c+d=8&#92;,765+4&#92;,321=13&#92;,086.
-&#92;]
-
-Puis les trois produits :
-
-| Rôle | Calcul | Résultat |
-|---|---:|---:|
-| <span className="term-common">&#92;(p=ac&#92;)</span> | &#92;(1&#92;,234&#92;times8&#92;,765&#92;) | **10 816 010** |
-| <span className="term-common">&#92;(q=bd&#92;)</span> | &#92;(5&#92;,678&#92;times4&#92;,321&#92;) | **24 534 638** |
-| <span className="term-aux">&#92;(r=(a+b)(c+d)&#92;)</span> | &#92;(6&#92;,912&#92;times13&#92;,086&#92;) | **90 450 432** |
-
-Remarquons que &#92;(13&#92;,086&#92;) comporte cinq chiffres : l’addition &#92;(c+d&#92;) a dépassé la largeur initiale de quatre chiffres. Le sous-problème auxiliaire peut donc être légèrement plus grand que les deux produits diagonaux. C’est précisément la subtilité de taille évoquée dans l’analyse précédente ; elle ne remet pas en cause l’ordre de grandeur de la récursion.
-
-### Étape 4 — Retrouver les termes croisés par soustraction
-
-L’identité de Karatsuba donne :
-
-&#92;[
-&#92;begin&#123;aligned&#125;
-ad+bc
-&=r-p-q&#92;&#92;
-&=90&#92;,450&#92;,432-10&#92;,816&#92;,010-24&#92;,534&#92;,638&#92;&#92;
-&=&#92;boxed&#123;55&#92;,099&#92;,784&#125;.
-&#92;end&#123;aligned&#125;
-&#92;]
-
-On retrouve exactement la somme obtenue par les deux <span className="term-cross">multiplications croisées</span> de la <span className="term-common">méthode classique</span>, mais avec un seul <span className="term-aux">produit auxiliaire</span>.
-
-### Étape 5 — Recomposer le résultat
-
-On réinjecte &#92;(p&#92;), &#92;(q&#92;) et le terme croisé dans la formule :
-
-&#92;[
-&#92;begin&#123;aligned&#125;
-xy
-&=p&#92;times10^8+(r-p-q)&#92;times10^4+q&#92;&#92;
-&=10&#92;,816&#92;,010&#92;times10^8&#92;&#92;
-&&#92;quad+55&#92;,099&#92;,784&#92;times10^4&#92;&#92;
-&&#92;quad+24&#92;,534&#92;,638&#92;&#92;
-&=&#92;boxed&#123;1&#92;,082&#92;,152&#92;,022&#92;,374&#92;,638&#125;.
-&#92;end&#123;aligned&#125;
-&#92;]
-
-Les deux méthodes donnent bien le même entier. À ce niveau de découpage, la différence est nette : la <span className="term-common">méthode classique</span> demande quatre multiplications de blocs, tandis que <span className="term-aux">Karatsuba</span> en demande trois. Dans l’algorithme récursif, chacun de ces sous-produits est à son tour traité de la même manière jusqu’au seuil choisi pour la multiplication directe.
-
-### Ce que cet exemple permet de distinguer
-
-- **Le calcul algébrique** : l’identité &#92;(ad+bc=(a+b)(c+d)-ac-bd&#92;) permet de remplacer deux produits croisés par un produit auxiliaire et deux soustractions.
-- **Le coût récursif** : les trois produits &#92;(p&#92;), &#92;(q&#92;) et &#92;(r&#92;) sont les trois appels récursifs ; les additions, soustractions et décalages sont le travail local.
-- **La taille réelle des appels** : une retenue peut ajouter un chiffre à une somme de blocs, comme ici avec &#92;(13&#92;,086&#92;). Le modèle &#92;(n/2&#92;) est donc une approximation asymptotique, pas une égalité exacte à chaque appel.
-
-Ce calcul relie l'identité arithmétique au découpage récursif et montre concrètement qu'une somme de blocs peut gagner un chiffre. Il reste à préciser pourquoi ce débordement change les tailles exactes sans changer leur ordre de grandeur.
+Le terme \(3T(n/2)\) comptera le coût des trois appels ; le terme \(O(n)\) comptera le travail effectué ici, sans récursion : former les deux sommes, soustraire les produits pour isoler le terme croisé et recomposer le résultat. Il reste à établir pourquoi ce travail local est linéaire et comment les trois appels se répètent aux niveaux suivants.
 
 ## Analyser la récurrence de Karatsuba à l’aide de l’arbre d’appels
 
@@ -232,32 +111,11 @@ Chaque position demande un nombre constant d’opérations élémentaires sur de
 
 Ce coût est linéaire parce qu’on doit traiter les positions des opérandes ; il ne faut pas le confondre avec le coût d’une addition de deux nombres machine de taille fixe, qui est considéré constant dans un modèle à mots de taille fixe. Ici, la taille étudiée est précisément le nombre de chiffres.
 
-### Les trois sous-multiplications comme appels récursifs
-
-Le rappel algébrique précédent a justifié les trois produits :
-
-&#92;[
-p=ac,&#92;qquad q=bd,&#92;qquad r=(a+b)(c+d).
-&#92;]
-
-À ce stade, leur identité algébrique est établie. Pour la complexité, la question est désormais celle de leur **taille** : combien de chiffres comporte chaque opérande, et quel travail local faut-il ajouter pour les sommes, les soustractions et la recomposition ?
-
 ### Pourquoi parle-t-on de blocs de taille approximative &#92;(n/2&#92;) ?
 
 Pour un opérande de &#92;(n&#92;) chiffres, on coupe la représentation en deux blocs aussi équilibrés que possible. Si &#92;(n&#92;) est pair, chacun a exactement &#92;(n/2&#92;) chiffres ; s’il est impair, leurs tailles diffèrent d’au plus un chiffre. On peut aussi compléter l’écriture par un zéro à gauche pour raisonner sur une longueur paire.
 
-Les produits &#92;(ac&#92;) et &#92;(bd&#92;) portent donc sur des blocs d’environ &#92;(n/2&#92;) chiffres. Le produit auxiliaire &#92;(r=(a+b)(c+d)&#92;) peut être légèrement plus grand : une retenue dans une somme peut ajouter un chiffre. Sa taille reste toutefois de l’ordre de &#92;(n/2&#92;), plus précisément &#92;(n/2+O(1)&#92;). C’est pourquoi la récurrence utilise &#92;(T(n/2)&#92;) comme **modèle équilibré simplifié**, et pourquoi une section ultérieure revient sur les tailles réelles.
-
-#### Contrepoint numérique : une somme sans retenue
-
-Gardons le premier opérande de l'exemple principal, mais remplaçons le second par &#92;(12&#92;,344&#92;,321&#92;). Le découpage donne alors &#92;(a=1&#92;,234&#92;), &#92;(b=5&#92;,678&#92;), &#92;(c=1&#92;,234&#92;) et &#92;(d=4&#92;,321&#92;). Les sommes qui forment le produit auxiliaire sont :
-
-&#92;[
-a+b=1&#92;,234+5&#92;,678=6&#92;,912,&#92;qquad
-c+d=1&#92;,234+4&#92;,321=5&#92;,555.
-&#92;]
-
-Elles restent toutes deux sur quatre chiffres. Dans l'exemple principal, &#92;(c+d=8&#92;,765+4&#92;,321=13&#92;,086&#92;) en demandait cinq. **La seule information utile ici est la taille des opérandes du troisième sous-problème** : recalculer les produits et le résultat final n'apporterait rien à l'analyse de complexité. Ce contrepoint confirme que le débordement dépend des valeurs, alors que la borne &#92;(n/2+O(1)&#92;) reste valable dans les deux cas.
+Dans l’exemple suivi, les deux produits diagonaux portent sur des blocs de quatre chiffres, tandis que le produit auxiliaire reçoit un opérande de cinq chiffres. En général, les deux moitiés ont au plus \(\lceil n/2\rceil\) chiffres et leur somme au plus \(\lceil n/2\rceil+1\) : chaque sous-problème a donc une taille \(n/2+O(1)\). La notation \(T(n/2)\) est le **modèle équilibré simplifié** ; la section sur les tailles réelles précisera ce que cette approximation implique.
 
 ### 1. Ce que signifie la récurrence
 
@@ -327,7 +185,7 @@ Pour Karatsuba, les niveaux successifs comptent donc :
 
 <KaratsubaGrowth />
 
-Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau &#92;(j&#92;), il y a &#92;(3^j&#92;) appels, chacun portant sur environ &#92;(n/2^j&#92;) chiffres.
+Deux phénomènes se produisent simultanément : **le nombre d’appels augmente**, mais **la taille de chaque appel diminue**. Au niveau \(j\), il y a \(3^j\) appels, chacun portant sur environ \(n/2^j\) chiffres. Pour notre modèle à huit chiffres, cela donne successivement 1 appel de taille 8, 3 appels de taille 4, puis 9 appels de taille 2.
 
 Pour la <span className="term-common">méthode classique</span>, le tableau est identique en remplaçant &#92;(3^j&#92;) par &#92;(4^j&#92;).
 
@@ -395,9 +253,11 @@ Puisque &#92;(&#92;log_2(3)&#92;approx1&#123;,&#125;58496&#92;), les multiplicat
 
 Non. Elles ont lieu à chaque niveau de l’arbre. Il faut maintenant vérifier que leur coût total ne dépasse pas celui des multiplications.
 
-Au niveau &#92;(j&#92;) :
+Reprenons les valeurs du tableau : pour \(n=8\), le travail local de Karatsuba vaut 8 unités à la racine, puis 12 (trois appels de taille 4), puis 18 (neuf appels de taille 2). On voit apparaître le facteur \(3/2\) entre deux niveaux : le nombre d’appels est multiplié par trois, tandis que la taille de chacun est divisée par deux.
 
-1. il y a &#92;(3^j&#92;) appels ;
+Au niveau \(j\) :
+
+1. il y a \(3^j\) appels ;
 2. chaque appel manipule des blocs de &#92;(n/2^j&#92;) chiffres ;
 3. le coût des additions et soustractions d’un appel est donc &#92;(O(n/2^j)&#92;).
 
