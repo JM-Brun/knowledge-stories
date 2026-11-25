@@ -261,6 +261,8 @@ $$
 
 Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
 
+Une pondération reste un estimateur fondé sur des hypothèses, pas une réparation automatique. Elle est crédible seulement si les variables qui expliquent la participation et le résultat sont suffisamment observées, si chaque profil cible a une probabilité non nulle d'être représenté dans la source (*positivité*), et si le modèle de poids est adéquat. Si la participation dépend encore du résultat après conditionnement sur les variables observées, le biais peut persister. Il faut expliciter cette hypothèse et tester la sensibilité des conclusions à des mécanismes de non-réponse plausibles.
+
 ### Quelle action selon le diagnostic ?
 
 | Diagnostic | Action défendable | Ce qu'il ne faut pas prétendre |
