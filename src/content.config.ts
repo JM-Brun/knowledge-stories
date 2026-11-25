@@ -14,6 +14,14 @@ const articles = defineCollection({
     tags: z.array(z.string()).default([]),
     themes: z.array(z.string().trim().min(1)).min(1),
     difficulty: z.enum(["introductory", "intermediate", "advanced"]),
+    // Forme éditoriale de l’article ; distincte de sa difficulté.
+    articleType: z.enum(["conceptual", "analysis", "tutorial", "reference"]).optional(),
+    // Capacités observables que le lecteur doit acquérir.
+    learningObjectives: z.array(z.string().trim().min(1)).default([]),
+    // Identifiants de concepts canoniques du Wiki Knowledge, destinés aux index et graphes.
+    concepts: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les identifiants de concepts doivent être uniques.").default([]),
+    // Slugs d’articles utiles avant lecture, sans en faire des prérequis bloquants.
+    recommendedPrerequisites: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les prérequis recommandés doivent être uniques.").default([]),
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
     featured: z.boolean().default(false),
