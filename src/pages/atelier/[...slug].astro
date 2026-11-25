@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatReadingDuration, seriesInfo } from "../../data/series";
+import { formatReadingDuration, getSeriesRoleLabel, seriesInfo } from "../../data/series";
 import { getReadingTime } from "../../utils/reading-time.mjs";
 
 export async function getStaticPaths() {
@@ -44,13 +44,13 @@ const seriesTotalReadingTime = seriesArticles.reduce((total, item) => total + re
             <p class="series-kicker">Parcours de lecture</p>
             <h2>{seriesInfo[article.data.series].title}</h2>
           </div>
-          <span>{seriesArticles.length} articles · {formatReadingDuration(seriesTotalReadingTime)} au total</span>
+          <span>{seriesArticles.length} articles · {formatReadingDuration(seriesTotalReadingTime)} pour l'ensemble</span>
         </div>
         <ol>
           {seriesArticles.map((item) => (
             <li class:list={[{ current: item.id === article.id }]}>
               {item.id === article.id
-                ? <span aria-current="page"><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`} · {readingTimeFor(item)} min</small>{item.data.title}</span>
+                ? <span aria-current="page"><small>{getSeriesRoleLabel(item.slug, item.data.seriesOrder)} · {readingTimeFor(item)} min</small>{item.data.title}</span>
                 : <a href={`${baseUrl}atelier/${item.slug}/`}><small>{item.data.seriesOrder === 0 ? "Introduction" : `Étape ${item.data.seriesOrder}`} · {readingTimeFor(item)} min</small>{item.data.title}</a>}
             </li>
           ))}

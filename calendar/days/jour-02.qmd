@@ -4,7 +4,7 @@ subtitle: "Jour 2 · Qui est représenté dans les données ?"
 description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la couverture ni le mécanisme de sélection."
 ---
 
-> **En 12 à 15 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
+> **En 20 à 25 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
 >
 > **Prérequis** — Aucun prérequis formel. Savoir lire une moyenne et une proportion suffit ; la notion d'estimateur est expliquée dans l'article.
 >
@@ -52,6 +52,8 @@ où \(W_A\) et \(W_B\) sont les proportions des groupes dans la population, et \
 
 L'enquête limitée au groupe A ne souffre pas simplement d'un échantillon « trop petit ». Elle estime correctement la moyenne de A, mais cette quantité n'est pas l'estimand choisi. C'est une distinction fondamentale : **un calcul peut être exact pour la mauvaise question**.
 
+**Ce que l'exemple permet — et ne permet pas — de comparer.** Il établit un contraste de couverture et de cible, pas un classement numérique de précision. Les variances individuelles à l'intérieur de A et de B ne sont pas données : on ne peut donc pas calculer l'erreur-type de l'estimateur stratifié ni affirmer de combien il serait plus précis. En revanche, le recensement de A élimine bien l'erreur de tirage pour la moyenne de A ; il ne transforme pas cette moyenne en moyenne de la population entière.
+
 Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple :
 
 \[
@@ -76,6 +78,40 @@ C'est utile de distinguer trois objets :
 - **Échantillon observé** : celles qui ont finalement répondu ou ont été mesurées.
 
 Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la non-réponse et de l'auto-sélection.
+
+<figure class="sampling-flow">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Schéma des trois étapes de sélection, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 760 270" role="img" aria-labelledby="sampling-flow-title sampling-flow-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="sampling-flow-title">De la population cible aux observations réellement analysées</title>
+  <desc id="sampling-flow-desc">Trois étapes successives : la population cible contient toutes les unités auxquelles on veut généraliser ; la base de sondage en couvre une partie ; parmi les unités sélectionnées, seules certaines répondent et sont observées. Les absences à chaque étape peuvent modifier la composition des données.</desc>
+  <rect x="1" y="1" width="758" height="268" rx="14" fill="#fbfcf8" stroke="#d9dfd4"/>
+  <g font-family="system-ui,sans-serif">
+    <rect x="22" y="32" width="210" height="154" rx="12" fill="#e7eee7" stroke="#6b8d75" stroke-width="1.5"/>
+    <text x="127" y="58" text-anchor="middle" fill="#294b3a" font-size="14" font-weight="700">Population cible</text>
+    <text x="127" y="81" text-anchor="middle" fill="#53665b" font-size="11">Toutes les unités visées</text>
+    <g fill="#47745b"><circle cx="58" cy="111" r="6"/><circle cx="86" cy="111" r="6"/><circle cx="114" cy="111" r="6"/><circle cx="142" cy="111" r="6"/><circle cx="170" cy="111" r="6"/><circle cx="198" cy="111" r="6"/><circle cx="58" cy="139" r="6"/><circle cx="86" cy="139" r="6"/><circle cx="114" cy="139" r="6"/><circle cx="142" cy="139" r="6"/><circle cx="170" cy="139" r="6"/><circle cx="198" cy="139" r="6"/></g>
+    <text x="127" y="169" text-anchor="middle" fill="#53665b" font-size="10">Référence de généralisation</text>
+    <path d="M242 109 H270 M262 101 L270 109 L262 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="280" y="32" width="210" height="154" rx="12" fill="#f4eddf" stroke="#b58b4d" stroke-width="1.5"/>
+    <text x="385" y="58" text-anchor="middle" fill="#765626" font-size="14" font-weight="700">Base de sondage</text>
+    <text x="385" y="81" text-anchor="middle" fill="#76664d" font-size="11">Unités accessibles</text>
+    <g fill="#b58b4d"><circle cx="316" cy="111" r="6"/><circle cx="344" cy="111" r="6"/><circle cx="372" cy="111" r="6"/><circle cx="400" cy="111" r="6"/><circle cx="428" cy="111" r="6"/><circle cx="456" cy="111" r="6"/><circle cx="316" cy="139" r="6"/><circle cx="344" cy="139" r="6"/><circle cx="372" cy="139" r="6"/></g>
+    <g fill="none" stroke="#b58b4d" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="400" cy="139" r="6"/><circle cx="428" cy="139" r="6"/><circle cx="456" cy="139" r="6"/></g>
+    <text x="385" y="169" text-anchor="middle" fill="#76664d" font-size="10">Défaut de couverture possible</text>
+    <path d="M500 109 H528 M520 101 L528 109 L520 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="538" y="32" width="200" height="154" rx="12" fill="#e8edf4" stroke="#7186a5" stroke-width="1.5"/>
+    <text x="638" y="58" text-anchor="middle" fill="#344b6b" font-size="14" font-weight="700">Échantillon observé</text>
+    <text x="638" y="81" text-anchor="middle" fill="#53647b" font-size="11">Réponses / mesures</text>
+    <g fill="#5877a0"><circle cx="574" cy="111" r="6"/><circle cx="602" cy="111" r="6"/><circle cx="630" cy="111" r="6"/><circle cx="658" cy="111" r="6"/><circle cx="686" cy="111" r="6"/><circle cx="714" cy="111" r="6"/></g>
+    <g fill="none" stroke="#7186a5" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="574" cy="139" r="6"/><circle cx="602" cy="139" r="6"/><circle cx="630" cy="139" r="6"/></g>
+    <text x="638" y="169" text-anchor="middle" fill="#53647b" font-size="10">Non-réponse / auto-sélection</text>
+    <path d="M127 205 V224 H638 V205" fill="none" stroke="#8a978d" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="382" y="246" text-anchor="middle" fill="#53665b" font-size="12" font-weight="600">À chaque passage, demander : qui disparaît, et pourquoi ?</text>
+  </g>
+</svg>
+</div>
+<figcaption>Schéma conceptuel, non à l'échelle : les unités peuvent être perdues dès la constitution de la base, puis lors de la sélection ou de la réponse. Une correction statistique exige de connaître ou de modéliser ces mécanismes.</figcaption>
+</figure>
 
 ## Visualiser biais et incertitude séparément
 
@@ -203,14 +239,17 @@ Les observations occasionnelles pèsent donc neuf fois plus que les observations
 
 En pratique, les ratios de densité sont rarement connus. On peut les estimer à partir d'un échantillon source et d'un échantillon cible non étiqueté, par exemple avec un classifieur qui prédit l'appartenance au domaine. Mais cette estimation peut être instable, surtout en grande dimension ou lorsque les domaines se recouvrent peu.
 
-### Diagnostiquer avant de corriger
+### Du diagnostic à l'action
 
-1. **Définir le domaine cible** : nouveaux utilisateurs, nouveaux sites, autre période, autre canal d'acquisition ? Décrire la population et l'unité de généralisation.
-2. **Comparer les features** : distributions marginales et conjointes, taux de valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
-3. **Vérifier le support commun** : la cible contient-elle des profils qui n'existent pas dans la source ? Sans recouvrement, la repondération devient impossible ou repose sur une extrapolation.
-4. **Examiner les labels** : dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\mid X)$ par période ou groupe. Sans labels cible, on ne peut pas vérifier directement la stabilité de cette relation.
-5. **Choisir le protocole de validation** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Le test doit reproduire la nouveauté attendue.
-6. **Quantifier la stabilité des poids** : inspecter leur distribution et la taille effective d'échantillon.
+Un diagnostic utile suit un ordre précis : définir ce que l'on veut transporter, comprendre comment les observations ont été produites, puis seulement choisir une correction.
+
+1. **Définir l'estimand et le domaine cible** : quelle population, quelle période, quelle unité et quelle quantité ? Préciser s'il s'agit de nouveaux utilisateurs, de nouveaux sites, d'une autre période ou d'un autre canal d'acquisition.
+2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ? Examiner les taux de couverture et de réponse, ainsi que les variables susceptibles d'expliquer la participation.
+3. **Comparer source et cible** : distributions marginales et conjointes des features, valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
+4. **Formuler le changement plausible** : $P(X)$, $P(Y)$, $P(X\mid Y)$ ou $P(Y\mid X)$ ? Ces mécanismes peuvent coexister ; la différence entre deux histogrammes ne suffit pas à établir lequel est à l'œuvre.
+5. **Vérifier le support commun et les labels** : la cible contient-elle des profils absents de la source ? Dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\mid X)$ par période ou groupe. Sans labels cible, la stabilité de cette relation ne peut pas être vérifiée directement.
+6. **Choisir une validation fidèle au déploiement** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Une validation aléatoire n'est adaptée que si elle reproduit réellement le régime visé.
+7. **Évaluer la stabilité de la correction** : inspecter la distribution des poids, les poids extrêmes et la taille effective ; tester la sensibilité des conclusions aux choix de modélisation et aux hypothèses de sélection.
 
 Une mesure utile de concentration des poids est la taille effective d'échantillon :
 
@@ -222,6 +261,8 @@ $$
 
 Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
 
+Une pondération reste un estimateur fondé sur des hypothèses, pas une réparation automatique. Elle est crédible seulement si les variables qui expliquent la participation et le résultat sont suffisamment observées, si chaque profil cible a une probabilité non nulle d'être représenté dans la source (*positivité*), et si le modèle de poids est adéquat. Si la participation dépend encore du résultat après conditionnement sur les variables observées, le biais peut persister. Il faut expliciter cette hypothèse et tester la sensibilité des conclusions à des mécanismes de non-réponse plausibles.
+
 ### Quelle action selon le diagnostic ?
 
 | Diagnostic | Action défendable | Ce qu'il ne faut pas prétendre |
@@ -232,7 +273,6 @@ Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut 
 | Profils cible absents de la source | Collecte complémentaire ou restriction explicite du domaine d'usage | Que le modèle sait généraliser sans données ni hypothèses |
 | Sélection dépendant de variables non observées | Étude de sensibilité, données externes, hypothèses causales explicites | Qu'une pondération estimée sur les seules features observées élimine le biais |
 
-La validation doit donc préciser l'unité de généralisation et le mécanisme de collecte. Une validation aléatoire peut être correcte pour prédire de nouvelles lignes issues du même régime, mais trompeuse pour de nouveaux utilisateurs, de nouveaux sites ou une période future.
 
 ## À vous de raisonner
 
@@ -254,20 +294,6 @@ La validation doit donc préciser l'unité de généralisation et le mécanisme 
 6. Si des profils sont absents de la source, il manque le support nécessaire à la repondération : il faut collecter des données ou restreindre le domaine d'usage. Si $P(Y\mid X)$ a changé, la relation prédictive elle-même n'est plus stable : il faut obtenir des labels récents, réévaluer et envisager une adaptation ou un réentraînement.
 
 </details>
-
-## Un protocole de diagnostic en pratique
-
-Pour juger si un jeu de données permet de généraliser :
-
-1. **Écrire l'estimand** : quelle population, quelle période, quelle unité et quelle quantité ?
-2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ?
-3. **Comparer source et cible** : distributions, taux de couverture et de réponse, catégories inédites et profils absents.
-4. **Formuler le type de changement plausible** : $P(X)$, $P(Y)$, $P(X\mid Y)$ ou $P(Y\mid X)$ ? Ne pas choisir une correction avant d'avoir formulé son hypothèse.
-5. **Examiner le support commun** : quelles régions de la cible sont couvertes par la source ?
-6. **Choisir une validation fidèle au déploiement** et, lorsque c'est possible, évaluer sur des labels cible.
-7. **Tester la sensibilité** : poids extrêmes, taille effective, hypothèses de sélection et stabilité des conclusions.
-
-Une pondération est un estimateur fondé sur des hypothèses, pas une réparation automatique. Il faut expliciter les variables utilisées, les poids extrêmes éventuels, la taille effective et la population à laquelle les résultats peuvent raisonnablement être transportés.
 
 ## À retenir
 
