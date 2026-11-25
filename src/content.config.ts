@@ -19,9 +19,9 @@ const articles = defineCollection({
     // Capacités observables que le lecteur doit acquérir.
     learningObjectives: z.array(z.string().trim().min(1)).default([]),
     // Identifiants stables de concepts, destinés aux index et graphes de connaissances.
-    concepts: z.array(z.string().trim().min(1)).default([]),
+    concepts: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les identifiants de concepts doivent être uniques.").default([]),
     // Slugs d’articles utiles avant lecture, sans en faire des prérequis bloquants.
-    recommendedPrerequisites: z.array(z.string().trim().min(1)).default([]),
+    recommendedPrerequisites: z.array(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)).refine((values) => new Set(values).size === values.length, "Les prérequis recommandés doivent être uniques.").default([]),
     readingTime: z.number().positive().optional(),
     status: z.enum(["draft", "review", "published"]).default("draft"),
     featured: z.boolean().default(false),
