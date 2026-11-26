@@ -4,7 +4,7 @@ subtitle: "Jour 5 · Quand une prévision confiante se trompe"
 description: "Une enquête sur deux prévisions météo introduit la surprise, l'entropie et l'information mutuelle, puis montre pourquoi faible incertitude ne signifie pas bonne prévision."
 ---
 
-> **Environ 10 à 12 minutes** — Comparer deux prévisions météo, calculer leur entropie, puis découvrir pourquoi une distribution très concentrée peut être moins utile qu'une prévision prudente.
+> **Environ 11 à 13 minutes** — Passer de la surprise à l'entropie, puis comprendre pourquoi l'incertitude d'une distribution ne mesure pas à elle seule la qualité d'une prévision.ns météo, calculer leur entropie, puis découvrir pourquoi une distribution très concentrée peut être moins utile qu'une prévision prudente.
 >
 > **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est expliqué à partir de son rôle dans le calcul de la surprise.
 >
