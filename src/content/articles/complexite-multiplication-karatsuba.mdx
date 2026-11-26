@@ -460,7 +460,7 @@ T(n)&#92;leq3&#92;cdot24(n/2)^p+8n
 =24n^p+8n.
 &#92;]
 
-Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne &#92;&#92;(24n^p&#92;&#92;) est fausse** : elle est bien vraie, comme le montrera la borne renforcée ci-dessous. Il montre seulement que l'hypothèse utilisée sous cette forme ne suffit pas à fermer ce pas inductif. Il faut conserver une marge qui absorbe le travail local.
+Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne &#92;(24n^p&#92;) est fausse** : elle est bien vraie, comme le montrera la borne renforcée ci-dessous. Il montre seulement que l'hypothèse utilisée sous cette forme ne suffit pas à fermer ce pas inductif. Il faut conserver une marge qui absorbe le travail local.
 
 **2. Renforçons l'hypothèse avec un terme correctif.**
 
@@ -486,7 +486,7 @@ T(n)
 
 car &#92;(2^p=3&#92;). La propriété est donc héréditaire.
 
-La borne est ainsi démontrée pour toutes les puissances de deux. Elle implique bien la majoration plus simple &#92;&#92;(T(n)&#92;&#92;leq24n^p&#92;&#92;), puisque le terme correctif &#92;&#92;(-16n&#92;&#92;) est négatif. Pour la récurrence exacte posée ici, &#92;&#92;(24n^p-16n&#92;&#92;) est même la solution exacte ; si le travail local est seulement majoré par &#92;&#92;(8n&#92;&#92;), le même raisonnement fournit une borne supérieure. Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve &#92;&#92;(T(n)=&#92;&#92;Theta(n^&#123;&#92;&#92;log_2 3&#125;)&#92;&#92;).
+La borne est ainsi démontrée pour toutes les puissances de deux. Elle implique bien la majoration plus simple &#92;(T(n)&#92;&#92;leq24n^p&#92;), puisque le terme correctif &#92;(-16n&#92;) est négatif. Pour la récurrence exacte posée ici, &#92;(24n^p-16n&#92;) est même la solution exacte ; si le travail local est seulement majoré par &#92;(8n&#92;), le même raisonnement fournit une borne supérieure. Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve &#92;(T(n)=&#92;&#92;Theta(n^&#123;&#92;&#92;log_2 3&#125;)&#92;).
 
 **Ce qu'il faut retenir :** l'arbre et le théorème maître aident à *conjecturer* l'ordre de grandeur ; l'induction *vérifie* une inégalité précise. Quand le pas inductif échoue, on ne rejette pas automatiquement l'exposant : on examine l'hypothèse, la constante et le terme correctif. Cet exemple suit le principe de la méthode *guess and check* présentée dans le cours CS4102 ; le choix de la borne et sa vérification ci-dessus sont explicités ici pour notre modèle de récurrence.
 
