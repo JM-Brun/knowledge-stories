@@ -1,5 +1,5 @@
 ---
-title: "Le modèle optimise ce qu'on lui demande"
+title: "Que demande-t-on à un modèle quand on choisit sa perte ?"
 day: 9
 calendar: "2026"
 status: "skeleton"
@@ -30,13 +30,13 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ---
 
-# Jour 09 — Le modèle optimise ce qu'on lui demande
+# Jour 09 — Que demande-t-on à un modèle quand on choisit sa perte ?
 
 ## 1. Promesse et question
 
-**Question directrice :** Comment le choix de la fonction de perte détermine-t-il ce que le modèle apprend à privilégier ?
+**Question directrice :** Quelle quantité statistique un modèle apprend-il à prédire lorsque l'on choisit une fonction de perte ?
 
-**Objectif observable :** Distinguer erreur par exemple, fonction de perte et objectif moyen ; anticiper l'effet d'un changement de perte.
+**Objectif observable :** Expliquer pourquoi l'erreur quadratique cible une moyenne conditionnelle, l'erreur absolue une médiane conditionnelle et la perte quantile un quantile conditionnel ; distinguer ces cibles du risque empirique et de la décision finale.
 
 **Durée cible :** 12–18 minutes.
 
@@ -44,11 +44,11 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ## 2. Situation d'entrée et fil narratif
 
-**Scène d'ouverture :** Deux modèles sont évalués sur les mêmes erreurs, mais l'un est jugé avec l'erreur absolue et l'autre avec l'erreur quadratique. Lequel est « meilleur » ?
+**Scène d'ouverture :** Pour les mêmes observations, trois fonctions de perte conduisent à trois prédictions optimales très différentes. Laquelle est la bonne ?
 
 **Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
 
-**Déroulé narratif provisoire :** Prédictions et erreurs ; attribuer un coût à chaque erreur ; agréger les pertes ; comparer L1/L2 et coûts asymétriques ; distinguer échantillon et population.
+**Déroulé narratif provisoire :** Un jeu de données asymétrique ; minimisation de la perte quadratique ; minimisation de la perte absolue ; perte quantile ; passage du risque empirique au risque populationnel ; distinction avec la règle de décision.
 
 **Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
 
@@ -72,19 +72,82 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 ### Exemple numérique à intégrer
 
-Considérer les cinq valeurs \(0,0,0,0,10\) et un prédicteur constant \(a\).
+Considérer les cinq valeurs ordonnées :
 
-Pour la perte quadratique, le risque empirique est proportionnel à
-\[
-R_2(a)=\frac{1}{5}\sum_{i=1}^{5}(y_i-a)^2.
-\]
-Son minimiseur est la moyenne, soit \(a=2\). La somme des carrés vaut alors 80 (risque moyen 16). Pour la perte absolue,
-\[
-R_1(a)=\frac{1}{5}\sum_{i=1}^{5}|y_i-a|,
-\]
-un minimiseur est la médiane, soit \(a=0\), et la somme des erreurs absolues vaut 10 (risque moyen 2).
+$$
+y=(0,0,0,10,10).
+$$
 
-Ce contraste ne signifie pas qu'une perte est universellement meilleure : les deux objectifs répondent à des préférences différentes. La perte quadratique pénalise fortement les grands écarts ; la perte absolue est moins sensible à la valeur extrême. Il faut comparer les prédicteurs sous une même unité de coût avant de conclure.
+Un modèle constant prédit une valeur $a$ pour toutes les observations. Les données ne changent pas ; seul le critère d'optimisation change.
+
+**Perte quadratique.** Le risque empirique est :
+
+$$
+R_2(a)=\frac15\sum_{i=1}^{5}(y_i-a)^2.
+$$
+
+Son minimiseur est la moyenne empirique :
+
+$$
+\widehat a_2=\bar y=4.
+$$
+
+La somme des carrés vaut $120$ et la perte moyenne vaut $24$.
+
+**Perte absolue.** Le risque empirique devient :
+
+$$
+R_1(a)=\frac15\sum_{i=1}^{5}|y_i-a|.
+$$
+
+Un minimiseur est la médiane empirique :
+
+$$
+\widehat a_1=0.
+$$
+
+La somme des erreurs absolues vaut $20$ et la perte moyenne vaut $4$.
+
+**Perte quantile.** Pour viser le quantile $\tau$, utiliser la perte pinball :
+
+$$
+\rho_\tau(u)=u\left(\tau-\mathbb{1}_{u<0}\right),
+\qquad u=y-a.
+$$
+
+Avec $\tau=0{,}8$, le minimiseur est le quantile empirique d'ordre 0,8. En définissant explicitement $Q_n(\tau)=\inf\{y:F_n(y)\geq\tau\}$, on obtient ici :
+
+$
+\widehat a_{0{,}8}=10.
+$
+
+| Critère | Prédiction minimisant la perte | Quantité ciblée |
+|---|---:|---|
+| Erreur quadratique | 4 | Moyenne |
+| Erreur absolue | 0 | Médiane |
+| Perte quantile, $\tau=0{,}8$ | 10 | Quantile 80 % |
+
+Une même série conduit donc à trois prédictions optimales : 4, 0 et 10. Aucune n'est « la bonne » sans préciser la question. La moyenne est pertinente si l'on cherche le centre au sens quadratique ; la médiane si l'on veut minimiser l'erreur absolue ; le quantile 80 % si l'on veut une prévision située au niveau correspondant de la distribution.
+
+Les valeurs sont construites pour rendre le mécanisme visible. Le quantile empirique est défini ici par l'inverse de la fonction de répartition empirique ; d'autres conventions d'interpolation existent pour les quantiles d'échantillon et doivent être précisées dans les logiciels.
+
+**Point central à démontrer :** le choix de la perte ne change pas seulement la manière de noter un modèle. Il change la quantité que l'optimisation cherche à estimer.
+
+### À l'échelle de la population
+
+Pour une entrée $X=x$, la même logique s'applique au risque conditionnel :
+
+$
+a_2^*(x)=\mathbb E[Y\mid X=x],
+\qquad
+a_1^*(x)\in\operatorname{Med}(Y\mid X=x),
+\qquad
+a_\tau^*(x)=Q_\tau(Y\mid X=x).
+$
+
+Autrement dit, sous les conditions usuelles d'existence, minimiser l'espérance de la perte quadratique cible la moyenne conditionnelle ; minimiser l'espérance de la perte absolue cible une médiane conditionnelle ; minimiser la perte pinball cible le quantile conditionnel d'ordre $\tau$.
+
+Le passage de l'échantillon à la population est essentiel : l'optimisation empirique fournit une approximation calculée sur les données disponibles. Elle n'égale le risque conditionnel populationnel que sous des conditions de généralisation appropriées.
 
 ### De l'objectif observé à la décision
 
@@ -122,7 +185,7 @@ L'apport peut être une reconstruction pédagogique, une démonstration, un cont
 
 ## 6. Transfert vers la pratique
 
-Classification déséquilibrée, coûts métier, choix d'un indicateur opérationnel et arbitrage entre faux positifs/faux négatifs.
+Prévision de demande, de latence ou de délai : moyenne pour une cible quadratique, médiane pour une erreur absolue, quantile élevé pour dimensionner une capacité ou un SLA. Les coûts asymétriques en classification ne doivent être qu'un bref contrepoint, afin de ne pas transformer J09 en J24.
 
 Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
 
@@ -130,9 +193,9 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 **Activité proposée — relier la perte à la décision :**
 
-1. Reprendre \(0,0,0,0,10\) et vérifier que la moyenne minimise la somme des carrés tandis que la médiane minimise la somme des valeurs absolues.
+1. Reprendre $(0,0,0,10,10)$ et retrouver les trois minimisateurs empiriques : moyenne 4, médiane 0 et quantile 80 % égal à 10.
 2. Dans un système d'alerte de panne, expliquer pourquoi une perte qui traite de la même façon faux négatifs et faux positifs peut être inadéquate si leurs coûts diffèrent fortement.
-3. Distinguer trois leviers : changer la perte d'entraînement, déplacer le seuil de décision, changer la métrique de compte rendu. Dans quel cas chacun modifie-t-il réellement le comportement ou seulement son évaluation ?
+3. Expliquer pourquoi la perte quantile d'ordre 0,8 cible le quantile 80 %, puis distinguer changer la perte d'entraînement, déplacer un seuil de décision et changer une métrique de compte rendu.
 
 La correction doit éviter la réponse simpliste « prendre toujours la perte qui pénalise le plus l'erreur coûteuse » : préciser la cible, la distribution, la calibration éventuelle et la règle de décision.
 
