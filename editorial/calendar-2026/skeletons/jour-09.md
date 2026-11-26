@@ -133,6 +133,22 @@ Les valeurs sont construites pour rendre le mécanisme visible. Le quantile empi
 
 **Point central à démontrer :** le choix de la perte ne change pas seulement la manière de noter un modèle. Il change la quantité que l'optimisation cherche à estimer.
 
+### À l'échelle de la population
+
+Pour une entrée $X=x$, la même logique s'applique au risque conditionnel :
+
+$
+a_2^*(x)=\mathbb E[Y\mid X=x],
+\qquad
+a_1^*(x)\in\operatorname{Med}(Y\mid X=x),
+\qquad
+a_\tau^*(x)=Q_\tau(Y\mid X=x).
+$
+
+Autrement dit, sous les conditions usuelles d'existence, minimiser l'espérance de la perte quadratique cible la moyenne conditionnelle ; minimiser l'espérance de la perte absolue cible une médiane conditionnelle ; minimiser la perte pinball cible le quantile conditionnel d'ordre $\tau$.
+
+Le passage de l'échantillon à la population est essentiel : l'optimisation empirique fournit une approximation calculée sur les données disponibles. Elle n'égale le risque conditionnel populationnel que sous des conditions de généralisation appropriées.
+
 ### De l'objectif observé à la décision
 
 Faire expliciter quatre niveaux qui sont souvent confondus :
@@ -169,7 +185,7 @@ L'apport peut être une reconstruction pédagogique, une démonstration, un cont
 
 ## 6. Transfert vers la pratique
 
-Classification déséquilibrée, coûts métier, choix d'un indicateur opérationnel et arbitrage entre faux positifs/faux négatifs.
+Prévision de demande, de latence ou de délai : moyenne pour une cible quadratique, médiane pour une erreur absolue, quantile élevé pour dimensionner une capacité ou un SLA. Les coûts asymétriques en classification ne doivent être qu'un bref contrepoint, afin de ne pas transformer J09 en J24.
 
 Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
 
@@ -177,9 +193,9 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 **Activité proposée — relier la perte à la décision :**
 
-1. Reprendre \(0,0,0,0,10\) et vérifier que la moyenne minimise la somme des carrés tandis que la médiane minimise la somme des valeurs absolues.
+1. Reprendre $(0,0,0,10,10)$ et retrouver les trois minimisateurs empiriques : moyenne 4, médiane 0 et quantile 80 % égal à 10.
 2. Dans un système d'alerte de panne, expliquer pourquoi une perte qui traite de la même façon faux négatifs et faux positifs peut être inadéquate si leurs coûts diffèrent fortement.
-3. Distinguer trois leviers : changer la perte d'entraînement, déplacer le seuil de décision, changer la métrique de compte rendu. Dans quel cas chacun modifie-t-il réellement le comportement ou seulement son évaluation ?
+3. Expliquer pourquoi la perte quantile d'ordre 0,8 cible le quantile 80 %, puis distinguer changer la perte d'entraînement, déplacer un seuil de décision et changer une métrique de compte rendu.
 
 La correction doit éviter la réponse simpliste « prendre toujours la perte qui pénalise le plus l'erreur coûteuse » : préciser la cible, la distribution, la calibration éventuelle et la règle de décision.
 
