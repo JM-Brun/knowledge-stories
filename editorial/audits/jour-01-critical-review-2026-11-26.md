@@ -44,3 +44,12 @@ Conserver l'architecture et le fil narratif. Les corrections apportées renforce
 ## Vérification graphique complémentaire — 2026-11-26
 
 La relecture du SVG de la figure « Quand n augmente » a révélé une incohérence de signe : le nuage violet était dessiné à droite de la valeur recherchée (biais positif), alors que l'exemple narratif porte sur un capteur qui sous-estime la température (biais négatif). Le nuage violet a été déplacé à gauche de la cible et sa légende précise désormais « biais négatif (sous-estimation) ». Cette correction aligne la géométrie de la figure sur le modèle \(X=\theta+b+\varepsilon\) et sur le cas discuté dans l'article.
+
+
+## Réorientation majeure et nouvelle version de travail — 2026-11-26
+
+L'audit initial a conduit à une conclusion éditoriale plus forte : les corrections locales ne suffisent pas. La version précédente accumulait métrologie, incertitude, biais-variance d'estimateur, plan croisé, checklist de qualité et validation ML. Le nouveau fil directeur est la **non-identifiabilité créée par l'association parfaite entre site et capteur**. Le plan croisé devient la démonstration centrale : il révèle un effet site positif de +0,5 °C alors que la comparaison naïve des deux capteurs déployés suggère un effet négatif de −0,5 °C.
+
+Une nouvelle version de l'article et un blueprint sont préparés dans la branche `editorial/jour-01-rearchitecture-2026-11-26`. Les éléments écartés du récit sont conservés dans le cadrage Wiki Knowledge et le futur backlog thématique ; ils ne sont pas supprimés du corpus de connaissances.
+
+Cette réécriture reste une proposition : les contrôles scientifiques et de rendu doivent être exécutés avant fusion. Le changement de titre et la réduction de la durée annoncée sont intentionnels ; la densité est recentrée sur une seule démonstration plutôt que sur la couverture d'un grand nombre de notions.
