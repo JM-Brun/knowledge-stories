@@ -186,3 +186,17 @@ Avant réutilisation :
 ## 6. Traçabilité
 
 Ce registre accompagne l'audit [calendrier 2026](../audits/calendar-2026-editorial-audit-and-decisions-2026-11-26.md). Les identifiants R01–R14 sont des identifiants locaux de suivi, pas des identifiants de concepts canoniques. Les concepts et sources devront être reliés à Wiki Knowledge lors de la préparation d'une future histoire.
+
+
+## 7. Série candidate — La vitesse de la lumière et la structure de l'espace-temps
+
+- **Origine :** proposition de série formulée le 26 novembre 2026.
+- **Question directrice :** « Pourquoi l'Univers possède-t-il une vitesse limite, et pourquoi cette limite est-elle une propriété de l'espace-temps plutôt qu'une simple caractéristique de la lumière ? »
+- **Noyau scientifique :** vitesse caractéristique des équations de Maxwell ; histoire des mesures et de l'éther ; postulats et transformations de Lorentz ; c comme constante de structure ; intervalle de Minkowski ; cône de lumière et causalité ; cas apparemment supraluminiques.
+- **Format envisagé :** série de 8 articles autonomes, parcours essentiel avec approfondissements facultatifs.
+- **Intérêt :** fondamental pour la compréhension de la relativité ; relie électromagnétisme, mesure, géométrie et causalité.
+- **Précautions :** ne pas réduire l'histoire à Michelson–Morley ; ne pas prétendre que la relativité explique la valeur ultime de la constante ; distinguer vitesse de phase, groupe, front, information, intrication et expansion cosmologique ; vérifier la nuance SI 2019 sur μ₀.
+- **Chevauchements :** concepts déjà présents dans Wiki Knowledge sur transformations de Lorentz, espace-temps de Minkowski, composition relativiste des vitesses et temps propre. La série doit les relier et les compléter, pas les dupliquer. Elle fournit les fondations de relativité ; le paradoxe des jumeaux reste une application distincte.
+- **Sources de départ identifiées :** Maxwell (1865), Michelson–Morley (1887), Einstein (1905), Minkowski (1908), BIPM et NIST. Les sources primaires historiques restent à localiser et ingérer.
+- **Dossier de travail :** [StoryBlueprint — La vitesse de la lumière](../blueprints/vitesse-de-la-lumiere.md).
+- **Maturité :** proposition initiale ; recherche documentaire en cours, non programmée et non validée pour publication.
