@@ -66,7 +66,7 @@ L'article ne doit pas s'arrêter à la morale « corrélation n'est pas causalit
 - taux conditionnel et taux marginal ;
 - composition d'un groupe et pondération par les effectifs ;
 - variable de confusion et indication du traitement ;
-- association observée (P(Y\mid X)) et intervention (P(Y\mid do(X))) ;
+- association observée $P(Y \mid X)$ et intervention $P(Y \mid do(X))$ ;
 - échangeabilité conditionnelle, positivité et cohérence (consistency), uniquement dans la mesure nécessaire à l'exemple.
 
 **Frontières à préserver :**
@@ -96,11 +96,11 @@ Ne pas présenter les taux construits comme des preuves de l'efficacité réelle
 
 ## 5. Graphe causal et interprétation
 
-Construire un DAG minimal dans lequel le niveau de risque (Z) influence à la fois le choix du traitement (X) et le résultat (Y), tandis que le traitement peut lui aussi influencer (Y) :
+Construire un DAG minimal dans lequel le niveau de risque ($Z$ influence à la fois le choix du traitement $X$ et le résultat $Y$, tandis que le traitement peut lui aussi influencer $Y$ :
 
-[
-Z\rightarrow X,\qquad Z\rightarrow Y,\qquad X\rightarrow Y.
-]
+$
+Z \rightarrow X,\qquad Z \rightarrow Y,\qquad X \rightarrow Y.
+$
 
 Expliquer que comparer les taux bruts mélange l'association entre traitement et résultat avec les différences de pronostic. Une comparaison conditionnelle sur (Z) peut réduire ce biais **si** (Z) suffit à rendre les groupes échangeables, si chaque traitement est possible dans chaque strate (positivité), et si le traitement et le résultat sont correctement définis et mesurés.
 
