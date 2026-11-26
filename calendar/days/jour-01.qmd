@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Quand les capteurs ne racontent pas la même histoire"
 description: "Une enquête sur deux thermomètres montre pourquoi répétabilité, justesse et incertitude ne répondent pas à la même question — et pourquoi cela compte avant d'entraîner un modèle."
 ---
 
-> **Environ 12 à 15 minutes** — Suivre une anomalie dans un réseau de capteurs, comprendre ce que les répétitions permettent réellement de conclure, puis décider quoi vérifier avant d'utiliser les mesures dans un modèle.
+> **Environ 18 à 20 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.ne anomalie dans un réseau de capteurs, comprendre ce que les répétitions permettent réellement de conclure, puis décider quoi vérifier avant d'utiliser les mesures dans un modèle.
 >
 > **Prérequis** — Aucun. La moyenne et l'écart-type sont expliqués au moment où ils deviennent utiles.
 >
