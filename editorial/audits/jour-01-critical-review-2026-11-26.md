@@ -40,3 +40,7 @@ La configuration Quarto du calendrier déclare MathJax 3 avec le composant TeX/C
 ## Décision
 
 Conserver l'architecture et le fil narratif. Les corrections apportées renforcent les limites statistiques et la transposition Data Science sans ajouter une nouvelle digression. Ne pas déclarer le problème d'affichage résolu tant que le HTML généré n'a pas été contrôlé visuellement.
+
+## Vérification graphique complémentaire — 2026-11-26
+
+La relecture du SVG de la figure « Quand n augmente » a révélé une incohérence de signe : le nuage violet était dessiné à droite de la valeur recherchée (biais positif), alors que l'exemple narratif porte sur un capteur qui sous-estime la température (biais négatif). Le nuage violet a été déplacé à gauche de la cible et sa légende précise désormais « biais négatif (sous-estimation) ». Cette correction aligne la géométrie de la figure sur le modèle \(X=\theta+b+\varepsilon\) et sur le cas discuté dans l'article.
