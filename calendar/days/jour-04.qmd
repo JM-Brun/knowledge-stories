@@ -4,7 +4,7 @@ subtitle: "Jour 4 · Les variables ne varient pas toujours indépendamment"
 description: "Comprendre comment la dépendance modifie l'incertitude d'un agrégat, d'une moyenne ou d'un portefeuille de mesures."
 ---
 
-> **En 10 à 12 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
+> **Environ 13 à 15 minutes** — Comprendre comment la dépendance modifie la variance d'une somme ou d'une moyenne, à partir d'un exemple numérique de capteurs.
 >
 > **Prérequis** — Connaître la variance et la moyenne. La covariance et la corrélation sont définies à partir d'un exemple numérique.
 >
