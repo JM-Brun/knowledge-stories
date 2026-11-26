@@ -1,169 +1,224 @@
 ---
 title: "Quelle distribution est la plus incertaine ?"
-subtitle: "Jour 5 · Quantifier l'incertitude avec l'entropie"
-description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, et comprendre ce que cette mesure ne dit pas."
+subtitle: "Jour 5 · Quand une prévision confiante se trompe"
+description: "Une enquête sur deux prévisions météo introduit la surprise, l'entropie et l'information mutuelle, puis montre pourquoi faible incertitude ne signifie pas bonne prévision."
 ---
 
-> **En 7 à 9 minutes** — Deux distributions peuvent avoir le même support et ne pas laisser la même place à l'imprévu. Mais « incertitude » dépend toujours de la question posée.
+> **Environ 10 à 12 minutes** — Comparer deux prévisions météo, calculer leur entropie, puis découvrir pourquoi une distribution très concentrée peut être moins utile qu'une prévision prudente.
 >
-> **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est rappelé à partir de son rôle dans le calcul de la surprise.
+> **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est expliqué à partir de son rôle dans le calcul de la surprise.
 >
-> **À la fin** — Vous saurez calculer une entropie binaire, distinguer surprise et incertitude moyenne, interpréter une entropie conditionnelle et expliquer pourquoi une faible entropie ne garantit pas une bonne prévision.
+> **À la fin** — Vous saurez distinguer surprise et entropie, calculer l'entropie d'une variable binaire et expliquer pourquoi l'incertitude d'une prévision ne mesure pas à elle seule sa qualité.
 
-## L'idée en une minute
+## Deux prévisions pour le même ciel
 
-La surprise concerne une issue qui s'est produite ; l'entropie décrit la surprise moyenne attendue avant de connaître l'issue. Une distribution concentrée a une faible entropie, mais elle peut être fausse ou mal calibrée. Il faut donc distinguer l'incertitude annoncée par un modèle de sa qualité prédictive réelle.
+Deux services météo annoncent la pluie pour les cent prochains jours.
 
-## La question
+- **Service A** annonce chaque jour 90 % de probabilité de pluie.
+- **Service B** annonce chaque jour 50 % de probabilité de pluie.
 
-Une prévision qui annonce deux issues à 50 % est-elle plus incertaine qu'une prévision à 90 % / 10 % ? L'entropie de Shannon formalise une partie de cette intuition.
+À première vue, A semble beaucoup plus sûr de lui. Son message est plus précis, moins hésitant. Mais observons les résultats : il pleut exactement cinquante jours sur cent.
 
-Considérons trois distributions sur deux issues :
+Quel service a le mieux décrit le phénomène ?
 
-- A : \(p=(0{,}5;0{,}5)\)
-- B : \(p=(0{,}9;0{,}1)\)
-- C : \(p=(1;0)\)
+L'entropie permet de quantifier la concentration d'une distribution prédictive. Elle ne suffit pas à juger si cette distribution est bonne. C'est cette distinction que nous allons construire.
 
-La distribution A laisse les deux issues également possibles. C rend l'une des issues certaine. B se situe entre les deux.
+## Mesurer la surprise d'une issue
 
-## Surprise d'une issue et entropie d'une distribution
-
-La surprise associée à une issue \(x\) de probabilité \(p(x)\) est \(I(x)=-\log_2 p(x)\).
-
-Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité \(1/2\) apporte 1 bit de surprise ; une issue de probabilité \(1/8\), 3 bits.
-
-Mais avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne :
+Supposons qu'une issue \(x\) ait une probabilité \(p(x)\). Sa surprise est définie par :
 
 \[
-H(X)=-\sum_x p(x)\log_2 p(x).
+I(x)=-\log_2 p(x).
 \]
 
-On adopte la convention \(0\log_2(0)=0\), obtenue par continuité.
+Une issue probable surprend peu ; une issue rare surprend davantage :
 
-Pour les trois distributions :
+- une issue de probabilité \(1/2\) apporte 1 bit de surprise ;
+- une issue de probabilité \(1/8\) apporte 3 bits ;
+- une issue certaine, de probabilité 1, n'apporte aucune surprise.
 
-- A : \(H(A)=1\) bit ;
-- B : \(H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469\) bit ;
-- C : \(H(C)=0\) bit.
-
-Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont équiprobables, et minimale lorsqu'une issue est certaine.
-
-<figure>
-<svg viewBox="0 0 760 300" role="img" aria-labelledby="entropy-title entropy-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="entropy-title">Entropie binaire en fonction de la probabilité d'une issue</title>
-  <desc id="entropy-desc">La courbe d'entropie binaire est symétrique, nulle aux probabilités zéro et un, et maximale à un demi avec une valeur d'un bit. Les points A, B et C indiquent respectivement les probabilités 0,5, 0,9 et 1.</desc>
-  <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <line x1="85" y1="235" x2="690" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="85" y1="55" x2="85" y2="235" stroke="#64748b" stroke-width="1.5"/>
-  <g stroke="#cbd5e1" stroke-width="1"><line x1="85" y1="55" x2="690" y2="55" stroke-dasharray="4 4"/><line x1="85" y1="145" x2="690" y2="145" stroke-dasharray="4 4"/></g>
-  <path d="M85 235 L145 151 L206 105 L267 76 L327 60 L388 55 L448 60 L509 76 L569 105 L630 151 L690 235" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <g fill="#475569" font-size="12"><text x="72" y="239" text-anchor="end">0</text><text x="72" y="59" text-anchor="end">1</text><text x="85" y="257" text-anchor="middle">0</text><text x="388" y="257" text-anchor="middle">0,5</text><text x="690" y="257" text-anchor="middle">1</text><text x="388" y="285" text-anchor="middle">Probabilité p de la première issue</text><text x="22" y="145" transform="rotate(-90 22 145)" text-anchor="middle">H(p) en bits</text></g>
-  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="388" cy="55" r="7"/><circle cx="630" cy="151" r="7"/><circle cx="690" cy="235" r="7"/></g>
-  <g fill="#92400e" font-size="12" font-weight="700"><text x="400" y="43">A : 0,5 → 1 bit</text><text x="540" y="140">B : 0,9 → 0,469</text><text x="600" y="222">C : 1 → 0</text></g>
-</svg>
-<figcaption>Pour une variable binaire, l'entropie dépend de la probabilité p et atteint son maximum à p = 0,5. Les valeurs sont exprimées en bits.</figcaption>
-</figure>
-
-
-
-Pour B, le calcul combine deux surprises pondérées par leurs probabilités : l'issue fréquente contribue peu, tandis que l'issue rare contribue davantage. L'entropie reste une moyenne : elle ne dit pas quelle issue sera effectivement observée.
-
-## Pourquoi le logarithme ?
-
-Le logarithme transforme une multiplication de probabilités en addition de surprises. Si deux événements indépendants ont des probabilités \(p\) et \(q\), la probabilité conjointe vaut \(pq\), et :
+Pourquoi un logarithme ? Parce que les probabilités d'événements indépendants se multiplient, alors que leurs surprises s'additionnent :
 
 \[
 -\log_2(pq)=-\log_2(p)-\log_2(q).
 \]
 
-Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base \(e\) pour les nats.
+La base 2 exprime la surprise en bits ; la base \(e\) l'exprime en nats.
 
-## Incertitude conditionnelle : que sait-on déjà ?
+## De la surprise à l'entropie : la moyenne avant de savoir
 
-L'incertitude peut diminuer lorsqu'on obtient une information. Si l'on connaît une variable \(Y\), l'incertitude résiduelle sur \(X\) est l'entropie conditionnelle :
+Avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne attendue sous la distribution :
+
+\[
+H(X)=-\sum_x p(x)\log_2 p(x).
+\]
+
+Pour une variable binaire, notons \(p\) la probabilité de pluie et \(1-p\) celle de temps sec :
+
+\[
+H(p)=-p\log_2(p)-(1-p)\log_2(1-p).
+\]
+
+Comparons trois prévisions :
+
+| Prévision | Probabilité de pluie | Entropie |
+|---|---:|---:|
+| A | 50 % | 1 bit |
+| B | 90 % | environ 0,469 bit |
+| C | 100 % | 0 bit |
+
+La prévision à 50 % est la plus incertaine au sens de Shannon : les deux issues sont aussi probables. Celle à 100 % a une entropie nulle parce qu'elle annonce une issue certaine.
+
+<figure>
+<svg viewBox="0 0 760 300" role="img" aria-labelledby="entropy-title entropy-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="entropy-title">Entropie binaire en fonction de la probabilité de pluie</title>
+  <desc id="entropy-desc">La courbe d'entropie binaire est symétrique, nulle aux probabilités zéro et un, et maximale à un demi avec une valeur d'un bit. Les points A, B et C indiquent respectivement les probabilités 0,5, 0,9 et 1.</desc>
+  <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <line x1="85" y1="235" x2="690" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="85" y1="55" x2="85" y2="235" stroke="#64748b" stroke-width="1.5"/>
+  <g stroke="#cbd5e1" stroke-width="1"><line x1="85" y1="55" x2="690" y2="55" stroke-dasharray="4 4"/><line x1="85" y1="145" x2="690" y2="145" stroke-dasharray="4 4"/></g>
+  <path d="M85 235 C145 151 206 105 267 76 C327 60 360 55 388 55 C448 60 509 76 569 105 C630 151 660 200 690 235" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#475569" font-size="12"><text x="72" y="239" text-anchor="end">0</text><text x="72" y="59" text-anchor="end">1</text><text x="85" y="257" text-anchor="middle">0</text><text x="388" y="257" text-anchor="middle">0,5</text><text x="690" y="257" text-anchor="middle">1</text><text x="388" y="285" text-anchor="middle">Probabilité p de pluie</text><text x="22" y="145" transform="rotate(-90 22 145)" text-anchor="middle">H(p) en bits</text></g>
+  <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="388" cy="55" r="7"/><circle cx="630" cy="151" r="7"/><circle cx="690" cy="235" r="7"/></g>
+  <g fill="#92400e" font-size="12" font-weight="700"><text x="400" y="43">A : 0,5 → 1 bit</text><text x="530" y="140">B : 0,9 → 0,469</text><text x="590" y="222">C : 1 → 0</text></g>
+</svg>
+<figcaption>L'entropie binaire atteint son maximum lorsque les deux issues sont équiprobables. Elle décrit la distribution annoncée, pas la qualité de la prévision.</figcaption>
+</figure>
+
+Le logarithme pénalise fortement les issues rares : dans une prévision à 90 %, l'issue à 10 % contribue davantage à l'entropie que l'issue à 90 %. L'entropie est la moyenne pondérée de ces surprises, pas la surprise d'un résultat particulier.
+
+## Le retournement : moins d'entropie, mais une moins bonne prévision
+
+Revenons aux cent jours. Il pleut cinquante jours et il fait sec les cinquante autres.
+
+Le service A a annoncé 90 % de pluie chaque jour. Le service B a annoncé 50 %. L'entropie de A est plus faible : sa distribution est plus concentrée. Mais si l'on évalue les prévisions sur les résultats observés, B fait mieux.
+
+Le score de Brier pour une prévision binaire \(p_i\) et un résultat \(y_i\in\{0,1\}\) est :
+
+\[
+\operatorname{BS}=\frac1N\sum_{i=1}^{N}(p_i-y_i)^2.
+\]
+
+Pour A, la prévision est toujours \(p_i=0{,}9\) :
+
+- les 50 jours de pluie donnent une erreur quadratique de \((0{,}9-1)^2=0{,}01\) ;
+- les 50 jours sans pluie donnent \((0{,}9-0)^2=0{,}81\).
+
+Le score moyen vaut donc :
+
+\[
+\operatorname{BS}_A=0{,}5\times0{,}01+0{,}5\times0{,}81=0{,}41.
+\]
+
+Pour B, qui annonce toujours 0,5 :
+
+\[
+\operatorname{BS}_B=0{,}5\times0{,}25+0{,}5\times0{,}25=0{,}25.
+\]
+
+Le score de B est meilleur (plus faible). La prévision A était plus concentrée, mais excessivement confiante au regard des fréquences observées.
+
+<figure>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison des scores de Brier de deux prévisions météo, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 760 220" role="img" aria-labelledby="brier-title brier-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="brier-title">Le modèle à 50 pour cent obtient un meilleur score de Brier que le modèle à 90 pour cent</title>
+  <desc id="brier-desc">Deux barres comparent les scores de Brier. Le service A, qui annonce 90 pour cent de pluie alors qu'il pleut la moitié du temps, obtient 0,41. Le service B, qui annonce 50 pour cent, obtient 0,25. Un score plus faible est meilleur.</desc>
+  <rect x="1" y="1" width="758" height="218" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="30" fill="#0f172a" font-size="14" font-weight="700">Score de Brier moyen sur 100 jours (plus faible = meilleur)</text>
+  <g fill="#334155" font-size="13" font-weight="700"><text x="24" y="91">Service A · 90 %</text><text x="24" y="161">Service B · 50 %</text></g>
+  <rect x="190" y="69" width="410" height="28" rx="5" fill="#d97706"/><rect x="190" y="139" width="250" height="28" rx="5" fill="#0f766e"/>
+  <g fill="#0f172a" font-size="13" font-weight="700"><text x="610" y="89">0,41</text><text x="450" y="159">0,25</text></g>
+  <line x1="190" y1="184" x2="690" y2="184" stroke="#64748b"/>
+  <g fill="#64748b" font-size="10"><text x="190" y="199" text-anchor="middle">0</text><text x="440" y="199" text-anchor="middle">0,25</text><text x="690" y="199" text-anchor="middle">0,5</text></g>
+</svg>
+</div>
+<figcaption>Le service B est mieux noté par le score de Brier sur ces résultats. L'entropie prédictive, elle, était plus faible pour A : les deux mesures répondent à des questions différentes.</figcaption>
+</figure>
+
+La calibration consiste à vérifier si, parmi les événements auxquels un modèle attribue une probabilité proche de 90 %, environ 90 % se réalisent. Une seule série de cent prévisions constantes ne suffit pas à caractériser toutes les dimensions de la qualité, mais elle révèle ici une surconfiance manifeste.
+
+**À retenir :** l'entropie décrit l'incertitude d'une distribution ; un score propre comme Brier ou log-loss évalue la qualité des probabilités face aux résultats observés. La calibration examine la correspondance entre probabilités annoncées et fréquences empiriques.
+
+## Que change une information ?
+
+L'entropie peut aussi mesurer ce qu'il reste à ignorer après avoir observé une information.
+
+Supposons qu'une pièce équilibrée donne une variable binaire \(X\), avec \(H(X)=1\) bit. Un capteur imparfait observe \(Y\) : il restitue la valeur de \(X\) avec une probabilité de 90 % et l'inverse avec une probabilité de 10 %.
+
+Après avoir vu \(Y\), l'incertitude résiduelle sur \(X\) vaut :
 
 \[
 H(X\mid Y)=
--\sum_{x,y}p(x,y)\log_2 p(x\mid y).
+-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)
+\approx0{,}469\text{ bit}.
 \]
 
-L'information mutuelle mesure la réduction moyenne d'incertitude apportée par \(Y\) sur \(X\) :
+L'information mutuelle mesure la réduction moyenne d'incertitude apportée par \(Y\) :
 
 \[
-I(X;Y)=H(X)-H(X\mid Y).
+I(X;Y)=H(X)-H(X\mid Y)
+=1-0{,}469
+\approx0{,}531\text{ bit}.
 \]
 
-Elle est toujours non négative. Elle vaut zéro exactement lorsque \(X\) et \(Y\) sont indépendantes (pour des variables discrètes et sous les conditions usuelles). Elle quantifie une information partagée, sans pour autant établir une relation causale.
+Le capteur fournit donc un peu plus d'un demi-bit d'information sur la pièce. Si l'observation était parfaite, l'entropie conditionnelle serait nulle et l'information mutuelle vaudrait un bit. Si \(Y\) était indépendant de \(X\), elle serait nulle.
 
-### Un exemple calculable : une information imparfaite
+L'information mutuelle est non négative et mesure une information partagée. Elle ne démontre pas une causalité : deux variables peuvent partager de l'information parce qu'elles ont une cause commune.
 
-Supposons que \(X\) soit une pièce équilibrée, codée par 0 ou 1. Une observation \(Y\) restitue la valeur de \(X\) avec une probabilité de 90 % et l'inverse avec une probabilité de 10 %. L'observation est donc informative, mais pas parfaite.
+## Quand l'entropie est-elle utile en Data Science ?
 
-Comme \(X\) est équilibrée, \(H(X)=1\) bit. Par symétrie, après observation de \(Y\), la probabilité que \(X\) ait la valeur observée est 0,9 et celle qu'elle soit différente est 0,1. L'incertitude résiduelle vaut donc :
+L'entropie intervient dans plusieurs tâches, mais sa signification dépend toujours de l'objet mesuré.
+
+- **Classification** : l'entropie prédictive décrit si les probabilités de classes sont concentrées ou diffuses.
+- **Arbres de décision** : la réduction d'entropie peut servir à choisir une partition qui rend les groupes plus homogènes.
+- **Apprentissage actif** : on peut sélectionner des observations dont les prédictions ont une forte entropie, afin de demander des labels.
+- **Analyse de variables** : l'information mutuelle peut mesurer une dépendance statistique entre une variable et une cible.
+
+Une forte entropie prédictive peut venir d'un phénomène intrinsèquement ambigu, d'un manque de données ou d'un modèle mal spécifié. Elle ne distingue pas à elle seule l'incertitude irréductible de l'incertitude liée au manque de connaissance. Pour l'apprentissage actif, choisir les observations les plus incertaines n'est donc pas toujours la stratégie la plus informative : une observation peut être ambiguë même pour un modèle idéal.
+
+## Une précaution pour les variables continues
+
+Pour une variable discrète, l'entropie est définie à partir des probabilités des catégories. Pour une variable continue, on utilise souvent l'entropie différentielle :
 
 \[
-H(X\mid Y)
-=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)
-\approx 0{,}469\text{ bit}.
+h(X)=-\int f(x)\log f(x)\,dx.
 \]
 
-L'information mutuelle est alors :
+Elle dépend de l'unité de mesure et peut être négative. Elle ne se compare donc pas directement à l'entropie discrète. Discrétiser une variable continue change aussi l'entropie, car le résultat dépend des intervalles choisis.
 
-\[
-I(X;Y)=1-0{,}469\approx 0{,}531\text{ bit}.
-\]
-
-Observer \(Y\) apporte en moyenne un peu plus de la moitié d'un bit d'information sur \(X\). Si l'observation était parfaite, l'entropie conditionnelle serait nulle et l'information mutuelle vaudrait 1 bit ; si \(Y\) était indépendant de \(X\), elle vaudrait zéro.
-
-## Un piège : faible entropie ne veut pas dire bonne prévision
-
-Imaginons un modèle qui annonce une probabilité de 99 % pour une issue. Sa distribution prédictive a une faible entropie. Mais si l'issue contraire se produit souvent, le modèle est mal calibré.
-
-L'entropie décrit la concentration de la distribution annoncée par le modèle, pas la qualité de cette annonce. Pour évaluer une prévision probabiliste, il faut la confronter aux résultats observés, par exemple avec le score de Brier ou la log-loss, et examiner sa calibration.
-
-De même, une distribution très concentrée peut être inadaptée à une décision si les événements rares ont des conséquences catastrophiques. L'incertitude moyenne n'est pas le coût du risque.
-
-## Un autre piège : l'entropie dépend de la représentation
-
-Pour une variable discrète, l'entropie est définie à partir des probabilités des catégories. Regrouper ou découper les catégories change la distribution et donc l'entropie. Pour une variable continue, la quantité analogue — l'entropie différentielle — dépend du choix d'unité et peut être négative ; elle ne se compare pas directement à l'entropie discrète.
-
-Il faut donc préciser l'espace des événements et la représentation avant de comparer des entropies.
-
-## Transfert : de l'incertitude à l'analyse des données
-
-Dans un classifieur, l'entropie de la distribution prédite peut signaler une sortie diffuse ou concentrée. En contrôle qualité, elle peut décrire la diversité des catégories observées ; en sondage, elle aide à caractériser la concentration d'une population entre plusieurs modalités. En apprentissage actif, une entropie prédictive élevée peut servir de critère pour sélectionner des observations à faire annoter — à condition de ne pas la confondre avec une mesure de l'erreur attendue.
-
-La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguïté d'une prédiction, à sélectionner une observation informative, à quantifier l'information d'une variable ou à contrôler le risque d'une décision ? L'entropie est un outil de description et de comparaison, pas un indicateur universel de qualité.
+Avant de comparer des entropies, il faut préciser l'espace des événements, la représentation et l'unité.
 
 ## À vous de raisonner
 
-1. Calculez l'entropie des distributions \(p=(0{,}5;0{,}5)\) et \(p=(0{,}9;0{,}1)\).
-2. Pourquoi une prédiction très confiante peut-elle être incorrecte ?
-3. Quelle différence entre surprise et entropie ?
-4. Si \(Y\) révèle exactement \(X\), que vaut \(H(X\mid Y)\) ?
+1. Quelle prévision a la plus grande entropie : 50 % / 50 % ou 90 % / 10 % ?
+2. Pourquoi le service A obtient-il un score de Brier moins bon alors que son entropie est plus faible ?
+3. Si une information révèle parfaitement une variable binaire équilibrée, que valent son entropie conditionnelle et l'information mutuelle ?
+4. Une forte entropie prédictive signifie-t-elle toujours que le modèle manque de données ?
 
 <details>
-<summary>Afficher la solution expliquée</summary>
+<summary>Afficher la correction expliquée</summary>
 
-1. Les entropies sont respectivement 1 bit et environ 0,469 bit.
-2. L'entropie porte sur la distribution annoncée, pas sur sa correspondance avec la fréquence réelle des événements.
-3. La surprise est associée à une issue particulière ; l'entropie est la moyenne de cette surprise sous la distribution.
-4. Elle vaut zéro si \(X\) est déterminée sans ambiguïté par \(Y\).
+1. La distribution 50 % / 50 % a une entropie de 1 bit, supérieure aux 0,469 bit de la distribution 90 % / 10 %.
+2. Le service A annonce 90 % de pluie alors qu'il ne pleut que la moitié du temps. Il est trop confiant ; le score de Brier pénalise ses erreurs probabilistes.
+3. L'entropie conditionnelle vaut zéro, car la variable est connue sans ambiguïté. L'information mutuelle vaut l'entropie initiale, soit un bit.
+4. Non. La forte entropie peut refléter une ambiguïté intrinsèque du phénomène, une frontière de décision ou un modèle mal spécifié. Elle ne mesure pas uniquement l'incertitude épistémique.
 
 </details>
 
 ## À retenir
 
-- La surprise concerne une issue ; l'entropie concerne une distribution.
-- L'entropie est une mesure moyenne dépendante de l'espace des événements.
-- Une faible entropie ne prouve ni la justesse ni la calibration d'un modèle.
-- L'information mutuelle quantifie une information partagée, pas une causalité.
-
-## Connexions utiles
-
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : voir ce que les résumés statistiques ne conservent pas.
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre une autre source d'incertitude, liée à la dépendance.
+- La surprise concerne une issue ; l'entropie concerne la surprise moyenne d'une distribution.
+- Pour une variable binaire, l'entropie est maximale lorsque les deux issues sont équiprobables.
+- Une faible entropie ne prouve ni la justesse ni la calibration d'une prévision.
+- Brier et log-loss évaluent les probabilités prédites face aux résultats observés ; ils ne mesurent pas la même chose que l'entropie de la distribution prédictive.
+- L'information mutuelle quantifie une information partagée, pas une relation causale.
 
 ## Pour aller plus loin
 
 - C. E. Shannon (1948), *A Mathematical Theory of Communication*, Bell System Technical Journal.
 - Cover & Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les entropies conditionnelles.
+- Gneiting & Raftery (2007), *Strictly Proper Scoring Rules, Prediction, and Estimation*, Journal of the American Statistical Association — scores probabilistes et évaluation : https://doi.org/10.1198/016214506000001437
+
+## Connexions utiles
+
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : voir ce que les résumés statistiques ne conservent pas.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre une autre source d'incertitude, liée à la dépendance.
