@@ -10,6 +10,10 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 >
 > **À la fin** — Vous saurez calculer la variance d'une somme, interpréter le signe de la covariance et expliquer pourquoi des mesures ou des modèles corrélés apportent moins de diversité qu'on pourrait le croire.
 
+## Pourquoi cette question compte en Data Science
+
+Dans un benchmark, 10 000 lignes ne représentent pas nécessairement 10 000 expériences indépendantes. Des prompts proches, des mesures répétées sur les mêmes sujets ou des exemples issus d'un même site peuvent partager leurs fluctuations. Ignorer cette dépendance donne une impression de précision excessive et peut rendre les écarts entre modèles beaucoup moins convaincants qu'ils n'en ont l'air.
+
 ## L'alerte dans la salle de contrôle
 
 Deux capteurs surveillent la vibration d'un pont. Chaque capteur est bruyant ; l'ingénieur propose donc de faire la moyenne de leurs relevés. Cela devrait réduire le bruit.
