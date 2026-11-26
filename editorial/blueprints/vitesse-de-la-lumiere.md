@@ -163,13 +163,14 @@ Cette liste est un point de départ, pas un corpus validé. Chaque source devra 
 | Ressources universitaires d'électromagnétisme et de relativité | Sources secondaires pédagogiques | Dérivations Maxwell, Lorentz et Minkowski | Sélection après comparaison |
 
 ### Premiers points d'accès vérifiés
+- Maxwell (1865) — [notice du manuscrit à la Royal Society](https://makingscience.royalsociety.org/items/pt_72_7/paper-a-dynamical-theory-of-the-electromagnetic-field-by-j-james-clerk-maxwell) ; [édition numérisée Smithsonian](https://library.si.edu/digital-library/book/dynamicaltheoryo00maxw), annoncée CC0.
+- Michelson & Morley (1887) — [notice et DOI de l'American Journal of Science](https://doi.org/10.2475/ajs.s3-34.203.333) ; [texte intégral sur le site de la revue](https://ajsonline.org/article/62505-on-the-relative-motion-of-the-earth-and-the-luminiferous-ether).
+- Einstein (1905) — [notice de la Library of Congress](https://guides.loc.gov/einstein-annus-mirabilis/1905-papers) ; [traduction anglaise de l'article, copie universitaire UCSD](https://courses.physics.ucsd.edu/2021/Fall/physics2d/einstein1905.pdf).
+- Minkowski (1908) — [traduction anglaise, University of Washington](https://faculty.washington.edu/seattle/physics544/2011-lectures/lecture-1.pdf).
 - BIPM — [SI base unit: metre](https://www.bipm.org/en/si-base-units/metre).
-- NIST — [Definitions of SI Base Units](https://www.nist.gov/si-redefinition/definitions-si-base-units).
-- NIST — [Historical account of the metre](https://www.nist.gov/si-redefinition/meter).
-- Library of Congress — [Einstein's 1905 papers](https://guides.loc.gov/einstein-annus-mirabilis/1905-papers).
-- Traduction anglaise du texte d'Einstein de 1905, copie universitaire UCSD : [On the Electrodynamics of Moving Bodies](https://courses.physics.ucsd.edu/2021/Fall/physics2d/einstein1905.pdf).
+- NIST — [Definitions of SI Base Units](https://www.nist.gov/si-redefinition/definitions-si-base-units) et [historique du mètre](https://www.nist.gov/si-redefinition/meter).
 
-Les sources Maxwell, Michelson–Morley et Minkowski doivent encore être localisées dans des éditions primaires stables et vérifiées.
+Ces accès ont été repérés, mais les documents n'ont pas encore fait l'objet d'une extraction source par source. La présence d'un lien stable ne vaut ni archivage local, ni validation de claims, ni vérification complète des droits de réutilisation.
 
 ## 8. Incertitudes et décisions en attente
 
