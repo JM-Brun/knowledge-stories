@@ -189,24 +189,10 @@ Avant d'interpréter un score, demandez-vous :
 
 Le lien avec les journées précédentes est direct : la qualité de la mesure (jour 1), la sélection des observations (jour 2) et le choix des résumés (jour 3) conditionnent ce que le score d'un modèle permet réellement de conclure.
 
-## À vous de raisonner
 
-1. Pourquoi les trois séries A, B et C ont-elles la même moyenne ?
-2. Quelle information la variance ajoute-t-elle, et que laisse-t-elle encore de côté ?
-3. Dans le quartette d'Anscombe, pourquoi une droite peut-elle être trompeuse même si la corrélation est identique ?
-4. Quelle différence faites-vous entre un point à fort levier et un point ayant un grand résidu ?
-5. Quel graphique examineriez-vous pour détecter une dérive temporelle ?
+## Mettre en pratique
 
-<details>
-<summary>Afficher la correction expliquée</summary>
-
-1. Leur somme est identique (25) et leur effectif aussi (5).
-2. La variance mesure une dispersion quadratique autour de la moyenne, mais ne décrit pas à elle seule l'asymétrie, la multimodalité, l'ordre temporel ou les relations non linéaires.
-3. La corrélation résume une association linéaire. Elle ne montre ni la courbure, ni l'effet d'un point influent, ni la géométrie complète du nuage.
-4. Le levier dépend de la position d'une observation dans l'espace des variables explicatives ; le résidu mesure l'écart vertical entre la valeur observée et la prédiction. Une observation peut avoir l'un sans avoir l'autre.
-5. Un graphique des observations ou des résidus en fonction du temps, éventuellement accompagné d'une fenêtre glissante, peut révéler une tendance ou une rupture. Il faut distinguer dérive réelle et fluctuations aléatoires.
-
-</details>
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-03.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
 
 ## À retenir
 
