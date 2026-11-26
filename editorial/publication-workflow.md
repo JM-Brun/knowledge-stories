@@ -86,7 +86,7 @@ npm run build
 - `npm run check` exécute la vérification Astro et TypeScript.
 - `npm run build` vérifie la génération du site.
 
-Une validation locale ne remplace pas le contrôle de la CI sur le commit proposé. La réussite de la CI ne remplace pas non plus la revue éditoriale et scientifique.
+Une validation locale ne remplace pas le contrôle de la CI sur le commit proposé. La réussite de la CI ne remplace pas non plus la revue éditoriale et scientifique.\n\nLa validation complète est répartie entre deux workflows de pull request : `ci.yml` exécute `npm test`, `npm run check` et `npm run build` ; `pages.yml` reconstruit le site Astro, installe Quarto 1.11.9, exécute `quarto render calendar` et vérifie la présence des sorties combinées (site, index du calendrier, pages de jours et pages de l'Atelier). Une PR n'est validée techniquement que lorsque les deux contrôles requis sont verts. Le build Astro seul ne constitue pas un build complet de la publication.
 
 ## Après publication
 
