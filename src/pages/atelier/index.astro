@@ -64,6 +64,7 @@ const themesFor = (domain: Domain) => [...new Set(
                     <p class="series-kicker">Parcours · {articlesForSeries(series).length} articles</p>
                     <h3 id={`series-${series}`}>{seriesInfo[series].title}</h3>
                     <p class="series-question">{seriesInfo[series].question}</p>
+                    {"progression" in seriesInfo[series] && <p class="series-progression">{seriesInfo[series].progression}</p>}
                     <p class="series-duration">Durée estimée de l'ensemble des articles : <strong>{formatReadingDuration(seriesReadingTime(series))}</strong></p>
                   </div>
                   <span class="series-mark" aria-hidden="true">{series === "multiplication-karatsuba" ? "×" : "τ"}</span>
@@ -140,6 +141,7 @@ const themesFor = (domain: Domain) => [...new Set(
   .series-duration strong { color: #315b45; font-weight: 600; }
   .reading-time { color: #625b4d; font: .68rem/1.4 "DM Mono", monospace; }
   .series-question { max-width: 58rem; margin: .65rem 0 0; color: #625b4d; font: .95rem/1.55 "DM Sans", sans-serif; }
+.series-progression { max-width: 58rem; margin: .55rem 0 0; padding-left: .8rem; border-left: 2px solid #9aab91; color: #514d42; font: .84rem/1.55 "DM Sans", sans-serif; }
   .series-mark { display: grid; flex: 0 0 2.7rem; width: 2.7rem; height: 2.7rem; place-items: center; border: 1px solid #d8cbbb; border-radius: 50%; color: #75432f; font: 1.5rem/1 "Newsreader", serif; }
   .series-grid, .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .85rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
   .series-card, .review-card { display: flex; min-height: 100%; flex-direction: column; gap: .6rem; padding: 1.1rem 1.15rem; border: 1px solid var(--line); border-radius: .55rem; color: inherit; background: #fffdf8; text-decoration: none; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease; }
