@@ -1,9 +1,9 @@
 ---
-title: "Atelier 05 — À vous de raisonner"
+title: "Atelier 05 — Interpréter l'entropie"
 description: "Exercices et corrections pour accompagner le jour 05 du calendrier 2026."
 ---
 
-> **Atelier associé au [jour 05](../days/jour-05.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 05](../days/jour-05.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
 > **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
 
 ## Exercices
