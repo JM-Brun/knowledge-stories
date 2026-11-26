@@ -244,6 +244,32 @@ Un benchmark peut contenir des milliers de prompts issus des mêmes modèles de 
 
 Le même phénomène apparaît lorsqu'on agrège plusieurs modèles : si leurs erreurs se concentrent sur les mêmes exemples, leur moyenne réduit moins la variance qu'attendu. Il faut donc examiner les dépendances entre erreurs et, lorsque c'est pertinent, construire les intervalles d'incertitude en regroupant les observations par source, famille de prompts ou tâche. Compter les lignes ne suffit pas ; il faut comprendre ce qui les relie.
 
+### Cent prompts corrélés peuvent-ils n'en valoir que cinq ?
+
+On peut quantifier cette intuition dans un cas simple. Supposons que les erreurs de \(m\) observations aient toutes la même variance \(\sigma^2\), et que chaque paire ait la même corrélation \(\rho\). La variance de leur moyenne est alors :
+
+\\[
+\\operatorname{Var}(\\overline X)
+=\\frac{\\sigma^2}{m}\\left[1+(m-1)\\rho\\right].
+\\]
+
+Pour comparer cette variance à celle de \(m_{\\mathrm{eff}}\) observations indépendantes de même variance, on définit un effectif indépendant équivalent :
+
+\\[
+m_{\\mathrm{eff}}=\\frac{m}{1+(m-1)\\rho}.
+\\]
+
+Avec 100 prompts de corrélation moyenne \(\\rho=0{,}2\), on obtient :
+
+\\[
+m_{\\mathrm{eff}}=\\frac{100}{1+99\\times0{,}2}
+\\approx 4{,}8.
+\\]
+
+Le benchmark contient bien 100 lignes. Mais, pour la variance de la moyenne dans ce modèle simplifié, elles apportent autant d'information que moins de cinq observations indépendantes. C'est l'effet de la redondance : ajouter des paraphrases proches augmente le volume du jeu de données sans augmenter proportionnellement l'information indépendante.
+
+**Cette quantité n'est pas un nombre universel d'observations « réelles ».** Elle repose ici sur des variances égales et une corrélation commune ; des structures en grappes, des corrélations hétérogènes ou des poids inégaux demandent d'autres calculs. Elle sert à rendre visible le coût de la dépendance, pas à remplacer automatiquement le plan d'analyse ou les degrés de liberté d'un test.
+
 ## Mettre en pratique
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-04.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
