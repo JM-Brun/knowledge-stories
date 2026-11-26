@@ -1,288 +1,189 @@
 ---
-title: "Quelle distribution est la plus incertaine ?"
-subtitle: "Jour 5 · Quantifier l'incertitude avec l'entropie"
-description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, et comprendre ce que cette mesure ne dit pas."
+title: "Une prédiction incertaine signifie-t-elle que le modèle ne sait pas ?"
+subtitle: "Jour 5 · Entropie prédictive et désaccord entre modèles"
+description: "Pourquoi une distribution prédictive diffuse ne suffit pas à diagnostiquer ce qu'un modèle ignore : entropie, entropie conditionnelle et information mutuelle."
 ---
 
-> **En 12 à 15 minutes** — Une prévision annonce 90 % de probabilité de pluie. Est-elle plus informative qu'une prévision à 50 % ? Et comment savoir si elle mérite confiance ? Nous allons passer de la surprise à l'entropie, puis de l'entropie à l'évaluation des prévisions.
+> **Environ 10 à 12 minutes** — Deux systèmes hésitent autant entre deux classes. Pourtant, l'un peut être confronté à un cas intrinsèquement ambigu, tandis que l'autre révèle un désaccord profond entre modèles. L'entropie seule ne permet pas de les distinguer.
 >
-> **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est rappelé à partir de son rôle dans le calcul de la surprise.
+> **Prérequis** — Probabilités d'événements simples et logarithme. Les notions nécessaires sont rappelées dans l'article.
 >
-> **À la fin** — Vous saurez calculer une entropie binaire, distinguer surprise et incertitude moyenne, interpréter une entropie conditionnelle et expliquer pourquoi une faible entropie ne garantit pas une bonne prévision.
+> **À la fin** — Vous saurez calculer une entropie binaire, lire une entropie prédictive et comprendre comment l'information mutuelle entre prédiction et modèle aide à distinguer ambiguïté et manque de connaissance.
 
 ## Pourquoi cette question compte en Data Science
 
-L'entropie d'une prédiction résume la dispersion de ses probabilités, mais elle ne dit pas pourquoi le modèle hésite. Cette distinction est opérationnelle : une observation ambiguë appelle parfois davantage de contexte ou une meilleure définition de la cible ; un désaccord entre modèles peut plutôt signaler un manque de connaissance ou de couverture des données. Une même valeur d'entropie peut donc conduire à des décisions très différentes.
+Un classifieur peut attribuer 50 % à chacune de deux classes. Cette sortie peut correspondre à deux situations très différentes : les données disponibles ne permettent réellement pas de trancher, ou bien les modèles plausibles tirent des conclusions opposées.
 
-## L'idée en une minute
+La distinction change la suite du travail. Dans le premier cas, il peut être utile de revoir la définition de la cible, d'obtenir davantage de contexte ou d'accepter une limite irréductible. Dans le second, il faut plutôt examiner la couverture des données, la stabilité de l'apprentissage ou les hypothèses du modèle.
 
-La surprise concerne une issue qui s'est produite ; l'entropie décrit la surprise moyenne attendue avant de connaître l'issue. Une distribution concentrée a une faible entropie, mais elle peut être fausse ou mal calibrée. Il faut donc distinguer l'incertitude annoncée par un modèle de sa qualité prédictive réelle.
+**Une mesure de l'incertitude de la prédiction n'est donc pas automatiquement une mesure de ce que le modèle ignore.**
 
-## La question
+## Une distribution concentrée est-elle une distribution sûre ?
 
-À 8 h, un service météo publie une probabilité de pluie de 90 % pour l'après-midi. Un autre jour, il annonce 50 %. La première prévision paraît plus tranchée : elle laisse moins de place au doute. Mais imaginons que, sur cent journées comparables où le service annonçait 90 %, il n'ait plu que soixante-dix fois.
+Pour une variable binaire, comparons trois distributions :
 
-Deux questions apparaissent alors, qu'il faut garder séparées :
+- A : $p=(0{,}5;0{,}5)$
+- B : $p=(0{,}9;0{,}1)$
+- C : $p=(1;0)$
 
-1. **À quel point la distribution annoncée est-elle concentrée ?** C'est une question d'entropie.
-2. **Les probabilités annoncées correspondent-elles aux fréquences observées ?** C'est une question de qualité prédictive et de calibration.
+A laisse les deux issues équiprobables ; B privilégie nettement la première ; C lui attribue une probabilité certaine.
 
-L'entropie répond à la première question, pas à la seconde. Pour comprendre pourquoi, commençons par comparer trois distributions sur deux issues :
+La surprise associée à une issue $x$, de probabilité $p(x)>0$, est :
 
-Considérons trois distributions sur deux issues :
 
-- A : \(p=(0{,}5;0{,}5)\)
-- B : \(p=(0{,}9;0{,}1)\)
-- C : \(p=(1;0)\)
+$$
+I(x)=-\log_2 p(x).
+$$
 
-La distribution A laisse les deux issues également possibles. C rend l'une des issues certaine. B se situe entre les deux.
+Une issue de probabilité $1/2$ apporte 1 bit de surprise ; une issue de probabilité $1/8$, 3 bits. Plus une issue est improbable, plus sa réalisation est surprenante.
 
-## Les cinq premières journées : de la donnée à l'information
+Avant de connaître l'issue, on peut calculer la surprise moyenne attendue : l'entropie.
 
-Jusqu'ici, nous avons construit cinq précautions successives. Elles ne sont pas cinq sujets isolés : chacune précise ce que les données permettent réellement d'affirmer.
 
-<figure>
-<svg viewBox="0 0 760 190" role="img" aria-labelledby="path-title path-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="path-title">Progression des cinq premières journées</title>
-  <desc id="path-desc">Cinq étapes : mesurer le phénomène, sélectionner les observations, résumer les distributions, prendre en compte les dépendances, puis quantifier l'information et l'incertitude.</desc>
-  <rect x="1" y="1" width="758" height="188" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g font-family="system-ui,sans-serif" text-anchor="middle">
-    <g><rect x="12" y="28" width="132" height="94" rx="9" fill="#e7eee7" stroke="#6b8d75"/><text x="78" y="51" fill="#294b3a" font-size="12" font-weight="700">J1 · Mesurer</text><text x="78" y="75" fill="#53665b" font-size="11">Que mesure-t-on</text><text x="78" y="91" fill="#53665b" font-size="11">réellement ?</text></g>
-    <path d="M147 75 H158 M153 70 L158 75 L153 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
-    <g><rect x="161" y="28" width="132" height="94" rx="9" fill="#f4eddf" stroke="#b58b4d"/><text x="227" y="51" fill="#765626" font-size="12" font-weight="700">J2 · Sélectionner</text><text x="227" y="75" fill="#76664d" font-size="11">Qui est représenté</text><text x="227" y="91" fill="#76664d" font-size="11">dans les données ?</text></g>
-    <path d="M296 75 H307 M302 70 L307 75 L302 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
-    <g><rect x="310" y="28" width="132" height="94" rx="9" fill="#e8edf4" stroke="#7186a5"/><text x="376" y="51" fill="#344b6b" font-size="12" font-weight="700">J3 · Résumer</text><text x="376" y="75" fill="#53647b" font-size="11">Que cachent les</text><text x="376" y="91" fill="#53647b" font-size="11">statistiques ?</text></g>
-    <path d="M445 75 H456 M451 70 L456 75 L451 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
-    <g><rect x="459" y="28" width="132" height="94" rx="9" fill="#f1e8ef" stroke="#9b7890"/><text x="525" y="51" fill="#68445f" font-size="12" font-weight="700">J4 · Relier</text><text x="525" y="75" fill="#765e70" font-size="11">Comment les variables</text><text x="525" y="91" fill="#765e70" font-size="11">varient-elles ensemble ?</text></g>
-    <path d="M594 75 H605 M600 70 L605 75 L600 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
-    <g><rect x="608" y="28" width="140" height="94" rx="9" fill="#dcefeb" stroke="#0f766e" stroke-width="1.5"/><text x="678" y="51" fill="#115e59" font-size="12" font-weight="700">J5 · Informer</text><text x="678" y="75" fill="#27645e" font-size="11">Quelle incertitude</text><text x="678" y="91" fill="#27645e" font-size="11">et quelle information ?</text></g>
-    <text x="380" y="157" fill="#334155" font-size="12" font-weight="600">Chaque étape limite les conclusions que l'on peut tirer de la suivante.</text>
-  </g>
-</svg>
-<figcaption>Un fil de lecture, pas une chaîne de traitement automatique : la qualité de l'information dépend de la mesure, de la sélection, des résumés et des dépendances examinés en amont.</figcaption>
-</figure>
-
-## Surprise d'une issue et entropie d'une distribution
-
-La surprise associée à une issue \(x\) de probabilité \(p(x)\) est \(I(x)=-\log_2 p(x)\).
-
-Plus l'issue est improbable, plus sa réalisation est surprenante. Une issue de probabilité \(1/2\) apporte 1 bit de surprise ; une issue de probabilité \(1/8\), 3 bits.
-
-Mais avant de connaître le résultat, on ne sait pas quelle surprise sera observée. L'entropie est la surprise moyenne :
-
-\[
+$$
 H(X)=-\sum_x p(x)\log_2 p(x).
-\]
+$$
 
-On adopte la convention \(0\log_2(0)=0\), obtenue par continuité.
+On adopte la convention $0\log_2(0)=0$, obtenue par continuité. Pour les trois distributions :
 
-Pour les trois distributions :
+- A : $H(A)=1$ bit ;
+- B : $H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469$ bit ;
+- C : $H(C)=0$ bit.
 
-- A : \(H(A)=1\) bit ;
-- B : \(H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469\) bit ;
-- C : \(H(C)=0\) bit.
-
-Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont équiprobables, et minimale lorsqu'une issue est certaine.
+Dans le cas binaire, l'entropie est maximale lorsque les deux issues sont équiprobables et minimale lorsqu'une issue est certaine.
 
 <figure>
 <svg viewBox="0 0 760 300" role="img" aria-labelledby="entropy-title entropy-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="entropy-title">Entropie binaire en fonction de la probabilité d'une issue</title>
-  <desc id="entropy-desc">La courbe d'entropie binaire est symétrique, nulle aux probabilités zéro et un, et maximale à un demi avec une valeur d'un bit. Les points A, B et C indiquent respectivement les probabilités 0,5, 0,9 et 1.</desc>
+  <title id="entropy-title">Entropie binaire selon la probabilité d'une issue</title>
+  <desc id="entropy-desc">La courbe est symétrique, nulle aux probabilités zéro et un, et maximale à un demi avec une valeur d'un bit. Les points A, B et C correspondent aux probabilités 0,5, 0,9 et 1.</desc>
   <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <line x1="85" y1="235" x2="690" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="85" y1="55" x2="85" y2="235" stroke="#64748b" stroke-width="1.5"/>
   <g stroke="#cbd5e1" stroke-width="1"><line x1="85" y1="55" x2="690" y2="55" stroke-dasharray="4 4"/><line x1="85" y1="145" x2="690" y2="145" stroke-dasharray="4 4"/></g>
-  <path d="M85.00 235.00 L92.56 217.55 L100.13 204.64 L107.69 193.47 L115.25 183.45 L122.81 174.29 L130.38 165.82 L137.94 157.95 L145.50 150.58 L153.06 143.67 L160.63 137.16 L168.19 131.02 L175.75 125.23 L183.31 119.75 L190.88 114.58 L198.44 109.68 L206.00 105.05 L213.56 100.68 L221.13 96.55 L228.69 92.65 L236.25 88.97 L243.81 85.51 L251.38 82.26 L258.94 79.22 L266.50 76.37 L274.06 73.71 L281.63 71.25 L289.19 68.97 L296.75 66.87 L304.31 64.95 L311.88 63.20 L319.44 61.63 L327.00 60.23 L334.56 59.00 L342.13 57.93 L349.69 57.03 L357.25 56.30 L364.81 55.73 L372.38 55.32 L379.94 55.08 L387.50 55.00 L395.06 55.08 L402.63 55.32 L410.19 55.73 L417.75 56.30 L425.31 57.03 L432.88 57.93 L440.44 59.00 L448.00 60.23 L455.56 61.63 L463.13 63.20 L470.69 64.95 L478.25 66.87 L485.81 68.97 L493.38 71.25 L500.94 73.71 L508.50 76.37 L516.06 79.22 L523.63 82.26 L531.19 85.51 L538.75 88.97 L546.31 92.65 L553.88 96.55 L561.44 100.68 L569.00 105.05 L576.56 109.68 L584.13 114.58 L591.69 119.75 L599.25 125.23 L606.81 131.02 L614.38 137.16 L621.94 143.67 L629.50 150.58 L637.06 157.95 L644.63 165.82 L652.19 174.29 L659.75 183.45 L667.31 193.47 L674.88 204.64 L682.44 217.55 L690.00 235.00" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M85 235 C150 105 260 55 387.5 55 C515 55 625 105 690 235" fill="none" stroke="#0f766e" stroke-width="4"/>
   <g fill="#475569" font-size="12"><text x="72" y="239" text-anchor="end">0</text><text x="72" y="59" text-anchor="end">1</text><text x="85" y="257" text-anchor="middle">0</text><text x="388" y="257" text-anchor="middle">0,5</text><text x="690" y="257" text-anchor="middle">1</text><text x="388" y="285" text-anchor="middle">Probabilité p de la première issue</text><text x="22" y="145" transform="rotate(-90 22 145)" text-anchor="middle">H(p) en bits</text></g>
   <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="388" cy="55" r="7"/><circle cx="630" cy="151" r="7"/><circle cx="690" cy="235" r="7"/></g>
   <g fill="#92400e" font-size="12" font-weight="700"><text x="400" y="43">A : 0,5 → 1 bit</text><text x="540" y="140">B : 0,9 → 0,469</text><text x="600" y="222">C : 1 → 0</text></g>
 </svg>
-<figcaption>Pour une variable binaire, l'entropie dépend de la probabilité p et atteint son maximum à p = 0,5. Les valeurs sont exprimées en bits.</figcaption>
+<figcaption>Pour une variable binaire, l'entropie dépend de p et atteint son maximum à p = 0,5. La courbe est schématique ; les valeurs indiquées sont calculées.</figcaption>
 </figure>
 
+L'entropie décrit donc la dispersion d'une distribution. Elle ne dit pas si cette distribution est correcte, ni pourquoi elle est diffuse ou concentrée.
 
+## Même entropie prédictive, deux diagnostics opposés
 
-Pour B, le calcul combine deux surprises pondérées par leurs probabilités : l'issue fréquente contribue peu, tandis que l'issue rare contribue davantage. L'entropie reste une moyenne : elle ne dit pas quelle issue sera effectivement observée.
-
-## Pourquoi le logarithme ?
-
-Le logarithme transforme une multiplication de probabilités en addition de surprises. Si deux événements indépendants ont des probabilités \(p\) et \(q\), la probabilité conjointe vaut \(pq\), et :
-
-\[
--\log_2(pq)=-\log_2(p)-\log_2(q).
-\]
-
-Cette propriété rend la quantité additive pour des événements indépendants. Le choix de la base fixe l'unité : base 2 pour les bits, base \(e\) pour les nats.
-
-## Incertitude conditionnelle : que sait-on déjà ?
-
-L'incertitude peut diminuer lorsqu'on obtient une information. Si l'on connaît une variable \(Y\), l'incertitude résiduelle sur \(X\) est l'entropie conditionnelle :
-
-\[
-H(X\mid Y)=
--\sum_{x,y}p(x,y)\log_2 p(x\mid y).
-\]
-
-L'information mutuelle mesure la réduction moyenne d'incertitude apportée par \(Y\) sur \(X\) :
-
-\[
-I(X;Y)=H(X)-H(X\mid Y).
-\]
-
-Elle est toujours non négative. Elle vaut zéro exactement lorsque \(X\) et \(Y\) sont indépendantes (pour des variables discrètes et sous les conditions usuelles). Elle quantifie une information partagée, sans pour autant établir une relation causale.
-
-### Un exemple calculable : une information imparfaite
-
-Supposons que \(X\) soit une pièce équilibrée, codée par 0 ou 1. Une observation \(Y\) restitue la valeur de \(X\) avec une probabilité de 90 % et l'inverse avec une probabilité de 10 %. L'observation est donc informative, mais pas parfaite.
-
-Comme \(X\) est équilibrée, \(H(X)=1\) bit. Par symétrie, après observation de \(Y\), la probabilité que \(X\) ait la valeur observée est 0,9 et celle qu'elle soit différente est 0,1. L'incertitude résiduelle vaut donc :
-
-\[
-H(X\mid Y)
-=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)
-\approx 0{,}469\text{ bit}.
-\]
-
-L'information mutuelle est alors :
-
-\[
-I(X;Y)=1-0{,}469\approx 0{,}531\text{ bit}.
-\]
-
-Observer \(Y\) apporte en moyenne un peu plus de la moitié d'un bit d'information sur \(X\). Si l'observation était parfaite, l'entropie conditionnelle serait nulle et l'information mutuelle vaudrait 1 bit ; si \(Y\) était indépendant de \(X\), elle vaudrait zéro.
-
-On peut voir ce mécanisme dans la table conjointe. Les lignes représentent la valeur réelle \(X\), les colonnes l'observation \(Y\) :
-
-| \(P(X,Y)\) | \(Y=0\) | \(Y=1\) | Total |
-|---|---:|---:|---:|
-| \(X=0\) | 0,45 | 0,05 | 0,50 |
-| \(X=1\) | 0,05 | 0,45 | 0,50 |
-| **Total** | **0,50** | **0,50** | **1** |
-
-La diagonale contient les observations correctes (90 % au total) et les deux autres cases les erreurs (10 %). Cette représentation rend visible la différence entre les marges — ici équilibrées — et la dépendance entre les variables : si les quatre cases valaient 0,25, l'observation ne renseignerait plus sur \(X\) et l'information mutuelle serait nulle.
-
-## Un piège : faible entropie ne veut pas dire bonne prévision
-
-Imaginons un modèle qui annonce une probabilité de 99 % pour une issue. Sa distribution prédictive a une faible entropie. Mais si l'issue contraire se produit souvent, le modèle est mal calibré.
-
-L'entropie décrit la concentration de la distribution annoncée par le modèle, pas la qualité de cette annonce. Pour évaluer une prévision probabiliste, il faut la confronter aux résultats observés. Deux notions complémentaires sont alors utiles : le score de prévision et la calibration.
-
-## Évaluer une prévision : entropie croisée et calibration
-
-Considérons un événement binaire (pluie ou pas de pluie). Le modèle annonce \(q=0{,}9\) pour la pluie. Sur un grand ensemble de situations comparables, la fréquence observée est pourtant \(r=0{,}7\).
-
-La **perte logarithmique** (*log-loss*) d'une prévision est la surprise qu'elle attribue à l'issue réellement observée :
-
-\[
-\ell(q,y)=-y\log_2(q)-(1-y)\log_2(1-q),
-\]
-
-où \(y=1\) s'il pleut et \(y=0\) sinon. Une prévision de 90 % qui se trompe reçoit une pénalité forte : \(-\log_2(0{,}1)\approx3{,}322\) bits. Une prévision de 90 % correcte reçoit \(-\log_2(0{,}9)\approx0{,}152\) bit.
-
-En moyenne, si la fréquence réelle de pluie est \(r\), la perte vaut l'entropie croisée :
-
-\[
-H(r,q)=-r\log_2(q)-(1-r)\log_2(1-q).
-\]
-
-Pour \(r=0{,}7\) et \(q=0{,}9\), on obtient environ \(1{,}103\) bits par prévision. Si le modèle annonçait \(q=0{,}7\), la perte moyenne serait l'entropie de la distribution réelle, environ \(0{,}881\) bit. La différence est la divergence de Kullback–Leibler :
-
-\[
-D_{\mathrm{KL}}(r\Vert q)=H(r,q)-H(r)\approx0{,}222\text{ bit}.
-\]
-
-Cette décomposition donne une lecture utile : l'entropie \(H(r)\) représente l'incertitude intrinsèque de l'événement dans la population considérée ; la divergence mesure le surcoût dû à l'écart entre la distribution annoncée et la distribution réelle. Pour une classification à plusieurs classes, la même idée s'écrit \(H(p,q)=-\sum_k p_k\log q_k\). Avec une étiquette observée *one-hot*, la perte d'un exemple devient simplement \(-\log q_{y}\), le logarithme de la probabilité attribuée à la vraie classe.
-
-### Visualiser une prévision trop confiante
-
-La calibration compare les probabilités annoncées aux fréquences observées sur un ensemble de prévisions. Si les cas annoncés à 90 % ne se réalisent que 70 % du temps, le modèle est sur-confiant dans cette région.
-
-<figure>
-<svg viewBox="0 0 760 300" role="img" aria-labelledby="cal-title cal-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="cal-title">Prévisions annoncées et fréquences observées</title>
-  <desc id="cal-desc">Un graphique de calibration compare la fréquence observée à la probabilité annoncée. La diagonale représente une calibration parfaite. Un point à 90 pour cent annoncé et 70 pour cent observé se situe sous la diagonale et indique une sur-confiance.</desc>
-  <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <line x1="90" y1="235" x2="680" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="90" y1="235" x2="90" y2="35" stroke="#64748b" stroke-width="1.5"/>
-  <g stroke="#e2e8f0" stroke-width="1"><line x1="90" y1="185" x2="680" y2="185"/><line x1="90" y1="135" x2="680" y2="135"/><line x1="90" y1="85" x2="680" y2="85"/><line x1="238" y1="35" x2="238" y2="235"/><line x1="385" y1="35" x2="385" y2="235"/><line x1="533" y1="35" x2="533" y2="235"/><line x1="680" y1="35" x2="680" y2="235"/></g>
-  <path d="M90 235 L680 35" fill="none" stroke="#0f766e" stroke-width="3" stroke-dasharray="7 5"/>
-  <line x1="621" y1="95" x2="621" y2="155" stroke="#b45309" stroke-width="2.5"/><circle cx="621" cy="155" r="8" fill="#b45309" stroke="#fff" stroke-width="2"/>
-  <g fill="#475569" font-size="12"><text x="90" y="255" text-anchor="middle">0</text><text x="385" y="255" text-anchor="middle">0,5</text><text x="680" y="255" text-anchor="middle">1</text><text x="75" y="239" text-anchor="end">0</text><text x="75" y="139" text-anchor="end">0,5</text><text x="75" y="39" text-anchor="end">1</text><text x="385" y="284" text-anchor="middle">Probabilité annoncée</text><text x="22" y="135" transform="rotate(-90 22 135)" text-anchor="middle">Fréquence observée</text></g>
-  <g fill="#0f766e" font-size="12" font-weight="700"><text x="410" y="68">Calibration parfaite</text></g>
-  <g fill="#92400e" font-size="12" font-weight="700"><text x="480" y="176">90 % annoncés</text><text x="480" y="192">70 % observés</text></g>
-</svg>
-<figcaption>Schéma d'illustration : chaque point d'un diagramme de fiabilité résume un groupe de prévisions de confiance comparable. Le point 0,9 / 0,7 est hypothétique et reprend l'exemple du texte.</figcaption>
-</figure>
-
-Un modèle est **calibré** si, parmi les événements auxquels il attribue une probabilité proche de \(c\), la fréquence de réalisation est proche de \(c\). La calibration se vérifie sur des ensembles de prévisions, pas à partir d'une seule prédiction. Elle ne garantit pas une bonne discrimination : un modèle peut être calibré tout en séparant mal les cas positifs et négatifs. Inversement, l'accuracy seule ne mesure ni la calibration ni la qualité des probabilités.
-
-L'entropie, la log-loss et la calibration répondent donc à trois questions différentes : la distribution est-elle diffuse ? Les probabilités récompensent-elles correctement les issues observées ? Les fréquences observées correspondent-elles aux confiances annoncées ?
-
-De même, une distribution très concentrée peut être inadaptée à une décision si les événements rares ont des conséquences catastrophiques. L'incertitude moyenne n'est pas le coût du risque.
-
-## Un autre piège : l'entropie dépend de la représentation
-
-Pour une variable discrète, l'entropie est définie à partir des probabilités des catégories. Regrouper ou découper les catégories change la distribution et donc l'entropie. Pour une variable continue, la quantité analogue — l'entropie différentielle — dépend du choix d'unité et peut être négative ; elle ne se compare pas directement à l'entropie discrète.
-
-Il faut donc préciser l'espace des événements et la représentation avant de comparer des entropies.
-
-## Même entropie prédictive, deux incertitudes différentes
-
-Une entropie prédictive élevée peut avoir deux origines très différentes. Le phénomène peut être intrinsèquement ambigu, ou bien les modèles disponibles peuvent ne pas s'accorder sur la réponse. Ces deux situations n'appellent pas la même action : davantage de données ou de contexte peuvent réduire la première dans certains cas ; davantage d'information d'entraînement ou un meilleur modèle peuvent réduire la seconde.
-
-Considérons deux classifieurs probabilistes entraînés différemment, vus comme deux approximations d'un ensemble de modèles. Ils prédisent une classe parmi A et B :
+Considérons un classifieur qui doit choisir entre les classes A et B. On dispose de deux modèles plausibles, entraînés différemment. Pour simplifier, attribuons-leur le même poids.
 
 | Situation | Modèle 1 | Modèle 2 | Prédiction moyenne |
 |---|---|---|---|
 | Désaccord | (0,99 ; 0,01) | (0,01 ; 0,99) | (0,50 ; 0,50) |
 | Ambiguïté partagée | (0,50 ; 0,50) | (0,50 ; 0,50) | (0,50 ; 0,50) |
 
-Dans les deux cas, la distribution moyenne a une entropie de 1 bit. Pourtant, les diagnostics sont opposés. Dans le premier, chaque modèle est très sûr, mais ils ne sont pas d'accord. Dans le second, ils s'accordent sur leur incertitude.
+Dans les deux situations, la prédiction moyenne a une entropie de 1 bit. Si l'on ne regarde que cette distribution, les cas semblent identiques.
 
-La décomposition bayésienne formalise cette distinction. Pour des paramètres \(\theta\) distribués selon leur loi a posteriori après observation des données \(D\) :
+Mais, dans la première situation, chaque modèle est très affirmatif et ils s'opposent. Dans la seconde, ils s'accordent sur le fait que les deux classes restent plausibles.
 
-\[
+Le premier cas révèle que la prédiction moyenne dépend fortement du modèle retenu ; le second montre que les modèles partagent la même distribution diffuse. Cela distingue un désaccord de modèles d'une ambiguïté commune dans leurs sorties, sans prouver que cette dernière est irréductible ni que l'ensemble couvre correctement les modèles plausibles.
+
+## Mesurer le désaccord avec l'information mutuelle
+
+Notons $M$ l'identité du modèle choisi et $Y$ la classe prédite, tirée selon la distribution de ce modèle. On suppose ici que les deux modèles sont choisis avec la même probabilité. L'entropie conditionnelle $H(Y\mid M)$ mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
+
+
+$$
+H(Y\mid M)=\sum_m p(m)H(Y\mid M=m).
+$$
+
+L'information mutuelle entre le modèle et sa prédiction vaut :
+
+
+$$
+I(Y;M)=H(Y)-H(Y\mid M).
+$$
+
+Elle mesure de combien la connaissance du modèle réduit, en moyenne, l'incertitude sur la prédiction. Elle est non négative et vaut zéro lorsque $Y$ et $M$ sont indépendants.
+
+Dans notre exemple, les deux modèles ont le même poids.
+
+**Cas 1 — Désaccord.** Chaque modèle produit une distribution $(0{,}99;0{,}01)$ ou son inverse. L'entropie de chacune est :
+
+
+$$
+h(0{,}99)=-0{,}99\log_2(0{,}99)-0{,}01\log_2(0{,}01)
+\approx0{,}081\text{ bit}.
+$$
+
+La prédiction moyenne est équilibrée, donc $H(Y)=1$ bit. Ainsi :
+
+
+$$
+I(Y;M)=1-0{,}081=0{,}919\text{ bit}.
+$$
+
+La prédiction moyenne est incertaine principalement parce que le résultat dépend fortement du modèle retenu.
+
+**Cas 2 — Ambiguïté partagée.** Chaque modèle prédit $(0{,}5;0{,}5)$. L'entropie moyenne conditionnelle vaut 1 bit, comme l'entropie prédictive :
+
+
+$$
+I(Y;M)=1-1=0.
+$$
+
+Connaître le modèle ne change rien à la distribution prédite : les modèles s'accordent sur leur incertitude.
+
+Cette expérience montre pourquoi deux sorties de même entropie peuvent conduire à des investigations différentes. L'information mutuelle apporte une information que l'entropie prédictive seule ne contient pas.
+
+## Ce que cette décomposition permet — et ne permet pas — de conclure
+
+Dans un cadre bayésien, la même idée s'écrit en conditionnant sur les paramètres $\theta$ et les données d'entraînement $D$ :
+
+
+$$
 H(Y\mid x,D)
 =
 \mathbb E_{\theta\mid D}[H(Y\mid x,\theta)]
 +
 I(Y;\theta\mid x,D).
-\]
+$$
 
-Le premier terme est l'entropie prédictive moyenne conditionnelle au modèle : il représente l'incertitude qui subsiste même si l'on connaissait les paramètres. On l'associe souvent à l'incertitude *aléatoire* (*aleatoric*). Le second est l'information mutuelle entre la prédiction et les paramètres : il mesure combien la réponse dépend du modèle plausible retenu. On l'associe à l'incertitude *épistémique* (*epistemic*).
+Le premier terme est l'incertitude moyenne conditionnelle aux paramètres ; le second mesure la dépendance de la prédiction aux paramètres plausibles. On les associe souvent, respectivement, aux incertitudes *aléatoire* (*aleatoric*) et *épistémique* (*epistemic*). Ces catégories dépendent toutefois du cadre retenu : le choix des variables, de l'espace des hypothèses et de ce que l'on considère comme une information supplémentaire peut déplacer la frontière entre incertitude dite irréductible et incertitude réductible. Elles ne décrivent pas deux propriétés absolues d'une observation.
 
-Dans l'exemple de désaccord, l'entropie binaire de chaque modèle vaut \(h(0{,}99)\approx0{,}081\) bit. L'entropie moyenne vaut 1 bit ; l'information mutuelle entre la classe prédite et le choix du modèle vaut donc environ \(1-0{,}081=0{,}919\) bit. Dans le cas d'ambiguïté partagée, l'entropie moyenne conditionnelle vaut déjà 1 bit et l'information mutuelle est nulle.
+Cette interprétation demande de la prudence :
 
-Cette décomposition dépend du modèle probabiliste et de la distribution sur les paramètres. Un ensemble fini de modèles ne fournit qu'une approximation, sensible à la diversité et à la qualité des modèles qui le composent. Elle ne transforme pas automatiquement un désaccord d'ensemble en mesure parfaitement calibrée de l'incertitude.
+- Un ensemble fini de modèles n'est qu'une approximation de l'incertitude sur les modèles plausibles.
+- Un ensemble peu diversifié peut être unanimement dans l'erreur.
+- Un désaccord peut venir d'une instabilité d'entraînement, d'une couverture insuffisante ou de spécifications différentes ; il ne désigne pas automatiquement une cause unique.
+- Une entropie faible ne garantit pas une prédiction juste : tous les modèles peuvent être confiants et se tromper ensemble.
 
-## Transfert : de l'incertitude à l'analyse des données
+L'entropie et l'information mutuelle sont donc des diagnostics complémentaires, pas des certificats de fiabilité.
 
-Dans un classifieur, l'entropie de la distribution prédite peut signaler une sortie diffuse ou concentrée. En contrôle qualité, elle peut décrire la diversité des catégories observées ; en sondage, elle aide à caractériser la concentration d'une population entre plusieurs modalités. En apprentissage actif, une entropie prédictive élevée peut servir de critère pour sélectionner des observations à faire annoter — à condition de ne pas la confondre avec une mesure de l'erreur attendue.
+## Le lien avec les journées précédentes
 
-La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguïté d'une prédiction, à sélectionner une observation informative, à quantifier l'information d'une variable ou à contrôler le risque d'une décision ? L'entropie est un outil de description et de comparaison, pas un indicateur universel de qualité.
+Les quatre premières journées examinaient ce que les données permettent d'affirmer : la mesure représente-t-elle le phénomène, les observations représentent-elles la population, les résumés conservent-ils les structures utiles, et les dépendances modifient-elles l'incertitude d'un agrégat ?
 
-### Un cas LLM : l'incertitude sur le prochain token
+Cette cinquième journée ajoute une autre question : **quelle information une distribution ou un modèle apporte-t-il sur une variable ?**
 
-À partir d'un contexte donné, un modèle autorégressif produit une distribution de probabilité sur son vocabulaire. Son entropie indique si cette distribution est concentrée sur quelques continuations ou répartie entre beaucoup de possibilités. Elle ne dit pas, à elle seule, si le modèle a raison : une distribution très concentrée peut attribuer une probabilité élevée au mauvais token.
-
-Pour évaluer cette prédiction, on confronte la probabilité attribuée au token effectivement observé à une règle de score comme la log-loss. Sur un ensemble de contextes, la calibration demande une autre vérification : parmi les tokens auxquels le modèle attribue une confiance comparable, la fréquence observée correspond-elle à cette confiance ? Entropie, qualité probabiliste et calibration restent donc trois questions distinctes. Les définitions et les mécanismes propres aux LLMs sont approfondis dans LLM Lab : [probabilités de sortie](https://jm-brun.github.io/llm-lab/fr/probabilites.html) et [entropie du prochain token](https://jm-brun.github.io/llm-lab/fr/entropy.html) ; ici, l'enjeu est le principe statistique général.
-
-## Mettre en pratique
-
-Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-05.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
+La covariance étudiée en J04 décrit une forme de dépendance linéaire. L'information mutuelle peut détecter des dépendances plus générales. Elle ne remplace pas la covariance : elle répond à une question différente et son estimation peut devenir difficile sur des données continues ou en dimension élevée.
 
 ## À retenir
 
-- La surprise concerne une issue ; l'entropie concerne une distribution.
-- L'entropie est une mesure moyenne dépendante de l'espace des événements.
-- Une faible entropie ne prouve ni la justesse ni la calibration d'un modèle.
-- L'entropie croisée et la log-loss évaluent les probabilités attribuées aux issues observées ; la calibration compare confiances et fréquences.
-- L'information mutuelle quantifie une information partagée, pas une causalité.
+- La surprise concerne une issue ; l'entropie est la surprise moyenne d'une distribution.
+- Une entropie prédictive élevée ne permet pas, à elle seule, de distinguer ambiguïté et désaccord entre modèles.
+- L'information mutuelle quantifie ce que la connaissance du modèle apporte sur sa prédiction.
+- Un désaccord entre modèles est un signal à investiguer, pas une preuve que l'ensemble couvre correctement l'incertitude.
+- Entropie, information mutuelle et qualité prédictive sont des notions distinctes.
+
+## Mettre en pratique
+
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-05.html).
 
 ## Connexions utiles
 
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : voir ce que les résumés statistiques ne conservent pas.
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre une autre source d'incertitude, liée à la dépendance.
+- [Jour 3 — Quatre jeux, une même droite](jour-03.html) : voir ce que des résumés statistiques identiques peuvent masquer.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre comment la dépendance intervient dans la variance d'un agrégat.
 
 ## Pour aller plus loin
 
 - C. E. Shannon (1948), *A Mathematical Theory of Communication*, Bell System Technical Journal.
-- Cover & Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les entropies conditionnelles.
+- T. M. Cover et J. A. Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les identités de décomposition.
+- E. Hüllermeier et W. Waegeman (2021), [*Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods*](https://doi.org/10.1007/s10994-021-05946-3), notamment §§ 2.2–2.3 et 4.5 pour les distinctions et leur dépendance au cadre de modélisation.
+- A. Kendall et Y. Gal (2017), [*What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/2650d6089a6d640c5e85b2b88265dc2b-Abstract.html), pour les usages des notions aleatoric et epistemic en deep learning.
