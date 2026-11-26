@@ -149,7 +149,7 @@ X_{\text{croisé}} =
 
 Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif.
 
-Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Le plan croisé montre au contraire un effet bâtiment de +0,5 °C : B est plus chaud dans cet exemple. **Le décalage du capteur a inversé le signe de la conclusion.**
+Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Sous le modèle additif, le plan croisé attribue au contraire au bâtiment B un contraste de +0,5 °C par rapport à A. **Le décalage du capteur a inversé le signe de la conclusion.**
 
 Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
 
