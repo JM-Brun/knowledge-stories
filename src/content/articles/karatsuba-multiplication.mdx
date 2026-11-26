@@ -62,6 +62,10 @@ sources:
     url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
     kind: "primary"
     accessed: 2026-11-24
+  - title: "CS4102 Algorithms — Karatsuba Algorithm and Asymptotic Notation, SlideServe"
+    url: "https://www.slideserve.com/thompkins/cs4102-algorithms-powerpoint-ppt-presentation"
+    kind: "secondary"
+    accessed: 2026-11-26
 series: "multiplication-karatsuba"
 seriesOrder: 1
 relatedArticles: ["complexite-multiplication-karatsuba", "multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026"]
@@ -216,6 +220,14 @@ def karatsuba(x: int, y: int) -> int:
 
     return ac * base**2 + cross * base + bd
 ```
+
+**Contrôle de cohérence du pseudo-code.** Les deux produits diagonaux doivent être &#92;(ac&#92;) et &#92;(bd&#92;), puis le produit auxiliaire doit être &#92;((a+b)(c+d)&#92;). Si l'on remplaçait par erreur le second produit &#92;(bd&#92;) par &#92;(ad&#92;), la soustraction donnerait :
+
+&#92;[
+(a+b)(c+d)-ac-ad=bc+bd,
+&#92;]
+
+et non le terme croisé recherché &#92;(ad+bc&#92;). Une diapositive de la présentation CS4102 consultée pour cet article présente précisément cette incohérence entre son pseudo-code et sa formule. Le code ci-dessus utilise bien &#92;(bd&#92;) ; cette vérification rappelle qu'un pseudo-code doit être contrôlé contre l'identité qu'il prétend implémenter.
 
 Cette version privilégie la lisibilité. Le même `m` est utilisé pour les deux opérandes : avec deux bases différentes, les décalages de recomposition ne seraient plus cohérents. Le cas de base est atteint dès que l’un des deux opérandes tient sur un chiffre ; ce seuil est volontairement minuscule pour l’exemple, pas réaliste pour une bibliothèque, qui bascule généralement vers la multiplication scolaire bien avant une telle profondeur. Enfin, `len(str(x))` convertit l’entier en chaîne : cette approche pédagogique rencontre la limite de conversion décimale de Python pour les très grands entiers, ainsi que sa limite de profondeur de récursion. `sys.setrecursionlimit` permet de modifier cette dernière avec prudence, mais ne transforme pas cet exemple en multiplicateur industriel ; pour les très grandes tailles, il faut utiliser une bibliothèque optimisée.
 
