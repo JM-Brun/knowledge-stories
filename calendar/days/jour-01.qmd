@@ -20,7 +20,9 @@ Un lundi matin, un modèle de suivi énergétique signale que le bâtiment B est
 
 Les deux bâtiments sont comparables. Les capteurs ont été installés le même jour. Et pourtant, leurs relevés sont très différents.
 
-Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce dont la température est contrôlée à environ 20 °C.
+Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce stabilisée à environ 20 °C. Pendant les relevés, un thermomètre de référence indépendant, étalonné et adapté à cette plage, indique 20,00 °C ; son incertitude élargie est de 0,05 °C (facteur d'élargissement \(k=2\)). Cette référence n'est pas une vérité parfaite : elle fournit un point de comparaison documenté, avec une incertitude connue.
+
+Les valeurs ci-dessous sont un scénario illustratif, pas des observations expérimentales.
 
 Trois relevés suffisent à faire apparaître une énigme :
 
@@ -207,8 +209,6 @@ Avant de corriger, l'équipe doit répondre à quatre questions :
 3. **La référence est-elle adaptée ?** Il faut connaître sa traçabilité et son incertitude, et vérifier que celles-ci sont suffisantes pour la décision.
 4. **Le décalage est-il stable sur la plage d'utilisation ?** Une correction mesurée à 20 °C ne garantit pas une correction valide à 5 °C ou 40 °C.
 
-Le [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html) désigne la grandeur que l'on veut mesurer. Le préciser évite de confondre, par exemple, une température instantanée avec une moyenne calculée sur quinze minutes.
-
 **Décision provisoire :** ne pas corriger automatiquement les données historiques. Documenter l'anomalie, comparer les capteurs à une référence adaptée sur plusieurs points de fonctionnement, puis estimer une correction et son incertitude si les résultats justifient cette opération.
 
 ## Le passage à la Data Science
@@ -281,7 +281,7 @@ Avant d'entraîner un modèle, documentez au minimum :
 
 Si plusieurs lignes proviennent du même capteur ou du même site, une validation aléatoire par ligne peut aussi surestimer la capacité de généralisation. Il faut choisir un découpage cohérent avec le futur usage : nouveau site, nouveau capteur ou période future.
 
-Un atelier complémentaire développe ce diagnostic sur une variable de Machine Learning : [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
+L'atelier séparé propose un court exercice de diagnostic et de décision à partir d'un troisième capteur ; il permet de vérifier le raisonnement sans interrompre cette enquête.
 
 
 
