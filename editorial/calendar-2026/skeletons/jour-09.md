@@ -117,9 +117,9 @@ $$
 
 Avec $\tau=0{,}8$, le minimiseur est le quantile empirique d'ordre 0,8. En définissant explicitement $Q_n(\tau)=\inf\{y:F_n(y)\geq\tau\}$, on obtient ici :
 
-$$
+$
 \widehat a_{0{,}8}=10.
-$$
+$
 
 | Critère | Prédiction minimisant la perte | Quantité ciblée |
 |---|---:|---|
