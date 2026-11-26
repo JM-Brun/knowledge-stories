@@ -82,11 +82,11 @@ Dans les deux situations, la prédiction moyenne a une entropie de 1 bit. Si l'o
 
 Mais, dans la première situation, chaque modèle est très affirmatif et ils s'opposent. Dans la seconde, ils s'accordent sur le fait que les deux classes restent plausibles.
 
-Le premier cas suggère une incertitude liée au modèle ou aux données dont il a appris ; le second est compatible avec une ambiguïté partagée par les modèles. Cette lecture n'est pas une preuve sur la cause réelle de l'incertitude : elle dépend de la qualité et de la diversité des modèles comparés.
+Le premier cas révèle que la prédiction moyenne dépend fortement du modèle retenu ; le second montre que les modèles partagent la même distribution diffuse. Cela distingue un désaccord de modèles d'une ambiguïté commune dans leurs sorties, sans prouver que cette dernière est irréductible ni que l'ensemble couvre correctement les modèles plausibles.
 
 ## Mesurer le désaccord avec l'information mutuelle
 
-Notons $M$ l'identité du modèle choisi et $Y$ la classe prédite. L'entropie conditionnelle $H(Y\mid M)$ mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
+Notons $M$ l'identité du modèle choisi et $Y$ la classe prédite, tirée selon la distribution de ce modèle. On suppose ici que les deux modèles sont choisis avec la même probabilité. L'entropie conditionnelle $H(Y\mid M)$ mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
 
 
 $$
@@ -104,7 +104,7 @@ Elle mesure de combien la connaissance du modèle réduit, en moyenne, l'incerti
 
 Dans notre exemple, les deux modèles ont le même poids.
 
-**Cas 1 — Désaccord.** Chaque modèle produit une distribution ((0{,}99;0{,}01)) ou son inverse. L'entropie de chacune est :
+**Cas 1 — Désaccord.** Chaque modèle produit une distribution $(0{,}99;0{,}01)$ ou son inverse. L'entropie de chacune est :
 
 
 $$
@@ -121,7 +121,7 @@ $$
 
 La prédiction moyenne est incertaine principalement parce que le résultat dépend fortement du modèle retenu.
 
-**Cas 2 — Ambiguïté partagée.** Chaque modèle prédit ((0{,}5;0{,}5)). L'entropie moyenne conditionnelle vaut 1 bit, comme l'entropie prédictive :
+**Cas 2 — Ambiguïté partagée.** Chaque modèle prédit $(0{,}5;0{,}5)$. L'entropie moyenne conditionnelle vaut 1 bit, comme l'entropie prédictive :
 
 
 $$
