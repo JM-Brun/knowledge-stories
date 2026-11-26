@@ -30,118 +30,145 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ---
 
-# Jour 06 — Corrélation n'est pas causalité
+# Jour 06 — Quand le résultat s'inverse en regardant les groupes
 
 ## 1. Promesse et question
 
-**Question directrice :** Comment deux variables peuvent-elles évoluer ensemble sans que l'une produise l'autre ?
+**Question directrice :** Comment un traitement peut-il sembler moins efficace au total alors que son taux de réussite est supérieur dans chacun des groupes comparables ?
 
-**Objectif observable :** Construire un graphe causal minimal et distinguer P(Y|X) d'une intervention P(Y|do(X)).
+**Objectif observable :** Reconstituer une inversion de Simpson à partir d'un tableau de contingence, expliquer le rôle de la composition des groupes et distinguer association conditionnelle et effet causal.
 
 **Durée cible :** 12–18 minutes.
 
-À la fin, le lecteur doit être capable de reformuler le problème, d'effectuer le raisonnement annoncé, d'en reconnaître les hypothèses et d'identifier au moins une limite. La promesse ne sera considérée comme tenue que si l'activité finale vérifie effectivement cette capacité.
+L'article ne doit pas s'arrêter à la morale « corrélation n'est pas causalité ». Il doit montrer comment une agrégation change la comparaison, puis préciser quelles hypothèses seraient nécessaires pour interpréter les écarts comme des effets causaux.
 
 ## 2. Situation d'entrée et fil narratif
 
-**Scène d'ouverture :** Les ventes de glaces et les noyades augmentent pendant les mêmes mois. Faut-il en conclure que les glaces provoquent les noyades ?
+**Scène d'ouverture :** Deux traitements sont comparés dans une étude observationnelle. Le traitement A a un meilleur taux de réussite que B chez les patients à faible risque, et aussi chez les patients à haut risque. Pourtant, le taux global de réussite de B est nettement supérieur.
 
-**Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
+**Tension :** les trois résultats sont arithmétiquement compatibles. Le lecteur doit découvrir que les groupes n'ont pas la même composition : le traitement A a été administré beaucoup plus souvent aux patients à haut risque.
 
-**Déroulé narratif provisoire :** Observer l'association ; introduire la saison comme cause commune ; dessiner le graphe ; comparer observation et intervention ; discuter les hypothèses d'identification.
+**Déroulé narratif :**
+1. Présenter les taux globaux sans expliquer immédiatement l'inversion.
+2. Décomposer les résultats par niveau de risque.
+3. Reconstituer les dénominateurs et les poids qui produisent le taux agrégé.
+4. Introduire un graphe causal minimal pour représenter l'indication du traitement et le pronostic.
+5. Montrer pourquoi stratifier peut éclairer une comparaison, sans garantir à lui seul une conclusion causale.
+6. Terminer par les hypothèses et les données nécessaires à une estimation défendable.
 
-**Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
+**Question de relance :** quel changement de composition suffirait à faire apparaître le traitement B meilleur au total, alors que A reste meilleur dans chaque strate ?
 
 ## 3. Carte de couverture conceptuelle
 
-**Concept pivot :** Corrélation et causalité (`correlation-and-causation`) — concept canonique à relire.
+**Concept pivot :** paradoxe de Simpson, agrégation et stratification, reliés au concept canonique « Corrélation et causalité » (`correlation-and-causation`).
 
-**Notions à couvrir :** association, variable confondante, graphe causal, intervention, effet causal, sélection.
+**Notions indispensables :**
+- taux conditionnel et taux marginal ;
+- composition d'un groupe et pondération par les effectifs ;
+- variable de confusion et indication du traitement ;
+- association observée (P(Y\mid X)) et intervention (P(Y\mid do(X))) ;
+- échangeabilité conditionnelle, positivité et cohérence (consistency), uniquement dans la mesure nécessaire à l'exemple.
 
-À compléter lors de la revue canonique :
-- **Prérequis à rappeler :** identifier ceux qui sont réellement indispensables et les expliquer brièvement dans l'article.
-- **Distinctions à rendre explicites :** préciser les confusions voisines qui changeraient le raisonnement.
-- **Approfondissements à signaler seulement :** éviter de transformer l'article en chapitre encyclopédique.
-- **Statut de la connaissance :** vérifier le contenu et le statut du concept dans Wiki Knowledge ; un concept draft n'est pas une référence validée.
+**Frontières à préserver :**
+- J02 traite du mécanisme de sélection des unités et de la population représentée ; J06 traite de la composition des groupes comparés et de l'inversion sous agrégation.
+- J17 traite du choix et de l'interprétation des métriques de classification ; J06 traite du raisonnement causal derrière une comparaison.
+- Ne pas transformer J06 en catalogue de tous les biais causaux (collider, médiation, sélection, causalité inverse). Les signaler seulement si l'exemple l'exige.
 
-Le futur article devra définir chaque notion centrale, expliquer son mécanisme, préciser ses hypothèses et limites, puis la faire travailler dans un exemple. Il ne doit pas simplement énumérer les concepts.
+## 4. Expérience centrale : reconstruire l'inversion
 
-## 4. Expérience, démonstration ou preuve
+Utiliser un exemple numérique explicitement **construit pour l'article**, pas une étude empirique. Chaque ligne représente un groupe de patients ayant le même niveau de risque ; le résultat est une guérison.
 
-**Dispositif proposé :** Simuler une variable saisonnière qui influence à la fois ventes et noyades. Comparer corrélation observée et effet d'une intervention qui modifie seulement les ventes.
+| Niveau de risque | Traitement A | Traitement B |
+|---|---:|---:|
+| Faible risque | 9 guérisons / 10 (90 %) | 80 / 100 (80 %) |
+| Haut risque | 1 guérison / 100 (1 %) | 0 / 10 (0 %) |
+| **Ensemble** | **10 / 110 (9,1 %)** | **80 / 110 (72,7 %)** |
 
-**Matériel à préparer :**
-- données ou paramètres explicitement documentés ;
-- calculs reproductibles et vérifiés indépendamment ;
-- représentation visuelle seulement si elle rend un mécanisme ou un contraste plus intelligible ;
-- légende, unités, texte alternatif et équivalent textuel pour toute figure.
+Dans chaque strate, A a un taux supérieur à B. Au total, B paraît très supérieur. L'inversion vient de la composition : A est administré surtout aux patients à haut risque, tandis que B l'est surtout aux patients à faible risque.
 
-**Résultat attendu :** à préciser après exécution. Ne pas annoncer un résultat avant de l'avoir calculé ou observé.
+**À faire démontrer dans le futur article :**
+- calculer les taux à partir des numérateurs et dénominateurs, sans moyenner les pourcentages ;
+- écrire le taux global comme une moyenne pondérée par les effectifs des strates ;
+- identifier que les poids diffèrent entre A et B ;
+- montrer qu'une comparaison à composition standardisée (mêmes poids de strates pour A et B) répond à une autre question que les taux bruts.
 
-## 5. Angle distinctif — contribution de cette journée
+Ne pas présenter les taux construits comme des preuves de l'efficacité réelle d'un traitement. Leur rôle est de révéler le mécanisme arithmétique de l'inversion.
 
-**Piège central à désamorcer :** Une corrélation ne prouve pas la causalité ; l'absence de corrélation n'exclut pas un effet causal (confusion, effets opposés, sélection).
+## 5. Graphe causal et interprétation
 
-**Question éditoriale à résoudre avant rédaction :**
-1. Comment les ressources de référence expliquent-elles généralement le sujet ?
-2. Quelle hypothèse implicite, confusion, limite ou conséquence reste peu visible ?
-3. Qu'apporte précisément cette enquête au lecteur ?
-4. Quel exemple ou dispositif lui permet de découvrir cet apport ?
-5. Quelle question de transfert permet de vérifier qu'il l'a compris ?
+Construire un DAG minimal dans lequel le niveau de risque (Z) influence à la fois le choix du traitement (X) et le résultat (Y), tandis que le traitement peut lui aussi influencer (Y) :
 
-L'apport peut être une reconstruction pédagogique, une démonstration, un contre-exemple ou une connexion rigoureuse. Ne pas fabriquer une originalité scientifique.
+[
+Z\rightarrow X,\qquad Z\rightarrow Y,\qquad X\rightarrow Y.
+]
 
-## 6. Transfert vers la pratique
+Expliquer que comparer les taux bruts mélange l'association entre traitement et résultat avec les différences de pronostic. Une comparaison conditionnelle sur (Z) peut réduire ce biais **si** (Z) suffit à rendre les groupes échangeables, si chaque traitement est possible dans chaque strate (positivité), et si le traitement et le résultat sont correctement définis et mesurés.
 
-Interprétation des variables explicatives, politiques publiques, expérimentation produit et biais d'observation.
+**Point critique :** le paradoxe de Simpson est une propriété de l'agrégation, pas une méthode permettant de découvrir automatiquement le bon effet causal. La stratification peut aussi être trompeuse si l'on ajuste sur un collider, un médiateur ou une variable mesurée après le traitement. Ne pas suggérer « contrôler toutes les variables » comme règle universelle.
 
-Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
+## 6. Contribution pour un data scientist
 
-## 7. Vérification des acquis
+Le lecteur doit repartir avec un diagnostic réutilisable pour les comparaisons de modèles, de traitements, de produits ou de populations :
 
-**Activité proposée :** Identifier le confondeur dans un graphe ; prédire ce qui change si l'on intervient sur X ; expliquer pourquoi ajuster sur une variable post-traitement peut introduire un biais.
+- vérifier les dénominateurs et les unités d'analyse ;
+- examiner les distributions des variables de risque dans chaque groupe ;
+- distinguer taux conditionnels et taux agrégés ;
+- choisir une population cible et des poids de standardisation explicites ;
+- justifier le jeu de variables d'ajustement par un raisonnement causal, pas par une sélection automatique de colonnes.
 
-Prévoir 2 à 4 questions graduées :
-1. compréhension ou calcul direct ;
-2. prédiction de l'effet d'une modification ;
-3. transfert à un autre contexte ;
-4. éventuellement, identification d'une hypothèse insuffisante.
+Le transfert ne doit pas être une liste d'applications. Il faut montrer une comparaison réelle de groupes où le taux agrégé répond à une question différente de la comparaison à composition constante.
 
-La correction doit détailler le raisonnement, les conventions et les endroits où une hypothèse intervient.
+## 7. Limites et contre-exemples à expliciter
 
-## 8. Connexions
+- Une inversion n'apparaît pas systématiquement : elle dépend des taux conditionnels et des poids.
+- Le sens de l'association peut changer sans qu'un effet causal change de signe ; inversement, des associations conditionnelles ne suffisent pas à identifier un effet causal.
+- Un facteur de stratification n'est pas nécessairement un confondeur ; son rôle dépend du mécanisme causal.
+- Des groupes trop petits ou sans recouvrement rendent les comparaisons conditionnelles instables ou impossibles.
+- La standardisation ne corrige que les différences prises en compte et repose sur les hypothèses du modèle causal.
 
-J02 (sélection), J04 (dépendance), J19 (inférence).
+## 8. Vérification des acquis
 
-Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
+L'atelier séparé pourra demander au lecteur de :
+1. recalculer les taux globaux à partir d'un tableau de numérateurs et dénominateurs ;
+2. expliquer l'inversion par les poids des groupes ;
+3. calculer une comparaison standardisée avec une population de référence donnée ;
+4. identifier les hypothèses supplémentaires nécessaires pour parler d'effet causal.
 
-## 9. Sources à vérifier
+La correction devra montrer les calculs et distinguer explicitement conclusion descriptive et conclusion causale.
 
-Hernán & Robins, *Causal Inference: What If* ; vérifier l'édition, les références exactes et les hypothèses de l'exemple.
+## 9. Connexions
 
-Pour chaque référence retenue, relever l'édition/version, le chapitre ou passage utile, le type de source et les affirmations qu'elle soutient. Vérifier les sources primaires quand elles existent. Ne pas publier de lien vers un espace privé.
+- J02 — sélection et population cible : qui entre dans les données ?
+- J04 — covariance et dépendance : comment les variables varient-elles ensemble ?
+- J17 — métriques de classification : que mesure un score agrégé ?
 
-## 10. Plan d'article pressenti
+Ces renvois sont facultatifs. L'article doit définir lui-même les termes nécessaires.
 
-1. Question concrète et enjeu.
-2. Intuition construite à partir de la situation.
-3. Définitions et distinctions nécessaires.
-4. Mécanisme ou formalisation, avec notation explicitée.
-5. Exemple calculé, expérience ou démonstration.
-6. Limite ou contre-exemple.
-7. Application à une situation de Data Science.
-8. Questions et correction raisonnée.
-9. Synthèse et références.
+## 10. Sources à vérifier
 
-Les titres définitifs pourront varier pour servir la narration. Ne pas forcer du code si un calcul, un schéma ou un raisonnement est plus pertinent.
+- Hernán & Robins, *Causal Inference: What If* : confounding, exchangeability, standardization et DAGs ; relever les chapitres et sections exacts.
+- Simpson (1951), « The Interpretation of Interaction in Contingency Tables » : source historique du phénomène ; vérifier la référence bibliographique.
+- Une référence pédagogique/statistique sur l'agrégation des taux et le paradoxe de Simpson, à sélectionner après comparaison avec les sources canoniques.
 
-## 11. Critères de passage à l'article
+Pour chaque source retenue, noter l'édition/version, le localisateur exact et les affirmations soutenues. L'exemple numérique construit ne doit pas être attribué à une source externe.
 
-- [ ] L'angle narratif est concret et ne masque pas la question scientifique.
-- [ ] Le concept pivot est vérifié et les concepts centraux sont réellement expliqués.
-- [ ] Les calculs, exemples et affirmations quantitatives sont vérifiés.
-- [ ] Le piège conceptuel est désamorcé avec un contre-exemple ou une explication.
-- [ ] Le transfert change effectivement une pratique ou une interprétation.
-- [ ] La correction des exercices teste l'objectif annoncé.
-- [ ] La durée est comprise entre 7 et 20 minutes sans remplissage.
-- [ ] Le contenu est autonome, sourcé, accessible et sans dépendance à un dépôt privé.
+## 11. Plan d'article pressenti
+
+1. Deux traitements, deux groupes, une conclusion globale surprenante.
+2. Calcul des taux par strate et au total.
+3. Décomposition des taux globaux en moyennes pondérées.
+4. Visualisation des compositions de groupes.
+5. Graphe causal minimal et interprétation.
+6. Standardisation et hypothèses d'identification.
+7. Limites : variables non observées, positivité et mauvais ajustement.
+8. Synthèse et renvois.
+
+## 12. Critères de passage à l'article
+
+- [ ] L'inversion est calculée à partir de données explicitement construites et vérifiables.
+- [ ] Le rôle des dénominateurs et des poids est démontré, pas seulement affirmé.
+- [ ] Le graphe causal distingue association et intervention.
+- [ ] Les hypothèses d'identification sont énoncées et leurs limites discutées.
+- [ ] Les frontières avec J02 et J17 sont respectées.
+- [ ] L'intérêt professionnel est montré par une conséquence sur la comparaison ou la décision.
+- [ ] Le futur article est autonome, sourcé, accessible et compris entre 7 et 20 minutes.
