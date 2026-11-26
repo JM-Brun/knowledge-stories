@@ -144,7 +144,7 @@ $$
 Ici, $\lambda_{\min}=1$, $\lambda_{\max}=100$ et le nombre de conditionnement vaut :
 
 $$
-\kappa(H)=\frac{\lambda_{\\max}}{\lambda_{\\min}}=100.
+\kappa(H)=\frac{\lambda_{\max}}{\lambda_{\min}}=100.
 $$
 
 Un grand nombre de conditionnement signifie que les courbures sont très différentes. Le pas est contraint par la direction la plus raide, alors que la convergence est lente dans les directions plates.
