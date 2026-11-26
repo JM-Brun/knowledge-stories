@@ -96,6 +96,40 @@ Or, dans le réseau initial, on n'observe que deux associations :
 | A | S1 | 20,0 °C |
 | B | S2 | 19,5 °C |
 
+<figure>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan de mesure initial : chaque bâtiment est toujours associé au même capteur">
+<svg viewBox="0 0 720 245" role="img" aria-labelledby="initial-design-title initial-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="initial-design-title">Le bâtiment et le capteur sont parfaitement confondus</title>
+  <desc id="initial-design-desc">Deux associations seulement sont observées : le bâtiment A avec le capteur S1, et le bâtiment B avec le capteur S2. Les associations A-S2 et B-S1 manquent ; il est donc impossible de séparer les effets du bâtiment et du capteur.</desc>
+  <rect x="1" y="1" width="718" height="243" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#0f172a">
+    <text x="180" y="38">Bâtiments</text><text x="540" y="38">Capteurs</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="#ffffff">
+    <rect x="70" y="65" width="220" height="58" rx="9"/><rect x="70" y="151" width="220" height="58" rx="9"/>
+    <rect x="430" y="65" width="220" height="58" rx="9"/><rect x="430" y="151" width="220" height="58" rx="9"/>
+  </g>
+  <g font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle" fill="#0f172a">
+    <text x="180" y="100">Bâtiment A</text><text x="180" y="186">Bâtiment B</text>
+    <text x="540" y="100">Capteur S1</text><text x="540" y="186">Capteur S2</text>
+  </g>
+  <g stroke="#0f766e" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M290 94 C340 94 380 94 430 94"/><path d="M290 180 C340 180 380 180 430 180"/>
+  </g>
+  <g font-family="sans-serif" font-size="12" fill="#0f766e" font-weight="700" text-anchor="middle">
+    <text x="360" y="81">observé</text><text x="360" y="167">observé</text>
+  </g>
+  <g stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5" fill="none">
+    <path d="M290 94 C340 120 380 154 430 180"/><path d="M290 180 C340 154 380 120 430 94"/>
+  </g>
+  <g font-family="sans-serif" font-size="11" fill="#92400e" text-anchor="middle">
+    <text x="360" y="225">Comparaisons croisées absentes</text>
+  </g>
+</svg>
+</div>
+<figcaption>Schéma du plan de collecte, pas de mesures supplémentaires : les deux associations observées suivent toujours la même diagonale. Les deux autres combinaisons n'ont jamais été mesurées.</figcaption>
+</figure>
+
 La différence observée vaut −0,5 °C pour B par rapport à A. Mais, dans le modèle, elle correspond à :
 
 \[
@@ -130,6 +164,33 @@ Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dan
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
+<figure>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan croisé : chaque capteur mesure chaque bâtiment">
+<svg viewBox="0 0 720 285" role="img" aria-labelledby="cross-design-title cross-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="cross-design-title">Le plan croisé observe les quatre combinaisons bâtiment-capteur</title>
+  <desc id="cross-design-desc">Une grille à deux lignes et deux colonnes contient les quatre mesures : bâtiment A avec S1, bâtiment A avec S2, bâtiment B avec S1 et bâtiment B avec S2. Les comparaisons à bâtiment constant isolent le contraste entre capteurs ; celles à capteur constant isolent le contraste entre bâtiments, sous le modèle additif.</desc>
+  <rect x="1" y="1" width="718" height="283" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-family="sans-serif" font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">
+    <text x="180" y="38">Capteur S1</text><text x="450" y="38">Capteur S2</text>
+    <text x="64" y="112">Bâtiment A</text><text x="64" y="208">Bâtiment B</text>
+  </g>
+  <g stroke="#cbd5e1" stroke-width="1.5">
+    <rect x="120" y="55" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="55" width="250" height="70" rx="8" fill="#ffffff"/>
+    <rect x="120" y="151" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="151" width="250" height="70" rx="8" fill="#ffffff"/>
+  </g>
+  <g font-family="sans-serif" font-size="22" font-weight="700" text-anchor="middle">
+    <text x="245" y="99" fill="#0f766e">20,0 °C</text><text x="515" y="99" fill="#7c3aed">19,0 °C</text>
+    <text x="245" y="195" fill="#0f766e">20,5 °C</text><text x="515" y="195" fill="#7c3aed">19,5 °C</text>
+  </g>
+  <g font-family="sans-serif" font-size="12" fill="#334155" text-anchor="middle">
+    <text x="360" y="250">Chaque ligne compare les capteurs à bâtiment constant.</text>
+    <text x="360" y="270">Chaque colonne compare les bâtiments à capteur constant.</text>
+  </g>
+</svg>
+</div>
+<figcaption>Les quatre cases sont maintenant observées. Les contrastes par ligne et par colonne apportent les comparaisons qui manquaient au plan initial ; leur interprétation comme effets principaux suppose l'additivité du modèle.</figcaption>
+</figure>
+
 Les comparaisons peuvent maintenant être faites à bâtiment constant ou à capteur constant :
 
 - **À bâtiment constant** : S2 indique 1,0 °C de moins que S1, dans les deux bâtiments.
@@ -149,6 +210,18 @@ X_{\text{croisé}} =
 
 Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif.
 
+Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
+
+\[
+\underbrace{19{,}5-20{,}0}_{-0{,}5\;\text{°C observé}}
+=
+\underbrace{(20{,}5-20{,}0)}_{+0{,}5\;\text{°C bâtiment}}
++
+\underbrace{(19{,}5-20{,}5)}_{-1{,}0\;\text{°C capteur}}.
+\]
+
+Autrement dit, \(-0{,}5 = +0{,}5 - 1{,}0\). Le bâtiment B est plus chaud de 0,5 °C dans cet exemple, mais son capteur indique 1 °C de moins. C'est cette contribution instrumentale qui inverse le signe de la comparaison naïve.
+
 Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Sous le modèle additif, le plan croisé attribue au contraire au bâtiment B un contraste de +0,5 °C par rapport à A. **Le décalage du capteur a inversé le signe de la conclusion.**
 
 Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
@@ -160,6 +233,16 @@ En pratique, le déplacement des capteurs doit aussi être planifié : temps de 
 ## Ce que cela change dans le travail d'un data scientist
 
 Lorsqu'une variable est produite par un instrument, un questionnaire, un opérateur ou un logiciel, il faut se demander si le système de mesure varie en même temps que le groupe que l'on souhaite comparer.
+
+Quelques situations où cette question mérite d'être posée :
+
+| Domaine | Association à examiner | Comparaison qui peut manquer |
+|---|---|---|
+| Environnement | Site et capteur | Même capteur utilisé sur plusieurs sites, ou référence commune |
+| Santé | Hôpital et appareil de mesure | Même protocole et appareil comparables entre établissements |
+| NLP | Population de textes et système d'annotation | Même consignes et annotateurs présents sur plusieurs sous-populations |
+
+Ce sont des analogies de conception, pas des cas statistiquement identiques : le mécanisme de mesure, les hypothèses et les contrôles nécessaires dépendent du domaine.
 
 Dans cet exemple, trois stratégies ne sont pas équivalentes :
 
