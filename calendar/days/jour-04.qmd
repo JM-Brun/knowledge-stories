@@ -10,6 +10,10 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 >
 > **À la fin** — Vous saurez calculer la variance d'une somme, interpréter le signe de la covariance et expliquer pourquoi des mesures ou des modèles corrélés apportent moins de diversité qu'on pourrait le croire.
 
+## Pourquoi cette question compte en Data Science
+
+Dans un benchmark, 10 000 lignes ne représentent pas nécessairement 10 000 expériences indépendantes. Des prompts proches, des mesures répétées sur les mêmes sujets ou des exemples issus d'un même site peuvent partager leurs fluctuations. Ignorer cette dépendance donne une impression de précision excessive et peut rendre les écarts entre modèles beaucoup moins convaincants qu'ils n'en ont l'air.
+
 ## L'alerte dans la salle de contrôle
 
 Deux capteurs surveillent la vibration d'un pont. Chaque capteur est bruyant ; l'ingénieur propose donc de faire la moyenne de leurs relevés. Cela devrait réduire le bruit.
@@ -243,6 +247,32 @@ La règle opérationnelle est simple : **évaluer la diversité des erreurs, pas
 Un benchmark peut contenir des milliers de prompts issus des mêmes modèles de questions, documents sources ou familles de tâches. Si plusieurs prompts sont des paraphrases proches, leurs erreurs risquent d'être corrélées. La taille nominale du benchmark surestime alors la quantité d'information indépendante disponible.
 
 Le même phénomène apparaît lorsqu'on agrège plusieurs modèles : si leurs erreurs se concentrent sur les mêmes exemples, leur moyenne réduit moins la variance qu'attendu. Il faut donc examiner les dépendances entre erreurs et, lorsque c'est pertinent, construire les intervalles d'incertitude en regroupant les observations par source, famille de prompts ou tâche. Compter les lignes ne suffit pas ; il faut comprendre ce qui les relie.
+
+### Cent prompts corrélés peuvent-ils n'en valoir que cinq ?
+
+On peut quantifier cette intuition dans un cas simple. Supposons que les erreurs de \(m\) observations aient toutes la même variance \(\sigma^2\), et que chaque paire ait la même corrélation \(\rho\). La variance de leur moyenne est alors :
+
+\[
+\operatorname{Var}(\overline X)
+=\frac{\sigma^2}{m}\left[1+(m-1)\rho\right].
+\]
+
+Pour comparer cette variance à celle de \(m_{\mathrm{eff}}\) observations indépendantes de même variance, on définit un effectif indépendant équivalent :
+
+\[
+m_{\mathrm{eff}}=\frac{m}{1+(m-1)\rho}.
+\]
+
+Avec 100 prompts de corrélation moyenne \(\rho=0{,}2\), on obtient :
+
+\[
+m_{\mathrm{eff}}=\frac{100}{1+99\times0{,}2}
+\approx 4{,}8.
+\]
+
+Le benchmark contient bien 100 lignes. Mais, pour la variance de la moyenne dans ce modèle simplifié, elles apportent autant d'information que moins de cinq observations indépendantes. C'est l'effet de la redondance : ajouter des paraphrases proches augmente le volume du jeu de données sans augmenter proportionnellement l'information indépendante.
+
+**Cette quantité n'est pas un nombre universel d'observations « réelles ».** Elle repose ici sur des variances égales et une corrélation commune ; des structures en grappes, des corrélations hétérogènes ou des poids inégaux demandent d'autres calculs. Elle sert à rendre visible le coût de la dépendance, pas à remplacer automatiquement le plan d'analyse ou les degrés de liberté d'un test.
 
 ## Mettre en pratique
 
