@@ -439,54 +439,54 @@ La preuve par l’arbre permet de comprendre d’où vient le résultat ; le th�
 
 ### Vérifier une borne par induction : de l'intuition à la preuve
 
-L'arbre de récursion suggère l'exposant \(p=\log_2 3\). Le théorème maître permet aussi de retrouver cet ordre de grandeur. Mais on peut aller plus loin : **vérifier directement une borne candidate par induction**. C'est une autre tâche que deviner l'exposant.
+L'arbre de récursion suggère l'exposant &#92;(p=&#92;log_2 3&#92;). Le théorème maître permet aussi de retrouver cet ordre de grandeur. Mais on peut aller plus loin : **vérifier directement une borne candidate par induction**. C'est une autre tâche que deviner l'exposant.
 
-Pour rendre le calcul explicite, considérons le modèle de coût pédagogique suivant, pour \(n\) puissance de deux :
+Pour rendre le calcul explicite, considérons le modèle de coût pédagogique suivant, pour &#92;(n&#92;) puissance de deux :
 
-\[
+&#92;[
 T(1)=8,
-\qquad
+&#92;qquad
 T(n)=3T(n/2)+8n.
-\]
+&#92;]
 
-Le coefficient 8 fixe ici le coût local choisi pour l'exemple ; il ne s'agit pas d'une constante universelle de Karatsuba. Posons \(p=\log_2 3\), de sorte que \(2^p=3\).
+Le coefficient 8 fixe ici le coût local choisi pour l'exemple ; il ne s'agit pas d'une constante universelle de Karatsuba. Posons &#92;(p=&#92;log_2 3&#92;), de sorte que &#92;(2^p=3&#92;).
 
 **1. Une première conjecture peut être trop peu précise pour l'induction.**
 
-L'arbre suggère une borne de la forme \(T(n)\leq Cn^p\). Essayons, par exemple, \(T(n)\leq24n^p\). En remplaçant simplement \(T(n/2)\) par cette hypothèse, on obtient :
+L'arbre suggère une borne de la forme &#92;(T(n)&#92;leq Cn^p&#92;). Essayons, par exemple, &#92;(T(n)&#92;leq24n^p&#92;). En remplaçant simplement &#92;(T(n/2)&#92;) par cette hypothèse, on obtient :
 
-\[
-T(n)\leq3\cdot24(n/2)^p+8n
+&#92;[
+T(n)&#92;leq3&#92;cdot24(n/2)^p+8n
 =24n^p+8n.
-\]
+&#92;]
 
-Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne \\(24n^p\\) est fausse** : elle est bien vraie, comme le montrera la borne renforcée ci-dessous. Il montre seulement que l'hypothèse utilisée sous cette forme ne suffit pas à fermer ce pas inductif. Il faut conserver une marge qui absorbe le travail local.
+Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne &#92;&#92;(24n^p&#92;&#92;) est fausse** : elle est bien vraie, comme le montrera la borne renforcée ci-dessous. Il montre seulement que l'hypothèse utilisée sous cette forme ne suffit pas à fermer ce pas inductif. Il faut conserver une marge qui absorbe le travail local.
 
 **2. Renforçons l'hypothèse avec un terme correctif.**
 
 Essayons plutôt :
 
-\[
-\boxed{T(n)\leq24n^p-16n.}
-\]
+&#92;[
+&#92;boxed&#123;T(n)&#92;leq24n^p-16n.&#125;
+&#92;]
 
-- **Cas de base.** Pour \(n=1\), le membre de droite vaut \(24-16=8=T(1)\). La propriété est vraie.
-- **Hypothèse d'induction.** Supposons, pour une puissance de deux \(n/2\), que \(T(n/2)\leq24(n/2)^p-16(n/2)\).
+- **Cas de base.** Pour &#92;(n=1&#92;), le membre de droite vaut &#92;(24-16=8=T(1)&#92;). La propriété est vraie.
+- **Hypothèse d'induction.** Supposons, pour une puissance de deux &#92;(n/2&#92;), que &#92;(T(n/2)&#92;leq24(n/2)^p-16(n/2)&#92;).
 - **Pas inductif.** En utilisant la récurrence :
 
-\[
-\begin{aligned}
+&#92;[
+&#92;begin&#123;aligned&#125;
 T(n)
-&=3T(n/2)+8n\\
-&\leq3\left(24(n/2)^p-8n\right)+8n\\
-&=72\frac{n^p}{2^p}-24n+8n\\
+&=3T(n/2)+8n&#92;&#92;
+&&#92;leq3&#92;left(24(n/2)^p-8n&#92;right)+8n&#92;&#92;
+&=72&#92;frac&#123;n^p&#125;&#123;2^p&#125;-24n+8n&#92;&#92;
 &=24n^p-16n,
-\end{aligned}
-\]
+&#92;end&#123;aligned&#125;
+&#92;]
 
-car \(2^p=3\). La propriété est donc héréditaire.
+car &#92;(2^p=3&#92;). La propriété est donc héréditaire.
 
-La borne est ainsi démontrée pour toutes les puissances de deux. Elle implique bien la majoration plus simple \\(T(n)\\leq24n^p\\), puisque le terme correctif \\(-16n\\) est négatif. Pour la récurrence exacte posée ici, \\(24n^p-16n\\) est même la solution exacte ; si le travail local est seulement majoré par \\(8n\\), le même raisonnement fournit une borne supérieure. Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve \\(T(n)=\\Theta(n^{\\log_2 3})\\).
+La borne est ainsi démontrée pour toutes les puissances de deux. Elle implique bien la majoration plus simple &#92;&#92;(T(n)&#92;&#92;leq24n^p&#92;&#92;), puisque le terme correctif &#92;&#92;(-16n&#92;&#92;) est négatif. Pour la récurrence exacte posée ici, &#92;&#92;(24n^p-16n&#92;&#92;) est même la solution exacte ; si le travail local est seulement majoré par &#92;&#92;(8n&#92;&#92;), le même raisonnement fournit une borne supérieure. Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve &#92;&#92;(T(n)=&#92;&#92;Theta(n^&#123;&#92;&#92;log_2 3&#125;)&#92;&#92;).
 
 **Ce qu'il faut retenir :** l'arbre et le théorème maître aident à *conjecturer* l'ordre de grandeur ; l'induction *vérifie* une inégalité précise. Quand le pas inductif échoue, on ne rejette pas automatiquement l'exposant : on examine l'hypothèse, la constante et le terme correctif. Cet exemple suit le principe de la méthode *guess and check* présentée dans le cours CS4102 ; le choix de la borne et sa vérification ci-dessus sont explicités ici pour notre modèle de récurrence.
 
