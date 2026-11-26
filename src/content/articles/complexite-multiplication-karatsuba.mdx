@@ -460,7 +460,7 @@ T(n)\leq3\cdot24(n/2)^p+8n
 =24n^p+8n.
 \]
 
-Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne \(24n^p\) est fausse** : il montre seulement que cette hypothèse, utilisée sous cette forme, ne suffit pas à fermer le pas inductif. Il faut conserver une marge qui absorbe le travail local.
+Le membre de droite dépasse la borne que nous voulions établir. **Ce calcul ne prouve pas que la borne \\(24n^p\\) est fausse** : elle est bien vraie, comme le montrera la borne renforcée ci-dessous. Il montre seulement que l'hypothèse utilisée sous cette forme ne suffit pas à fermer ce pas inductif. Il faut conserver une marge qui absorbe le travail local.
 
 **2. Renforçons l'hypothèse avec un terme correctif.**
 
@@ -486,7 +486,7 @@ T(n)
 
 car \(2^p=3\). La propriété est donc héréditaire.
 
-La borne est ainsi démontrée pour toutes les puissances de deux. En particulier, \(T(n)=O(n^p)\). Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve \(T(n)=\Theta(n^{\log_2 3})\).
+La borne est ainsi démontrée pour toutes les puissances de deux. Elle implique bien la majoration plus simple \\(T(n)\\leq24n^p\\), puisque le terme correctif \\(-16n\\) est négatif. Pour la récurrence exacte posée ici, \\(24n^p-16n\\) est même la solution exacte ; si le travail local est seulement majoré par \\(8n\\), le même raisonnement fournit une borne supérieure. Avec la borne inférieure issue du modèle équilibré et du nombre de feuilles, on retrouve \\(T(n)=\\Theta(n^{\\log_2 3})\\).
 
 **Ce qu'il faut retenir :** l'arbre et le théorème maître aident à *conjecturer* l'ordre de grandeur ; l'induction *vérifie* une inégalité précise. Quand le pas inductif échoue, on ne rejette pas automatiquement l'exposant : on examine l'hypothèse, la constante et le terme correctif. Cet exemple suit le principe de la méthode *guess and check* présentée dans le cours CS4102 ; le choix de la borne et sa vérification ci-dessus sont explicités ici pour notre modèle de récurrence.
 
