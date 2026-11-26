@@ -10,6 +10,10 @@ description: "Une enquête fictive montre pourquoi un échantillon massif peut d
 >
 > **À la fin** — Vous saurez distinguer taille, couverture et sélection, expliquer pourquoi un grand échantillon peut viser la mauvaise population et reconnaître les limites d'une pondération.
 
+## Pourquoi cette question compte en Data Science
+
+Un score calculé sur un jeu de données n'a de sens qu'au regard de la population et de la décision auxquelles on veut le rapporter. Un très grand jeu de test peut mesurer avec précision la performance sur les mauvais cas. La question décisive n'est pas « combien de lignes ? », mais « quelles unités ont eu une chance d'entrer dans les données, lesquelles y sont effectivement entrées, et à quelle population veut-on généraliser ? ».
+
 ## Deux sondages, deux réponses
 
 Une entreprise veut connaître le score de satisfaction de ses utilisateurs. Elle dispose de deux enquêtes.
