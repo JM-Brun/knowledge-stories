@@ -145,7 +145,7 @@ H(Y\mid x,D)
 I(Y;\theta\mid x,D).
 $$
 
-Le premier terme est l'incertitude moyenne conditionnelle aux paramètres ; le second mesure la dépendance de la prédiction aux paramètres plausibles. On les associe souvent, respectivement, aux incertitudes *aléatoire* (*aleatoric*) et *épistémique* (*epistemic*).
+Le premier terme est l'incertitude moyenne conditionnelle aux paramètres ; le second mesure la dépendance de la prédiction aux paramètres plausibles. On les associe souvent, respectivement, aux incertitudes *aléatoire* (*aleatoric*) et *épistémique* (*epistemic*). Ces catégories dépendent toutefois du cadre retenu : le choix des variables, de l'espace des hypothèses et de ce que l'on considère comme une information supplémentaire peut déplacer la frontière entre incertitude dite irréductible et incertitude réductible. Elles ne décrivent pas deux propriétés absolues d'une observation.
 
 Cette interprétation demande de la prudence :
 
@@ -185,3 +185,5 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 - C. E. Shannon (1948), *A Mathematical Theory of Communication*, Bell System Technical Journal.
 - T. M. Cover et J. A. Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les identités de décomposition.
+- E. Hüllermeier et W. Waegeman (2021), [*Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods*](https://doi.org/10.1007/s10994-021-05946-3), notamment §§ 2.2–2.3 et 4.5 pour les distinctions et leur dépendance au cadre de modélisation.
+- A. Kendall et Y. Gal (2017), [*What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/2650d6089a6d640c5e85b2b88265dc2b-Abstract.html), pour les usages des notions aleatoric et epistemic en deep learning.
