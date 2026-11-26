@@ -1,7 +1,7 @@
 ---
-title: "Trois distributions, une même moyenne"
-subtitle: "Jour 3 · Les quatre rapports qui semblaient identiques"
-description: "Une enquête sur des résumés statistiques trompeusement semblables montre pourquoi les données doivent être visualisées avant de les interpréter."
+title: "Quatre jeux, une même droite"
+subtitle: "Jour 3 · Ce que les statistiques résumées ne voient pas"
+description: "Le quartette d’Anscombe révèle comment des données très différentes peuvent produire les mêmes statistiques et la même droite de régression."
 ---
 
 > **Environ 18 à 20 minutes** — Découvrir ce que les statistiques résumées conservent et effacent, puis apprendre à utiliser une visualisation pour mettre une hypothèse à l'épreuve.
@@ -96,21 +96,21 @@ Avant de regarder les figures, une question mérite d'être posée : **comment q
 
 Dans une régression linéaire simple avec constante, la pente estimée s'écrit
 
-\\[
-\\widehat\\beta_1=\\frac{S_{xy}}{S_{xx}},
-\\qquad
-\\widehat\\beta_0=\\overline y-\\widehat\\beta_1\\,\\overline x,
-\\]
+\[
+\widehat\beta_1=\frac{S_{xy}}{S_{xx}},
+\qquad
+\widehat\beta_0=\overline y-\widehat\beta_1\,\overline x,
+\]
 
 où
 
-\\[
-S_{xx}=\\sum_i(x_i-\\overline x)^2,
-\\qquad
-S_{xy}=\\sum_i(x_i-\\overline x)(y_i-\\overline y).
-\\]
+\[
+S_{xx}=\sum_i(x_i-\overline x)^2,
+\qquad
+S_{xy}=\sum_i(x_i-\overline x)(y_i-\overline y).
+\]
 
-La droite ne « voit » donc, pour déterminer ses coefficients, que quelques agrégats : les deux moyennes, la dispersion de \\(x\\) et la covariance entre \\(x\\) et \\(y\\). Si ces quantités sont identiques, les coefficients le sont aussi. La corrélation ajoute une autre mesure agrégée de l'association, mais elle ne décrit toujours pas la géométrie complète du nuage.
+La droite ne « voit » donc, pour déterminer ses coefficients, que quelques agrégats : les deux moyennes, la dispersion de \(x\) et la covariance entre \(x\) et \(y\). Si ces quantités sont identiques, les coefficients le sont aussi. La corrélation ajoute une autre mesure agrégée de l'association, mais elle ne décrit toujours pas la géométrie complète du nuage.
 
 C'est le point subtil du quartette : **l'égalité des résultats d'un calcul ne signifie pas que les données contiennent la même structure**. La régression a bien optimisé son critère dans les quatre cas ; ce critère ne lui demandait simplement pas de distinguer une courbe, un point influent ou une configuration presque dégénérée.
 
