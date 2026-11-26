@@ -10,6 +10,10 @@ description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, e
 >
 > **À la fin** — Vous saurez calculer une entropie binaire, distinguer surprise et incertitude moyenne, interpréter une entropie conditionnelle et expliquer pourquoi une faible entropie ne garantit pas une bonne prévision.
 
+## Pourquoi cette question compte en Data Science
+
+L'entropie d'une prédiction résume la dispersion de ses probabilités, mais elle ne dit pas pourquoi le modèle hésite. Cette distinction est opérationnelle : une observation ambiguë appelle parfois davantage de contexte ou une meilleure définition de la cible ; un désaccord entre modèles peut plutôt signaler un manque de connaissance ou de couverture des données. Une même valeur d'entropie peut donc conduire à des décisions très différentes.
+
 ## L'idée en une minute
 
 La surprise concerne une issue qui s'est produite ; l'entropie décrit la surprise moyenne attendue avant de connaître l'issue. Une distribution concentrée a une faible entropie, mais elle peut être fausse ou mal calibrée. Il faut donc distinguer l'incertitude annoncée par un modèle de sa qualité prédictive réelle.
@@ -219,6 +223,35 @@ De même, une distribution très concentrée peut être inadaptée à une décis
 Pour une variable discrète, l'entropie est définie à partir des probabilités des catégories. Regrouper ou découper les catégories change la distribution et donc l'entropie. Pour une variable continue, la quantité analogue — l'entropie différentielle — dépend du choix d'unité et peut être négative ; elle ne se compare pas directement à l'entropie discrète.
 
 Il faut donc préciser l'espace des événements et la représentation avant de comparer des entropies.
+
+## Même entropie prédictive, deux incertitudes différentes
+
+Une entropie prédictive élevée peut avoir deux origines très différentes. Le phénomène peut être intrinsèquement ambigu, ou bien les modèles disponibles peuvent ne pas s'accorder sur la réponse. Ces deux situations n'appellent pas la même action : davantage de données ou de contexte peuvent réduire la première dans certains cas ; davantage d'information d'entraînement ou un meilleur modèle peuvent réduire la seconde.
+
+Considérons deux classifieurs probabilistes entraînés différemment, vus comme deux approximations d'un ensemble de modèles. Ils prédisent une classe parmi A et B :
+
+| Situation | Modèle 1 | Modèle 2 | Prédiction moyenne |
+|---|---|---|---|
+| Désaccord | (0,99 ; 0,01) | (0,01 ; 0,99) | (0,50 ; 0,50) |
+| Ambiguïté partagée | (0,50 ; 0,50) | (0,50 ; 0,50) | (0,50 ; 0,50) |
+
+Dans les deux cas, la distribution moyenne a une entropie de 1 bit. Pourtant, les diagnostics sont opposés. Dans le premier, chaque modèle est très sûr, mais ils ne sont pas d'accord. Dans le second, ils s'accordent sur leur incertitude.
+
+La décomposition bayésienne formalise cette distinction. Pour des paramètres \(\theta\) distribués selon leur loi a posteriori après observation des données \(D\) :
+
+\[
+H(Y\mid x,D)
+=
+\mathbb E_{\theta\mid D}[H(Y\mid x,\theta)]
++
+I(Y;\theta\mid x,D).
+\]
+
+Le premier terme est l'entropie prédictive moyenne conditionnelle au modèle : il représente l'incertitude qui subsiste même si l'on connaissait les paramètres. On l'associe souvent à l'incertitude *aléatoire* (*aleatoric*). Le second est l'information mutuelle entre la prédiction et les paramètres : il mesure combien la réponse dépend du modèle plausible retenu. On l'associe à l'incertitude *épistémique* (*epistemic*).
+
+Dans l'exemple de désaccord, l'entropie binaire de chaque modèle vaut \(h(0{,}99)\approx0{,}081\) bit. L'entropie moyenne vaut 1 bit ; l'information mutuelle entre la classe prédite et le choix du modèle vaut donc environ \(1-0{,}081=0{,}919\) bit. Dans le cas d'ambiguïté partagée, l'entropie moyenne conditionnelle vaut déjà 1 bit et l'information mutuelle est nulle.
+
+Cette décomposition dépend du modèle probabiliste et de la distribution sur les paramètres. Un ensemble fini de modèles ne fournit qu'une approximation, sensible à la diversité et à la qualité des modèles qui le composent. Elle ne transforme pas automatiquement un désaccord d'ensemble en mesure parfaitement calibrée de l'incertitude.
 
 ## Transfert : de l'incertitude à l'analyse des données
 
