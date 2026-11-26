@@ -10,6 +10,10 @@ description: "Le quartette d’Anscombe révèle comment des données très diff
 >
 > **À la fin** — Vous saurez ce qu'un résumé statistique conserve, ce qu'il efface et comment choisir une visualisation qui peut mettre une hypothèse à l'épreuve.
 
+## Pourquoi cette question compte en Data Science
+
+Un modèle peut optimiser parfaitement son objectif et produire un résumé fidèle à ce qu'on lui a demandé, tout en masquant une structure décisive pour l'usage. C'est le risque des moyennes globales, des métriques agrégées et des diagnostics réduits à quelques nombres : ils compressent les données. Le quartette d'Anscombe permet de voir précisément ce que cette compression efface, jusque dans les coefficients d'une régression.
+
 ## Quatre rapports, une même conclusion ?
 
 Quatre équipes analysent la relation entre une variable d'entrée et un résultat. Elles rendent chacune un rapport : même moyenne de la variable d'entrée, même moyenne du résultat, même dispersion, même corrélation et même droite de régression.
