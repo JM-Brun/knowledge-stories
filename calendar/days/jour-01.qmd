@@ -89,10 +89,10 @@ Le capteur B est stable au cours de ces trois relevés, mais il indique une temp
 
 La métrologie distingue notamment :
 
-- **Fidélité** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
-- **Répétabilité** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, même système de mesure, même opérateur et même lieu, sur une courte période.
-- **Justesse** : proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence.
-- **Exactitude** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
+- **[Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html)** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
+- **[Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html)** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, même système de mesure, même opérateur et même lieu, sur une courte période.
+- **[Justesse](https://jcgm.bipm.org/vim/fr/2.14.html)** : proximité entre la moyenne d'un nombre infini de résultats répétés et une valeur de référence.
+- **[Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html)** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
 
 Ces définitions sont celles du [Vocabulaire international de métrologie (VIM), JCGM 200:2012](https://jcgm.bipm.org/vim/fr/). Le mot « précision » est ambigu dans le langage courant : mieux vaut préciser si l'on parle de fidélité, de répétabilité ou d'exactitude.
 
@@ -238,7 +238,7 @@ Un plan croisé apporte l'information qui manque. À titre d'illustration, suppo
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
-Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre.
+Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre. Cette identification suppose que le décalage propre au capteur reste le même dans les deux bâtiments : le modèle ne comporte pas d'interaction capteur × bâtiment. Si le montage ou l'environnement modifie différemment la réponse de chaque capteur selon le site, ce plan minimal ne suffit plus ; il faut caractériser cette interaction.
 
 En pratique, il faut contrôler les changements de température pendant le déplacement des capteurs, leur temps de réponse et les conditions d'exposition. Une mesure de référence commune ou un échange croisé planifié peut aider ; une permutation improvisée dans le temps pourrait introduire un nouveau biais.
 
