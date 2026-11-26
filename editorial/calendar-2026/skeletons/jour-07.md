@@ -1,15 +1,15 @@
 ---
-title: "Une droite peut-elle apprendre ?"
+title: "Deux variables, une même information : que valent leurs coefficients ?"
 day: 7
 calendar: "2026"
 status: "skeleton"
 readingTimeTarget: "12–18 min"
-canonicalConcept: "Régression linéaire — à vérifier dans Wiki Knowledge"
+canonicalConcept: "Régression linéaire multiple et multicolinéarité — à vérifier dans Wiki Knowledge"
 ---
 
 # Squelette éditorial — calendrier 2026
 
-Ce document est un **dossier de conception**, pas un article destiné à être publié tel quel. Il sera converti en article autonome dans `calendar/days/jour-07.qmd` après vérification des concepts, des calculs et des sources.
+Ce document est un **dossier de conception**, pas un article destiné à être publié tel quel. Il sera converti en article autonome dans \`calendar/days/jour-07.qmd\` après vérification des concepts, des calculs et des sources.
 
 ## Contrat de rédaction
 
@@ -17,8 +17,8 @@ Ce document est un **dossier de conception**, pas un article destiné à être p
 - Knowledge Stories reste généraliste : exemples principaux non-LLM. Les mécanismes propres aux Transformers et aux LLM restent dans LLM Lab.
 - Le futur article doit être autonome : définir les notations, expliciter les hypothèses, unités, limites et implications.
 - Les exercices détaillés restent dans l'atelier dédié ; l'article peut inclure une courte question de réflexion.
-- Ne pas transformer cette journée en tutoriel de régression, ni en catalogue de diagnostics.
-- Ne pas présenter une association statistique comme une explication causale.
+- Ne pas transformer cette journée en tutoriel de régression multiple ni en catalogue de diagnostics.
+- Ne pas confondre instabilité des coefficients, qualité prédictive et identification causale.
 
 ## État
 
@@ -30,189 +30,197 @@ Ce document est un **dossier de conception**, pas un article destiné à être p
 
 ---
 
-# Jour 07 — Une droite peut-elle apprendre ?
+# Jour 07 — Deux variables, une même information : que valent leurs coefficients ?
 
 ## 1. Décision éditoriale
 
-**Décision : transformer la promesse générique sur l'apprentissage d'une droite en enquête sur la portée réelle d'un ajustement.**
+**Décision : transformer l'introduction générique à la régression en enquête sur la multicolinéarité et l'interprétation des coefficients.**
 
-**Question directrice :** Quand une droite est-elle une bonne approximation des données, et quand son ajustement nous donne-t-il une confiance que les données ne justifient pas ?
+**Question directrice :** Comment un modèle peut-il produire des prédictions presque inchangées alors que les coefficients associés à ses variables deviennent très grands, opposés et instables ?
 
-**Thèse à faire découvrir :** les moindres carrés trouvent la meilleure droite *selon un critère précis et dans l'échantillon observé*. Ils ne garantissent ni que la relation est linéaire, ni que les résidus sont sans structure, ni que la droite explique un mécanisme, ni que ses prédictions restent fiables hors de la zone observée.
+**Thèse à faire découvrir :** lorsque deux prédicteurs portent presque la même information, le modèle peut identifier assez bien leur contribution combinée aux prédictions, sans pouvoir attribuer de façon fiable une contribution individuelle à chacun. Un bon ajustement ne garantit donc pas que chaque coefficient raconte une histoire stable.
 
-**Intérêt pour un data scientist :** une régression peut être mathématiquement optimale et néanmoins être un mauvais modèle pour l'usage visé. Comprendre ce décalage évite d'interpréter un coefficient comme une vérité, d'extrapoler sans support ou de confondre ajustement et explication.
+**Intérêt pour un data scientist :** les jeux de données réels contiennent souvent des variables redondantes : mesures proches, indicateurs dérivés, variables saisonnières, métriques de taille et de volume, caractéristiques fortement corrélées. Interpréter séparément leurs coefficients peut conduire à des conclusions fragiles alors que les prédictions semblent robustes.
 
-**Objectif observable :** le lecteur doit savoir expliquer ce que minimise une régression aux moindres carrés, interpréter un résidu, repérer le rôle d'un point à fort levier et formuler au moins une limite de l'ajustement.
+**Objectif observable :** le lecteur doit pouvoir expliquer la non-identifiabilité en cas de colinéarité parfaite, reconnaître le problème de quasi-colinéarité, et distinguer stabilité prédictive et stabilité des paramètres.
 
 **Durée cible :** 12–18 minutes.
 
-## 2. Frontière avec les autres journées
+## 2. Frontières avec les autres journées
 
-- **J03** montre que plusieurs jeux de données peuvent partager des résumés statistiques et une droite tout en ayant des géométries différentes. J07 part de la droite ajustée et demande ce que signifie réellement « meilleur ajustement » et ce que ses diagnostics autorisent à conclure.
-- **J06** traite de confusion, stratification et identification causale. J07 ne doit pas devenir un second article sur les DAG ou le paradoxe de Simpson. Il rappelle seulement qu'un coefficient de régression n'est pas, à lui seul, un effet causal.
-- **J09** traitera de la quantité statistique ciblée par différentes fonctions de perte. J07 se limite aux moindres carrés et à la portée de leur ajustement.
-- **J15** traitera de la population et du protocole d'évaluation. J07 peut signaler l'extrapolation, sans développer l'évaluation hors distribution.
+- **J03** montre que des jeux de données différents peuvent partager les mêmes résumés et la même droite. J07 examine une autre perte d'information : plusieurs coefficients peuvent représenter presque la même direction dans l'espace des prédicteurs.
+- **J06** traite de confusion, stratification et identification causale. J07 traite de l'identifiabilité numérique et de l'interprétation des paramètres d'un modèle ; il ne prétend pas identifier un effet causal.
+- **J09** examinera la quantité statistique visée par une fonction de perte. J07 se concentre sur la redondance entre prédicteurs dans un modèle linéaire.
+- **J11** traitera la régularisation et le compromis biais-variance. J07 peut signaler que la régularisation stabilise parfois les coefficients, mais ne doit pas développer L1/L2 ni leurs géométries.
 
 ## 3. Situation d'entrée
 
-Une équipe dispose de cinq mesures et ajuste une droite pour prédire une grandeur continue. La pente semble raisonnable et la somme des carrés des résidus est faible. Une sixième mesure arrive, très éloignée des précédentes sur l'axe des entrées ; elle déplace fortement la pente.
+Une équipe construit un modèle de consommation à partir de deux variables : la surface d'un logement et une mesure de volume qui lui est presque proportionnelle. Le modèle prédit correctement la consommation. Pourtant, selon la version des données, le coefficient de la surface devient très positif et celui du volume très négatif, ou l'inverse.
 
-**Tension narrative :** le calcul n'a pas échoué. Il a correctement optimisé son critère. C'est l'interprétation « la droite a appris la relation » qui devient trop forte.
+**Tension narrative :** les prédictions n'ont presque pas changé, mais l'interprétation des variables s'est renversée. Le modèle n'est pas nécessairement mauvais pour prédire ; c'est l'attribution individuelle des coefficients qui est devenue fragile.
 
-La question qui guide l'article : qu'est-ce qui, dans le critère et dans la géométrie des données, rend ce déplacement possible ?
+La question qui guide l'article : quelle information les données contiennent-elles réellement pour séparer les contributions de deux variables presque redondantes ?
 
-## 4. Expérience centrale — un point change-t-il la droite ?
+## 4. Première expérience — colinéarité parfaite
 
-Utiliser explicitement un jeu synthétique, conçu pour isoler l'effet d'un point à fort levier :
-
-| Observation | x | y |
-|---|---:|---:|
-| 1 | 1 | 2 |
-| 2 | 2 | 3 |
-| 3 | 3 | 5 |
-| 4 | 4 | 4 |
-| 5 | 5 | 6 |
-
-Pour ces cinq points, la droite des moindres carrés est :
+Considérer le modèle :
 
 $$
-\widehat y = 1{,}3 + 0{,}9x
+\widehat y_i = \beta_0+\beta_1x_{i1}+\beta_2x_{i2}.
 $$
 
-Les résidus (observé moins prédit) sont :
+Si les deux prédicteurs sont exactement identiques, $x_{i2}=x_{i1}$, alors :
 
 $$
-(-0{,}2; -0{,}1; 1; -0{,}9; 0{,}2)
+\widehat y_i=\beta_0+(\beta_1+\beta_2)x_{i1}.
 $$
 
-La somme des carrés des résidus vaut 1,9.
+Les données peuvent déterminer la somme $\beta_1+\beta_2$, mais pas les deux coefficients séparément. Les couples $(\beta_1,\beta_2)=(5,0)$, $(3,2)$ ou $(10,-5)$ donnent exactement les mêmes prédictions si leur somme vaut 5.
 
-Ajouter le point synthétique $(x,y)=(12,5)$ conduit à :
+**Découverte :** le problème n'est pas que l'algorithme n'a pas trouvé la bonne solution. Il n'existe pas une unique attribution des coefficients compatible avec ces données. La matrice de conception n'a pas le rang nécessaire pour identifier séparément les paramètres.
 
-$$
-\widehat y \approx 3{,}209 + 0{,}213x
-$$
+Ne pas s'arrêter à « les variables sont corrélées » : la corrélation parfaite crée une dépendance linéaire exacte entre les colonnes du modèle ; la quasi-colinéarité rend l'identification numériquement fragile sans la rendre strictement impossible.
 
-La pente passe d'environ 0,9 à 0,213. Le point ajouté a un résidu de $-0{,}763$, inférieur en valeur absolue au résidu de l'observation $x=5$ (environ $1{,}727$), mais son levier est très élevé. Dans le modèle à six observations, le levier diagonal associé à $x=12$ vaut :
+## 5. Deuxième expérience — presque la même information
 
-$
-h_{ii}=\frac{1}{6}+\frac{(12-4{,}5)^2}{77{,}5}\approx0{,}892.
-$
-
-Cette valeur rend visible la position extrême du point dans l'espace des prédicteurs. Le changement de pente quantifie ici son influence. Ne pas transformer un seuil heuristique de levier en règle automatique : l'influence dépend aussi du résidu et du modèle.
-
-**À démontrer dans l'article :**
-- calculer la pente et l'intercept à partir de $S_{xx}$ et $S_{xy}$ ;
-- distinguer résidu élevé et levier élevé : ce sont deux propriétés différentes ;
-- expliquer pourquoi un point à fort levier n'est influent que s'il modifie effectivement l'ajustement ;
-- visualiser les deux droites sur les mêmes axes et montrer les données avant/après ;
-- rappeler que l'exemple est construit pour illustrer un mécanisme, pas pour représenter une fréquence empirique.
-
-Ne pas affirmer qu'un point extrême doit être supprimé. Il peut être une erreur, une observation valide rare, un changement de régime ou le signal que le modèle est mal spécifié. La décision dépend du processus de données et de la question scientifique.
-
-## 5. Le mécanisme mathématique
-
-Introduire le modèle ajusté :
+Construire un exemple synthétique reproductible avec huit observations :
 
 $$
-\widehat y_i = \widehat\beta_0 + \widehat\beta_1x_i
+x_1=(0,1,2,3,4,5,6,7)
 $$
 
-et le résidu :
+et une petite perturbation :
 
 $$
-e_i=y_i-\widehat y_i.
+z=(-0{,}3;0{,}2;0{,}1;-0{,}2;0{,}25;-0{,}15;0{,}3;-0{,}2).
 $$
 
-Les moindres carrés choisissent les paramètres qui minimisent :
+Définir un second prédicteur presque identique au premier :
 
 $$
-\operatorname{RSS}(\beta_0,\beta_1)
-=\sum_i(y_i-\beta_0-\beta_1x_i)^2.
+x_2=x_1+\delta z.
 $$
 
-Pour une régression simple avec intercept et variabilité non nulle de $x$ :
+La cible est :
 
 $$
-\widehat\beta_1=
-\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
-{\sum_i(x_i-\bar x)^2},
-\qquad
-\widehat\beta_0=\bar y-\widehat\beta_1\bar x.
+y=5x_1+\varepsilon,
 $$
 
-L'article doit expliquer le rôle de la distance à la moyenne de $x$ dans le numérateur et le dénominateur : les observations éloignées en $x$ peuvent peser fortement sur la pente. Éviter une dérivation longue des équations normales ; une dérivation courte ou une interprétation géométrique suffit.
+avec :
 
-Préciser que « meilleure droite » signifie minimisatrice de la somme des carrés sur les observations et dans la famille de fonctions considérée. Ce n'est pas une propriété absolue de la droite.
+$$
+\varepsilon=(0{,}1;-0{,}2;0{,}15;-0{,}1;0{,}05;0{,}2;-0{,}15;-0{,}05).
+$$
 
-## 6. Diagnostiquer sans ritualiser
+Ajuster le même modèle linéaire avec constante pour deux valeurs de $\delta$ :
 
-Organiser les diagnostics autour de trois questions, pas comme une checklist exhaustive :
+| Écart entre les prédicteurs | Corrélation entre $x_1$ et $x_2$ | Coefficient de $x_1$ | Coefficient de $x_2$ | RSS |
+|---|---:|---:|---:|---:|
+| $\delta=0{,}05$ | 0,9999884 | 9,344 | −4,348 | 0,1301 |
+| $\delta=0{,}005$ | 0,9999999 | 48,475 | −43,478 | 0,1301 |
 
-1. **Les résidus gardent-ils une structure ?** Un motif courbe suggère que la relation moyenne n'est peut-être pas bien représentée par une droite ; une dispersion qui varie avec $x$ signale une hétéroscédasticité possible.
-2. **Un point gouverne-t-il l'ajustement ?** Distinguer levier (position dans l'espace des prédicteurs), résidu (écart vertical) et influence (effet sur les paramètres ou prédictions lorsqu'on retire l'observation).
-3. **Où la droite est-elle utilisée ?** Une prédiction dans la plage observée n'a pas le même statut qu'une extrapolation. Le modèle ne fournit pas, par son seul ajustement, de garantie sur un régime jamais observé.
+Les prédictions ajustées sont identiques à l'arrondi près dans les deux cas, de même que la somme des carrés des résidus. Pourtant, les coefficients individuels deviennent beaucoup plus grands et opposés lorsque les deux colonnes se rapprochent.
 
-Les résidus doivent être lus comme des diagnostics conditionnels au modèle ajusté, pas comme des observations directes des erreurs latentes. Les motifs peuvent aussi provenir de variables omises, de dépendances, d'une mesure imparfaite ou d'un changement de population.
+**À faire dans l'article :**
+- fournir les données ou le code de génération de manière reproductible ;
+- calculer les coefficients par moindres carrés et vérifier la corrélation ;
+- afficher les prédictions et les coefficients sur deux panneaux distincts ;
+- montrer que les deux variables sont presque interchangeables dans les données disponibles ;
+- expliquer que la somme des coefficients reste proche de la contribution combinée attendue, tandis que leur attribution séparée est instable.
 
-## 7. Ce que la droite n'apprend pas
+Le résultat ne doit pas être présenté comme une propriété universelle de tous les modèles corrélés. Il illustre une géométrie précise de la matrice de conception. Vérifier les arrondis et les chiffres sur l'implémentation retenue avant rédaction.
 
-Faire apparaître quatre distinctions, sans ouvrir quatre nouveaux chapitres :
+## 6. Le mécanisme géométrique
 
-- **Ajustement vs mécanisme :** une pente décrit une relation dans les données et dépend du contexte ; elle n'identifie pas un effet causal sans hypothèses supplémentaires.
-- **Résidus vs erreurs :** les résidus sont calculés après ajustement ; ils ne sont pas les erreurs aléatoires théoriques du modèle.
-- **Interpolation vs extrapolation :** le fait qu'une droite résume la plage observée ne justifie pas son prolongement indéfini.
-- **Prédiction moyenne vs prédiction individuelle :** une droite peut viser une moyenne conditionnelle ; elle ne prédit pas exactement chaque réalisation bruitée.
+Présenter les colonnes de la matrice de conception comme des directions dans l'espace des observations. Si deux colonnes sont presque parallèles, de nombreuses combinaisons de coefficients produisent des vecteurs de prédiction très proches.
 
-Pour les hypothèses, rester précis : la linéarité concerne la forme de la moyenne conditionnelle dans le modèle ; l'homoscédasticité et l'indépendance jouent notamment dans les propriétés d'inférence usuelles ; la normalité des erreurs n'est pas nécessaire pour calculer les coefficients OLS. Ne pas réciter « les quatre hypothèses de la régression » sans préciser l'usage concerné.
+La régression ajuste la combinaison linéaire :
 
-## 8. Transfert vers la pratique Data Science
+$$
+\widehat y = X\widehat\beta,
+$$
 
-Prendre un cas de prédiction d'une consommation, d'une latence ou d'un rendement en fonction d'une variable continue. Montrer le raisonnement :
+mais la stabilité de $\widehat\beta$ dépend de la géométrie de $X^\top X$. Lorsque cette matrice est mal conditionnée, de petites perturbations des données peuvent provoquer de grands changements des coefficients.
 
-- définir la grandeur cible et les unités ;
-- ajuster la baseline linéaire ;
-- examiner les résidus et les observations influentes ;
-- vérifier la plage de support des prédicteurs ;
-- décider si la droite est une baseline utile, si une transformation ou une autre famille est justifiée, ou si les données ne permettent pas de trancher.
+Expliquer visuellement :
+- colinéarité parfaite : une direction est redondante, la solution n'est pas unique ;
+- quasi-colinéarité : la solution numérique peut être unique, mais très sensible ;
+- prédictions : la combinaison $X\widehat\beta$ peut rester stable alors que les coordonnées de $\widehat\beta$ varient fortement.
 
-Le transfert doit aboutir à une décision concrète : conserver la droite comme baseline interprétable, changer de forme fonctionnelle, collecter des observations dans une région mal couverte ou limiter explicitement le domaine d'utilisation.
+Éviter de faire de la norme matricielle ou du nombre de conditionnement un détour mathématique. Une visualisation de deux colonnes presque parallèles et une explication du système de coordonnées suffisent ; les indicateurs numériques peuvent être donnés en complément.
 
-## 9. Vérification des acquis
+## 7. Que peut-on diagnostiquer et que peut-on faire ?
 
-Les exercices complets sont réservés à l'atelier. La page peut se terminer par deux questions courtes :
+Structurer les diagnostics autour de trois questions :
 
-1. Pourquoi un point très éloigné en $x$ peut-il modifier fortement la pente même si son résidu n'est pas le plus grand ?
-2. Si les résidus dessinent une courbe, quelle affirmation devient douteuse : « les moindres carrés ont été calculés correctement » ou « une droite décrit suffisamment la relation moyenne » ?
+1. **Les variables portent-elles une information redondante ?** Examiner les relations entre prédicteurs, les définitions métier et les transformations utilisées. Une matrice de corrélation est un indice, pas un diagnostic complet : une dépendance linéaire peut impliquer plusieurs variables et ne pas se réduire à une paire fortement corrélée.
+2. **Quelle quantité est instable ?** Comparer coefficients, erreurs standards et prédictions sous de petites perturbations ou sur des rééchantillonnages. Une forte instabilité des coefficients ne signifie pas automatiquement une forte instabilité prédictive.
+3. **Quelle interprétation cherche-t-on ?** Pour prédire, la redondance peut être tolérable si les performances hors échantillon sont stables. Pour attribuer une contribution à chaque variable, elle pose un problème substantiel.
 
-Les corrections doivent distinguer le calcul de l'adéquation du modèle.
+Pistes à présenter brièvement, sans en faire une recette universelle :
+- retirer ou regrouper des variables seulement si cela a un sens scientifique et métier ;
+- choisir une représentation plus pertinente des variables redondantes ;
+- collecter des observations où les prédicteurs varient indépendamment, si le protocole le permet ;
+- utiliser une régularisation lorsque l'objectif et les hypothèses le justifient, en signalant que les coefficients obtenus dépendent alors de la pénalisation.
 
-## 10. Sources à vérifier
+Ne pas recommander de supprimer automatiquement une variable parce que sa corrélation avec une autre est élevée. La décision dépend de l'objectif, de la connaissance du domaine et du protocole de collecte.
 
-- James, Witten, Hastie, Tibshirani et Taylor, *An Introduction to Statistical Learning*, édition disponible : sections sur régression linéaire, résidus et observations influentes ; relever les pages/sections exactes.
-- Weisberg, *Applied Linear Regression*, pour levier, influence et diagnostic ; vérifier l'édition et les localisateurs.
-- NIST/SEMATECH e-Handbook of Statistical Methods, sections sur les diagnostics de régression ; vérifier les pages exactes et leur adéquation.
+## 8. Ce que les coefficients ne disent pas
 
-Retenir les sources réellement mobilisées, et associer chaque source à une affirmation. Ajouter une source primaire seulement si elle soutient une affirmation historique ou théorique précise.
+- Un coefficient de régression multiple décrit une variation conditionnelle au modèle et aux autres prédicteurs inclus ; son interprétation dépend de l'échelle et de la spécification.
+- Des coefficients instables ne prouvent pas que les variables sont inutiles pour prédire.
+- Des coefficients stables ne prouvent pas une interprétation causale.
+- La régularisation peut stabiliser une solution, mais elle ne crée pas d'information absente des données ; elle introduit un choix supplémentaire.
 
-## 11. Plan de l'article
+Cette section doit rester courte. La causalité appartient à J06 ; la géométrie de la régularisation sera développée en J11.
 
-1. Une droite ajuste les cinq points — puis un point déplace la pente.
-2. Ce que les moindres carrés minimisent exactement.
-3. Pourquoi les points éloignés en $x$ peuvent peser sur la pente.
-4. Résidus, levier et influence : trois notions à ne pas confondre.
-5. Lire les motifs des résidus et reconnaître l'extrapolation.
-6. Ce que l'ajustement autorise — et ce qu'il n'autorise pas — à conclure.
-7. Transfert Data Science, synthèse et références.
+## 9. Transfert vers la pratique Data Science
 
-## 12. Critères de passage à l'article
+Prendre un cas de variables presque redondantes : surface et volume, chiffre d'affaires et nombre de transactions, mesures issues de deux capteurs voisins, ou variables agrégées et leurs composantes.
 
-- [ ] L'angle est distinct de J03 (résumés/Anscombe) et J06 (causalité).
-- [ ] Les coefficients, résidus et RSS sont reproduits indépendamment.
-- [ ] Le point ajouté est correctement décrit comme point à fort levier et son influence est quantifiée.
-- [ ] La figure utilise des axes cohérents et distingue données initiales / point ajouté.
-- [ ] Les notions résidu, levier et influence ne sont pas confondues.
-- [ ] Les hypothèses sont reliées à leurs conséquences précises ; pas de liste rituelle.
-- [ ] Le transfert aboutit à une décision de modélisation défendable.
+Montrer le raisonnement :
+- établir pourquoi les variables sont proches (définition, processus de collecte, corrélation) ;
+- comparer un modèle avec un seul prédicteur et un modèle avec les deux ;
+- examiner la stabilité des coefficients sous perturbation ou rééchantillonnage ;
+- examiner séparément la stabilité des prédictions sur la population cible ;
+- décider si l'objectif est prédictif, descriptif ou explicatif avant d'interpréter les paramètres.
+
+Le transfert doit aboutir à une décision : conserver les deux variables pour la prédiction, reformuler les caractéristiques, obtenir de nouvelles données, ou renoncer à attribuer une contribution individuelle.
+
+## 10. Vérification des acquis
+
+Les exercices complets sont réservés à l'atelier. L'article peut se terminer par deux questions :
+
+1. Si $x_2=x_1$, quelle combinaison de $\beta_1$ et $\beta_2$ les données peuvent-elles identifier ?
+2. Pourquoi une forte variation des coefficients peut-elle coexister avec des prédictions presque inchangées ?
+
+Les réponses doivent distinguer rang, conditionnement, coefficients et valeurs prédites.
+
+## 11. Sources à vérifier
+
+- James, Witten, Hastie, Tibshirani et Taylor, *An Introduction to Statistical Learning*, édition disponible : sections sur régression multiple et colinéarité ; relever les localisateurs exacts.
+- Weisberg, *Applied Linear Regression*, pour la géométrie de la régression et les diagnostics de colinéarité ; vérifier l'édition et les sections.
+- Belsley, Kuh et Welsch, *Regression Diagnostics: Identifying Influential Data and Sources of Collinearity*, pour la colinéarité et le conditionnement ; vérifier les chapitres pertinents.
+
+Associer chaque source à une affirmation précise. Ne pas citer un ouvrage simplement parce qu'il traite de régression.
+
+## 12. Plan de l'article
+
+1. Deux variables presque identiques, deux coefficients qui se contredisent.
+2. Colinéarité parfaite : une infinité de coefficients, une même prédiction.
+3. Quasi-colinéarité : expérience numérique et stabilité des prédictions.
+4. La géométrie des colonnes explique l'instabilité.
+5. Diagnostiquer selon l'objectif : prédire ou interpréter.
+6. Limites, décisions pratiques et synthèse.
+
+## 13. Critères de passage à l'article
+
+- [ ] L'angle est distinct de J03 (résumés/Anscombe), J06 (causalité), J09 (fonction de perte) et J11 (régularisation).
+- [ ] Les résultats numériques sont reproduits indépendamment et les données synthétiques sont fournies.
+- [ ] La colinéarité parfaite et la quasi-colinéarité sont clairement distinguées.
+- [ ] La stabilité des coefficients et celle des prédictions ne sont jamais confondues.
+- [ ] Les diagnostics et remèdes sont présentés comme dépendants de l'objectif, pas comme recettes automatiques.
+- [ ] Le transfert conduit à une décision concrète pour un data scientist.
 - [ ] Les références sont vérifiées avec des localisateurs exacts.
 - [ ] L'article est autonome, accessible et compris entre 7 et 20 minutes.
