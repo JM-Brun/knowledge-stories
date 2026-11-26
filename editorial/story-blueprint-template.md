@@ -126,3 +126,39 @@ Ne conserver ici que des références que le lecteur peut consulter. Les notes p
 **Commit du plan validé :**
 
 **Travail restant avant rédaction :**
+
+
+## 11. Inventaire cognitif et enchaînement des idées
+
+| Élément | Formulation / intuition | Origine ou preuve | Limite / condition | Traitement prévu |
+|---|---|---|---|---|
+| Intuition initiale | | | | construire / tester / corriger |
+| Analogie | | | | conserver / nuancer / écarter |
+| Idée fausse | | | | anticiper / réfuter / exercer |
+| Confusion entre notions | | | | distinguer explicitement |
+| Faux ami / ambiguïté de vocabulaire | | | | définir et comparer |
+| Hypothèse cachée | | | | rendre explicite |
+| Raccourci de raisonnement | | | | reconstruire les étapes |
+| Contre-exemple / cas limite | | | | délimiter le domaine de validité |
+
+Décrire ensuite l'enchaînement minimal des idées, de la question initiale à la conclusion. Distinguer l'ordre suivi par chaque source, l'ordre logique des dépendances et l'ordre pédagogique retenu.
+
+## 12. Déclinaisons pédagogiques (facultatives)
+
+| Ressource | Objectif cognitif | Public / niveau | Source canonique | Évaluation / contrôle | Statut |
+|---|---|---|---|---|---|
+| Synthèse courte | Structurer et retrouver les idées essentielles | | Article / série + version | Fidélité et couverture | non prévue / à faire / validée |
+| Flashcards | Rappel actif, distinctions et définitions | | Article / série + version | Pas de question ambiguë ; réponse vérifiable | non prévue / à faire / validée |
+| Exercices | Calcul, dérivation, application ou transfert | | Objectifs ciblés | Énoncé complet et difficulté graduée | non prévu / à faire / validé |
+| Corrigés | Expliciter le raisonnement et les erreurs fréquentes | | Exercice + version | Résultat et étapes vérifiés | non prévu / à faire / validé |
+| Approfondissement | Étendre le périmètre sans surcharger le parcours essentiel | | Article / série + version | Prérequis et limites explicites | non prévu / à faire / validé |
+
+Ne produire que les ressources qui apportent une activité distincte. Elles restent dérivées de l'article ou de la série et doivent être révisées lorsque leur source canonique change.
+
+## 13. Traçabilité de bout en bout
+
+| Claim / idée | Source + localisateur | Concept existant / décision | Synthèse / comparaison | Objectif | Section | Activité / évaluation |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+Les trous sont explicitement qualifiés : hors périmètre, preuve insuffisante, désaccord non résolu, non enseigné, non évalué ou travail restant. Ne pas assimiler une référence bibliographique à une preuve localisée.
