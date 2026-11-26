@@ -248,23 +248,23 @@ Le même phénomène apparaît lorsqu'on agrège plusieurs modèles : si leurs e
 
 On peut quantifier cette intuition dans un cas simple. Supposons que les erreurs de \(m\) observations aient toutes la même variance \(\sigma^2\), et que chaque paire ait la même corrélation \(\rho\). La variance de leur moyenne est alors :
 
-\\[
-\\operatorname{Var}(\\overline X)
-=\\frac{\\sigma^2}{m}\\left[1+(m-1)\\rho\\right].
-\\]
+\[
+\operatorname{Var}(\overline X)
+=\frac{\sigma^2}{m}\left[1+(m-1)\rho\right].
+\]
 
-Pour comparer cette variance à celle de \(m_{\\mathrm{eff}}\) observations indépendantes de même variance, on définit un effectif indépendant équivalent :
+Pour comparer cette variance à celle de \(m_{\mathrm{eff}}\) observations indépendantes de même variance, on définit un effectif indépendant équivalent :
 
-\\[
-m_{\\mathrm{eff}}=\\frac{m}{1+(m-1)\\rho}.
-\\]
+\[
+m_{\mathrm{eff}}=\frac{m}{1+(m-1)\rho}.
+\]
 
-Avec 100 prompts de corrélation moyenne \(\\rho=0{,}2\), on obtient :
+Avec 100 prompts de corrélation moyenne \(\rho=0{,}2\), on obtient :
 
-\\[
-m_{\\mathrm{eff}}=\\frac{100}{1+99\\times0{,}2}
-\\approx 4{,}8.
-\\]
+\[
+m_{\mathrm{eff}}=\frac{100}{1+99\times0{,}2}
+\approx 4{,}8.
+\]
 
 Le benchmark contient bien 100 lignes. Mais, pour la variance de la moyenne dans ce modèle simplifié, elles apportent autant d'information que moins de cinq observations indépendantes. C'est l'effet de la redondance : ajouter des paraphrases proches augmente le volume du jeu de données sans augmenter proportionnellement l'information indépendante.
 
