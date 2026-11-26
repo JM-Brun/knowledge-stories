@@ -1,147 +1,226 @@
 ---
-title: "Une droite peut-elle apprendre ?"
+title: "Deux variables, une même information : que valent leurs coefficients ?"
 day: 7
 calendar: "2026"
 status: "skeleton"
 readingTimeTarget: "12–18 min"
-canonicalConcept: "Régression linéaire — concept à créer dans Wiki Knowledge"
+canonicalConcept: "Régression linéaire multiple et multicolinéarité — à vérifier dans Wiki Knowledge"
 ---
 
 # Squelette éditorial — calendrier 2026
 
-Ce document est un **dossier de conception évolutif**, pas un article destiné à être publié tel quel. Il sera progressivement enrichi, puis converti en article autonome dans `calendar/days/jour-XX.qmd`. Le récit et les concepts doivent avancer ensemble : l'histoire ouvre une enquête, l'explication construit une connaissance réutilisable.
+Ce document est un **dossier de conception**, pas un article destiné à être publié tel quel. Il sera converti en article autonome dans \`calendar/days/jour-07.qmd\` après vérification des concepts, des calculs et des sources.
 
 ## Contrat de rédaction
 
-- Cible : 7 à 20 minutes de lecture réelle ; enrichir par un raisonnement ou fusionner si le noyau reste inférieur à 7 minutes, hiérarchiser ou scinder au-delà de 20 minutes sans perte d'information.
-- Le concept canonique est la source de vérité ; ne pas recopier sa page. Les liens internes ci-dessous sont des repères de travail, jamais une dépendance du futur article public.
-- Knowledge Stories reste généraliste. Les exemples principaux sont non-LLM ; tokenisation, embeddings, attention/QKV, Transformers et génération autorégressive restent dans LLM Lab.
-- Ne pas inventer de source, de chiffre, de statut de concept ou de résultat. Les références listées sont des pistes à vérifier avant rédaction.
-- La progression du calendrier est éditoriale : les connexions ne sont pas automatiquement des prérequis.
-- Chaque article doit rester autonome et expliquer les hypothèses, notations, unités, limites et implications pratiques.
+- Cible : 7 à 20 minutes de lecture réelle ; viser 12–18 minutes.
+- Knowledge Stories reste généraliste : exemples principaux non-LLM. Les mécanismes propres aux Transformers et aux LLM restent dans LLM Lab.
+- Le futur article doit être autonome : définir les notations, expliciter les hypothèses, unités, limites et implications.
+- Les exercices détaillés restent dans l'atelier dédié ; l'article peut inclure une courte question de réflexion.
+- Ne pas transformer cette journée en tutoriel de régression multiple ni en catalogue de diagnostics.
+- Ne pas confondre instabilité des coefficients, qualité prédictive et identification causale.
 
 ## État
 
-- [ ] Concept canonique et statut vérifiés dans Wiki Knowledge.
-- [ ] Sources primaires et références vérifiées.
-- [ ] Exemple, calcul ou expérience spécifiés et contrôlés.
-- [ ] Angle distinctif et contribution pédagogique formulés.
-- [ ] Article rédigé, durée mesurée, liens et accessibilité vérifiés.
+- [ ] Vérifier le concept canonique et son statut dans Wiki Knowledge.
+- [ ] Vérifier les références et localisateurs.
+- [ ] Reproduire indépendamment les calculs de l'exemple.
+- [ ] Rédiger puis mesurer la durée réelle.
+- [ ] Contrôler le build, le rendu responsive et l'accessibilité.
 
 ---
 
-# Jour 07 — Une droite peut-elle apprendre ?
+# Jour 07 — Deux variables, une même information : que valent leurs coefficients ?
 
-## 1. Promesse et question
+## 1. Décision éditoriale
 
-**Question directrice :** Comment une droite ajuste-t-elle ses paramètres à partir de points bruités, et que laisse-t-elle inexpliqué ?
+**Décision : transformer l'introduction générique à la régression en enquête sur la multicolinéarité et l'interprétation des coefficients.**
 
-**Objectif observable :** Interpréter pente et intercept, calculer des résidus et expliquer le critère des moindres carrés.
+**Question directrice :** Comment un modèle peut-il produire des prédictions presque inchangées alors que les coefficients associés à ses variables deviennent très grands, opposés et instables ?
+
+**Thèse à faire découvrir :** lorsque deux prédicteurs portent presque la même information, le modèle peut identifier assez bien leur contribution combinée aux prédictions, sans pouvoir attribuer de façon fiable une contribution individuelle à chacun. Un bon ajustement ne garantit donc pas que chaque coefficient raconte une histoire stable.
+
+**Intérêt pour un data scientist :** les jeux de données réels contiennent souvent des variables redondantes : mesures proches, indicateurs dérivés, variables saisonnières, métriques de taille et de volume, caractéristiques fortement corrélées. Interpréter séparément leurs coefficients peut conduire à des conclusions fragiles alors que les prédictions semblent robustes.
+
+**Objectif observable :** le lecteur doit pouvoir expliquer la non-identifiabilité en cas de colinéarité parfaite, reconnaître le problème de quasi-colinéarité, et distinguer stabilité prédictive et stabilité des paramètres.
 
 **Durée cible :** 12–18 minutes.
 
-À la fin, le lecteur doit être capable de reformuler le problème, d'effectuer le raisonnement annoncé, d'en reconnaître les hypothèses et d'identifier au moins une limite. La promesse ne sera considérée comme tenue que si l'activité finale vérifie effectivement cette capacité.
+## 2. Frontières avec les autres journées
 
-## 2. Situation d'entrée et fil narratif
+- **J03** montre que des jeux de données différents peuvent partager les mêmes résumés et la même droite. J07 examine une autre perte d'information : plusieurs coefficients peuvent représenter presque la même direction dans l'espace des prédicteurs.
+- **J06** traite de confusion, stratification et identification causale. J07 traite de l'identifiabilité numérique et de l'interprétation des paramètres d'un modèle ; il ne prétend pas identifier un effet causal.
+- **J09** examinera la quantité statistique visée par une fonction de perte. J07 se concentre sur la redondance entre prédicteurs dans un modèle linéaire.
+- **J11** traitera la régularisation et le compromis biais-variance. J07 peut signaler que la régularisation stabilise parfois les coefficients, mais ne doit pas développer L1/L2 ni leurs géométries.
 
-**Scène d'ouverture :** Un nuage de points suggère une tendance, mais aucune droite ne passe par tous les points. Que signifie alors « apprendre la meilleure droite » ?
+## 3. Situation d'entrée
 
-**Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
+Une équipe construit un modèle de consommation à partir de deux variables : la surface d'un logement et une mesure de volume qui lui est presque proportionnelle. Le modèle prédit correctement la consommation. Pourtant, selon la version des données, le coefficient de la surface devient très positif et celui du volume très négatif, ou l'inverse.
 
-**Déroulé narratif provisoire :** Nuage de points ; famille de droites ; définition des résidus ; somme des carrés ; ajustement ; diagnostic ; hypothèses et extrapolation.
+**Tension narrative :** les prédictions n'ont presque pas changé, mais l'interprétation des variables s'est renversée. Le modèle n'est pas nécessairement mauvais pour prédire ; c'est l'attribution individuelle des coefficients qui est devenue fragile.
 
-**Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
+La question qui guide l'article : quelle information les données contiennent-elles réellement pour séparer les contributions de deux variables presque redondantes ?
 
-## 3. Carte de couverture conceptuelle
+## 4. Première expérience — colinéarité parfaite
 
-**Concept pivot :** Régression linéaire — concept à créer dans Wiki Knowledge.
+Considérer le modèle :
 
-**Notions à couvrir :** modèle, paramètres, pente, intercept, moindres carrés, résidus, hypothèses, extrapolation, observation influente.
+$$
+\widehat y_i = \beta_0+\beta_1x_{i1}+\beta_2x_{i2}.
+$$
 
-À compléter lors de la revue canonique :
-- **Prérequis à rappeler :** identifier ceux qui sont réellement indispensables et les expliquer brièvement dans l'article.
-- **Distinctions à rendre explicites :** préciser les confusions voisines qui changeraient le raisonnement.
-- **Approfondissements à signaler seulement :** éviter de transformer l'article en chapitre encyclopédique.
-- **Statut de la connaissance :** vérifier le contenu et le statut du concept dans Wiki Knowledge ; un concept draft n'est pas une référence validée.
+Si les deux prédicteurs sont exactement identiques, $x_{i2}=x_{i1}$, alors :
 
-Le futur article devra définir chaque notion centrale, expliquer son mécanisme, préciser ses hypothèses et limites, puis la faire travailler dans un exemple. Il ne doit pas simplement énumérer les concepts.
+$$
+\widehat y_i=\beta_0+(\beta_1+\beta_2)x_{i1}.
+$$
 
-## 4. Expérience, démonstration ou preuve
+Les données peuvent déterminer la somme $\beta_1+\beta_2$, mais pas les deux coefficients séparément. Les couples $(\beta_1,\beta_2)=(5,0)$, $(3,2)$ ou $(10,-5)$ donnent exactement les mêmes prédictions si leur somme vaut 5.
 
-**Dispositif proposé :** Ajuster une droite sur un jeu jouet, ajouter un point extrême et observer l'effet sur la pente et l'intercept.
+**Découverte :** le problème n'est pas que l'algorithme n'a pas trouvé la bonne solution. Il n'existe pas une unique attribution des coefficients compatible avec ces données. La matrice de conception n'a pas le rang nécessaire pour identifier séparément les paramètres.
 
-**Matériel à préparer :**
-- données ou paramètres explicitement documentés ;
-- calculs reproductibles et vérifiés indépendamment ;
-- représentation visuelle seulement si elle rend un mécanisme ou un contraste plus intelligible ;
-- légende, unités, texte alternatif et équivalent textuel pour toute figure.
+Ne pas s'arrêter à « les variables sont corrélées » : la corrélation parfaite crée une dépendance linéaire exacte entre les colonnes du modèle ; la quasi-colinéarité rend l'identification numériquement fragile sans la rendre strictement impossible.
 
-**Résultat attendu :** à préciser après exécution. Ne pas annoncer un résultat avant de l'avoir calculé ou observé.
+## 5. Deuxième expérience — presque la même information
 
-## 5. Angle distinctif — contribution de cette journée
+Construire un exemple synthétique reproductible avec huit observations :
 
-**Piège central à désamorcer :** Association linéaire n'est pas causalité ; le meilleur ajustement dans l'échantillon n'identifie pas nécessairement le mécanisme générateur.
+$$
+x_1=(0,1,2,3,4,5,6,7)
+$$
 
-**Question éditoriale à résoudre avant rédaction :**
-1. Comment les ressources de référence expliquent-elles généralement le sujet ?
-2. Quelle hypothèse implicite, confusion, limite ou conséquence reste peu visible ?
-3. Qu'apporte précisément cette enquête au lecteur ?
-4. Quel exemple ou dispositif lui permet de découvrir cet apport ?
-5. Quelle question de transfert permet de vérifier qu'il l'a compris ?
+et une petite perturbation :
 
-L'apport peut être une reconstruction pédagogique, une démonstration, un contre-exemple ou une connexion rigoureuse. Ne pas fabriquer une originalité scientifique.
+$$
+z=(-0{,}3;0{,}2;0{,}1;-0{,}2;0{,}25;-0{,}15;0{,}3;-0{,}2).
+$$
 
-## 6. Transfert vers la pratique
+Définir un second prédicteur presque identique au premier :
 
-Baseline prédictive, calibration simple, diagnostic des résidus et interprétation d'une relation quantitative.
+$$
+x_2=x_1+\delta z.
+$$
 
-Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
+La cible est :
 
-## 7. Vérification des acquis
+$$
+y=5x_1+\varepsilon,
+$$
 
-**Activité proposée :** Comparer deux droites à partir de leurs résidus ; calculer une prédiction ; discuter si l'extrapolation est défendable.
+avec :
 
-Prévoir 2 à 4 questions graduées :
-1. compréhension ou calcul direct ;
-2. prédiction de l'effet d'une modification ;
-3. transfert à un autre contexte ;
-4. éventuellement, identification d'une hypothèse insuffisante.
+$$
+\varepsilon=(0{,}1;-0{,}2;0{,}15;-0{,}1;0{,}05;0{,}2;-0{,}15;-0{,}05).
+$$
 
-La correction doit détailler le raisonnement, les conventions et les endroits où une hypothèse intervient.
+Ajuster le même modèle linéaire avec constante pour deux valeurs de $\delta$ :
 
-## 8. Connexions
+| Écart entre les prédicteurs | Corrélation entre $x_1$ et $x_2$ | Coefficient de $x_1$ | Coefficient de $x_2$ | RSS |
+|---|---:|---:|---:|---:|
+| $\delta=0{,}05$ | 0,9999884 | 9,344 | −4,348 | 0,1301 |
+| $\delta=0{,}005$ | 0,9999999 | 48,475 | −43,478 | 0,1301 |
 
-J03–J04 (statistiques descriptives), J06 (causalité), J08 (estimation), J09 (perte).
+Les prédictions ajustées sont identiques à l'arrondi près dans les deux cas, de même que la somme des carrés des résidus. Pourtant, les coefficients individuels deviennent beaucoup plus grands et opposés lorsque les deux colonnes se rapprochent.
 
-Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
+**À faire dans l'article :**
+- fournir les données ou le code de génération de manière reproductible ;
+- calculer les coefficients par moindres carrés et vérifier la corrélation ;
+- afficher les prédictions et les coefficients sur deux panneaux distincts ;
+- montrer que les deux variables sont presque interchangeables dans les données disponibles ;
+- expliquer que la somme des coefficients reste proche de la contribution combinée attendue, tandis que leur attribution séparée est instable.
 
-## 9. Sources à vérifier
+Le résultat ne doit pas être présenté comme une propriété universelle de tous les modèles corrélés. Il illustre une géométrie précise de la matrice de conception. Vérifier les arrondis et les chiffres sur l'implémentation retenue avant rédaction.
 
-James et al., *An Introduction to Statistical Learning* ; vérifier édition et chapitre pertinent.
+## 6. Le mécanisme géométrique
 
-Pour chaque référence retenue, relever l'édition/version, le chapitre ou passage utile, le type de source et les affirmations qu'elle soutient. Vérifier les sources primaires quand elles existent. Ne pas publier de lien vers un espace privé.
+Présenter les colonnes de la matrice de conception comme des directions dans l'espace des observations. Si deux colonnes sont presque parallèles, de nombreuses combinaisons de coefficients produisent des vecteurs de prédiction très proches.
 
-## 10. Plan d'article pressenti
+La régression ajuste la combinaison linéaire :
 
-1. Question concrète et enjeu.
-2. Intuition construite à partir de la situation.
-3. Définitions et distinctions nécessaires.
-4. Mécanisme ou formalisation, avec notation explicitée.
-5. Exemple calculé, expérience ou démonstration.
-6. Limite ou contre-exemple.
-7. Application à une situation de Data Science.
-8. Questions et correction raisonnée.
-9. Synthèse et références.
+$$
+\widehat y = X\widehat\beta,
+$$
 
-Les titres définitifs pourront varier pour servir la narration. Ne pas forcer du code si un calcul, un schéma ou un raisonnement est plus pertinent.
+mais la stabilité de $\widehat\beta$ dépend de la géométrie de $X^\top X$. Lorsque cette matrice est mal conditionnée, de petites perturbations des données peuvent provoquer de grands changements des coefficients.
 
-## 11. Critères de passage à l'article
+Expliquer visuellement :
+- colinéarité parfaite : une direction est redondante, la solution n'est pas unique ;
+- quasi-colinéarité : la solution numérique peut être unique, mais très sensible ;
+- prédictions : la combinaison $X\widehat\beta$ peut rester stable alors que les coordonnées de $\widehat\beta$ varient fortement.
 
-- [ ] L'angle narratif est concret et ne masque pas la question scientifique.
-- [ ] Le concept pivot est vérifié et les concepts centraux sont réellement expliqués.
-- [ ] Les calculs, exemples et affirmations quantitatives sont vérifiés.
-- [ ] Le piège conceptuel est désamorcé avec un contre-exemple ou une explication.
-- [ ] Le transfert change effectivement une pratique ou une interprétation.
-- [ ] La correction des exercices teste l'objectif annoncé.
-- [ ] La durée est comprise entre 7 et 20 minutes sans remplissage.
-- [ ] Le contenu est autonome, sourcé, accessible et sans dépendance à un dépôt privé.
+Éviter de faire de la norme matricielle ou du nombre de conditionnement un détour mathématique. Une visualisation de deux colonnes presque parallèles et une explication du système de coordonnées suffisent ; les indicateurs numériques peuvent être donnés en complément.
+
+## 7. Que peut-on diagnostiquer et que peut-on faire ?
+
+Structurer les diagnostics autour de trois questions :
+
+1. **Les variables portent-elles une information redondante ?** Examiner les relations entre prédicteurs, les définitions métier et les transformations utilisées. Une matrice de corrélation est un indice, pas un diagnostic complet : une dépendance linéaire peut impliquer plusieurs variables et ne pas se réduire à une paire fortement corrélée.
+2. **Quelle quantité est instable ?** Comparer coefficients, erreurs standards et prédictions sous de petites perturbations ou sur des rééchantillonnages. Une forte instabilité des coefficients ne signifie pas automatiquement une forte instabilité prédictive.
+3. **Quelle interprétation cherche-t-on ?** Pour prédire, la redondance peut être tolérable si les performances hors échantillon sont stables. Pour attribuer une contribution à chaque variable, elle pose un problème substantiel.
+
+Pistes à présenter brièvement, sans en faire une recette universelle :
+- retirer ou regrouper des variables seulement si cela a un sens scientifique et métier ;
+- choisir une représentation plus pertinente des variables redondantes ;
+- collecter des observations où les prédicteurs varient indépendamment, si le protocole le permet ;
+- utiliser une régularisation lorsque l'objectif et les hypothèses le justifient, en signalant que les coefficients obtenus dépendent alors de la pénalisation.
+
+Ne pas recommander de supprimer automatiquement une variable parce que sa corrélation avec une autre est élevée. La décision dépend de l'objectif, de la connaissance du domaine et du protocole de collecte.
+
+## 8. Ce que les coefficients ne disent pas
+
+- Un coefficient de régression multiple décrit une variation conditionnelle au modèle et aux autres prédicteurs inclus ; son interprétation dépend de l'échelle et de la spécification.
+- Des coefficients instables ne prouvent pas que les variables sont inutiles pour prédire.
+- Des coefficients stables ne prouvent pas une interprétation causale.
+- La régularisation peut stabiliser une solution, mais elle ne crée pas d'information absente des données ; elle introduit un choix supplémentaire.
+
+Cette section doit rester courte. La causalité appartient à J06 ; la géométrie de la régularisation sera développée en J11.
+
+## 9. Transfert vers la pratique Data Science
+
+Prendre un cas de variables presque redondantes : surface et volume, chiffre d'affaires et nombre de transactions, mesures issues de deux capteurs voisins, ou variables agrégées et leurs composantes.
+
+Montrer le raisonnement :
+- établir pourquoi les variables sont proches (définition, processus de collecte, corrélation) ;
+- comparer un modèle avec un seul prédicteur et un modèle avec les deux ;
+- examiner la stabilité des coefficients sous perturbation ou rééchantillonnage ;
+- examiner séparément la stabilité des prédictions sur la population cible ;
+- décider si l'objectif est prédictif, descriptif ou explicatif avant d'interpréter les paramètres.
+
+Le transfert doit aboutir à une décision : conserver les deux variables pour la prédiction, reformuler les caractéristiques, obtenir de nouvelles données, ou renoncer à attribuer une contribution individuelle.
+
+## 10. Vérification des acquis
+
+Les exercices complets sont réservés à l'atelier. L'article peut se terminer par deux questions :
+
+1. Si $x_2=x_1$, quelle combinaison de $\beta_1$ et $\beta_2$ les données peuvent-elles identifier ?
+2. Pourquoi une forte variation des coefficients peut-elle coexister avec des prédictions presque inchangées ?
+
+Les réponses doivent distinguer rang, conditionnement, coefficients et valeurs prédites.
+
+## 11. Sources à vérifier
+
+- James, Witten, Hastie, Tibshirani et Taylor, *An Introduction to Statistical Learning*, édition disponible : sections sur régression multiple et colinéarité ; relever les localisateurs exacts.
+- Weisberg, *Applied Linear Regression*, pour la géométrie de la régression et les diagnostics de colinéarité ; vérifier l'édition et les sections.
+- Belsley, Kuh et Welsch, *Regression Diagnostics: Identifying Influential Data and Sources of Collinearity*, pour la colinéarité et le conditionnement ; vérifier les chapitres pertinents.
+
+Associer chaque source à une affirmation précise. Ne pas citer un ouvrage simplement parce qu'il traite de régression.
+
+## 12. Plan de l'article
+
+1. Deux variables presque identiques, deux coefficients qui se contredisent.
+2. Colinéarité parfaite : une infinité de coefficients, une même prédiction.
+3. Quasi-colinéarité : expérience numérique et stabilité des prédictions.
+4. La géométrie des colonnes explique l'instabilité.
+5. Diagnostiquer selon l'objectif : prédire ou interpréter.
+6. Limites, décisions pratiques et synthèse.
+
+## 13. Critères de passage à l'article
+
+- [ ] L'angle est distinct de J03 (résumés/Anscombe), J06 (causalité), J09 (fonction de perte) et J11 (régularisation).
+- [ ] Les résultats numériques sont reproduits indépendamment et les données synthétiques sont fournies.
+- [ ] La colinéarité parfaite et la quasi-colinéarité sont clairement distinguées.
+- [ ] La stabilité des coefficients et celle des prédictions ne sont jamais confondues.
+- [ ] Les diagnostics et remèdes sont présentés comme dépendants de l'objectif, pas comme recettes automatiques.
+- [ ] Le transfert conduit à une décision concrète pour un data scientist.
+- [ ] Les références sont vérifiées avec des localisateurs exacts.
+- [ ] L'article est autonome, accessible et compris entre 7 et 20 minutes.
