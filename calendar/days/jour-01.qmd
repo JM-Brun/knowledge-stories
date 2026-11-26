@@ -1,314 +1,168 @@
 ---
-title: "Une mesure précise peut-elle être fausse ?"
-subtitle: "Jour 1 · Quand les capteurs ne racontent pas la même histoire"
-description: "Une enquête sur deux thermomètres montre pourquoi répétabilité, justesse et incertitude ne répondent pas à la même question — et pourquoi cela compte avant d'entraîner un modèle."
+title: "Le modèle voit-il le bâtiment ou le capteur ?"
+subtitle: "Jour 1 · Quand le plan de mesure décide de ce que les données permettent d'apprendre"
+description: "Deux bâtiments semblent différer. Mais si chacun utilise un capteur différent, les données permettent-elles vraiment d'attribuer l'écart au bâtiment ?"
 ---
 
-> **Environ 17 à 19 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.
+> **Environ 10 à 12 minutes** — Une enquête sur deux bâtiments montre pourquoi un modèle peut confondre l'effet d'un phénomène avec celui de son instrument de mesure, et comment un plan croisé permet de les distinguer.
 >
-> **Prérequis** — Aucun. La moyenne et l'écart-type sont expliqués au moment où ils deviennent utiles.
+> **Prérequis** — Aucun. Les équations sont expliquées au moment où elles deviennent utiles.
 >
-> **À la fin** — Vous saurez distinguer dispersion et décalage, expliquer pourquoi multiplier les mesures ne corrige pas un biais, et construire un premier diagnostic de qualité pour une variable mesurée.
+> **À la fin** — Vous saurez reconnaître une confusion entre site et capteur, expliquer pourquoi répéter les mêmes mesures ne la résout pas, et comprendre ce qu'un plan de mesure croisé permet d'identifier.
 
-## Pourquoi cette question compte en Data Science
+## Le modèle a trouvé un écart. Mais entre quoi et quoi ?
 
-Une variable mesurée n'est pas le phénomène lui-même : c'est le résultat d'un instrument, d'un protocole et d'une référence. Si l'effet du capteur est confondu avec celui du bâtiment, du patient ou du site, un modèle peut apprendre une différence de chaîne de mesure et la prendre pour un signal du monde. L'enjeu n'est donc pas seulement de « nettoyer » une colonne : c'est de savoir si la variable conserve le même sens entre les contextes d'entraînement et de déploiement.
+Un modèle de suivi énergétique signale que le bâtiment B est plus froid que le bâtiment A. L'écart observé est de 0,5 °C. L'équipe envisage de modifier le chauffage.
 
-## L'alerte
+Un détail mérite pourtant attention : le bâtiment A est équipé du capteur S1, le bâtiment B du capteur S2. Chaque capteur est toujours associé au même bâtiment.
 
-Un lundi matin, un modèle de suivi énergétique signale que le bâtiment B est presque un degré plus froid que le bâtiment A. L'écart est assez grand pour déclencher une investigation : faut-il modifier le chauffage, inspecter l'isolation, ou vérifier les capteurs ?
+Le modèle compare donc deux choses à la fois :
 
-Les deux bâtiments sont comparables. Les capteurs ont été installés le même jour. Et pourtant, leurs relevés sont très différents.
+- deux bâtiments, qui peuvent réellement avoir des températures différentes ;
+- deux capteurs, qui peuvent ne pas indiquer la même valeur pour une même température.
 
-Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce stabilisée à environ 20 °C. Pendant les relevés, un thermomètre de référence indépendant, étalonné et adapté à cette plage, indique 20,00 °C ; son incertitude élargie est de 0,05 °C (facteur d'élargissement \(k=2\)). Cette référence n'est pas une vérité parfaite : elle fournit un point de comparaison documenté, avec une incertitude connue. Dans cet exemple construit, sa traçabilité métrologique est documentée ; ce statut ne dispense pas de vérifier que son incertitude est adaptée à la décision.
+**La question n'est pas encore de savoir quel bâtiment est le plus froid. Elle est de savoir si les données permettent de le déterminer.**
 
-Les valeurs ci-dessous sont un scénario illustratif, pas des observations expérimentales.
+Les nombres de cette enquête sont construits pour illustrer le raisonnement ; ils ne proviennent pas d'une campagne de mesure réelle.
 
-Trois relevés suffisent à faire apparaître une énigme :
+## Première vérification : les capteurs disent-ils la même chose dans les mêmes conditions ?
 
-| Capteur A | Capteur B |
-|---:|---:|
-| 20,2 °C | 19,0 °C |
-| 20,1 °C | 19,1 °C |
-| 20,2 °C | 19,0 °C |
-| **Moyenne : 20,17 °C** | **Moyenne : 19,03 °C** |
+L'équipe place les deux capteurs côte à côte dans un environnement stabilisé. Une référence étalonnée indique 20,00 °C ; son incertitude est documentée.
 
-Les deux séries ont la même étendue observée, 0,1 °C. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à l'indication de référence, les différences observées sont de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à estimer son biais ni à certifier son comportement sur toute sa plage d'utilisation. Les moyennes au centième proviennent du calcul sur trois indications arrondies au dixième : ces centièmes ne signifient pas que les capteurs ont une résolution de 0,01 °C. De même, l'incertitude annoncée pour la référence n'est pas l'incertitude complète de la comparaison, qui doit aussi intégrer les instruments comparés et les conditions expérimentales.
+| Relevé | Capteur S1 | Capteur S2 |
+|---:|---:|---:|
+| 1 | 20,1 °C | 19,1 °C |
+| 2 | 20,0 °C | 19,0 °C |
+| 3 | 19,9 °C | 18,9 °C |
+| **Moyenne** | **20,0 °C** | **19,0 °C** |
 
-**Question : lequel des deux capteurs mesure le mieux ?** Pour répondre, il faut séparer deux propriétés que le langage courant confond souvent.
+Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
 
-## Deux questions, deux diagnostics
+Cette comparaison apporte un indice important, mais sa portée reste limitée :
 
-La première question porte sur la répétition : si je recommence la mesure dans les mêmes conditions, est-ce que j'obtiens presque la même valeur ?
+- trois relevés ne suffisent pas à caractériser complètement la répétabilité d'un instrument ;
+- un essai autour de 20 °C ne démontre pas que le décalage reste constant à d'autres températures ;
+- l'incertitude de la référence n'est pas, à elle seule, l'incertitude complète de la comparaison.
 
-La seconde porte sur la proximité d'une référence : est-ce que les résultats sont proches de la valeur que l'on cherche à mesurer ?
+On peut donc dire que les indications de S2 sont décalées dans cet essai. On ne peut pas encore déclarer que son biais vaut exactement −1 °C dans toutes les conditions.
 
-Le schéma résume les deux dimensions. La cible représente la valeur de référence ; chaque point représente une mesure répétée.
+La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Une série peu dispersée peut rester systématiquement décalée. Le [Vocabulaire international de métrologie](https://jcgm.bipm.org/vim/fr/) distingue notamment fidélité, répétabilité, justesse, exactitude et incertitude ; ces termes ne sont pas interchangeables.
 
-<figure>
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison de deux capteurs, défilable horizontalement sur petit écran">
-<svg viewBox="0 0 760 310" role="img" aria-labelledby="sensor-title sensor-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="sensor-title">Deux capteurs peu dispersés, mais dont les mesures sont décalées différemment</title>
-  <desc id="sensor-desc">Deux panneaux montrent trois mesures très proches pour chaque capteur. Le capteur A est centré près de la référence de 20 degrés. Le capteur B est lui aussi stable, mais ses mesures sont environ un degré plus basses. La ligne verticale indique la référence.</desc>
-  <rect x="1" y="1" width="758" height="308" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g font-family="sans-serif" fill="#0f172a">
-    <text x="24" y="30" font-size="15" font-weight="700">Même stabilité apparente, décalage différent</text>
-    <text x="24" y="58" font-size="13" font-weight="700">Capteur A</text>
-    <text x="400" y="58" font-size="13" font-weight="700">Capteur B</text>
-  </g>
-  <g stroke="#cbd5e1" stroke-width="1">
-    <rect x="20" y="72" width="350" height="170" rx="8" fill="#ffffff"/>
-    <rect x="390" y="72" width="350" height="170" rx="8" fill="#ffffff"/>
-  </g>
-  <g stroke="#b45309" stroke-width="2" stroke-dasharray="5 4">
-    <line x1="195" y1="83" x2="195" y2="225"/>
-    <line x1="565" y1="83" x2="565" y2="225"/>
-  </g>
-  <g fill="#92400e" font-size="11" font-weight="700">
-    <text x="202" y="95">Référence 20,00</text>
-    <text x="572" y="95">Référence 20,00</text>
-  </g>
-  <g fill="#0f766e" stroke="#ffffff" stroke-width="2">
-    <circle cx="220" cy="145" r="8"/><circle cx="210" cy="175" r="8"/><circle cx="220" cy="205" r="8"/>
-  </g>
-  <g fill="#7c3aed" stroke="#ffffff" stroke-width="2">
-    <circle cx="442" cy="145" r="8"/><circle cx="452" cy="175" r="8"/><circle cx="442" cy="205" r="8"/>
-  </g>
-  <g fill="#475569" font-size="11" text-anchor="middle">
-    <text x="70" y="263">19,0</text><text x="195" y="263">20,0</text><text x="320" y="263">21,0 °C</text>
-    <text x="440" y="263">19,0</text><text x="565" y="263">20,0</text><text x="690" y="263">21,0 °C</text>
-  </g>
-  <g fill="#0f172a" font-size="12">
-    <text x="24" y="289">A : mesures resserrées, moyenne proche de la référence.</text>
-    <text x="400" y="289">B : mesures resserrées, moyenne décalée vers le bas.</text>
-  </g>
-</svg>
-</div>
-<figcaption>Schéma conceptuel : les points sont resserrés dans les deux cas, mais le centre du capteur B est décalé. Les valeurs numériques exactes sont celles du tableau précédent.</figcaption>
-</figure>
+## Pourquoi répéter davantage ne corrige pas le décalage
 
-Le capteur B est stable au cours de ces trois relevés, mais il indique une température nettement inférieure à celle attendue. La stabilité des résultats ne garantit donc pas leur proximité avec la valeur recherchée.
-
-La métrologie distingue notamment :
-
-- **[Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html)** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
-- **[Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html)** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, mêmes opérateurs, même système de mesure, mêmes conditions de fonctionnement et même lieu, avec des mesures répétées sur le même objet (ou des objets similaires) pendant une courte période.
-- **[Justesse](https://jcgm.bipm.org/vim/fr/2.14.html)** : proximité entre la moyenne d'un nombre infini de résultats répétés et une valeur de référence.
-- **[Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html)** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
-
-Ces définitions sont celles du [Vocabulaire international de métrologie (VIM), JCGM 200:2012](https://jcgm.bipm.org/vim/fr/). Le mot « précision » est ambigu dans le langage courant : mieux vaut préciser si l'on parle de fidélité, de répétabilité ou d'exactitude.
-
-**Premier résultat de l'enquête :** les trois relevés suggèrent que les deux capteurs sont peu dispersés dans les conditions de l'essai. Ils ne suffisent pas à caractériser complètement leur répétabilité ni à établir le biais de chacun. Mais ils révèlent un écart qui mérite une investigation.
-
-## Pourquoi répéter mille fois ne suffit pas
-
-L'équipe propose une solution : laisser les capteurs côte à côte toute la journée et collecter des milliers de mesures. Si le problème vient du hasard, la moyenne devrait devenir plus fiable.
-
-C'est vrai pour une partie du problème. Ce n'est pas vrai pour toute erreur.
-
-Un modèle simplifié permet de comprendre pourquoi :
+Un modèle minimal permet de séparer les deux contributions :
 
 \[
 X_i = \theta + b + \varepsilon_i
 \]
 
-- \(\theta\) est la température que l'on cherche à mesurer ;
-- \(b\) est un décalage systématique, supposé constant pendant l'expérience ;
-- \(\varepsilon_i\) représente les variations aléatoires de la mesure.
+- \(\theta\) est la température recherchée ;
+- \(b\) est le décalage propre au système de mesure, supposé constant pendant la série ;
+- \(\varepsilon_i\) représente les fluctuations aléatoires.
 
-Pour voir ce qui se passe, supposons que la température recherchée \(\theta\) et le décalage \(b\) restent constants pendant la série, et que les erreurs aléatoires soient indépendantes, de même loi, de moyenne nulle et de variance \(\sigma^2\). La moyenne de \(n\) mesures vaut :
-
-\[
-\overline X_n = \theta + b + \frac{1}{n}\sum_{i=1}^{n}\varepsilon_i
-\]
-
-Son espérance et sa variance sont alors :
+Supposons que \(\theta\) et \(b\) restent constants et que les erreurs aléatoires soient indépendantes, centrées et de variance \(\sigma^2\). La moyenne de \(n\) mesures vérifie alors :
 
 \[
-\mathbb E[\overline X_n] = \theta+b
+\mathbb{E}[\overline X_n] = \theta+b,
 \qquad
-\operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}
+\operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}.
 \]
 
-Deux effets coexistent :
+Augmenter \(n\) réduit la variabilité de la moyenne sous ces hypothèses. Mais son espérance reste \(\theta+b\) : **la répétition ne retire pas le décalage systématique**.
 
-1. La partie aléatoire de la moyenne diminue quand le nombre de mesures augmente. Son écart-type décroît comme \(1/\sqrt n\).
-2. Le décalage \(b\) reste présent. La moyenne se rapproche de \(\theta+b\), pas de \(\theta\).
+Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps peuvent être autocorrélées ; dans ce cas, la variance de la moyenne n'est généralement plus \(\sigma^2/n\). Cette limite rappelle qu'un grand nombre de lignes n'est pas nécessairement un grand nombre d'informations indépendantes.
 
-Cette conclusion dépend de l'hypothèse d'indépendance. Des mesures prises à quelques secondes d'intervalle peuvent partager les mêmes fluctuations (température ambiante, inertie du capteur, alimentation) et être autocorrélées. Dans ce cas, la variance de la moyenne n'est généralement plus \(\sigma^2/n\) : augmenter le nombre de lignes apporte moins d'information que ne le laisserait croire ce calcul. La répétition ne compense donc ni un biais systématique ni une dépendance ignorée.
+Mais le problème du réseau de capteurs est plus profond encore : même si chaque capteur fournissait des milliers de mesures très stables, pourrait-on séparer l'effet du bâtiment de celui du capteur ?
 
-<figure>
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Effet de la répétition sur le bruit et sur le biais, défilable horizontalement sur petit écran">
-<svg viewBox="0 0 760 300" role="img" aria-labelledby="repeat-title repeat-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="repeat-title">La répétition réduit la dispersion mais ne supprime pas le décalage systématique</title>
-  <desc id="repeat-desc">Deux séries de moyennes sont représentées pour un petit puis un grand nombre de mesures. La dispersion diminue avec le nombre de mesures. La série biaisée reste centrée sur une valeur décalée de la référence.</desc>
-  <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="24" y="30" font-size="15" font-weight="700" fill="#0f172a">Quand n augmente, le nuage se resserre — son centre ne bouge pas</text>
-  <g stroke="#b45309" stroke-width="2" stroke-dasharray="5 4">
-    <line x1="380" y1="58" x2="380" y2="250"/>
-  </g>
-  <text x="390" y="70" font-size="11" fill="#92400e">Valeur recherchée θ</text>
-  <g fill="#0f172a" font-size="12" font-weight="700">
-    <text x="24" y="92">Petit n</text><text x="24" y="188">Grand n</text>
-  </g>
-  <g fill="#0f766e" opacity="0.85">
-    <circle cx="350" cy="82" r="6"/><circle cx="369" cy="99" r="6"/><circle cx="393" cy="83" r="6"/><circle cx="410" cy="105" r="6"/><circle cx="380" cy="117" r="6"/>
-    <circle cx="375" cy="177" r="4"/><circle cx="382" cy="190" r="4"/><circle cx="378" cy="204" r="4"/><circle cx="386" cy="218" r="4"/><circle cx="373" cy="231" r="4"/>
-  </g>
-  <g fill="#7c3aed" opacity="0.85">
-    <circle cx="240" cy="82" r="6"/><circle cx="270" cy="99" r="6"/><circle cx="305" cy="83" r="6"/><circle cx="330" cy="105" r="6"/><circle cx="285" cy="117" r="6"/>
-    <circle cx="284" cy="177" r="4"/><circle cx="290" cy="190" r="4"/><circle cx="286" cy="204" r="4"/><circle cx="294" cy="218" r="4"/><circle cx="281" cy="231" r="4"/>
-  </g>
-  <g fill="#475569" font-size="11">
-    <text x="24" y="270">Vert : centre non décalé</text>
-    <text x="390" y="270">Violet : biais négatif (sous-estimation)</text>
-  </g>
-  <text x="24" y="289" font-size="10" fill="#64748b">Illustration schématique, pas une simulation ni des données expérimentales.</text>
-</svg>
-</div>
-<figcaption>La moyenne devient plus stable, mais une erreur systématique déplace durablement son centre. Le schéma illustre le modèle mathématique ci-dessus.</figcaption>
-</figure>
+## Le vrai problème : deux effets parfaitement confondus
 
-C'est la raison pour laquelle une base de données contenant un million de mesures peut être très précise au sens de la répétition, tout en étant fausse pour l'usage visé. La quantité de données ne remplace pas un protocole de mesure valide.
-
-La décomposition classique biais–variance exprime une idée voisine pour un estimateur \(\widehat\theta\) d'une quantité fixe :
+Notons \(Y_{s,c}\) la température indiquée dans le bâtiment \(s\) par le capteur \(c\). Un modèle additif simple serait :
 
 \[
-\operatorname{EQM}(\widehat\theta)
-=
-\operatorname{Var}(\widehat\theta)
-+
-\operatorname{Biais}(\widehat\theta)^2
+Y_{s,c} = \mu + \alpha_s + \beta_c + \varepsilon_{s,c},
 \]
 
-Elle montre que la stabilité n'est qu'une composante de l'erreur quadratique moyenne. Cette identité concerne l'estimation sous perte quadratique ; elle ne doit pas être confondue avec une décomposition universelle de toute erreur de prédiction.
+où :
 
-## Mais quelle est la bonne référence ?
+- \(\mu\) est un niveau de référence ;
+- \(\alpha_s\) représente l'effet associé au bâtiment ;
+- \(\beta_c\) représente le décalage associé au capteur ;
+- \(\varepsilon_{s,c}\) regroupe les variations non expliquées.
 
-L'enquête n'est pas terminée. Nous avons comparé les capteurs à une valeur de 20,00 °C. D'où vient cette valeur ?
+Or, dans le réseau initial, on n'observe que deux associations :
 
-Dans un laboratoire, la référence provient elle aussi d'une mesure. Elle est associée à une incertitude et reliée à d'autres références par une chaîne documentée d'étalonnages. Elle n'est pas une vérité parfaite connue avec une infinité de décimales.
+| Bâtiment | Capteur utilisé | Observation |
+|---|---|---:|
+| A | S1 | 20,0 °C |
+| B | S2 | 19,5 °C |
 
-Il faut distinguer :
-
-- **Erreur de mesure** : différence entre une valeur mesurée et une valeur de référence.
-- **Incertitude de mesure** : paramètre non négatif qui caractérise la dispersion des valeurs attribuées au mesurande à partir des informations disponibles.
-
-L'incertitude n'est pas l'erreur commise. Elle exprime ce que l'on sait — et ce que l'on ne sait pas — du résultat. Elle peut combiner des informations issues de répétitions, d'un certificat d'étalonnage, de la résolution de l'instrument ou des conditions d'utilisation.
-
-Un étalonnage établit une relation entre les indications d'un instrument et les valeurs fournies par des étalons, avec leurs incertitudes. Il ne se réduit pas à « remettre le compteur à zéro ». Il peut conduire à une correction, mais cette correction a elle aussi une incertitude et un domaine de validité.
-
-Références utiles : [erreur de mesure](https://jcgm.bipm.org/vim/fr/2.16.html), [incertitude de mesure](https://jcgm.bipm.org/vim/fr/2.26.html), [étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html), [traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html).
-
-## Résoudre l'enquête : que faut-il vérifier avant de corriger ?
-
-Revenons aux deux bâtiments. Il serait tentant de soustraire 0,97 °C à toutes les mesures du capteur B. Mais ce nombre est seulement l'écart observé sur trois relevés. Il ne démontre ni que le décalage est constant, ni qu'il le restera à d'autres températures.
-
-Avant de corriger, l'équipe doit répondre à quatre questions :
-
-1. **Que mesure-t-on exactement ?** Température instantanée, moyenne sur quinze minutes, température de surface ou température de l'air à hauteur d'occupation ? Le mesurande doit être défini.
-2. **Dans quelles conditions le capteur a-t-il été testé ?** Température, humidité, emplacement, temps de stabilisation, alimentation et vieillissement peuvent changer son comportement.
-3. **La référence est-elle adaptée ?** Il faut connaître sa traçabilité et son incertitude, et vérifier que celles-ci sont suffisantes pour la décision.
-4. **Le décalage est-il stable sur la plage d'utilisation ?** Une correction mesurée à 20 °C ne garantit pas une correction valide à 5 °C ou 40 °C.
-
-**Décision provisoire :** ne pas corriger automatiquement les données historiques. Documenter l'anomalie, comparer les capteurs à une référence adaptée sur plusieurs points de fonctionnement, puis estimer une correction et son incertitude si les résultats justifient cette opération.
-
-## Le passage à la Data Science
-
-Un capteur n'est qu'un exemple. La même difficulté apparaît lorsqu'une variable est produite par un questionnaire, une procédure métier, un logiciel ou un système d'annotation.
-
-Imaginez que chaque bâtiment utilise un modèle de capteur différent. Si le modèle d'instrument est toujours associé au bâtiment, une différence instrumentale peut être confondue avec une différence réelle entre bâtiments. Le modèle prédictif peut alors apprendre l'identité du capteur plutôt que le phénomène.
-
-### Le problème est identifiable… ou pas ?
-
-Supposons que le capteur S1 soit toujours installé dans le bâtiment A et le capteur S2 toujours dans le bâtiment B. Un modèle additif minimal s'écrit :
+La différence observée vaut −0,5 °C pour B par rapport à A. Mais, dans le modèle, elle correspond à :
 
 \[
-Y_{site,capteur}=\mu+\alpha_{site}+\beta_{capteur}+\varepsilon.
+Y_{B,S2}-Y_{A,S1}
+= (\alpha_B-\alpha_A)+(\beta_{S2}-\beta_{S1})+\text{résidu}.
 \]
 
-- \(\alpha_{site}\) représente l'écart réel associé au bâtiment ;
-- \(\beta_{capteur}\) représente le décalage propre au capteur ;
-- \(\varepsilon\) regroupe les variations résiduelles.
+Une seule différence mélange donc deux effets inconnus : celui du bâtiment et celui du capteur. Les données ne disent pas quelle part revient à chacun.
 
-Avec une seule combinaison par bâtiment, on observe seulement la somme des deux effets. Si B est mesuré un degré plus bas que A, les données seules ne permettent pas de savoir si B est réellement plus froid, si S2 sous-estime la température, ou si les deux effets se combinent. Ajouter des milliers de lignes avec la même association ne résout pas cette non-identifiabilité : le plan de mesure ne sépare pas les causes possibles.
+Ce n'est pas un manque de puissance statistique. C'est un problème d'**identifiabilité** : le plan de collecte ne fournit pas les comparaisons nécessaires pour séparer les paramètres.
 
-Un plan croisé apporte l'information qui manque. À titre d'illustration, supposons que les deux capteurs puissent mesurer les deux bâtiments dans des conditions comparables :
+Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
+
+## Le croisement change la question — et renverse la conclusion
+
+Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dans des conditions comparables. On obtient alors ce plan croisé :
 
 | Bâtiment | Capteur S1 | Capteur S2 |
 |---|---:|---:|
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
-Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre. Cette identification suppose que le décalage propre au capteur reste le même dans les deux bâtiments : le modèle ne comporte pas d'interaction capteur × bâtiment. Si le montage ou l'environnement modifie différemment la réponse de chaque capteur selon le site, ce plan minimal ne suffit plus ; il faut caractériser cette interaction. Enfin, une seule valeur par case ne permet pas d'estimer correctement la variabilité résiduelle. Des répétitions par combinaison sont nécessaires pour quantifier cette variabilité et examiner les écarts au modèle additif. Identifier les effets sous hypothèses n'est pas encore valider le modèle.
+Les comparaisons peuvent maintenant être faites à bâtiment constant ou à capteur constant :
 
-En pratique, il faut contrôler les changements de température pendant le déplacement des capteurs, leur temps de réponse et les conditions d'exposition. Une mesure de référence commune ou un échange croisé planifié peut aider ; une permutation improvisée dans le temps pourrait introduire un nouveau biais.
+- **À bâtiment constant** : S2 indique 1,0 °C de moins que S1, dans les deux bâtiments.
+- **À capteur constant** : B est 0,5 °C plus chaud que A, avec chacun des capteurs.
 
-**Le point méthodologique dépasse la métrologie :** quand une variable, un appareil, un annotateur ou un protocole est systématiquement associé à un groupe, il faut vérifier que le plan de collecte permet réellement de séparer l'effet du groupe de celui du système de mesure.
+Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Le plan croisé montre au contraire un effet bâtiment de +0,5 °C : B est plus chaud dans cet exemple. **Le décalage du capteur a inversé le signe de la conclusion.**
 
-La chaîne de production d'une variable ressemble à ceci :
+Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
 
-<figure>
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Chaîne de production d'une variable de données, défilable horizontalement sur petit écran">
-<svg viewBox="0 0 760 205" role="img" aria-labelledby="pipeline-title pipeline-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="pipeline-title">Du phénomène à la décision, une variable traverse plusieurs transformations</title>
-  <desc id="pipeline-desc">Le phénomène passe par un protocole et un instrument, puis un signal est transformé en donnée, utilisé par un modèle et enfin dans une décision. Les contrôles de qualité doivent accompagner chaque étape.</desc>
-  <rect x="1" y="1" width="758" height="203" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#0f172a">
-    <rect x="15" y="62" width="112" height="58" rx="8" fill="#dbeafe" stroke="#60a5fa"/><text x="71" y="86">Phénomène</text><text x="71" y="103">visé</text>
-    <rect x="155" y="62" width="112" height="58" rx="8" fill="#d1fae5" stroke="#34d399"/><text x="211" y="86">Protocole</text><text x="211" y="103">+ instrument</text>
-    <rect x="295" y="62" width="112" height="58" rx="8" fill="#fef3c7" stroke="#f59e0b"/><text x="351" y="86">Signal</text><text x="351" y="103">observé</text>
-    <rect x="435" y="62" width="112" height="58" rx="8" fill="#e0e7ff" stroke="#818cf8"/><text x="491" y="86">Variable</text><text x="491" y="103">enregistrée</text>
-    <rect x="575" y="62" width="78" height="58" rx="8" fill="#f3e8ff" stroke="#c084fc"/><text x="614" y="86">Modèle</text><text x="614" y="103">prédictif</text>
-    <rect x="674" y="62" width="70" height="58" rx="8" fill="#fee2e2" stroke="#f87171"/><text x="709" y="96">Décision</text>
-  </g>
-  <g stroke="#64748b" stroke-width="2" fill="none">
-    <path d="M127 91 H151 l-6 -5 m6 5 l-6 5"/><path d="M267 91 H291 l-6 -5 m6 5 l-6 5"/><path d="M407 91 H431 l-6 -5 m6 5 l-6 5"/><path d="M547 91 H571 l-6 -5 m6 5 l-6 5"/><path d="M653 91 H670 l-6 -5 m6 5 l-6 5"/>
-  </g>
-  <path d="M211 128 V151 H491 V128" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <text x="351" y="170" text-anchor="middle" font-size="12" fill="#92400e">Étalonnage · contrôles · provenance · transformations</text>
-  <text x="380" y="191" text-anchor="middle" font-size="11" fill="#64748b">Un défaut initial peut se propager ou être masqué aux étapes suivantes.</text>
-</svg>
-</div>
-<figcaption>Une variable est le résultat d'une chaîne de production. Vérifier uniquement les valeurs manquantes ou les types numériques arrive trop tard pour détecter certains défauts.</figcaption>
-</figure>
+Cette hypothèse doit être examinée. Le montage, l'humidité, le rayonnement ou les conditions locales peuvent modifier différemment la réponse d'un capteur selon le site. Des répétitions par combinaison sont nécessaires pour quantifier la variabilité résiduelle et examiner les écarts au modèle additif. Avec une seule valeur par case, le tableau illustre l'identification des effets sous hypothèse ; il ne constitue pas une validation complète du modèle.
 
-Avant d'entraîner un modèle, documentez au minimum :
+En pratique, le déplacement des capteurs doit aussi être planifié : temps de stabilisation, emplacement, évolution de la température et ordre des mesures peuvent introduire de nouveaux effets. Un croisement mal contrôlé ne résout pas le problème ; il le déplace.
 
-- **Définition** : que représente la variable et quelle est son unité d'observation ?
-- **Provenance** : quel instrument, questionnaire, logiciel ou opérateur l'a produite ?
-- **Protocole** : dans quelles conditions et à quelle fréquence ?
-- **Limites** : biais plausibles, dérive, incertitude, groupes ou périodes moins bien couverts.
-- **Usage** : quelle décision dépend de cette variable, et quelle erreur serait coûteuse ?
+## Ce que cela change dans le travail d'un data scientist
 
-Si plusieurs lignes proviennent du même capteur ou du même site, une validation aléatoire par ligne peut aussi surestimer la capacité de généralisation : des observations très proches, voire issues du même dispositif, peuvent se retrouver à la fois dans l'entraînement et le test. Le découpage doit reproduire le scénario de déploiement : séparation temporelle pour prédire une période future, validation par groupes pour évaluer un nouveau site ou un nouveau capteur. Un découpage par groupe ne suffit toutefois que si le groupe tenu à l'écart correspond bien à la source de variation que l'on veut généraliser.
+Lorsqu'une variable est produite par un instrument, un questionnaire, un opérateur ou un logiciel, il faut se demander si le système de mesure varie en même temps que le groupe que l'on souhaite comparer.
 
-L'atelier séparé propose un court exercice de diagnostic et de décision à partir d'un troisième capteur ; il permet de vérifier le raisonnement sans interrompre cette enquête.
+Dans cet exemple, trois stratégies ne sont pas équivalentes :
 
+1. **Ajouter des lignes sans changer le plan** améliore éventuellement la précision des moyennes, mais ne sépare pas les effets confondus.
+2. **Complexifier le modèle** ne crée pas les comparaisons absentes des données. Un algorithme plus flexible peut apprendre l'association observée sans pouvoir en identifier la cause.
+3. **Modifier le plan de collecte** — mesure croisée, référence commune, recouvrement entre groupes — apporte l'information qui manque, sous des conditions expérimentales explicites.
 
+Avant d'interpréter l'effet d'un site, d'un patient, d'un appareil ou d'une période, demandez-vous donc : **existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?**
 
-
-## Mettre en pratique
-
-Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
+Si la réponse est non, le problème doit être traité au niveau de la collecte ou de la conception de l'étude. Un découpage train/test ou une nouvelle architecture de modèle ne réparera pas une non-identifiabilité présente dans les données.
 
 ## À retenir
 
-- Une mesure peut être répétable sans être juste.
-- Répéter réduit certaines fluctuations aléatoires ; cela ne supprime pas un décalage systématique.
-- Une référence possède elle aussi une incertitude et doit être documentée.
-- Une correction instrumentale est un modèle avec un domaine de validité et une incertitude propres.
-- En Data Science, la définition, la provenance et le protocole de production d'une variable font partie de sa qualité.
+- Une faible dispersion des mesures ne garantit pas leur proximité avec la valeur recherchée.
+- Répéter les mêmes observations réduit certaines fluctuations, pas un décalage systématique.
+- Si chaque site utilise un capteur différent, l'effet du site et celui du capteur peuvent être impossibles à séparer.
+- Un plan croisé crée les comparaisons manquantes ; il identifie les effets principaux sous les hypothèses du modèle, qu'il faut ensuite examiner.
+- **La quantité de données ne remplace pas l'information apportée par un bon plan de mesure.**
 
-## Pour aller plus loin
+## Références et approfondissements
 
-- **[Vocabulaire international de métrologie — JCGM 200:2012 (VIM)](https://doi.org/10.59161/JCGM200-2012)** — définitions de la fidélité, de la répétabilité, de la justesse, de l'exactitude, de l'erreur, de l'étalonnage et de l'incertitude. [Version française annotée](https://jcgm.bipm.org/vim/fr/).
-- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — principes d'évaluation et de combinaison des composantes d'incertitude.
-- **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — introduction opérationnelle à l'évaluation et à l'expression de l'incertitude de mesure.
-- **[AI Measurement Science — Validity](https://aimsbook.org/src/chap1.html)** — approfondissement sur la validité des construits et l'évaluation des systèmes d'IA.
+- **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives des notions de fidélité, répétabilité, justesse, exactitude, erreur et incertitude ; [version française annotée](https://jcgm.bipm.org/vim/fr/).
+- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude.
+- **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — introduction opérationnelle à l'évaluation et à l'expression de l'incertitude.
 
-## Connexions utiles
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html).
 
-- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : après la qualité de la mesure, examiner qui entre dans les données.
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent.
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : étudier comment les dépendances influencent l'incertitude d'un agrégat.
+## Connexions
+
+- [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : une mesure peut être correcte, mais la population observée peut rester biaisée.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
+- [Jour 15 — Généraliser au-delà des données d'entraînement](jour-15.html) : une évaluation doit correspondre aux groupes et aux contextes visés par le déploiement.
