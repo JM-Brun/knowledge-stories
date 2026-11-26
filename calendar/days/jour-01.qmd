@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Quand les capteurs ne racontent pas la même histoire"
 description: "Une enquête sur deux thermomètres montre pourquoi répétabilité, justesse et incertitude ne répondent pas à la même question — et pourquoi cela compte avant d'entraîner un modèle."
 ---
 
-> **Environ 18 à 20 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.
+> **Environ 17 à 19 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.
 >
 > **Prérequis** — Aucun. La moyenne et l'écart-type sont expliqués au moment où ils deviennent utiles.
 >
@@ -207,7 +207,7 @@ Avant de corriger, l'équipe doit répondre à quatre questions :
 3. **La référence est-elle adaptée ?** Il faut connaître sa traçabilité et son incertitude, et vérifier que celles-ci sont suffisantes pour la décision.
 4. **Le décalage est-il stable sur la plage d'utilisation ?** Une correction mesurée à 20 °C ne garantit pas une correction valide à 5 °C ou 40 °C.
 
-Le vocabulaire métrologique aide à formaliser ce diagnostic. Le [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html) désigne la grandeur que l'on veut mesurer. La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) décrit le plus petit changement d'indication perceptible ; elle ne garantit ni la justesse ni l'incertitude du résultat. Enfin, la fréquence d'échantillonnage et le temps de réponse sont deux paramètres distincts : enregistrer à 10 Hz ne permet pas de retrouver une variation que le capteur ou son filtrage ne transmet pas.
+Le [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html) désigne la grandeur que l'on veut mesurer. Le préciser évite de confondre, par exemple, une température instantanée avec une moyenne calculée sur quinze minutes.
 
 **Décision provisoire :** ne pas corriger automatiquement les données historiques. Documenter l'anomalie, comparer les capteurs à une référence adaptée sur plusieurs points de fonctionnement, puis estimer une correction et son incertitude si les résultats justifient cette opération.
 
@@ -284,11 +284,7 @@ Si plusieurs lignes proviennent du même capteur ou du même site, une validatio
 Un atelier complémentaire développe ce diagnostic sur une variable de Machine Learning : [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
 
 
-### Un cas LLM : les préférences annotées
 
-Lorsqu'on constitue un jeu de préférences pour entraîner ou évaluer un assistant, le jugement humain joue le rôle d'une mesure. Faire annoter mille réponses au lieu de dix peut réduire l'influence de désaccords individuels. Mais si tous les annotateurs partagent la même consigne ambiguë, le même profil d'usage ou le même angle culturel, le biais commun demeure. La répétition améliore éventuellement la stabilité du jugement ; elle ne garantit pas sa validité.
-
-Il faut donc documenter qui annote, selon quelles consignes, sur quels exemples et avec quel mécanisme de résolution des désaccords. Un taux d'accord élevé ne prouve pas, à lui seul, que le critère mesuré est le bon.
 
 ## Mettre en pratique
 
