@@ -1,96 +1,96 @@
 ---
 title: "Trois distributions, une même moyenne"
-subtitle: "Jour 3 · Ce qu'un résumé statistique ne montre pas"
-description: "Voir comment des distributions très différentes peuvent partager des statistiques descriptives et conduire à des interprétations opposées."
+subtitle: "Jour 3 · Les quatre rapports qui semblaient identiques"
+description: "Une enquête sur des résumés statistiques trompeusement semblables montre pourquoi les données doivent être visualisées avant de les interpréter."
 ---
 
-> **En 12 à 15 minutes** — Une moyenne est un résumé utile. C'est aussi une compression avec perte : elle efface presque toute la forme des données.
+> **Environ 12 à 15 minutes** — Comparer des séries qui partagent une moyenne, puis découvrir quatre jeux de données presque identiques dans leurs statistiques mais radicalement différents dans leur structure.
 >
-> **Prérequis** — Savoir calculer une moyenne. La variance, la corrélation et les graphiques diagnostiques sont introduits progressivement.
+> **Prérequis** — Savoir calculer une moyenne. La variance et la corrélation sont introduites dans l'article.
 >
-> **À la fin** — Vous saurez expliquer ce qu'une moyenne et une variance résument, repérer ce qu'elles masquent et choisir un graphique adapté à une question exploratoire.
+> **À la fin** — Vous saurez ce qu'un résumé statistique conserve, ce qu'il efface et comment choisir une visualisation qui peut mettre une hypothèse à l'épreuve.
 
-## L'idée en une minute
+## Quatre rapports, une même conclusion ?
 
-Un résumé statistique conserve certaines propriétés et en abandonne d'autres. Deux jeux de données peuvent partager une moyenne, voire plusieurs statistiques usuelles, tout en racontant des histoires très différentes. Le résumé n'est donc jamais neutre : il doit être choisi en fonction de la question.
+Quatre équipes analysent la relation entre une variable d'entrée et un résultat. Elles rendent chacune un rapport : même moyenne de la variable d'entrée, même moyenne du résultat, même dispersion, même corrélation et même droite de régression.
 
-## La question
+Les quatre rapports concluent à une relation linéaire comparable.
 
-Si deux jeux de données ont la même moyenne, décrivent-ils nécessairement des situations comparables ? Non. Et même si l'on ajoute la variance et la corrélation, on peut encore manquer des structures essentielles.
+Le responsable demande alors une chose simple : « Montrez-moi les données. »
 
-## Premier niveau : même moyenne, dispersions différentes
+Cette demande va changer le diagnostic. Avant d'ouvrir les graphiques, commençons par une expérience plus petite : que peut-on déjà perdre en ne regardant que la moyenne ?
 
-Considérons trois séries :
+## Premier indice : une moyenne ne décrit pas une distribution
+
+Considérons trois séries de cinq valeurs :
 
 - A : \((4,5,5,5,6)\)
 - B : \((1,3,5,7,9)\)
 - C : \((-5,5,5,5,15)\)
 
-Les trois sommes valent 25 et chaque série contient cinq valeurs. Leur moyenne vaut donc 5.
+Les trois sommes valent 25. Leur moyenne vaut donc 5.
 
-Avec le diviseur \(n\), la variance empirique est définie par :
+Mais leurs écarts à la moyenne sont différents :
 
-\[
-v_n = \frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2.
-\]
-
-Le calcul est entièrement vérifiable. Comme la moyenne vaut 5 dans les trois cas, les écarts à la moyenne sont :
-
-| Série | Écarts à la moyenne | Somme des carrés | Variance avec diviseur n |
+| Série | Écarts à 5 | Somme des écarts au carré | Variance avec diviseur n |
 |---|---|---:|---:|
 | A | −1, 0, 0, 0, 1 | 2 | 0,4 |
 | B | −4, −2, 0, 2, 4 | 40 | 8 |
 | C | −10, 0, 0, 0, 10 | 200 | 40 |
 
-On calcule donc, par exemple, pour B :
+La variance descriptive de la série est :
+
 \[
-v_n(B)=\frac{(-4)^2+(-2)^2+0^2+2^2+4^2}{5}=8.
+v_n=\frac{1}{n}\sum_{i=1}^{n}(x_i-\overline{x})^2.
 \]
 
-La moyenne ne permet pas de distinguer ces séries ; la variance révèle leur dispersion, mais ne décrit toujours pas toute leur forme.
+Pour B, par exemple :
 
-**Convention importante.** Ici, les cinq valeurs constituent la série que l'on décrit : on divise par n. Si elles étaient un échantillon utilisé pour estimer la variance d'une population inconnue, on discuterait l'estimateur corrigé avec le diviseur n−1. Les deux quantités répondent à des questions différentes.
+\[
+v_n(B)=\frac{16+4+0+4+16}{5}=8.
+\]
+
+La moyenne donne le même résultat pour les trois séries. La variance révèle que leur dispersion diffère fortement. Mais elle ne décrit pas encore toute la forme des données.
 
 <figure>
-<svg viewBox="0 0 760 250" role="img" aria-labelledby="dist-title dist-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="dist-title">Trois séries de même moyenne mais de dispersions différentes</title>
-  <desc id="dist-desc">Trois lignes de points représentent les séries A, B et C sur un même axe numérique. Leur centre est 5 dans les trois cas, mais l'étalement augmente de A vers C.</desc>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Trois séries de même moyenne sur un axe commun, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 760 250" role="img" aria-labelledby="means-title means-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="means-title">Même moyenne, trois dispersions différentes</title>
+  <desc id="means-desc">Les trois séries A, B et C sont placées sur le même axe numérique. Leur centre est 5 dans chaque cas, mais les points sont de plus en plus éloignés de ce centre.</desc>
   <rect x="1" y="1" width="758" height="248" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g stroke="#cbd5e1" stroke-width="1"><line x1="120" y1="45" x2="700" y2="45"/><line x1="120" y1="95" x2="700" y2="95"/><line x1="120" y1="145" x2="700" y2="145"/><line x1="120" y1="195" x2="700" y2="195"/></g>
+  <line x1="120" y1="205" x2="700" y2="205" stroke="#64748b" stroke-width="1.5"/>
+  <g stroke="#e2e8f0" stroke-width="1"><line x1="120" y1="45" x2="700" y2="45"/><line x1="120" y1="95" x2="700" y2="95"/><line x1="120" y1="145" x2="700" y2="145"/></g>
   <line x1="410" y1="30" x2="410" y2="205" stroke="#b45309" stroke-width="2" stroke-dasharray="5 5"/>
   <text x="420" y="27" fill="#92400e" font-size="12" font-weight="700">Moyenne = 5</text>
   <g fill="#334155" font-size="13" font-weight="700"><text x="28" y="69">Série A</text><text x="28" y="119">Série B</text><text x="28" y="169">Série C</text></g>
-  <g fill="#0f766e" stroke="#fff" stroke-width="2">
-    <circle cx="381" cy="58" r="7"/><circle cx="410" cy="52" r="7"/><circle cx="410" cy="64" r="7"/><circle cx="410" cy="76" r="7"/><circle cx="439" cy="58" r="7"/>
-  </g>
+  <g fill="#0f766e" stroke="#fff" stroke-width="2"><circle cx="381" cy="58" r="7"/><circle cx="410" cy="52" r="7"/><circle cx="410" cy="64" r="7"/><circle cx="410" cy="76" r="7"/><circle cx="439" cy="58" r="7"/></g>
   <g fill="#2563eb" stroke="#fff" stroke-width="2"><circle cx="294" cy="108" r="7"/><circle cx="352" cy="108" r="7"/><circle cx="410" cy="108" r="7"/><circle cx="468" cy="108" r="7"/><circle cx="526" cy="108" r="7"/></g>
-  
   <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="120" cy="158" r="7"/><circle cx="410" cy="150" r="7"/><circle cx="410" cy="165" r="7"/><circle cx="410" cy="180" r="7"/><circle cx="700" cy="158" r="7"/></g>
-  <g fill="#475569" font-size="11" text-anchor="middle"><text x="120" y="222">−5</text><text x="265" y="222">0</text><text x="410" y="222">5</text><text x="555" y="222">10</text><text x="700" y="222">15</text></g>
-  <text x="410" y="240" text-anchor="middle" fill="#64748b" font-size="11">Axe commun · valeurs observées</text>
+  <g fill="#475569" font-size="11" text-anchor="middle"><text x="120" y="225">−5</text><text x="265" y="225">0</text><text x="410" y="225">5</text><text x="555" y="225">10</text><text x="700" y="225">15</text></g>
+  <text x="410" y="243" text-anchor="middle" fill="#64748b" font-size="11">Même centre · étalement différent</text>
 </svg>
-<figcaption>Les points sont placés sur une échelle commune : le centre reste à 5 tandis que l'étalement varie. Le dessin illustre les valeurs, pas une densité estimée.</figcaption>
+</div>
+<figcaption>Les points représentent les valeurs observées, pas une densité estimée. La moyenne est identique ; l'étalement ne l'est pas.</figcaption>
 </figure>
 
+Ici, les cinq valeurs constituent la série que l'on décrit : le diviseur est \(n\). Si ces valeurs étaient un échantillon utilisé pour estimer la variance d'une population inconnue, on discuterait plutôt l'estimateur avec le diviseur \(n-1\). Il s'agit de deux questions différentes.
 
+## Ce que les rapports ne montraient pas
 
-## Série observée, distribution empirique et loi de probabilité
+Revenons aux quatre équipes. Leur jeu de données est le célèbre **quartette d'Anscombe**, publié par le statisticien Francis Anscombe en 1973.
 
-Les listes A, B et C sont d'abord **trois séries observées**. Si l'on attribue le même poids à chacune des cinq observations, chacune définit une **distribution empirique**. Pour une série \(x_1,\ldots,x_n\), sa fonction de répartition empirique est :
+Les quatre jeux partagent, à l'arrondi près, les mêmes statistiques descriptives usuelles :
 
-\[
-\widehat{F}_n(x)=\frac{1}{n}\sum_{i=1}^{n}\mathbf{1}_{\{x_i\leq x\}}.
-\]
+| Statistique | Valeur approximative commune |
+|---|---:|
+| Moyenne de \(x\) | 9 |
+| Moyenne de \(y\) | 7,5 |
+| Variance d'échantillon de \(x\) | 11 |
+| Variance d'échantillon de \(y\) | 4,12 |
+| Corrélation | 0,816 |
+| Droite de régression | \(\widehat y=3+0{,}5x\) |
 
-Elle donne, pour chaque seuil \(x\), la proportion d'observations inférieures ou égales à ce seuil. Elle décrit exactement la série observée.
-
-Une **loi de probabilité** est un autre objet : un modèle mathématique décrivant les probabilités des valeurs possibles d'une variable aléatoire. Une série observée peut servir à étudier une loi, mais elle ne suffit pas à établir quelle loi a produit les données. Ici, aucune hypothèse de représentativité ni de mécanisme générateur n'est nécessaire pour comparer les trois séries.
-
-Cette distinction évite de confondre ce que l'on a effectivement observé avec ce que l'on suppose du phénomène qui aurait pu produire ces observations.
-
-## Deuxième niveau : mêmes résumés, formes différentes
-
-Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est composé de quatre jeux de données construits pour partager, à l'arrondi près, les mêmes statistiques descriptives usuelles : moyennes, variances, corrélation et droite de régression. Pourtant, leurs nuages de points ont des formes très différentes. Dans l'un, une relation est courbe ; dans un autre, un point extrême joue un rôle déterminant.
+Et pourtant, leurs nuages de points ne racontent pas la même histoire.
 
 <figure>
 <svg viewBox="0 0 760 360" role="img" aria-labelledby="anscombe-title anscombe-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
@@ -106,71 +106,81 @@ Le phénomène est plus subtil encore. Le quartette d'Anscombe (1973) est compos
 <figcaption>Quartette d'Anscombe : les résumés statistiques sont proches, mais les structures visibles diffèrent. La droite commune ne suffit pas à décrire les quatre jeux.</figcaption>
 </figure>
 
-Le message n'est pas « les statistiques ne servent à rien ». Il est que les statistiques résumées répondent à des questions précises et ne remplacent pas l'examen de la structure.
+Dans le premier jeu, une relation linéaire est plausible. Dans le deuxième, les points suivent une courbe : la droite manque la structure. Dans le troisième, un point atypique vertical perturbe l'ajustement. Dans le quatrième, presque tous les points ont la même abscisse ; un seul point éloigné possède un fort levier et détermine largement la droite.
 
-## Lire un graphique comme un test d'hypothèse
+Les quatre rapports étaient cohérents avec leurs calculs. Ce qui manquait, c'était une vérification de la structure que ces calculs ne résument pas.
 
-Un graphique est utile lorsqu'il permet de mettre à l'épreuve une interprétation précise. Le quartette d'Anscombe ne montre pas seulement que « les images sont parlantes » : il fournit quatre contre-exemples à l'idée qu'une moyenne, une variance, une corrélation et une droite de régression suffiraient à caractériser une relation.
+**Le graphique n'a pas remplacé le calcul : il a révélé que le calcul ne répondait pas à toute la question.**
 
-Dans le premier jeu, une relation linéaire est plausible. Dans le deuxième, la structure est courbe : une droite résume mal la relation. Dans le troisième, un point atypique vertical perturbe l'ajustement. Dans le quatrième, presque tous les points ont la même abscisse et un seul point à fort levier détermine largement la droite.
+## Lire un graphique comme un test
 
-La bonne lecture consiste donc à demander : **quelle hypothèse mon résumé ou mon modèle suppose-t-il, et quel graphique pourrait la mettre en défaut ?**
+Une visualisation utile ne sert pas seulement à rendre une page plus agréable. Elle met à l'épreuve une hypothèse.
 
-| Question | Vue utile | Ce qu'elle peut révéler |
+Si l'on ajuste une droite, on suppose qu'une relation linéaire est une approximation pertinente. Un nuage de points peut révéler une courbure, plusieurs groupes ou un point influent. Si l'on suppose une variance constante, un graphique des résidus peut montrer un éventail. Si l'on suppose une série stable, un graphique temporel peut révéler une rupture.
+
+| Question à examiner | Visualisation utile | Structure recherchée |
 |---|---|---|
-| Comment une variable se répartit-elle ? | Histogramme et fonction de répartition empirique | Asymétrie, plusieurs modes, queues, valeurs extrêmes |
+| Comment une variable se répartit-elle ? | Histogramme, densité, fonction de répartition empirique | Asymétrie, plusieurs modes, queues, valeurs extrêmes |
 | Deux variables suivent-elles une relation linéaire ? | Nuage de points | Courbure, groupes, points influents |
 | Le modèle laisse-t-il une structure dans ses erreurs ? | Résidus selon les valeurs ajustées | Non-linéarité, variance non constante |
 | Le phénomène change-t-il au cours du temps ? | Série temporelle | Tendance, rupture, saisonnalité, dérive |
-| La relation est-elle homogène ? | Graphiques stratifiés par groupe | Sous-populations et effets masqués |
+| La relation est-elle homogène ? | Graphiques stratifiés | Sous-populations et effets masqués |
 
-Aucun de ces graphiques n'est une preuve automatique. Les classes d'un histogramme, les échelles, le lissage et le choix des sous-groupes influencent ce que l'on voit.
+Le quartette d'Anscombe illustre aussi pourquoi il faut distinguer levier et résidu. Un point peut être très éloigné sur l'axe des entrées (fort levier) sans avoir un résidu important dans le modèle ajusté ; inversement, un point peut avoir un grand résidu sans être très influent. Ces diagnostics ne sont pas interchangeables.
 
-## Une mini-enquête : quelle hypothèse faut-il mettre à l'épreuve ?
+Aucun graphique n'est une preuve automatique. Les échelles, les classes d'un histogramme, le lissage et le choix des sous-groupes influencent ce que l'on voit. Une anomalie visuelle doit conduire à une question, puis à une vérification.
 
-Supposons qu'un nuage de points semble suivre une droite et que la corrélation soit élevée. Avant d'ajuster une régression, trois vérifications changent le diagnostic :
+## Un protocole d'enquête en trois gestes
 
-1. **Tracer les points.** Une courbure, un groupe distinct ou un point à fort levier peut rendre la droite trompeuse.
-2. **Tracer les résidus selon les valeurs ajustées.** Une structure résiduelle indique que le modèle n'a pas capturé toute l'information systématique.
-3. **Stratifier lorsque le protocole le justifie.** Une relation agrégée peut différer de celles observées dans les groupes ; le paradoxe de Simpson en est un cas particulier.
+Avant de présenter un résultat statistique ou d'ajuster un modèle, l'analyste peut suivre trois gestes simples :
 
-Avant ces graphiques, vérifier aussi les effectifs, les unités, les valeurs manquantes et la granularité des lignes. Si plusieurs lignes proviennent du même individu, bâtiment ou appareil, elles ne sont pas nécessairement indépendantes : les traiter comme autant d'unités indépendantes crée une précision artificielle (*pseudoréplication*).
+1. **Résumer** : calculer quelques statistiques adaptées à la question (niveau, dispersion, quantiles, proportions).
+2. **Visualiser** : choisir un graphique qui peut mettre en défaut l'interprétation envisagée.
+3. **Stratifier avec raison** : examiner des groupes pertinents pour le protocole, le domaine ou la décision, sans multiplier les découpages opportunistes.
 
-L'enjeu n'est pas d'appliquer une checklist universelle, mais de choisir une vue capable de réfuter l'hypothèse que l'on est en train de faire.
+Une précaution supplémentaire est essentielle : vérifier l'unité d'observation. Si dix lignes proviennent du même capteur, patient ou site, elles ne sont pas nécessairement dix unités indépendantes. Les traiter comme telles peut produire une précision artificielle, phénomène appelé *pseudoréplication*.
 
-## Un résumé est une compression avec perte — et c'est parfois utile
+Le choix du graphique doit découler de la question, pas d'une collection de visualisations systématiques. On ne choisit pas le même outil pour examiner une distribution marginale, une relation entre variables et une évolution temporelle.
 
-La moyenne transforme une série de n observations en un seul nombre :
+## Un résumé est une compression avec perte
+
+La moyenne transforme une série de \(n\) valeurs en un seul nombre :
+
 \[
-(x_1,\ldots,x_n)\longmapsto \overline{x}.
+(x_1,\ldots,x_n)\longmapsto\overline x.
 \]
-Cette transformation est **plusieurs-vers-un** : les séries A, B et C ont des formes différentes, mais donnent toutes la même moyenne 5. À partir de cette seule valeur, il est impossible de reconstruire la série d'origine.
 
-Cette perte d'information n'est pas un défaut en soi. Un résumé est utile précisément parce qu'il simplifie : il facilite une comparaison, un suivi ou une communication. Le problème apparaît lorsque l'on demande au résumé de répondre à une question qu'il ne conserve pas.
+Cette transformation est plusieurs-vers-un : des séries différentes produisent la même moyenne. Une fois les valeurs remplacées par leur moyenne, on ne peut pas reconstruire leur dispersion, leurs queues ou leur ordre temporel.
 
-La question pratique devient : **quelles propriétés dois-je préserver pour la décision que je veux prendre ?** Si la queue de distribution détermine le risque, la moyenne seule est insuffisante. Si l'on cherche une tendance temporelle, il faut conserver l'ordre des observations. Si l'on étudie une relation, il faut regarder la structure conjointe, pas seulement les résumés marginaux.
+Cette perte d'information n'est pas forcément un défaut. Un résumé est utile précisément parce qu'il simplifie. Il facilite une comparaison, un suivi ou une communication. Le problème apparaît lorsque l'on demande au résumé de répondre à une question qu'il ne conserve pas.
 
-La notion de statistique suffisante formalise, dans un modèle probabiliste donné, les résumés qui conservent toute l'information pertinente sur un paramètre. Ce statut dépend du modèle et de la question : il ne se déduit pas du seul fait qu'un résumé est commode.
+La notion de **statistique suffisante** formalise, dans un modèle probabiliste donné, un résumé qui conserve toute l'information pertinente sur un paramètre. Ce statut dépend du modèle et de la question : il ne se déduit pas du seul fait qu'un résumé est commode.
 
-## Relier les trois premières journées : une chaîne de raisonnement
+La bonne question n'est donc pas « faut-il résumer ou montrer toutes les données ? », mais **quelles propriétés faut-il préserver pour la décision que l'on veut prendre ?**
 
-Les trois premières journées correspondent à trois questions successives, qui doivent rester distinctes :
+- Si la queue de distribution détermine le risque, la moyenne seule est insuffisante.
+- Si l'on cherche une tendance temporelle, il faut conserver l'ordre des observations.
+- Si l'on étudie une relation, il faut examiner la structure conjointe, pas seulement les résumés marginaux.
 
-| Étape | Question scientifique | Risque si elle est ignorée |
-|---|---|---|
-| Jour 1 — Mesurer | La variable représente-t-elle le phénomène visé ? | Biais de mesure, erreur de construit, dérive instrumentale |
-| Jour 2 — Sélectionner | Les observations permettent-elles de parler de la population cible ? | Biais de couverture, auto-sélection, mauvaise généralisation |
-| Jour 3 — Résumer | Les statistiques calculées conservent-elles les structures utiles ? | Hétérogénéité masquée, non-linéarité, queues et sous-groupes invisibles |
+## Le lien avec les deux premières journées
 
-On peut résumer la chaîne ainsi : **mesurer correctement ne garantit pas d'observer les bonnes unités ; observer les bonnes unités ne garantit pas de les décrire suffisamment.**
+Les trois premières journées forment une chaîne de raisonnement, sans être les étapes d'une recette automatique :
 
-Cette distinction est utile pour auditer un jeu de données avant tout apprentissage. Elle évite de demander au modèle de compenser des défauts qui relèvent en réalité du protocole de mesure, du plan d'échantillonnage ou du choix des résumés.
+| Question | Risque si elle est ignorée |
+|---|---|
+| **Mesurer** — la variable représente-t-elle le phénomène visé ? | Biais de mesure, erreur de construit, dérive instrumentale |
+| **Sélectionner** — les observations permettent-elles de parler de la population cible ? | Biais de couverture, auto-sélection, mauvaise généralisation |
+| **Résumer** — les statistiques conservent-elles les structures utiles ? | Hétérogénéité masquée, non-linéarité, queues invisibles |
+
+Mesurer correctement ne garantit pas d'observer les bonnes unités. Observer les bonnes unités ne garantit pas de les décrire suffisamment.
+
+Cette distinction est utile avant tout apprentissage : elle évite de demander au modèle de compenser des défauts qui relèvent du protocole de mesure, du plan d'échantillonnage ou du choix des résumés.
 
 ## Transfert vers le Machine Learning : ne pas s'arrêter au score global
 
-Un score agrégé est lui aussi un résumé. Une accuracy globale, une erreur moyenne ou une corrélation calculée sur toutes les observations peuvent masquer une performance très différente selon les sous-groupes, les périodes ou les types d'entrée.
+Un score agrégé est lui aussi un résumé. Une accuracy globale, une erreur moyenne ou une corrélation calculée sur toutes les observations peuvent masquer des performances très différentes selon les sous-groupes, les périodes ou les types d'entrée.
 
-Avant d'interpréter un score, demander :
+Avant d'interpréter un score, demandez-vous :
 
 - quelle population et quelles observations contribuent au calcul ;
 - si les erreurs sont concentrées dans certains groupes ;
@@ -179,45 +189,32 @@ Avant d'interpréter un score, demander :
 
 Le lien avec les journées précédentes est direct : la qualité de la mesure (jour 1), la sélection des observations (jour 2) et le choix des résumés (jour 3) conditionnent ce que le score d'un modèle permet réellement de conclure.
 
-## Frontière de validité
-
-Visualiser ne garantit pas de comprendre. Un graphique peut être trompeur, et une anomalie visuelle peut venir du bruit d'échantillonnage. Les découpages en sous-groupes doivent être justifiés par la question ou le protocole, pas multipliés jusqu'à faire apparaître un résultat. Enfin, si plusieurs observations appartiennent à une même unité (patient, appareil, site), leur dépendance doit être prise en compte : les considérer comme indépendantes peut conduire à sous-estimer l'incertitude. L'exploration doit être complétée par des hypothèses explicites, des analyses de sensibilité et, lorsque c'est nécessaire, une validation sur de nouvelles données.
-
 ## À vous de raisonner
 
-1. Pourquoi les trois séries de l'exemple ont-elles la même moyenne ?
+1. Pourquoi les trois séries A, B et C ont-elles la même moyenne ?
 2. Quelle information la variance ajoute-t-elle, et que laisse-t-elle encore de côté ?
-3. Comment un point extrême peut-il modifier fortement une droite de régression ?
-4. Quel graphique examineriez-vous pour détecter une dérive temporelle ?
+3. Dans le quartette d'Anscombe, pourquoi une droite peut-elle être trompeuse même si la corrélation est identique ?
+4. Quelle différence faites-vous entre un point à fort levier et un point ayant un grand résidu ?
+5. Quel graphique examineriez-vous pour détecter une dérive temporelle ?
 
 <details>
-<summary>Afficher la solution expliquée</summary>
+<summary>Afficher la correction expliquée</summary>
 
 1. Leur somme est identique (25) et leur effectif aussi (5).
 2. La variance mesure une dispersion quadratique autour de la moyenne, mais ne décrit pas à elle seule l'asymétrie, la multimodalité, l'ordre temporel ou les relations non linéaires.
-3. Le point peut avoir un fort levier (position atypique dans l'espace des variables) et influencer la pente et l'ordonnée à l'origine. Il faut distinguer levier et résidu important.
-4. Un graphique des observations ou des résidus en fonction du temps, éventuellement accompagné d'une fenêtre glissante, permet de repérer des changements. Il faut toutefois distinguer dérive réelle et fluctuations aléatoires.
+3. La corrélation résume une association linéaire. Elle ne montre ni la courbure, ni l'effet d'un point influent, ni la géométrie complète du nuage.
+4. Le levier dépend de la position d'une observation dans l'espace des variables explicatives ; le résidu mesure l'écart vertical entre la valeur observée et la prédiction. Une observation peut avoir l'un sans avoir l'autre.
+5. Un graphique des observations ou des résidus en fonction du temps, éventuellement accompagné d'une fenêtre glissante, peut révéler une tendance ou une rupture. Il faut distinguer dérive réelle et fluctuations aléatoires.
 
 </details>
 
-## Choisir un résumé : partir de la question
-
-| Ce que l'on veut savoir | Résumés ou vues à examiner | Limite à garder en tête |
-|---|---|---|
-| Le niveau typique | Moyenne, médiane, quantiles | La moyenne est sensible aux valeurs extrêmes |
-| La dispersion | Écart-type, intervalle interquartile, queues | Une dispersion identique ne garantit pas une forme identique |
-| La relation entre variables | Nuage de points, résidus, sous-groupes | Une corrélation ne décrit pas toute la relation |
-| L'évolution | Série temporelle, fenêtres glissantes | L'agrégation détruit l'ordre temporel |
-| Le risque d'une décision | Quantiles extrêmes, fréquence et gravité des erreurs | Une faible erreur moyenne peut masquer des cas graves |
-
-Il n'existe pas de résumé universellement suffisant. Le bon choix dépend de la propriété que la question scientifique ou la décision doit préserver.
-
 ## À retenir
 
-- Plusieurs jeux de données peuvent partager une moyenne et avoir des dispersions très différentes.
+- Plusieurs séries peuvent partager une moyenne et avoir des dispersions très différentes.
 - Même plusieurs statistiques descriptives identiques ne garantissent pas une structure identique.
-- Les graphiques sont des outils de diagnostic, pas des preuves automatiques.
-- En ML, examiner les distributions et les sous-groupes est indispensable pour interpréter un score agrégé.
+- Un graphique est un test de l'interprétation, pas une preuve automatique.
+- En ML, un score global peut masquer des erreurs concentrées dans certains groupes ou certaines périodes.
+- Le bon résumé dépend de la propriété que la question scientifique ou la décision doit préserver.
 
 ## Pour aller plus loin
 
