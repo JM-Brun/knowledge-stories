@@ -187,22 +187,10 @@ Elle dépend de l'unité de mesure et peut être négative. Elle ne se compare d
 
 Avant de comparer des entropies, il faut préciser l'espace des événements, la représentation et l'unité.
 
-## À vous de raisonner
 
-1. Quelle prévision a la plus grande entropie : 50 % / 50 % ou 90 % / 10 % ?
-2. Pourquoi le service A obtient-il un score de Brier moins bon alors que son entropie est plus faible ?
-3. Si une information révèle parfaitement une variable binaire équilibrée, que valent son entropie conditionnelle et l'information mutuelle ?
-4. Une forte entropie prédictive signifie-t-elle toujours que le modèle manque de données ?
+## Mettre en pratique
 
-<details>
-<summary>Afficher la correction expliquée</summary>
-
-1. La distribution 50 % / 50 % a une entropie de 1 bit, supérieure aux 0,469 bit de la distribution 90 % / 10 %.
-2. Le service A annonce 90 % de pluie alors qu'il ne pleut que la moitié du temps. Il est trop confiant ; le score de Brier pénalise ses erreurs probabilistes.
-3. L'entropie conditionnelle vaut zéro, car la variable est connue sans ambiguïté. L'information mutuelle vaut l'entropie initiale, soit un bit.
-4. Non. La forte entropie peut refléter une ambiguïté intrinsèque du phénomène, une frontière de décision ou un modèle mal spécifié. Elle ne mesure pas uniquement l'incertitude épistémique.
-
-</details>
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-05.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
 
 ## À retenir
 
