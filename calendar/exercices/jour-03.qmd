@@ -1,9 +1,9 @@
 ---
-title: "Atelier 03 — À vous de raisonner"
+title: "Atelier 03 — Lire au-delà des statistiques résumées"
 description: "Exercices et corrections pour accompagner le jour 03 du calendrier 2026."
 ---
 
-> **Atelier associé au [jour 03](../days/jour-03.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 03](../days/jour-03.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
 > **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
 
 ## Exercices
