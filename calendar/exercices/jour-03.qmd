@@ -1,0 +1,30 @@
+---
+title: "Atelier 03 — À vous de raisonner"
+description: "Exercices et corrections pour accompagner le jour 03 du calendrier 2026."
+---
+
+> **Atelier associé au [jour 03](../days/jour-03.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
+
+## Exercices
+
+1. Pourquoi les trois séries A, B et C ont-elles la même moyenne ?
+2. Quelle information la variance ajoute-t-elle, et que laisse-t-elle encore de côté ?
+3. Dans le quartette d'Anscombe, pourquoi une droite peut-elle être trompeuse même si la corrélation est identique ?
+4. Quelle différence faites-vous entre un point à fort levier et un point ayant un grand résidu ?
+5. Quel graphique examineriez-vous pour détecter une dérive temporelle ?
+
+<details>
+<summary>Afficher la correction expliquée</summary>
+
+1. Leur somme est identique (25) et leur effectif aussi (5).
+2. La variance mesure une dispersion quadratique autour de la moyenne, mais ne décrit pas à elle seule l'asymétrie, la multimodalité, l'ordre temporel ou les relations non linéaires.
+3. La corrélation résume une association linéaire. Elle ne montre ni la courbure, ni l'effet d'un point influent, ni la géométrie complète du nuage.
+4. Le levier dépend de la position d'une observation dans l'espace des variables explicatives ; le résidu mesure l'écart vertical entre la valeur observée et la prédiction. Une observation peut avoir l'un sans avoir l'autre.
+5. Un graphique des observations ou des résidus en fonction du temps, éventuellement accompagné d'une fenêtre glissante, peut révéler une tendance ou une rupture. Il faut distinguer dérive réelle et fluctuations aléatoires.
+
+</details>
+
+## Retour à l'enquête
+
+Revenir à l'[article du jour 03](../days/jour-03.html).
