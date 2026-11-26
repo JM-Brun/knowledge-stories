@@ -238,6 +238,12 @@ Cela ne signifie pas qu'une faible covariance garantit un bon ensemble : les mod
 La règle opérationnelle est simple : **évaluer la diversité des erreurs, pas le nombre de prédicteurs.**
 
 
+### Un cas LLM : dix mille prompts ne font pas toujours dix mille observations indépendantes
+
+Un benchmark peut contenir des milliers de prompts issus des mêmes modèles de questions, documents sources ou familles de tâches. Si plusieurs prompts sont des paraphrases proches, leurs erreurs risquent d'être corrélées. La taille nominale du benchmark surestime alors la quantité d'information indépendante disponible.
+
+Le même phénomène apparaît lorsqu'on agrège plusieurs modèles : si leurs erreurs se concentrent sur les mêmes exemples, leur moyenne réduit moins la variance qu'attendu. Il faut donc examiner les dépendances entre erreurs et, lorsque c'est pertinent, construire les intervalles d'incertitude en regroupant les observations par source, famille de prompts ou tâche. Compter les lignes ne suffit pas ; il faut comprendre ce qui les relie.
+
 ## Mettre en pratique
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-04.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
