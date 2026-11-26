@@ -18,7 +18,7 @@ learningObjectives:
   - "Comparer le coût par niveau et interpréter la contribution des feuilles."
 concepts: ["multiplication-de-karatsuba"]
 recommendedPrerequisites: ["karatsuba-multiplication"]
-readingTime: 12
+readingTime: 16
 status: "review"
 featured: false
 sources:
@@ -437,7 +437,7 @@ où &#92;(a&#92;) est le nombre de sous-multiplications créées par un appel.
 
 La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;).
 
-### 6 bis. Vérifier une borne par induction : de l'intuition à la preuve
+### Vérifier une borne par induction : de l'intuition à la preuve
 
 L'arbre de récursion suggère l'exposant \(p=\log_2 3\). Le théorème maître permet aussi de retrouver cet ordre de grandeur. Mais on peut aller plus loin : **vérifier directement une borne candidate par induction**. C'est une autre tâche que deviner l'exposant.
 
