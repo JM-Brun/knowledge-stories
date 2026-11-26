@@ -93,7 +93,13 @@ $$
 \widehat y \approx 3{,}209 + 0{,}213x
 $$
 
-La pente passe d'environ 0,9 à 0,213. Le point est éloigné dans la direction de $x$ et contribue fortement à la géométrie de l'ajustement.
+La pente passe d'environ 0,9 à 0,213. Le point ajouté a un résidu de $-0{,}763$, inférieur en valeur absolue au résidu de l'observation $x=5$ (environ $1{,}727$), mais son levier est très élevé. Dans le modèle à six observations, le levier diagonal associé à $x=12$ vaut :
+
+$
+h_{ii}=\frac{1}{6}+\frac{(12-4{,}5)^2}{77{,}5}\approx0{,}892.
+$
+
+Cette valeur rend visible la position extrême du point dans l'espace des prédicteurs. Le changement de pente quantifie ici son influence. Ne pas transformer un seuil heuristique de levier en règle automatique : l'influence dépend aussi du résidu et du modèle.
 
 **À démontrer dans l'article :**
 - calculer la pente et l'intercept à partir de $S_{xx}$ et $S_{xy}$ ;
