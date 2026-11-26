@@ -190,6 +190,12 @@ Avant d'interpréter un score, demandez-vous :
 Le lien avec les journées précédentes est direct : la qualité de la mesure (jour 1), la sélection des observations (jour 2) et le choix des résumés (jour 3) conditionnent ce que le score d'un modèle permet réellement de conclure.
 
 
+### Un cas LLM : une loss moyenne peut cacher une distribution d'erreurs
+
+Deux modèles peuvent obtenir la même loss moyenne sur un jeu de test tout en ayant des comportements très différents. Le premier peut être régulièrement moyen ; le second très bon sur les formulations fréquentes, mais mauvais sur les langues minoritaires, les noms rares ou les contextes longs.
+
+La moyenne est un résumé utile, pas une description complète. Pour comprendre ce qu'elle masque, examinez la distribution des pertes et ventilez-les par langue, source, fréquence des tokens, longueur de contexte ou type de tâche. Ces découpages doivent être définis avant d'interpréter les écarts : multiplier les sous-groupes après coup augmente le risque de trouver des différences fortuites.
+
 ## Mettre en pratique
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-03.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
