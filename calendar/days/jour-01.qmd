@@ -10,6 +10,10 @@ description: "Une enquête sur deux thermomètres montre pourquoi répétabilit�
 >
 > **À la fin** — Vous saurez distinguer dispersion et décalage, expliquer pourquoi multiplier les mesures ne corrige pas un biais, et construire un premier diagnostic de qualité pour une variable mesurée.
 
+## Pourquoi cette question compte en Data Science
+
+Une variable mesurée n'est pas le phénomène lui-même : c'est le résultat d'un instrument, d'un protocole et d'une référence. Si l'effet du capteur est confondu avec celui du bâtiment, du patient ou du site, un modèle peut apprendre une différence de chaîne de mesure et la prendre pour un signal du monde. L'enjeu n'est donc pas seulement de « nettoyer » une colonne : c'est de savoir si la variable conserve le même sens entre les contextes d'entraînement et de déploiement.
+
 ## L'alerte
 
 Un lundi matin, un modèle de suivi énergétique signale que le bâtiment B est presque un degré plus froid que le bâtiment A. L'écart est assez grand pour déclencher une investigation : faut-il modifier le chauffage, inspecter l'isolation, ou vérifier les capteurs ?
