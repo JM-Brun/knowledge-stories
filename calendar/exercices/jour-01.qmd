@@ -3,7 +3,7 @@ title: "Atelier 01 — Auditer une mesure"
 description: "Exercices et corrections pour accompagner le jour 01 du calendrier 2026."
 ---
 
-> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 01](../days/jour-01.html). L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Temps indicatif : 8 à 10 minutes.** Atelier associé au [jour 01](../days/jour-01.html). L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
 > **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
 
 ## Exercices
@@ -15,6 +15,20 @@ Un troisième capteur est installé dans un bâtiment. Il fournit les relevés s
 3. Quelle expérience proposeriez-vous pour vérifier si le décalage est constant entre 5 °C et 30 °C ?
 4. Si ce capteur est utilisé uniquement pour détecter une hausse de température, le décalage le rend-il nécessairement inutilisable ? Quelles vérifications supplémentaires seraient nécessaires ?
 
+### Un problème d'identifiabilité
+
+Une équipe compare deux sites. Le site A est toujours équipé du capteur S1 ; le site B, du capteur S2. Les températures moyennes enregistrées sont respectivement 20,4 °C et 19,7 °C.
+
+5. Peut-on attribuer les 0,7 °C d'écart au site ou au capteur ? Justifiez sans supposer que l'un des deux est correct.
+6. L'équipe réalise ensuite un plan croisé :
+
+| Site | S1 | S2 |
+|---|---:|---:|
+| A | 20,0 °C | 19,2 °C |
+| B | 20,5 °C | 19,7 °C |
+
+Sous un modèle additif sans interaction site × capteur, estimez le décalage de S2 par rapport à S1 et l'écart entre les sites. Quelle hypothèse rend cette séparation possible ?
+
 <details>
 <summary>Afficher la correction raisonnée</summary>
 
@@ -22,6 +36,9 @@ Un troisième capteur est installé dans un bâtiment. Il fournit les relevés s
 2. Sous des hypothèses de stabilité et d'indépendance des erreurs aléatoires, la moyenne devient moins variable. Le décalage systématique ne disparaît pas par répétition.
 3. Comparer le capteur à une référence adaptée sur plusieurs températures stabilisées, en répétant les mesures à chaque point et en documentant les conditions. On peut alors examiner si le décalage dépend de la température. Il faut aussi tenir compte de l'incertitude de la référence.
 4. Pas nécessairement. Pour détecter une variation, un décalage constant peut parfois être moins gênant que pour estimer une température absolue. Mais il faut vérifier sa stabilité dans le temps, sa réponse dynamique, son bruit et l'absence de dérive ; la décision dépend du seuil d'alerte et du coût des faux positifs et faux négatifs.
+
+5. Non. Le site et le capteur sont parfaitement confondus : la différence observée peut provenir de l'un, de l'autre ou des deux. Répéter les mesures dans les mêmes combinaisons ne sépare pas les effets.
+6. S2 indique 0,8 °C de moins que S1 sur les deux sites ; le site B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement identifie ces deux effets sous l'hypothèse d'un décalage instrumental constant entre sites. Une interaction site × capteur invaliderait cette séparation additive et devrait être étudiée.
 
 </details>
 

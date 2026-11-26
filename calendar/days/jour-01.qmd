@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Quand les capteurs ne racontent pas la même histoire"
 description: "Une enquête sur deux thermomètres montre pourquoi répétabilité, justesse et incertitude ne répondent pas à la même question — et pourquoi cela compte avant d'entraîner un modèle."
 ---
 
-> **Environ 18 à 20 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.
+> **Environ 17 à 19 minutes** — Suivre une anomalie dans un réseau de capteurs, distinguer répétabilité, justesse et incertitude, puis comprendre pourquoi une mesure doit être documentée avant d'alimenter un modèle.
 >
 > **Prérequis** — Aucun. La moyenne et l'écart-type sont expliqués au moment où ils deviennent utiles.
 >
@@ -20,7 +20,9 @@ Un lundi matin, un modèle de suivi énergétique signale que le bâtiment B est
 
 Les deux bâtiments sont comparables. Les capteurs ont été installés le même jour. Et pourtant, leurs relevés sont très différents.
 
-Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce dont la température est contrôlée à environ 20 °C.
+Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce stabilisée à environ 20 °C. Pendant les relevés, un thermomètre de référence indépendant, étalonné et adapté à cette plage, indique 20,00 °C ; son incertitude élargie est de 0,05 °C (facteur d'élargissement \(k=2\)). Cette référence n'est pas une vérité parfaite : elle fournit un point de comparaison documenté, avec une incertitude connue. Dans cet exemple construit, sa traçabilité métrologique est documentée ; ce statut ne dispense pas de vérifier que son incertitude est adaptée à la décision.
+
+Les valeurs ci-dessous sont un scénario illustratif, pas des observations expérimentales.
 
 Trois relevés suffisent à faire apparaître une énigme :
 
@@ -31,7 +33,7 @@ Trois relevés suffisent à faire apparaître une énigme :
 | 20,2 °C | 19,0 °C |
 | **Moyenne : 20,17 °C** | **Moyenne : 19,03 °C** |
 
-Les deux séries sont presque aussi resserrées l'une que l'autre. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C.
+Les deux séries ont la même étendue observée, 0,1 °C. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à la référence, les moyennes sont décalées de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à certifier son comportement sur toute sa plage d'utilisation.
 
 **Question : lequel des deux capteurs mesure le mieux ?** Pour répondre, il faut séparer deux propriétés que le langage courant confond souvent.
 
@@ -89,10 +91,10 @@ Le capteur B est stable au cours de ces trois relevés, mais il indique une temp
 
 La métrologie distingue notamment :
 
-- **Fidélité** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
-- **Répétabilité** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, même système de mesure, même opérateur et même lieu, sur une courte période.
-- **Justesse** : proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence.
-- **Exactitude** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
+- **[Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html)** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
+- **[Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html)** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, mêmes opérateurs, même système de mesure, mêmes conditions de fonctionnement et même lieu, avec des mesures répétées sur le même objet (ou des objets similaires) pendant une courte période.
+- **[Justesse](https://jcgm.bipm.org/vim/fr/2.14.html)** : proximité entre la moyenne d'un nombre infini de résultats répétés et une valeur de référence.
+- **[Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html)** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
 
 Ces définitions sont celles du [Vocabulaire international de métrologie (VIM), JCGM 200:2012](https://jcgm.bipm.org/vim/fr/). Le mot « précision » est ambigu dans le langage courant : mieux vaut préciser si l'on parle de fidélité, de répétabilité ou d'exactitude.
 
@@ -207,8 +209,6 @@ Avant de corriger, l'équipe doit répondre à quatre questions :
 3. **La référence est-elle adaptée ?** Il faut connaître sa traçabilité et son incertitude, et vérifier que celles-ci sont suffisantes pour la décision.
 4. **Le décalage est-il stable sur la plage d'utilisation ?** Une correction mesurée à 20 °C ne garantit pas une correction valide à 5 °C ou 40 °C.
 
-Le vocabulaire métrologique aide à formaliser ce diagnostic. Le [mesurande](https://jcgm.bipm.org/vim/fr/2.3.html) désigne la grandeur que l'on veut mesurer. La [résolution](https://jcgm.bipm.org/vim/fr/4.14.html) décrit le plus petit changement d'indication perceptible ; elle ne garantit ni la justesse ni l'incertitude du résultat. Enfin, la fréquence d'échantillonnage et le temps de réponse sont deux paramètres distincts : enregistrer à 10 Hz ne permet pas de retrouver une variation que le capteur ou son filtrage ne transmet pas.
-
 **Décision provisoire :** ne pas corriger automatiquement les données historiques. Documenter l'anomalie, comparer les capteurs à une référence adaptée sur plusieurs points de fonctionnement, puis estimer une correction et son incertitude si les résultats justifient cette opération.
 
 ## Le passage à la Data Science
@@ -238,7 +238,7 @@ Un plan croisé apporte l'information qui manque. À titre d'illustration, suppo
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
-Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre.
+Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre. Cette identification suppose que le décalage propre au capteur reste le même dans les deux bâtiments : le modèle ne comporte pas d'interaction capteur × bâtiment. Si le montage ou l'environnement modifie différemment la réponse de chaque capteur selon le site, ce plan minimal ne suffit plus ; il faut caractériser cette interaction.
 
 En pratique, il faut contrôler les changements de température pendant le déplacement des capteurs, leur temps de réponse et les conditions d'exposition. Une mesure de référence commune ou un échange croisé planifié peut aider ; une permutation improvisée dans le temps pourrait introduire un nouveau biais.
 
@@ -281,14 +281,10 @@ Avant d'entraîner un modèle, documentez au minimum :
 
 Si plusieurs lignes proviennent du même capteur ou du même site, une validation aléatoire par ligne peut aussi surestimer la capacité de généralisation. Il faut choisir un découpage cohérent avec le futur usage : nouveau site, nouveau capteur ou période future.
 
-Un atelier complémentaire développe ce diagnostic sur une variable de Machine Learning : [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
+L'atelier séparé propose un court exercice de diagnostic et de décision à partir d'un troisième capteur ; il permet de vérifier le raisonnement sans interrompre cette enquête.
 
 
-### Un cas LLM : les préférences annotées
 
-Lorsqu'on constitue un jeu de préférences pour entraîner ou évaluer un assistant, le jugement humain joue le rôle d'une mesure. Faire annoter mille réponses au lieu de dix peut réduire l'influence de désaccords individuels. Mais si tous les annotateurs partagent la même consigne ambiguë, le même profil d'usage ou le même angle culturel, le biais commun demeure. La répétition améliore éventuellement la stabilité du jugement ; elle ne garantit pas sa validité.
-
-Il faut donc documenter qui annote, selon quelles consignes, sur quels exemples et avec quel mécanisme de résolution des désaccords. Un taux d'accord élevé ne prouve pas, à lui seul, que le critère mesuré est le bon.
 
 ## Mettre en pratique
 
