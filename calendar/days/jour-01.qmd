@@ -33,7 +33,7 @@ Trois relevés suffisent à faire apparaître une énigme :
 | 20,2 °C | 19,0 °C |
 | **Moyenne : 20,17 °C** | **Moyenne : 19,03 °C** |
 
-Les deux séries ont la même étendue observée, 0,1 °C. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à la référence, les moyennes sont décalées de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à certifier son comportement sur toute sa plage d'utilisation.
+Les deux séries ont la même étendue observée, 0,1 °C. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à l'indication de référence, les différences observées sont de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à estimer son biais ni à certifier son comportement sur toute sa plage d'utilisation. Les moyennes au centième proviennent du calcul sur trois indications arrondies au dixième : ces centièmes ne signifient pas que les capteurs ont une résolution de 0,01 °C. De même, l'incertitude annoncée pour la référence n'est pas l'incertitude complète de la comparaison, qui doit aussi intégrer les instruments comparés et les conditions expérimentales.
 
 **Question : lequel des deux capteurs mesure le mieux ?** Pour répondre, il faut séparer deux propriétés que le langage courant confond souvent.
 
@@ -116,7 +116,7 @@ X_i = \theta + b + \varepsilon_i
 - \(b\) est un décalage systématique, supposé constant pendant l'expérience ;
 - \(\varepsilon_i\) représente les variations aléatoires de la mesure.
 
-Pour voir ce qui se passe, supposons que les erreurs aléatoires soient indépendantes, de même loi, de moyenne nulle et de variance \(\sigma^2\). La moyenne de \(n\) mesures vaut :
+Pour voir ce qui se passe, supposons que la température recherchée \(\theta\) et le décalage \(b\) restent constants pendant la série, et que les erreurs aléatoires soient indépendantes, de même loi, de moyenne nulle et de variance \(\sigma^2\). La moyenne de \(n\) mesures vaut :
 
 \[
 \overline X_n = \theta + b + \frac{1}{n}\sum_{i=1}^{n}\varepsilon_i
@@ -134,6 +134,8 @@ Deux effets coexistent :
 
 1. La partie aléatoire de la moyenne diminue quand le nombre de mesures augmente. Son écart-type décroît comme \(1/\sqrt n\).
 2. Le décalage \(b\) reste présent. La moyenne se rapproche de \(\theta+b\), pas de \(\theta\).
+
+Cette conclusion dépend de l'hypothèse d'indépendance. Des mesures prises à quelques secondes d'intervalle peuvent partager les mêmes fluctuations (température ambiante, inertie du capteur, alimentation) et être autocorrélées. Dans ce cas, la variance de la moyenne n'est généralement plus \(\sigma^2/n\) : augmenter le nombre de lignes apporte moins d'information que ne le laisserait croire ce calcul. La répétition ne compense donc ni un biais systématique ni une dépendance ignorée.
 
 <figure>
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Effet de la répétition sur le bruit et sur le biais, défilable horizontalement sur petit écran">
@@ -238,7 +240,7 @@ Un plan croisé apporte l'information qui manque. À titre d'illustration, suppo
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
-Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre. Cette identification suppose que le décalage propre au capteur reste le même dans les deux bâtiments : le modèle ne comporte pas d'interaction capteur × bâtiment. Si le montage ou l'environnement modifie différemment la réponse de chaque capteur selon le site, ce plan minimal ne suffit plus ; il faut caractériser cette interaction.
+Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre. Cette identification suppose que le décalage propre au capteur reste le même dans les deux bâtiments : le modèle ne comporte pas d'interaction capteur × bâtiment. Si le montage ou l'environnement modifie différemment la réponse de chaque capteur selon le site, ce plan minimal ne suffit plus ; il faut caractériser cette interaction. Enfin, une seule valeur par case ne permet pas d'estimer correctement la variabilité résiduelle. Des répétitions par combinaison sont nécessaires pour quantifier cette variabilité et examiner les écarts au modèle additif. Identifier les effets sous hypothèses n'est pas encore valider le modèle.
 
 En pratique, il faut contrôler les changements de température pendant le déplacement des capteurs, leur temps de réponse et les conditions d'exposition. Une mesure de référence commune ou un échange croisé planifié peut aider ; une permutation improvisée dans le temps pourrait introduire un nouveau biais.
 
@@ -279,7 +281,7 @@ Avant d'entraîner un modèle, documentez au minimum :
 - **Limites** : biais plausibles, dérive, incertitude, groupes ou périodes moins bien couverts.
 - **Usage** : quelle décision dépend de cette variable, et quelle erreur serait coûteuse ?
 
-Si plusieurs lignes proviennent du même capteur ou du même site, une validation aléatoire par ligne peut aussi surestimer la capacité de généralisation. Il faut choisir un découpage cohérent avec le futur usage : nouveau site, nouveau capteur ou période future.
+Si plusieurs lignes proviennent du même capteur ou du même site, une validation aléatoire par ligne peut aussi surestimer la capacité de généralisation : des observations très proches, voire issues du même dispositif, peuvent se retrouver à la fois dans l'entraînement et le test. Le découpage doit reproduire le scénario de déploiement : séparation temporelle pour prédire une période future, validation par groupes pour évaluer un nouveau site ou un nouveau capteur. Un découpage par groupe ne suffit toutefois que si le groupe tenu à l'écart correspond bien à la source de variation que l'on veut généraliser.
 
 L'atelier séparé propose un court exercice de diagnostic et de décision à partir d'un troisième capteur ; il permet de vérifier le raisonnement sans interrompre cette enquête.
 
