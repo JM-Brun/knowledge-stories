@@ -1,7 +1,7 @@
 ---
-title: "Trois distributions, une même moyenne"
-subtitle: "Jour 3 · Les quatre rapports qui semblaient identiques"
-description: "Une enquête sur des résumés statistiques trompeusement semblables montre pourquoi les données doivent être visualisées avant de les interpréter."
+title: "Quatre jeux, une même droite"
+subtitle: "Jour 3 · Ce que les statistiques résumées ne voient pas"
+description: "Le quartette d’Anscombe révèle comment des données très différentes peuvent produire les mêmes statistiques et la même droite de régression."
 ---
 
 > **Environ 18 à 20 minutes** — Découvrir ce que les statistiques résumées conservent et effacent, puis apprendre à utiliser une visualisation pour mettre une hypothèse à l'épreuve.
@@ -9,6 +9,10 @@ description: "Une enquête sur des résumés statistiques trompeusement semblabl
 > **Prérequis** — Savoir calculer une moyenne. La variance et la corrélation sont introduites dans l'article.
 >
 > **À la fin** — Vous saurez ce qu'un résumé statistique conserve, ce qu'il efface et comment choisir une visualisation qui peut mettre une hypothèse à l'épreuve.
+
+## Pourquoi cette question compte en Data Science
+
+Un modèle peut optimiser parfaitement son objectif et produire un résumé fidèle à ce qu'on lui a demandé, tout en masquant une structure décisive pour l'usage. C'est le risque des moyennes globales, des métriques agrégées et des diagnostics réduits à quelques nombres : ils compressent les données. Le quartette d'Anscombe permet de voir précisément ce que cette compression efface, jusque dans les coefficients d'une régression.
 
 ## Quatre rapports, une même conclusion ?
 
@@ -91,6 +95,28 @@ Les quatre jeux partagent, à l'arrondi près, les mêmes statistiques descripti
 | Droite de régression | \(\widehat y=3+0{,}5x\) |
 
 Et pourtant, leurs nuages de points ne racontent pas la même histoire.
+
+Avant de regarder les figures, une question mérite d'être posée : **comment quatre jeux aussi différents peuvent-ils produire exactement la même droite des moindres carrés ?**
+
+Dans une régression linéaire simple avec constante, la pente estimée s'écrit
+
+\[
+\widehat\beta_1=\frac{S_{xy}}{S_{xx}},
+\qquad
+\widehat\beta_0=\overline y-\widehat\beta_1\,\overline x,
+\]
+
+où
+
+\[
+S_{xx}=\sum_i(x_i-\overline x)^2,
+\qquad
+S_{xy}=\sum_i(x_i-\overline x)(y_i-\overline y).
+\]
+
+La droite ne « voit » donc, pour déterminer ses coefficients, que quelques agrégats : les deux moyennes, la dispersion de \(x\) et la covariance entre \(x\) et \(y\). Si ces quantités sont identiques, les coefficients le sont aussi. La corrélation ajoute une autre mesure agrégée de l'association, mais elle ne décrit toujours pas la géométrie complète du nuage.
+
+C'est le point subtil du quartette : **l'égalité des résultats d'un calcul ne signifie pas que les données contiennent la même structure**. La régression a bien optimisé son critère dans les quatre cas ; ce critère ne lui demandait simplement pas de distinguer une courbe, un point influent ou une configuration presque dégénérée.
 
 <figure>
 <svg viewBox="0 0 760 360" role="img" aria-labelledby="anscombe-title anscombe-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
