@@ -92,6 +92,28 @@ Les quatre jeux partagent, à l'arrondi près, les mêmes statistiques descripti
 
 Et pourtant, leurs nuages de points ne racontent pas la même histoire.
 
+Avant de regarder les figures, une question mérite d'être posée : **comment quatre jeux aussi différents peuvent-ils produire exactement la même droite des moindres carrés ?**
+
+Dans une régression linéaire simple avec constante, la pente estimée s'écrit
+
+\\[
+\\widehat\\beta_1=\\frac{S_{xy}}{S_{xx}},
+\\qquad
+\\widehat\\beta_0=\\overline y-\\widehat\\beta_1\\,\\overline x,
+\\]
+
+où
+
+\\[
+S_{xx}=\\sum_i(x_i-\\overline x)^2,
+\\qquad
+S_{xy}=\\sum_i(x_i-\\overline x)(y_i-\\overline y).
+\\]
+
+La droite ne « voit » donc, pour déterminer ses coefficients, que quelques agrégats : les deux moyennes, la dispersion de \\(x\\) et la covariance entre \\(x\\) et \\(y\\). Si ces quantités sont identiques, les coefficients le sont aussi. La corrélation ajoute une autre mesure agrégée de l'association, mais elle ne décrit toujours pas la géométrie complète du nuage.
+
+C'est le point subtil du quartette : **l'égalité des résultats d'un calcul ne signifie pas que les données contiennent la même structure**. La régression a bien optimisé son critère dans les quatre cas ; ce critère ne lui demandait simplement pas de distinguer une courbe, un point influent ou une configuration presque dégénérée.
+
 <figure>
 <svg viewBox="0 0 760 360" role="img" aria-labelledby="anscombe-title anscombe-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
 <title id="anscombe-title">Les quatre jeux d'Anscombe ont des statistiques proches mais des formes différentes</title>
