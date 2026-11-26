@@ -10,13 +10,17 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 >
 > **À la fin** — Vous saurez calculer la variance d'une somme, interpréter le signe de la covariance et expliquer pourquoi des mesures ou des modèles corrélés apportent moins de diversité qu'on pourrait le croire.
 
-## L'idée en une minute
+## L'alerte dans la salle de contrôle
 
-La variance mesure l'amplitude des fluctuations d'une somme. Si deux variables fluctuent ensemble, leurs écarts se renforcent ; si elles évoluent en sens opposé, ils peuvent se compenser. La covariance quantifie le sens et l'ampleur de cette variation commune. Elle intervient dans la variance d'une somme parce que le carré d'une somme contient un terme croisé. Elle ne décrit toutefois pas toute forme de dépendance.
+Deux capteurs surveillent la vibration d'un pont. Chaque capteur est bruyant ; l'ingénieur propose donc de faire la moyenne de leurs relevés. Cela devrait réduire le bruit.
+
+Mais les deux appareils sont fixés sur la même structure. Quand un camion traverse le pont, leurs mesures bougent ensemble. La moyenne de deux relevés n'élimine pas une fluctuation qu'ils partagent.
+
+C'est le rôle de la covariance : mesurer la contribution de ces variations communes à l'incertitude d'une somme ou d'une moyenne.
 
 ## La question
 
-Pourquoi la variance de \(X+Y\) n'est-elle pas toujours égale à la somme des variances de \(X\) et de \(Y\) ? Parce que la somme dépend aussi de la manière dont les deux variables fluctuent ensemble.
+Pourquoi la variance de \(X+Y\) n'est-elle pas toujours égale à la somme des variances de \(X\) et de \(Y\) ? Parce que le résultat dépend aussi de la manière dont les deux variables fluctuent ensemble.
 
 ## Un exemple calculé : deux variables qui évoluent ensemble
 
@@ -105,11 +109,13 @@ Pour deux variables de même variance \(\sigma^2\), on a \(\operatorname{Cov}(X,
 
 où \(\rho\) est leur corrélation, si les variances sont finies et non nulles.
 
-- Si \(\rho=1\), les deux variables évoluent ensemble : moyenner ne réduit pas la variance.
-- Si \(\rho=0\), la variance de la moyenne est divisée par deux.
-- Si \(\rho=-1\), les fluctuations se compensent exactement dans ce cas idéal.
+| Corrélation \(\rho\) | Variance de la moyenne, rapportée à \(\sigma^2\) | Lecture |
+|---:|---:|---|
+| −1 | 0 | Compensation parfaite dans ce cas idéal |
+| 0 | 0,5 | Réduction de moitié |
+| +1 | 1 | Aucun gain par moyennage |
 
-La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**.
+La formule met en évidence une idée souvent oubliée : **multiplier les mesures ne crée pas autant d'information indépendante que le nombre de capteurs le laisse croire**. Le résultat suppose ici deux variables de même variance ; il ne s'applique pas tel quel à toutes les configurations.
 
 <figure>
 <svg viewBox="0 0 760 245" role="img" aria-labelledby="corr-title corr-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
@@ -131,7 +137,32 @@ La formule met en évidence une idée souvent oubliée : **multiplier les mesure
 
 ## Pourquoi dix capteurs ne valent pas dix mesures indépendantes
 
-Imaginons dix capteurs qui mesurent le même phénomène. Chaque mesure contient une perturbation commune \(U\) — par exemple une fluctuation de température affectant tous les appareils — et une erreur propre \(\varepsilon_i\) :
+Revenons au pont. Chaque capteur subit deux influences : une variation commune liée au mouvement de la structure, et un bruit propre à son électronique. On peut les représenter ainsi :
+
+<figure>
+<svg viewBox="0 0 760 220" role="img" aria-labelledby="shared-title shared-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="shared-title">Deux capteurs partagent une perturbation et possèdent chacun leur bruit propre</title>
+  <desc id="shared-desc">Le phénomène mesuré et une perturbation commune alimentent deux capteurs. Chaque capteur reçoit aussi une perturbation indépendante. Les deux sorties sont ensuite moyennées : le bruit propre peut se réduire, mais la perturbation commune reste.</desc>
+  <rect x="1" y="1" width="758" height="218" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="20" y="75" width="135" height="55" rx="8" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="87" y="98" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Phénomène</text><text x="87" y="114" text-anchor="middle" fill="#0f172a" font-size="11">à mesurer θ</text>
+  <rect x="20" y="12" width="135" height="42" rx="8" fill="#fef3c7" stroke="#d97706"/>
+  <text x="87" y="38" text-anchor="middle" fill="#78350f" font-size="12" font-weight="700">Perturbation commune U</text>
+  <rect x="245" y="35" width="150" height="55" rx="8" fill="#d1fae5" stroke="#0f766e"/>
+  <rect x="245" y="130" width="150" height="55" rx="8" fill="#d1fae5" stroke="#0f766e"/>
+  <g fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle"><text x="320" y="58">Capteur 1</text><text x="320" y="75" font-size="11" font-weight="400">+ bruit propre ε₁</text><text x="320" y="153">Capteur 2</text><text x="320" y="170" font-size="11" font-weight="400">+ bruit propre ε₂</text></g>
+  <rect x="500" y="80" width="110" height="55" rx="8" fill="#ede9fe" stroke="#8b5cf6"/>
+  <text x="555" y="103" text-anchor="middle" fill="#3b0764" font-size="12" font-weight="700">Moyenne</text><text x="555" y="119" text-anchor="middle" fill="#3b0764" font-size="11">des sorties</text>
+  <rect x="650" y="80" width="95" height="55" rx="8" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="697" y="103" text-anchor="middle" fill="#7f1d1d" font-size="12" font-weight="700">Résultat</text><text x="697" y="119" text-anchor="middle" fill="#7f1d1d" font-size="11">agrégé</text>
+  <g fill="none" stroke="#64748b" stroke-width="1.8"><path d="M155 100 H210 V62 H241"/><path d="M210 100 V157 H241"/><path d="M155 33 H190 V62 H241"/><path d="M190 33 V157 H241"/><path d="M395 62 H455 V95 H496"/><path d="M395 157 H455 V120 H496"/><path d="M610 107 H646"/></g>
+  <g fill="#92400e" font-size="10"><text x="172" y="18">agit sur les deux</text><text x="420" y="47">ε₁ indépendant</text><text x="420" y="177">ε₂ indépendant</text></g>
+  <text x="380" y="205" text-anchor="middle" fill="#475569" font-size="11">La moyenne réduit les bruits propres ; la composante commune demeure.</text>
+</svg>
+<figcaption>Schéma du modèle additif : une perturbation commune traverse les deux voies, tandis que chaque capteur ajoute une erreur propre.</figcaption>
+</figure>
+
+On peut formaliser ce mécanisme par :
 
 \[
 X_i=\theta+U+\varepsilon_i.
