@@ -1,318 +1,274 @@
 ---
 title: "50 000 réponses valent-elles mieux que 1 000 ?"
-subtitle: "Jour 2 · Qui est représenté dans les données ?"
-description: "Comprendre pourquoi la taille d'un échantillon ne corrige ni la couverture ni le mécanisme de sélection."
+subtitle: "Jour 2 · L'enquête qui ne voit que la moitié du monde"
+description: "Une enquête fictive montre pourquoi un échantillon massif peut décrire précisément la mauvaise population, et comment diagnostiquer les mécanismes de sélection."
 ---
 
-> **En 20 à 25 minutes** — Deux enquêtes, deux tailles très différentes, et une question : de quelle population les chiffres parlent-ils réellement ?
+> **Environ 12 à 15 minutes** — Enquêter sur deux sondages contradictoires, identifier ce que chacun estime réellement, puis décider dans quelles conditions une correction statistique est défendable.
 >
-> **Prérequis** — Aucun prérequis formel. Savoir lire une moyenne et une proportion suffit ; la notion d'estimateur est expliquée dans l'article.
+> **Prérequis** — Savoir lire une moyenne et une proportion. Les notions de population cible et d'échantillon sont introduites dans le récit.
 >
-> **À la fin** — Vous saurez distinguer population cible, base de sondage et échantillon observé, expliquer pourquoi un grand échantillon peut rester biaisé et reconnaître les hypothèses nécessaires à une correction par pondération.
+> **À la fin** — Vous saurez distinguer taille, couverture et sélection, expliquer pourquoi un grand échantillon peut viser la mauvaise population et reconnaître les limites d'une pondération.
 
-## L'idée en une minute
+## Deux sondages, deux réponses
 
-La taille d'un échantillon contrôle surtout la variabilité liée au tirage. Elle ne garantit ni que les bonnes personnes pouvaient être sélectionnées, ni que celles qui ont été sollicitées ont répondu. Avant de demander « combien de données ? », il faut demander « qui pouvait entrer dans les données, et qui manque ? ».
+Une entreprise veut connaître le score de satisfaction de ses utilisateurs. Elle dispose de deux enquêtes.
 
-## La question
+- La première a recueilli **50 000 réponses** grâce à une fenêtre affichée dans l'application.
+- La seconde n'a recueilli que **1 000 réponses**, tirées au hasard dans la liste complète des utilisateurs, avec un suivi des non-répondants.
 
-Une enquête qui recueille 50 000 réponses est-elle nécessairement plus fiable qu'une enquête qui en recueille 1 000 ? Pas si les 50 000 réponses proviennent presque exclusivement d'un sous-groupe.
+La première enquête semble imbattable par sa taille. Pourtant, elle annonce une satisfaction nettement plus élevée que la seconde.
 
-La taille d'un échantillon renseigne sur la quantité d'information disponible **sous un mécanisme de collecte donné**. Elle ne dit pas, à elle seule, si les personnes observées ressemblent à la population sur laquelle on souhaite conclure.
+La direction demande : laquelle croire ?
 
-## Un exemple contrôlé
+Avant de comparer les chiffres, il faut poser une question plus fondamentale : **à qui veut-on faire dire quelque chose à ces réponses ?**
 
-Une population cible comporte 100 000 personnes :
+## Le piège : confondre nombre de réponses et population représentée
 
-- 50 000 appartiennent au groupe A, dont le score moyen est 10 ;
-- 50 000 appartiennent au groupe B, dont le score moyen est 20.
+Imaginons une population de 100 000 utilisateurs, répartis en deux groupes de même taille :
 
-La moyenne de la population est donc :
+- 50 000 utilisateurs réguliers, dont le score moyen est 10 ;
+- 50 000 utilisateurs occasionnels, dont le score moyen est 20.
+
+La moyenne de toute la population est :
 
 \[
 \mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
 \]
 
-Deux enquêtes sont réalisées :
+L'enquête affichée dans l'application ne touche presque que les utilisateurs réguliers. Pour isoler le problème, supposons qu'elle obtienne une réponse de chacun des 50 000 utilisateurs réguliers et d'aucun utilisateur occasionnel.
 
-- les 50 000 personnes du groupe A répondent une fois : on dispose d'un recensement de A, mais d'aucune observation de B ;
-- une enquête stratifiée tire aléatoirement, sans remise, 500 personnes dans chaque groupe, soit 1 000 au total ; les réponses sont complètes.
+La seconde enquête tire au hasard 500 utilisateurs dans chaque groupe et obtient toutes les réponses.
 
-Dans le premier dispositif, toutes les personnes de A sont observées : sa moyenne vaut donc exactement 10 pour ce groupe, sans erreur d'échantillonnage sur A. Elle ne donne toutefois aucune information directe sur B et n'est pas la moyenne de la population cible. Pour l'enquête stratifiée, l'estimateur est centré sur 15 : une réalisation particulière peut s'en écarter par hasard. Le dispositif le plus volumineux décrit parfaitement une partie de la population, mais pas la population entière.
+| Enquête | Réguliers | Occasionnels | Total |
+|---|---:|---:|---:|
+| Grande enquête | 50 000 | 0 | 50 000 |
+| Enquête stratifiée | 500 | 500 | 1 000 |
 
-## Préciser la quantité que l'on cherche à estimer
+La première enquête est un recensement du groupe régulier. Sa moyenne vaut exactement 10 pour ce groupe. Mais elle ne dit rien directement sur les utilisateurs occasionnels.
 
-Avant de comparer deux échantillons, il faut définir la **cible statistique** — ou *estimand*. Dans cet exemple, la cible est la moyenne de toute la population :
-
-\[
-\mu = W_A\mu_A + W_B\mu_B,
-\]
-
-où \(W_A\) et \(W_B\) sont les proportions des groupes dans la population, et \(\mu_A\), \(\mu_B\) leurs moyennes respectives. Ici, les poids valent 0,5 et les moyennes 10 et 20 : la cible vaut 15.
-
-L'enquête limitée au groupe A ne souffre pas simplement d'un échantillon « trop petit ». Elle estime correctement la moyenne de A, mais cette quantité n'est pas l'estimand choisi. C'est une distinction fondamentale : **un calcul peut être exact pour la mauvaise question**.
-
-**Ce que l'exemple permet — et ne permet pas — de comparer.** Il établit un contraste de couverture et de cible, pas un classement numérique de précision. Les variances individuelles à l'intérieur de A et de B ne sont pas données : on ne peut donc pas calculer l'erreur-type de l'estimateur stratifié ni affirmer de combien il serait plus précis. En revanche, le recensement de A élimine bien l'erreur de tirage pour la moyenne de A ; il ne transforme pas cette moyenne en moyenne de la population entière.
-
-Le plan stratifié permet d'estimer la moyenne globale parce que les deux groupes sont observés et que leurs poids dans la population sont connus. Dans cet exemple :
+La seconde observe les deux groupes. Avec les poids connus de la population, son estimateur de la moyenne globale est :
 
 \[
-\widehat{\mu}_T =
-0{,}5\,\overline{X}_A + 0{,}5\,\overline{X}_B,
-\qquad
-\mathbb{E}[\widehat{\mu}_T] = \mu_T = 15.
+\widehat\mu = 0{,}5\,\overline X_{\mathrm{reg}} +
+0{,}5\,\overline X_{\mathrm{occ}}.
 \]
 
-L'espérance porte ici sur les tirages aléatoires répétés dans chaque strate ; l'égalité suppose un échantillonnage probabiliste correct et une réponse complète. Une réalisation particulière peut donc s'écarter de 15. Si les fractions d'échantillonnage diffèrent, il faut appliquer les poids correspondant au plan et à la population cible ; une moyenne brute des répondants n'est pas automatiquement correcte.
+Sous le plan de tirage décrit, cet estimateur est centré sur 15. Une réalisation particulière peut s'en écarter par hasard ; les variances individuelles ne sont pas fournies ici, donc on ne peut pas calculer son erreur-type.
 
-## Pourquoi plus de données ne résout-il rien ici ?
+**Le paradoxe est résolu :** les 50 000 réponses décrivent parfaitement un groupe qui ne représente que la moitié de la population. Les 1 000 réponses peuvent être plus informatives pour la question posée parce qu'elles couvrent les deux groupes.
 
-Imaginons maintenant une population dix fois plus grande, avec 500 000 personnes dans le groupe A et 500 000 dans le groupe B, et un recensement de A. Sa moyenne restera 10 : le nombre de réponses augmente, mais la population cible reste couverte à moitié seulement.
+<figure>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison visuelle des deux enquêtes, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 760 330" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="sample-title">Cinquante mille réponses provenant d'un seul groupe contre mille réponses stratifiées</title>
+  <desc id="sample-desc">La population est composée pour moitié d'utilisateurs réguliers et pour moitié d'utilisateurs occasionnels. La grande enquête ne contient que des réguliers. La petite enquête contient autant de personnes de chaque groupe et peut donc estimer la moyenne de la population avec les bons poids.</desc>
+  <rect x="1" y="1" width="758" height="328" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="24" y="29" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 utilisateurs</text>
+  <rect x="24" y="43" width="350" height="40" rx="6" fill="#0f766e"/>
+  <rect x="374" y="43" width="350" height="40" rx="6" fill="#d97706"/>
+  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle">
+    <text x="199" y="68">Réguliers · 50 % · moyenne 10</text>
+    <text x="549" y="68">Occasionnels · 50 % · moyenne 20</text>
+  </g>
+  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Enquête A · 50 000 réponses</text>
+  <rect x="24" y="128" width="700" height="30" rx="5" fill="#0f766e"/>
+  <text x="374" y="148" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réguliers · 0 occasionnel · moyenne observée : 10</text>
+  <text x="24" y="194" fill="#334155" font-size="13" font-weight="700">Enquête B · 1 000 réponses</text>
+  <rect x="24" y="206" width="350" height="30" rx="5" fill="#0f766e"/>
+  <rect x="374" y="206" width="350" height="30" rx="5" fill="#d97706"/>
+  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="226">500 réguliers</text><text x="549" y="226">500 occasionnels</text></g>
+  <text x="374" y="263" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Avec les poids de population : moyenne estimée autour de 15</text>
+  <path d="M24 282 H724" stroke="#cbd5e1"/>
+  <text x="24" y="303" fill="#475569" font-size="11">La longueur des barres illustre la composition, pas le volume relatif des enquêtes.</text>
+</svg>
+</div>
+<figcaption>La composition des échantillons importe autant que leur taille. Les barres représentent les proportions de groupes observés dans chaque enquête.</figcaption>
+</figure>
 
-L'erreur ne vient pas d'une fluctuation aléatoire autour de la bonne cible. Elle vient du fait que la procédure observe une population accessible différente de la population cible.
+## Trois ensembles qu'il ne faut pas confondre
 
-C'est utile de distinguer trois objets :
+Pour comprendre ce qui s'est passé, distinguons trois ensembles :
 
-- **Population cible** : les unités auxquelles on veut généraliser.
-- **Base de sondage** : les unités qui peuvent effectivement être sélectionnées.
-- **Échantillon observé** : celles qui ont finalement répondu ou ont été mesurées.
+- **Population cible** : toutes les unités sur lesquelles on veut conclure.
+- **Base de sondage** : les unités que le dispositif permet effectivement de sélectionner.
+- **Échantillon observé** : les unités finalement sélectionnées et dont les données sont disponibles.
 
-Entre ces trois ensembles, il peut y avoir des absences, des exclusions, de la non-réponse et de l'auto-sélection.
+Ces ensembles ne coïncident pas nécessairement. Une personne peut être absente de la base, ne pas être sélectionnée, refuser de répondre ou abandonner avant la fin.
 
-<figure class="sampling-flow">
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Schéma des trois étapes de sélection, défilable horizontalement sur petit écran">
-<svg viewBox="0 0 760 270" role="img" aria-labelledby="sampling-flow-title sampling-flow-desc" xmlns="http://www.w3.org/2000/svg">
-  <title id="sampling-flow-title">De la population cible aux observations réellement analysées</title>
-  <desc id="sampling-flow-desc">Trois étapes successives : la population cible contient toutes les unités auxquelles on veut généraliser ; la base de sondage en couvre une partie ; parmi les unités sélectionnées, seules certaines répondent et sont observées. Les absences à chaque étape peuvent modifier la composition des données.</desc>
-  <rect x="1" y="1" width="758" height="268" rx="14" fill="#fbfcf8" stroke="#d9dfd4"/>
+<figure>
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Du public cible aux données observées, défilable horizontalement sur petit écran">
+<svg viewBox="0 0 760 260" role="img" aria-labelledby="pipeline-title pipeline-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="pipeline-title">Les trois étapes entre population cible et données observées</title>
+  <desc id="pipeline-desc">La population cible se réduit à une base de sondage, puis à un échantillon observé. À chaque étape, des unités peuvent être exclues ou ne pas répondre. Ces mécanismes peuvent modifier la composition des données.</desc>
+  <rect x="1" y="1" width="758" height="258" rx="12" fill="#fbfcf8" stroke="#d9dfd4"/>
   <g font-family="system-ui,sans-serif">
-    <rect x="22" y="32" width="210" height="154" rx="12" fill="#e7eee7" stroke="#6b8d75" stroke-width="1.5"/>
-    <text x="127" y="58" text-anchor="middle" fill="#294b3a" font-size="14" font-weight="700">Population cible</text>
-    <text x="127" y="81" text-anchor="middle" fill="#53665b" font-size="11">Toutes les unités visées</text>
-    <g fill="#47745b"><circle cx="58" cy="111" r="6"/><circle cx="86" cy="111" r="6"/><circle cx="114" cy="111" r="6"/><circle cx="142" cy="111" r="6"/><circle cx="170" cy="111" r="6"/><circle cx="198" cy="111" r="6"/><circle cx="58" cy="139" r="6"/><circle cx="86" cy="139" r="6"/><circle cx="114" cy="139" r="6"/><circle cx="142" cy="139" r="6"/><circle cx="170" cy="139" r="6"/><circle cx="198" cy="139" r="6"/></g>
-    <text x="127" y="169" text-anchor="middle" fill="#53665b" font-size="10">Référence de généralisation</text>
-    <path d="M242 109 H270 M262 101 L270 109 L262 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="280" y="32" width="210" height="154" rx="12" fill="#f4eddf" stroke="#b58b4d" stroke-width="1.5"/>
-    <text x="385" y="58" text-anchor="middle" fill="#765626" font-size="14" font-weight="700">Base de sondage</text>
-    <text x="385" y="81" text-anchor="middle" fill="#76664d" font-size="11">Unités accessibles</text>
-    <g fill="#b58b4d"><circle cx="316" cy="111" r="6"/><circle cx="344" cy="111" r="6"/><circle cx="372" cy="111" r="6"/><circle cx="400" cy="111" r="6"/><circle cx="428" cy="111" r="6"/><circle cx="456" cy="111" r="6"/><circle cx="316" cy="139" r="6"/><circle cx="344" cy="139" r="6"/><circle cx="372" cy="139" r="6"/></g>
-    <g fill="none" stroke="#b58b4d" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="400" cy="139" r="6"/><circle cx="428" cy="139" r="6"/><circle cx="456" cy="139" r="6"/></g>
-    <text x="385" y="169" text-anchor="middle" fill="#76664d" font-size="10">Défaut de couverture possible</text>
-    <path d="M500 109 H528 M520 101 L528 109 L520 117" fill="none" stroke="#64796b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="538" y="32" width="200" height="154" rx="12" fill="#e8edf4" stroke="#7186a5" stroke-width="1.5"/>
-    <text x="638" y="58" text-anchor="middle" fill="#344b6b" font-size="14" font-weight="700">Échantillon observé</text>
-    <text x="638" y="81" text-anchor="middle" fill="#53647b" font-size="11">Réponses / mesures</text>
-    <g fill="#5877a0"><circle cx="574" cy="111" r="6"/><circle cx="602" cy="111" r="6"/><circle cx="630" cy="111" r="6"/><circle cx="658" cy="111" r="6"/><circle cx="686" cy="111" r="6"/><circle cx="714" cy="111" r="6"/></g>
-    <g fill="none" stroke="#7186a5" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="574" cy="139" r="6"/><circle cx="602" cy="139" r="6"/><circle cx="630" cy="139" r="6"/></g>
-    <text x="638" y="169" text-anchor="middle" fill="#53647b" font-size="10">Non-réponse / auto-sélection</text>
-    <path d="M127 205 V224 H638 V205" fill="none" stroke="#8a978d" stroke-width="1.5" stroke-dasharray="4 4"/>
-    <text x="382" y="246" text-anchor="middle" fill="#53665b" font-size="12" font-weight="600">À chaque passage, demander : qui disparaît, et pourquoi ?</text>
+    <rect x="18" y="28" width="214" height="154" rx="12" fill="#e7eee7" stroke="#6b8d75" stroke-width="1.5"/>
+    <text x="125" y="54" text-anchor="middle" fill="#294b3a" font-size="14" font-weight="700">Population cible</text>
+    <text x="125" y="76" text-anchor="middle" fill="#53665b" font-size="11">Unités visées</text>
+    <g fill="#47745b"><circle cx="55" cy="106" r="6"/><circle cx="83" cy="106" r="6"/><circle cx="111" cy="106" r="6"/><circle cx="139" cy="106" r="6"/><circle cx="167" cy="106" r="6"/><circle cx="195" cy="106" r="6"/><circle cx="55" cy="134" r="6"/><circle cx="83" cy="134" r="6"/><circle cx="111" cy="134" r="6"/><circle cx="139" cy="134" r="6"/><circle cx="167" cy="134" r="6"/><circle cx="195" cy="134" r="6"/></g>
+    <text x="125" y="164" text-anchor="middle" fill="#53665b" font-size="10">À qui veut-on généraliser ?</text>
+    <path d="M240 105 H265 M257 97 L265 105 L257 113" fill="none" stroke="#64796b" stroke-width="2"/>
+    <rect x="275" y="28" width="210" height="154" rx="12" fill="#f4eddf" stroke="#b58b4d" stroke-width="1.5"/>
+    <text x="380" y="54" text-anchor="middle" fill="#765626" font-size="14" font-weight="700">Base de sondage</text>
+    <text x="380" y="76" text-anchor="middle" fill="#76664d" font-size="11">Unités accessibles</text>
+    <g fill="#b58b4d"><circle cx="312" cy="106" r="6"/><circle cx="340" cy="106" r="6"/><circle cx="368" cy="106" r="6"/><circle cx="396" cy="106" r="6"/><circle cx="424" cy="106" r="6"/><circle cx="452" cy="106" r="6"/><circle cx="312" cy="134" r="6"/><circle cx="340" cy="134" r="6"/></g>
+    <g fill="none" stroke="#b58b4d" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="368" cy="134" r="6"/><circle cx="396" cy="134" r="6"/><circle cx="424" cy="134" r="6"/><circle cx="452" cy="134" r="6"/></g>
+    <text x="380" y="164" text-anchor="middle" fill="#76664d" font-size="10">Qui peut être sélectionné ?</text>
+    <path d="M493 105 H518 M510 97 L518 105 L510 113" fill="none" stroke="#64796b" stroke-width="2"/>
+    <rect x="528" y="28" width="214" height="154" rx="12" fill="#e8edf4" stroke="#7186a5" stroke-width="1.5"/>
+    <text x="635" y="54" text-anchor="middle" fill="#344b6b" font-size="14" font-weight="700">Données observées</text>
+    <text x="635" y="76" text-anchor="middle" fill="#53647b" font-size="11">Réponses disponibles</text>
+    <g fill="#5877a0"><circle cx="572" cy="106" r="6"/><circle cx="600" cy="106" r="6"/><circle cx="628" cy="106" r="6"/><circle cx="656" cy="106" r="6"/><circle cx="684" cy="106" r="6"/><circle cx="712" cy="106" r="6"/></g>
+    <g fill="none" stroke="#7186a5" stroke-width="1.5" stroke-dasharray="3 3"><circle cx="572" cy="134" r="6"/><circle cx="600" cy="134" r="6"/><circle cx="628" cy="134" r="6"/></g>
+    <text x="635" y="164" text-anchor="middle" fill="#53647b" font-size="10">Qui a réellement répondu ?</text>
+    <path d="M125 196 V216 H635 V196" fill="none" stroke="#8a978d" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="380" y="239" text-anchor="middle" fill="#53665b" font-size="12" font-weight="600">À chaque étape : qui manque, et pour quelle raison ?</text>
   </g>
 </svg>
 </div>
-<figcaption>Schéma conceptuel, non à l'échelle : les unités peuvent être perdues dès la constitution de la base, puis lors de la sélection ou de la réponse. Une correction statistique exige de connaître ou de modéliser ces mécanismes.</figcaption>
+<figcaption>Schéma conceptuel, non à l'échelle. Les pertes de couverture et la non-réponse peuvent modifier la composition des données à plusieurs étapes.</figcaption>
 </figure>
 
-## Visualiser biais et incertitude séparément
+Dans notre histoire, l'enquête intégrée à l'application ne manque pas simplement de réponses. Son mode de collecte favorise les utilisateurs réguliers. Elle mesure donc un groupe particulier.
 
-Imaginons que l'on répète chacune des deux enquêtes un grand nombre de fois. L'estimateur de l'enquête A (toujours limitée au groupe A) sera concentré autour de 10. Celui de l'enquête stratifiée sera centré autour de 15, avec une variabilité d'échantillonnage non nulle.
+C'est une différence essentielle :
 
-Une distribution très étroite n'est donc pas nécessairement rassurante : elle peut être précisément concentrée autour d'une quantité qui n'est pas celle que l'on cherche à estimer.
+- Un **petit échantillon probabiliste** peut être informatif si les unités ont des probabilités d'inclusion connues et si le plan est correctement appliqué.
+- Un **grand échantillon auto-sélectionné** peut rester biaisé si la participation dépend du profil ou du résultat étudié.
 
-On peut résumer l'intuition ainsi :
+Un grand nombre de réponses réduit souvent l'incertitude d'échantillonnage, mais ne corrige pas automatiquement un défaut de couverture ou de sélection.
 
-| Propriété | Recensement du groupe A | Échantillon probabiliste stratifié |
-|---|---|---|
-| Volume | Très élevé | Plus modeste |
-| Couverture des groupes | Groupe A seulement | A et B |
-| Cible directement décrite | Groupe A dans son intégralité | Population, avec pondération adaptée |
-| Effet de la taille | Décrit A sans erreur d'échantillonnage ; B reste absent | Réduit généralement l'erreur d'échantillonnage, selon le plan |
+## Quand la sélection déforme aussi les relations
+
+Le problème ne concerne pas seulement les moyennes. Sélectionner les personnes observées peut créer des associations qui n'existent pas dans la population.
+
+Supposons que la probabilité de rester actif sur une plateforme dépende à la fois de la satisfaction et de la difficulté d'utilisation :
 
 <figure>
-<svg viewBox="0 0 760 270" role="img" aria-labelledby="sample-title sample-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="sample-title">Un grand échantillon qui ne couvre qu'un groupe peut viser la mauvaise moyenne</title>
-  <desc id="sample-desc">La population est composée à parts égales des groupes A et B, de moyennes 10 et 20. Le recensement de A donne exactement 10 pour ce groupe, mais ne renseigne pas directement B. L'échantillon stratifié contient A et B avec leurs poids de population et estime 15.</desc>
-  <rect x="1" y="1" width="758" height="268" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="24" y="30" fill="#0f172a" font-size="15" font-weight="700">Population cible : 100 000 personnes</text>
-  <rect x="24" y="48" width="350" height="34" rx="6" fill="#0f766e"/><rect x="374" y="48" width="350" height="34" rx="6" fill="#d97706"/>
-  <g fill="#fff" font-size="13" font-weight="700" text-anchor="middle"><text x="199" y="70">Groupe A · 50 % · moyenne 10</text><text x="549" y="70">Groupe B · 50 % · moyenne 20</text></g>
-  <text x="24" y="116" fill="#334155" font-size="13" font-weight="700">Recensement du groupe A</text>
-  <rect x="24" y="128" width="700" height="28" rx="5" fill="#0f766e"/>
-  <text x="374" y="147" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">50 000 réponses : recensement de A → moyenne exacte : 10</text>
-  <text x="24" y="190" fill="#334155" font-size="13" font-weight="700">Enquête stratifiée</text>
-  <rect x="24" y="202" width="350" height="28" rx="5" fill="#0f766e"/><rect x="374" y="202" width="350" height="28" rx="5" fill="#d97706"/>
-  <g fill="#fff" font-size="12" font-weight="700" text-anchor="middle"><text x="199" y="221">500 dans A</text><text x="549" y="221">500 dans B</text></g>
-  <text x="374" y="253" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">Avec les poids de population : estimateur centré sur 15</text>
+<svg viewBox="0 0 720 180" role="img" aria-labelledby="collider-title collider-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="collider-title">La sélection sur l'activité peut créer une association artificielle</title>
+  <desc id="collider-desc">La satisfaction et la difficulté d'utilisation pointent toutes deux vers l'activité à six mois. Si l'analyse ne conserve que les personnes actives, elle conditionne sur cette conséquence commune et peut créer une association artificielle entre satisfaction et difficulté.</desc>
+  <rect x="1" y="1" width="718" height="178" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="35" y="52" width="190" height="68" rx="10" fill="#d1fae5" stroke="#0f766e" stroke-width="1.5"/>
+  <rect x="495" y="52" width="190" height="68" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="265" y="52" width="190" height="68" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+  <g fill="#0f172a" font-size="13" font-weight="700" text-anchor="middle">
+    <text x="130" y="82">Satisfaction</text><text x="130" y="101" font-size="11" font-weight="400">plus élevée</text>
+    <text x="360" y="82">Actif à 6 mois</text><text x="360" y="101" font-size="11" font-weight="400">critère de sélection</text>
+    <text x="590" y="82">Difficulté</text><text x="590" y="101" font-size="11" font-weight="400">d'utilisation</text>
+  </g>
+  <g fill="none" stroke="#475569" stroke-width="2">
+    <path d="M225 86 H260 l-7 -6 m7 6 l-7 6"/>
+    <path d="M495 86 H460 l7 -6 m-7 6 l7 6"/>
+  </g>
+  <text x="360" y="145" text-anchor="middle" fill="#475569" font-size="11">Analyser uniquement les actifs revient à conditionner sur le nœud central.</text>
+  <text x="360" y="162" text-anchor="middle" fill="#92400e" font-size="11" font-weight="700">Une association peut alors apparaître artificiellement.</text>
 </svg>
-<figcaption>La taille renseigne sur la quantité de données ; la couverture et le plan de sondage déterminent quelle population l'estimation peut représenter.</figcaption>
+<figcaption>Exemple de collisionneur : deux causes convergent vers le critère de sélection. Conditionner sur ce critère peut induire une association entre ses causes.</figcaption>
 </figure>
 
-Le tableau ne signifie pas qu'un échantillon stratifié est toujours représentatif. Le plan de sondage, les probabilités d'inclusion, la non-réponse et les pondérations doivent être pris en compte.
+En ne gardant que les utilisateurs actifs à six mois, on conditionne sur une conséquence commune. Même si satisfaction et difficulté étaient indépendantes dans la population initiale, elles peuvent devenir statistiquement associées dans le sous-groupe sélectionné.
 
-### Trois sources d'erreur à ne pas confondre
+Ce phénomène est appelé **biais de collisionneur** (*collider bias*). Il montre pourquoi il faut comprendre la règle qui fait entrer une unité dans les données, et pas seulement décrire les variables qui y figurent.
 
-Dans une enquête, l'incertitude totale ne se résume pas à l'erreur d'échantillonnage. Il faut distinguer :
+## Peut-on corriger un échantillon biaisé ?
 
-- **Erreur d'échantillonnage** : variation due au tirage d'un échantillon plutôt que de toute la population.
-- **Erreur de couverture** : certains membres de la population cible ne peuvent pas être sélectionnés par la base de sondage.
-- **Erreur de non-réponse ou d'auto-sélection** : la participation dépend de caractéristiques liées au résultat étudié.
+Parfois, à condition de connaître suffisamment le mécanisme de sélection.
 
-Augmenter la taille agit principalement sur la première composante, sous des conditions données. Cela ne répare pas automatiquement les deux autres. Et dans les enquêtes réelles, ces mécanismes peuvent se cumuler.
+Dans notre exemple, si les proportions de la population sont connues et si l'on dispose d'observations pour chaque groupe, on peut pondérer les groupes pour retrouver la composition cible. Mais une pondération ne recrée pas l'information d'un groupe entièrement absent.
 
-## Le point moins visible : la sélection peut créer des relations
+Pour comprendre le principe, considérons un autre cas. Les données source contiennent :
 
-Le biais de sélection ne se limite pas à une mauvaise proportion de groupes. Il peut aussi apparaître lorsqu'on conditionne l'analyse sur le fait d'être observé.
+- 90 % d'utilisateurs réguliers ;
+- 10 % d'utilisateurs occasionnels.
 
-Exemple : une plateforme analyse uniquement les utilisateurs qui sont restés actifs six mois. La fidélité dépend peut-être à la fois de la satisfaction et de la difficulté d'utilisation. En ne gardant que les utilisateurs encore présents, on sélectionne un sous-ensemble particulier. Les relations observées entre satisfaction, difficulté et usage peuvent alors différer de celles de l'ensemble des personnes ayant essayé le service.
+La population cible contient 50 % de chaque groupe. Si le groupe suffit à décrire le changement de composition et si la relation entre les variables et le résultat reste stable, les poids cible/source sont :
 
-On peut représenter le mécanisme par un graphe causal minimal :
+| Profil | Part source | Part cible | Poids |
+|---|---:|---:|---:|
+| Régulier | 0,90 | 0,50 | 0,50 / 0,90 ≈ **0,56** |
+| Occasionnel | 0,10 | 0,50 | 0,50 / 0,10 = **5** |
 
-```text
-Satisfaction ──► Actif à 6 mois ◄── Difficulté
-```
+Les utilisateurs occasionnels sont sous-représentés dans les données source : chacun d'eux pèse davantage dans l'estimation cible.
 
-L'indicateur « actif à six mois » est ici une conséquence commune de deux variables. En ne conservant que les personnes pour lesquelles cet indicateur vaut 1, on conditionne sur un **collisionneur** (*collider*). Cela peut ouvrir artificiellement un chemin statistique entre satisfaction et difficulté, même si elles étaient indépendantes dans la population de départ. C'est pourquoi une corrélation calculée sur les seuls utilisateurs encore actifs ne décrit pas nécessairement la relation dans toute la population.
+Plus généralement, sous une hypothèse de *covariate shift* — la distribution de $X$ change, mais $P(Y\mid X)$ reste stable — le risque cible peut s'écrire :
 
-Le mécanisme peut produire des associations artificielles ou masquer des différences. Il faut donc documenter non seulement les variables mesurées, mais aussi la règle qui détermine quelles unités entrent dans l'analyse.
-
-## Peut-on corriger le problème ?
-
-Parfois. La stratification, la pondération, la post-stratification ou des modèles de participation peuvent aider si l'on connaît des informations pertinentes sur la population et si les hypothèses de correction sont défendables.
-
-Mais aucune pondération ne recrée magiquement une information totalement absente. Si un groupe n'a aucune chance d'être observé, les données ne permettent pas d'apprendre directement son comportement. Il faut une source externe ou des hypothèses supplémentaires.
-
-## Transfert vers le Machine Learning : évaluer le bon domaine de généralisation
-
-Un jeu de données massif peut être très représentatif des utilisateurs actifs d'un produit et très peu informatif sur les personnes qui l'ont abandonné, celles qui ne peuvent pas accéder au service ou celles dont le comportement n'est pas enregistré.
-
-Le score obtenu sur un test tiré du même mécanisme de collecte peut alors être précis pour la mauvaise population. Le problème n'est pas seulement un « dataset shift » abstrait : il faut identifier **quelle partie du processus générateur a changé**, puis déterminer si les données permettent de corriger ou seulement de mesurer cette différence.
-
-### Trois changements de distribution à ne pas confondre
-
-Notons $P_s$ la distribution source (entraînement) et $P_t$ la distribution cible (déploiement).
-
-| Situation | Ce qui change | Hypothèse caractéristique | Conséquence |
-|---|---|---|---|
-| **Covariate shift** | $P(X)$ | $P_t(Y\mid X)=P_s(Y\mid X)$ | La relation conditionnelle reste stable, mais les profils observés changent |
-| **Label shift** (*prior probability shift*) | $P(Y)$ | $P_t(X\mid Y)=P_s(X\mid Y)$ | La prévalence des classes change, mais leur distribution conditionnelle des features reste stable |
-| **Concept drift** | $P(Y\mid X)$ | La relation prédictive change | Une correction des seuls poids de $X$ ne suffit généralement pas |
-
-Le vocabulaire varie selon les domaines : certains travaux emploient *concept drift* au sens large pour désigner toute évolution de la distribution. Ici, on réserve ce terme au changement de la relation conditionnelle $P(Y\mid X)$ afin de distinguer les mécanismes. C'est une convention de travail, pas une terminologie universellement adoptée.
-
-Sous label shift, la correction porte plutôt sur les probabilités a priori des classes. Pour un classifieur probabiliste, la relation de Bayes donne, sous cette hypothèse :
-
-$$
-P_t(Y=y\mid X=x)
-\propto
-P_s(Y=y\mid X=x)\,
-\frac{P_t(Y=y)}{P_s(Y=y)}.
-$$
-
-Il faut donc estimer la prévalence cible, ce qui n'est pas toujours direct lorsque les labels cible sont absents. Cette correction ne doit pas être confondue avec un simple rééquilibrage arbitraire des classes dans le jeu d'entraînement.
-
-Ces hypothèses sont des modèles de changement, pas des diagnostics que l'on peut déduire du seul fait que deux histogrammes diffèrent. Dans la pratique, plusieurs mécanismes peuvent coexister. Le biais de sélection sur des variables non observées peut notamment violer ces hypothèses.
-
-### Quand la pondération par importance peut-elle aider ?
-
-Sous covariate shift, on peut réévaluer le risque du modèle dans la population cible en pondérant les observations source :
-
-$$
-R_t(f)=\mathbb{E}_{(X,Y)\sim P_t}[\ell(f(X),Y)]
-=\mathbb{E}_{(X,Y)\sim P_s}
+\[
+R_t(f)=\mathbb E_{P_s}
 \left[
 \frac{p_t(X)}{p_s(X)}\,\ell(f(X),Y)
 \right].
-$$
+\]
 
-Le poids $w(x)=p_t(x)/p_s(x)$ donne davantage d'importance aux profils fréquents dans la population cible et moins aux profils surreprésentés dans les données source. Cette égalité exige que la relation $P(Y\mid X)$ reste stable et que la population cible soit couverte par la source : si un profil a une probabilité positive dans la cible mais n'apparaît jamais dans la source, son comportement ne peut pas être appris par simple repondération.
+Cette correction n'est défendable que si les profils de la cible sont représentés dans la source (support commun) et si la relation conditionnelle reste stable. Si un groupe est totalement absent, son comportement ne peut pas être appris par repondération.
 
-Exemple : un modèle de demande est entraîné surtout sur des utilisateurs réguliers, alors que le déploiement vise aussi des utilisateurs occasionnels. Si les variables pertinentes sont observées dans les deux populations et si la relation entre ces variables et la demande est stable, une pondération peut rapprocher l'évaluation du risque cible. Elle ne crée toutefois aucune information pour les profils absents de l'entraînement.
+Il existe donc trois issues différentes :
 
-Prenons un exemple chiffré. Dans les données source, 90 % des utilisateurs sont réguliers et 10 % occasionnels ; dans la population cible, les deux groupes représentent chacun 50 %. Si ces groupes résument suffisamment le changement de distribution et si la relation cible reste stable, les poids de transport sont :
+- **Corriger** si les variables qui expliquent la sélection sont observées et les hypothèses plausibles.
+- **Collecter davantage** si des profils importants sont absents.
+- **Restreindre la conclusion** si la population cible n'est pas couverte et qu'aucune donnée complémentaire n'est disponible.
 
-| Profil | Proportion source | Proportion cible | Poids cible/source |
-|---|---:|---:|---:|
-| Régulier | 0,90 | 0,50 | 0,56 |
-| Occasionnel | 0,10 | 0,50 | 5,00 |
+La pondération est un modèle, pas une réparation magique. Des poids très élevés peuvent aussi rendre l'estimation instable : il faut examiner leur distribution et la taille effective de l'échantillon.
 
-Les observations occasionnelles pèsent donc neuf fois plus que les observations régulières dans l'évaluation pondérée. Avec 1 000 observations source (900 régulières et 100 occasionnelles), la taille effective associée à ces poids est d'environ 360. On a toujours 1 000 lignes, mais l'information utile pour estimer le risque cible est concentrée sur un nombre bien plus faible d'observations. Ce calcul illustre pourquoi il faut examiner les poids et leur taille effective, pas seulement afficher une métrique pondérée.
+## Le même piège en Machine Learning
 
-En pratique, les ratios de densité sont rarement connus. On peut les estimer à partir d'un échantillon source et d'un échantillon cible non étiqueté, par exemple avec un classifieur qui prédit l'appartenance au domaine. Mais cette estimation peut être instable, surtout en grande dimension ou lorsque les domaines se recouvrent peu.
+Un modèle peut obtenir un excellent score sur un jeu de test massif, tout en étant mauvais pour la population qui utilisera réellement le système.
 
-### Du diagnostic à l'action
+Le problème dépend de ce qui change entre entraînement et déploiement :
 
-Un diagnostic utile suit un ordre précis : définir ce que l'on veut transporter, comprendre comment les observations ont été produites, puis seulement choisir une correction.
-
-1. **Définir l'estimand et le domaine cible** : quelle population, quelle période, quelle unité et quelle quantité ? Préciser s'il s'agit de nouveaux utilisateurs, de nouveaux sites, d'une autre période ou d'un autre canal d'acquisition.
-2. **Décrire le mécanisme d'observation** : qui pouvait entrer dans les données, qui y est entré, qui en est absent ? Examiner les taux de couverture et de réponse, ainsi que les variables susceptibles d'expliquer la participation.
-3. **Comparer source et cible** : distributions marginales et conjointes des features, valeurs manquantes, catégories inédites et profils absents. Un test statistique significatif ne mesure pas à lui seul l'importance pratique du décalage.
-4. **Formuler le changement plausible** : $P(X)$, $P(Y)$, $P(X\mid Y)$ ou $P(Y\mid X)$ ? Ces mécanismes peuvent coexister ; la différence entre deux histogrammes ne suffit pas à établir lequel est à l'œuvre.
-5. **Vérifier le support commun et les labels** : la cible contient-elle des profils absents de la source ? Dès que des labels cible sont disponibles, comparer calibration, erreurs et $P(Y\mid X)$ par période ou groupe. Sans labels cible, la stabilité de cette relation ne peut pas être vérifiée directement.
-6. **Choisir une validation fidèle au déploiement** : split temporel pour une cible future, split par site pour de nouveaux sites, split par utilisateur pour de nouveaux utilisateurs. Une validation aléatoire n'est adaptée que si elle reproduit réellement le régime visé.
-7. **Évaluer la stabilité de la correction** : inspecter la distribution des poids, les poids extrêmes et la taille effective ; tester la sensibilité des conclusions aux choix de modélisation et aux hypothèses de sélection.
-
-Une mesure utile de concentration des poids est la taille effective d'échantillon :
-
-$$
-n_{\mathrm{eff}}=
-\frac{\left(\sum_{i=1}^{n}w_i\right)^2}
-{\sum_{i=1}^{n}w_i^2}.
-$$
-
-Si quelques observations portent presque tout le poids, $n_{\mathrm{eff}}$ peut être très inférieur à $n$. Tronquer les poids extrêmes peut réduire la variance, mais introduit un biais : il faut présenter ce compromis et réaliser une analyse de sensibilité, pas choisir un seuil arbitraire en silence.
-
-Une pondération reste un estimateur fondé sur des hypothèses, pas une réparation automatique. Elle est crédible seulement si les variables qui expliquent la participation et le résultat sont suffisamment observées, si chaque profil cible a une probabilité non nulle d'être représenté dans la source (*positivité*), et si le modèle de poids est adéquat. Si la participation dépend encore du résultat après conditionnement sur les variables observées, le biais peut persister. Il faut expliciter cette hypothèse et tester la sensibilité des conclusions à des mécanismes de non-réponse plausibles.
-
-### Quelle action selon le diagnostic ?
-
-| Diagnostic | Action défendable | Ce qu'il ne faut pas prétendre |
+| Changement | Ce qui varie | Question à poser |
 |---|---|---|
-| Covariate shift plausible, support commun suffisant | Repondération, validation pondérée, suivi du domaine | Que $P(Y\mid X)$ est stable sans vérification |
-| Prévalence des classes modifiée, $P(X\mid Y)$ stable | Ajustement des probabilités a priori, recalibration adaptée | Que le simple rééquilibrage du jeu d'entraînement résout tout |
-| Concept drift | Collecter des labels récents, réévaluer et réentraîner si nécessaire | Qu'une pondération des features répare la relation cible |
-| Profils cible absents de la source | Collecte complémentaire ou restriction explicite du domaine d'usage | Que le modèle sait généraliser sans données ni hypothèses |
-| Sélection dépendant de variables non observées | Étude de sensibilité, données externes, hypothèses causales explicites | Qu'une pondération estimée sur les seules features observées élimine le biais |
+| **Covariate shift** | $P(X)$ | Les profils d'entrée ont-ils changé, alors que $P(Y\mid X)$ reste stable ? |
+| **Label shift** | $P(Y)$ | La fréquence des classes a-t-elle changé, alors que $P(X\mid Y)$ reste stable ? |
+| **Concept drift** | $P(Y\mid X)$ | La relation entre les entrées et la cible a-t-elle évolué ? |
 
+Ces hypothèses ne sont pas interchangeables et peuvent coexister. Une différence d'histogramme ne suffit pas à identifier le mécanisme.
 
-## À vous de raisonner
+Le protocole de validation doit reproduire le domaine de généralisation visé :
 
-1. Quelle moyenne attend-on dans chacune des deux enquêtes de l'exemple ?
-2. Si l'enquête A collecte dix fois plus de réponses, quelle erreur diminue — et quelle erreur persiste ?
-3. Quelle information externe serait utile pour pondérer les réponses ?
-4. Si les personnes qui abandonnent un service ne sont jamais observées, peut-on corriger ce défaut à partir des seuls utilisateurs actifs ?
-5. Dans l'exemple de covariate shift, pourquoi les utilisateurs occasionnels reçoivent-ils un poids de 5 et les réguliers un poids d'environ 0,56 ?
-6. Quelle différence pratique fais-tu entre une cible qui contient des profils absents de l'entraînement et une cible où la relation entre features et résultat a changé ?
+- nouveaux utilisateurs : séparer les utilisateurs, pas seulement les lignes ;
+- nouveaux sites : réserver des sites entiers ;
+- période future : entraîner sur le passé et tester sur une période postérieure.
+
+Une validation aléatoire n'est pertinente que si elle reproduit réellement le processus de déploiement. Un test tiré du même mécanisme de sélection que l'entraînement peut confirmer une performance sur la mauvaise population.
+
+## À vous de décider
+
+Une plateforme veut estimer la satisfaction de tous ses utilisateurs. Elle dispose de 20 000 réponses provenant d'une fenêtre affichée aux utilisateurs actifs, et d'un échantillon aléatoire de 800 personnes tiré dans sa base complète. Les utilisateurs inactifs répondent moins souvent.
+
+1. Quel échantillon choisiriez-vous spontanément ? Pourquoi cette réponse peut-elle être trompeuse ?
+2. Quelles informations faudrait-il comparer entre répondants et non-répondants ?
+3. Si aucun utilisateur inactif ne répond, une pondération suffit-elle ?
+4. Si le modèle doit être déployé auprès de nouveaux utilisateurs, quel découpage de validation serait plus crédible qu'un split aléatoire par ligne ?
 
 <details>
-<summary>Afficher la solution expliquée</summary>
+<summary>Afficher la correction raisonnée</summary>
 
-1. L'enquête limitée à A donne 10 ; l'échantillon stratifié équilibré estime 15 dans cette population où A et B ont le même poids.
-2. La variabilité aléatoire au sein de A peut diminuer. Le défaut de couverture du groupe B persiste.
-3. Il faut connaître les proportions de la population cible et, selon le plan, les probabilités d'inclusion ou des variables auxiliaires liées à la participation et au résultat.
-4. Non, pas sans hypothèses ou informations supplémentaires. L'absence totale d'observations dans un groupe viole la condition de positivité nécessaire à certaines corrections.
-5. Le poids est le rapport proportion cible / proportion source : 0,50 / 0,10 = 5 pour les occasionnels et 0,50 / 0,90 ≈ 0,56 pour les réguliers. Les occasionnels sont sous-représentés dans la source et doivent donc compter davantage dans l'évaluation cible.
-6. Si des profils sont absents de la source, il manque le support nécessaire à la repondération : il faut collecter des données ou restreindre le domaine d'usage. Si $P(Y\mid X)$ a changé, la relation prédictive elle-même n'est plus stable : il faut obtenir des labels récents, réévaluer et envisager une adaptation ou un réentraînement.
+1. Le volume de 20 000 réponses paraît rassurant, mais la fenêtre ne touche que les utilisateurs actifs. Elle ne représente donc pas automatiquement tous les utilisateurs.
+2. Comparer les taux de réponse selon l'ancienneté, l'activité, le type d'abonnement, le canal d'acquisition ou toute variable disponible liée à la satisfaction. Il faut aussi documenter la base de sondage et les règles d'exclusion.
+3. Non. Si aucun utilisateur inactif n'est observé, le support commun manque. Une pondération ne peut pas apprendre leur satisfaction à partir des seuls utilisateurs actifs. Il faut une collecte spécifique ou limiter explicitement la cible.
+4. Un découpage par utilisateur, où les utilisateurs de test ne sont jamais vus pendant l'entraînement. Si le déploiement vise aussi une période future, un découpage temporel peut être nécessaire en plus.
 
 </details>
 
 ## À retenir
 
-- Un grand échantillon peut réduire fortement l'incertitude autour d'une mauvaise cible.
-- La représentativité dépend du mécanisme d'inclusion, pas du seul nombre de lignes.
-- Les données absentes ne sont pas toujours récupérables par pondération.
-- En ML, le jeu de test doit représenter la population à laquelle on veut réellement généraliser.
-- Covariate shift, label shift et concept drift correspondent à des hypothèses différentes ; les corrections ne sont pas interchangeables.
-- La repondération exige une stabilité de $P(Y\mid X)$, un support commun et des poids suffisamment stables.
+- La taille d'un échantillon ne garantit pas sa couverture de la population cible.
+- Un grand échantillon peut estimer très précisément la moyenne d'un sous-groupe et répondre à la mauvaise question.
+- La sélection peut modifier les moyennes et créer des associations artificielles.
+- La pondération exige des hypothèses sur le mécanisme de sélection et un support commun.
+- En Machine Learning, le jeu de test doit représenter le domaine de déploiement, pas simplement ressembler au jeu d'entraînement.
 
 ## Pour aller plus loin
 
 - **OpenStax, Introductory Statistics 2e** — échantillonnage, plans de sondage et inférence : https://openstax.org/details/books/introductory-statistics-2e
-- **Groves et al., Survey Methodology** — erreurs de couverture, non-réponse et qualité des enquêtes : https://www.wiley.com/en-us/Survey+Methodology%2C+2nd+Edition-p-9780470465462
+- **Groves et al., Survey Methodology** — couverture, non-réponse et qualité des enquêtes : https://www.wiley.com/en-us/Survey+Methodology%2C+2nd+Edition-p-9780470465462
 - **Hernán & Robins, Causal Inference: What If** — sélection, échangeabilité et raisonnement causal : https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
-- **Moreno-Torres et al. (2012), A unifying view on dataset shift in classification** — clarifie les familles de changements de distribution et leurs définitions : https://doi.org/10.1016/j.patcog.2011.06.019
-- **Sugiyama, Krauledat & Müller (2007), Covariate Shift Adaptation by Importance Weighted Cross Validation** — fondements de la validation pondérée sous covariate shift : https://www.jmlr.org/papers/v8/sugiyama07a.html
+- **Moreno-Torres et al. (2012), A unifying view on dataset shift in classification** — familles de changements de distribution : https://doi.org/10.1016/j.patcog.2011.06.019
+- **Sugiyama, Krauledat & Müller (2007), Covariate Shift Adaptation by Importance Weighted Cross Validation** — fondements de la validation pondérée : https://www.jmlr.org/papers/v8/sugiyama07a.html
 
 ## Connexions utiles
 
 - [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : vérifier ce que les variables mesurent avant de généraliser.
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent, même après avoir constitué un échantillon pertinent.
+- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent.
