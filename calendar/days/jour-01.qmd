@@ -20,7 +20,7 @@ Un lundi matin, un modèle de suivi énergétique signale que le bâtiment B est
 
 Les deux bâtiments sont comparables. Les capteurs ont été installés le même jour. Et pourtant, leurs relevés sont très différents.
 
-Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce stabilisée à environ 20 °C. Pendant les relevés, un thermomètre de référence indépendant, étalonné et adapté à cette plage, indique 20,00 °C ; son incertitude élargie est de 0,05 °C (facteur d'élargissement \(k=2\)). Cette référence n'est pas une vérité parfaite : elle fournit un point de comparaison documenté, avec une incertitude connue.
+Avant de conclure que les bâtiments le sont aussi, l'équipe décide de placer les deux capteurs côte à côte dans une pièce stabilisée à environ 20 °C. Pendant les relevés, un thermomètre de référence indépendant, étalonné et adapté à cette plage, indique 20,00 °C ; son incertitude élargie est de 0,05 °C (facteur d'élargissement \(k=2\)). Cette référence n'est pas une vérité parfaite : elle fournit un point de comparaison documenté, avec une incertitude connue. Dans cet exemple construit, sa traçabilité métrologique est documentée ; ce statut ne dispense pas de vérifier que son incertitude est adaptée à la décision.
 
 Les valeurs ci-dessous sont un scénario illustratif, pas des observations expérimentales.
 
@@ -33,7 +33,7 @@ Trois relevés suffisent à faire apparaître une énigme :
 | 20,2 °C | 19,0 °C |
 | **Moyenne : 20,17 °C** | **Moyenne : 19,03 °C** |
 
-Les deux séries sont presque aussi resserrées l'une que l'autre. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C.
+Les deux séries sont presque aussi resserrées l'une que l'autre. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à la référence, les moyennes sont décalées de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à certifier son comportement sur toute sa plage d'utilisation.
 
 **Question : lequel des deux capteurs mesure le mieux ?** Pour répondre, il faut séparer deux propriétés que le langage courant confond souvent.
 
@@ -92,7 +92,7 @@ Le capteur B est stable au cours de ces trois relevés, mais il indique une temp
 La métrologie distingue notamment :
 
 - **[Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html)** : proximité entre des résultats obtenus par des mesures répétées dans des conditions spécifiées.
-- **[Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html)** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, même système de mesure, même opérateur et même lieu, sur une courte période.
+- **[Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html)** : fidélité évaluée dans des conditions de répétabilité définies — même procédure, mêmes opérateurs, même système de mesure, mêmes conditions de fonctionnement et même lieu, avec des mesures répétées sur le même objet (ou des objets similaires) pendant une courte période.
 - **[Justesse](https://jcgm.bipm.org/vim/fr/2.14.html)** : proximité entre la moyenne d'un nombre infini de résultats répétés et une valeur de référence.
 - **[Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html)** : proximité entre une valeur mesurée et la valeur vraie du mesurande ; dans le VIM, c'est une notion qualitative, pas une quantité que l'on calcule directement.
 
