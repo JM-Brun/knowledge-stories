@@ -1,180 +1,212 @@
 ---
-title: "Retrouver le biais d'une pièce"
+title: "Sept piles sur dix : est-ce assez pour conclure ?"
 day: 8
 calendar: "2026"
 status: "skeleton"
-readingTimeTarget: "10–15 min"
-canonicalConcept: "Maximum de vraisemblance (`maximum-de-vraisemblance`, identifiant historique CONCEPT-001) — page canonique à harmoniser"
+readingTimeTarget: "12–18 min"
+canonicalConcept: "Maximum de vraisemblance (maximum-de-vraisemblance)"
 ---
 
 # Squelette éditorial — calendrier 2026
 
-Ce document est un **dossier de conception évolutif**, pas un article destiné à être publié tel quel. Il sera progressivement enrichi, puis converti en article autonome dans `calendar/days/jour-XX.qmd`. Le récit et les concepts doivent avancer ensemble : l'histoire ouvre une enquête, l'explication construit une connaissance réutilisable.
+Ce document est un **dossier de conception**, pas un article destiné à être publié tel quel. Il sera converti en article autonome dans \`calendar/days/jour-08.qmd\` après vérification des concepts, calculs et sources.
 
 ## Contrat de rédaction
 
-- Cible : 7 à 20 minutes de lecture réelle ; enrichir par un raisonnement ou fusionner si le noyau reste inférieur à 7 minutes, hiérarchiser ou scinder au-delà de 20 minutes sans perte d'information.
-- Le concept canonique est la source de vérité ; ne pas recopier sa page. Les liens internes ci-dessous sont des repères de travail, jamais une dépendance du futur article public.
-- Knowledge Stories reste généraliste. Les exemples principaux sont non-LLM ; tokenisation, embeddings, attention/QKV, Transformers et génération autorégressive restent dans LLM Lab.
-- Ne pas inventer de source, de chiffre, de statut de concept ou de résultat. Les références listées sont des pistes à vérifier avant rédaction.
-- La progression du calendrier est éditoriale : les connexions ne sont pas automatiquement des prérequis.
-- Chaque article doit rester autonome et expliquer les hypothèses, notations, unités, limites et implications pratiques.
+- Cible : 7 à 20 minutes de lecture réelle ; viser 12–18 minutes.
+- Knowledge Stories reste généraliste : exemples principaux non-LLM. Les mécanismes spécifiques aux LLM restent dans LLM Lab.
+- Le futur article doit être autonome : définir les notations, expliciter les hypothèses, conventions, limites et implications.
+- Les exercices détaillés restent dans l'atelier dédié ; l'article peut inclure une courte question de réflexion.
+- Ne pas transformer cette journée en cours général sur tous les estimateurs ou tests.
+- Distinguer estimation ponctuelle, vraisemblance, rapport de vraisemblance, p-value et probabilité bayésienne du paramètre.
 
 ## État
 
-- [ ] Concept canonique et statut vérifiés dans Wiki Knowledge.
-- [ ] Sources primaires et références vérifiées.
-- [ ] Exemple, calcul ou expérience spécifiés et contrôlés.
-- [ ] Angle distinctif et contribution pédagogique formulés.
-- [ ] Article rédigé, durée mesurée, liens et accessibilité vérifiés.
+- [ ] Vérifier le concept canonique et son statut dans Wiki Knowledge.
+- [ ] Vérifier les références et localisateurs.
+- [ ] Reproduire indépendamment les calculs de vraisemblance et de test exact.
+- [ ] Rédiger puis mesurer la durée réelle.
+- [ ] Contrôler le build, le rendu responsive et l'accessibilité.
 
 ---
 
-# Jour 08 — Retrouver le biais d'une pièce
+# Jour 08 — Sept piles sur dix : est-ce assez pour conclure ?
 
-## 1. Promesse et question
+## 1. Décision éditoriale
 
-**Question directrice :** Quelle valeur de p rend une séquence de pile ou face la plus plausible ?
+**Décision : transformer l'exercice élémentaire « retrouver le biais d'une pièce » en enquête sur la différence entre estimer un paramètre et disposer de preuves contre une hypothèse.**
 
-**Objectif observable :** Écrire la vraisemblance binomiale et retrouver l'estimateur du maximum de vraisemblance k/n.
+**Question directrice :** Si sept lancers sur dix donnent pile, que sait-on réellement du biais de la pièce ?
 
-**Durée cible :** 10–15 minutes.
+**Thèse à faire découvrir :** le maximum de vraisemblance donne ici une estimation ponctuelle de 0,7. Mais cette valeur ne suffit pas à conclure que la pièce est biaisée. Le même taux observé sur cent lancers fournit beaucoup plus d'information que sur dix lancers. L'estimation ponctuelle ne résume ni l'incertitude ni la force des éléments contre une hypothèse donnée.
 
-À la fin, le lecteur doit être capable de reformuler le problème, d'effectuer le raisonnement annoncé, d'en reconnaître les hypothèses et d'identifier au moins une limite. La promesse ne sera considérée comme tenue que si l'activité finale vérifie effectivement cette capacité.
+**Intérêt pour un data scientist :** dans un modèle probabiliste, optimiser la vraisemblance fournit un estimateur, mais une décision exige de considérer la variabilité d'échantillonnage, le modèle supposé et la question posée. Cela évite de confondre « meilleur paramètre ajusté » et « hypothèse démontrée ».
 
-## 2. Situation d'entrée et fil narratif
+**Objectif observable :** le lecteur doit savoir écrire et maximiser une vraisemblance binomiale, interpréter un rapport de vraisemblance simple, et expliquer pourquoi un même taux observé ne fournit pas le même niveau d'évidence selon la taille de l'échantillon.
 
-**Scène d'ouverture :** Une pièce donne k piles en n lancers. Est-elle équilibrée, et quelle valeur de p décrit au mieux les observations ?
+**Durée cible :** 12–18 minutes.
 
-**Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
+## 2. Frontières avec les autres journées
 
-**Déroulé narratif provisoire :** Définir le modèle ; écrire la probabilité de la séquence ; considérer cette expression comme fonction de p ; prendre le logarithme ; maximiser ; discuter l'incertitude.
+- **J02** traite du mécanisme de sélection et de la population représentée. J08 suppose un modèle d'observation donné et examine l'incertitude due au nombre fini d'observations.
+- **J05** traite de l'entropie et de l'information d'une distribution. J08 traite de la vraisemblance d'un modèle paramétrique pour des données observées ; les deux notions ne sont pas interchangeables.
+- **J09** reliera les fonctions de perte à la quantité statistique estimée. J08 se limite à la vraisemblance et à l'inférence sur un paramètre.
+- Ne pas développer la calibration (J18), les intervalles de performance (J19) ou la décision sous coûts (J24).
 
-**Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
+## 3. Situation d'entrée
 
-## 3. Carte de couverture conceptuelle
+Une pièce est lancée dix fois : sept piles, trois faces. Une équipe annonce : « La probabilité d'obtenir pile est 70 %, la pièce est donc biaisée. »
 
-**Concept pivot :** Maximum de vraisemblance (`maximum-de-vraisemblance`, identifiant historique CONCEPT-001) — page canonique à harmoniser.
+Le premier résultat est exact comme estimation du maximum de vraisemblance. La conclusion, elle, est trop rapide.
 
-**Notions à couvrir :** Bernoulli, loi binomiale, vraisemblance, log-vraisemblance, estimateur, indépendance, probabilité versus vraisemblance.
+**Tension narrative :** comment la même estimation $\widehat p=0{,}7$ peut-elle être compatible avec une conclusion prudente sur dix lancers, mais constituer une preuve beaucoup plus forte sur cent lancers ?
 
-À compléter lors de la revue canonique :
-- **Prérequis à rappeler :** identifier ceux qui sont réellement indispensables et les expliquer brièvement dans l'article.
-- **Distinctions à rendre explicites :** préciser les confusions voisines qui changeraient le raisonnement.
-- **Approfondissements à signaler seulement :** éviter de transformer l'article en chapitre encyclopédique.
-- **Statut de la connaissance :** vérifier le contenu et le statut du concept dans Wiki Knowledge ; un concept draft n'est pas une référence validée.
+## 4. Première étape — ce que maximise la vraisemblance
 
-Le futur article devra définir chaque notion centrale, expliquer son mécanisme, préciser ses hypothèses et limites, puis la faire travailler dans un exemple. Il ne doit pas simplement énumérer les concepts.
+Poser le modèle : chaque lancer est une variable de Bernoulli indépendante, de probabilité constante $p$ d'obtenir pile. Pour $k$ piles sur $n$ lancers, la vraisemblance de la séquence observée (à l'ordre près) est :
 
-## 4. Expérience, démonstration ou preuve
+$$
+L(p)=p^k(1-p)^{n-k},\qquad 0\leq p\leq1.
+$$
 
-**Dispositif proposé :** Tracer la log-vraisemblance pour plusieurs p et comparer le maximum à la fréquence observée. Ajouter un petit échantillon pour visualiser l'incertitude.
+Pour $0<k<n$, la log-vraisemblance vaut :
 
-### Démonstration calculée à intégrer
+$$
+\ell(p)=k\log p+(n-k)\log(1-p).
+$$
 
-Prendre une séquence de 10 lancers contenant 7 piles et 3 faces. Sous l'hypothèse de lancers indépendants et de probabilité constante p d'obtenir pile, la vraisemblance de cette séquence ordonnée est :
+Sa dérivée est :
 
-\[
-L(p)=p^7(1-p)^3, \qquad 0\leq p\leq 1.
-\]
+$$
+\ell'(p)=\frac{k}{p}-\frac{n-k}{1-p}.
+$$
 
-Son logarithme est \(\ell(p)=7\log p+3\log(1-p)\). Pour \(0<p<1\),
+En annulant la dérivée :
 
-\[
-\ell'(p)=\frac{7}{p}-\frac{3}{1-p}=0
-\quad\Longrightarrow\quad
-\widehat p_{MV}=\frac{7}{10}=0{,}7.
-\]
+$$
+\widehat p_{\mathrm{MV}}=\frac{k}{n}.
+$$
 
-La dérivée seconde est strictement négative sur cet intervalle : le point critique est donc le maximum unique. Pour ce jeu de données, la vraisemblance en \(p=0{,}7\) est environ 2,28 fois celle en \(p=0{,}5\). Ce rapport compare deux valeurs de paramètre pour les données observées ; il ne signifie pas que « p = 0,7 a 2,28 fois plus de probabilité d'être vrai ».
+La dérivée seconde est négative sur l'intervalle intérieur, ce qui établit le maximum. Traiter séparément les cas limites $k=0$ et $k=n$, où le maximum se trouve respectivement en $p=0$ et $p=1$.
 
-Préciser que si l'on observe seulement le nombre de piles, la loi binomiale ajoute le facteur \(\binom{10}{7}\), indépendant de p : le maximum ne change pas. Traiter aussi les cas limites \(k=0\) et \(k=n\), où l'estimateur vaut respectivement 0 et 1.
+Préciser la distinction entre la vraisemblance d'une séquence ordonnée et la probabilité binomiale du nombre de piles : le facteur combinatoire $\binom nk$ ne dépend pas de $p$, donc il ne change pas l'estimateur.
 
-### Ce que l'estimation ne dit pas
+## 5. Deux échantillons, même estimation, évidence différente
 
-- \(\widehat p=0{,}7\) est une estimation ponctuelle, pas une preuve que la pièce est biaisée ni une mesure complète de l'incertitude.
-- Avec seulement dix lancers, des valeurs assez éloignées de 0,7 restent compatibles avec les données ; toute conclusion sur un biais exige un protocole et une méthode d'incertitude (intervalle de confiance ou approche bayésienne, à distinguer).
-- Le modèle suppose des lancers indépendants et une probabilité stable. Une pièce lancée avec une mécanique différente, ou une pièce qui change de comportement, ne respecte pas nécessairement ces hypothèses.
-- Ne pas confondre maximiser la vraisemblance avec maximiser la probabilité du paramètre : cette dernière notion nécessite notamment un modèle bayésien et un a priori.
+Comparer deux expériences :
 
-**Matériel à préparer :**
-- données ou paramètres explicitement documentés ;
-- calculs reproductibles et vérifiés indépendamment ;
-- représentation visuelle seulement si elle rend un mécanisme ou un contraste plus intelligible ;
-- légende, unités, texte alternatif et équivalent textuel pour toute figure.
+| Expérience | Piles | Lancers | Fréquence observée | Estimation MV |
+|---|---:|---:|---:|---:|
+| A | 7 | 10 | 0,70 | 0,70 |
+| B | 70 | 100 | 0,70 | 0,70 |
 
-**Résultat attendu :** à préciser après exécution. Ne pas annoncer un résultat avant de l'avoir calculé ou observé.
+L'estimation ponctuelle est identique. Pourtant, l'incertitude d'échantillonnage est beaucoup plus faible dans la seconde expérience.
 
-## 5. Angle distinctif — contribution de cette journée
+Pour rendre la différence tangible, comparer l'hypothèse nulle $H_0:p=0{,}5$ à la vraisemblance maximisée :
 
-**Piège central à désamorcer :** La vraisemblance n'est pas la probabilité du paramètre. L'estimation ponctuelle ne résume ni l'incertitude ni la qualité du modèle.
+$$
+\Lambda=\frac{L(\widehat p)}{L(0{,}5)}.
+$$
 
-**Question éditoriale à résoudre avant rédaction :**
-1. Comment les ressources de référence expliquent-elles généralement le sujet ?
-2. Quelle hypothèse implicite, confusion, limite ou conséquence reste peu visible ?
-3. Qu'apporte précisément cette enquête au lecteur ?
-4. Quel exemple ou dispositif lui permet de découvrir cet apport ?
-5. Quelle question de transfert permet de vérifier qu'il l'a compris ?
+Pour 7 piles sur 10 :
 
-L'apport peut être une reconstruction pédagogique, une démonstration, un contre-exemple ou une connexion rigoureuse. Ne pas fabriquer une originalité scientifique.
+$$
+\Lambda_{10}
+=\frac{0{,}7^7\,0{,}3^3}{0{,}5^{10}}
+\approx2{,}28.
+$$
 
-## 6. Transfert vers la pratique
+Pour 70 piles sur 100 :
 
-Estimation de paramètres, modèles probabilistes et apprentissage par minimisation d'une log-loss, sans basculer vers les architectures LLM.
+$$
+\Lambda_{100}
+=\frac{0{,}7^{70}\,0{,}3^{30}}{0{,}5^{100}}
+\approx3745.
+$$
 
-Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
+Le même taux observé favorise davantage la valeur ajustée par rapport à $p=0{,}5$ lorsque davantage de lancers ont été observés.
 
-## 7. Vérification des acquis
+**Précaution d'interprétation :** ce rapport compare la vraisemblance maximisée à celle de l'hypothèse nulle. Il ne donne pas la probabilité que $p=0{,}7$ soit vrai, ni la probabilité que la pièce soit biaisée. La vraisemblance n'est pas une distribution de probabilité sur le paramètre.
 
-**Activité proposée — estimer sans surinterpréter :**
+## 6. Une vérification fréquentiste — le test binomial exact
 
-1. Une autre séquence de 8 lancers contient 6 piles. Écrire la vraisemblance et calculer l'estimateur du maximum de vraisemblance : \(\widehat p=6/8=0{,}75\).
-2. Une séquence contient 8 piles sur 8. L'estimateur vaut 1. Est-ce une preuve que la pièce donne toujours pile ? Non : c'est le maximum dans le modèle sur cet échantillon ; l'incertitude reste importante.
-3. Expliquer pourquoi le rapport de vraisemblance entre deux valeurs de p n'est pas une probabilité que l'une d'elles soit vraie. Pour parler de probabilité du paramètre, il faut spécifier un cadre bayésien et un a priori.
+Pour rendre la conclusion plus concrète, présenter un test bilatéral exact de :
 
-La correction doit distinguer calcul de l'estimateur, hypothèses du modèle et conclusion statistique. Ne pas demander un test de biais sans préciser le niveau, la règle de décision et le protocole.
+$$
+H_0:p=0{,}5
+\qquad\text{contre}\qquad
+H_1:p\neq0{,}5.
+$$
 
-Prévoir 2 à 4 questions graduées :
-1. compréhension ou calcul direct ;
-2. prédiction de l'effet d'une modification ;
-3. transfert à un autre contexte ;
-4. éventuellement, identification d'une hypothèse insuffisante.
+Sous $H_0$, le nombre de piles suit une loi binomiale $\operatorname{Bin}(n,0{,}5)$. La p-value est la probabilité, sous l'hypothèse nulle, d'obtenir un résultat au moins aussi incompatible avec $H_0$ que celui observé, selon la définition bilatérale retenue.
 
-La correction doit détailler le raisonnement, les conventions et les endroits où une hypothèse intervient.
+Valeurs à vérifier avec une implémentation exacte et à documenter dans l'article :
 
-## 8. Connexions
+| Données | p-value bilatérale exacte |
+|---|---:|
+| 7/10 | 0,34375 |
+| 70/100 | environ $7{,}85\\times10^{-5}$ |
 
-J05 (logarithmes et information), J07 (modèle paramétrique), J09 (objectif).
+La conclusion change nettement : sept piles sur dix ne constituent pas une preuve forte contre l'équilibre dans un si petit échantillon ; soixante-dix sur cent constituent un résultat beaucoup plus difficile à expliquer sous $p=0{,}5$.
 
-Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
+Ne jamais écrire que la p-value est la probabilité que $H_0$ soit vraie. Elle est calculée **en supposant** $H_0$ et dépend du test choisi. Ne pas confondre non-rejet de $H_0$ et preuve que la pièce est équilibrée.
 
-## 9. Sources à vérifier
+## 7. Ce que l'exemple suppose — et ce qu'il ne démontre pas
 
-Références de probabilités/statistique mathématique à sélectionner ; vérifier la démonstration et les conventions.
+Le modèle binomial repose sur trois hypothèses importantes :
 
-Pour chaque référence retenue, relever l'édition/version, le chapitre ou passage utile, le type de source et les affirmations qu'elle soutient. Vérifier les sources primaires quand elles existent. Ne pas publier de lien vers un espace privé.
+- indépendance des lancers ;
+- probabilité $p$ constante d'un lancer à l'autre ;
+- protocole d'observation et définition de « pile » stables.
 
-## 10. Plan d'article pressenti
+Si la pièce change de comportement, si les lancers sont dépendants ou si le dispositif de lancer introduit une structure, le modèle peut être inadéquat. Augmenter $n$ réduit l'incertitude sous le modèle ; cela ne répare pas un modèle faux.
 
-1. Question concrète et enjeu.
-2. Intuition construite à partir de la situation.
-3. Définitions et distinctions nécessaires.
-4. Mécanisme ou formalisation, avec notation explicitée.
-5. Exemple calculé, expérience ou démonstration.
-6. Limite ou contre-exemple.
-7. Application à une situation de Data Science.
-8. Questions et correction raisonnée.
-9. Synthèse et références.
+La conclusion dépend aussi de la question : détecter un écart à 0,5, estimer précisément $p$, ou décider si un biais est suffisamment important pour avoir une conséquence pratique ne sont pas le même problème.
 
-Les titres définitifs pourront varier pour servir la narration. Ne pas forcer du code si un calcul, un schéma ou un raisonnement est plus pertinent.
+## 8. Transfert vers la pratique Data Science
 
-## 11. Critères de passage à l'article
+Prendre une métrique de succès binaire : taux de clic, taux de conversion, taux de défaut ou proportion de prédictions correctes. Une proportion observée donne une estimation ponctuelle, mais la conclusion dépend aussi du nombre d'observations, du protocole et du modèle d'échantillonnage.
 
-- [ ] L'angle narratif est concret et ne masque pas la question scientifique.
-- [ ] Le concept pivot est vérifié et les concepts centraux sont réellement expliqués.
-- [ ] Les calculs, exemples et affirmations quantitatives sont vérifiés.
-- [ ] Le piège conceptuel est désamorcé avec un contre-exemple ou une explication.
-- [ ] Le transfert change effectivement une pratique ou une interprétation.
-- [ ] La correction des exercices teste l'objectif annoncé.
-- [ ] La durée est comprise entre 7 et 20 minutes sans remplissage.
-- [ ] Le contenu est autonome, sourcé, accessible et sans dépendance à un dépôt privé.
+Le transfert doit montrer trois questions successives :
+1. Quelle quantité cherche-t-on à estimer ?
+2. Quelle vraisemblance et quelles hypothèses relient les données au paramètre ?
+3. Quelle incertitude ou quel test faut-il pour répondre à la question de décision ?
+
+Ne pas transformer le passage en cours général sur les tests A/B : l'exemple de la pièce reste le fil narratif, et l'application sert uniquement à transférer le raisonnement.
+
+## 9. Vérification des acquis
+
+Les exercices complets sont réservés à l'atelier. L'article peut se terminer par deux questions :
+
+1. Pourquoi 7/10 et 70/100 donnent-ils la même estimation MV mais pas la même force d'évidence contre $p=0{,}5$ ?
+2. Pourquoi un rapport de vraisemblance de 2,28 ne signifie-t-il pas qu'il y a 2,28 fois plus de chances que $p=0{,}7$ soit vrai ?
+
+Les corrections doivent distinguer estimateur, vraisemblance, p-value et probabilité bayésienne.
+
+## 10. Sources à vérifier
+
+- Casella & Berger, *Statistical Inference* : vraisemblance, estimation du maximum de vraisemblance et tests du rapport de vraisemblance ; relever les chapitres et localisateurs exacts.
+- Wasserman, *All of Statistics* : estimation, tests et modèle binomial ; vérifier les sections pertinentes.
+- Une référence fiable sur le test binomial exact et la définition de la p-value ; relever la convention bilatérale utilisée.
+
+Associer chaque source à une affirmation précise. Les chiffres de l'exemple doivent être reproduits par calcul, et non repris sans vérification.
+
+## 11. Plan de l'article
+
+1. Sept piles sur dix : l'estimation paraît simple, la conclusion ne l'est pas.
+2. Écrire la vraisemblance et retrouver $k/n$.
+3. Comparer 7/10 et 70/100 : même estimation, rapport de vraisemblance différent.
+4. Interpréter un test binomial exact sans surinterpréter la p-value.
+5. Examiner les hypothèses du modèle et transférer le raisonnement à un taux de succès.
+6. Synthèse : estimer n'est pas conclure.
+
+## 12. Critères de passage à l'article
+
+- [ ] L'angle dépasse le calcul élémentaire de $k/n$ et la question d'inférence est clairement posée.
+- [ ] Les vraisemblances, rapports et p-values sont reproduits indépendamment.
+- [ ] La convention du test bilatéral exact est précisée.
+- [ ] Vraisemblance, p-value et probabilité du paramètre ne sont jamais confondues.
+- [ ] Les hypothèses binomiales et les limites de leur interprétation sont explicites.
+- [ ] Le transfert DS est concret mais ne concurrence pas J02, J09, J18 ou J24.
+- [ ] Les références sont vérifiées avec des localisateurs exacts.
+- [ ] L'article est autonome, accessible et compris entre 7 et 20 minutes.
