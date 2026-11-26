@@ -1,5 +1,5 @@
 ---
-title: "Corrélation n'est pas causalité"
+title: "Quand le résultat s'inverse en regardant les groupes"
 day: 6
 calendar: "2026"
 status: "skeleton"
