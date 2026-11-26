@@ -164,8 +164,6 @@ Avant de présenter un résultat statistique ou d'ajuster un modèle, l'analyste
 2. **Visualiser** : choisir un graphique qui peut mettre en défaut l'interprétation envisagée.
 3. **Stratifier avec raison** : examiner des groupes pertinents pour le protocole, le domaine ou la décision, sans multiplier les découpages opportunistes.
 
-Une précaution supplémentaire est essentielle : vérifier l'unité d'observation. Si dix lignes proviennent du même capteur, patient ou site, elles ne sont pas nécessairement dix unités indépendantes. Les traiter comme telles peut produire une précision artificielle, phénomène appelé *pseudoréplication*.
-
 Le choix du graphique doit découler de la question, pas d'une collection de visualisations systématiques. On ne choisit pas le même outil pour examiner une distribution marginale, une relation entre variables et une évolution temporelle.
 
 ## Un résumé est une compression avec perte
@@ -216,11 +214,20 @@ Avant d'interpréter un score, demandez-vous :
 Le lien avec les journées précédentes est direct : la qualité de la mesure (jour 1), la sélection des observations (jour 2) et le choix des résumés (jour 3) conditionnent ce que le score d'un modèle permet réellement de conclure.
 
 
-### Un cas LLM : une loss moyenne peut cacher une distribution d'erreurs
+### Même erreur moyenne, profils de performance différents
 
-Deux modèles peuvent obtenir la même loss moyenne sur un jeu de test tout en ayant des comportements très différents. Le premier peut être régulièrement moyen ; le second très bon sur les formulations fréquentes, mais mauvais sur les langues minoritaires, les noms rares ou les contextes longs.
+Deux modèles sont évalués sur deux groupes de même poids. On mesure une perte moyenne par groupe :
 
-La moyenne est un résumé utile, pas une description complète. Pour comprendre ce qu'elle masque, examinez la distribution des pertes et ventilez-les par langue, source, fréquence des tokens, longueur de contexte ou type de tâche. Ces découpages doivent être définis avant d'interpréter les écarts : multiplier les sous-groupes après coup augmente le risque de trouver des différences fortuites.
+| Modèle | Groupe 1 | Groupe 2 | Moyenne des deux groupes |
+|---|---:|---:|---:|
+| A | 0,40 | 0,40 | 0,40 |
+| B | 0,20 | 0,60 | 0,40 |
+
+Les deux modèles ont exactement la même perte moyenne globale. Pourtant, B est meilleur dans le premier groupe et moins bon dans le second. Le score global ne permet pas de savoir lequel est préférable sans préciser la population cible et le coût associé aux erreurs dans chaque groupe.
+
+Les nombres sont construits pour illustrer l'agrégation, pas issus d'une expérience. L'exemple ne démontre pas qu'un modèle est globalement meilleur : il montre que la moyenne répond à une question pondérée précise. Si les groupes n'ont pas le même poids dans la population de déploiement, la moyenne pertinente change.
+
+Le transfert est direct : avant d'interpréter une métrique globale, examiner les groupes qui la composent, leurs poids et la distribution des erreurs. Les sous-groupes doivent être définis par une question ou un protocole, et non multipliés après coup jusqu'à trouver une différence.
 
 ## Mettre en pratique
 
