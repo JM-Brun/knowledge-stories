@@ -217,6 +217,33 @@ Un capteur n'est qu'un exemple. La même difficulté apparaît lorsqu'une variab
 
 Imaginez que chaque bâtiment utilise un modèle de capteur différent. Si le modèle d'instrument est toujours associé au bâtiment, une différence instrumentale peut être confondue avec une différence réelle entre bâtiments. Le modèle prédictif peut alors apprendre l'identité du capteur plutôt que le phénomène.
 
+### Le problème est identifiable… ou pas ?
+
+Supposons que le capteur S1 soit toujours installé dans le bâtiment A et le capteur S2 toujours dans le bâtiment B. Un modèle additif minimal s'écrit :
+
+\[
+Y_{site,capteur}=\mu+\alpha_{site}+\beta_{capteur}+\varepsilon.
+\]
+
+- \(\alpha_{site}\) représente l'écart réel associé au bâtiment ;
+- \(\beta_{capteur}\) représente le décalage propre au capteur ;
+- \(\varepsilon\) regroupe les variations résiduelles.
+
+Avec une seule combinaison par bâtiment, on observe seulement la somme des deux effets. Si B est mesuré un degré plus bas que A, les données seules ne permettent pas de savoir si B est réellement plus froid, si S2 sous-estime la température, ou si les deux effets se combinent. Ajouter des milliers de lignes avec la même association ne résout pas cette non-identifiabilité : le plan de mesure ne sépare pas les causes possibles.
+
+Un plan croisé apporte l'information qui manque. À titre d'illustration, supposons que les deux capteurs puissent mesurer les deux bâtiments dans des conditions comparables :
+
+| Bâtiment | Capteur S1 | Capteur S2 |
+|---|---:|---:|
+| A | 20,0 °C | 19,0 °C |
+| B | 20,5 °C | 19,5 °C |
+
+Dans cet exemple fictif, S2 indique un degré de moins que S1 dans les deux bâtiments, tandis que B est 0,5 °C plus chaud que A avec chacun des capteurs. Le croisement permet donc de distinguer les deux effets dans le modèle additif, au lieu de les confondre.
+
+En pratique, il faut contrôler les changements de température pendant le déplacement des capteurs, leur temps de réponse et les conditions d'exposition. Une mesure de référence commune ou un échange croisé planifié peut aider ; une permutation improvisée dans le temps pourrait introduire un nouveau biais.
+
+**Le point méthodologique dépasse la métrologie :** quand une variable, un appareil, un annotateur ou un protocole est systématiquement associé à un groupe, il faut vérifier que le plan de collecte permet réellement de séparer l'effet du groupe de celui du système de mesure.
+
 La chaîne de production d'une variable ressemble à ceci :
 
 <figure>
