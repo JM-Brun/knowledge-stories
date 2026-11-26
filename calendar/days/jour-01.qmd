@@ -4,7 +4,7 @@ subtitle: "Jour 1 · Quand le plan de mesure décide de ce que les données perm
 description: "Deux bâtiments semblent différer. Mais si chacun utilise un capteur différent, les données permettent-elles vraiment d'attribuer l'écart au bâtiment ?"
 ---
 
-> **Environ 10 à 12 minutes** — Une enquête sur deux bâtiments montre pourquoi un modèle peut confondre l'effet d'un phénomène avec celui de son instrument de mesure, et comment un plan croisé permet de les distinguer.
+> **Environ 12 à 14 minutes** — Une enquête sur deux bâtiments montre pourquoi un modèle peut confondre l'effet d'un phénomène avec celui de son instrument de mesure, et comment un plan croisé permet de les distinguer.
 >
 > **Prérequis** — Aucun. Les équations sont expliquées au moment où elles deviennent utiles.
 >
@@ -47,6 +47,8 @@ Cette comparaison apporte un indice important, mais sa portée reste limitée :
 On peut donc dire que les indications de S2 sont décalées dans cet essai. On ne peut pas encore déclarer que son biais vaut exactement −1 °C dans toutes les conditions.
 
 La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Dans le vocabulaire du [VIM](https://jcgm.bipm.org/vim/fr/), la fidélité décrit l'accord entre résultats répétés dans des conditions spécifiées ; la répétabilité est un cas particulier de fidélité, évalué dans des conditions définies. La justesse concerne la proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence. L'exactitude est une notion plus globale et qualitative. Les trois relevés illustrent ces distinctions, mais ne suffisent pas à caractériser complètement les propriétés du capteur.
+
+Il faut aussi distinguer une **comparaison ponctuelle** d'une **calibration**. La comparaison côte à côte montre ici un écart autour de 20 °C ; elle ne fournit pas à elle seule une fonction de correction valable sur toute la plage d'utilisation. Une calibration établit une relation entre les valeurs fournies par un étalon et les indications de l'instrument, avec leurs incertitudes. Pour caractériser S1 et S2, il faudrait répéter cette opération à plusieurs températures pertinentes, puis vérifier la stabilité de la relation dans le temps et dans les conditions d'emploi. Même une calibration documentée ne dispense pas de contrôler l'installation réelle : rayonnement, ventilation, position et temps de réponse peuvent modifier la mesure.
 
 ## Pourquoi répéter davantage ne corrige pas le décalage
 
@@ -151,7 +153,16 @@ X_{\text{initial}} =
 \end{bmatrix}.
 \]
 
-Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes identiques ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+
+On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de \(\delta\) et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
+
+\[
+(\alpha_B+\delta)+(\beta_{S2}-\delta)
+=\alpha_B+\beta_{S2}.
+\]
+
+Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas que l'estimation serait simplement imprécise : les paramètres ne sont pas séparément déterminés par ces données.
 
 Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
 
@@ -208,7 +219,7 @@ X_{\text{croisé}} =
 \end{bmatrix}.
 \]
 
-Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif.
+Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif. **Identifiable ne signifie toutefois ni exact ni précis** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes d'incertitude, de biais résiduel ou de défaut de protocole.
 
 Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
 
@@ -226,9 +237,28 @@ Le résultat est contre-intuitif : si l'on utilise seulement les capteurs instal
 
 Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
 
-Cette hypothèse doit être examinée. Le montage, l'humidité, le rayonnement ou les conditions locales peuvent modifier différemment la réponse d'un capteur selon le site. Des répétitions par combinaison sont nécessaires pour quantifier la variabilité résiduelle et examiner les écarts au modèle additif. Avec une seule valeur par case, le tableau illustre l'identification des effets sous hypothèse ; il ne constitue pas une validation complète du modèle.
+Une manière de rendre cette hypothèse visible consiste à comparer les écarts entre capteurs dans chaque bâtiment. Ici :
 
-En pratique, le déplacement des capteurs doit aussi être planifié : temps de stabilisation, emplacement, évolution de la température et ordre des mesures peuvent introduire de nouveaux effets. Un croisement mal contrôlé ne résout pas le problème ; il le déplace.
+\[
+\begin{aligned}
+\Delta_{A} &= 19{,}0-20{,}0=-1{,}0\;^\circ\mathrm C,\\
+\Delta_{B} &= 19{,}5-20{,}5=-1{,}0\;^\circ\mathrm C.
+\end{aligned}
+\]
+
+L'écart entre ces deux écarts — une différence de différences — vaut zéro dans le tableau construit. C'est ce que prédit le modèle sans interaction. Si les deux écarts différaient, cela pourrait signaler une interaction capteur × bâtiment, mais aussi du bruit de mesure ou une variation des conditions entre les relevés.
+
+Cette hypothèse doit donc être examinée, et non simplement postulée. Le montage, l'humidité, le rayonnement ou les conditions locales peuvent modifier différemment la réponse d'un capteur selon le site. **Avec une seule valeur par combinaison, on ne peut pas distinguer une interaction réelle de la variabilité aléatoire** : il faut des répétitions par combinaison pour estimer cette variabilité et évaluer les écarts au modèle additif. Le tableau illustre l'identification des effets principaux sous hypothèse ; il ne constitue pas une validation complète du modèle.
+
+En pratique, un plan croisé n'est informatif que si les conditions de comparaison sont maîtrisées. Il faut notamment :
+
+1. mesurer les deux capteurs dans chaque bâtiment, sur des périodes aussi comparables que possible ;
+2. synchroniser les relevés ou utiliser une référence commune pour tenir compte des variations temporelles ;
+3. randomiser ou alterner l'ordre des capteurs pour ne pas confondre leur effet avec l'heure de mesure ;
+4. contrôler emplacement, orientation, temps de stabilisation et exposition au rayonnement ;
+5. répéter les quatre combinaisons afin de quantifier la variabilité et de rechercher une interaction.
+
+Si les capteurs ne peuvent pas être déplacés, un dispositif de transfert ou une référence commune peut créer le recouvrement nécessaire. Un croisement mal contrôlé ne résout pas le problème ; il le déplace.
 
 ## Ce que cela change dans le travail d'un data scientist
 
@@ -242,7 +272,7 @@ Quelques situations où cette question mérite d'être posée :
 | Santé | Hôpital et appareil de mesure | Même protocole et appareil comparables entre établissements |
 | NLP | Population de textes et système d'annotation | Même consignes et annotateurs présents sur plusieurs sous-populations |
 
-Ce sont des analogies de conception, pas des cas statistiquement identiques : le mécanisme de mesure, les hypothèses et les contrôles nécessaires dépendent du domaine.
+Ce sont des analogies de conception, pas des cas statistiquement identiques : le mécanisme de mesure, les hypothèses et les contrôles nécessaires dépendent du domaine. Dans ces exemples, le « capteur » désigne plus largement le processus qui transforme un phénomène en donnée : appareil, protocole, annotateur, logiciel ou chaîne de prétraitement.
 
 Dans cet exemple, trois stratégies ne sont pas équivalentes :
 
@@ -264,7 +294,7 @@ Si la réponse est non, le problème doit être traité au niveau de la collecte
 
 ## Références et approfondissements
 
-- **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives des notions de fidélité, répétabilité, justesse, exactitude, erreur et incertitude ; [version française annotée](https://jcgm.bipm.org/vim/fr/).
+- **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives des notions de fidélité, répétabilité, justesse, exactitude, erreur et incertitude ; [version française annotée](https://jcgm.bipm.org/vim/fr/), notamment l'entrée [2.39 — Calibration](https://jcgm.bipm.org/vim/fr/2.39.html).
 - **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude.
 - **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — introduction opérationnelle à l'évaluation et à l'expression de l'incertitude.
 
