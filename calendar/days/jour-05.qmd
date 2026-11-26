@@ -4,7 +4,7 @@ subtitle: "Jour 5 · Quantifier l'incertitude avec l'entropie"
 description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, et comprendre ce que cette mesure ne dit pas."
 ---
 
-> **En 7 à 9 minutes** — Deux distributions peuvent avoir le même support et ne pas laisser la même place à l'imprévu. Mais « incertitude » dépend toujours de la question posée.
+> **En 12 à 15 minutes** — Une prévision annonce 90 % de probabilité de pluie. Est-elle plus informative qu'une prévision à 50 % ? Et comment savoir si elle mérite confiance ? Nous allons passer de la surprise à l'entropie, puis de l'entropie à l'évaluation des prévisions.
 >
 > **Prérequis** — Connaître les probabilités d'événements simples. Le logarithme est rappelé à partir de son rôle dans le calcul de la surprise.
 >
@@ -16,7 +16,14 @@ La surprise concerne une issue qui s'est produite ; l'entropie décrit la surpri
 
 ## La question
 
-Une prévision qui annonce deux issues à 50 % est-elle plus incertaine qu'une prévision à 90 % / 10 % ? L'entropie de Shannon formalise une partie de cette intuition.
+À 8 h, un service météo publie une probabilité de pluie de 90 % pour l'après-midi. Un autre jour, il annonce 50 %. La première prévision paraît plus tranchée : elle laisse moins de place au doute. Mais imaginons que, sur cent journées comparables où le service annonçait 90 %, il n'ait plu que soixante-dix fois.
+
+Deux questions apparaissent alors, qu'il faut garder séparées :
+
+1. **À quel point la distribution annoncée est-elle concentrée ?** C'est une question d'entropie.
+2. **Les probabilités annoncées correspondent-elles aux fréquences observées ?** C'est une question de qualité prédictive et de calibration.
+
+L'entropie répond à la première question, pas à la seconde. Pour comprendre pourquoi, commençons par comparer trois distributions sur deux issues :
 
 Considérons trois distributions sur deux issues :
 
@@ -25,6 +32,31 @@ Considérons trois distributions sur deux issues :
 - C : \(p=(1;0)\)
 
 La distribution A laisse les deux issues également possibles. C rend l'une des issues certaine. B se situe entre les deux.
+
+## Les cinq premières journées : de la donnée à l'information
+
+Jusqu'ici, nous avons construit cinq précautions successives. Elles ne sont pas cinq sujets isolés : chacune précise ce que les données permettent réellement d'affirmer.
+
+<figure>
+<svg viewBox="0 0 760 190" role="img" aria-labelledby="path-title path-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="path-title">Progression des cinq premières journées</title>
+  <desc id="path-desc">Cinq étapes : mesurer le phénomène, sélectionner les observations, résumer les distributions, prendre en compte les dépendances, puis quantifier l'information et l'incertitude.</desc>
+  <rect x="1" y="1" width="758" height="188" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-family="system-ui,sans-serif" text-anchor="middle">
+    <g><rect x="12" y="28" width="132" height="94" rx="9" fill="#e7eee7" stroke="#6b8d75"/><text x="78" y="51" fill="#294b3a" font-size="12" font-weight="700">J1 · Mesurer</text><text x="78" y="75" fill="#53665b" font-size="11">Que mesure-t-on</text><text x="78" y="91" fill="#53665b" font-size="11">réellement ?</text></g>
+    <path d="M147 75 H158 M153 70 L158 75 L153 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
+    <g><rect x="161" y="28" width="132" height="94" rx="9" fill="#f4eddf" stroke="#b58b4d"/><text x="227" y="51" fill="#765626" font-size="12" font-weight="700">J2 · Sélectionner</text><text x="227" y="75" fill="#76664d" font-size="11">Qui est représenté</text><text x="227" y="91" fill="#76664d" font-size="11">dans les données ?</text></g>
+    <path d="M296 75 H307 M302 70 L307 75 L302 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
+    <g><rect x="310" y="28" width="132" height="94" rx="9" fill="#e8edf4" stroke="#7186a5"/><text x="376" y="51" fill="#344b6b" font-size="12" font-weight="700">J3 · Résumer</text><text x="376" y="75" fill="#53647b" font-size="11">Que cachent les</text><text x="376" y="91" fill="#53647b" font-size="11">statistiques ?</text></g>
+    <path d="M445 75 H456 M451 70 L456 75 L451 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
+    <g><rect x="459" y="28" width="132" height="94" rx="9" fill="#f1e8ef" stroke="#9b7890"/><text x="525" y="51" fill="#68445f" font-size="12" font-weight="700">J4 · Relier</text><text x="525" y="75" fill="#765e70" font-size="11">Comment les variables</text><text x="525" y="91" fill="#765e70" font-size="11">varient-elles ensemble ?</text></g>
+    <path d="M594 75 H605 M600 70 L605 75 L600 80" fill="none" stroke="#64748b" stroke-width="1.8"/>
+    <g><rect x="608" y="28" width="140" height="94" rx="9" fill="#dcefeb" stroke="#0f766e" stroke-width="1.5"/><text x="678" y="51" fill="#115e59" font-size="12" font-weight="700">J5 · Informer</text><text x="678" y="75" fill="#27645e" font-size="11">Quelle incertitude</text><text x="678" y="91" fill="#27645e" font-size="11">et quelle information ?</text></g>
+    <text x="380" y="157" fill="#334155" font-size="12" font-weight="600">Chaque étape limite les conclusions que l'on peut tirer de la suivante.</text>
+  </g>
+</svg>
+<figcaption>Un fil de lecture, pas une chaîne de traitement automatique : la qualité de l'information dépend de la mesure, de la sélection, des résumés et des dépendances examinés en amont.</figcaption>
+</figure>
 
 ## Surprise d'une issue et entropie d'une distribution
 
@@ -55,7 +87,7 @@ Dans cet espace binaire, l'entropie est maximale lorsque les deux issues sont é
   <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
   <line x1="85" y1="235" x2="690" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="85" y1="55" x2="85" y2="235" stroke="#64748b" stroke-width="1.5"/>
   <g stroke="#cbd5e1" stroke-width="1"><line x1="85" y1="55" x2="690" y2="55" stroke-dasharray="4 4"/><line x1="85" y1="145" x2="690" y2="145" stroke-dasharray="4 4"/></g>
-  <path d="M85 235 L145 151 L206 105 L267 76 L327 60 L388 55 L448 60 L509 76 L569 105 L630 151 L690 235" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M85.00 235.00 L92.56 217.55 L100.13 204.64 L107.69 193.47 L115.25 183.45 L122.81 174.29 L130.38 165.82 L137.94 157.95 L145.50 150.58 L153.06 143.67 L160.63 137.16 L168.19 131.02 L175.75 125.23 L183.31 119.75 L190.88 114.58 L198.44 109.68 L206.00 105.05 L213.56 100.68 L221.13 96.55 L228.69 92.65 L236.25 88.97 L243.81 85.51 L251.38 82.26 L258.94 79.22 L266.50 76.37 L274.06 73.71 L281.63 71.25 L289.19 68.97 L296.75 66.87 L304.31 64.95 L311.88 63.20 L319.44 61.63 L327.00 60.23 L334.56 59.00 L342.13 57.93 L349.69 57.03 L357.25 56.30 L364.81 55.73 L372.38 55.32 L379.94 55.08 L387.50 55.00 L395.06 55.08 L402.63 55.32 L410.19 55.73 L417.75 56.30 L425.31 57.03 L432.88 57.93 L440.44 59.00 L448.00 60.23 L455.56 61.63 L463.13 63.20 L470.69 64.95 L478.25 66.87 L485.81 68.97 L493.38 71.25 L500.94 73.71 L508.50 76.37 L516.06 79.22 L523.63 82.26 L531.19 85.51 L538.75 88.97 L546.31 92.65 L553.88 96.55 L561.44 100.68 L569.00 105.05 L576.56 109.68 L584.13 114.58 L591.69 119.75 L599.25 125.23 L606.81 131.02 L614.38 137.16 L621.94 143.67 L629.50 150.58 L637.06 157.95 L644.63 165.82 L652.19 174.29 L659.75 183.45 L667.31 193.47 L674.88 204.64 L682.44 217.55 L690.00 235.00" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
   <g fill="#475569" font-size="12"><text x="72" y="239" text-anchor="end">0</text><text x="72" y="59" text-anchor="end">1</text><text x="85" y="257" text-anchor="middle">0</text><text x="388" y="257" text-anchor="middle">0,5</text><text x="690" y="257" text-anchor="middle">1</text><text x="388" y="285" text-anchor="middle">Probabilité p de la première issue</text><text x="22" y="145" transform="rotate(-90 22 145)" text-anchor="middle">H(p) en bits</text></g>
   <g fill="#b45309" stroke="#fff" stroke-width="2"><circle cx="388" cy="55" r="7"/><circle cx="630" cy="151" r="7"/><circle cx="690" cy="235" r="7"/></g>
   <g fill="#92400e" font-size="12" font-weight="700"><text x="400" y="43">A : 0,5 → 1 bit</text><text x="540" y="140">B : 0,9 → 0,469</text><text x="600" y="222">C : 1 → 0</text></g>
@@ -114,11 +146,71 @@ I(X;Y)=1-0{,}469\approx 0{,}531\text{ bit}.
 
 Observer \(Y\) apporte en moyenne un peu plus de la moitié d'un bit d'information sur \(X\). Si l'observation était parfaite, l'entropie conditionnelle serait nulle et l'information mutuelle vaudrait 1 bit ; si \(Y\) était indépendant de \(X\), elle vaudrait zéro.
 
+On peut voir ce mécanisme dans la table conjointe. Les lignes représentent la valeur réelle \\(X\\), les colonnes l'observation \\(Y\\) :
+
+| \\(P(X,Y)\\) | \\(Y=0\\) | \\(Y=1\\) | Total |
+|---|---:|---:|---:|
+| \\(X=0\\) | 0,45 | 0,05 | 0,50 |
+| \\(X=1\\) | 0,05 | 0,45 | 0,50 |
+| **Total** | **0,50** | **0,50** | **1** |
+
+La diagonale contient les observations correctes (90 % au total) et les deux autres cases les erreurs (10 %). Cette représentation rend visible la différence entre les marges — ici équilibrées — et la dépendance entre les variables : si les quatre cases valaient 0,25, l'observation ne renseignerait plus sur \\(X\\) et l'information mutuelle serait nulle.
+
 ## Un piège : faible entropie ne veut pas dire bonne prévision
 
 Imaginons un modèle qui annonce une probabilité de 99 % pour une issue. Sa distribution prédictive a une faible entropie. Mais si l'issue contraire se produit souvent, le modèle est mal calibré.
 
-L'entropie décrit la concentration de la distribution annoncée par le modèle, pas la qualité de cette annonce. Pour évaluer une prévision probabiliste, il faut la confronter aux résultats observés, par exemple avec le score de Brier ou la log-loss, et examiner sa calibration.
+L'entropie décrit la concentration de la distribution annoncée par le modèle, pas la qualité de cette annonce. Pour évaluer une prévision probabiliste, il faut la confronter aux résultats observés. Deux notions complémentaires sont alors utiles : le score de prévision et la calibration.
+
+## Évaluer une prévision : entropie croisée et calibration
+
+Considérons un événement binaire (pluie ou pas de pluie). Le modèle annonce \\(q=0{,}9\\) pour la pluie. Sur un grand ensemble de situations comparables, la fréquence observée est pourtant \\(r=0{,}7\\).
+
+La **perte logarithmique** (*log-loss*) d'une prévision est la surprise qu'elle attribue à l'issue réellement observée :
+
+\\[
+\\ell(q,y)=-y\\log_2(q)-(1-y)\\log_2(1-q),
+\\]
+
+où \\(y=1\\) s'il pleut et \\(y=0\\) sinon. Une prévision de 90 % qui se trompe reçoit une pénalité forte : \\(-\\log_2(0{,}1)\\approx3{,}322\\) bits. Une prévision de 90 % correcte reçoit \\(-\\log_2(0{,}9)\\approx0{,}152\\) bit.
+
+En moyenne, si la fréquence réelle de pluie est \\(r\\), la perte vaut l'entropie croisée :
+
+\\[
+H(r,q)=-r\\log_2(q)-(1-r)\\log_2(1-q).
+\\]
+
+Pour \\(r=0{,}7\\) et \\(q=0{,}9\\), on obtient environ \\(1{,}103\\) bits par prévision. Si le modèle annonçait \\(q=0{,}7\\), la perte moyenne serait l'entropie de la distribution réelle, environ \\(0{,}881\\) bit. La différence est la divergence de Kullback–Leibler :
+
+\\[
+D_{\\mathrm{KL}}(r\\Vert q)=H(r,q)-H(r)\\approx0{,}222\\text{ bit}.
+\\]
+
+Cette décomposition donne une lecture utile : l'entropie \\(H(r)\\) représente l'incertitude intrinsèque de l'événement dans la population considérée ; la divergence mesure le surcoût dû à l'écart entre la distribution annoncée et la distribution réelle. Pour une classification à plusieurs classes, la même idée s'écrit \\(H(p,q)=-\\sum_k p_k\\log q_k\\). Avec une étiquette observée *one-hot*, la perte d'un exemple devient simplement \\(-\\log q_{y}\\), le logarithme de la probabilité attribuée à la vraie classe.
+
+### Visualiser une prévision trop confiante
+
+La calibration compare les probabilités annoncées aux fréquences observées sur un ensemble de prévisions. Si les cas annoncés à 90 % ne se réalisent que 70 % du temps, le modèle est sur-confiant dans cette région.
+
+<figure>
+<svg viewBox="0 0 760 300" role="img" aria-labelledby="cal-title cal-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="cal-title">Prévisions annoncées et fréquences observées</title>
+  <desc id="cal-desc">Un graphique de calibration compare la fréquence observée à la probabilité annoncée. La diagonale représente une calibration parfaite. Un point à 90 pour cent annoncé et 70 pour cent observé se situe sous la diagonale et indique une sur-confiance.</desc>
+  <rect x="1" y="1" width="758" height="298" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <line x1="90" y1="235" x2="680" y2="235" stroke="#64748b" stroke-width="1.5"/><line x1="90" y1="235" x2="90" y2="35" stroke="#64748b" stroke-width="1.5"/>
+  <g stroke="#e2e8f0" stroke-width="1"><line x1="90" y1="185" x2="680" y2="185"/><line x1="90" y1="135" x2="680" y2="135"/><line x1="90" y1="85" x2="680" y2="85"/><line x1="238" y1="35" x2="238" y2="235"/><line x1="385" y1="35" x2="385" y2="235"/><line x1="533" y1="35" x2="533" y2="235"/><line x1="680" y1="35" x2="680" y2="235"/></g>
+  <path d="M90 235 L680 35" fill="none" stroke="#0f766e" stroke-width="3" stroke-dasharray="7 5"/>
+  <line x1="621" y1="95" x2="621" y2="155" stroke="#b45309" stroke-width="2.5"/><circle cx="621" cy="155" r="8" fill="#b45309" stroke="#fff" stroke-width="2"/>
+  <g fill="#475569" font-size="12"><text x="90" y="255" text-anchor="middle">0</text><text x="385" y="255" text-anchor="middle">0,5</text><text x="680" y="255" text-anchor="middle">1</text><text x="75" y="239" text-anchor="end">0</text><text x="75" y="139" text-anchor="end">0,5</text><text x="75" y="39" text-anchor="end">1</text><text x="385" y="284" text-anchor="middle">Probabilité annoncée</text><text x="22" y="135" transform="rotate(-90 22 135)" text-anchor="middle">Fréquence observée</text></g>
+  <g fill="#0f766e" font-size="12" font-weight="700"><text x="410" y="68">Calibration parfaite</text></g>
+  <g fill="#92400e" font-size="12" font-weight="700"><text x="480" y="176">90 % annoncés</text><text x="480" y="192">70 % observés</text></g>
+</svg>
+<figcaption>Schéma d'illustration : chaque point d'un diagramme de fiabilité résume un groupe de prévisions de confiance comparable. Le point 0,9 / 0,7 est hypothétique et reprend l'exemple du texte.</figcaption>
+</figure>
+
+Un modèle est **calibré** si, parmi les événements auxquels il attribue une probabilité proche de \\(c\\), la fréquence de réalisation est proche de \\(c\\). La calibration se vérifie sur des ensembles de prévisions, pas à partir d'une seule prédiction. Elle ne garantit pas une bonne discrimination : un modèle peut être calibré tout en séparant mal les cas positifs et négatifs. Inversement, l'accuracy seule ne mesure ni la calibration ni la qualité des probabilités.
+
+L'entropie, la log-loss et la calibration répondent donc à trois questions différentes : la distribution est-elle diffuse ? Les probabilités récompensent-elles correctement les issues observées ? Les fréquences observées correspondent-elles aux confiances annoncées ?
 
 De même, une distribution très concentrée peut être inadaptée à une décision si les événements rares ont des conséquences catastrophiques. L'incertitude moyenne n'est pas le coût du risque.
 
@@ -136,18 +228,20 @@ La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguït�
 
 ## À vous de raisonner
 
-1. Calculez l'entropie des distributions \(p=(0{,}5;0{,}5)\) et \(p=(0{,}9;0{,}1)\).
-2. Pourquoi une prédiction très confiante peut-elle être incorrecte ?
-3. Quelle différence entre surprise et entropie ?
-4. Si \(Y\) révèle exactement \(X\), que vaut \(H(X\mid Y)\) ?
+1. Calculez l'entropie des distributions \\(p=(0{,}5;0{,}5)\\) et \\(p=(0{,}9;0{,}1)\\).
+2. Une prévision annonce \\(q=0{,}8\\) pour un événement qui se produit. Quelle perte logarithmique reçoit-elle en bits ? Et si l'événement ne se produit pas ?
+3. Sur cent cas comparables annoncés à 90 %, l'événement se produit 70 fois. Que révèle ce résultat sur la calibration ?
+4. Quelle différence entre surprise et entropie ?
+5. Si \\(Y\\) révèle exactement \\(X\\), que vaut \\(H(X\\mid Y)\\) ?
 
 <details>
 <summary>Afficher la solution expliquée</summary>
 
 1. Les entropies sont respectivement 1 bit et environ 0,469 bit.
-2. L'entropie porte sur la distribution annoncée, pas sur sa correspondance avec la fréquence réelle des événements.
-3. La surprise est associée à une issue particulière ; l'entropie est la moyenne de cette surprise sous la distribution.
-4. Elle vaut zéro si \(X\) est déterminée sans ambiguïté par \(Y\).
+2. Si l'événement se produit, la perte vaut \\(-\\log_2(0{,}8)\\approx0{,}322\\) bit. S'il ne se produit pas, elle vaut \\(-\\log_2(0{,}2)\\approx2{,}322\\) bits : une issue que le modèle jugeait peu probable est plus pénalisante lorsqu'elle survient.
+3. Le groupe est sur-confiant : la fréquence observée (70 %) est inférieure à la probabilité annoncée (90 %). Ce constat sur un groupe ne suffit pas à caractériser toute la courbe de calibration.
+4. La surprise est associée à une issue particulière ; l'entropie est la moyenne de cette surprise sous la distribution.
+5. Elle vaut zéro si \\(X\\) est déterminée sans ambiguïté par \\(Y\\).
 
 </details>
 
@@ -156,6 +250,7 @@ La question pertinente dépend de l'usage : cherche-t-on à mesurer l'ambiguït�
 - La surprise concerne une issue ; l'entropie concerne une distribution.
 - L'entropie est une mesure moyenne dépendante de l'espace des événements.
 - Une faible entropie ne prouve ni la justesse ni la calibration d'un modèle.
+- L'entropie croisée et la log-loss évaluent les probabilités attribuées aux issues observées ; la calibration compare confiances et fréquences.
 - L'information mutuelle quantifie une information partagée, pas une causalité.
 
 ## Connexions utiles
