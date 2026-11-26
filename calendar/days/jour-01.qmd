@@ -33,7 +33,7 @@ Trois relevés suffisent à faire apparaître une énigme :
 | 20,2 °C | 19,0 °C |
 | **Moyenne : 20,17 °C** | **Moyenne : 19,03 °C** |
 
-Les deux séries sont presque aussi resserrées l'une que l'autre. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à la référence, les moyennes sont décalées de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à certifier son comportement sur toute sa plage d'utilisation.
+Les deux séries ont la même étendue observée, 0,1 °C. Pourtant, leurs moyennes diffèrent d'environ 1,13 °C. Rapportées à la référence, les moyennes sont décalées de +0,17 °C pour A et de −0,97 °C pour B. A est donc plus proche de la référence dans cet essai précis ; cela ne suffit pas à certifier son comportement sur toute sa plage d'utilisation.
 
 **Question : lequel des deux capteurs mesure le mieux ?** Pour répondre, il faut séparer deux propriétés que le langage courant confond souvent.
 
