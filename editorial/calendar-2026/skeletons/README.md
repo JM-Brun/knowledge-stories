@@ -27,6 +27,15 @@ Ce répertoire rassemble les **squelettes de conception des journées 6 à 24**.
 | 23 | Squelette prêt à développer | [Jour 23](jour-23.md) |
 | 24 | Squelette prêt à développer | [Jour 24](jour-24.md) |
 
+## Audit éditorial et réserve
+
+L'audit consolidé du 26 novembre documente les critères, les décisions J01–J24, les frontières entre journées et les limites de l'évaluation :
+
+- [Audit éditorial et décisions du calendrier 2026](../../audits/calendar-2026-editorial-audit-and-decisions-2026-11-26.md)
+- [Réserve d'idées pour les calendriers futurs](../../backlog/future-calendar-ideas.md)
+
+Les idées sorties du périmètre des articles actuels sont conservées dans cette réserve avec leur provenance et leurs conditions de réutilisation. Elles ne sont ni supprimées ni automatiquement programmées.
+
 ## Comment faire évoluer un squelette
 
 1. Vérifier le concept canonique et son statut dans Wiki Knowledge. Les concepts centraux sont expliqués dans l'article, mais leur page canonique reste la source de vérité ; aucune copie mécanique.
