@@ -107,6 +107,18 @@ Une seule différence mélange donc deux effets inconnus : celui du bâtiment et
 
 Ce n'est pas un manque de puissance statistique. C'est un problème d'**identifiabilité** : le plan de collecte ne fournit pas les comparaisons nécessaires pour séparer les paramètres.
 
+On peut le voir dans la matrice du modèle. En prenant A et S1 comme références, les colonnes représentent l'intercept, l'indicateur « bâtiment B » et l'indicateur « capteur S2 ». Le plan initial ne fournit que :
+
+\[
+X_{\text{initial}} =
+\begin{bmatrix}
+1 & 0 & 0 \\
+1 & 1 & 1
+\end{bmatrix}.
+\]
+
+Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes identiques ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+
 Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
 
 ## Le croisement change la question — et renverse la conclusion
@@ -165,4 +177,4 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 - [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : une mesure peut être correcte, mais la population observée peut rester biaisée.
 - [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
-- [Jour 15 — Généraliser au-delà des données d'entraînement](jour-15.html) : une évaluation doit correspondre aux groupes et aux contextes visés par le déploiement.
+ 
