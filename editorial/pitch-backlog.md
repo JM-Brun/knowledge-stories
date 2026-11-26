@@ -256,3 +256,47 @@ Ces pistes complètent les titres déjà inscrits dans le calendrier. Elles ne c
 7. **Ne pas publier une piste comme un fait établi.** Les dossiers de sources, calculs et licences sont à constituer avant la rédaction finale.
 
 > **Cohérence transversale :** le fil rouge des erreurs de données et de modélisation est cadré dans [`architecture-erreurs-calendrier-2026.md`](./architecture-erreurs-calendrier-2026.md). Ce document conserve les 24 thèmes et répartit les approfondissements sans ajouter de journée.
+
+## Série possible — Comprendre le maximum de vraisemblance (MLE)
+
+> **Statut :** piste éditoriale à conserver dans le backlog ; série non approuvée, non planifiée et distincte du calendrier 2026. Cette proposition ne modifie pas le contenu du Jour 8 et ne doit pas conduire à y ajouter les développements avancés.
+
+- **Domaine :** statistiques, inférence et pratique de la Data Science.
+- **Public visé :** lecteurs connaissant les probabilités de base et souhaitant comprendre les fondements et les limites de l'estimation statistique.
+- **Question directrice :** comment une vraisemblance permet-elle d'estimer un paramètre, et que sait-on réellement après avoir obtenu cette estimation ?
+- **Intention de la série :** construire une progression courte en deux articles autonomes : d'abord l'estimation par maximum de vraisemblance, ensuite l'incertitude qui demeure malgré l'optimalité de l'estimateur selon ce critère.
+
+### Article A — Retrouver le biais d'une pièce : estimer par maximum de vraisemblance
+
+- **Relation avec l'existant :** prolongement éditorial possible du Jour 8 du calendrier 2026. Le sujet du calendrier reste introductif ; il n'est pas nécessaire de le réécrire pour accueillir toute la série.
+- **Question :** à partir d'une suite de lancers, comment estimer la probabilité inconnue d'obtenir pile ?
+- **Noyau conceptuel :** modèle de Bernoulli/binomial, vraisemblance, log-vraisemblance, maximisation et estimateur \(\\hat p = k/n\\).
+- **Objectif pédagogique :** distinguer la probabilité des observations sous un paramètre donné de la probabilité du paramètre lui-même ; comprendre ce que signifie « maximiser la vraisemblance ».
+- **Expérience possible :** simuler des suites de lancers et suivre l'évolution de l'estimation en fonction du nombre d'observations.
+- **Limite à expliciter :** une estimation ponctuelle ne décrit pas à elle seule l'incertitude, et un maximum de vraisemblance ne garantit pas que le modèle choisi soit adéquat.
+
+### Article B — Un modèle peut-il être certain avec si peu de données ?
+
+- **Statut :** nouvel article à envisager ; ne pas le confondre avec le Jour 8.
+- **Question :** pourquoi une estimation MLE peut-elle être optimale selon le critère de vraisemblance tout en restant très incertaine ?
+- **Noyau conceptuel :** variabilité d'échantillonnage, intervalles de confiance, interprétation fréquentiste, approche bayésienne et distribution a posteriori.
+- **Approfondissements possibles :** petits échantillons, biais et variance, régularisation, information de Fisher et propriétés asymptotiques du MLE. Ne retenir ces notions que si elles servent la question centrale et restent démontrables dans le format.
+- **Transfert Data Science :** estimation d'un taux de conversion, d'un taux d'erreur, d'une fréquence de défaut ou d'une probabilité de succès à partir de peu d'observations.
+- **Expérience possible :** comparer, pour plusieurs tailles d'échantillon, l'estimation ponctuelle, sa variabilité sur des répétitions et une représentation bayésienne de l'incertitude.
+- **Limite à expliciter :** ne pas interpréter un intervalle de confiance fréquentiste comme une probabilité attachée au paramètre fixe ; distinguer clairement intervalle de confiance et intervalle crédible.
+
+### Progression et articulation
+
+1. **Article A — Estimer :** construire la vraisemblance et obtenir le maximum.
+2. **Article B — Quantifier l'incertitude :** examiner la variabilité de l'estimation et comparer les cadres fréquentiste et bayésien.
+
+Les deux articles doivent pouvoir être lus séparément. L'article B suppose seulement les notions introduites dans l'article A et rappelle brièvement le résultat MLE nécessaire. Il ne doit pas devenir un catalogue de méthodes d'intervalles : son fil directeur reste l'écart entre « meilleur estimateur selon un critère » et « connaissance précise du paramètre ».
+
+### Conditions avant développement
+
+- Constituer un dossier de sources statistiques fiables et vérifier les conventions de notation.
+- Vérifier les résultats analytiques sur le modèle Bernoulli/binomial et les simulations.
+- Préparer une comparaison fréquentiste/bayésienne qui respecte les différences d'interprétation, sans les présenter comme deux formulations interchangeables.
+- Éviter les redites avec les journées du calendrier consacrées à la régularisation, à la calibration et à la comparaison de modèles ; établir des liens seulement lorsqu'ils éclairent réellement l'inférence.
+- Décider ultérieurement si la série mérite deux articles autonomes ou un article principal et un approfondissement, selon la densité documentaire et la durée de lecture.
+
