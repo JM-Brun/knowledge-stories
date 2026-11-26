@@ -1,5 +1,5 @@
 ---
-title: "Un pas trop grand fait rater la vallée"
+title: "Pourquoi le même pas est-il trop grand dans une direction et trop petit dans l’autre ?"
 day: 10
 calendar: "2026"
 status: "skeleton"
@@ -30,13 +30,13 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ---
 
-# Jour 10 — Un pas trop grand fait rater la vallée
+# Jour 10 — Pourquoi le même pas est-il trop grand dans une direction et trop petit dans l’autre ?
 
 ## 1. Promesse et question
 
-**Question directrice :** Pourquoi une bonne direction de descente peut-elle conduire à des oscillations ou à une divergence ?
+**Question directrice :** Pourquoi un taux d'apprentissage stable dans une direction peut-il être trop lent dans une autre, ou faire diverger l'algorithme ?
 
-**Objectif observable :** Calculer quelques itérations et relier la taille du pas au comportement de l'algorithme.
+**Objectif observable :** Relier les facteurs de contraction aux valeurs propres de la courbure, calculer la borne de stabilité du pas et expliquer pourquoi un mauvais conditionnement ralentit la convergence.
 
 **Durée cible :** 10–16 minutes.
 
@@ -44,11 +44,11 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ## 2. Situation d'entrée et fil narratif
 
-**Scène d'ouverture :** Une bille descend une vallée, mais si chaque pas est trop long, elle traverse le fond et repart de l'autre côté.
+**Scène d'ouverture :** Une vallée est très étroite dans une direction et très longue dans l'autre. Un pas assez grand pour avancer vite dans la direction plate peut faire osciller ou diverger dans la direction raide.
 
 **Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
 
-**Déroulé narratif provisoire :** Lire la pente ; définir la règle x suivant = x − η f'(x) ; comparer plusieurs pas ; interpréter trajectoires ; distinguer convergence locale et garanties générales.
+**Déroulé narratif provisoire :** Comprendre le cas 1D ; passer à une vallée quadratique anisotrope ; relier le pas aux valeurs propres ; observer zigzag et lenteur ; introduire le conditionnement et les limites des garanties.
 
 **Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
 
@@ -70,28 +70,86 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 **Dispositif proposé :** Simuler les itérations sur f(x)=x² pour plusieurs valeurs de η, avec tableau des positions et visualisation de la trajectoire.
 
-### Démonstration calculée à intégrer
+### Démonstration centrale — une vallée aux courbures très différentes
 
-Pour \(f(x)=x^2\), le gradient vaut \(f'(x)=2x\). La mise à jour par descente de gradient est donc
-\[
-x_{t+1}=x_t-\eta 2x_t=(1-2\eta)x_t.
-\]
-En partant de \(x_0=1\), on obtient :
+Conserver la parabole 1D comme amorce très courte, puis faire porter l'enquête sur une fonction quadratique en deux dimensions :
 
-| Pas \(\eta\) | Facteur \(1-2\eta\) | Premier point \(x_1\) | Lecture |
-|---:|---:|---:|---|
-| 0,25 | 0,5 | 0,5 | convergence géométrique |
-| 0,5 | 0 | 0 | optimum atteint en une étape |
-| 1 | −1 | −1 | oscillation sans diminution |
-| 1,1 | −1,2 | −1,2 | oscillation avec divergence |
+$$
+f(x,y)=\frac12(x^2+100y^2).
+$$
 
-La suite vérifie \(x_t=(1-2\eta)^t x_0\). Elle converge vers 0 si et seulement si \(|1-2\eta|<1\), donc pour \(0<\eta<1\). À \(\eta=1\), elle ne converge pas malgré une direction de gradient correcte ; au-delà, elle diverge. Le cas \(\eta=0\) ne diverge pas mais ne progresse pas.
+Le gradient et la Hessienne sont :
 
-### Généralisation et limites à expliciter
+$$
+\nabla f(x,y)=
+\begin{pmatrix}x\\100y\end{pmatrix},
+\qquad
+H=
+\begin{pmatrix}1&0\\0&100\end{pmatrix}.
+$$
 
-Pour une fonction quadratique unidimensionnelle \(f(x)=\frac{\lambda}{2}x^2\), avec \(\lambda>0\), la condition devient \(0<\eta<2/\lambda\). La courbure change donc l'échelle des pas admissibles. En dimension supérieure, les directions de forte courbure peuvent imposer un pas bien plus petit que les directions plates : c'est une intuition du mauvais conditionnement.
+La vallée est plate selon $x$ (courbure 1) et raide selon $y$ (courbure 100). La descente de gradient à pas constant suit :
 
-Ne pas transformer ce résultat particulier en garantie universelle. La convergence dépend des hypothèses sur la fonction (convexité, régularité du gradient, bornes de courbure), du choix du pas et, pour les variantes stochastiques, du bruit du gradient. Un paysage non convexe peut contenir des minima locaux et des points selles ; la descente de gradient ne garantit pas en général de trouver un minimum global.
+$$
+x_{t+1}=(1-\eta)x_t,
+\qquad
+y_{t+1}=(1-100\eta)y_t.
+$$
+
+En partant de $(x_0,y_0)=(1,1)$, choisir $\eta=0{,}015$ :
+
+| Itération | $x_t$ | $y_t$ | $f(x_t,y_t)$ |
+|---:|---:|---:|---:|
+| 0 | 1 | 1 | 50,5 |
+| 1 | 0,985 | −0,5 | 12,985 |
+| 2 | 0,970 | 0,25 | 3,596 |
+| 3 | 0,956 | −0,125 | 1,238 |
+| 4 | 0,941 | 0,0625 | 0,638 |
+
+La coordonnée raide alterne de signe et est divisée par deux à chaque étape. La coordonnée plate ne diminue que de 1,5 % par étape. Le pas est donc assez petit pour rester stable dans la direction raide, mais le progrès est lent dans la direction plate.
+
+Si l'on augmente à $\eta=0{,}025$, alors :
+
+$$
+1-\eta=0{,}975,
+\qquad
+1-100\eta=-1{,}5.
+$$
+
+La direction plate continue de se contracter très lentement, mais la direction raide diverge. Le premier pas fait passer l'objectif de 50,5 à environ 112,98.
+
+**Découverte :** il n'existe pas ici de taux scalaire qui soit à la fois assez grand pour accélérer fortement la direction plate et assez petit pour stabiliser la direction raide. Le problème n'est pas seulement de choisir « un bon pas » ; il vient de la géométrie de la fonction.
+
+### La borne de stabilité et le conditionnement
+
+Pour une quadratique convexe $f(w)=\\frac12 w^\\top H w$, avec $H$ symétrique définie positive, la mise à jour s'écrit :
+
+$$
+w_{t+1}=(I-\eta H)w_t.
+$$
+
+Dans la base propre de $H$, chaque direction propre de valeur propre $\lambda_i$ est multipliée à chaque étape par $1-\eta\lambda_i$. La convergence de toutes les directions exige :
+
+$$
+|1-\eta\lambda_i|<1
+\quad\text{pour toutes les valeurs propres,}
+$$
+
+soit :
+
+$$
+0<\eta<\frac{2}{\lambda_{\max}(H)}.
+$$
+
+Ici, $\lambda_{\min}=1$, $\lambda_{\max}=100$ et le nombre de conditionnement vaut :
+
+$$
+\\kappa(H)=\\frac{\\lambda_{\\max}}{\\lambda_{\\min}}=100.
+$$
+
+Un grand nombre de conditionnement signifie que les courbures sont très différentes. Le pas est contraint par la direction la plus raide, alors que la convergence est lente dans les directions plates.
+
+Ne pas présenter cette borne comme une garantie générale pour toute fonction. Elle s'applique à la quadratique convexe considérée ; les garanties sur des fonctions non quadratiques exigent des hypothèses précises de convexité et de régularité du gradient.
 
 **Matériel à préparer :**
 - données ou paramètres explicitement documentés ;
@@ -124,9 +182,9 @@ Le texte final devra expliciter une situation de travail, l'erreur plausible, la
 
 **Activité proposée — prédire avant de calculer :**
 
-1. Pour \(x_0=2\) et \(\eta=0{,}75\), calculer \(x_1\), puis \(x_2\). Le facteur vaut −0,5 : les signes alternent et la valeur absolue est divisée par deux à chaque itération.
-2. Pour \(\eta=1{,}1\), calculer les deux premières itérations et expliquer pourquoi l'erreur augmente malgré une direction opposée au gradient.
-3. Si la fonction devient \(f(x)=5x^2/2\), identifier la nouvelle borne sur \(\eta\) et expliquer le rôle de la courbure.
+1. Pour la vallée $f(x,y)=\frac12(x^2+100y^2)$ et $\eta=0{,}015$, expliquer pourquoi une coordonnée alterne alors que l'autre décroît lentement.
+2. Calculer la borne de stabilité lorsque la plus grande valeur propre passe de 100 à 200.
+3. Expliquer pourquoi réduire le pas global peut stabiliser l'algorithme tout en ralentissant les directions déjà plates.
 
 La correction doit distinguer direction de descente locale, diminution effective de l'objectif et convergence asymptotique. Ne pas généraliser les seuils obtenus sur une quadratique à toute fonction.
 
@@ -140,7 +198,7 @@ La correction doit détailler le raisonnement, les conventions et les endroits o
 
 ## 8. Connexions
 
-J07 (ajustement), J09 (objectif), J11 (régularisation).
+J07 (géométrie des prédicteurs et stabilité des paramètres), J09 (fonction objectif), J11 (régularisation).
 
 Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
 
