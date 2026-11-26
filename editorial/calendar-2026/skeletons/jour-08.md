@@ -63,7 +63,7 @@ Le premier résultat est exact comme estimation du maximum de vraisemblance. La 
 
 ## 4. Première étape — ce que maximise la vraisemblance
 
-Poser le modèle : chaque lancer est une variable de Bernoulli indépendante, de probabilité constante $p$ d'obtenir pile. Pour $k$ piles sur $n$ lancers, la vraisemblance de la séquence observée (à l'ordre près) est :
+Poser le modèle : chaque lancer est une variable de Bernoulli indépendante, de probabilité constante $p$ d'obtenir pile. Pour $k$ piles sur $n$ lancers, la vraisemblance de la séquence ordonnée observée est :
 
 $$
 L(p)=p^k(1-p)^{n-k},\qquad 0\leq p\leq1.
@@ -104,22 +104,22 @@ L'estimation ponctuelle est identique. Pourtant, l'incertitude d'échantillonnag
 
 Pour rendre la différence tangible, comparer l'hypothèse nulle $H_0:p=0{,}5$ à la vraisemblance maximisée :
 
-$$
-\Lambda=\frac{L(\widehat p)}{L(0{,}5)}.
-$$
+$
+R=\frac{L(\widehat p)}{L(0{,}5)}.
+$
 
 Pour 7 piles sur 10 :
 
-$$
-\Lambda_{10}
+$
+R_{10}
 =\frac{0{,}7^7\,0{,}3^3}{0{,}5^{10}}
 \approx2{,}28.
 $$
 
 Pour 70 piles sur 100 :
 
-$$
-\Lambda_{100}
+$
+R_{100}
 =\frac{0{,}7^{70}\,0{,}3^{30}}{0{,}5^{100}}
 \approx3745.
 $$
