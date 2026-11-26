@@ -122,7 +122,7 @@ La direction plate continue de se contracter très lentement, mais la direction 
 
 ### La borne de stabilité et le conditionnement
 
-Pour une quadratique convexe $f(w)=\\frac12 w^\\top H w$, avec $H$ symétrique définie positive, la mise à jour s'écrit :
+Pour une quadratique convexe $f(w)=\frac12 w^\top H w$, avec $H$ symétrique définie positive, la mise à jour s'écrit :
 
 $$
 w_{t+1}=(I-\eta H)w_t.
@@ -144,7 +144,7 @@ $$
 Ici, $\lambda_{\min}=1$, $\lambda_{\max}=100$ et le nombre de conditionnement vaut :
 
 $$
-\\kappa(H)=\\frac{\\lambda_{\\max}}{\\lambda_{\\min}}=100.
+\kappa(H)=\frac{\lambda_{\\max}}{\lambda_{\\min}}=100.
 $$
 
 Un grand nombre de conditionnement signifie que les courbures sont très différentes. Le pas est contraint par la direction la plus raide, alors que la convergence est lente dans les directions plates.
