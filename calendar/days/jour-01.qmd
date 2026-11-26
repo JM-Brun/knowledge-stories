@@ -253,6 +253,12 @@ Si plusieurs lignes proviennent du même capteur ou du même site, une validatio
 Un atelier complémentaire développe ce diagnostic sur une variable de Machine Learning : [Auditer une variable mesurée avant de l'utiliser en machine learning](/knowledge-stories/atelier/auditer-variable-mesuree-ml/).
 
 
+### Un cas LLM : les préférences annotées
+
+Lorsqu'on constitue un jeu de préférences pour entraîner ou évaluer un assistant, le jugement humain joue le rôle d'une mesure. Faire annoter mille réponses au lieu de dix peut réduire l'influence de désaccords individuels. Mais si tous les annotateurs partagent la même consigne ambiguë, le même profil d'usage ou le même angle culturel, le biais commun demeure. La répétition améliore éventuellement la stabilité du jugement ; elle ne garantit pas sa validité.
+
+Il faut donc documenter qui annote, selon quelles consignes, sur quels exemples et avec quel mécanisme de résolution des désaccords. Un taux d'accord élevé ne prouve pas, à lui seul, que le critère mesuré est le bon.
+
 ## Mettre en pratique
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
