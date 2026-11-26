@@ -70,6 +70,16 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 **Dispositif proposé :** Simuler les itérations sur f(x)=x² pour plusieurs valeurs de η, avec tableau des positions et visualisation de la trajectoire.
 
+### Amorce en une dimension
+
+Pour $f(x)=x^2$, la mise à jour est :
+
+$
+x_{t+1}=x_t-2\eta x_t=(1-2\eta)x_t.
+$
+
+La suite converge vers 0 si $0<\eta<1$, oscille sans diminuer à $\eta=1$ et diverge pour $\eta>1$. Cette parabole montre que le pas dépend déjà de la courbure. Mais en une dimension, il n'existe qu'une seule direction : le vrai problème apparaît lorsque les courbures diffèrent selon les directions.
+
 ### Démonstration centrale — une vallée aux courbures très différentes
 
 Conserver la parabole 1D comme amorce très courte, puis faire porter l'enquête sur une fonction quadratique en deux dimensions :
@@ -161,7 +171,7 @@ Ne pas présenter cette borne comme une garantie générale pour toute fonction.
 
 ## 5. Angle distinctif — contribution de cette journée
 
-**Piège central à désamorcer :** Un gradient non nul n'assure pas la convergence ; un taux plus grand n'est pas toujours plus rapide ; le comportement dépend de la fonction et de son échelle.
+**Piège central à désamorcer :** le taux d'apprentissage n'est pas une simple vitesse globale. La plus forte courbure contraint le pas, tandis que les directions plates déterminent souvent la lenteur de convergence ; un gradient correct ne garantit ni une diminution à chaque étape ni une convergence rapide.
 
 **Question éditoriale à résoudre avant rédaction :**
 1. Comment les ressources de référence expliquent-elles généralement le sujet ?
@@ -174,9 +184,7 @@ L'apport peut être une reconstruction pédagogique, une démonstration, un cont
 
 ## 6. Transfert vers la pratique
 
-Optimisation numérique, estimation de paramètres, ajustement statistique et recherche opérationnelle.
-
-Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
+Dans l'entraînement d'un modèle, des variables de grande échelle ou des directions de courbure très différentes peuvent rendre la descente lente ou instable. Le transfert doit montrer comment lire la courbe de perte et les trajectoires, puis relier le diagnostic à une action : mise à l'échelle des variables, reparamétrisation ou préconditionnement. Préciser que ces transformations modifient la géométrie de l'optimisation, mais ne garantissent pas à elles seules un optimum global ni ne corrigent une mauvaise spécification du modèle.
 
 ## 7. Vérification des acquis
 
@@ -198,7 +206,7 @@ La correction doit détailler le raisonnement, les conventions et les endroits o
 
 ## 8. Connexions
 
-J07 (géométrie des prédicteurs et stabilité des paramètres), J09 (fonction objectif), J11 (régularisation).
+J07 (redondance des prédicteurs et stabilité des coefficients : conditionnement de la matrice de conception), J09 (choix de la fonction objectif), J11 (régularisation). J10 traite le conditionnement de la courbure de l'objectif, pas la colinéarité des variables en tant que telle.
 
 Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
 
