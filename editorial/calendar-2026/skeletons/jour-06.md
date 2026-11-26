@@ -86,6 +86,15 @@ Utiliser un exemple numérique explicitement **construit pour l'article**, pas u
 
 Dans chaque strate, A a un taux supérieur à B. Au total, B paraît très supérieur. L'inversion vient de la composition : A est administré surtout aux patients à haut risque, tandis que B l'est surtout aux patients à faible risque.
 
+On peut neutraliser cette différence de composition en donnant le même poids aux deux strates. Avec une population de référence composée pour moitié de patients à faible risque et pour moitié de patients à haut risque, les taux standardisés sont :
+
+$
+A : \frac{90\%+1\%}{2}=45{,}5\%,\qquad
+B : \frac{80\%+0\%}{2}=40\%.
+$
+
+La comparaison s'inverse à nouveau : A est meilleur sous cette composition commune. Ce calcul illustre la standardisation ; il n'identifie un effet causal que sous des hypothèses supplémentaires sur les variables d'ajustement et le mécanisme d'affectation du traitement.
+
 **À faire démontrer dans le futur article :**
 - calculer les taux à partir des numérateurs et dénominateurs, sans moyenner les pourcentages ;
 - écrire le taux global comme une moyenne pondérée par les effectifs des strates ;
