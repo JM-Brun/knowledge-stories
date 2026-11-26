@@ -4,7 +4,7 @@ subtitle: "Jour 3 · Les quatre rapports qui semblaient identiques"
 description: "Une enquête sur des résumés statistiques trompeusement semblables montre pourquoi les données doivent être visualisées avant de les interpréter."
 ---
 
-> **Environ 12 à 15 minutes** — Comparer des séries qui partagent une moyenne, puis découvrir quatre jeux de données presque identiques dans leurs statistiques mais radicalement différents dans leur structure.
+> **Environ 18 à 20 minutes** — Découvrir ce que les statistiques résumées conservent et effacent, puis apprendre à utiliser une visualisation pour mettre une hypothèse à l'épreuve.nt une moyenne, puis découvrir quatre jeux de données presque identiques dans leurs statistiques mais radicalement différents dans leur structure.
 >
 > **Prérequis** — Savoir calculer une moyenne. La variance et la corrélation sont introduites dans l'article.
 >
