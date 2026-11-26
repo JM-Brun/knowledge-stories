@@ -1,9 +1,9 @@
 ---
-title: "Atelier 01 — À vous de résoudre le cas"
+title: "Atelier 01 — Auditer une mesure"
 description: "Exercices et corrections pour accompagner le jour 01 du calendrier 2026."
 ---
 
-> **Atelier associé au [jour 01](../days/jour-01.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 01](../days/jour-01.html).** L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
 > **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
 
 ## Exercices
