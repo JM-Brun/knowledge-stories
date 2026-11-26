@@ -4,7 +4,7 @@ subtitle: "Jour 4 · Les variables ne varient pas toujours indépendamment"
 description: "Comprendre comment la dépendance modifie l'incertitude d'un agrégat, d'une moyenne ou d'un portefeuille de mesures."
 ---
 
-> **En 10 à 12 minutes** — Additionner des quantités est simple. Additionner leurs incertitudes exige de savoir comment elles varient ensemble.
+> **Environ 13 à 15 minutes** — Comprendre comment la dépendance modifie la variance d'une somme ou d'une moyenne, à partir d'un exemple numérique de capteurs.
 >
 > **Prérequis** — Connaître la variance et la moyenne. La covariance et la corrélation sont définies à partir d'un exemple numérique.
 >
@@ -237,22 +237,16 @@ Cela ne signifie pas qu'une faible covariance garantit un bon ensemble : les mod
 
 La règle opérationnelle est simple : **évaluer la diversité des erreurs, pas le nombre de prédicteurs.**
 
-## À vous de raisonner
 
-1. Que devient la variance de la moyenne de deux variables identiques parfaitement corrélées ?
-2. Dans le modèle des capteurs, quelle partie de la variance diminue quand on augmente leur nombre, et quelle partie demeure ? Pourquoi un biais constant commun pose-t-il un problème différent ?
-3. Que représente la matrice \(\Sigma\) dans \(\operatorname{Var}(w^\top X)\) ?
-4. Donnez un exemple de variables dépendantes mais de covariance nulle.
+### Un cas LLM : dix mille prompts ne font pas toujours dix mille observations indépendantes
 
-<details>
-<summary>Afficher la solution expliquée</summary>
+Un benchmark peut contenir des milliers de prompts issus des mêmes modèles de questions, documents sources ou familles de tâches. Si plusieurs prompts sont des paraphrases proches, leurs erreurs risquent d'être corrélées. La taille nominale du benchmark surestime alors la quantité d'information indépendante disponible.
 
-1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
-2. La composante indépendante diminue comme \(\sigma^2/m\), mais la perturbation commune \(\tau^2\) demeure. Un biais constant déplace l'espérance : il n'est pas une variance et reste présent après moyennage.
-3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
-4. \(X\) est uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\) : \(Y\) dépend de \(X\), mais leur covariance est nulle.
+Le même phénomène apparaît lorsqu'on agrège plusieurs modèles : si leurs erreurs se concentrent sur les mêmes exemples, leur moyenne réduit moins la variance qu'attendu. Il faut donc examiner les dépendances entre erreurs et, lorsque c'est pertinent, construire les intervalles d'incertitude en regroupant les observations par source, famille de prompts ou tâche. Compter les lignes ne suffit pas ; il faut comprendre ce qui les relie.
 
-</details>
+## Mettre en pratique
+
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-04.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
 
 ## À retenir
 

@@ -23,7 +23,7 @@ Du **1er au 24 décembre 2026**, cette édition rassemble vingt-quatre enquêtes
 </div>
 
 ::: {.callout-note}
-**Comment lire cette édition ?** Ce calendrier n'est pas un cours découpé en 24 leçons et ne suppose aucun ordre de lecture. Chaque enquête se suffit à elle-même : choisissez une question parce qu'elle vous intrigue, passez d'un domaine à un autre, revenez plus tard. Les liens entre journées signalent des échos ou des prolongements, pas des prérequis. Les solutions des défis sont repliées sous chaque activité.
+**Comment lire cette édition ?** Ce calendrier n'est pas un cours découpé en 24 leçons et ne suppose aucun ordre de lecture. Chaque enquête se suffit à elle-même : choisissez une question parce qu'elle vous intrigue, passez d'un domaine à un autre, revenez plus tard. Les liens entre journées signalent des échos ou des prolongements, pas des prérequis. Les articles privilégient le récit, les explications et les visualisations ; les exercices et leurs corrections sont regroupés dans des ateliers séparés, accessibles sans interrompre la lecture.
 :::
 
 ## Six portes d'entrée thématiques
@@ -75,6 +75,16 @@ Les enquêtes ne sont pas réparties en blocs chronologiques. Une même journée
   <span><i class="legend-swatch"></i> Article publié</span>
   <span><i class="legend-swatch skeleton"></i> Dossier de préparation consultable</span>
 </div>
+
+## Ateliers — mettre les idées à l'épreuve
+
+Les cinq premières enquêtes disposent d'une page de pratique distincte. Chaque atelier reprend les questions et corrections associées à l'article : vous pouvez y revenir après la lecture, sans que les exercices interrompent le récit.
+
+- [Atelier 01 — Mesure, répétabilité et biais](exercices/jour-01.html)
+- [Atelier 02 — Échantillonnage et sélection](exercices/jour-02.html)
+- [Atelier 03 — Distributions et résumés statistiques](exercices/jour-03.html)
+- [Atelier 04 — Covariance et agrégation](exercices/jour-04.html)
+- [Atelier 05 — Entropie et prévisions probabilistes](exercices/jour-05.html)
 
 <details class="direct-access-details">
 <summary>Afficher la liste textuelle des 24 journées</summary>

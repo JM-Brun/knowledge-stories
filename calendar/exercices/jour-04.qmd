@@ -1,0 +1,28 @@
+---
+title: "Atelier 04 — Calculer l'effet de la covariance"
+description: "Exercices et corrections pour accompagner le jour 04 du calendrier 2026."
+---
+
+> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 04](../days/jour-04.html). L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
+
+## Exercices
+
+1. Que devient la variance de la moyenne de deux variables identiques parfaitement corrélées ?
+2. Dans le modèle des capteurs, quelle partie de la variance diminue quand on augmente leur nombre, et quelle partie demeure ? Pourquoi un biais constant commun pose-t-il un problème différent ?
+3. Que représente la matrice \(\Sigma\) dans \(\operatorname{Var}(w^\top X)\) ?
+4. Donnez un exemple de variables dépendantes mais de covariance nulle.
+
+<details>
+<summary>Afficher la solution expliquée</summary>
+
+1. Elle reste égale à la variance d'une variable : les deux observations apportent la même fluctuation.
+2. La composante indépendante diminue comme \(\sigma^2/m\), mais la perturbation commune \(\tau^2\) demeure. Un biais constant déplace l'espérance : il n'est pas une variance et reste présent après moyennage.
+3. Elle rassemble les variances et covariances de toutes les composantes ; les poids déterminent comment elles contribuent à la variance de l'agrégat.
+4. \(X\) est uniforme sur \(\{-1,0,1\}\) et \(Y=X^2\) : \(Y\) dépend de \(X\), mais leur covariance est nulle.
+
+</details>
+
+## Retour à l'enquête
+
+Revenir à l'[article du jour 04](../days/jour-04.html).

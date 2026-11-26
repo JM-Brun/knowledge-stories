@@ -1,0 +1,28 @@
+---
+title: "Atelier 05 — Interpréter l'entropie"
+description: "Exercices et corrections pour accompagner le jour 05 du calendrier 2026."
+---
+
+> **Temps indicatif : 5 à 8 minutes.** Atelier associé au [jour 05](../days/jour-05.html). L'article présente le raisonnement et les résultats ; cette page est consacrée à leur mise en pratique.
+> **Consigne** — Essayez de répondre avant d'ouvrir la correction. Les exercices sont conçus pour vérifier le raisonnement, pas pour remplacer la lecture de l'article.
+
+## Exercices
+
+1. Quelle prévision a la plus grande entropie : 50 % / 50 % ou 90 % / 10 % ?
+2. Pourquoi le service A obtient-il un score de Brier moins bon alors que son entropie est plus faible ?
+3. Si une information révèle parfaitement une variable binaire équilibrée, que valent son entropie conditionnelle et l'information mutuelle ?
+4. Une forte entropie prédictive signifie-t-elle toujours que le modèle manque de données ?
+
+<details>
+<summary>Afficher la correction expliquée</summary>
+
+1. La distribution 50 % / 50 % a une entropie de 1 bit, supérieure aux 0,469 bit de la distribution 90 % / 10 %.
+2. Le service A annonce 90 % de pluie alors qu'il ne pleut que la moitié du temps. Il est trop confiant ; le score de Brier pénalise ses erreurs probabilistes.
+3. L'entropie conditionnelle vaut zéro, car la variable est connue sans ambiguïté. L'information mutuelle vaut l'entropie initiale, soit un bit.
+4. Non. La forte entropie peut refléter une ambiguïté intrinsèque du phénomène, une frontière de décision ou un modèle mal spécifié. Elle ne mesure pas uniquement l'incertitude épistémique.
+
+</details>
+
+## Retour à l'enquête
+
+Revenir à l'[article du jour 05](../days/jour-05.html).

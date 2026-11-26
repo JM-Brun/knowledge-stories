@@ -4,7 +4,7 @@ subtitle: "Jour 2 · L'enquête qui ne voit que la moitié du monde"
 description: "Une enquête fictive montre pourquoi un échantillon massif peut décrire précisément la mauvaise population, et comment diagnostiquer les mécanismes de sélection."
 ---
 
-> **Environ 12 à 15 minutes** — Enquêter sur deux sondages contradictoires, identifier ce que chacun estime réellement, puis décider dans quelles conditions une correction statistique est défendable.
+> **Environ 16 à 18 minutes** — Comparer deux sondages, identifier la population réellement représentée et comprendre dans quelles conditions une correction statistique est défendable.
 >
 > **Prérequis** — Savoir lire une moyenne et une proportion. Les notions de population cible et d'échantillon sont introduites dans le récit.
 >
@@ -233,24 +233,16 @@ Le protocole de validation doit reproduire le domaine de généralisation visé 
 
 Une validation aléatoire n'est pertinente que si elle reproduit réellement le processus de déploiement. Un test tiré du même mécanisme de sélection que l'entraînement peut confirmer une performance sur la mauvaise population.
 
-## À vous de décider
 
-Une plateforme veut estimer la satisfaction de tous ses utilisateurs. Elle dispose de 20 000 réponses provenant d'une fenêtre affichée aux utilisateurs actifs, et d'un échantillon aléatoire de 800 personnes tiré dans sa base complète. Les utilisateurs inactifs répondent moins souvent.
+### Un cas LLM : un corpus massif n'est pas nécessairement représentatif
 
-1. Quel échantillon choisiriez-vous spontanément ? Pourquoi cette réponse peut-elle être trompeuse ?
-2. Quelles informations faudrait-il comparer entre répondants et non-répondants ?
-3. Si aucun utilisateur inactif ne répond, une pondération suffit-elle ?
-4. Si le modèle doit être déployé auprès de nouveaux utilisateurs, quel découpage de validation serait plus crédible qu'un split aléatoire par ligne ?
+Un corpus de plusieurs milliards de tokens peut rester déséquilibré : certaines langues, périodes, sources ou formes de texte sont beaucoup plus accessibles que d'autres. Le volume permet de décrire très précisément le corpus effectivement collecté ; il ne garantit pas que celui-ci corresponde aux usages visés.
 
-<details>
-<summary>Afficher la correction raisonnée</summary>
+La question n'est pas de rechercher un échantillon « représentatif de tout Internet », cible souvent mal définie. Il faut expliciter le domaine d'utilisation visé, les sources retenues, les filtres, la déduplication et le mélange de données choisi. Pour évaluer un modèle destiné à un domaine particulier, le jeu de test doit aussi couvrir ce domaine et ses cas difficiles. La composition du corpus est une décision de conception, pas une conséquence automatique de sa taille.
 
-1. Le volume de 20 000 réponses paraît rassurant, mais la fenêtre ne touche que les utilisateurs actifs. Elle ne représente donc pas automatiquement tous les utilisateurs.
-2. Comparer les taux de réponse selon l'ancienneté, l'activité, le type d'abonnement, le canal d'acquisition ou toute variable disponible liée à la satisfaction. Il faut aussi documenter la base de sondage et les règles d'exclusion.
-3. Non. Si aucun utilisateur inactif n'est observé, le support commun manque. Une pondération ne peut pas apprendre leur satisfaction à partir des seuls utilisateurs actifs. Il faut une collecte spécifique ou limiter explicitement la cible.
-4. Un découpage par utilisateur, où les utilisateurs de test ne sont jamais vus pendant l'entraînement. Si le déploiement vise aussi une période future, un découpage temporel peut être nécessaire en plus.
+## Mettre en pratique
 
-</details>
+Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-02.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
 
 ## À retenir
 
