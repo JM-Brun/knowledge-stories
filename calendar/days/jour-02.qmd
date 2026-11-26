@@ -15,7 +15,9 @@ description: "Une enquête fictive montre pourquoi un échantillon massif peut d
 Une entreprise veut connaître le score de satisfaction de ses utilisateurs. Elle dispose de deux enquêtes.
 
 - La première a recueilli **50 000 réponses** grâce à une fenêtre affichée dans l'application.
-- La seconde n'a recueilli que **1 000 réponses**, tirées au hasard dans la liste complète des utilisateurs, avec un suivi des non-répondants.
+- La seconde a recueilli **1 000 réponses** selon un plan stratifié : 500 utilisateurs réguliers et 500 utilisateurs occasionnels, tirés au hasard dans chacun des deux groupes.
+
+Pour isoler ici le problème de couverture, supposons que toutes les personnes sélectionnées répondent. La non-réponse constitue un mécanisme supplémentaire à examiner dans une enquête réelle.
 
 La première enquête semble imbattable par sa taille. Pourtant, elle annonce une satisfaction nettement plus élevée que la seconde.
 
@@ -47,14 +49,14 @@ La seconde enquête tire au hasard 500 utilisateurs dans chaque groupe et obtien
 
 La première enquête est un recensement du groupe régulier. Sa moyenne vaut exactement 10 pour ce groupe. Mais elle ne dit rien directement sur les utilisateurs occasionnels.
 
-La seconde observe les deux groupes. Avec les poids connus de la population, son estimateur de la moyenne globale est :
+La seconde observe les deux groupes par tirage aléatoire simple à l'intérieur de chaque strate. Comme les deux groupes représentent chacun 50 % de la population cible, les poids de population sont égaux. Son estimateur de la moyenne globale est :
 
 \[
 \widehat\mu = 0{,}5\,\overline X_{\mathrm{reg}} +
 0{,}5\,\overline X_{\mathrm{occ}}.
 \]
 
-Sous le plan de tirage décrit, cet estimateur est centré sur 15. Une réalisation particulière peut s'en écarter par hasard ; les variances individuelles ne sont pas fournies ici, donc on ne peut pas calculer son erreur-type.
+Sous ce plan stratifié, avec tirage aléatoire dans chaque groupe et poids de population connus, cet estimateur est sans biais pour la moyenne de la population. Dans cet exemple pédagogique, les scores de chaque groupe sont fixés à 10 et 20 : l'estimation vaut donc exactement 15. Dans une enquête réelle, les scores varient au sein des groupes ; une réalisation peut alors s'écarter de 15. Les variances intra-groupes ne sont pas fournies ici, donc on ne peut pas calculer son erreur-type.
 
 **Le paradoxe est résolu :** les 50 000 réponses décrivent parfaitement un groupe qui ne représente que la moitié de la population. Les 1 000 réponses peuvent être plus informatives pour la question posée parce qu'elles couvrent les deux groupes.
 
