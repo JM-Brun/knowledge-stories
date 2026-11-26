@@ -10,6 +10,10 @@ description: "Calculer l'entropie, distinguer surprise et incertitude moyenne, e
 >
 > **À la fin** — Vous saurez calculer une entropie binaire, distinguer surprise et incertitude moyenne, interpréter une entropie conditionnelle et expliquer pourquoi une faible entropie ne garantit pas une bonne prévision.
 
+## Pourquoi cette question compte en Data Science
+
+L'entropie d'une prédiction résume la dispersion de ses probabilités, mais elle ne dit pas pourquoi le modèle hésite. Cette distinction est opérationnelle : une observation ambiguë appelle parfois davantage de contexte ou une meilleure définition de la cible ; un désaccord entre modèles peut plutôt signaler un manque de connaissance ou de couverture des données. Une même valeur d'entropie peut donc conduire à des décisions très différentes.
+
 ## L'idée en une minute
 
 La surprise concerne une issue qui s'est produite ; l'entropie décrit la surprise moyenne attendue avant de connaître l'issue. Une distribution concentrée a une faible entropie, mais elle peut être fausse ou mal calibrée. Il faut donc distinguer l'incertitude annoncée par un modèle de sa qualité prédictive réelle.
