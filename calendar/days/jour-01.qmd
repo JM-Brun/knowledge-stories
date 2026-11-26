@@ -46,7 +46,7 @@ Cette comparaison apporte un indice important, mais sa portée reste limitée :
 
 On peut donc dire que les indications de S2 sont décalées dans cet essai. On ne peut pas encore déclarer que son biais vaut exactement −1 °C dans toutes les conditions.
 
-La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Une série peu dispersée peut rester systématiquement décalée. Le [Vocabulaire international de métrologie](https://jcgm.bipm.org/vim/fr/) distingue notamment fidélité, répétabilité, justesse, exactitude et incertitude ; ces termes ne sont pas interchangeables.
+La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Dans le vocabulaire du [VIM](https://jcgm.bipm.org/vim/fr/), la fidélité décrit l'accord entre résultats répétés dans des conditions spécifiées ; la répétabilité est un cas particulier de fidélité, évalué dans des conditions définies. La justesse concerne la proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence. L'exactitude est une notion plus globale et qualitative. Les trois relevés illustrent ces distinctions, mais ne suffisent pas à caractériser complètement les propriétés du capteur.
 
 ## Pourquoi répéter davantage ne corrige pas le décalage
 
