@@ -22,31 +22,33 @@ La distinction change la suite du travail. Dans le premier cas, il peut être ut
 
 Pour une variable binaire, comparons trois distributions :
 
-- A : (p=(0{,}5;0{,}5))
-- B : (p=(0{,}9;0{,}1))
-- C : (p=(1;0))
+- A : $p=(0{,}5;0{,}5)$
+- B : $p=(0{,}9;0{,}1)$
+- C : $p=(1;0)$
 
 A laisse les deux issues équiprobables ; B privilégie nettement la première ; C lui attribue une probabilité certaine.
 
-La surprise associée à une issue (x), de probabilité (p(x)>0), est :
+La surprise associée à une issue $x$, de probabilité $p(x)>0$, est :
 
-[
+
+$
 I(x)=-\log_2 p(x).
-]
+$
 
-Une issue de probabilité (1/2) apporte 1 bit de surprise ; une issue de probabilité (1/8), 3 bits. Plus une issue est improbable, plus sa réalisation est surprenante.
+Une issue de probabilité $1/2$ apporte 1 bit de surprise ; une issue de probabilité $1/8$, 3 bits. Plus une issue est improbable, plus sa réalisation est surprenante.
 
 Avant de connaître l'issue, on peut calculer la surprise moyenne attendue : l'entropie.
 
-[
+
+$
 H(X)=-\sum_x p(x)\log_2 p(x).
-]
+$
 
-On adopte la convention (0\log_2(0)=0), obtenue par continuité. Pour les trois distributions :
+On adopte la convention $0\log_2(0)=0$, obtenue par continuité. Pour les trois distributions :
 
-- A : (H(A)=1) bit ;
-- B : (H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469) bit ;
-- C : (H(C)=0) bit.
+- A : $H(A)=1$ bit ;
+- B : $H(B)=-0{,}9\log_2(0{,}9)-0{,}1\log_2(0{,}1)\approx0{,}469$ bit ;
+- C : $H(C)=0$ bit.
 
 Dans le cas binaire, l'entropie est maximale lorsque les deux issues sont équiprobables et minimale lorsqu'une issue est certaine.
 
@@ -84,42 +86,47 @@ Le premier cas suggère une incertitude liée au modèle ou aux données dont il
 
 ## Mesurer le désaccord avec l'information mutuelle
 
-Notons (M) l'identité du modèle choisi et (Y) la classe prédite. L'entropie conditionnelle (H(Y\mid M)) mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
+Notons $M$ l'identité du modèle choisi et $Y$ la classe prédite. L'entropie conditionnelle $H(Y\mid M)$ mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
 
-[
+
+$
 H(Y\mid M)=\sum_m p(m)H(Y\mid M=m).
-]
+$
 
 L'information mutuelle entre le modèle et sa prédiction vaut :
 
-[
-I(Y;M)=H(Y)-H(Y\mid M).
-]
 
-Elle mesure de combien la connaissance du modèle réduit, en moyenne, l'incertitude sur la prédiction. Elle est non négative et vaut zéro lorsque (Y) et (M) sont indépendants.
+$
+I(Y;M)=H(Y)-H(Y\mid M).
+$
+
+Elle mesure de combien la connaissance du modèle réduit, en moyenne, l'incertitude sur la prédiction. Elle est non négative et vaut zéro lorsque $Y$ et $M$ sont indépendants.
 
 Dans notre exemple, les deux modèles ont le même poids.
 
 **Cas 1 — Désaccord.** Chaque modèle produit une distribution ((0{,}99;0{,}01)) ou son inverse. L'entropie de chacune est :
 
-[
+
+$
 h(0{,}99)=-0{,}99\log_2(0{,}99)-0{,}01\log_2(0{,}01)
 \approx0{,}081\text{ bit}.
-]
+$
 
-La prédiction moyenne est équilibrée, donc (H(Y)=1) bit. Ainsi :
+La prédiction moyenne est équilibrée, donc $H(Y)=1$ bit. Ainsi :
 
-[
+
+$
 I(Y;M)=1-0{,}081=0{,}919\text{ bit}.
-]
+$
 
 La prédiction moyenne est incertaine principalement parce que le résultat dépend fortement du modèle retenu.
 
 **Cas 2 — Ambiguïté partagée.** Chaque modèle prédit ((0{,}5;0{,}5)). L'entropie moyenne conditionnelle vaut 1 bit, comme l'entropie prédictive :
 
-[
+
+$
 I(Y;M)=1-1=0.
-]
+$
 
 Connaître le modèle ne change rien à la distribution prédite : les modèles s'accordent sur leur incertitude.
 
@@ -127,15 +134,16 @@ Cette expérience montre pourquoi deux sorties de même entropie peuvent conduir
 
 ## Ce que cette décomposition permet — et ne permet pas — de conclure
 
-Dans un cadre bayésien, la même idée s'écrit en conditionnant sur les paramètres \(\theta\) et les données d'entraînement \(D\) :
+Dans un cadre bayésien, la même idée s'écrit en conditionnant sur les paramètres $\theta$ et les données d'entraînement $D$ :
 
-[
+
+$
 H(Y\mid x,D)
 =
 \mathbb E_{\theta\mid D}[H(Y\mid x,\theta)]
 +
 I(Y;\theta\mid x,D).
-]
+$
 
 Le premier terme est l'incertitude moyenne conditionnelle aux paramètres ; le second mesure la dépendance de la prédiction aux paramètres plausibles. On les associe souvent, respectivement, aux incertitudes *aléatoire* (*aleatoric*) et *épistémique* (*epistemic*).
 
