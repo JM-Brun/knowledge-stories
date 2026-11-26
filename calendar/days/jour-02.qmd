@@ -4,7 +4,7 @@ subtitle: "Jour 2 · L'enquête qui ne voit que la moitié du monde"
 description: "Une enquête fictive montre pourquoi un échantillon massif peut décrire précisément la mauvaise population, et comment diagnostiquer les mécanismes de sélection."
 ---
 
-> **Environ 16 à 18 minutes** — Comparer deux sondages, identifier la population réellement représentée et comprendre dans quelles conditions une correction statistique est défendable.nquêter sur deux sondages contradictoires, identifier ce que chacun estime réellement, puis décider dans quelles conditions une correction statistique est défendable.
+> **Environ 16 à 18 minutes** — Comparer deux sondages, identifier la population réellement représentée et comprendre dans quelles conditions une correction statistique est défendable.
 >
 > **Prérequis** — Savoir lire une moyenne et une proportion. Les notions de population cible et d'échantillon sont introduites dans le récit.
 >
