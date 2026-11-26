@@ -5,6 +5,7 @@ project:
     - index.qmd
     - en/index.qmd
     - days/*.qmd
+    - exercices/*.qmd
 
 website:
   title: "Calendrier Data Science & ML 2026"
