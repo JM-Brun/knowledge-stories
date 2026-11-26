@@ -4,144 +4,209 @@ day: 7
 calendar: "2026"
 status: "skeleton"
 readingTimeTarget: "12–18 min"
-canonicalConcept: "Régression linéaire — concept à créer dans Wiki Knowledge"
+canonicalConcept: "Régression linéaire — à vérifier dans Wiki Knowledge"
 ---
 
 # Squelette éditorial — calendrier 2026
 
-Ce document est un **dossier de conception évolutif**, pas un article destiné à être publié tel quel. Il sera progressivement enrichi, puis converti en article autonome dans `calendar/days/jour-XX.qmd`. Le récit et les concepts doivent avancer ensemble : l'histoire ouvre une enquête, l'explication construit une connaissance réutilisable.
+Ce document est un **dossier de conception**, pas un article destiné à être publié tel quel. Il sera converti en article autonome dans `calendar/days/jour-07.qmd` après vérification des concepts, des calculs et des sources.
 
 ## Contrat de rédaction
 
-- Cible : 7 à 20 minutes de lecture réelle ; enrichir par un raisonnement ou fusionner si le noyau reste inférieur à 7 minutes, hiérarchiser ou scinder au-delà de 20 minutes sans perte d'information.
-- Le concept canonique est la source de vérité ; ne pas recopier sa page. Les liens internes ci-dessous sont des repères de travail, jamais une dépendance du futur article public.
-- Knowledge Stories reste généraliste. Les exemples principaux sont non-LLM ; tokenisation, embeddings, attention/QKV, Transformers et génération autorégressive restent dans LLM Lab.
-- Ne pas inventer de source, de chiffre, de statut de concept ou de résultat. Les références listées sont des pistes à vérifier avant rédaction.
-- La progression du calendrier est éditoriale : les connexions ne sont pas automatiquement des prérequis.
-- Chaque article doit rester autonome et expliquer les hypothèses, notations, unités, limites et implications pratiques.
+- Cible : 7 à 20 minutes de lecture réelle ; viser 12–18 minutes.
+- Knowledge Stories reste généraliste : exemples principaux non-LLM. Les mécanismes propres aux Transformers et aux LLM restent dans LLM Lab.
+- Le futur article doit être autonome : définir les notations, expliciter les hypothèses, unités, limites et implications.
+- Les exercices détaillés restent dans l'atelier dédié ; l'article peut inclure une courte question de réflexion.
+- Ne pas transformer cette journée en tutoriel de régression, ni en catalogue de diagnostics.
+- Ne pas présenter une association statistique comme une explication causale.
 
 ## État
 
-- [ ] Concept canonique et statut vérifiés dans Wiki Knowledge.
-- [ ] Sources primaires et références vérifiées.
-- [ ] Exemple, calcul ou expérience spécifiés et contrôlés.
-- [ ] Angle distinctif et contribution pédagogique formulés.
-- [ ] Article rédigé, durée mesurée, liens et accessibilité vérifiés.
+- [ ] Vérifier le concept canonique et son statut dans Wiki Knowledge.
+- [ ] Vérifier les références et localisateurs.
+- [ ] Reproduire indépendamment les calculs de l'exemple.
+- [ ] Rédiger puis mesurer la durée réelle.
+- [ ] Contrôler le build, le rendu responsive et l'accessibilité.
 
 ---
 
 # Jour 07 — Une droite peut-elle apprendre ?
 
-## 1. Promesse et question
+## 1. Décision éditoriale
 
-**Question directrice :** Comment une droite ajuste-t-elle ses paramètres à partir de points bruités, et que laisse-t-elle inexpliqué ?
+**Décision : transformer la promesse générique sur l'apprentissage d'une droite en enquête sur la portée réelle d'un ajustement.**
 
-**Objectif observable :** Interpréter pente et intercept, calculer des résidus et expliquer le critère des moindres carrés.
+**Question directrice :** Quand une droite est-elle une bonne approximation des données, et quand son ajustement nous donne-t-il une confiance que les données ne justifient pas ?
+
+**Thèse à faire découvrir :** les moindres carrés trouvent la meilleure droite *selon un critère précis et dans l'échantillon observé*. Ils ne garantissent ni que la relation est linéaire, ni que les résidus sont sans structure, ni que la droite explique un mécanisme, ni que ses prédictions restent fiables hors de la zone observée.
+
+**Intérêt pour un data scientist :** une régression peut être mathématiquement optimale et néanmoins être un mauvais modèle pour l'usage visé. Comprendre ce décalage évite d'interpréter un coefficient comme une vérité, d'extrapoler sans support ou de confondre ajustement et explication.
+
+**Objectif observable :** le lecteur doit savoir expliquer ce que minimise une régression aux moindres carrés, interpréter un résidu, repérer le rôle d'un point à fort levier et formuler au moins une limite de l'ajustement.
 
 **Durée cible :** 12–18 minutes.
 
-À la fin, le lecteur doit être capable de reformuler le problème, d'effectuer le raisonnement annoncé, d'en reconnaître les hypothèses et d'identifier au moins une limite. La promesse ne sera considérée comme tenue que si l'activité finale vérifie effectivement cette capacité.
+## 2. Frontière avec les autres journées
 
-## 2. Situation d'entrée et fil narratif
+- **J03** montre que plusieurs jeux de données peuvent partager des résumés statistiques et une droite tout en ayant des géométries différentes. J07 part de la droite ajustée et demande ce que signifie réellement « meilleur ajustement » et ce que ses diagnostics autorisent à conclure.
+- **J06** traite de confusion, stratification et identification causale. J07 ne doit pas devenir un second article sur les DAG ou le paradoxe de Simpson. Il rappelle seulement qu'un coefficient de régression n'est pas, à lui seul, un effet causal.
+- **J09** traitera de la quantité statistique ciblée par différentes fonctions de perte. J07 se limite aux moindres carrés et à la portée de leur ajustement.
+- **J15** traitera de la population et du protocole d'évaluation. J07 peut signaler l'extrapolation, sans développer l'évaluation hors distribution.
 
-**Scène d'ouverture :** Un nuage de points suggère une tendance, mais aucune droite ne passe par tous les points. Que signifie alors « apprendre la meilleure droite » ?
+## 3. Situation d'entrée
 
-**Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
+Une équipe dispose de cinq mesures et ajuste une droite pour prédire une grandeur continue. La pente semble raisonnable et la somme des carrés des résidus est faible. Une sixième mesure arrive, très éloignée des précédentes sur l'axe des entrées ; elle déplace fortement la pente.
 
-**Déroulé narratif provisoire :** Nuage de points ; famille de droites ; définition des résidus ; somme des carrés ; ajustement ; diagnostic ; hypothèses et extrapolation.
+**Tension narrative :** le calcul n'a pas échoué. Il a correctement optimisé son critère. C'est l'interprétation « la droite a appris la relation » qui devient trop forte.
 
-**Question de relance :** quelle observation ou quel calcul pourrait faire changer l'intuition initiale du lecteur ?
+La question qui guide l'article : qu'est-ce qui, dans le critère et dans la géométrie des données, rend ce déplacement possible ?
 
-## 3. Carte de couverture conceptuelle
+## 4. Expérience centrale — un point change-t-il la droite ?
 
-**Concept pivot :** Régression linéaire — concept à créer dans Wiki Knowledge.
+Utiliser explicitement un jeu synthétique, conçu pour isoler l'effet d'un point à fort levier :
 
-**Notions à couvrir :** modèle, paramètres, pente, intercept, moindres carrés, résidus, hypothèses, extrapolation, observation influente.
+| Observation | x | y |
+|---|---:|---:|
+| 1 | 1 | 2 |
+| 2 | 2 | 3 |
+| 3 | 3 | 5 |
+| 4 | 4 | 4 |
+| 5 | 5 | 6 |
 
-À compléter lors de la revue canonique :
-- **Prérequis à rappeler :** identifier ceux qui sont réellement indispensables et les expliquer brièvement dans l'article.
-- **Distinctions à rendre explicites :** préciser les confusions voisines qui changeraient le raisonnement.
-- **Approfondissements à signaler seulement :** éviter de transformer l'article en chapitre encyclopédique.
-- **Statut de la connaissance :** vérifier le contenu et le statut du concept dans Wiki Knowledge ; un concept draft n'est pas une référence validée.
+Pour ces cinq points, la droite des moindres carrés est :
 
-Le futur article devra définir chaque notion centrale, expliquer son mécanisme, préciser ses hypothèses et limites, puis la faire travailler dans un exemple. Il ne doit pas simplement énumérer les concepts.
+$$
+\widehat y = 1{,}3 + 0{,}9x
+$$
 
-## 4. Expérience, démonstration ou preuve
+Les résidus (observé moins prédit) sont :
 
-**Dispositif proposé :** Ajuster une droite sur un jeu jouet, ajouter un point extrême et observer l'effet sur la pente et l'intercept.
+$$
+(-0{,}2; -0{,}1; 1; -0{,}9; 0{,}2)
+$$
 
-**Matériel à préparer :**
-- données ou paramètres explicitement documentés ;
-- calculs reproductibles et vérifiés indépendamment ;
-- représentation visuelle seulement si elle rend un mécanisme ou un contraste plus intelligible ;
-- légende, unités, texte alternatif et équivalent textuel pour toute figure.
+La somme des carrés des résidus vaut 1,9.
 
-**Résultat attendu :** à préciser après exécution. Ne pas annoncer un résultat avant de l'avoir calculé ou observé.
+Ajouter le point synthétique $(x,y)=(12,5)$ conduit à :
 
-## 5. Angle distinctif — contribution de cette journée
+$$
+\widehat y \approx 3{,}209 + 0{,}213x
+$$
 
-**Piège central à désamorcer :** Association linéaire n'est pas causalité ; le meilleur ajustement dans l'échantillon n'identifie pas nécessairement le mécanisme générateur.
+La pente passe d'environ 0,9 à 0,213. Le point est éloigné dans la direction de $x$ et contribue fortement à la géométrie de l'ajustement.
 
-**Question éditoriale à résoudre avant rédaction :**
-1. Comment les ressources de référence expliquent-elles généralement le sujet ?
-2. Quelle hypothèse implicite, confusion, limite ou conséquence reste peu visible ?
-3. Qu'apporte précisément cette enquête au lecteur ?
-4. Quel exemple ou dispositif lui permet de découvrir cet apport ?
-5. Quelle question de transfert permet de vérifier qu'il l'a compris ?
+**À démontrer dans l'article :**
+- calculer la pente et l'intercept à partir de $S_{xx}$ et $S_{xy}$ ;
+- distinguer résidu élevé et levier élevé : ce sont deux propriétés différentes ;
+- expliquer pourquoi un point à fort levier n'est influent que s'il modifie effectivement l'ajustement ;
+- visualiser les deux droites sur les mêmes axes et montrer les données avant/après ;
+- rappeler que l'exemple est construit pour illustrer un mécanisme, pas pour représenter une fréquence empirique.
 
-L'apport peut être une reconstruction pédagogique, une démonstration, un contre-exemple ou une connexion rigoureuse. Ne pas fabriquer une originalité scientifique.
+Ne pas affirmer qu'un point extrême doit être supprimé. Il peut être une erreur, une observation valide rare, un changement de régime ou le signal que le modèle est mal spécifié. La décision dépend du processus de données et de la question scientifique.
 
-## 6. Transfert vers la pratique
+## 5. Le mécanisme mathématique
 
-Baseline prédictive, calibration simple, diagnostic des résidus et interprétation d'une relation quantitative.
+Introduire le modèle ajusté :
 
-Le texte final devra expliciter une situation de travail, l'erreur plausible, la méthode ou le diagnostic pertinent, la conséquence sur l'analyse ou la décision, puis une limite de validité. Le transfert ne doit pas être une simple liste d'applications.
+$$
+\widehat y_i = \widehat\beta_0 + \widehat\beta_1x_i
+$$
 
-## 7. Vérification des acquis
+et le résidu :
 
-**Activité proposée :** Comparer deux droites à partir de leurs résidus ; calculer une prédiction ; discuter si l'extrapolation est défendable.
+$$
+e_i=y_i-\widehat y_i.
+$$
 
-Prévoir 2 à 4 questions graduées :
-1. compréhension ou calcul direct ;
-2. prédiction de l'effet d'une modification ;
-3. transfert à un autre contexte ;
-4. éventuellement, identification d'une hypothèse insuffisante.
+Les moindres carrés choisissent les paramètres qui minimisent :
 
-La correction doit détailler le raisonnement, les conventions et les endroits où une hypothèse intervient.
+$$
+\operatorname{RSS}(\beta_0,\beta_1)
+=\sum_i(y_i-\beta_0-\beta_1x_i)^2.
+$$
 
-## 8. Connexions
+Pour une régression simple avec intercept et variabilité non nulle de $x$ :
 
-J03–J04 (statistiques descriptives), J06 (causalité), J08 (estimation), J09 (perte).
+$$
+\widehat\beta_1=
+\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}
+{\sum_i(x_i-\bar x)^2},
+\qquad
+\widehat\beta_0=\bar y-\widehat\beta_1\bar x.
+$$
 
-Ces renvois servent à comparer ou prolonger des idées. Ils ne doivent pas devenir des prérequis cachés ; l'article reste compréhensible sans ouvrir les autres journées.
+L'article doit expliquer le rôle de la distance à la moyenne de $x$ dans le numérateur et le dénominateur : les observations éloignées en $x$ peuvent peser fortement sur la pente. Éviter une dérivation longue des équations normales ; une dérivation courte ou une interprétation géométrique suffit.
 
-## 9. Sources à vérifier
+Préciser que « meilleure droite » signifie minimisatrice de la somme des carrés sur les observations et dans la famille de fonctions considérée. Ce n'est pas une propriété absolue de la droite.
 
-James et al., *An Introduction to Statistical Learning* ; vérifier édition et chapitre pertinent.
+## 6. Diagnostiquer sans ritualiser
 
-Pour chaque référence retenue, relever l'édition/version, le chapitre ou passage utile, le type de source et les affirmations qu'elle soutient. Vérifier les sources primaires quand elles existent. Ne pas publier de lien vers un espace privé.
+Organiser les diagnostics autour de trois questions, pas comme une checklist exhaustive :
 
-## 10. Plan d'article pressenti
+1. **Les résidus gardent-ils une structure ?** Un motif courbe suggère que la relation moyenne n'est peut-être pas bien représentée par une droite ; une dispersion qui varie avec $x$ signale une hétéroscédasticité possible.
+2. **Un point gouverne-t-il l'ajustement ?** Distinguer levier (position dans l'espace des prédicteurs), résidu (écart vertical) et influence (effet sur les paramètres ou prédictions lorsqu'on retire l'observation).
+3. **Où la droite est-elle utilisée ?** Une prédiction dans la plage observée n'a pas le même statut qu'une extrapolation. Le modèle ne fournit pas, par son seul ajustement, de garantie sur un régime jamais observé.
 
-1. Question concrète et enjeu.
-2. Intuition construite à partir de la situation.
-3. Définitions et distinctions nécessaires.
-4. Mécanisme ou formalisation, avec notation explicitée.
-5. Exemple calculé, expérience ou démonstration.
-6. Limite ou contre-exemple.
-7. Application à une situation de Data Science.
-8. Questions et correction raisonnée.
-9. Synthèse et références.
+Les résidus doivent être lus comme des diagnostics conditionnels au modèle ajusté, pas comme des observations directes des erreurs latentes. Les motifs peuvent aussi provenir de variables omises, de dépendances, d'une mesure imparfaite ou d'un changement de population.
 
-Les titres définitifs pourront varier pour servir la narration. Ne pas forcer du code si un calcul, un schéma ou un raisonnement est plus pertinent.
+## 7. Ce que la droite n'apprend pas
 
-## 11. Critères de passage à l'article
+Faire apparaître quatre distinctions, sans ouvrir quatre nouveaux chapitres :
 
-- [ ] L'angle narratif est concret et ne masque pas la question scientifique.
-- [ ] Le concept pivot est vérifié et les concepts centraux sont réellement expliqués.
-- [ ] Les calculs, exemples et affirmations quantitatives sont vérifiés.
-- [ ] Le piège conceptuel est désamorcé avec un contre-exemple ou une explication.
-- [ ] Le transfert change effectivement une pratique ou une interprétation.
-- [ ] La correction des exercices teste l'objectif annoncé.
-- [ ] La durée est comprise entre 7 et 20 minutes sans remplissage.
-- [ ] Le contenu est autonome, sourcé, accessible et sans dépendance à un dépôt privé.
+- **Ajustement vs mécanisme :** une pente décrit une relation dans les données et dépend du contexte ; elle n'identifie pas un effet causal sans hypothèses supplémentaires.
+- **Résidus vs erreurs :** les résidus sont calculés après ajustement ; ils ne sont pas les erreurs aléatoires théoriques du modèle.
+- **Interpolation vs extrapolation :** le fait qu'une droite résume la plage observée ne justifie pas son prolongement indéfini.
+- **Prédiction moyenne vs prédiction individuelle :** une droite peut viser une moyenne conditionnelle ; elle ne prédit pas exactement chaque réalisation bruitée.
+
+Pour les hypothèses, rester précis : la linéarité concerne la forme de la moyenne conditionnelle dans le modèle ; l'homoscédasticité et l'indépendance jouent notamment dans les propriétés d'inférence usuelles ; la normalité des erreurs n'est pas nécessaire pour calculer les coefficients OLS. Ne pas réciter « les quatre hypothèses de la régression » sans préciser l'usage concerné.
+
+## 8. Transfert vers la pratique Data Science
+
+Prendre un cas de prédiction d'une consommation, d'une latence ou d'un rendement en fonction d'une variable continue. Montrer le raisonnement :
+
+- définir la grandeur cible et les unités ;
+- ajuster la baseline linéaire ;
+- examiner les résidus et les observations influentes ;
+- vérifier la plage de support des prédicteurs ;
+- décider si la droite est une baseline utile, si une transformation ou une autre famille est justifiée, ou si les données ne permettent pas de trancher.
+
+Le transfert doit aboutir à une décision concrète : conserver la droite comme baseline interprétable, changer de forme fonctionnelle, collecter des observations dans une région mal couverte ou limiter explicitement le domaine d'utilisation.
+
+## 9. Vérification des acquis
+
+Les exercices complets sont réservés à l'atelier. La page peut se terminer par deux questions courtes :
+
+1. Pourquoi un point très éloigné en $x$ peut-il modifier fortement la pente même si son résidu n'est pas le plus grand ?
+2. Si les résidus dessinent une courbe, quelle affirmation devient douteuse : « les moindres carrés ont été calculés correctement » ou « une droite décrit suffisamment la relation moyenne » ?
+
+Les corrections doivent distinguer le calcul de l'adéquation du modèle.
+
+## 10. Sources à vérifier
+
+- James, Witten, Hastie, Tibshirani et Taylor, *An Introduction to Statistical Learning*, édition disponible : sections sur régression linéaire, résidus et observations influentes ; relever les pages/sections exactes.
+- Weisberg, *Applied Linear Regression*, pour levier, influence et diagnostic ; vérifier l'édition et les localisateurs.
+- NIST/SEMATECH e-Handbook of Statistical Methods, sections sur les diagnostics de régression ; vérifier les pages exactes et leur adéquation.
+
+Retenir les sources réellement mobilisées, et associer chaque source à une affirmation. Ajouter une source primaire seulement si elle soutient une affirmation historique ou théorique précise.
+
+## 11. Plan de l'article
+
+1. Une droite ajuste les cinq points — puis un point déplace la pente.
+2. Ce que les moindres carrés minimisent exactement.
+3. Pourquoi les points éloignés en $x$ peuvent peser sur la pente.
+4. Résidus, levier et influence : trois notions à ne pas confondre.
+5. Lire les motifs des résidus et reconnaître l'extrapolation.
+6. Ce que l'ajustement autorise — et ce qu'il n'autorise pas — à conclure.
+7. Transfert Data Science, synthèse et références.
+
+## 12. Critères de passage à l'article
+
+- [ ] L'angle est distinct de J03 (résumés/Anscombe) et J06 (causalité).
+- [ ] Les coefficients, résidus et RSS sont reproduits indépendamment.
+- [ ] Le point ajouté est correctement décrit comme point à fort levier et son influence est quantifiée.
+- [ ] La figure utilise des axes cohérents et distingue données initiales / point ajouté.
+- [ ] Les notions résidu, levier et influence ne sont pas confondues.
+- [ ] Les hypothèses sont reliées à leurs conséquences précises ; pas de liste rituelle.
+- [ ] Le transfert aboutit à une décision de modélisation défendable.
+- [ ] Les références sont vérifiées avec des localisateurs exacts.
+- [ ] L'article est autonome, accessible et compris entre 7 et 20 minutes.
