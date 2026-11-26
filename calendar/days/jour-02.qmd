@@ -234,6 +234,12 @@ Le protocole de validation doit reproduire le domaine de généralisation visé 
 Une validation aléatoire n'est pertinente que si elle reproduit réellement le processus de déploiement. Un test tiré du même mécanisme de sélection que l'entraînement peut confirmer une performance sur la mauvaise population.
 
 
+### Un cas LLM : un corpus massif n'est pas nécessairement représentatif
+
+Un corpus de plusieurs milliards de tokens peut rester déséquilibré : certaines langues, périodes, sources ou formes de texte sont beaucoup plus accessibles que d'autres. Le volume permet de décrire très précisément le corpus effectivement collecté ; il ne garantit pas que celui-ci corresponde aux usages visés.
+
+La question n'est pas de rechercher un échantillon « représentatif de tout Internet », cible souvent mal définie. Il faut expliciter le domaine d'utilisation visé, les sources retenues, les filtres, la déduplication et le mélange de données choisi. Pour évaluer un modèle destiné à un domaine particulier, le jeu de test doit aussi couvrir ce domaine et ses cas difficiles. La composition du corpus est une décision de conception, pas une conséquence automatique de sa taille.
+
 ## Mettre en pratique
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-02.html). Vous pouvez les aborder après la lecture, ou revenir à l'article comme référence.
