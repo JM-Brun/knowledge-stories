@@ -1,7 +1,7 @@
 # Réécriture éditoriale — calendrier 2026, jours 1 à 5
 
 Date : 2026-11-26  
-Branche : `calendar/rewrite-day-01-measurement-story-v1`  
+Branche : calendar/rewrite-day-01-measurement-story-v1  
 PR : https://github.com/JM-Brun/knowledge-stories/pull/150  
 Statut : réécriture source effectuée ; rendu et revue visuelle à réaliser.
 
@@ -13,7 +13,7 @@ Passer de pages informatives parfois accumulatives à des articles qui conduisen
 
 Page demandée : https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html
 
-La page exacte n'a pas été récupérée par l'outil de consultation pendant cette session. Une publication LinkedIn de l'auteur décrit cependant le dispositif associé : exemple concret (1234\times5678), comparaison de 16 produits élémentaires avec les trois produits de Karatsuba, mise en contexte historique et démonstration interactive : https://fr.linkedin.com/posts/dalili_math%C3%A9matiques-intelligenceartificielle-activity-7528766134909763584-4THP. Cette publication est un indice secondaire, pas un substitut à la lecture de l'article.
+La page exacte n'a pas été récupérée par l'outil de consultation pendant cette session. Une publication LinkedIn de l'auteur décrit cependant le dispositif associé : exemple concret 1234 × 5678, comparaison de 16 produits élémentaires avec les trois produits de Karatsuba, mise en contexte historique et démonstration interactive : https://fr.linkedin.com/posts/dalili_math%C3%A9matiques-intelligenceartificielle-activity-7528766134909763584-4THP. Cette publication est un indice secondaire, pas un substitut à la lecture de l'article.
 
 Un autre article du même auteur, consultable ici, a pu être étudié : https://djamchid.fr/blog/posts/2026-11-13-mais-que-fait-lean-au-juste.html. Il donne un exemple utile de progression éditoriale : question concrète, intervention humaine (l'astuce), formalisation, contrôle des étapes, puis portée et limites. L'article fait travailler une démonstration courte au lieu de commencer par une présentation abstraite de l'outil. Ce modèle de progression a inspiré la réorganisation, sans chercher à copier son plan à l'identique.
 
@@ -21,18 +21,18 @@ Un autre article du même auteur, consultable ici, a pu être étudié : https:/
 
 ### J01 — Mesure
 
-Fichier : `calendar/days/jour-01.qmd`
+Fichier : calendar/days/jour-01.qmd
 
 - Recentrage sur une enquête : deux bâtiments semblent différer ; deux capteurs sont comparés côte à côte.
 - Remplacement du tableau de cinq profils par un seul contraste chiffré : séries A (20,2 ; 20,1 ; 20,2) et B (19,0 ; 19,1 ; 19,0).
-- Progression : anomalie → fidélité/répétabilité et justesse → modèle (	heta+b+\varepsilon_i) → effet de la moyenne → incertitude de la référence → décision avant correction → transfert vers la qualité des variables.
+- Progression : anomalie → fidélité/répétabilité et justesse → modèle theta + b + epsilon_i → effet de la moyenne → incertitude de la référence → décision avant correction → transfert vers la qualité des variables.
 - Trois figures SVG : comparaison des capteurs, réduction du bruit sans suppression du biais, chaîne de production d'une variable.
 - Exercice final avec un troisième capteur et discussion d'un usage en détection de tendance.
 - Les développements secondaires sur les construits, la résolution et les autres propriétés instrumentales ont été réduits au strict nécessaire ou déplacés vers les ressources liées.
 
 ### J02 — Échantillonnage et sélection
 
-Fichier : `calendar/days/jour-02.qmd`
+Fichier : calendar/days/jour-02.qmd
 
 - Récit de deux enquêtes de satisfaction contradictoires.
 - Estimand explicite : moyenne de la population de 100 000 utilisateurs, moitié réguliers (moyenne 10), moitié occasionnels (moyenne 20).
@@ -43,7 +43,7 @@ Fichier : `calendar/days/jour-02.qmd`
 
 ### J03 — Résumés statistiques et visualisation
 
-Fichier : `calendar/days/jour-03.qmd`
+Fichier : calendar/days/jour-03.qmd
 
 - Récit des quatre rapports qui semblent identiques avant que les données soient visualisées.
 - Trois séries numériques de même moyenne et de dispersions différentes.
@@ -53,17 +53,17 @@ Fichier : `calendar/days/jour-03.qmd`
 
 ### J04 — Covariance
 
-Fichier : `calendar/days/jour-04.qmd`
+Fichier : calendar/days/jour-04.qmd
 
 - Ouverture narrative avec deux capteurs sur un pont et une perturbation partagée.
-- Tableau du rapport entre variance de la moyenne et variance marginale pour (ho=-1,0,+1).
+- Tableau du rapport entre variance de la moyenne et variance marginale pour rho = -1, 0 et +1.
 - Schéma SVG séparant perturbation commune et bruits propres.
 - Démonstration algébrique, modèle à composante commune, matrice de covariance et exemple dépendance sans covariance conservés.
 - Le transfert vers les ensembles de modèles insiste sur la diversité des erreurs, et non le simple nombre de modèles.
 
 ### J05 — Entropie et qualité prédictive
 
-Fichier : `calendar/days/jour-05.qmd`
+Fichier : calendar/days/jour-05.qmd
 
 - Récit de deux services météo annonçant respectivement 90 % et 50 % de pluie.
 - Calcul de l'entropie binaire et représentation de sa courbe.
@@ -75,19 +75,19 @@ Fichier : `calendar/days/jour-05.qmd`
 ## Contrôles statiques effectués
 
 Sur les cinq fichiers de la branche :
-- nombre de balises `<figure>` égal au nombre de `</figure>` ;
-- nombre de balises `<svg>` égal au nombre de `</svg>` ;
-- blocs `<details>` équilibrés ;
-- délimiteurs de mathématiques affichées `\[` et `\]` équilibrés.
+- nombre de balises figure égal au nombre de balises de fermeture ;
+- nombre de balises SVG égal au nombre de balises SVG de fermeture ;
+- blocs details équilibrés ;
+- délimiteurs de mathématiques affichées équilibrés.
 
 Comptage des visuels SVG : J01 3, J02 3, J03 2, J04 2, J05 2.
 
 Vérifications algébriques des exemples :
 - J01 : moyennes 20,17 °C et 19,03 °C ; modèle de moyenne sous erreurs indépendantes ; biais constant non réduit par le moyennage.
-- J02 : moyenne cible 15 ; moyenne de groupe A 10 ; poids 0,5/0,9 ≈ 0,56 et 0,5/0,1 = 5.
+- J02 : moyenne cible 15 ; moyenne de groupe A 10 ; poids 0,5/0,9 environ 0,56 et 0,5/0,1 égal à 5.
 - J03 : moyennes des trois séries égales à 5 ; variances descriptives avec diviseur n : 0,4 ; 8 ; 40. Valeurs résumées du quartette d'Anscombe données à l'arrondi près.
-- J04 : variances 2/3 et 8/3, covariance 4/3, variance de la somme 6 ; pour deux variables de même variance, variance de la moyenne égale à (sigma^2(1+ho)/2).
-- J05 : entropie binaire de 0,5 = 1 bit ; de 0,9 ≈ 0,469 bit ; Brier des prévisions constantes 0,9 et 0,5 sur une fréquence observée 0,5 : 0,41 et 0,25 ; information mutuelle du canal binaire symétrique de fiabilité 0,9 ≈ 0,531 bit.
+- J04 : variances 2/3 et 8/3, covariance 4/3, variance de la somme 6 ; pour deux variables de même variance, variance de la moyenne égale à sigma² fois (1 + rho) / 2.
+- J05 : entropie binaire de 0,5 égale à 1 bit ; de 0,9 environ 0,469 bit ; Brier des prévisions constantes 0,9 et 0,5 sur une fréquence observée 0,5 : 0,41 et 0,25 ; information mutuelle du canal binaire symétrique de fiabilité 0,9 environ 0,531 bit.
 
 ## Limites non levées
 
