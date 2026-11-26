@@ -135,6 +135,20 @@ Les comparaisons peuvent maintenant être faites à bâtiment constant ou à cap
 - **À bâtiment constant** : S2 indique 1,0 °C de moins que S1, dans les deux bâtiments.
 - **À capteur constant** : B est 0,5 °C plus chaud que A, avec chacun des capteurs.
 
+Avec le même codage que précédemment, la matrice du plan croisé devient :
+
+\[
+X_{\text{croisé}} =
+\begin{bmatrix}
+1 & 0 & 0 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+1 & 1 & 1
+\end{bmatrix}.
+\]
+
+Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif.
+
 Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Le plan croisé montre au contraire un effet bâtiment de +0,5 °C : B est plus chaud dans cet exemple. **Le décalage du capteur a inversé le signe de la conclusion.**
 
 Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
@@ -177,4 +191,3 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 - [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : une mesure peut être correcte, mais la population observée peut rester biaisée.
 - [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
- 
