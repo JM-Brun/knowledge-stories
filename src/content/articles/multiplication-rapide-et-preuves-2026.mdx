@@ -32,9 +32,12 @@ relatedArticles: ["karatsuba-multiplication", "complexite-multiplication-karatsu
 
 import ToomCookExplorer from "../../components/ToomCookExplorer.astro";
 import MultiplicationRecurrenceComparison from "../../components/MultiplicationRecurrenceComparison.astro";
+import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.astro";
 
 
 Cette étape prolonge [la présentation de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/) et [l'analyse de sa complexité](/knowledge-stories/atelier/complexite-multiplication-karatsuba/). Elle étudie une généralisation de son idée : représenter les entiers comme des polynômes, les évaluer en quelques points, multiplier les valeurs obtenues, puis reconstruire le produit par interpolation. **L'objectif est de réduire encore le nombre de multiplications récursives**, au prix d'un travail d'évaluation et d'interpolation plus important.
+
+<MultiplicationMethodMap active="toom" />
 
 ### Objectifs et parcours de lecture
 
@@ -102,7 +105,7 @@ Le coefficient croisé est alors <span class="term-cross">&#92;(w-u-v&#92;)</spa
 
 </div>
 
-### 2.2 Toom–Cook à trois blocs : de neuf produits à cinq
+### 2.2 <span class="method-toom">Toom–Cook</span> à trois blocs : de neuf produits à cinq
 
 Avec trois blocs, on écrit chaque entier sous la forme
 
@@ -203,9 +206,9 @@ Le principe se généralise. Avec &#92;(k&#92;) blocs, les deux polynômes ont u
 | Méthode | Blocs par opérande | Produits récursifs |
 |---|---:|---:|
 | Développement direct | 2 | 4 |
-| Karatsuba / Toom-2 | 2 | 3 |
-| Toom-3 | 3 | 5 |
-| Toom-4 | 4 | 7 |
+| <span class="method-karatsuba">Karatsuba / Toom-2</span> | 2 | 3 |
+| <span class="method-toom">Toom-3</span> | 3 | 5 |
+| <span class="method-toom">Toom-4</span> | 4 | 7 |
 | Toom-&#92;(k&#92;) | &#92;(k&#92;) | &#92;(2k-1&#92;) |
 
 <MultiplicationRecurrenceComparison />
