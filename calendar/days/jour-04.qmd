@@ -285,12 +285,18 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 - La covariance nulle n'implique pas l'indépendance.
 - La diversification agit sur les dépendances ; elle ne supprime pas les biais communs.
 
-## Connexions utiles
-
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : la covariance complète le diagnostic au-delà des résumés marginaux.
-- [Jour 5 — Quelle distribution est la plus incertaine ?](jour-05.html) : passer de la dépendance entre variables à la mesure de l'incertitude d'une distribution.
-
 ## Pour aller plus loin
 
 - OpenStax, *Introductory Statistics 2e* — covariance et variance des combinaisons linéaires.
 - NIST/SEMATECH, *e-Handbook of Statistical Methods* — propagation de l'incertitude et analyse de dépendance : https://www.itl.nist.gov/div898/handbook/
+
+## Connexions utiles
+
+- [Jour 3 — Quatre jeux, une même droite](jour-03.html) : la covariance complète le diagnostic au-delà des résumés marginaux.
+- [Jour 5 — Une prédiction incertaine signifie-t-elle que le modèle ne sait pas ?](jour-05.html) : passer de la dépendance entre variables à la mesure de l'incertitude d'une distribution.
+
+<nav class="day-nav" aria-label="Navigation du calendrier">
+<a href="jour-03.html">← Jour 03 · Quatre jeux, une même droite</a>
+<a href="../index.html">Le calendrier complet</a>
+<a href="jour-05.html">Jour 05 · Une prédiction incertaine signifie-t-elle que le modèle ne sait pas ? →</a>
+</nav>
