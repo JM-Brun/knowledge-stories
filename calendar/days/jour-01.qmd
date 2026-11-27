@@ -5,12 +5,12 @@ description: "Deux bâtiments semblent différer. Mais si chacun utilise un capt
 ---
 
 <div class="story-meta" aria-label="Informations de lecture">
-  <span>12–14 min</span><span>Statistique · Métrologie · Design expérimental</span><span>Sans prérequis</span>
+<span>12–14 min</span><span>Statistique · Métrologie · Design expérimental</span><span>Sans prérequis</span>
 </div>
 
 <div class="story-promise">
-  <strong>Une décision à prendre, deux explications possibles.</strong>
-  <p>Un modèle recommande de réchauffer un bâtiment. Mais mesure-t-il vraiment la température du bâtiment — ou le décalage de son capteur ? Suivons l'enquête jusqu'au moment où les données racontent l'histoire inverse.</p>
+<strong>Une décision à prendre, deux explications possibles.</strong>
+<p>Un modèle recommande de réchauffer un bâtiment. Mais mesure-t-il vraiment la température du bâtiment — ou le décalage de son capteur ? Suivons l'enquête jusqu'au moment où les données racontent l'histoire inverse.</p>
 </div>
 
 ## Le modèle a trouvé un écart. Mais entre quoi et quoi ?
@@ -27,31 +27,31 @@ Le modèle compare donc deux choses à la fois :
 **La question n'est pas encore de savoir quel bâtiment est le plus froid. Elle est de savoir si les données permettent de le déterminer.**
 
 <figure class="story-hero">
-  <div class="story-hero-top"><span class="eyebrow">LE SIGNAL DU MODÈLE</span><span class="status-pill">Alerte à vérifier</span></div>
-  <div class="story-hero-grid">
-    <div class="story-building">
-      <span class="building-label">BÂTIMENT A</span><strong>20,0 °C</strong><span class="sensor-tag">Mesuré par S1</span>
-    </div>
-    <div class="story-building flagged">
-      <span class="building-label">BÂTIMENT B</span><strong>19,5 °C</strong><span class="sensor-tag">Mesuré par S2</span>
-    </div>
-  </div>
-  <div class="story-hero-verdict"><span>−0,5 °C</span><span>Écart observé : B paraît plus froid</span></div>
-  <figcaption>Le modèle compare deux bâtiments, mais aussi deux systèmes de mesure. À ce stade, impossible de savoir lequel explique l'écart.</figcaption>
+<div class="story-hero-top"><span class="eyebrow">LE SIGNAL DU MODÈLE</span><span class="status-pill">Alerte à vérifier</span></div>
+<div class="story-hero-grid">
+<div class="story-building">
+<span class="building-label">BÂTIMENT A</span><strong>20,0 °C</strong><span class="sensor-tag">Mesuré par S1</span>
+</div>
+<div class="story-building flagged">
+<span class="building-label">BÂTIMENT B</span><strong>19,5 °C</strong><span class="sensor-tag">Mesuré par S2</span>
+</div>
+</div>
+<div class="story-hero-verdict"><span>−0,5 °C</span><span>Écart observé : B paraît plus froid</span></div>
+<figcaption>Le modèle compare deux bâtiments, mais aussi deux systèmes de mesure. À ce stade, impossible de savoir lequel explique l'écart.</figcaption>
 </figure>
 
 <div class="story-question"><span class="story-question-mark">?</span><div><strong>La décision est-elle justifiée ?</strong><p>Avant de modifier le chauffage, il faut comprendre ce que les capteurs ont réellement mesuré.</p></div></div>
 
 <details class="story-pause">
-  <summary>Faites une première hypothèse : d'où peut venir l'écart de 0,5 °C ?</summary>
-  <div class="pause-content">
-    <p>Deux explications sont compatibles avec ce premier constat :</p>
-    <ul>
-      <li>le bâtiment B est réellement plus froid ;</li>
-      <li>le capteur S2 indique une température plus basse que S1, même lorsqu'ils observent la même température.</li>
-    </ul>
-    <p>Les deux mécanismes peuvent aussi coexister. La suite de l'enquête doit produire une comparaison qui les distingue — pas simplement accumuler des relevés.</p>
-  </div>
+<summary>Faites une première hypothèse : d'où peut venir l'écart de 0,5 °C ?</summary>
+<div class="pause-content">
+<p>Deux explications sont compatibles avec ce premier constat :</p>
+<ul>
+<li>le bâtiment B est réellement plus froid ;</li>
+<li>le capteur S2 indique une température plus basse que S1, même lorsqu'ils observent la même température.</li>
+</ul>
+<p>Les deux mécanismes peuvent aussi coexister. La suite de l'enquête doit produire une comparaison qui les distingue — pas simplement accumuler des relevés.</p>
+</div>
 </details>
 
 <aside class="editorial-note">Les nombres de cette enquête sont construits pour illustrer le raisonnement ; ils ne proviennent pas d'une campagne de mesure réelle.</aside>
@@ -61,34 +61,34 @@ Le modèle compare donc deux choses à la fois :
 L'équipe place les deux capteurs côte à côte dans un environnement stabilisé. Une référence étalonnée indique 20,00 °C ; son incertitude est documentée.
 
 <div class="sensor-showcase measurement-checks">
-  <div class="sensor-gallery">
-    <div class="sensor-card sensor-a">
-      <span class="sensor-kicker">Système de mesure 01</span>
-      <h4>Capteur S1</h4>
-      <strong class="sensor-reading">20,0 <small>°C</small></strong>
-      <div class="sensor-observations"><span>20,1</span><span>20,0</span><span>19,9</span></div>
-      <p class="sensor-limit">Moyenne des trois indications</p>
-    </div>
-    <div class="sensor-card sensor-b">
-      <span class="sensor-kicker">Système de mesure 02</span>
-      <h4>Capteur S2</h4>
-      <strong class="sensor-reading">19,0 <small>°C</small></strong>
-      <div class="sensor-observations"><span>19,1</span><span>19,0</span><span>18,9</span></div>
-      <p class="sensor-limit">Moyenne des trois indications</p>
-    </div>
-  </div>
-  <div class="sensor-difference"><span class="difference-value">−1,0 °C</span><span>Écart entre les moyennes, dans cet essai</span></div>
-  <p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
+<div class="sensor-gallery">
+<div class="sensor-card sensor-a">
+<span class="sensor-kicker">Système de mesure 01</span>
+<h4>Capteur S1</h4>
+<strong class="sensor-reading">20,0 <small>°C</small></strong>
+<div class="sensor-observations"><span>20,1</span><span>20,0</span><span>19,9</span></div>
+<p class="sensor-limit">Moyenne des trois indications</p>
+</div>
+<div class="sensor-card sensor-b">
+<span class="sensor-kicker">Système de mesure 02</span>
+<h4>Capteur S2</h4>
+<strong class="sensor-reading">19,0 <small>°C</small></strong>
+<div class="sensor-observations"><span>19,1</span><span>19,0</span><span>18,9</span></div>
+<p class="sensor-limit">Moyenne des trois indications</p>
+</div>
+</div>
+<div class="sensor-difference"><span class="difference-value">−1,0 °C</span><span>Écart entre les moyennes, dans cet essai</span></div>
+<p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
 </div>
 
 Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
 
 <div class="story-insight">
-  <span class="eyebrow">CE QUE L'ESSAI NOUS APPREND — ET CE QU'IL NE NOUS APPREND PAS</span>
-  <div class="insight-pair">
-    <div><strong class="insight-positive">Indice obtenu</strong><p>À température de référence et dans les conditions de cet essai, les indications de S2 sont inférieures d'environ 1 °C à celles de S1.</p></div>
-    <div><strong class="insight-caution">Question ouverte</strong><p>Nous n'avons pas encore mesuré les deux capteurs dans les bâtiments réels. L'écart observé ne suffit donc pas à corriger la comparaison entre A et B.</p></div>
-  </div>
+<span class="eyebrow">CE QUE L'ESSAI NOUS APPREND — ET CE QU'IL NE NOUS APPREND PAS</span>
+<div class="insight-pair">
+<div><strong class="insight-positive">Indice obtenu</strong><p>À température de référence et dans les conditions de cet essai, les indications de S2 sont inférieures d'environ 1 °C à celles de S1.</p></div>
+<div><strong class="insight-caution">Question ouverte</strong><p>Nous n'avons pas encore mesuré les deux capteurs dans les bâtiments réels. L'écart observé ne suffit donc pas à corriger la comparaison entre A et B.</p></div>
+</div>
 </div>
 
 Cette comparaison apporte un indice important, mais sa portée reste limitée :
@@ -107,58 +107,58 @@ Il faut aussi distinguer une **comparaison ponctuelle** d'un **étalonnage**. La
 
 Un modèle minimal permet de séparer les deux contributions :
 
-\[
+$
 X_i = \theta + b + \varepsilon_i
-\]
+$
 
-- \(\theta\) est la température recherchée ;
-- \(b\) est le décalage propre au système de mesure, supposé constant pendant la série ;
-- \(\varepsilon_i\) représente les fluctuations aléatoires.
+- $\theta$ est la température recherchée ;
+- $b$ est le décalage propre au système de mesure, supposé constant pendant la série ;
+- $\varepsilon_i$ représente les fluctuations aléatoires.
 
-Supposons que \(\theta\) et \(b\) restent constants et que les erreurs aléatoires soient indépendantes, centrées et de variance \(\sigma^2\). La moyenne de \(n\) mesures vérifie alors :
+Supposons que $\theta$ et $b$ restent constants et que les erreurs aléatoires soient indépendantes, centrées et de variance $\sigma^2$. La moyenne de $n$ mesures vérifie alors :
 
-\[
+$
 \mathbb{E}[\overline X_n] = \theta+b,
 \qquad
 \operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}.
-\]
+$
 
-Augmenter \(n\) réduit la variabilité de la moyenne sous ces hypothèses. Mais son espérance reste \(\theta+b\) : **la répétition ne retire pas le décalage systématique**.
+Augmenter $n$ réduit la variabilité de la moyenne sous ces hypothèses. Mais son espérance reste $\theta+b$ : **la répétition ne retire pas le décalage systématique**.
 
 <figure class="insight-figure">
-  <div class="insight-columns">
-    <div><span class="insight-kicker">CE QUE FAIT LA RÉPÉTITION</span><strong class="insight-good">La dispersion diminue</strong><p>La moyenne devient plus stable si les erreurs sont indépendantes.</p></div>
-    <div><span class="insight-kicker">CE QU'ELLE NE FAIT PAS</span><strong class="insight-bad">Le biais reste</strong><p>La moyenne reste centrée sur \(\theta+b\), pas sur \(\theta\).</p></div>
-  </div>
-  <figcaption>Plus de mesures peuvent réduire l'incertitude aléatoire ; elles ne corrigent pas automatiquement une erreur systématique.</figcaption>
+<div class="insight-columns">
+<div><span class="insight-kicker">CE QUE FAIT LA RÉPÉTITION</span><strong class="insight-good">La dispersion diminue</strong><p>La moyenne devient plus stable si les erreurs sont indépendantes.</p></div>
+<div><span class="insight-kicker">CE QU'ELLE NE FAIT PAS</span><strong class="insight-bad">Le biais reste</strong><p>La moyenne reste centrée sur θ + b, pas sur θ.</p></div>
+</div>
+<figcaption>Plus de mesures peuvent réduire l'incertitude aléatoire ; elles ne corrigent pas automatiquement une erreur systématique.</figcaption>
 </figure>
 
-Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps peuvent être autocorrélées ; dans ce cas, la variance de la moyenne n'est généralement plus \(\sigma^2/n\). Cette limite rappelle qu'un grand nombre de lignes n'est pas nécessairement un grand nombre d'informations indépendantes.
+Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps peuvent être autocorrélées ; dans ce cas, la variance de la moyenne n'est généralement plus $\sigma^2/n$. Cette limite rappelle qu'un grand nombre de lignes n'est pas nécessairement un grand nombre d'informations indépendantes.
 
 <details class="story-pause">
-  <summary>Expérience de pensée : que changent 1 000 répétitions de chaque mesure initiale ?</summary>
-  <div class="pause-content">
-    <p>Elles peuvent rendre les moyennes de A–S1 et B–S2 beaucoup plus stables. Mais elles ne produisent toujours aucune observation de A–S2 ni de B–S1.</p>
-    <p>La précision des deux moyennes augmente ; la confusion entre bâtiment et capteur demeure. La prochaine étape doit modifier les associations observées, pas seulement leur nombre.</p>
-  </div>
+<summary>Expérience de pensée : que changent 1 000 répétitions de chaque mesure initiale ?</summary>
+<div class="pause-content">
+<p>Elles peuvent rendre les moyennes de A–S1 et B–S2 beaucoup plus stables. Mais elles ne produisent toujours aucune observation de A–S2 ni de B–S1.</p>
+<p>La précision des deux moyennes augmente ; la confusion entre bâtiment et capteur demeure. La prochaine étape doit modifier les associations observées, pas seulement leur nombre.</p>
+</div>
 </details>
 
 Mais le problème du réseau de capteurs est plus profond encore : même si chaque capteur fournissait des milliers de mesures très stables, pourrait-on séparer l'effet du bâtiment de celui du capteur ?
 
 ## Le vrai problème : deux effets parfaitement confondus
 
-Notons \(Y_{s,c}\) la température indiquée dans le bâtiment \(s\) par le capteur \(c\). Un modèle additif simple serait :
+Notons $Y_{s,c}$ la température indiquée dans le bâtiment $s$ par le capteur $c$. Un modèle additif simple serait :
 
-\[
+$
 Y_{s,c} = \mu + \alpha_s + \beta_c + \varepsilon_{s,c},
-\]
+$
 
 où :
 
-- \(\mu\) est un niveau de référence ;
-- \(\alpha_s\) représente l'effet associé au bâtiment ;
-- \(\beta_c\) représente le décalage associé au capteur ;
-- \(\varepsilon_{s,c}\) regroupe les variations non expliquées.
+- $\mu$ est un niveau de référence ;
+- $\alpha_s$ représente l'effet associé au bâtiment ;
+- $\beta_c$ représente le décalage associé au capteur ;
+- $\varepsilon_{s,c}$ regroupe les variations non expliquées.
 
 Or, dans le réseau initial, on n'observe que deux associations :
 
@@ -169,44 +169,17 @@ Or, dans le réseau initial, on n'observe que deux associations :
 
 <figure class="design-figure initial-design">
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan de mesure initial : chaque bâtiment est toujours associé au même capteur">
-<svg viewBox="0 0 720 245" role="img" aria-labelledby="initial-design-title initial-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="initial-design-title">Le bâtiment et le capteur sont parfaitement confondus</title>
-  <desc id="initial-design-desc">Deux associations seulement sont observées : le bâtiment A avec le capteur S1, et le bâtiment B avec le capteur S2. Les associations A-S2 et B-S1 manquent ; il est donc impossible de séparer les effets du bâtiment et du capteur.</desc>
-  <rect x="1" y="1" width="718" height="243" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g font-family="sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#0f172a">
-    <text x="180" y="38">Bâtiments</text><text x="540" y="38">Capteurs</text>
-  </g>
-  <g stroke="#94a3b8" stroke-width="2" fill="#ffffff">
-    <rect x="70" y="65" width="220" height="58" rx="9"/><rect x="70" y="151" width="220" height="58" rx="9"/>
-    <rect x="430" y="65" width="220" height="58" rx="9"/><rect x="430" y="151" width="220" height="58" rx="9"/>
-  </g>
-  <g font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle" fill="#0f172a">
-    <text x="180" y="100">Bâtiment A</text><text x="180" y="186">Bâtiment B</text>
-    <text x="540" y="100">Capteur S1</text><text x="540" y="186">Capteur S2</text>
-  </g>
-  <g stroke="#0f766e" stroke-width="5" fill="none" stroke-linecap="round">
-    <path d="M290 94 C340 94 380 94 430 94"/><path d="M290 180 C340 180 380 180 430 180"/>
-  </g>
-  <g font-family="sans-serif" font-size="12" fill="#0f766e" font-weight="700" text-anchor="middle">
-    <text x="360" y="81">observé</text><text x="360" y="167">observé</text>
-  </g>
-  <g stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 5" fill="none">
-    <path d="M290 94 C340 120 380 154 430 180"/><path d="M290 180 C340 154 380 120 430 94"/>
-  </g>
-  <g font-family="sans-serif" font-size="11" fill="#92400e" text-anchor="middle">
-    <text x="360" y="225">Comparaisons croisées absentes</text>
-  </g>
-</svg>
+<img src="../images/jour-01-plan-initial.svg" alt="Deux associations seulement sont observées : le bâtiment A avec le capteur S1, et le bâtiment B avec le capteur S2. Les associations A-S2 et B-S1 manquent ; il est donc impossible de séparer les effets du bâtiment et du capteur.">
 </div>
 <figcaption>Schéma du plan de collecte, pas de mesures supplémentaires : les deux associations observées suivent toujours la même diagonale. Les deux autres combinaisons n'ont jamais été mesurées.</figcaption>
 </figure>
 
 La différence observée vaut −0,5 °C pour B par rapport à A. Mais, dans le modèle, elle correspond à :
 
-\[
+$
 Y_{B,S2}-Y_{A,S1}
 = (\alpha_B-\alpha_A)+(\beta_{S2}-\beta_{S1})+\text{résidu}.
-\]
+$
 
 Une seule différence mélange donc deux effets inconnus : celui du bâtiment et celui du capteur. Les données ne disent pas quelle part revient à chacun.
 
@@ -214,32 +187,32 @@ Ce n'est pas un manque de puissance statistique. C'est un problème d'**identifi
 
 On peut le voir dans la matrice du modèle. En prenant A et S1 comme références, les colonnes représentent l'intercept, l'indicateur « bâtiment B » et l'indicateur « capteur S2 ». Le plan initial ne fournit que :
 
-\[
+$
 X_{\text{initial}} =
 \begin{bmatrix}
 1 & 0 & 0 \\
 1 & 1 & 1
 \end{bmatrix}.
-\]
+$
 
 Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
 
-On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de \(\delta\) et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
+On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de $\delta$ et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
 
-\[
+$
 (\alpha_B+\delta)+(\beta_{S2}-\delta)
 =\alpha_B+\beta_{S2}.
-\]
+$
 
 Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas que l'estimation serait simplement imprécise : les paramètres ne sont pas séparément déterminés par ces données.
 
 Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
 
 <details class="story-pause">
-  <summary>Avant de découvrir le nouveau plan : quelles mesures manquent ?</summary>
-  <div class="pause-content">
-    <p>Il faut compléter les deux cases absentes : mesurer A avec S2 et B avec S1. Ces deux comparaisons permettent de changer de capteur sans changer de bâtiment, puis de changer de bâtiment sans changer de capteur.</p>
-  </div>
+<summary>Avant de découvrir le nouveau plan : quelles mesures manquent ?</summary>
+<div class="pause-content">
+<p>Il faut compléter les deux cases absentes : mesurer A avec S2 et B avec S1. Ces deux comparaisons permettent de changer de capteur sans changer de bâtiment, puis de changer de bâtiment sans changer de capteur.</p>
+</div>
 </details>
 
 ## Le croisement change la question — et renverse la conclusion
@@ -253,27 +226,7 @@ Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dan
 
 <figure class="design-figure crossed-design">
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan croisé : chaque capteur mesure chaque bâtiment">
-<svg viewBox="0 0 720 285" role="img" aria-labelledby="cross-design-title cross-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <title id="cross-design-title">Le plan croisé observe les quatre combinaisons bâtiment-capteur</title>
-  <desc id="cross-design-desc">Une grille à deux lignes et deux colonnes contient les quatre mesures : bâtiment A avec S1, bâtiment A avec S2, bâtiment B avec S1 et bâtiment B avec S2. Les comparaisons à bâtiment constant isolent le contraste entre capteurs ; celles à capteur constant isolent le contraste entre bâtiments, sous le modèle additif.</desc>
-  <rect x="1" y="1" width="718" height="283" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
-  <g font-family="sans-serif" font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">
-    <text x="180" y="38">Capteur S1</text><text x="450" y="38">Capteur S2</text>
-    <text x="64" y="112">Bâtiment A</text><text x="64" y="208">Bâtiment B</text>
-  </g>
-  <g stroke="#cbd5e1" stroke-width="1.5">
-    <rect x="120" y="55" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="55" width="250" height="70" rx="8" fill="#ffffff"/>
-    <rect x="120" y="151" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="151" width="250" height="70" rx="8" fill="#ffffff"/>
-  </g>
-  <g font-family="sans-serif" font-size="22" font-weight="700" text-anchor="middle">
-    <text x="245" y="99" fill="#0f766e">20,0 °C</text><text x="515" y="99" fill="#7c3aed">19,0 °C</text>
-    <text x="245" y="195" fill="#0f766e">20,5 °C</text><text x="515" y="195" fill="#7c3aed">19,5 °C</text>
-  </g>
-  <g font-family="sans-serif" font-size="12" fill="#334155" text-anchor="middle">
-    <text x="360" y="250">Chaque ligne compare les capteurs à bâtiment constant.</text>
-    <text x="360" y="270">Chaque colonne compare les bâtiments à capteur constant.</text>
-  </g>
-</svg>
+<img src="../images/jour-01-plan-croise.svg" alt="Une grille à deux lignes et deux colonnes contient les quatre mesures : bâtiment A avec S1, bâtiment A avec S2, bâtiment B avec S1 et bâtiment B avec S2. Les comparaisons à bâtiment constant isolent le contraste entre capteurs ; celles à capteur constant isolent le contraste entre bâtiments, sous le modèle additif.">
 </div>
 <figcaption>Les quatre cases sont maintenant observées. Les contrastes par ligne et par colonne apportent les comparaisons qui manquaient au plan initial ; leur interprétation comme effets principaux suppose l'additivité du modèle.</figcaption>
 </figure>
@@ -284,19 +237,19 @@ Les comparaisons peuvent maintenant être faites à bâtiment constant ou à cap
 - **À capteur constant** : B est 0,5 °C plus chaud que A, avec chacun des capteurs.
 
 <div class="contrast-board" role="group" aria-label="Contrastes calculés à partir des quatre mesures croisées">
-  <div class="contrast-heading"><span class="eyebrow">LES QUATRE COMPARAISONS QUI DÉBLOQUENT L'ANALYSE</span><p>Chaque contraste maintient une dimension constante pendant que l'autre varie.</p></div>
-  <div class="contrast-grid">
-    <div class="contrast-card sensor-contrast"><span>À bâtiment A constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
-    <div class="contrast-card sensor-contrast"><span>À bâtiment B constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
-    <div class="contrast-card building-contrast"><span>Avec le capteur S1</span><strong>+0,5 °C</strong><small>B − A</small></div>
-    <div class="contrast-card building-contrast"><span>Avec le capteur S2</span><strong>+0,5 °C</strong><small>B − A</small></div>
-  </div>
-  <div class="contrast-interpretation"><strong>Les deux contrastes se reproduisent.</strong> C'est la signature attendue d'un modèle additif dans cet exemple construit ; ce n'est pas encore une preuve générale d'absence d'interaction.</div>
+<div class="contrast-heading"><span class="eyebrow">LES QUATRE COMPARAISONS QUI DÉBLOQUENT L'ANALYSE</span><p>Chaque contraste maintient une dimension constante pendant que l'autre varie.</p></div>
+<div class="contrast-grid">
+<div class="contrast-card sensor-contrast"><span>À bâtiment A constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
+<div class="contrast-card sensor-contrast"><span>À bâtiment B constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
+<div class="contrast-card building-contrast"><span>Avec le capteur S1</span><strong>+0,5 °C</strong><small>B − A</small></div>
+<div class="contrast-card building-contrast"><span>Avec le capteur S2</span><strong>+0,5 °C</strong><small>B − A</small></div>
+</div>
+<div class="contrast-interpretation"><strong>Les deux contrastes se reproduisent.</strong> C'est la signature attendue d'un modèle additif dans cet exemple construit ; ce n'est pas encore une preuve générale d'absence d'interaction.</div>
 </div>
 
 Avec le même codage que précédemment, la matrice du plan croisé devient :
 
-\[
+$
 X_{\text{croisé}} =
 \begin{bmatrix}
 1 & 0 & 0 \\
@@ -304,30 +257,30 @@ X_{\text{croisé}} =
 1 & 1 & 0 \\
 1 & 1 & 1
 \end{bmatrix}.
-\]
+$
 
 Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif. **Identifiable ne signifie toutefois ni exact ni précis** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes d'incertitude, de biais résiduel ou de défaut de protocole.
 
 Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
 
-\[
+$
 \underbrace{19{,}5-20{,}0}_{-0{,}5\;\text{°C observé}}
 =
 \underbrace{(20{,}5-20{,}0)}_{+0{,}5\;\text{°C bâtiment}}
 +
 \underbrace{(19{,}5-20{,}5)}_{-1{,}0\;\text{°C capteur}}.
-\]
+$
 
-Autrement dit, \(-0{,}5 = +0{,}5 - 1{,}0\). Le bâtiment B est plus chaud de 0,5 °C dans cet exemple, mais son capteur indique 1 °C de moins. C'est cette contribution instrumentale qui inverse le signe de la comparaison naïve.
+Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 °C dans cet exemple, mais son capteur indique 1 °C de moins. C'est cette contribution instrumentale qui inverse le signe de la comparaison naïve.
 
 <figure class="reversal-figure">
-  <span class="eyebrow">LE RENVERSEMENT</span>
-  <div class="reversal-grid">
-    <div class="reversal-side naive"><span>Lecture initiale</span><strong>−0,5 °C</strong><p>B semble plus froid</p></div>
-    <div class="reversal-arrow" aria-hidden="true">→</div>
-    <div class="reversal-side corrected"><span>Après séparation des effets</span><strong>+0,5 °C</strong><p>B est plus chaud dans l'exemple</p></div>
-  </div>
-  <figcaption>La conclusion change de signe quand on distingue l'effet du bâtiment du décalage du capteur. Ce n'est pas le modèle qui a changé : c'est l'information disponible.</figcaption>
+<span class="eyebrow">LE RENVERSEMENT</span>
+<div class="reversal-grid">
+<div class="reversal-side naive"><span>Lecture initiale</span><strong>−0,5 °C</strong><p>B semble plus froid</p></div>
+<div class="reversal-arrow" aria-hidden="true">→</div>
+<div class="reversal-side corrected"><span>Après séparation des effets</span><strong>+0,5 °C</strong><p>B est plus chaud dans l'exemple</p></div>
+</div>
+<figcaption>La conclusion change de signe quand on distingue l'effet du bâtiment du décalage du capteur. Ce n'est pas le modèle qui a changé : c'est l'information disponible.</figcaption>
 </figure>
 
 Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Sous le modèle additif, le plan croisé attribue au contraire au bâtiment B un contraste de +0,5 °C par rapport à A. **Le décalage du capteur a inversé le signe de la conclusion.**
@@ -336,30 +289,30 @@ Le croisement rend les effets principaux identifiables sous une hypothèse : le 
 
 Une manière de rendre cette hypothèse visible consiste à comparer les écarts entre capteurs dans chaque bâtiment. Ici :
 
-\[
+$
 \begin{aligned}
 \Delta_{A} &= 19{,}0-20{,}0=-1{,}0\;^\circ\mathrm C,\\
 \Delta_{B} &= 19{,}5-20{,}5=-1{,}0\;^\circ\mathrm C.
 \end{aligned}
-\]
+$
 
 L'écart entre ces deux écarts — une différence de différences — vaut zéro dans le tableau construit. C'est ce que prédit le modèle sans interaction. Si les deux écarts différaient, cela pourrait signaler une interaction capteur × bâtiment, mais aussi du bruit de mesure ou une variation des conditions entre les relevés.
 
 Cette hypothèse doit donc être examinée, et non simplement postulée. Le montage, l'humidité, le rayonnement ou les conditions locales peuvent modifier différemment la réponse d'un capteur selon le site. **Avec une seule valeur par combinaison, on ne peut pas distinguer une interaction réelle de la variabilité aléatoire** : il faut des répétitions par combinaison pour estimer cette variabilité et évaluer les écarts au modèle additif. Le tableau illustre l'identification des effets principaux sous hypothèse ; il ne constitue pas une validation complète du modèle.
 
 <div class="interaction-warning">
-  <span class="eyebrow">LE POINT DE VIGILANCE</span>
-  <strong>Un plan croisé rend les effets principaux séparables ; il ne garantit pas que le modèle additif est vrai.</strong>
-  <p>Si l'écart entre capteurs dépend du bâtiment, il existe une interaction capteur × bâtiment. Une seule observation par case ne permet pas de distinguer cette interaction du bruit. Il faut répéter les quatre combinaisons et contrôler les conditions expérimentales.</p>
+<span class="eyebrow">LE POINT DE VIGILANCE</span>
+<strong>Un plan croisé rend les effets principaux séparables ; il ne garantit pas que le modèle additif est vrai.</strong>
+<p>Si l'écart entre capteurs dépend du bâtiment, il existe une interaction capteur × bâtiment. Une seule observation par case ne permet pas de distinguer cette interaction du bruit. Il faut répéter les quatre combinaisons et contrôler les conditions expérimentales.</p>
 </div>
 
 En pratique, un plan croisé n'est informatif que si les conditions de comparaison sont maîtrisées. Il faut notamment :
 
 <ol class="field-protocol">
-  <li><strong>Créer le recouvrement.</strong><span>Mesurer les deux capteurs dans chaque bâtiment, sur des périodes aussi comparables que possible.</span></li>
-  <li><strong>Neutraliser le temps.</strong><span>Synchroniser les relevés ou utiliser une référence commune ; randomiser ou alterner l'ordre des capteurs.</span></li>
-  <li><strong>Stabiliser les conditions.</strong><span>Contrôler emplacement, orientation, temps de stabilisation et exposition au rayonnement.</span></li>
-  <li><strong>Quantifier la variabilité.</strong><span>Répéter les quatre combinaisons afin d'estimer la variabilité et de rechercher une interaction.</span></li>
+<li><strong>Créer le recouvrement.</strong><span>Mesurer les deux capteurs dans chaque bâtiment, sur des périodes aussi comparables que possible.</span></li>
+<li><strong>Neutraliser le temps.</strong><span>Synchroniser les relevés ou utiliser une référence commune ; randomiser ou alterner l'ordre des capteurs.</span></li>
+<li><strong>Stabiliser les conditions.</strong><span>Contrôler emplacement, orientation, temps de stabilisation et exposition au rayonnement.</span></li>
+<li><strong>Quantifier la variabilité.</strong><span>Répéter les quatre combinaisons afin d'estimer la variabilité et de rechercher une interaction.</span></li>
 </ol>
 
 Si les capteurs ne peuvent pas être déplacés, un dispositif de transfert ou une référence commune peut créer le recouvrement nécessaire. Un croisement mal contrôlé ne résout pas le problème ; il le déplace.
@@ -395,14 +348,14 @@ Si la réponse est non, le problème doit être traité au niveau de la collecte
 Le modèle n'avait pas « mal calculé ». Il avait répondu à une question que le plan de mesure ne permettait pas de trancher. La faiblesse se trouvait en amont de l'algorithme.
 
 <div class="story-conclusion">
-  <span class="eyebrow">À EMPORTER</span>
-  <p class="conclusion-line">La quantité de données ne remplace pas l'information apportée par un bon plan de mesure.</p>
-  <ul>
-    <li>Une faible dispersion ne garantit pas la proximité avec la valeur recherchée.</li>
-    <li>Répéter les mêmes associations ne sépare pas des effets confondus.</li>
-    <li>Un plan croisé apporte les comparaisons manquantes, sous les hypothèses du modèle.</li>
-    <li>L'identifiabilité est une propriété du couple <em>modèle + plan de collecte</em>, pas une qualité que l'on ajoute après coup avec un algorithme plus complexe.</li>
-  </ul>
+<span class="eyebrow">À EMPORTER</span>
+<p class="conclusion-line">La quantité de données ne remplace pas l'information apportée par un bon plan de mesure.</p>
+<ul>
+<li>Une faible dispersion ne garantit pas la proximité avec la valeur recherchée.</li>
+<li>Répéter les mêmes associations ne sépare pas des effets confondus.</li>
+<li>Un plan croisé apporte les comparaisons manquantes, sous les hypothèses du modèle.</li>
+<li>L'identifiabilité est une propriété du couple <em>modèle + plan de collecte</em>, pas une qualité que l'on ajoute après coup avec un algorithme plus complexe.</li>
+</ul>
 </div>
 
 ## Références et approfondissements
