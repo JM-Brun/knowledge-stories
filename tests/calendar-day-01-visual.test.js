@@ -56,3 +56,12 @@ test("article prose and visual blocks share one responsive reading measure", () 
   assert.match(styles, /main\.content\s+:where\(p,\s*li,\s*blockquote\)[\s\S]*?max-width:\s*var\(--article-reading-measure\)/);
   assert.match(styles, /@media\s*\(max-width:\s*700px\)[\s\S]*?--article-reading-measure:\s*100%/);
 });
+
+test("the article explains the initial rank and distinguishes structural from causal confusion", () => {
+  assert.match(article, /rang de cette matrice vaut 2/);
+  assert.match(article, /Son rang vaut 3/);
+  assert.match(article, /colinéarité parfaite/);
+  assert.match(article, /pas une conclusion causale sur le bâtiment/);
+  assert.match(article, /2\.41\.html/);
+  assert.doesNotMatch(article, /précision|précis/);
+});
