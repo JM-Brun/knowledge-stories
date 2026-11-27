@@ -368,7 +368,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 #quarto-content .story-hero-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
 #quarto-content .eyebrow,.story-hero .eyebrow {
-  color:#718076; font:700 .64rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:#596b5e; font:700 .64rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
   letter-spacing:.13em;
 }
 #quarto-content .status-pill {
@@ -970,7 +970,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 
 
-#quarto-content figure.calibration-figure {
+#quarto-content figure.comparison-figure {
   max-width:66rem;
   margin:1.35rem 0 1.8rem;
   padding:.8rem .9rem .65rem;
@@ -979,16 +979,16 @@ main.content, #quarto-content main { max-width: 76rem; }
   border-radius:9px;
   background:linear-gradient(145deg,#fffefa,#f4f2e9);
 }
-#quarto-content figure.calibration-figure img {
+#quarto-content figure.comparison-figure img {
   display:block;
   width:100%;
   height:auto;
 }
-#quarto-content figure.calibration-figure figcaption {
+#quarto-content figure.comparison-figure figcaption {
   margin:.65rem .2rem .1rem;
 }
 @media(max-width:700px) {
-  #quarto-content figure.calibration-figure .diagram-scroll img { min-width:620px; }
+  #quarto-content figure.comparison-figure .diagram-scroll img { min-width:620px; }
 }
 
 
