@@ -440,7 +440,7 @@ Le théorème maître permet de retrouver le résultat sans redessiner l’arbre
 T(n)=aT(n/2)+O(n),\qquad T(1)=&#92;Theta(1),
 &#92;]
 
-avec &#92;(n=2^k&#92;), un nombre constant &#92;(a&#92;) de sous-problèmes de taille exactement &#92;(n/2&#92;), et un travail local linéaire au plus. Pour les deux algorithmes comparés, &#92;(a&#92;) vaut 3 ou 4. Dans ces deux cas, &#92;(p=&#92;log_2 a>1&#92;) ; on peut donc choisir &#92;(&#92;varepsilon=p-1>0&#92;) et constater que &#92;(O(n)=O(n^{p-&#92;varepsilon})&#92;). Le premier cas du théorème maître donne alors la borne supérieure &#92;(O(n^p)&#92;).
+avec &#92;(n=2^k&#92;), un nombre constant &#92;(a&#92;) de sous-problèmes de taille exactement &#92;(n/2&#92;), et un travail local linéaire au plus. Pour les deux algorithmes comparés, &#92;(a&#92;) vaut 3 ou 4. Dans ces deux cas, &#92;(p=&#92;log_2 a>1&#92;) ; on peut donc choisir &#92;(&#92;varepsilon=p-1>0&#92;) et constater que &#92;(O(n)=O(n^&#123;p-&#92;varepsilon&#125;)&#92;). Le premier cas du théorème maître donne alors la borne supérieure &#92;(O(n^p)&#92;).
 
 - Pour Karatsuba, &#92;(a=3&#92;), donc &#92;(p=&#92;log_2 3&#92;) et &#92;(T(n)=O(n^&#123;&#92;log_2 3&#125;)&#92;).
 - Pour la méthode classique, &#92;(a=4&#92;), donc &#92;(p=2&#92;) et &#92;(T(n)=O(n^2)&#92;).
