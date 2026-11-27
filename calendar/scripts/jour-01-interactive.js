@@ -28,8 +28,6 @@ export const calculateObservedContrast = (buildingEffect, sensorEffect) =>
       status.textContent = Math.abs(observed + 0.5) < 0.001
         ? "Même signal observé que dans l'enquête : −0,5 °C. Pourtant, les deux contributions peuvent être différentes."
         : "Le signal observé change. Essayez plusieurs répartitions entre effet du bâtiment et effet du capteur.";
-      lab.style.setProperty("--building-share", Math.min(100, Math.abs(buildingEffect) / 2 * 100) + "%");
-      lab.style.setProperty("--sensor-share", Math.min(100, Math.abs(sensorEffect) / 2 * 100) + "%");
     };
 
     lab.querySelectorAll("input[type=range]").forEach((input) => input.addEventListener("input", update));
