@@ -91,12 +91,16 @@ En évaluant en &#92;(x=100&#92;), on retrouve bien &#92;(1&#92;,234&#92;times5&
 
 Le développement direct calcule quatre produits de blocs : &#92;(12&#92;times56&#92;), &#92;(12&#92;times78&#92;), &#92;(34&#92;times56&#92;) et &#92;(34&#92;times78&#92;). Karatsuba remarque qu'il suffit de trois produits :
 
+<div className="karatsuba-color-scope">
+
 &#92;[
 <span class="term-common">&#92;(u=12&#92;times56&#92;)</span>, &#92;quad <span class="term-common">&#92;(v=34&#92;times78&#92;)</span>, &#92;quad
 <span class="term-aux">&#92;(w=(12+34)(56+78)&#92;)</span>.
 &#92;]
 
 Le coefficient croisé est alors <span class="term-cross">&#92;(w-u-v&#92;)</span>. C'est exactement le produit de deux polynômes de degré 1 reconstruit à partir de trois évaluations : en 0, en 1 et au point « infini » (qui donne le coefficient dominant). Karatsuba est donc déjà une petite méthode d'évaluation–interpolation.
+
+</div>
 
 ### 2.2 Toom–Cook à trois blocs : de neuf produits à cinq
 
