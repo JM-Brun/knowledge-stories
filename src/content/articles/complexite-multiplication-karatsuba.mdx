@@ -85,17 +85,28 @@ Avec une coupure après quatre chiffres, on obtient :
 
 L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse est **la structure des trois appels** créés par l'appel courant.
 
+<div className="call-trace-table" role="group" aria-label="Les trois sous-multiplications de Karatsuba">
+
 | Appel récursif | Opération | Tailles des opérandes |
 |---|---|---:|
-| &#92;(p=ac&#92;) | &#92;(1&#92;,234&#92;times8&#92;,765&#92;) | 4 × 4 chiffres |
-| &#92;(q=bd&#92;) | &#92;(5&#92;,678&#92;times4&#92;,321&#92;) | 4 × 4 chiffres |
-| &#92;(r=(a+b)(c+d)&#92;) | &#92;(6&#92;,912&#92;times13&#92;,086&#92;) | 4 × 5 chiffres |
+| <span className="term-common">\(p=ac\)</span> | <span className="term-common">\(1\,234\times8\,765\)</span> | 4 × 4 chiffres |
+| <span className="term-common">\(q=bd\)</span> | <span className="term-common">\(5\,678\times4\,321\)</span> | 4 × 4 chiffres |
+| <span className="term-aux">\(r=(a+b)(c+d)\)</span> | <span className="term-aux">\(6\,912\times13\,086\)</span> | 4 × 5 chiffres |
+
+</div>
 
 Le troisième appel est légèrement plus grand : &#92;(c+d=13&#92;,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
 
-&#92;[
-T(8)=T(4)+T(4)+T(5)+O(8).
-&#92;]
+<div className="math-display math-display--key call-trace-recurrence" role="math" aria-label="T de 8 égale le coût du produit p plus le coût du produit q plus le coût du produit auxiliaire r plus le travail local">
+  <div className="math-line">
+    \(T(8)=\)
+    <span className="term-common">\(T_p(4)\)</span>
+    + <span className="term-common">\(T_q(4)\)</span>
+    + <span className="term-aux">\(T_r(5)\)</span>
+    + \(O(8)\)
+  </div>
+  <p className="call-trace-note">Deux produits diagonaux en vert, le produit auxiliaire en violet ; le travail local reste neutre.</p>
+</div>
 
 Les trois tailles 4, 4 et 5 sont toutes égales à &#92;(8/2+O(1)&#92;). À l'échelle asymptotique, cette différence d'un chiffre conduit au modèle équilibré &#92;(T(n)=3T(n/2)+O(n)&#92;), que nous allons justifier puis résoudre.
 
