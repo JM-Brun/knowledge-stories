@@ -490,3 +490,42 @@
 :is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-common { color: var(--term-common); }
 :is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-cross { color: var(--term-cross); }
 :is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-aux { color: var(--term-aux); }
+
+
+/* Multiplication series: algorithm-family colors are distinct from Karatsuba's
+   algebraic-role colors (diagonal, crossed and auxiliary products). */
+.story-page:has(.multiplication-method-map),
+.review-page:has(.multiplication-method-map) {
+  --method-karatsuba: #52627a;
+  --method-karatsuba-soft: #edf0f4;
+  --method-toom: #006f6b;
+  --method-toom-soft: #e5f2f0;
+  --method-fft: #3568a8;
+  --method-fft-soft: #eaf0f8;
+  --method-ss: #925400;
+  --method-ss-soft: #f7eee1;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-karatsuba {
+  color: var(--method-karatsuba);
+  font-weight: 700;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-toom {
+  color: var(--method-toom);
+  font-weight: 700;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-fft {
+  color: var(--method-fft);
+  font-weight: 700;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-ss {
+  color: var(--method-ss);
+  font-weight: 700;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-frontier {
+  color: #55564f;
+  font-weight: 700;
+}
+:is(.story-page, .review-page):has(.multiplication-method-map) .prose .method-legend-note {
+  color: #666258;
+  font-size: .86em;
+}
