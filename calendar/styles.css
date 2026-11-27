@@ -968,3 +968,25 @@ main.content, #quarto-content main { max-width: 76rem; }
 @media(prefers-reduced-motion:reduce) {
   #quarto-content .story-route a { transition:none; }
 }
+
+
+#quarto-content figure.calibration-figure {
+  max-width:66rem;
+  margin:1.35rem 0 1.8rem;
+  padding:.8rem .9rem .65rem;
+  border:1px solid #d8e0d7;
+  border-top:3px solid #b68b4f;
+  border-radius:9px;
+  background:linear-gradient(145deg,#fffefa,#f4f2e9);
+}
+#quarto-content figure.calibration-figure img {
+  display:block;
+  width:100%;
+  height:auto;
+}
+#quarto-content figure.calibration-figure figcaption {
+  margin:.65rem .2rem .1rem;
+}
+@media(max-width:700px) {
+  #quarto-content figure.calibration-figure .diagram-scroll img { min-width:620px; }
+}
