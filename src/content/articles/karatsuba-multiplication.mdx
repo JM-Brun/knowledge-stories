@@ -223,9 +223,11 @@ def karatsuba(x: int, y: int) -> int:
 
 **Contrôle de cohérence du pseudo-code.** Les deux produits diagonaux doivent être <span class="term-common">&#92;(ac&#92;)</span> et <span class="term-common">&#92;(bd&#92;)</span>, puis le produit auxiliaire doit être <span class="term-aux">&#92;((a+b)(c+d)&#92;)</span>. Si l'on remplaçait par erreur le second produit <span class="term-common">&#92;(bd&#92;)</span> par <span class="term-cross">&#92;(ad&#92;)</span>, la soustraction donnerait :
 
-&#92;[
-(a+b)(c+d)-ac-ad=bc+bd,
-&#92;]
+<div className="math-display math-display--compact" role="math" aria-label="La soustraction incorrecte donne bc plus bd au lieu de ad plus bc">
+  <div className="math-line">
+    <span className="term-aux">&#92;((a+b)(c+d)&#92;)</span> − <span className="term-common">&#92;(ac&#92;)</span> − <span className="term-cross">&#92;(ad&#92;)</span> = <span className="term-cross">&#92;(bc&#92;)</span> + <span className="term-common">&#92;(bd&#92;)</span>
+  </div>
+</div>
 
 et non le terme croisé recherché <span class="term-cross">&#92;(ad+bc&#92;)</span>. Une diapositive de la présentation CS4102 consultée pour cet article présente précisément cette incohérence entre son pseudo-code et sa formule. Le code ci-dessus utilise bien &#92;(bd&#92;) ; cette vérification rappelle qu'un pseudo-code doit être contrôlé contre l'identité qu'il prétend implémenter.
 
