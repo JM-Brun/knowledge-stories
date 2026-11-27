@@ -125,4 +125,8 @@ test("the final two series articles retain the Karatsuba semantic palette", () =
   assert.ok(fft.includes('<span className="term-common">quatre</span>'));
   assert.ok(frontier.includes('className="karatsuba-color-scope"'));
   assert.ok(frontier.includes(String.raw`<span className="term-aux">&#92;((a+b)(c+d)&#92;)</span>`));
+  assert.ok(frontier.includes(String.raw`T(n)=n(1+&#92;log n)^{1/2+o(1)}`));
+  assert.ok(frontier.includes("variable-count Weak ETH"));
+  assert.ok(frontier.includes("lean/docs/109.md"));
+  assert.ok(frontier.includes("readingTime: 11"));
 });
