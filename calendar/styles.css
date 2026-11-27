@@ -385,7 +385,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 #quarto-content .story-building.flagged { border-color:#dfc7b2; background:#fffaf5; }
 #quarto-content .building-label {
-  color:#718076; font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em;
+  color:#596b5e; font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em;
 }
 #quarto-content .story-building strong {
   color:#244637; font:600 clamp(2rem,5vw,3.2rem)/1.05 Georgia,serif; letter-spacing:-.055em;
@@ -415,7 +415,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content .story-question p { margin:.2rem 0 0; color:#64736a; font-size:.9rem; }
 #quarto-content .editorial-note {
   max-width:76ch; margin:1.2rem 0; padding:.55rem .8rem;
-  border-left:2px solid #c99a58; color:#68766d; font-size:.82rem;
+  border-left:2px solid #c99a58; color:#526359; font-size:.82rem;
 }
 #quarto-content .sensor-reading {
   display:block; margin:.25rem 0 .55rem; color:#294b3a;
@@ -841,7 +841,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   font-variant-numeric:tabular-nums;
 }
 #quarto-content .measurement-control small {
-  color:#718076;
+  color:#596b5e;
   font-size:.73rem;
   line-height:1.4;
 }
@@ -873,7 +873,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   background:#fff;
 }
 #quarto-content .measurement-equation > div > span {
-  color:#718076;
+  color:#596b5e;
   font-size:.68rem;
   line-height:1.35;
 }
