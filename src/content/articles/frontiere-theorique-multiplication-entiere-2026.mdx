@@ -108,7 +108,9 @@ Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comp
 
 ## 3. Pour vérifier que l'on a compris
 
-1. **Karatsuba.** Pourquoi le calcul de &#92;((a+b)(c+d)&#92;) permet-il de retrouver les deux termes croisés sans les calculer séparément ?
+<div className="karatsuba-color-scope">
+
+1. **Karatsuba.** Pourquoi le calcul de <span className="term-aux">&#92;((a+b)(c+d)&#92;)</span> permet-il de retrouver les deux termes croisés sans les calculer séparément ?
 2. **Toom–3.** Pourquoi le produit de deux polynômes de degré 2 nécessite-t-il cinq évaluations, et non trois ?
 3. **Interpolation.** À quoi servent les évaluations en &#92;(1&#92;) et &#92;(-1&#92;) dans la reconstruction des coefficients ?
 4. **FFT.** Pourquoi faut-il compléter les suites par des zéros avant d'appliquer une DFT pour multiplier deux polynômes ?
@@ -116,6 +118,9 @@ Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comp
 6. **Complexité.** Pourquoi une méthode asymptotiquement meilleure peut-elle être plus lente sur des opérandes de taille modérée ?
 7. **Transformée inverse.** Quelle propriété des racines de l'unité permet-elle d'annuler les termes correspondant à &#92;(&#92;ell&#92;ne j&#92;) ? Pourquoi faut-il que la longueur de transformée soit inversible dans l'anneau ?
 8. **Toom–3.** Pourquoi les divisions par 2 et par 3 de l'interpolation donnent-elles des entiers, même si l'on travaille sur des coefficients quelconques dans &#92;(\mathbb Z&#92;) ?
+
+
+</div>
 
 Une bonne réponse ne consiste pas seulement à réciter les formules : elle doit identifier la représentation utilisée, le coût dominant et les hypothèses nécessaires.
 
