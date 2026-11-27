@@ -20,7 +20,7 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
 
   <div class="lab-inputs">
     <label>Premier entier
-      <input data-number="x" type="text" inputmode="numeric" value="1234" maxlength="35" autocomplete="off" disabled aria-describedby="lab-input-help" />
+      <input data-number="x" type="text" inputmode="numeric" value="1234" maxlength="18" autocomplete="off" disabled aria-describedby="lab-input-help" />
     </label>
     <span class="lab-times" aria-hidden="true">×</span>
     <label>Second entier
@@ -66,7 +66,7 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
         <p>Chaque ligne indique les opérandes d’un appel au niveau suivant et le produit que cet appel doit renvoyer.</p>
         <ol class="subproblems">
           {exampleCalls.map(({ left, right, product, digits }, index) => (
-            <li>
+            <li class={index === 2 ? "subproblem-aux" : "subproblem-common"}>
               <strong>{callLabels[index]}</strong>
               <span data-call>{format(left)} × {format(right)} = {format(product)}</span>
               <span class="call-size" data-call-size>{digits} chiffres pour le plus grand opérande</span>
@@ -210,6 +210,8 @@ const format = (value: bigint) => value.toLocaleString("fr-FR");
   .subproblems li { padding-right: .4rem; overflow-wrap: anywhere; }
   .subproblems :is(strong, span) { display: block; }
   .subproblems [data-call] { font: .83rem/1.55 var(--mono, monospace); }
+  .subproblem-common [data-call] { color: var(--term-common, #287a4b); font-weight: 650; }
+  .subproblem-aux [data-call] { color: var(--term-aux, #7651a6); font-weight: 650; }
   .call-size { color: var(--lab-muted); font-size: .8rem; }
   .lab-recursion p:not(.lab-footnote) { margin: 0; font-size: .88rem; line-height: 1.6; }
   .lab-result { display: grid; gap: .3rem; margin: 1.3rem 0; padding: 1rem 1.15rem; border-radius: .65rem; background: var(--ink, #252820); color: white; }
