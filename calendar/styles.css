@@ -439,7 +439,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content .difference-value {
   color:#fff; font:600 1.25rem Georgia,serif; font-variant-numeric:tabular-nums;
 }
-#quarto-content .sensor-showcase figcaption { color:#65736a; font-size:.83rem; line-height:1.55; }
+#quarto-content .sensor-showcase .sensor-caption { margin:.8rem .1rem .1rem; color:#65736a; font-size:.83rem; line-height:1.55; }
 #quarto-content .insight-figure {
   max-width:66rem; padding:1rem 1.1rem !important;
   background:linear-gradient(140deg,#fffefa,#f0f4ed) !important;
