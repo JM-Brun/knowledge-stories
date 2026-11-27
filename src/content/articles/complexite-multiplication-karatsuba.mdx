@@ -212,12 +212,12 @@ Reprenons la taille de huit chiffres de l’exemple précédent : &#92;(n=8=2^3&
 
 <div className="complexity-table-scroll">
 
-| Niveau | Taille des blocs | Appels classiques | Appels Karatsuba | Travail local classique | Travail local Karatsuba |
+| Niveau | Taille des blocs | <span class="term-common">Appels classiques</span> | <span class="term-aux">Appels Karatsuba</span> | <span class="term-common">Travail local classique</span> | <span class="term-aux">Travail local Karatsuba</span> |
 |---:|---:|---:|---:|---:|---:|
-| 0 | 8 | 1 | 1 | 8 unités | 8 unités |
-| 1 | 4 | 4 | 3 | 16 unités | 12 unités |
-| 2 | 2 | 16 | 9 | 32 unités | 18 unités |
-| 3 · feuilles | 1 | 64 | 27 | 64 produits | 27 produits |
+| 0 | 8 | <span class="term-common">1</span> | <span class="term-aux">1</span> | <span class="term-common">8 unités</span> | <span class="term-aux">8 unités</span> |
+| 1 | 4 | <span class="term-common">4</span> | <span class="term-aux">3</span> | <span class="term-common">16 unités</span> | <span class="term-aux">12 unités</span> |
+| 2 | 2 | <span class="term-common">16</span> | <span class="term-aux">9</span> | <span class="term-common">32 unités</span> | <span class="term-aux">18 unités</span> |
+| 3 · feuilles | 1 | <span class="term-common">64</span> | <span class="term-aux">27</span> | <span class="term-common">64 produits</span> | <span class="term-aux">27 produits</span> |
 
 </div>
 
@@ -420,9 +420,9 @@ Les feuilles donnent par ailleurs une borne inférieure <span class="term-common
 
 | Ce que l’on compte | <span class="term-common">Méthode classique</span> | <span class="term-aux">Karatsuba</span> |
 |---|---:|---:|
-| Sous-multiplications créées par appel | 4 | 3 |
-| Appels au niveau &#92;(j&#92;) | &#92;(4^j&#92;) | &#92;(3^j&#92;) |
-| Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^&#123;&#92;log_2 3&#125;&#92;) |
+| Sous-multiplications créées par appel | <span class="term-common">4</span> | <span class="term-aux">3</span> |
+| Appels au niveau &#92;(j&#92;) | <span class="term-common">&#92;(4^j&#92;)</span> | <span class="term-aux">&#92;(3^j&#92;)</span> |
+| Multiplications aux feuilles | <span class="term-common">&#92;(n^2&#92;)</span> | <span class="term-aux">&#92;(n^&#123;&#92;log_2 3&#125;&#92;)</span> |
 | Coût total | <span class="term-common">&#92;(&#92;Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(&#92;Theta(n^&#123;1&#123;,&#125;585&#125;)&#92;)</span> |
 
 </div>
