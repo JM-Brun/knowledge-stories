@@ -24,7 +24,7 @@ test("the interactive experiment exposes accessible controls and presets", () =>
 
 test("the story route and its four destinations are present", () => {
   for (const id of ["premier-signal", "verification-capteurs", "confusion-effets", "plan-croise"]) {
-    assert.match(article, new RegExp(`id="${id}"`));
+    assert.match(article, new RegExp(`\\{#${id}\\}`));
     assert.match(article, new RegExp(`href="#${id}"`));
   }
 });
