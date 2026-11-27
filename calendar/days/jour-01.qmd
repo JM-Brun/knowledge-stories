@@ -42,6 +42,18 @@ Le modèle compare donc deux choses à la fois :
 
 <div class="story-question"><span class="story-question-mark">?</span><div><strong>La décision est-elle justifiée ?</strong><p>Avant de modifier le chauffage, il faut comprendre ce que les capteurs ont réellement mesuré.</p></div></div>
 
+<details class="story-pause">
+  <summary>Faites une première hypothèse : d'où peut venir l'écart de 0,5 °C ?</summary>
+  <div class="pause-content">
+    <p>Deux explications sont compatibles avec ce premier constat :</p>
+    <ul>
+      <li>le bâtiment B est réellement plus froid ;</li>
+      <li>le capteur S2 indique une température plus basse que S1, même lorsqu'ils observent la même température.</li>
+    </ul>
+    <p>Les deux mécanismes peuvent aussi coexister. La suite de l'enquête doit produire une comparaison qui les distingue — pas simplement accumuler des relevés.</p>
+  </div>
+</details>
+
 <aside class="editorial-note">Les nombres de cette enquête sont construits pour illustrer le raisonnement ; ils ne proviennent pas d'une campagne de mesure réelle.</aside>
 
 ## Première vérification : les capteurs disent-ils la même chose dans les mêmes conditions ?
@@ -70,6 +82,14 @@ L'équipe place les deux capteurs côte à côte dans un environnement stabilis�
 </div>
 
 Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
+
+<div class="story-insight">
+  <span class="eyebrow">CE QUE L'ESSAI NOUS APPREND — ET CE QU'IL NE NOUS APPREND PAS</span>
+  <div class="insight-pair">
+    <div><strong class="insight-positive">Indice obtenu</strong><p>À température de référence et dans les conditions de cet essai, les indications de S2 sont inférieures d'environ 1 °C à celles de S1.</p></div>
+    <div><strong class="insight-caution">Question ouverte</strong><p>Nous n'avons pas encore mesuré les deux capteurs dans les bâtiments réels. L'écart observé ne suffit donc pas à corriger la comparaison entre A et B.</p></div>
+  </div>
+</div>
 
 Cette comparaison apporte un indice important, mais sa portée reste limitée :
 
@@ -115,6 +135,14 @@ Augmenter \(n\) réduit la variabilité de la moyenne sous ces hypothèses. Mais
 
 Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps peuvent être autocorrélées ; dans ce cas, la variance de la moyenne n'est généralement plus \(\sigma^2/n\). Cette limite rappelle qu'un grand nombre de lignes n'est pas nécessairement un grand nombre d'informations indépendantes.
 
+<details class="story-pause">
+  <summary>Expérience de pensée : que changent 1 000 répétitions de chaque mesure initiale ?</summary>
+  <div class="pause-content">
+    <p>Elles peuvent rendre les moyennes de A–S1 et B–S2 beaucoup plus stables. Mais elles ne produisent toujours aucune observation de A–S2 ni de B–S1.</p>
+    <p>La précision des deux moyennes augmente ; la confusion entre bâtiment et capteur demeure. La prochaine étape doit modifier les associations observées, pas seulement leur nombre.</p>
+  </div>
+</details>
+
 Mais le problème du réseau de capteurs est plus profond encore : même si chaque capteur fournissait des milliers de mesures très stables, pourrait-on séparer l'effet du bâtiment de celui du capteur ?
 
 ## Le vrai problème : deux effets parfaitement confondus
@@ -139,7 +167,7 @@ Or, dans le réseau initial, on n'observe que deux associations :
 | A | S1 | 20,0 °C |
 | B | S2 | 19,5 °C |
 
-<figure>
+<figure class="design-figure initial-design">
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan de mesure initial : chaque bâtiment est toujours associé au même capteur">
 <svg viewBox="0 0 720 245" role="img" aria-labelledby="initial-design-title initial-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="initial-design-title">Le bâtiment et le capteur sont parfaitement confondus</title>
@@ -207,6 +235,13 @@ Une infinité de couples d'effets explique donc exactement les mêmes observatio
 
 Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
 
+<details class="story-pause">
+  <summary>Avant de découvrir le nouveau plan : quelles mesures manquent ?</summary>
+  <div class="pause-content">
+    <p>Il faut compléter les deux cases absentes : mesurer A avec S2 et B avec S1. Ces deux comparaisons permettent de changer de capteur sans changer de bâtiment, puis de changer de bâtiment sans changer de capteur.</p>
+  </div>
+</details>
+
 ## Le croisement change la question — et renverse la conclusion
 
 Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dans des conditions comparables. On obtient alors ce plan croisé :
@@ -216,7 +251,7 @@ Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dan
 | A | 20,0 °C | 19,0 °C |
 | B | 20,5 °C | 19,5 °C |
 
-<figure>
+<figure class="design-figure crossed-design">
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan croisé : chaque capteur mesure chaque bâtiment">
 <svg viewBox="0 0 720 285" role="img" aria-labelledby="cross-design-title cross-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
   <title id="cross-design-title">Le plan croisé observe les quatre combinaisons bâtiment-capteur</title>
@@ -247,6 +282,17 @@ Les comparaisons peuvent maintenant être faites à bâtiment constant ou à cap
 
 - **À bâtiment constant** : S2 indique 1,0 °C de moins que S1, dans les deux bâtiments.
 - **À capteur constant** : B est 0,5 °C plus chaud que A, avec chacun des capteurs.
+
+<div class="contrast-board" role="group" aria-label="Contrastes calculés à partir des quatre mesures croisées">
+  <div class="contrast-heading"><span class="eyebrow">LES QUATRE COMPARAISONS QUI DÉBLOQUENT L'ANALYSE</span><p>Chaque contraste maintient une dimension constante pendant que l'autre varie.</p></div>
+  <div class="contrast-grid">
+    <div class="contrast-card sensor-contrast"><span>À bâtiment A constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
+    <div class="contrast-card sensor-contrast"><span>À bâtiment B constant</span><strong>−1,0 °C</strong><small>S2 − S1</small></div>
+    <div class="contrast-card building-contrast"><span>Avec le capteur S1</span><strong>+0,5 °C</strong><small>B − A</small></div>
+    <div class="contrast-card building-contrast"><span>Avec le capteur S2</span><strong>+0,5 °C</strong><small>B − A</small></div>
+  </div>
+  <div class="contrast-interpretation"><strong>Les deux contrastes se reproduisent.</strong> C'est la signature attendue d'un modèle additif dans cet exemple construit ; ce n'est pas encore une preuve générale d'absence d'interaction.</div>
+</div>
 
 Avec le même codage que précédemment, la matrice du plan croisé devient :
 
@@ -301,13 +347,20 @@ L'écart entre ces deux écarts — une différence de différences — vaut zé
 
 Cette hypothèse doit donc être examinée, et non simplement postulée. Le montage, l'humidité, le rayonnement ou les conditions locales peuvent modifier différemment la réponse d'un capteur selon le site. **Avec une seule valeur par combinaison, on ne peut pas distinguer une interaction réelle de la variabilité aléatoire** : il faut des répétitions par combinaison pour estimer cette variabilité et évaluer les écarts au modèle additif. Le tableau illustre l'identification des effets principaux sous hypothèse ; il ne constitue pas une validation complète du modèle.
 
+<div class="interaction-warning">
+  <span class="eyebrow">LE POINT DE VIGILANCE</span>
+  <strong>Un plan croisé rend les effets principaux séparables ; il ne garantit pas que le modèle additif est vrai.</strong>
+  <p>Si l'écart entre capteurs dépend du bâtiment, il existe une interaction capteur × bâtiment. Une seule observation par case ne permet pas de distinguer cette interaction du bruit. Il faut répéter les quatre combinaisons et contrôler les conditions expérimentales.</p>
+</div>
+
 En pratique, un plan croisé n'est informatif que si les conditions de comparaison sont maîtrisées. Il faut notamment :
 
-1. mesurer les deux capteurs dans chaque bâtiment, sur des périodes aussi comparables que possible ;
-2. synchroniser les relevés ou utiliser une référence commune pour tenir compte des variations temporelles ;
-3. randomiser ou alterner l'ordre des capteurs pour ne pas confondre leur effet avec l'heure de mesure ;
-4. contrôler emplacement, orientation, temps de stabilisation et exposition au rayonnement ;
-5. répéter les quatre combinaisons afin de quantifier la variabilité et de rechercher une interaction.
+<ol class="field-protocol">
+  <li><strong>Créer le recouvrement.</strong><span>Mesurer les deux capteurs dans chaque bâtiment, sur des périodes aussi comparables que possible.</span></li>
+  <li><strong>Neutraliser le temps.</strong><span>Synchroniser les relevés ou utiliser une référence commune ; randomiser ou alterner l'ordre des capteurs.</span></li>
+  <li><strong>Stabiliser les conditions.</strong><span>Contrôler emplacement, orientation, temps de stabilisation et exposition au rayonnement.</span></li>
+  <li><strong>Quantifier la variabilité.</strong><span>Répéter les quatre combinaisons afin d'estimer la variabilité et de rechercher une interaction.</span></li>
+</ol>
 
 Si les capteurs ne peuvent pas être déplacés, un dispositif de transfert ou une référence commune peut créer le recouvrement nécessaire. Un croisement mal contrôlé ne résout pas le problème ; il le déplace.
 
@@ -331,7 +384,9 @@ Dans cet exemple, trois stratégies ne sont pas équivalentes :
 2. **Complexifier le modèle** ne crée pas les comparaisons absentes des données. Un algorithme plus flexible peut apprendre l'association observée sans pouvoir en identifier la cause.
 3. **Modifier le plan de collecte** — mesure croisée, référence commune, recouvrement entre groupes — apporte l'information qui manque, sous des conditions expérimentales explicites.
 
-Avant d'interpréter l'effet d'un site, d'un patient, d'un appareil ou d'une période, demandez-vous donc : **existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?**
+Avant d'interpréter l'effet d'un site, d'un patient, d'un appareil ou d'une période, demandez-vous donc :
+
+<div class="transfer-question"><span class="eyebrow">LA QUESTION À EMPORTER DANS VOS PROPRES DONNÉES</span><strong>Existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?</strong><p>Si la réponse est non, la limite est dans le plan d'observation. Il faut chercher du recouvrement, une référence commune ou une expérience complémentaire avant de demander davantage au modèle.</p></div>
 
 Si la réponse est non, le problème doit être traité au niveau de la collecte ou de la conception de l'étude. Un découpage train/test ou une nouvelle architecture de modèle ne réparera pas une non-identifiabilité présente dans les données.
 
