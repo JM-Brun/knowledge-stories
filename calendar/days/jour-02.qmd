@@ -38,9 +38,11 @@ Imaginons une population de 100 000 utilisateurs, répartis en deux groupes de m
 
 La moyenne de toute la population est :
 
-\[
+
+$$
 \mu = 0{,}5\times 10 + 0{,}5\times 20 = 15.
-\]
+$$
+
 
 L'enquête affichée dans l'application ne touche presque que les utilisateurs réguliers. Pour isoler le problème, supposons qu'elle obtienne une réponse de chacun des 50 000 utilisateurs réguliers et d'aucun utilisateur occasionnel.
 
@@ -55,10 +57,12 @@ La première enquête est un recensement du groupe régulier. Sa moyenne vaut ex
 
 La seconde observe les deux groupes par tirage aléatoire simple à l'intérieur de chaque strate. Comme les deux groupes représentent chacun 50 % de la population cible, les poids de population sont égaux. Son estimateur de la moyenne globale est :
 
-\[
+
+$$
 \widehat\mu = 0{,}5\,\overline X_{\mathrm{reg}} +
 0{,}5\,\overline X_{\mathrm{occ}}.
-\]
+$$
+
 
 Sous ce plan stratifié, avec tirage aléatoire dans chaque groupe et poids de population connus, cet estimateur est sans biais pour la moyenne de la population. Dans cet exemple pédagogique, les scores de chaque groupe sont fixés à 10 et 20 : l'estimation vaut donc exactement 15. Dans une enquête réelle, les scores varient au sein des groupes ; une réalisation peut alors s'écarter de 15. Les variances intra-groupes ne sont pas fournies ici, donc on ne peut pas calculer son erreur-type.
 
@@ -200,12 +204,14 @@ Les utilisateurs occasionnels sont sous-représentés dans les données source :
 
 Plus généralement, sous une hypothèse de *covariate shift* — la distribution de $X$ change, mais $P(Y\mid X)$ reste stable — le risque cible peut s'écrire :
 
-\[
+
+$$
 R_t(f)=\mathbb E_{P_s}
 \left[
 \frac{p_t(X)}{p_s(X)}\,\ell(f(X),Y)
 \right].
-\]
+$$
+
 
 Cette correction n'est défendable que si les profils de la cible sont représentés dans la source (support commun) et si la relation conditionnelle reste stable. Si un groupe est totalement absent, son comportement ne peut pas être appris par repondération.
 
