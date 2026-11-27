@@ -66,7 +66,7 @@ L'équipe place les deux capteurs côte à côte dans un environnement stabilis�
     </div>
   </div>
   <div class="sensor-difference"><span class="difference-value">−1,0 °C</span><span>Écart entre les moyennes, dans cet essai</span></div>
-  <figcaption>Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</figcaption>
+  <p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
 </div>
 
 Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
