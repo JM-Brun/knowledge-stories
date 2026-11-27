@@ -3,11 +3,11 @@
 <desc id="initial-desc">Dans la matrice bâtiment par capteur, seules les cases A-S1 et B-S2 sont observées. Les cases A-S2 et B-S1 sont absentes. Les effets du bâtiment et du capteur ne peuvent pas être séparés.</desc>
 <rect width="900" height="360" rx="18" fill="#fbfaf5"/>
 <g font-family="Arial,sans-serif">
- <text x="42" y="44" fill="#6c7c70" font-size="14" font-weight="700" letter-spacing="2">PLAN DE MESURE INITIAL</text>
+ <text x="42" y="44" fill="#596b5e" font-size="14" font-weight="700" letter-spacing="2">PLAN DE MESURE INITIAL</text>
  <text x="42" y="77" fill="#294b3a" font-size="25" font-weight="700">Une seule diagonale est observée</text>
- <text x="42" y="108" fill="#68766d" font-size="15">Chaque bâtiment conserve toujours le même capteur.</text>
- <text x="300" y="151" fill="#6c7c70" font-size="14" font-weight="700" text-anchor="middle">CAPTEUR S1</text>
- <text x="560" y="151" fill="#6c7c70" font-size="14" font-weight="700" text-anchor="middle">CAPTEUR S2</text>
+ <text x="42" y="108" fill="#526359" font-size="15">Chaque bâtiment conserve toujours le même capteur.</text>
+ <text x="300" y="151" fill="#596b5e" font-size="14" font-weight="700" text-anchor="middle">CAPTEUR S1</text>
+ <text x="560" y="151" fill="#596b5e" font-size="14" font-weight="700" text-anchor="middle">CAPTEUR S2</text>
  <text x="68" y="218" fill="#315d49" font-size="16" font-weight="700">BÂTIMENT A</text>
  <text x="68" y="306" fill="#315d49" font-size="16" font-weight="700">BÂTIMENT B</text>
  <rect x="205" y="170" width="190" height="72" rx="10" fill="#e5efe5" stroke="#477b60" stroke-width="2"/>
