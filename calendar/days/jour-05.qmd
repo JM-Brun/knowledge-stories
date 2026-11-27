@@ -176,14 +176,19 @@ La covariance étudiée en J04 décrit une forme de dépendance linéaire. L'inf
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-05.html).
 
-## Connexions utiles
-
-- [Jour 3 — Quatre jeux, une même droite](jour-03.html) : voir ce que des résumés statistiques identiques peuvent masquer.
-- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre comment la dépendance intervient dans la variance d'un agrégat.
-
 ## Pour aller plus loin
 
 - C. E. Shannon (1948), *A Mathematical Theory of Communication*, Bell System Technical Journal.
 - T. M. Cover et J. A. Thomas, *Elements of Information Theory*, pour l'entropie, l'information mutuelle et les identités de décomposition.
 - E. Hüllermeier et W. Waegeman (2021), [*Aleatoric and epistemic uncertainty in machine learning: an introduction to concepts and methods*](https://doi.org/10.1007/s10994-021-05946-3), notamment §§ 2.2–2.3 et 4.5 pour les distinctions et leur dépendance au cadre de modélisation.
 - A. Kendall et Y. Gal (2017), [*What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?*](https://proceedings.neurips.cc/paper_files/paper/2017/hash/2650d6089a6d640c5e85b2b88265dc2b-Abstract.html), pour les usages des notions aleatoric et epistemic en deep learning.
+
+## Connexions utiles
+
+- [Jour 3 — Quatre jeux, une même droite](jour-03.html) : voir ce que des résumés statistiques identiques peuvent masquer.
+- [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : comprendre comment la dépendance intervient dans la variance d'un agrégat.
+
+<nav class="day-nav" aria-label="Navigation du calendrier">
+<a href="jour-04.html">← Jour 04 · Quand la covariance change-t-elle la variance d'une somme ?</a>
+<a href="../index.html">Le calendrier complet</a>
+</nav>

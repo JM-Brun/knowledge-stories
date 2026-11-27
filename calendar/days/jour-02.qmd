@@ -268,5 +268,11 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 ## Connexions utiles
 
-- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : vérifier ce que les variables mesurent avant de généraliser.
-- [Jour 3 — Trois distributions, une même moyenne](jour-03.html) : comprendre ce que les résumés statistiques masquent.
+- [Jour 1 — Le modèle voit-il le bâtiment ou le capteur ?](jour-01.html) : vérifier ce que les variables mesurent avant de généraliser.
+- [Jour 3 — Quatre jeux, une même droite](jour-03.html) : comprendre ce que les résumés statistiques masquent.
+
+<nav class="day-nav" aria-label="Navigation du calendrier">
+<a href="jour-01.html">← Jour 01 · Le modèle voit-il le bâtiment ou le capteur ?</a>
+<a href="../index.html">Le calendrier complet</a>
+<a href="jour-03.html">Jour 03 · Quatre jeux, une même droite →</a>
+</nav>

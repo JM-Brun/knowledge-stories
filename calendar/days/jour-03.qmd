@@ -248,5 +248,11 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 ## Connexions utiles
 
-- [Jour 1 — Une mesure précise peut-elle être fausse ?](jour-01.html) : distinguer erreur de mesure et variabilité.
+- [Jour 1 — Le modèle voit-il le bâtiment ou le capteur ?](jour-01.html) : distinguer erreur de mesure et variabilité.
 - [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : vérifier si les observations permettent de parler de la population cible.
+
+<nav class="day-nav" aria-label="Navigation du calendrier">
+<a href="jour-02.html">← Jour 02 · 50 000 réponses valent-elles mieux que 1 000 ?</a>
+<a href="../index.html">Le calendrier complet</a>
+<a href="jour-04.html">Jour 04 · Quand la covariance change-t-elle la variance d'une somme ? →</a>
+</nav>
