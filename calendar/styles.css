@@ -722,3 +722,249 @@ main.content, #quarto-content main { max-width: 76rem; }
     padding: .65rem;
   }
 }
+
+
+/* Jour 1 — second art direction pass: orient the reader, dramatize the
+   measurement scene, and make the central confounding relation explorable. */
+#quarto-content .story-route {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.55rem;
+  max-width:66rem;
+  margin:1.25rem 0 2.2rem;
+}
+#quarto-content .story-route a {
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  min-width:0;
+  padding:.62rem .7rem;
+  border:1px solid #d9e1d7;
+  border-radius:6px;
+  background:rgba(255,255,255,.62);
+  color:#53665b;
+  text-decoration:none;
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+#quarto-content .story-route a:hover,
+#quarto-content .story-route a:focus-visible {
+  border-color:#78977e;
+  background:#fffefa;
+  transform:translateY(-2px);
+}
+#quarto-content .story-route a:focus-visible {
+  outline:2px solid var(--calendar-gold);
+  outline-offset:3px;
+}
+#quarto-content .story-route a span {
+  display:grid;
+  place-items:center;
+  flex:0 0 1.7rem;
+  height:1.7rem;
+  border-radius:50%;
+  background:#e6eee4;
+  color:#315d49;
+  font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+#quarto-content .story-route a strong {
+  min-width:0;
+  color:#355b49;
+  font:600 .82rem Georgia,serif;
+}
+#quarto-content figure.story-hero {
+  overflow:hidden;
+  padding:1rem 1.05rem .85rem;
+}
+#quarto-content .story-scene {
+  display:block;
+  width:100%;
+  height:auto;
+  margin:.8rem 0 .45rem;
+  border-radius:9px;
+}
+#quarto-content .story-hero-verdict {
+  justify-content:center;
+  gap:1rem;
+}
+#quarto-content .story-hero-verdict span:first-child {
+  font-size:1.65rem;
+}
+#quarto-content .measurement-lab {
+  max-width:66rem;
+  margin:1.6rem 0 2rem;
+  padding:1.15rem 1.2rem 1rem;
+  border:1px solid #cbd9cc;
+  border-radius:12px;
+  background:linear-gradient(145deg,#f0f5ed,#fffefa);
+  box-shadow:0 10px 25px rgba(32,53,45,.055);
+}
+#quarto-content .measurement-lab-heading h3 {
+  margin:.4rem 0 .35rem;
+  color:#294b3a;
+  font:600 clamp(1.25rem,2.6vw,1.75rem)/1.2 Georgia,serif;
+}
+#quarto-content .measurement-lab-heading p {
+  margin:.25rem 0 1rem;
+  color:#5d6c61;
+  font-size:.9rem;
+  line-height:1.55;
+}
+#quarto-content .measurement-controls {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.75rem;
+}
+#quarto-content .measurement-control {
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+  min-width:0;
+  padding:.85rem .9rem;
+  border:1px solid #dce4db;
+  border-radius:7px;
+  background:rgba(255,255,255,.9);
+}
+#quarto-content .measurement-control > span {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:.35rem;
+}
+#quarto-content .measurement-control strong {
+  color:#315d49;
+  font:600 .96rem Georgia,serif;
+}
+#quarto-content .measurement-control output {
+  color:#315d49;
+  font:700 .82rem ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-variant-numeric:tabular-nums;
+}
+#quarto-content .measurement-control small {
+  color:#718076;
+  font-size:.73rem;
+  line-height:1.4;
+}
+#quarto-content .measurement-control input[type="range"] {
+  width:100%;
+  margin:.35rem 0 .1rem;
+  accent-color:#477b60;
+  cursor:pointer;
+}
+#quarto-content .measurement-control input[type="range"]:focus-visible {
+  outline:2px solid var(--calendar-gold);
+  outline-offset:4px;
+}
+#quarto-content .measurement-equation {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1.15fr);
+  align-items:center;
+  gap:.55rem;
+  margin:1rem 0 .75rem;
+}
+#quarto-content .measurement-equation > div {
+  display:flex;
+  flex-direction:column;
+  gap:.3rem;
+  min-width:0;
+  padding:.75rem .8rem;
+  border:1px solid #dce4db;
+  border-radius:7px;
+  background:#fff;
+}
+#quarto-content .measurement-equation > div > span {
+  color:#718076;
+  font-size:.68rem;
+  line-height:1.35;
+}
+#quarto-content .measurement-equation strong {
+  color:#315d49;
+  font:600 clamp(1.05rem,2.4vw,1.45rem) Georgia,serif;
+  font-variant-numeric:tabular-nums;
+}
+#quarto-content .measurement-equation .measurement-operator {
+  color:#9aa99b;
+  font:500 1.3rem Georgia,serif;
+}
+#quarto-content .measurement-equation .measurement-result {
+  border-color:#c5d6c7;
+  background:#e6efe4;
+}
+#quarto-content .measurement-equation .measurement-result strong { color:#244637; }
+#quarto-content .measurement-status {
+  margin:.5rem 0 .8rem;
+  padding:.65rem .8rem;
+  border-left:3px solid #8eaa91;
+  background:rgba(255,255,255,.7);
+  color:#53665b;
+  font-size:.82rem;
+  line-height:1.5;
+}
+#quarto-content .measurement-presets {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.45rem;
+  color:#65736a;
+  font-size:.76rem;
+}
+#quarto-content .measurement-presets button {
+  padding:.42rem .65rem;
+  border:1px solid #bfcfbe;
+  border-radius:5px;
+  background:#fffefa;
+  color:#315d49;
+  font:600 .73rem/1.3 inherit;
+  cursor:pointer;
+}
+#quarto-content .measurement-presets button:hover,
+#quarto-content .measurement-presets button:focus-visible {
+  border-color:#477b60;
+  background:#e8f0e6;
+}
+#quarto-content .measurement-presets button:focus-visible {
+  outline:2px solid var(--calendar-gold);
+  outline-offset:2px;
+}
+#quarto-content .measurement-footnote {
+  margin:.85rem 0 0;
+  color:#758177;
+  font-size:.73rem;
+  line-height:1.5;
+}
+#quarto-content .contrast-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+#quarto-content p,
+#quarto-content li,
+#quarto-content blockquote { overflow-wrap:break-word; }
+@media(max-width:900px) {
+  #quarto-content .story-route { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #quarto-content .contrast-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:620px) {
+  #quarto-content .measurement-controls { grid-template-columns:minmax(0,1fr); }
+  #quarto-content .measurement-equation {
+    grid-template-columns:minmax(0,1fr);
+    gap:.35rem;
+  }
+  #quarto-content .measurement-equation .measurement-operator {
+    justify-self:center;
+    line-height:1;
+  }
+  #quarto-content .measurement-equation > div {
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+  }
+  #quarto-content .story-route { gap:.4rem; }
+  #quarto-content .story-route a { padding:.5rem; }
+  #quarto-content .story-route a strong { font-size:.75rem; }
+  #quarto-content .story-hero-verdict { align-items:center; flex-direction:row; }
+}
+@media(max-width:380px) {
+  #quarto-content .story-route { grid-template-columns:minmax(0,1fr); }
+  #quarto-content .story-route a { justify-content:flex-start; }
+  #quarto-content .story-hero-verdict { align-items:flex-start; flex-direction:column; gap:.2rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  #quarto-content .story-route a { transition:none; }
+}
