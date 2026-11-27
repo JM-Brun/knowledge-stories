@@ -646,3 +646,79 @@ main.content, #quarto-content main { max-width: 76rem; }
   #quarto-content .contrast-card span { font-size:.68rem; }
   #quarto-content figure.design-figure { margin-inline:-.2rem; padding:.55rem; }
 }
+
+
+/* Site-wide article layout: use the viewport instead of Quarto's narrow
+   default article grid. Keep prose readable while allowing figures and tables
+   to use the additional horizontal space. */
+#quarto-content {
+  min-width: 0;
+}
+#quarto-content main.content {
+  width: 100%;
+  max-width: 96rem;
+  min-width: 0;
+  margin-inline: auto;
+}
+#quarto-content .content {
+  min-width: 0;
+}
+#quarto-content p,
+#quarto-content li,
+#quarto-content blockquote {
+  overflow-wrap: anywhere;
+}
+#quarto-content figure,
+#quarto-content .callout,
+#quarto-content .story-promise,
+#quarto-content .story-insight,
+#quarto-content .contrast-board,
+#quarto-content .story-conclusion {
+  min-width: 0;
+}
+#quarto-content img,
+#quarto-content video,
+#quarto-content canvas {
+  max-width: 100%;
+  height: auto;
+}
+#quarto-content pre,
+#quarto-content .sourceCode {
+  max-width: 100%;
+  overflow-x: auto;
+}
+#quarto-content mjx-container[display="true"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+@media (max-width: 760px) {
+  #quarto-content main.content {
+    padding-inline: clamp(.75rem, 3vw, 1.25rem);
+  }
+  #quarto-content .story-hero-grid,
+  #quarto-content .insight-columns,
+  #quarto-content .insight-pair,
+  #quarto-content .contrast-grid,
+  #quarto-content ol.field-protocol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #quarto-content figure {
+    max-width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  #quarto-content .story-meta {
+    gap: .35rem;
+  }
+  #quarto-content .story-meta span {
+    font-size: .61rem;
+  }
+  #quarto-content .story-hero,
+  #quarto-content .sensor-showcase,
+  #quarto-content .story-insight,
+  #quarto-content .contrast-board {
+    padding: .65rem;
+  }
+}

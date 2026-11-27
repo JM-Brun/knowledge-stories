@@ -25,6 +25,8 @@ website:
 format:
   html:
     theme: cosmo
+    # Let article pages use the available viewport; text measures remain constrained in CSS.
+    page-layout: full
     html-math-method:
       method: mathjax
       url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"

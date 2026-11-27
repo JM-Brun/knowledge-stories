@@ -529,3 +529,33 @@
   color: #666258;
   font-size: .86em;
 }
+
+
+/* Small-screen navigation: the four desktop links must not force the header
+   wider than the viewport on phones. */
+@media (max-width: 650px) {
+  .site-header {
+    height: auto;
+    min-height: 65px;
+    padding: 12px 18px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .site-header nav {
+    width: 100%;
+    min-width: 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .site-header nav a {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 360px) {
+  .site-header nav {
+    justify-content: flex-start;
+    column-gap: 14px;
+  }
+}
