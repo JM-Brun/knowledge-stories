@@ -33,10 +33,10 @@ sources:
     url: "https://flintlib.org/doc/algorithms/fft/schonhage-strassen.html"
     kind: "documentation"
     accessed: 2026-11-24
-  - title: "Schönhage-Strassen's Algorithm — Pierrick Zimmermann"
+  - title: "A GMP-based implementation of Schönhage-Strassen’s large integer multiplication algorithm — Gaudry, Kruppa & Zimmermann (ISSAC 2007)"
     url: "https://members.loria.fr/PZimmermann/papers/fft.pdf"
-    kind: "secondary"
-    accessed: 2026-11-24
+    kind: "primary"
+    accessed: 2026-11-27
 series: "multiplication-karatsuba"
 seriesOrder: 4
 relatedArticles: ["multiplication-rapide-et-preuves-2026", "frontiere-theorique-multiplication-entiere-2026", "karatsuba-multiplication"]
@@ -134,6 +134,8 @@ X_&#123;k+N/2&#125;=E_k-&#92;omega^k O_k.
 
 Cette paire d'additions et de soustractions, avec une multiplication par un facteur &#92;(&#92;omega^k&#92;), forme une **opération papillon** (*butterfly*). On obtient la récurrence &#92;(F(N)=2F(N/2)+O(N)&#92;), donc &#92;(F(N)=O(N&#92;log N)&#92;). L'intérêt de la FFT est de réutiliser les sous-transformées au lieu de recalculer indépendamment les &#92;(N&#92;) sommes de la DFT.
 
+Cette décomposition est celle de Cooley et Tukey dans leur article fondateur de 1965 : l'introduction et les équations (3)–(8), p. 297, établissent la factorisation en deux longueurs et le coût associé ; les équations (9)–(13), p. 298, étendent la décomposition à plusieurs facteurs ([article original](https://doi.org/10.1090/S0025-5718-1965-0178586-1)). Le résultat porte sur le calcul de séries de Fourier complexes ; il ne démontre pas à lui seul les garanties d'exactitude d'une NTT ni les bornes de multiplication entière.
+
 <FFTButterflyDiagram />
 
 ### 1.3 Un point crucial : éviter la convolution circulaire
@@ -214,6 +216,8 @@ Il reste une subtilité essentielle : une DFT ordinaire avec &#92;(ω&#92;) calc
 Pour retrouver le produit entier, on complète d'abord les blocs par des zéros et on choisit &#92;(N&#92;) assez grand pour que &#92;(N&#92;geq u+v&#92;), où &#92;(u&#92;) et &#92;(v&#92;) sont les longueurs en bits des deux opérandes. Alors &#92;(ab&#92;lt 2^&#123;u+v&#125;&#92;leq2^N&#92;) : le résidu modulo &#92;(2^N+1&#92;) est bien le produit entier, et non seulement une valeur congruente. Les produits terme à terme dans la transformée restent des multiplications modulaires ; Schönhage–Strassen les traite récursivement. C'est l'analyse conjointe de cette récursion et du coût des opérations dans l'anneau qui conduit à la borne classique &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;), pas la seule DFT en &#92;(O(K&#92;log K)&#92;).
 
 Il faut donc éviter une simplification trompeuse : **la borne de Schönhage–Strassen ne découle pas de la seule FFT en &#92;(O(K&#92;log K)&#92;)**. Elle dépend aussi du coût des opérations sur les coefficients et de la récursion des produits ponctuels.
+
+Pour situer les sources : la notice de [Schönhage et Strassen (1971)](https://doi.org/10.1007/BF02242355) confirme le résultat annoncé — &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;) — mais le texte intégral n'a pas été vérifié ici ; cette référence primaire étaye donc la borne bibliographique, pas les détails de la dérivation exposée ci-dessus. Pour les mécanismes d'implémentation GMP, la source technique consultée est Gaudry, Kruppa et Zimmermann, *A GMP-based implementation of Schönhage-Strassen’s large integer multiplication algorithm*, ISSAC 2007, pp. 167–174 : §1, p. 2–3, décrit la réduction vers les convolutions et les transformées pondérées ; §2.1–2.2, p. 4–7, détaille l'arithmétique modulo &#92;(2^n+1&#92;), les papillons et l'organisation mémoire ([PDF auteur](https://members.loria.fr/PZimmermann/papers/fft.pdf)). Cette étude d'implémentation ne remplace pas l'article théorique de 1971.
 
 ## Pour approfondir : la frontière théorique
 
