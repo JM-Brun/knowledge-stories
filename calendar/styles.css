@@ -336,3 +336,164 @@ main.content, #quarto-content main { max-width: 76rem; }
 .theme-index .theme-days a:focus-visible { background:#e2ebdf; border-color:var(--calendar-green); text-decoration:underline; text-underline-offset:3px; }
 .theme-index .theme-days a:focus-visible { outline:2px solid var(--calendar-gold); outline-offset:2px; }
 @media(prefers-reduced-motion:reduce) { .theme-index .theme-days a { transition:none; } }
+
+
+/* Day 1 editorial treatment — make the measurement investigation read as a
+   visual story: initial signal, first evidence, identifiability, reversal. */
+#quarto-content .story-meta {
+  display:flex; flex-wrap:wrap; gap:.45rem .7rem; align-items:center;
+  margin:1.2rem 0 1.5rem; color:#64736a;
+  font:600 .68rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.045em; text-transform:uppercase;
+}
+#quarto-content .story-meta span {
+  padding:.34rem .55rem; border:1px solid #d7dfd5; border-radius:3px;
+  background:rgba(255,255,255,.55);
+}
+#quarto-content .story-promise {
+  max-width:66rem; margin:1.1rem 0 2.1rem; padding:1.2rem 1.35rem 1.25rem;
+  border-left:4px solid var(--calendar-green);
+  background:linear-gradient(110deg,#e8eee6 0%,rgba(255,255,255,.55) 100%);
+}
+#quarto-content .story-promise strong {
+  display:block; margin-bottom:.35rem; color:#244637;
+  font:600 clamp(1.2rem,2.4vw,1.65rem)/1.2 Georgia,serif;
+}
+#quarto-content .story-promise p { margin:0; max-width:66ch; color:#526359; }
+#quarto-content figure.story-hero {
+  max-width:66rem; margin:1.7rem 0 1.25rem; padding:1.2rem 1.3rem 1rem;
+  border:1px solid #d7dfd5; border-radius:12px;
+  background:linear-gradient(145deg,#fffefa 0%,#eef3ed 100%);
+  box-shadow:0 12px 30px rgba(32,53,45,.07);
+}
+#quarto-content .story-hero-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+#quarto-content .eyebrow,.story-hero .eyebrow {
+  color:#718076; font:700 .64rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.13em;
+}
+#quarto-content .status-pill {
+  padding:.3rem .55rem; border-radius:3px; background:#f6e9d8; color:#895b2c;
+  font:650 .65rem ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+#quarto-content .story-hero-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1rem 0 .75rem;
+}
+#quarto-content .story-building {
+  display:flex; flex-direction:column; align-items:flex-start; gap:.25rem;
+  min-width:0; padding:1rem 1.1rem; border:1px solid #dce4db; border-radius:8px;
+  background:rgba(255,255,255,.88);
+}
+#quarto-content .story-building.flagged { border-color:#dfc7b2; background:#fffaf5; }
+#quarto-content .building-label {
+  color:#718076; font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em;
+}
+#quarto-content .story-building strong {
+  color:#244637; font:600 clamp(2rem,5vw,3.2rem)/1.05 Georgia,serif; letter-spacing:-.055em;
+  font-variant-numeric:tabular-nums;
+}
+#quarto-content .story-building.flagged strong { color:#a35c39; }
+#quarto-content .sensor-tag { color:#64736a; font-size:.78rem; }
+#quarto-content .story-hero-verdict {
+  display:flex; align-items:center; gap:.8rem; padding:.65rem .8rem;
+  border-radius:5px; background:#294b3a; color:#f8f5e9;
+}
+#quarto-content .story-hero-verdict span:first-child {
+  font:600 1.35rem Georgia,serif; font-variant-numeric:tabular-nums;
+}
+#quarto-content .story-hero-verdict span:last-child { color:#e0e8df; font-size:.82rem; }
+#quarto-content .story-hero figcaption { margin:.75rem .1rem 0; }
+#quarto-content .story-question {
+  display:flex; align-items:flex-start; gap:.85rem; max-width:62rem;
+  margin:1.3rem 0 2rem; padding:.9rem 1rem; border:1px solid #d9dfd4;
+  border-radius:7px; background:rgba(255,255,255,.52);
+}
+#quarto-content .story-question-mark {
+  display:grid; place-items:center; flex:0 0 2rem; height:2rem; border-radius:50%;
+  background:#e7eee5; color:#315d49; font:700 1.15rem Georgia,serif;
+}
+#quarto-content .story-question strong { color:#294b3a; }
+#quarto-content .story-question p { margin:.2rem 0 0; color:#64736a; font-size:.9rem; }
+#quarto-content .editorial-note {
+  max-width:76ch; margin:1.2rem 0; padding:.55rem .8rem;
+  border-left:2px solid #c99a58; color:#68766d; font-size:.82rem;
+}
+#quarto-content .sensor-reading {
+  display:block; margin:.25rem 0 .55rem; color:#294b3a;
+  font:600 2.25rem/1 Georgia,serif; letter-spacing:-.045em; font-variant-numeric:tabular-nums;
+}
+#quarto-content .sensor-reading small { font-size:.95rem; letter-spacing:0; }
+#quarto-content .sensor-observations {
+  display:flex; gap:.35rem; flex-wrap:wrap; width:100%;
+}
+#quarto-content .sensor-observations span {
+  flex:1; min-width:3.2rem; padding:.35rem .2rem; border-radius:4px;
+  background:#edf2eb; color:#496354; text-align:center;
+  font:600 .76rem ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums;
+}
+#quarto-content .sensor-b .sensor-observations span { background:#f5ece5; color:#8d5c3e; }
+#quarto-content .sensor-difference {
+  display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .8rem;
+  margin-top:.85rem; padding:.7rem .85rem; border-radius:5px;
+  background:#294b3a; color:#f7f4e9; font-size:.83rem;
+}
+#quarto-content .difference-value {
+  color:#fff; font:600 1.25rem Georgia,serif; font-variant-numeric:tabular-nums;
+}
+#quarto-content .sensor-showcase figcaption { color:#65736a; font-size:.83rem; line-height:1.55; }
+#quarto-content .insight-figure {
+  max-width:66rem; padding:1rem 1.1rem !important;
+  background:linear-gradient(140deg,#fffefa,#f0f4ed) !important;
+}
+#quarto-content .insight-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+#quarto-content .insight-columns > div { padding:.85rem; border:1px solid #dce3d9; border-radius:7px; background:#fff; }
+#quarto-content .insight-kicker {
+  display:block; color:#7a877d; font:700 .61rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.09em;
+}
+#quarto-content .insight-columns strong { display:block; margin:.4rem 0; font:600 1.2rem Georgia,serif; }
+#quarto-content .insight-good { color:#32735a; }
+#quarto-content .insight-bad { color:#a45b3b; }
+#quarto-content .insight-columns p { margin:0; color:#65736a; font-size:.85rem; line-height:1.5; }
+#quarto-content .reversal-figure {
+  max-width:66rem; padding:1.1rem 1.2rem !important;
+  border-color:#cbd8cc !important; background:linear-gradient(145deg,#fffefa,#edf3eb) !important;
+}
+#quarto-content .reversal-grid {
+  display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center; gap:.7rem; margin:.75rem 0;
+}
+#quarto-content .reversal-side { padding:.9rem; border-radius:7px; background:#fff; border:1px solid #dce3d9; }
+#quarto-content .reversal-side span { display:block; color:#69786e; font-size:.72rem; }
+#quarto-content .reversal-side strong {
+  display:block; margin:.25rem 0; font:600 clamp(1.6rem,4vw,2.5rem) Georgia,serif;
+  letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+}
+#quarto-content .reversal-side p { margin:0; color:#64736a; font-size:.8rem; }
+#quarto-content .reversal-side.naive { border-top:3px solid #b16a45; }
+#quarto-content .reversal-side.naive strong { color:#a45b3b; }
+#quarto-content .reversal-side.corrected { border-top:3px solid #34745a; }
+#quarto-content .reversal-side.corrected strong { color:#2f7055; }
+#quarto-content .reversal-arrow { color:#9aab9d; font-size:1.6rem; }
+#quarto-content .story-conclusion {
+  max-width:66rem; margin:1.4rem 0 2rem; padding:1.2rem 1.35rem;
+  border:1px solid #cbd8cc; border-radius:9px;
+  background:linear-gradient(145deg,#eaf0e7,#fffefa);
+}
+#quarto-content .conclusion-line {
+  max-width:55ch; margin:.55rem 0 1rem; color:#244637;
+  font:600 clamp(1.25rem,2.7vw,1.8rem)/1.25 Georgia,serif;
+}
+#quarto-content .story-conclusion ul { margin:.5rem 0 0; padding-left:1.2rem; }
+#quarto-content .story-conclusion li { margin:.4rem 0; color:#526359; font-size:.9rem; }
+@media(max-width:620px) {
+  #quarto-content figure.story-hero { margin-inline:-.25rem; padding:.8rem; }
+  #quarto-content .story-hero-grid { gap:.45rem; }
+  #quarto-content .story-building { padding:.75rem .65rem; }
+  #quarto-content .sensor-gallery,
+  #quarto-content .insight-columns { grid-template-columns:minmax(0,1fr); }
+  #quarto-content .reversal-grid { grid-template-columns:minmax(0,1fr); }
+  #quarto-content .reversal-arrow { justify-self:center; transform:rotate(90deg); line-height:1; }
+  #quarto-content .story-hero-verdict { align-items:flex-start; flex-direction:column; gap:.15rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  #quarto-content * { scroll-behavior:auto !important; }
+}
