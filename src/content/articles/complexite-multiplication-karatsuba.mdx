@@ -85,15 +85,11 @@ Avec une coupure après quatre chiffres, on obtient :
 
 L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse est **la structure des trois appels** créés par l'appel courant.
 
-<div className="call-trace-table" role="group" aria-label="Les trois sous-multiplications de Karatsuba">
-
 | Appel récursif | Opération | Tailles des opérandes |
 |---|---|---:|
 | <span className="term-common">\(p=ac\)</span> | <span className="term-common">\(1\,234\times8\,765\)</span> | 4 × 4 chiffres |
 | <span className="term-common">\(q=bd\)</span> | <span className="term-common">\(5\,678\times4\,321\)</span> | 4 × 4 chiffres |
 | <span className="term-aux">\(r=(a+b)(c+d)\)</span> | <span className="term-aux">\(6\,912\times13\,086\)</span> | 4 × 5 chiffres |
-
-</div>
 
 Le troisième appel est légèrement plus grand : &#92;(c+d=13&#92;,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
 
