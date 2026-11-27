@@ -93,7 +93,7 @@ Les cinq premières enquêtes disposent d'une page de pratique distincte. Chaque
 
 <div class="direct-access">
 
-1. [Une mesure précise peut-elle être fausse ?](days/jour-01.html) — Répétabilité, justesse et biais de mesure.
+1. [Le modèle voit-il le bâtiment ou le capteur ?](days/jour-01.html) — Répétabilité, justesse, biais de mesure et confusion entre site et capteur.
 2. [50 000 réponses valent-elles mieux que 1 000 ?](days/jour-02.html) — Population, échantillonnage et biais de sélection.
 3. [Trois distributions, une même moyenne](days/jour-03.html) — Dispersion et limites des statistiques résumées.
 4. [Quand la covariance change-t-elle la variance d'une somme ?](days/jour-04.html) — Moments, covariance et dépendance.
