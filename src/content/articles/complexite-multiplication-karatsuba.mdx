@@ -22,10 +22,10 @@ readingTime: 16
 status: "review"
 featured: false
 sources:
-  - title: "Lecture notes — Complexity, H. Zantema, Radboud University (version 2019)"
+  - title: "Lecture notes for the course Complexity — H. Zantema (version 28 March 2019; course mirror 2024)"
     url: "https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf"
     kind: "secondary"
-    accessed: 2026-11-24
+    accessed: 2026-11-27
   - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
     url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
     kind: "secondary"
@@ -447,7 +447,7 @@ avec &#92;(n=2^k&#92;), un nombre constant &#92;(a&#92;) de sous-problèmes de t
 
 Dans ce modèle, l’arbre possède exactement &#92;(a^k=n^p&#92;) feuilles. Si chaque feuille effectue un travail constant positif, elles donnent la borne inférieure &#92;(\Omega(n^p)&#92;). On obtient donc bien &#92;(Theta(n^p)&#92;) pour ces deux modèles. La distinction est importante : le théorème maître fournit ici la borne supérieure à partir du coût local ; la borne inférieure repose sur le nombre de feuilles et le coût de base. La section suivante donne une vérification par induction d’une borne précise pour le modèle Karatsuba.
 
-La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver, sous les hypothèses qui viennent d’être explicitées. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;).
+La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver, sous les hypothèses qui viennent d’être explicitées. Les [notes de cours de H. Zantema (version du 28 mars 2019)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) traitent de la méthode des récurrences et du théorème maître ; le cours de 2024 précise explicitement que le PDF est la version de mars 2019. Le passage consacré à Karatsuba se trouve aux pp. 9–10. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;).
 
 ### Vérifier une borne par induction : de l'intuition à la preuve
 
@@ -562,7 +562,7 @@ La borne inférieure &#92;(&#92;Omega(n^&#123;&#92;log_2 3&#125;)&#92;) provient
 
 Le modèle récursif équilibré conduit donc à &#92;(&#92;Theta(n^&#123;&#92;log_2 3&#125;)&#92;). Pour la version pédagogique à arrêt anticipé, l’analyse des tailles et des coûts terminaux établit directement la borne supérieure. Une borne inférieure pour une implémentation précise demande en plus de vérifier qu’une famille d’entrées maintient les trois branches suffisamment grandes jusqu’à une profondeur proportionnelle à &#92;(&#92;log_2(n)&#92;). Cette distinction évite de confondre la résolution de la récurrence idéale avec la preuve complète du comportement de chaque implémentation.
 
-Une variante par différences de Karatsuba évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, section « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue et décrit le coût supplémentaire des additions et soustractions.
+Une variante par différences de Karatsuba évite précisément cette retenue supplémentaire. Le [manuel de GNU MP 6.3.0, §15.1.2 « Karatsuba Multiplication »](https://gmplib.org/manual/Karatsuba-Multiplication) explique pourquoi les différences de blocs restent dans la taille prévue, décrit le choix du signe et quantifie le coût des additions et soustractions.
 
 **Bilan de la démonstration :**
 
