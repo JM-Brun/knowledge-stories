@@ -213,7 +213,7 @@ $$
 
 Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas seulement une estimation instable : les paramètres ne sont pas séparément déterminés par ces données.
 
-Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
+La question n'est donc pas de répéter davantage, mais de compléter les deux comparaisons absentes.
 
 <details class="story-pause">
 <summary>Avant de découvrir le nouveau plan : quelles mesures manquent ?</summary>
