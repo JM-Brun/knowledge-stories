@@ -10,7 +10,7 @@ description: "Deux bâtiments semblent différer. Mais si chacun utilise un capt
 
 <div class="story-promise">
 <strong>Une décision à prendre, deux explications possibles.</strong>
-<p>Un modèle recommande de réchauffer un bâtiment. Mais mesure-t-il vraiment la température du bâtiment — ou le décalage de son capteur ? Suivons l'enquête jusqu'au moment où les données racontent l'histoire inverse.</p>
+<p>Un modèle de suivi énergétique signale un écart entre deux bâtiments. L'équipe envisage de modifier le chauffage. Mais les données permettent-elles de distinguer une différence réelle entre bâtiments d'un décalage entre capteurs ?</p>
 </div>
 
 <nav class="story-route" aria-label="Les quatre étapes de l'enquête">
@@ -22,7 +22,7 @@ description: "Deux bâtiments semblent différer. Mais si chacun utilise un capt
 
 ## Le modèle a trouvé un écart. Mais entre quoi et quoi ? {#premier-signal}
 
-Un modèle de suivi énergétique signale que le bâtiment B est plus froid que le bâtiment A. L'écart observé est de 0,5 °C. L'équipe envisage de modifier le chauffage.
+Un modèle de suivi énergétique signale que le bâtiment B est plus froid que le bâtiment A. L'écart observé est de 0,5 °C. L'équipe envisage de modifier le chauffage. Le modèle ne reçoit pas directement la température réelle : il exploite les indications produites par les capteurs.
 
 Un détail mérite pourtant attention : le bâtiment A est équipé du capteur S1, le bâtiment B du capteur S2. Chaque capteur est toujours associé au même bâtiment.
 
@@ -81,9 +81,9 @@ L'équipe place les deux capteurs côte à côte dans un environnement stabilis�
 <p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
 </div>
 
-<figure class="calibration-figure">
+<figure class="comparison-figure">
 <div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison des indications des capteurs S1 et S2 sur un même axe de température">
-<img src="../images/jour-01-calibration.svg" alt="Diagramme de points sur un axe commun : S1 indique 19,9, 20,0 et 20,1 degrés ; S2 indique 18,9, 19,0 et 19,1 degrés. Les deux séries ont une étendue observée de 0,2 degré, mais S2 est décalé d'un degré vers les températures plus basses par rapport à S1 et à la référence 20,00 degrés.">
+<img src="../images/jour-01-comparaison-reference.svg" alt="Diagramme de points sur un axe commun : S1 indique 19,9, 20,0 et 20,1 degrés ; S2 indique 18,9, 19,0 et 19,1 degrés. Les deux séries ont une étendue observée de 0,2 degré, mais S2 est décalé d'un degré vers les températures plus basses par rapport à S1 et à la référence 20,00 degrés.">
 </div>
 <figcaption>Les points montrent les six indications, pas une distribution théorique. Dans cet essai seulement, les deux capteurs ont la même étendue observée (0,2 °C) ; leurs moyennes sont séparées de 1,0 °C.</figcaption>
 </figure>
@@ -104,11 +104,11 @@ Cette comparaison apporte un indice important, mais sa portée reste limitée :
 - un essai autour de 20 °C ne démontre pas que le décalage reste constant à d'autres températures ;
 - l'incertitude de la référence n'est pas, à elle seule, l'incertitude complète de la comparaison.
 
-On peut donc dire que les indications de S2 sont décalées dans cet essai. On ne peut pas encore déclarer que son biais vaut exactement −1 °C dans toutes les conditions.
+On peut donc dire que les indications de S2 sont décalées dans cet essai. Au sens du [VIM (2.18)](https://jcgm.bipm.org/vim/fr/2.18.html), le biais de mesure est une estimation d'une erreur systématique. Ces trois relevés établissent un écart dans les conditions de l'essai, mais ne démontrent pas un décalage constant sur toute la plage d'utilisation.
 
-La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Dans le vocabulaire du [VIM](https://jcgm.bipm.org/vim/fr/), la fidélité décrit l'accord entre résultats répétés dans des conditions spécifiées ; la répétabilité est un cas particulier de fidélité, évalué dans des conditions définies. La justesse concerne la proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence. L'exactitude est une notion plus globale et qualitative. Les trois relevés illustrent ces distinctions, mais ne suffisent pas à caractériser complètement les propriétés du capteur.
+La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Dans le vocabulaire du [VIM](https://jcgm.bipm.org/vim/fr/), la [fidélité (2.15)](https://jcgm.bipm.org/vim/fr/2.15.html) décrit l'accord entre les résultats répétés dans des conditions spécifiées ; la [répétabilité (2.21)](https://jcgm.bipm.org/vim/fr/2.21.html) en est un cas particulier. La [justesse (2.14)](https://jcgm.bipm.org/vim/fr/2.14.html) concerne la proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence. L'[exactitude (2.13)](https://jcgm.bipm.org/vim/fr/2.13.html) est une notion plus globale et qualitative : elle ne se réduit pas à la justesse. Enfin, l'[incertitude de mesure (2.26)](https://jcgm.bipm.org/vim/fr/2.26.html) caractérise la dispersion des valeurs attribuables au mesurande, c'est-à-dire à la grandeur que l'on cherche à mesurer. Les trois relevés illustrent ces distinctions, mais ne suffisent pas à caractériser complètement les propriétés du capteur.
 
-Il faut aussi distinguer une **comparaison ponctuelle** d'un **étalonnage**. La comparaison côte à côte montre ici un écart autour de 20 °C ; elle ne fournit pas à elle seule une fonction de correction valable sur toute la plage d'utilisation. Selon le VIM, l'étalonnage établit d'abord une relation entre les valeurs et les incertitudes associées fournies par des étalons, d'une part, et les indications et leurs incertitudes, d'autre part. Cette relation peut ensuite être utilisée pour obtenir un résultat de mesure à partir d'une indication. Pour caractériser S1 et S2, il faudrait répéter l'opération à plusieurs températures pertinentes, puis examiner la stabilité de la relation dans le temps et dans les conditions d'emploi. Même un étalonnage documenté ne dispense pas de contrôler l'installation réelle : rayonnement, ventilation, position et temps de réponse peuvent modifier la mesure.
+Il faut aussi distinguer une **comparaison ponctuelle** d'un **étalonnage**. Une comparaison autour de 20 °C ne fournit pas à elle seule une fonction de correction valable sur toute la plage d'utilisation. Le VIM définit l'étalonnage comme une opération qui relie, sous conditions spécifiées, des valeurs de référence et leurs incertitudes aux indications d'un instrument et à leurs incertitudes ([2.39](https://jcgm.bipm.org/vim/fr/2.39.html)). La **traçabilité métrologique** relie ensuite le résultat à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude ([2.41](https://jcgm.bipm.org/vim/fr/2.41.html)). Pour notre enquête, il suffit de retenir qu'une référence et son incertitude doivent être documentées, et que l'essai doit couvrir le domaine d'utilisation.
 
 ## Pourquoi répéter davantage ne corrige pas le décalage
 
@@ -146,7 +146,7 @@ Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps
 <summary>Expérience de pensée : que changent 1 000 répétitions de chaque mesure initiale ?</summary>
 <div class="pause-content">
 <p>Elles peuvent rendre les moyennes de A–S1 et B–S2 beaucoup plus stables. Mais elles ne produisent toujours aucune observation de A–S2 ni de B–S1.</p>
-<p>La précision des deux moyennes augmente ; la confusion entre bâtiment et capteur demeure. La prochaine étape doit modifier les associations observées, pas seulement leur nombre.</p>
+<p>Les moyennes deviennent plus stables ; la confusion entre bâtiment et capteur demeure. La prochaine étape doit modifier les associations observées, pas seulement leur nombre.</p>
 </div>
 </details>
 
@@ -202,7 +202,7 @@ X_{\text{initial}} =
 \end{bmatrix}.
 $$
 
-Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+Le rang de cette matrice vaut 2 : elle ne fournit que deux colonnes indépendantes pour trois paramètres. Le rang est le nombre de colonnes linéairement indépendantes de la matrice ; il indique combien de directions de variation le plan permet de distinguer. Ici, les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. C'est une **colinéarité parfaite** créée par le plan de collecte ; le terme « confusion » désigne ici cette impossibilité structurelle de séparer les contributions, pas une conclusion causale sur le bâtiment. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
 
 On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de $\delta$ et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
 
@@ -211,9 +211,9 @@ $$
 =\alpha_B+\beta_{S2}.
 $$
 
-Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas que l'estimation serait simplement imprécise : les paramètres ne sont pas séparément déterminés par ces données.
+Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas seulement une estimation instable : les paramètres ne sont pas séparément déterminés par ces données.
 
-Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-être les deux moyennes plus stables. Cela ne créerait toujours aucune observation de A avec S2, ni de B avec S1. Les deux effets resteraient confondus.
+La question n'est donc pas de répéter davantage, mais de compléter les deux comparaisons absentes.
 
 <details class="story-pause">
 <summary>Avant de découvrir le nouveau plan : quelles mesures manquent ?</summary>
@@ -266,7 +266,7 @@ X_{\text{croisé}} =
 \end{bmatrix}.
 $$
 
-Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif. **Identifiable ne signifie toutefois ni exact ni précis** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes d'incertitude, de biais résiduel ou de défaut de protocole.
+Son rang vaut 3 : les trois colonnes sont indépendantes. Le plan fournit ainsi trois contributions indépendantes pour distinguer les trois paramètres du modèle additif. Les deux effets principaux deviennent estimables. **L'identifiabilité ne garantit ni l'exactitude des mesures ni une faible incertitude sur les estimations** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes de biais résiduel ou de défaut de protocole.
 
 Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
 
@@ -345,7 +345,7 @@ Cette hypothèse doit donc être examinée, et non simplement postulée. Le mont
 <div class="interaction-warning">
 <span class="eyebrow">LE POINT DE VIGILANCE</span>
 <strong>Un plan croisé rend les effets principaux séparables ; il ne garantit pas que le modèle additif est vrai.</strong>
-<p>Si l'écart entre capteurs dépend du bâtiment, il existe une interaction capteur × bâtiment. Une seule observation par case ne permet pas de distinguer cette interaction du bruit. Il faut répéter les quatre combinaisons et contrôler les conditions expérimentales.</p>
+<p>Si l'écart entre capteurs dépend du bâtiment, il existe une interaction capteur × bâtiment. Une seule observation par case ne permet pas de distinguer cette interaction du bruit. Il faut répéter les quatre combinaisons et contrôler les conditions expérimentales. Le contraste associé au bâtiment n'est pas automatiquement un effet causal : d'autres différences propres aux sites peuvent encore intervenir.</p>
 </div>
 
 En pratique, un plan croisé n'est informatif que si les conditions de comparaison sont maîtrisées. Il faut notamment :
@@ -361,25 +361,17 @@ Si les capteurs ne peuvent pas être déplacés, un dispositif de transfert ou u
 
 ## Ce que cela change dans le travail d'un data scientist
 
-Lorsqu'une variable est produite par un instrument, un questionnaire, un opérateur ou un logiciel, il faut se demander si le système de mesure varie en même temps que le groupe que l'on souhaite comparer.
+Dans cet exemple, chaque bâtiment est associé à un capteur différent. Le modèle peut alors utiliser le décalage propre au capteur comme indice indirect du bâtiment. Mais les données ne permettent pas de savoir si la prédiction repose sur une différence entre bâtiments ou sur le système de mesure.
 
-Quelques situations où cette question mérite d'être posée :
+Une bonne performance prédictive dans ce plan ne suffit donc pas à valider l'interprétation de la variable ni sa capacité à rester valable dans un autre contexte — sa **transportabilité** — notamment si les associations site–capteur changent.
 
-| Domaine | Association à examiner | Comparaison qui peut manquer |
-|---|---|---|
-| Environnement | Site et capteur | Même capteur utilisé sur plusieurs sites, ou référence commune |
-| Santé | Hôpital et appareil de mesure | Même protocole et appareil comparables entre établissements |
-| NLP | Population de textes et système d'annotation | Même consignes et annotateurs présents sur plusieurs sous-populations |
+Trois stratégies ne sont pas équivalentes :
 
-Ce sont des analogies de conception, pas des cas statistiquement identiques : le mécanisme de mesure, les hypothèses et les contrôles nécessaires dépendent du domaine. Dans ces exemples, le « capteur » désigne plus largement le processus qui transforme un phénomène en donnée : appareil, protocole, annotateur, logiciel ou chaîne de prétraitement.
-
-Dans cet exemple, trois stratégies ne sont pas équivalentes :
-
-1. **Ajouter des lignes sans changer le plan** améliore éventuellement la précision des moyennes, mais ne sépare pas les effets confondus.
-2. **Complexifier le modèle** ne crée pas les comparaisons absentes des données. Un algorithme plus flexible peut apprendre l'association observée sans pouvoir en identifier la cause.
+1. **Ajouter des lignes sans changer le plan** réduit éventuellement la variabilité des moyennes, mais ne sépare pas les effets confondus.
+2. **Complexifier le modèle** ne crée pas les comparaisons absentes des données. Un algorithme plus flexible peut apprendre l'association observée sans pouvoir en identifier séparément les composantes.
 3. **Modifier le plan de collecte** — mesure croisée, référence commune, recouvrement entre groupes — apporte l'information qui manque, sous des conditions expérimentales explicites.
 
-Avant d'interpréter l'effet d'un site, d'un patient, d'un appareil ou d'une période, demandez-vous donc :
+Avant d'interpréter l'effet d'un site, demandez-vous donc :
 
 <div class="transfer-question"><span class="eyebrow">LA QUESTION À EMPORTER DANS VOS PROPRES DONNÉES</span><strong>Existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?</strong><p>Si la réponse est non, la limite est dans le plan d'observation. Il faut chercher du recouvrement, une référence commune ou une expérience complémentaire avant de demander davantage au modèle.</p></div>
 
@@ -402,8 +394,8 @@ Le modèle n'avait pas « mal calculé ». Il avait répondu à une question que
 
 ## Références et approfondissements
 
-- **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives des notions de fidélité, répétabilité, justesse, exactitude, erreur et incertitude ; [version française annotée](https://jcgm.bipm.org/vim/fr/), notamment l'entrée [2.39 — Étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html), qui distingue l'établissement de la relation métrologique de son utilisation pour obtenir un résultat de mesure.
-- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude.
+- **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives ; consulter directement [2.13 — Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html), [2.14 — Justesse](https://jcgm.bipm.org/vim/fr/2.14.html), [2.15 — Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html), [2.18 — Biais de mesure](https://jcgm.bipm.org/vim/fr/2.18.html), [2.21 — Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html), [2.26 — Incertitude](https://jcgm.bipm.org/vim/fr/2.26.html), [2.39 — Étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html) et [2.41 — Traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html).
+- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude. Le BIPM signale aussi l'[amendement 1:2026 sur la non-linéarité des modèles de mesure](https://doi.org/10.59161/PPDI3267), qui dépasse le cas additif illustré ici.
 - **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — introduction opérationnelle à l'évaluation et à l'expression de l'incertitude.
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html).

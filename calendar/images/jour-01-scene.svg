@@ -8,8 +8,8 @@
 </defs>
 <rect x="1" y="1" width="998" height="358" rx="22" fill="url(#paper)" stroke="#d5dfd3" stroke-width="2"/>
 <g font-family="Arial,sans-serif">
-  <text x="54" y="48" fill="#6c7c70" font-size="15" font-weight="700" letter-spacing="3">OBSERVATION INITIALE</text>
-  <text x="946" y="48" fill="#8a6b4c" font-size="13" text-anchor="end">Deux variables changent ensemble</text>
+  <text x="54" y="48" fill="#596b5e" font-size="15" font-weight="700" letter-spacing="3">OBSERVATION INITIALE</text>
+  <text x="946" y="48" fill="#785630" font-size="13" text-anchor="end">Deux variables changent ensemble</text>
   <g transform="translate(78 82)">
     <rect x="0" y="75" width="330" height="155" rx="8" fill="#e2eae0" stroke="#9bb29f" stroke-width="2"/>
     <path d="M-10 80 L165 0 L340 80" fill="#d1dfd0" stroke="#6c8c73" stroke-width="3" stroke-linejoin="round"/>
@@ -44,7 +44,7 @@
   </g>
   <g transform="translate(446 158)">
     <circle r="45" fill="#fffefa" stroke="#d9dfd4" stroke-width="2"/>
-    <text y="-2" fill="#9a6a43" font-size="12" font-weight="700" text-anchor="middle">ÉCART</text>
+    <text y="-2" fill="#80512d" font-size="12" font-weight="700" text-anchor="middle">ÉCART</text>
     <text y="20" fill="#a35c39" font-size="22" font-weight="700" text-anchor="middle">−0,5°</text>
   </g>
   <path d="M410 180 H398 M602 180 H590" stroke="#b4c3b5" stroke-width="2" stroke-dasharray="5 6"/>

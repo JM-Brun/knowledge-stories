@@ -368,7 +368,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 #quarto-content .story-hero-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
 #quarto-content .eyebrow,.story-hero .eyebrow {
-  color:#718076; font:700 .64rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:#596b5e; font:700 .64rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
   letter-spacing:.13em;
 }
 #quarto-content .status-pill {
@@ -385,7 +385,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 #quarto-content .story-building.flagged { border-color:#dfc7b2; background:#fffaf5; }
 #quarto-content .building-label {
-  color:#718076; font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em;
+  color:#596b5e; font:700 .65rem ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.1em;
 }
 #quarto-content .story-building strong {
   color:#244637; font:600 clamp(2rem,5vw,3.2rem)/1.05 Georgia,serif; letter-spacing:-.055em;
@@ -415,7 +415,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 #quarto-content .story-question p { margin:.2rem 0 0; color:#64736a; font-size:.9rem; }
 #quarto-content .editorial-note {
   max-width:76ch; margin:1.2rem 0; padding:.55rem .8rem;
-  border-left:2px solid #c99a58; color:#68766d; font-size:.82rem;
+  border-left:2px solid #c99a58; color:#526359; font-size:.82rem;
 }
 #quarto-content .sensor-reading {
   display:block; margin:.25rem 0 .55rem; color:#294b3a;
@@ -841,7 +841,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   font-variant-numeric:tabular-nums;
 }
 #quarto-content .measurement-control small {
-  color:#718076;
+  color:#596b5e;
   font-size:.73rem;
   line-height:1.4;
 }
@@ -873,7 +873,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   background:#fff;
 }
 #quarto-content .measurement-equation > div > span {
-  color:#718076;
+  color:#596b5e;
   font-size:.68rem;
   line-height:1.35;
 }
@@ -970,7 +970,7 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 
 
-#quarto-content figure.calibration-figure {
+#quarto-content figure.comparison-figure {
   max-width:66rem;
   margin:1.35rem 0 1.8rem;
   padding:.8rem .9rem .65rem;
@@ -979,16 +979,16 @@ main.content, #quarto-content main { max-width: 76rem; }
   border-radius:9px;
   background:linear-gradient(145deg,#fffefa,#f4f2e9);
 }
-#quarto-content figure.calibration-figure img {
+#quarto-content figure.comparison-figure img {
   display:block;
   width:100%;
   height:auto;
 }
-#quarto-content figure.calibration-figure figcaption {
+#quarto-content figure.comparison-figure figcaption {
   margin:.65rem .2rem .1rem;
 }
 @media(max-width:700px) {
-  #quarto-content figure.calibration-figure .diagram-scroll img { min-width:620px; }
+  #quarto-content figure.comparison-figure .diagram-scroll img { min-width:620px; }
 }
 
 
