@@ -202,7 +202,7 @@ X_{\text{initial}} =
 \end{bmatrix}.
 $$
 
-Le rang de cette matrice vaut 2 : elle ne fournit que deux colonnes indépendantes pour trois paramètres. Le rang indique combien de contributions indépendantes le plan permet de distinguer. Ici, les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. C'est une **colinéarité parfaite** créée par le plan de collecte ; le terme « confusion » désigne ici cette impossibilité structurelle de séparer les contributions, pas une conclusion causale sur le bâtiment. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+Le rang de cette matrice vaut 2 : elle ne fournit que deux colonnes indépendantes pour trois paramètres. Le rang est le nombre de colonnes linéairement indépendantes de la matrice ; il indique combien de directions de variation le plan permet de distinguer. Ici, les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. C'est une **colinéarité parfaite** créée par le plan de collecte ; le terme « confusion » désigne ici cette impossibilité structurelle de séparer les contributions, pas une conclusion causale sur le bâtiment. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
 
 On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de $\delta$ et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
 
