@@ -50,6 +50,10 @@ test("the contrast grid remains two columns at tablet and mobile widths", () => 
 });
 
 
+test("Day 1 external plan diagrams remain readable and scrollable on narrow screens", () => {
+  assert.match(styles, /@media\s*\(max-width:\s*700px\)[\s\S]*?figure\.design-figure \.diagram-scroll img\s*\{\s*min-width:\s*620px/);
+});
+
 test("article prose and visual blocks share one responsive reading measure", () => {
   assert.match(styles, /--article-reading-measure:\s*84ch/);
   assert.match(styles, /main\.content\s*>\s*:where\([\s\S]*?figure[\s\S]*?var\(--article-reading-measure\)/);
