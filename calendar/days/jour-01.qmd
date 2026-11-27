@@ -13,7 +13,14 @@ description: "Deux bâtiments semblent différer. Mais si chacun utilise un capt
 <p>Un modèle recommande de réchauffer un bâtiment. Mais mesure-t-il vraiment la température du bâtiment — ou le décalage de son capteur ? Suivons l'enquête jusqu'au moment où les données racontent l'histoire inverse.</p>
 </div>
 
-## Le modèle a trouvé un écart. Mais entre quoi et quoi ?
+<nav class="story-route" aria-label="Les quatre étapes de l'enquête">
+  <a href="#premier-signal"><span>01</span><strong>Le signal</strong></a>
+  <a href="#verification-capteurs"><span>02</span><strong>La mesure</strong></a>
+  <a href="#confusion-effets"><span>03</span><strong>La confusion</strong></a>
+  <a href="#plan-croise"><span>04</span><strong>Le croisement</strong></a>
+</nav>
+
+## Le modèle a trouvé un écart. Mais entre quoi et quoi ? {#premier-signal}
 
 Un modèle de suivi énergétique signale que le bâtiment B est plus froid que le bâtiment A. L'écart observé est de 0,5 °C. L'équipe envisage de modifier le chauffage.
 
@@ -28,14 +35,7 @@ Le modèle compare donc deux choses à la fois :
 
 <figure class="story-hero">
 <div class="story-hero-top"><span class="eyebrow">LE SIGNAL DU MODÈLE</span><span class="status-pill">Alerte à vérifier</span></div>
-<div class="story-hero-grid">
-<div class="story-building">
-<span class="building-label">BÂTIMENT A</span><strong>20,0 °C</strong><span class="sensor-tag">Mesuré par S1</span>
-</div>
-<div class="story-building flagged">
-<span class="building-label">BÂTIMENT B</span><strong>19,5 °C</strong><span class="sensor-tag">Mesuré par S2</span>
-</div>
-</div>
+<img class="story-scene" src="../images/jour-01-scene.svg" alt="Deux bâtiments stylisés : le bâtiment A est mesuré par le capteur S1 qui indique 20,0 °C ; le bâtiment B est mesuré par S2 qui indique 19,5 °C. Les deux facteurs changent simultanément.">
 <div class="story-hero-verdict"><span>−0,5 °C</span><span>Écart observé : B paraît plus froid</span></div>
 <figcaption>Le modèle compare deux bâtiments, mais aussi deux systèmes de mesure. À ce stade, impossible de savoir lequel explique l'écart.</figcaption>
 </figure>
@@ -56,7 +56,7 @@ Le modèle compare donc deux choses à la fois :
 
 <aside class="editorial-note">Les nombres de cette enquête sont construits pour illustrer le raisonnement ; ils ne proviennent pas d'une campagne de mesure réelle.</aside>
 
-## Première vérification : les capteurs disent-ils la même chose dans les mêmes conditions ?
+## Première vérification : les capteurs disent-ils la même chose dans les mêmes conditions ? {#verification-capteurs}
 
 L'équipe place les deux capteurs côte à côte dans un environnement stabilisé. Une référence étalonnée indique 20,00 °C ; son incertitude est documentée.
 
@@ -80,6 +80,13 @@ L'équipe place les deux capteurs côte à côte dans un environnement stabilis�
 <div class="sensor-difference"><span class="difference-value">−1,0 °C</span><span>Écart entre les moyennes, dans cet essai</span></div>
 <p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
 </div>
+
+<figure class="calibration-figure">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison des indications des capteurs S1 et S2 sur un même axe de température">
+<img src="../images/jour-01-calibration.svg" alt="Diagramme de points sur un axe commun : S1 indique 19,9, 20,0 et 20,1 degrés ; S2 indique 18,9, 19,0 et 19,1 degrés. Les deux séries ont une étendue observée de 0,2 degré, mais S2 est décalé d'un degré vers les températures plus basses par rapport à S1 et à la référence 20,00 degrés.">
+</div>
+<figcaption>Les points montrent les six indications, pas une distribution théorique. Dans cet essai seulement, les deux capteurs ont la même étendue observée (0,2 °C) ; leurs moyennes sont séparées de 1,0 °C.</figcaption>
+</figure>
 
 Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
 
@@ -145,7 +152,7 @@ Cette formule dépend de l'indépendance. Des mesures rapprochées dans le temps
 
 Mais le problème du réseau de capteurs est plus profond encore : même si chaque capteur fournissait des milliers de mesures très stables, pourrait-on séparer l'effet du bâtiment de celui du capteur ?
 
-## Le vrai problème : deux effets parfaitement confondus
+## Le vrai problème : deux effets parfaitement confondus {#confusion-effets}
 
 Notons $Y_{s,c}$ la température indiquée dans le bâtiment $s$ par le capteur $c$. Un modèle additif simple serait :
 
@@ -168,8 +175,8 @@ Or, dans le réseau initial, on n'observe que deux associations :
 | B | S2 | 19,5 °C |
 
 <figure class="design-figure initial-design">
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan de mesure initial : chaque bâtiment est toujours associé au même capteur">
-<img src="../images/jour-01-plan-initial.svg" alt="Deux associations seulement sont observées : le bâtiment A avec le capteur S1, et le bâtiment B avec le capteur S2. Les associations A-S2 et B-S1 manquent ; il est donc impossible de séparer les effets du bâtiment et du capteur.">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Matrice du plan initial : seules les associations A-S1 et B-S2 sont observées">
+<img src="../images/jour-01-plan-initial.svg" alt="Matrice bâtiment par capteur : les cases A-S1 et B-S2 sont observées, tandis que A-S2 et B-S1 sont absentes. Il manque les comparaisons à bâtiment constant et à capteur constant.">
 </div>
 <figcaption>Schéma du plan de collecte, pas de mesures supplémentaires : les deux associations observées suivent toujours la même diagonale. Les deux autres combinaisons n'ont jamais été mesurées.</figcaption>
 </figure>
@@ -215,7 +222,7 @@ Répéter mille fois la mesure de A avec S1 et celle de B avec S2 rendrait peut-
 </div>
 </details>
 
-## Le croisement change la question — et renverse la conclusion
+## Le croisement change la question — et renverse la conclusion {#plan-croise}
 
 Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dans des conditions comparables. On obtient alors ce plan croisé :
 
@@ -225,8 +232,8 @@ Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dan
 | B | 20,5 °C | 19,5 °C |
 
 <figure class="design-figure crossed-design">
-<div class="diagram-scroll" role="region" tabindex="0" aria-label="Plan croisé : chaque capteur mesure chaque bâtiment">
-<img src="../images/jour-01-plan-croise.svg" alt="Une grille à deux lignes et deux colonnes contient les quatre mesures : bâtiment A avec S1, bâtiment A avec S2, bâtiment B avec S1 et bâtiment B avec S2. Les comparaisons à bâtiment constant isolent le contraste entre capteurs ; celles à capteur constant isolent le contraste entre bâtiments, sous le modèle additif.">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Matrice du plan croisé : les quatre associations entre bâtiments et capteurs sont observées">
+<img src="../images/jour-01-plan-croise.svg" alt="Matrice bâtiment par capteur complète : les quatre associations A-S1, A-S2, B-S1 et B-S2 sont observées. Les contrastes par ligne comparent les capteurs à bâtiment constant ; les contrastes par colonne comparent les bâtiments à capteur constant.">
 </div>
 <figcaption>Les quatre cases sont maintenant observées. Les contrastes par ligne et par colonne apportent les comparaisons qui manquaient au plan initial ; leur interprétation comme effets principaux suppose l'additivité du modèle.</figcaption>
 </figure>
@@ -272,6 +279,41 @@ $$
 $$
 
 Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 °C dans cet exemple, mais son capteur indique 1 °C de moins. C'est cette contribution instrumentale qui inverse le signe de la comparaison naïve.
+
+<section class="measurement-lab" data-measurement-lab aria-labelledby="measurement-lab-title">
+<div class="measurement-lab-heading">
+<span class="eyebrow">EXPÉRIENCE INTERACTIVE · MODÈLE ADDITIF</span>
+  <h3 id="measurement-lab-title">Un même écart peut cacher plusieurs histoires</h3>
+<p>Faites varier séparément l'écart réel entre bâtiments et le décalage du capteur S2 par rapport à S1. Le signal initial est la somme des deux.</p>
+</div>
+<div class="measurement-controls">
+  <label class="measurement-control">
+<span><strong>Effet du bâtiment</strong><output data-building-value>+0,5 °C</output></span>
+    <small>Température de B − température de A</small>
+    <input type="range" min="-2" max="2" step="0.1" value="0.5" data-building-effect aria-label="Effet du bâtiment, de moins 2 à plus 2 degrés">
+  </label>
+  <label class="measurement-control">
+<span><strong>Décalage du capteur</strong><output data-sensor-value>−1,0 °C</output></span>
+    <small>Indication de S2 − indication de S1 à température égale</small>
+    <input type="range" min="-2" max="2" step="0.1" value="-1" data-sensor-effect aria-label="Décalage du capteur, de moins 2 à plus 2 degrés">
+  </label>
+</div>
+<div class="measurement-equation" aria-live="polite">
+<div><span>Effet bâtiment</span><strong data-building-value>+0,5 °C</strong></div>
+<span class="measurement-operator">+</span>
+<div><span>Effet capteur</span><strong data-sensor-value>−1,0 °C</strong></div>
+<span class="measurement-operator">=</span>
+<div class="measurement-result"><span>Écart observé</span><strong data-observed-value>−0,5 °C</strong></div>
+</div>
+<p class="measurement-status" data-lab-status role="status">Même signal observé que dans l'enquête.</p>
+<div class="measurement-presets">
+<span>Comparer deux explications du même signal :</span>
+  <button type="button" data-preset="0.5,-1">Scénario de l'enquête</button>
+  <button type="button" data-preset="-0.5,0">Autre explication</button>
+</div>
+<p class="measurement-footnote">Cette expérience illustre l'identifiabilité dans un modèle additif simplifié. Elle ne remplace pas le plan croisé : celui-ci apporte les observations nécessaires pour estimer séparément les deux effets.</p>
+</section>
+
 
 <figure class="reversal-figure">
 <span class="eyebrow">LE RENVERSEMENT</span>
@@ -370,3 +412,6 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 
 - [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : une mesure peut être correcte, mais la population observée peut rester biaisée.
 - [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
+
+
+<script type="module" src="../scripts/jour-01-interactive.js"></script>
