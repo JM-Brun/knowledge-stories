@@ -22,54 +22,14 @@ status: "review"
 featured: false
 cover: "karatsuba"
 sources:
-  - title: "Multiplier deux nombres — de Karatsuba à l’IA — Djamchid Dalili (2026)"
+  - title: "Multiplier deux nombres : et si l'on s'y prenait autrement ? — Djamchid (2026)"
     url: "https://djamchid.fr/blog/posts/2026-11-18-multiplication-karatsuba.html"
     kind: "secondary"
-    accessed: 2026-11-20
-  - title: "Karatsuba et Ofman (1962), notice bibliographique et texte original"
+    accessed: 2026-11-27
+  - title: "Multiplication of multidigit numbers on automata — A. Karatsuba & Yu. Ofman (1962)"
     url: "https://www.mathnet.ru/php/archive.phtml?jrnid=dan&option_lang=eng&paperid=26729&wshow=paper"
     kind: "primary"
-    accessed: 2026-11-24
-  - title: "Lecture notes — Complexity, H. Zantema, Radboud University (version 2019)"
-    url: "https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf"
-    kind: "secondary"
-    accessed: 2026-11-24
-  - title: "Multiplying integers — FLINT documentation"
-    url: "https://flintlib.org/doc/algorithms/integers/multiplication.html"
-    kind: "documentation"
-    accessed: 2026-11-24
-  - title: "Karatsuba Multiplication — University of Illinois, CS 173"
-    url: "https://courses.grainger.illinois.edu/CS173/fa2024/ALL-lectures/Lectures/algorithms4.html"
-    kind: "secondary"
-    accessed: 2026-11-20
-  - title: "Integer multiplication below n log n — OpenAI preprint"
-    url: "https://github.com/openai/math/tree/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026"
-    kind: "primary"
-    accessed: 2026-11-20
-  - title: "On the recently proposed o(n log n) integer multiplication algorithm — David Harvey"
-    url: "https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf"
-    kind: "secondary"
-    accessed: 2026-11-20
-  - title: "A simpler algorithm for integer multiplication below n log n, with a formally verified proof — Cui, Liu et Woodruff (2026)"
-    url: "https://github.com/lockqueue/intmul"
-    kind: "primary"
-    accessed: 2026-11-20
-  - title: "Karatsuba Recursion Tree — University of Illinois, CS 173"
-    url: "https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html"
-    kind: "secondary"
-    accessed: 2026-11-24
-  - title: "Karatsuba Multiplication — GNU MP 6.3.0"
-    url: "https://gmplib.org/manual/Karatsuba-Multiplication"
-    kind: "documentation"
-    accessed: 2026-11-24
-  - title: "Integer multiplication in time O(n log n) — Harvey et van der Hoeven (2021)"
-    url: "https://annals.math.princeton.edu/2021/193-2/p04"
-    kind: "primary"
-    accessed: 2026-11-20
-  - title: "Integer multiplication in Lean — formalisation Mathlib TM2 (état consulté le 24 novembre 2026)"
-    url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
-    kind: "primary"
-    accessed: 2026-11-24
+    accessed: 2026-11-27
   - title: "CS4102 Algorithms — Karatsuba Algorithm and Asymptotic Notation, SlideServe (publication affichée : 2019-11-06)"
     url: "https://www.slideserve.com/thompkins/cs4102-algorithms-powerpoint-ppt-presentation"
     kind: "secondary"
@@ -101,7 +61,7 @@ import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.as
 
 Quand on multiplie deux grands nombres, on peut les couper en deux blocs : un bloc de poids fort et un bloc de poids faible. Le développement habituel fait apparaître quatre produits entre ces blocs.
 
-Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Au lieu de les calculer séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
+Karatsuba a remarqué que les deux produits croisés peuvent être obtenus indirectement. Cette méthode est publiée par A. Karatsuba et Yu. Ofman en 1962 ([notice bibliographique de l'article original](https://www.mathnet.ru/php/archive.phtml?jrnid=dan&option_lang=eng&paperid=26729&wshow=paper)). Au lieu de calculer les produits croisés séparément, on multiplie une seule fois les sommes des blocs, puis on soustrait les deux produits déjà calculés.
 
 On passe ainsi de **quatre multiplications de taille réduite à trois**. Dans le modèle équilibré, pour deux opérandes de taille comparable n, cette économie répétée récursivement conduit à un coût en <span class="term-aux">&#92;(\Theta(n^&#123;\log_2 3&#125;)&#92;)</span>, soit environ <span class="term-aux">&#92;(\Theta(n^&#123;1,585&#125;)&#92;)</span>, au lieu de <span class="term-common">&#92;(\Theta(n^2)&#92;)</span> pour la <span class="term-common">méthode classique</span>. Il s’agit du modèle asymptotique équilibré, et non du coût de toute paire d’opérandes dont le plus grand aurait n chiffres : si l’un des nombres est beaucoup plus court, la récursion peut s’arrêter plus tôt. La démonstration repose sur le nombre de sous-problèmes à chaque niveau de l’arbre de récursion ; elle est détaillée plus bas.
 
