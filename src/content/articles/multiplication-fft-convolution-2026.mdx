@@ -41,8 +41,13 @@ Cette étape suit [Karatsuba](/knowledge-stories/atelier/karatsuba-multiplicatio
 import FFTConvolutionExplorer from "../../components/FFTConvolutionExplorer.astro";
 import SchonhageStrassenExplorer from "../../components/SchonhageStrassenExplorer.astro";
 import FFTButterflyDiagram from "../../components/FFTButterflyDiagram.astro";
+import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.astro";
 
-## 1. De Toom–Cook à la FFT : accélérer la convolution
+<span class="method-fft"><strong>FFT · transformée de Fourier rapide</strong></span>
+
+<MultiplicationMethodMap active="fft" />
+
+## 1. De Toom–Cook à la <span class="method-fft">FFT</span> : accélérer la convolution
 
 ### 1.1 Le produit de polynômes est une convolution
 
@@ -182,7 +187,7 @@ Prenons &#92;(A(x)=1+2x&#92;) et &#92;(B(x)=3+4x&#92;). Leur produit possède tr
 
 Cet exemple montre l'identité algébrique. Il ne constitue pas à lui seul une implémentation de multiplication entière rapide : il ne traite ni le choix optimal de longueur, ni les bornes de coefficients, ni la précision numérique. Ces questions deviennent essentielles dès que les coefficients sont grands.
 
-### 1.6 Schönhage–Strassen : rendre la FFT exacte et récursive
+### 1.6 <span class="method-ss">Schönhage–Strassen</span> : rendre la FFT exacte et récursive
 
 La FFT précédente travaille sur des nombres complexes : elle explique le mécanisme de convolution rapide, mais ne suffit pas à construire un multiplicateur entier exact. La **NTT** répond à une première difficulté en remplaçant les complexes par des résidus modulo un nombre premier adapté. Schönhage–Strassen suit une autre voie : il réalise une transformée dans un anneau de la forme &#92;(&#92;mathbb Z/(2^N+1)&#92;mathbb Z&#92;), choisi pour que les facteurs de rotation soient des puissances de 2.
 
