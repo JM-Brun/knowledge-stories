@@ -1,0 +1,21 @@
+<svg viewBox="0 0 720 285" role="img" aria-labelledby="cross-design-title cross-design-desc" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <title id="cross-design-title">Le plan croisé observe les quatre combinaisons bâtiment-capteur</title>
+  <desc id="cross-design-desc">Une grille à deux lignes et deux colonnes contient les quatre mesures : bâtiment A avec S1, bâtiment A avec S2, bâtiment B avec S1 et bâtiment B avec S2. Les comparaisons à bâtiment constant isolent le contraste entre capteurs ; celles à capteur constant isolent le contraste entre bâtiments, sous le modèle additif.</desc>
+  <rect x="1" y="1" width="718" height="283" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <g font-family="sans-serif" font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">
+    <text x="180" y="38">Capteur S1</text><text x="450" y="38">Capteur S2</text>
+    <text x="64" y="112">Bâtiment A</text><text x="64" y="208">Bâtiment B</text>
+  </g>
+  <g stroke="#cbd5e1" stroke-width="1.5">
+    <rect x="120" y="55" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="55" width="250" height="70" rx="8" fill="#ffffff"/>
+    <rect x="120" y="151" width="250" height="70" rx="8" fill="#ffffff"/><rect x="390" y="151" width="250" height="70" rx="8" fill="#ffffff"/>
+  </g>
+  <g font-family="sans-serif" font-size="22" font-weight="700" text-anchor="middle">
+    <text x="245" y="99" fill="#0f766e">20,0 °C</text><text x="515" y="99" fill="#7c3aed">19,0 °C</text>
+    <text x="245" y="195" fill="#0f766e">20,5 °C</text><text x="515" y="195" fill="#7c3aed">19,5 °C</text>
+  </g>
+  <g font-family="sans-serif" font-size="12" fill="#334155" text-anchor="middle">
+    <text x="360" y="250">Chaque ligne compare les capteurs à bâtiment constant.</text>
+    <text x="360" y="270">Chaque colonne compare les bâtiments à capteur constant.</text>
+  </g>
+</svg>
