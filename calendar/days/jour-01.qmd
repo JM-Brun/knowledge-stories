@@ -9,8 +9,8 @@ description: "Deux bâtiments semblent différer. Mais si chacun utilise un capt
 </div>
 
 <div class="story-promise">
-<strong>Une décision à prendre, deux explications possibles.</strong>
-<p>Un modèle de suivi énergétique signale un écart entre deux bâtiments. L'équipe envisage de modifier le chauffage. Mais les données permettent-elles de distinguer une différence réelle entre bâtiments d'un décalage entre capteurs ?</p>
+<strong>L'alerte est tombée à 9 h 12 : le bâtiment B est plus froid que le bâtiment A.</strong>
+<p>L'équipe s'apprête à modifier le chauffage. Mais les deux bâtiments n'utilisent pas le même capteur, et personne ne peut encore dire ce que le modèle a réellement mesuré : un bâtiment plus froid, ou un capteur qui indique moins. Les données permettent-elles de trancher ?</p>
 </div>
 
 <nav class="story-route" aria-label="Les quatre étapes de l'enquête">
@@ -106,9 +106,28 @@ Cette comparaison apporte un indice important, mais sa portée reste limitée :
 
 On peut donc dire que les indications de S2 sont décalées dans cet essai. Au sens du [VIM (2.18)](https://jcgm.bipm.org/vim/fr/2.18.html), le biais de mesure est une estimation d'une erreur systématique. Ces trois relevés établissent un écart dans les conditions de l'essai, mais ne démontrent pas un décalage constant sur toute la plage d'utilisation.
 
-La distinction métrologique utile ici est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Dans le vocabulaire du [VIM](https://jcgm.bipm.org/vim/fr/), la [fidélité (2.15)](https://jcgm.bipm.org/vim/fr/2.15.html) décrit l'accord entre les résultats répétés dans des conditions spécifiées ; la [répétabilité (2.21)](https://jcgm.bipm.org/vim/fr/2.21.html) en est un cas particulier. La [justesse (2.14)](https://jcgm.bipm.org/vim/fr/2.14.html) concerne la proximité entre la moyenne d'un grand nombre de résultats et une valeur de référence. L'[exactitude (2.13)](https://jcgm.bipm.org/vim/fr/2.13.html) est une notion plus globale et qualitative : elle ne se réduit pas à la justesse. Enfin, l'[incertitude de mesure (2.26)](https://jcgm.bipm.org/vim/fr/2.26.html) caractérise la dispersion des valeurs attribuables au mesurande, c'est-à-dire à la grandeur que l'on cherche à mesurer. Les trois relevés illustrent ces distinctions, mais ne suffisent pas à caractériser complètement les propriétés du capteur.
+La distinction utile pour la suite est simple : **la dispersion des indications répétées et leur proximité avec une référence sont deux propriétés différentes**. Un essai autour de 20 °C ne décrit pas toute la plage d'utilisation ; le vocabulaire qu'il mobilise est récapitulé ci-dessous.
 
-Il faut aussi distinguer une **comparaison ponctuelle** d'un **étalonnage**. Une comparaison autour de 20 °C ne fournit pas à elle seule une fonction de correction valable sur toute la plage d'utilisation. Le VIM définit l'étalonnage comme une opération qui relie, sous conditions spécifiées, des valeurs de référence et leurs incertitudes aux indications d'un instrument et à leurs incertitudes ([2.39](https://jcgm.bipm.org/vim/fr/2.39.html)). La **traçabilité métrologique** relie ensuite le résultat à une référence par une chaîne ininterrompue et documentée d'étalonnages, chacun contribuant à l'incertitude ([2.41](https://jcgm.bipm.org/vim/fr/2.41.html)). Pour notre enquête, il suffit de retenir qu'une référence et son incertitude doivent être documentées, et que l'essai doit couvrir le domaine d'utilisation.
+<details class="story-pause">
+<summary>Zoom métrologie : le vocabulaire du VIM appliqué à cet essai</summary>
+<div class="pause-content">
+<table>
+<thead>
+<tr><th>Notion</th><th>VIM</th><th>Ce que dit l'essai</th></tr>
+</thead>
+<tbody>
+<tr><td>Fidélité</td><td><a href="https://jcgm.bipm.org/vim/fr/2.15.html">2.15</a></td><td>Les trois relevés de chaque capteur tiennent dans 0,2 °C : l'accord entre répétitions est bon, dans ces conditions.</td></tr>
+<tr><td>Répétabilité</td><td><a href="https://jcgm.bipm.org/vim/fr/2.21.html">2.21</a></td><td>Cas particulier de la fidélité (mêmes conditions, courte durée) : trois relevés ne suffisent pas à la caractériser.</td></tr>
+<tr><td>Justesse</td><td><a href="https://jcgm.bipm.org/vim/fr/2.14.html">2.14</a></td><td>S2 indique 19,0 °C pour une référence de 20,00 °C : la justesse de S2 est en cause dans cet essai.</td></tr>
+<tr><td>Exactitude</td><td><a href="https://jcgm.bipm.org/vim/fr/2.13.html">2.13</a></td><td>Notion globale et qualitative : trois relevés ne permettent de déclarer aucun des deux capteurs « exact ».</td></tr>
+<tr><td>Incertitude de mesure</td><td><a href="https://jcgm.bipm.org/vim/fr/2.26.html">2.26</a></td><td>L'incertitude de la référence ne couvre pas, à elle seule, l'incertitude de la comparaison S1–S2.</td></tr>
+<tr><td>Étalonnage</td><td><a href="https://jcgm.bipm.org/vim/fr/2.39.html">2.39</a></td><td>Une comparaison ponctuelle à 20 °C n'est pas un étalonnage : aucune fonction de correction valable sur toute la plage.</td></tr>
+<tr><td>Traçabilité métrologique</td><td><a href="https://jcgm.bipm.org/vim/fr/2.41.html">2.41</a></td><td>La référence doit être rattachée à une chaîne documentée d'étalonnages pour que l'écart soit interprétable.</td></tr>
+</tbody>
+</table>
+<p>Pour l'enquête, retenez simplement : une référence et son incertitude doivent être documentées, et l'essai doit couvrir le domaine d'utilisation.</p>
+</div>
+</details>
 
 ## Pourquoi répéter davantage ne corrige pas le décalage
 
@@ -325,7 +344,7 @@ Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 �
 <figcaption>La conclusion change de signe quand on distingue l'effet du bâtiment du décalage du capteur. Ce n'est pas le modèle qui a changé : c'est l'information disponible.</figcaption>
 </figure>
 
-Le résultat est contre-intuitif : si l'on utilise seulement les capteurs installés initialement, on compare 20,0 °C pour A avec 19,5 °C pour B et l'on conclut que B est plus froid de 0,5 °C. Sous le modèle additif, le plan croisé attribue au contraire au bâtiment B un contraste de +0,5 °C par rapport à A. **Le décalage du capteur a inversé le signe de la conclusion.**
+**Le décalage du capteur a inversé le signe de la conclusion.**
 
 Le croisement rend les effets principaux identifiables sous une hypothèse : le décalage de chaque capteur doit être le même dans les deux bâtiments. C'est le modèle additif, sans interaction capteur × bâtiment.
 
@@ -378,6 +397,8 @@ Avant d'interpréter l'effet d'un site, demandez-vous donc :
 ## La leçon de l'enquête
 
 Le modèle n'avait pas « mal calculé ». Il avait répondu à une question que le plan de mesure ne permettait pas de trancher. La faiblesse se trouvait en amont de l'algorithme.
+
+Et le chauffage ? L'équipe a suspendu la modification. Dans le plan initial, la décision reposait sur une comparaison que les données ne permettaient pas de trancher. Après le croisement, la question se pose autrement : le bâtiment B est probablement plus chaud, pas plus froid.
 
 <div class="story-conclusion">
 <span class="eyebrow">À EMPORTER</span>
