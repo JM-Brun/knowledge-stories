@@ -112,8 +112,10 @@ test("the Toom–Cook article preserves the Karatsuba palette in its historical 
   assert.ok(article.includes(String.raw`<span class="term-aux">&#92;(w=(12+34)(56+78)&#92;)</span>`));
   assert.ok(article.includes(String.raw`<span class="term-cross">&#92;(w-u-v&#92;)</span>`));
   assert.ok(styles.includes(":has(.karatsuba-color-scope) .karatsuba-color-scope .term-common"));
-  assert.ok(comparison.includes("var(--term-common,#287a4b)"));
-  assert.ok(comparison.includes("var(--term-aux,#7651a6)"));
+  assert.ok(comparison.includes("cost-row--karatsuba"));
+  assert.ok(comparison.includes("cost-row--toom"));
+  assert.ok(comparison.includes("var(--method-karatsuba,#52627a)"));
+  assert.ok(comparison.includes("var(--method-toom,#006f6b)"));
 });
 
 
