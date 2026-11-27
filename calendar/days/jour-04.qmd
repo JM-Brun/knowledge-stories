@@ -10,11 +10,18 @@ description: "Comprendre comment la dépendance modifie l'incertitude d'un agré
 >
 > **À la fin** — Vous saurez calculer la variance d'une somme, interpréter le signe de la covariance et expliquer pourquoi des mesures ou des modèles corrélés apportent moins de diversité qu'on pourrait le croire.
 
+<nav class="story-route" aria-label="Les quatre étapes de l'enquête">
+<a href="#alerte-pont"><span>01</span><strong>L'alerte</strong></a>
+<a href="#exemple-calcule"><span>02</span><strong>L'exemple calculé</strong></a>
+<a href="#trois-regimes"><span>03</span><strong>Trois régimes</strong></a>
+<a href="#transfert-agregation"><span>04</span><strong>Le transfert</strong></a>
+</nav>
+
 ## Pourquoi cette question compte en Data Science
 
 Dans un benchmark, 10 000 lignes ne représentent pas nécessairement 10 000 expériences indépendantes. Des prompts proches, des mesures répétées sur les mêmes sujets ou des exemples issus d'un même site peuvent partager leurs fluctuations. Ignorer cette dépendance donne une impression de précision excessive et peut rendre les écarts entre modèles beaucoup moins convaincants qu'ils n'en ont l'air.
 
-## L'alerte dans la salle de contrôle
+## L'alerte dans la salle de contrôle {#alerte-pont}
 
 Deux capteurs surveillent la vibration d'un pont. Chaque capteur est bruyant ; l'ingénieur propose donc de faire la moyenne de leurs relevés. Cela devrait réduire le bruit.
 
@@ -22,11 +29,19 @@ Mais les deux appareils sont fixés sur la même structure. Quand un camion trav
 
 C'est le rôle de la covariance : mesurer la contribution de ces variations communes à l'incertitude d'une somme ou d'une moyenne.
 
+<details class="story-pause">
+<summary>Avant le calcul : que gagne-t-on à moyenner deux capteurs ?</summary>
+<div class="pause-content">
+<p>Si les deux capteurs donnaient exactement la même indication, leur moyenne vaudrait cette indication et ne réduirait rien du tout.</p>
+<p>Le gain du moyennage dépend donc entièrement de ce que les deux bruits ont d'indépendant. La suite le calcule.</p>
+</div>
+</details>
+
 ## La question
 
 Pourquoi la variance de $X+Y$ n'est-elle pas toujours égale à la somme des variances de $X$ et de $Y$ ? Parce que le résultat dépend aussi de la manière dont les deux variables fluctuent ensemble.
 
-## Un exemple calculé : deux variables qui évoluent ensemble
+## Un exemple calculé : deux variables qui évoluent ensemble {#exemple-calcule}
 
 Considérons trois couples équiprobables :
 
@@ -115,7 +130,7 @@ $$
 
 Si l'on ignorait la covariance, on calculerait seulement $2/3+8/3=10/3$. On sous-estimerait ici la variance réelle d'un facteur 1,8. Ce n'est pas une petite correction : le terme croisé est du même ordre que les variances individuelles.
 
-## Trois régimes de dépendance
+## Trois régimes de dépendance {#trois-regimes}
 
 Pour deux variables de même variance $\sigma^2$, on a $\operatorname{Cov}(X,Y)=\rho\sigma^2$. En reportant cette égalité dans la formule de la variance d'une somme, puis en divisant par quatre :
 
@@ -263,7 +278,7 @@ $$
 
 Ainsi, $\operatorname{Cov}(X,Y)=\mathbb E[XY]-\mathbb E[X]\mathbb E[Y]=0$. Pourtant, connaître $X$ détermine exactement $Y$ : les variables sont dépendantes malgré une covariance nulle.
 
-## Transfert : agréger des modèles ou des mesures
+## Transfert : agréger des modèles ou des mesures {#transfert-agregation}
 
 Dans un ensemble de modèles, considérons les erreurs de prédiction $E_i=\widehat Y_i-Y$. La variance de l'erreur moyenne dépend des covariances entre ces erreurs, exactement comme pour les capteurs. Si les modèles se trompent sur les mêmes observations, leur moyenne apporte moins de réduction de variance que si leurs erreurs se compensent partiellement.
 
