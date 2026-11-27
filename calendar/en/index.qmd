@@ -18,7 +18,7 @@ From **December 1 to 24, 2026**, this edition brings together twenty-four short 
 <div class="calendar-status" aria-label="Publication status of the 2026 edition">
   <div class="calendar-status-copy">
     <strong>5 articles published out of 24</strong>
-    <span>19 editorial outlines available · further articles are scheduled from December 1</span>
+    <span>19 editorial outlines available · further articles are scheduled from December 6</span>
   </div>
   <progress value="5" max="24" aria-label="5 articles published out of 24">5 of 24</progress>
 </div>

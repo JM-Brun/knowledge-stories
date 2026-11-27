@@ -17,7 +17,7 @@ Du **1er au 24 décembre 2026**, cette édition rassemble vingt-quatre enquêtes
 <div class="calendar-status" aria-label="État de publication de l'édition 2026">
   <div class="calendar-status-copy">
     <strong>5 articles publiés sur 24</strong>
-    <span>19 dossiers de préparation consultables · prochaines publications à partir du 1er décembre</span>
+    <span>19 dossiers de préparation consultables · prochaines publications à partir du 6 décembre</span>
   </div>
   <progress value="5" max="24" aria-label="5 articles publiés sur 24">5 sur 24</progress>
 </div>
