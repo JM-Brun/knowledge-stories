@@ -48,3 +48,11 @@ test("the calibration plot shows the shared reference and six readings", () => {
 test("the contrast grid remains two columns at tablet and mobile widths", () => {
   assert.match(styles, /@media\(max-width:900px\)[\s\S]*?\.contrast-grid\s*\{\s*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
 });
+
+
+test("article prose and visual blocks share one responsive reading measure", () => {
+  assert.match(styles, /--article-reading-measure:\s*84ch/);
+  assert.match(styles, /main\.content\s*>\s*:where\([\s\S]*?figure[\s\S]*?var\(--article-reading-measure\)/);
+  assert.match(styles, /main\.content\s+:where\(p,\s*li,\s*blockquote\)[\s\S]*?max-width:\s*var\(--article-reading-measure\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*700px\)[\s\S]*?--article-reading-measure:\s*100%/);
+});
