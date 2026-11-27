@@ -407,4 +407,4 @@ Les questions de réflexion et les exercices corrigés sont regroupés dans un [
 - [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
 
 
-<script src="../scripts/jour-01-interactive.js" defer></script>
+<script type="module" src="../scripts/jour-01-interactive.js"></script>
