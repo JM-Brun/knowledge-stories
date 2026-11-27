@@ -71,9 +71,11 @@ test("the proper-time integral keeps TeX bounds escaped for MDX", () => {
 
 test("Karatsuba components use the canonical semantic palette, including fallbacks", () => {
   const growth = readFileSync(new URL("../src/components/KaratsubaGrowth.astro", import.meta.url), "utf8");
+  const comparison = readFileSync(new URL("../src/components/KaratsubaComparison.astro", import.meta.url), "utf8");
   const explorer = readFileSync(new URL("../src/components/KaratsubaExplorer.astro", import.meta.url), "utf8");
   for (const [source, color] of [
     [growth, "#287a4b"], [growth, "#e8f2e9"], [growth, "#7651a6"], [growth, "#f0eaf7"],
+    [comparison, "#287a4b"], [comparison, "#7651a6"],
     [explorer, "#287a4b"], [explorer, "#8b5a2b"], [explorer, "#7651a6"],
   ]) {
     assert.ok(source.includes(color), `Missing canonical color ${color}`);
