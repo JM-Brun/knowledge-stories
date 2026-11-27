@@ -81,6 +81,13 @@ L'équipe place les deux capteurs côte à côte dans un environnement stabilis�
 <p class="sensor-caption">Trois relevés côte à côte autour d'une référence de 20,00 °C. Les valeurs individuelles restent visibles : l'écart moyen ne doit pas masquer la faible taille de l'essai.</p>
 </div>
 
+<figure class="calibration-figure">
+<div class="diagram-scroll" role="region" tabindex="0" aria-label="Comparaison des indications des capteurs S1 et S2 sur un même axe de température">
+<img src="../images/jour-01-calibration.svg" alt="Diagramme de points sur un axe commun : S1 indique 19,9, 20,0 et 20,1 degrés ; S2 indique 18,9, 19,0 et 19,1 degrés. Les deux séries ont une étendue observée de 0,2 degré, mais S2 est décalé d'un degré vers les températures plus basses par rapport à S1 et à la référence 20,00 degrés.">
+</div>
+<figcaption>Les points montrent les six indications, pas une distribution théorique. Dans cet essai seulement, les deux capteurs ont la même étendue observée (0,2 °C) ; leurs moyennes sont séparées de 1,0 °C.</figcaption>
+</figure>
+
 Dans cette série, les deux capteurs présentent la même étendue observée, 0,2 °C. Pourtant, leurs moyennes diffèrent d'un degré. S2 indique environ un degré de moins que S1 dans ces conditions.
 
 <div class="story-insight">
