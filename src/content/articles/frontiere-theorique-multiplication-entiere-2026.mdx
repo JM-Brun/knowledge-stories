@@ -55,7 +55,11 @@ seriesOrder: 5
 relatedArticles: ["multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "complexite-multiplication-karatsuba", "karatsuba-multiplication"]
 ---
 
+import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.astro";
+
 Cette étape prolonge l'étude des algorithmes de multiplication rapide. Après Karatsuba, Toom–Cook et les transformations de Fourier, on peut poser une question plus théorique : existe-t-il des algorithmes dont le coût asymptotique est inférieur à &#92;(n\log n&#92;) ?
+
+<MultiplicationMethodMap active="frontier" />
 
 Il faut alors distinguer les bornes démontrées, le modèle de calcul, le statut de la preuve et les performances d'une implémentation. Ces dimensions ne se confondent pas.
 
@@ -63,7 +67,7 @@ Il faut alors distinguer les bornes démontrées, le modèle de calcul, le statu
 
 Les résultats ci-dessous portent sur des bornes asymptotiques de complexité en bits. Ils ne disent pas qu’un programme donné est plus rapide sur une machine courante. Dans une borne de la forme &#92;(O(n(&#92;log n)^&#123;1-&#92;kappa&#125;)&#92;), une valeur de &#92;(&#92;kappa&#92;) plus grande donne un exposant logarithmique plus favorable, mais les modèles de machines, les hypothèses et les constructions doivent être comparés avant d’en tirer un classement.
 
-### 2021 — la borne &#92;(O(n&#92;log n)&#92;)
+### 2021 — la borne &#92;(O(n&#92;log n)&#92;) après <span class="method-ss">Schönhage–Strassen</span>
 
 Schönhage et Strassen avaient obtenu en 1971 une borne &#92;(O(n&#92;log n&#92;log&#92;log n)&#92;) dans le modèle multitape, en exploitant des transformations rapides. Harvey et van der Hoeven établissent ensuite une borne &#92;(O(n&#92;log n)&#92;) pour la multiplication de deux entiers de &#92;(n&#92;) bits dans le modèle multitape considéré par leur article. C’est le point de comparaison utilisé par les travaux ultérieurs.
 
