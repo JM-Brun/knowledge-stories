@@ -99,7 +99,7 @@ test("complexity article colors method-comparison tables and proves bounded term
   assert.ok(lesson.includes('<span class="term-common">Appels classiques</span>'));
   assert.ok(lesson.includes('<span class="term-aux">Appels Karatsuba</span>'));
   assert.ok(lesson.includes("1 098 (par exemple 999 + 99)"));
-  assert.ok(lesson.includes("puis 108, puis 18, puis 9"));
+  assert.ok(lesson.includes("donne 108, puis 18, puis 9"));
 });
 
 
