@@ -84,6 +84,14 @@ test("Karatsuba components use the canonical semantic palette, including fallbac
   assert.ok(explorer.includes(".subproblem-aux [data-call]"));
 });
 
+test("Karatsuba exercise corrections preserve the semantic product colors", () => {
+  const article = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(ac=32&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(bd=21&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-aux">&#92;((a+b)(c+d)=11\times11=121&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-cross">&#92;(121-32-21=68&#92;)</span>`));
+});
+
 test("complexity article colors method-comparison tables and proves bounded termination explicitly", () => {
   const lesson = readFileSync(new URL("../src/content/articles/complexite-multiplication-karatsuba.mdx", import.meta.url), "utf8");
   assert.ok(lesson.includes('<span class="term-common">Appels classiques</span>'));
