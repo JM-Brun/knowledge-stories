@@ -990,3 +990,37 @@ main.content, #quarto-content main { max-width: 76rem; }
 @media(max-width:700px) {
   #quarto-content figure.calibration-figure .diagram-scroll img { min-width:620px; }
 }
+
+
+/* Shared article measure: prose and visual evidence must occupy the same
+   editorial column. Previously paragraphs stopped at 76ch while figures and
+   diagrams could grow to 66rem, creating a visibly unbalanced page. */
+#quarto-content main.content {
+  --article-reading-measure: 84ch;
+}
+#quarto-content main.content > :where(
+  h1, h2, h3, h4, p, ul, ol, blockquote, table, figure, details,
+  nav, aside, section, div, .cell, .callout
+) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(100%, var(--article-reading-measure));
+}
+#quarto-content main.content :where(p, li, blockquote) {
+  max-width: var(--article-reading-measure);
+}
+#quarto-content main.content :where(figure, table, .callout, .story-promise,
+  .story-insight, .story-question, .story-pause, .story-route,
+  .contrast-board, .measurement-lab, .interaction-warning,
+  .transfer-question, .story-conclusion) {
+  margin-inline: 0;
+}
+#quarto-content main.content figure img,
+#quarto-content main.content figure svg {
+  max-width: 100%;
+}
+@media (max-width: 700px) {
+  #quarto-content main.content {
+    --article-reading-measure: 100%;
+  }
+}
