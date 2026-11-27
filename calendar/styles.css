@@ -499,6 +499,18 @@ main.content, #quarto-content main { max-width: 76rem; }
 }
 
 
+/* Day 1 diagrams are external SVG assets so Pandoc cannot lowercase the
+   case-sensitive SVG viewBox attribute while serializing raw inline SVG. */
+#quarto-content .diagram-scroll img {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+}
+@media (max-width: 700px) {
+  #quarto-content .diagram-scroll img { min-width: 620px; }
+}
+
 /* Day 1 — second editorial pass: reader predictions, evidence checkpoints,
    explicit contrasts and a field protocol. Keep all claims tied to the data. */
 #quarto-content details.story-pause {
