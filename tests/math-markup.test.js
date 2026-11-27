@@ -130,3 +130,71 @@ test("the final two series articles retain the Karatsuba semantic palette", () =
   assert.ok(frontier.includes("lean/docs/109.md"));
   assert.ok(frontier.includes("readingTime: 11"));
 });
+
+
+test("the five multiplication articles expose a consistent method progression map", () => {
+  const articles = [
+    ["karatsuba-multiplication.mdx", "karatsuba"],
+    ["complexite-multiplication-karatsuba.mdx", "karatsuba"],
+    ["multiplication-rapide-et-preuves-2026.mdx", "toom"],
+    ["multiplication-fft-convolution-2026.mdx", "fft"],
+    ["frontiere-theorique-multiplication-entiere-2026.mdx", "frontier"],
+  ];
+  for (const [file, active] of articles) {
+    const source = readFileSync(new URL(`../src/content/articles/${file}`, import.meta.url), "utf8");
+    assert.ok(source.includes('import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.astro";'), file);
+    assert.ok(source.includes(`<MultiplicationMethodMap active="${active}" />`), file);
+  }
+});
+
+test("algorithm-family colors remain separate from Karatsuba's algebraic-role colors", () => {
+  const map = readFileSync(new URL("../src/components/MultiplicationMethodMap.astro", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const toom = readFileSync(new URL("../src/components/ToomCookExplorer.astro", import.meta.url), "utf8");
+  const recurrence = readFileSync(new URL("../src/components/MultiplicationRecurrenceComparison.astro", import.meta.url), "utf8");
+  const fft = readFileSync(new URL("../src/components/FFTConvolutionExplorer.astro", import.meta.url), "utf8");
+  const ss = readFileSync(new URL("../src/components/SchonhageStrassenExplorer.astro", import.meta.url), "utf8");
+  const butterfly = readFileSync(new URL("../src/components/FFTButterflyDiagram.astro", import.meta.url), "utf8");
+
+  for (const token of ["method-karatsuba", "method-toom", "method-fft", "method-ss", "method-frontier"]) {
+    assert.ok(map.includes(token), `Missing progression step: ${token}`);
+  }
+  assert.ok(map.includes("distinctes du vert, brun et violet"));
+  assert.ok(styles.includes("--method-karatsuba: #52627a"));
+  assert.ok(styles.includes("--method-toom: #006f6b"));
+  assert.ok(styles.includes("--method-fft: #3568a8"));
+  assert.ok(styles.includes("--method-ss: #925400"));
+  assert.ok(styles.includes("--term-common: #287a4b"));
+  assert.ok(styles.includes("--term-cross: #8b5a2b"));
+  assert.ok(styles.includes("--term-aux: #7651a6"));
+
+  assert.ok(toom.includes("var(--method-toom,#006f6b)"));
+  assert.ok(recurrence.includes("cost-row--karatsuba"));
+  assert.ok(recurrence.includes("cost-row--toom"));
+  assert.ok(recurrence.includes("var(--method-toom,#006f6b)"));
+  assert.ok(fft.includes("var(--method-fft,#3568a8)"));
+  assert.ok(ss.includes("var(--method-ss,#925400)"));
+  assert.ok(butterfly.includes("#3568a8"));
+  assert.doesNotMatch(butterfly, /#bd4b32/);
+});
+
+test("method-label colors meet WCAG AA contrast against their pastel backgrounds", () => {
+  const luminance = (hex) => {
+    const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    const linear = channels.map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  };
+  const ratio = (foreground, background) => {
+    const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+    return (values[0] + 0.05) / (values[1] + 0.05);
+  };
+  const pairs = [
+    ["#52627a", "#edf0f4"],
+    ["#006f6b", "#e5f2f0"],
+    ["#3568a8", "#eaf0f8"],
+    ["#925400", "#f7eee1"],
+  ];
+  for (const [foreground, background] of pairs) {
+    assert.ok(ratio(foreground, background) >= 4.5, `${foreground} on ${background} fails WCAG AA`);
+  }
+});
