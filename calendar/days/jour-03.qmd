@@ -10,11 +10,18 @@ description: "Le quartette d’Anscombe révèle comment des données très diff
 >
 > **À la fin** — Vous saurez ce qu'un résumé statistique conserve, ce qu'il efface et comment choisir une visualisation qui peut mettre une hypothèse à l'épreuve.
 
+<nav class="story-route" aria-label="Les quatre étapes de l'enquête">
+<a href="#quatre-rapports"><span>01</span><strong>Quatre rapports</strong></a>
+<a href="#moyenne-distribution"><span>02</span><strong>Premier indice</strong></a>
+<a href="#quartette-anscombe"><span>03</span><strong>Le quartette</strong></a>
+<a href="#protocole-trois-gestes"><span>04</span><strong>Le protocole</strong></a>
+</nav>
+
 ## Pourquoi cette question compte en Data Science
 
 Un modèle peut optimiser parfaitement son objectif et produire un résumé fidèle à ce qu'on lui a demandé, tout en masquant une structure décisive pour l'usage. C'est le risque des moyennes globales, des métriques agrégées et des diagnostics réduits à quelques nombres : ils compressent les données. Le quartette d'Anscombe permet de voir précisément ce que cette compression efface, jusque dans les coefficients d'une régression.
 
-## Quatre rapports, une même conclusion ?
+## Quatre rapports, une même conclusion ? {#quatre-rapports}
 
 Quatre équipes analysent la relation entre une variable d'entrée et un résultat. Elles rendent chacune un rapport : même moyenne de la variable d'entrée, même moyenne du résultat, même dispersion, même corrélation et même droite de régression.
 
@@ -24,7 +31,7 @@ Le responsable demande alors une chose simple : « Montrez-moi les données. »
 
 Cette demande va changer le diagnostic. Avant d'ouvrir les graphiques, commençons par une expérience plus petite : que peut-on déjà perdre en ne regardant que la moyenne ?
 
-## Premier indice : une moyenne ne décrit pas une distribution
+## Premier indice : une moyenne ne décrit pas une distribution {#moyenne-distribution}
 
 Considérons trois séries de cinq valeurs :
 
@@ -83,7 +90,7 @@ La moyenne donne le même résultat pour les trois séries. La variance révèle
 
 Ici, les cinq valeurs constituent la série que l'on décrit : le diviseur est $n$. Si ces valeurs étaient un échantillon utilisé pour estimer la variance d'une population inconnue, on discuterait plutôt l'estimateur avec le diviseur $n-1$. Il s'agit de deux questions différentes.
 
-## Ce que les rapports ne montraient pas
+## Ce que les rapports ne montraient pas {#quartette-anscombe}
 
 Revenons aux quatre équipes. Leur jeu de données est le célèbre **quartette d'Anscombe**, publié par le statisticien Francis Anscombe en 1973.
 
@@ -99,6 +106,14 @@ Les quatre jeux partagent, à l'arrondi près, les mêmes statistiques descripti
 | Droite de régression | $\widehat y=3+0{,}5x$ |
 
 Et pourtant, leurs nuages de points ne racontent pas la même histoire.
+
+<details class="story-pause">
+<summary>Avant de voir les figures : imaginez les quatre nuages</summary>
+<div class="pause-content">
+<p>Un même coefficient de corrélation et une même droite sont compatibles avec une relation linéaire nette, une courbe, un point aberrant ou un point qui détermine presque toute la pente.</p>
+<p>Esquissez mentalement les quatre formes, puis confrontez vos hypothèses aux figures.</p>
+</div>
+</details>
 
 Avant de regarder les figures, une question mérite d'être posée : **comment quatre jeux aussi différents peuvent-ils produire exactement la même droite des moindres carrés ?**
 
@@ -164,7 +179,7 @@ Le quartette d'Anscombe illustre aussi pourquoi il faut distinguer levier et ré
 
 Aucun graphique n'est une preuve automatique. Les échelles, les classes d'un histogramme, le lissage et le choix des sous-groupes influencent ce que l'on voit. Une anomalie visuelle doit conduire à une question, puis à une vérification.
 
-## Un protocole d'enquête en trois gestes
+## Un protocole d'enquête en trois gestes {#protocole-trois-gestes}
 
 Avant de présenter un résultat statistique ou d'ajuster un modèle, l'analyste peut suivre trois gestes simples :
 
