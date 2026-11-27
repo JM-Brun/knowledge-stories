@@ -67,3 +67,27 @@ test("the proper-time integral keeps TeX bounds escaped for MDX", () => {
   assert.ok(source.includes(String.raw`&#92;int_&#123;t_i&#125;^&#123;t_f&#125;`));
   assert.doesNotMatch(source, /&#92;int_\{/);
 });
+
+
+test("Karatsuba components use the canonical semantic palette, including fallbacks", () => {
+  const growth = readFileSync(new URL("../src/components/KaratsubaGrowth.astro", import.meta.url), "utf8");
+  const explorer = readFileSync(new URL("../src/components/KaratsubaExplorer.astro", import.meta.url), "utf8");
+  for (const [source, color] of [
+    [growth, "#287a4b"], [growth, "#e8f2e9"], [growth, "#7651a6"], [growth, "#f0eaf7"],
+    [explorer, "#287a4b"], [explorer, "#8b5a2b"], [explorer, "#7651a6"],
+  ]) {
+    assert.ok(source.includes(color), `Missing canonical color ${color}`);
+  }
+  assert.ok(explorer.includes('maxlength="18"'));
+  assert.ok(explorer.includes('class={index === 2 ? "subproblem-aux" : "subproblem-common"}'));
+  assert.ok(explorer.includes(".subproblem-common [data-call]"));
+  assert.ok(explorer.includes(".subproblem-aux [data-call]"));
+});
+
+test("complexity article colors method-comparison tables and proves bounded termination explicitly", () => {
+  const lesson = readFileSync(new URL("../src/content/articles/complexite-multiplication-karatsuba.mdx", import.meta.url), "utf8");
+  assert.ok(lesson.includes('<span class="term-common">Appels classiques</span>'));
+  assert.ok(lesson.includes('<span class="term-aux">Appels Karatsuba</span>'));
+  assert.ok(lesson.includes("1 098 (par exemple 999 + 99)"));
+  assert.ok(lesson.includes("puis 108, puis 18, puis 9"));
+});
