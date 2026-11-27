@@ -32,7 +32,11 @@ sources:
   - title: "Toom 3-Way Multiplication — GNU MP 6.3.0"
     url: "https://gmplib.org/manual/Toom-3_002dWay-Multiplication"
     kind: "documentation"
-    accessed: 2026-11-24
+    accessed: 2026-11-27
+  - title: "Multiplication Algorithms — GNU MP 6.3.0"
+    url: "https://gmplib.org/manual/Multiplication-Algorithms"
+    kind: "documentation"
+    accessed: 2026-11-27
 series: "multiplication-karatsuba"
 seriesOrder: 3
 relatedArticles: ["karatsuba-multiplication", "complexite-multiplication-karatsuba", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026"]
@@ -65,7 +69,7 @@ Cette étape prolonge [la présentation de Karatsuba](/knowledge-stories/atelier
 
 Les multiplications économisées par Karatsuba ont un prix. À petite taille, les additions, les allocations et la gestion des appels récursifs peuvent coûter davantage que les produits qu’elles remplacent. La complexité asymptotique décrit une croissance lorsque la taille tend vers l’infini ; elle ne détermine pas à elle seule le meilleur algorithme pour une taille donnée.
 
-Les bibliothèques choisissent donc des seuils de bascule à partir de mesures et de contraintes d’implémentation. Le [manuel de GNU MP 6.3.0](https://gmplib.org/manual/Multiplication-Algorithms) décrit le passage de la méthode scolaire à Karatsuba, puis à Toom et aux transformations rapides. Les seuils sont exprimés en *limbs*, unités de taille fixe de la représentation interne ; la taille relative des deux opérandes compte également. La documentation de [FLINT](https://flintlib.org/doc/algorithms/integers/multiplication.html) fournit un autre exemple de seuils dépendant de l’architecture et de l’implémentation. Elle signale que certaines parties de sa révision d’octobre 2026 ont été générées avec un modèle de langage : on peut l’utiliser pour s’orienter, mais les détails doivent être recoupés avec le manuel de GNU MP, le code source et des mesures reproductibles. Ce sont des documentations utiles pour comprendre les choix, pas des constantes universelles.
+Les bibliothèques choisissent donc des seuils de bascule à partir de mesures et de contraintes d’implémentation. Le [manuel de GNU MP 6.3.0, §15.1](https://gmplib.org/manual/Multiplication-Algorithms) énumère les méthodes utilisées selon la taille des opérandes : méthode scolaire, Karatsuba, Toom-3, Toom-4, variantes Toom de degré supérieur et FFT. Les seuils sont des paramètres de réglage, pas des constantes universelles. Les seuils sont exprimés en *limbs*, unités de taille fixe de la représentation interne ; la taille relative des deux opérandes compte également. La documentation de [FLINT](https://flintlib.org/doc/algorithms/integers/multiplication.html) fournit un autre exemple de seuils dépendant de l’architecture et de l’implémentation. Elle signale que certaines parties de sa révision d’octobre 2026 ont été générées avec un modèle de langage : on peut l’utiliser pour s’orienter, mais les détails doivent être recoupés avec le manuel de GNU MP, le code source et des mesures reproductibles. Ce sont des documentations utiles pour comprendre les choix, pas des constantes universelles.
 
 La variante par différences de GNU MP répond au problème de retenue rencontré dans l’atelier Karatsuba. Au lieu de calculer le produit des sommes, on peut utiliser :
 
@@ -200,6 +204,8 @@ w_2-r_0-16r_4=2r_1+4r_2+8r_3,
 d'où &#92;(t=r_1+2r_2+4r_3&#92;). En soustrayant &#92;(s_1+2r_2&#92;), il reste exactement &#92;(3r_3&#92;) : la division par 3 est donc entière elle aussi.
 
 Cette vérification est importante pour l'implémentation : elle justifie l'absence de fractions dans l'arithmétique exacte, mais ne dispense pas de gérer les signes, la taille des valeurs intermédiaires et les débordements des types machine.
+
+Le manuel de [GNU MP 6.3.0, §15.1.3 « Toom 3-Way Multiplication »](https://gmplib.org/manual/Toom-3_002dWay-Multiplication) décrit précisément cette variante : évaluations en 0, 1, −1, 2 et à l'infini, puis interpolation des cinq coefficients. Il confirme que la reconstruction utilise des divisions par des puissances de deux et une division par 3, réalisée dans GMP par `mpn_divexact_by3` (voir aussi [§15.2.5, « Exact Division »](https://gmplib.org/manual/Exact-Division)). Les points d'évaluation et les détails de cette interpolation caractérisent ici l'implémentation Toom-3 de GMP ; ils ne sont pas une prescription universelle pour toutes les variantes Toom–Cook.
 
 ### Vérifier l'interpolation sur un exemple numérique
 
