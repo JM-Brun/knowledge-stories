@@ -31,35 +31,35 @@ sources:
     kind: "primary"
     accessed: 2026-11-20
   - title: "Integer multiplication below n log n — OpenAI preprint (23 septembre 2026)"
-    url: "https://github.com/openai/math/blob/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026/build/main.tex"
+    url: "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integer-multiplication-below-n-log-n-September-23-2026/build/main.tex"
     kind: "primary"
-    accessed: 2026-11-24
+    accessed: 2026-11-27
   - title: "On the recently proposed o(n log n) integer multiplication algorithm — David Harvey"
     url: "https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf"
     kind: "secondary"
     accessed: 2026-11-24
-  - title: "Cui, Liu et Woodruff — papier court (13 novembre 2026)"
-    url: "https://github.com/lockqueue/intmul/blob/main/IntMul_short_paper.pdf"
+  - title: "Cui, Liu & Woodruff — papier court (snapshot du dépôt au 10 novembre 2026)"
+    url: "https://github.com/lockqueue/intmul/blob/4738aeff839dafd4bbcd176a0550f70242d966a6/IntMul_short_paper.pdf"
     kind: "primary"
-    accessed: 2026-11-24
-  - title: "Dépôt des auteurs : papier complet, formalisation Lean et implémentations — lockqueue/intmul"
-    url: "https://github.com/lockqueue/intmul/blob/main/README.md"
+    accessed: 2026-11-27
+  - title: "Dépôt des auteurs : papier complet, formalisation Lean et implémentations — lockqueue/intmul (commit 4738aeff)"
+    url: "https://github.com/lockqueue/intmul/blob/4738aeff839dafd4bbcd176a0550f70242d966a6/README.md"
     kind: "primary"
-    accessed: 2026-11-24
+    accessed: 2026-11-27
   - title: "Integer multiplication in Lean — formalisation Mathlib TM2, dépôt platypii"
     url: "https://github.com/platypii/integer-mult-bounds-lean/blob/94b7e77e6710fe394b1a603a8f940f2f08928f45/README.md"
     kind: "primary"
     accessed: 2026-11-24
-  - title: "The logarithmic exponent of integer multiplication on tapes — OpenAI (24 novembre 2026)"
-    url: "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf"
+  - title: "The logarithmic exponent of integer multiplication on tapes — OpenAI (24 novembre 2026; commit 92b516e)"
+    url: "https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf"
     kind: "primary"
     accessed: 2026-11-27
-  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, résultat 109"
-    url: "https://github.com/openai/math/blob/main/lean/docs/109.md"
+  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, résultat 109 (commit 92b516e)"
+    url: "https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/docs/109.md"
     kind: "documentation"
     accessed: 2026-11-27
-  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, famille 379"
-    url: "https://github.com/openai/math/blob/main/lean/docs/379.md"
+  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, famille 379 (commit 92b516e)"
+    url: "https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/docs/379.md"
     kind: "documentation"
     accessed: 2026-11-27
 series: "multiplication-karatsuba"
@@ -85,7 +85,7 @@ Schönhage et Strassen avaient obtenu en 1971 une borne &#92;(O(n&#92;log n&#92;
 
 ### 23 septembre 2026 — la prépublication OpenAI
 
-La prépublication [*Integer multiplication below n log n*](https://github.com/openai/math/tree/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026) annonce un algorithme déterministe exact en temps
+La prépublication [*Integer multiplication below n log n*](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integer-multiplication-below-n-log-n-September-23-2026/build/main.tex) annonce un algorithme déterministe exact en temps
 
 &#92;[
 O&#92;!&#92;left(n(&#92;log n)^&#123;1-&#92;kappa&#125;&#92;right),
@@ -94,22 +94,24 @@ O&#92;!&#92;left(n(&#92;log n)^&#123;1-&#92;kappa&#125;&#92;right),
 
 sur une machine de Turing à alphabet fini et à nombre fixe de rubans unidimensionnels. Le gain sur le facteur logarithmique est extrêmement faible ; les auteurs précisent que les constantes et les seuils sont immenses et que le résultat vise une borne de complexité, pas une amélioration pratique.
 
-Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf), co-auteur du résultat de 2021, juge la construction centrale plausible, tout en indiquant ne pas avoir vérifié la plupart des détails. Il signale notamment des points techniques à contrôler dans le coût des réorganisations de données sur machine multitape. Il s’agit d’un examen critique partiel, pas d’une validation complète ni d’un rejet du résultat. Depuis le 24 novembre, le dépôt OpenAI publie aussi une note de périmètre Lean qui référence un comparateur pour cette première borne ; cela ne remplace ni une revue par les pairs ni un examen indépendant du manuscrit.
+Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf), co-auteur du résultat de 2021, juge la construction centrale plausible, tout en indiquant ne pas avoir vérifié la plupart des détails. Il signale notamment des points techniques à contrôler dans le coût des réorganisations de données sur machine multitape. Il s’agit d’un examen critique partiel, pas d’une validation complète ni d’un rejet du résultat.
+
+Le dépôt OpenAI contient un comparateur Lean pour cette borne antérieure dans `lean/ComparatorChallenges/NearSquareRootMultiplication.lean`, référencé par la note [109](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/docs/109.md). Il faut toutefois lire le statut du code : les théorèmes `uniformIntegerMultiplication` et `sub_nlogn_integer_multiplication` y comportent encore `sorry`. Ce comparateur est donc une spécification/voie de formalisation incomplète, pas une preuve Lean achevée de la borne de septembre.
 
 ### 2026 — Cui, Liu et Woodruff : preuve écrite et preuve formalisée
 
-Le travail [*A simpler algorithm for integer multiplication below n log n, with a formally verified proof*](https://github.com/lockqueue/intmul) propose une construction plus simple et l’accompagne d’une formalisation Lean 4. Il faut distinguer les deux valeurs annoncées par le papier court :
+Le travail [*A simpler algorithm for integer multiplication below n log n, with a formally verified proof*](https://github.com/lockqueue/intmul/tree/4738aeff839dafd4bbcd176a0550f70242d966a6) propose une construction plus simple et l’accompagne d’une formalisation Lean 4. Le dépôt distingue un papier court de 31 pages, un papier complet de 86 pages et les artefacts correspondants. Le commit de référence du dépôt consulté est `4738aeff839dafd4bbcd176a0550f70242d966a6`, daté du 10 novembre 2026 ; le code source du papier court ne porte pas de date de publication explicite (`\date{}`). Il faut distinguer les deux valeurs annoncées par le papier court :
 
 - **Preuve écrite :** &#92;(&#92;kappa=2^&#123;-56&#125;&#92;), avec les constantes primitives retenues dans l’analyse écrite.
 - **Formalisation Lean 4 :** &#92;(&#92;kappa=2^&#123;-46&#125;&#92;), grâce à des bornes de coupure et de garde affinées et vérifiées dans le développement formel.
 
-Cette distinction n’est pas une contradiction : les deux preuves exploitent des estimations différentes. Le dépôt des auteurs indique que le développement Lean vérifie la construction sans importer les résultats précédents comme axiomes ; l’algorithme réutilise néanmoins des réseaux linéaires étudiés dans la prépublication OpenAI. Le dépôt contient le papier court, le papier complet, le développement Lean et une implémentation Python de référence. Son sous-dossier compagnon contient par ailleurs un multiplicateur C/GMP en &#92;(O(n&#92;log n)&#92;) ; ce dernier ne constitue pas une implémentation pratique de l’algorithme principal en dessous de &#92;(n&#92;log n&#92;). Le README et les artefacts du dépôt ont été consultés le **24 novembre 2026**.
+Cette distinction n’est pas une contradiction : les deux preuves exploitent des estimations différentes. Le dépôt des auteurs indique que le développement Lean vérifie la construction à partir des axiomes standards de Lean ; l’algorithme réutilise néanmoins des réseaux linéaires étudiés dans la prépublication OpenAI. Le dépôt contient le papier court, le papier complet, le développement Lean et une implémentation Python de référence. Son sous-dossier compagnon contient par ailleurs un multiplicateur C/GMP en &#92;(O(n&#92;log n)&#92;) ; ce dernier ne constitue pas une implémentation pratique de l’algorithme principal en dessous de &#92;(n&#92;log n&#92;). Le contenu décrit ici est celui du commit `4738aeff`, consulté le **24 novembre 2026** ; le commit de référence est conservé dans le lien bibliographique.
 
 La formalisation établit un théorème dans le modèle de machine multi-piles de Mathlib (TM2). Elle vérifie une preuve dans un cadre formel donné ; elle ne signifie ni que le papier a été évalué par les pairs, ni que chaque choix de modélisation a fait l’objet d’une validation indépendante par la communauté.
 
 ### Une formalisation Mathlib distincte (dépôt consulté le 24 novembre 2026)
 
-Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean) présente une autre formalisation, fondée elle aussi sur les machines finies de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
+Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean/tree/94b7e77e6710fe394b1a603a8f940f2f08928f45) présente une autre formalisation, fondée sur le modèle `Turing.FinTM2` de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
 
 &#92;[
 &#92;kappa=
@@ -118,12 +120,12 @@ Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integ
 &#92;approx 2^&#123;-14&#123;,&#125;02&#125;.
 &#92;]
 
-Le numérateur est essentiel : &#92;(2^&#123;-46&#125;&#92;) seul vaut environ &#92;(1&#123;,&#125;42&#92;times10^&#123;-14&#125;&#92;), et ne représente donc pas cette constante. La valeur indiquée ici est celle du README consulté le **24 novembre 2026** ; comme le dépôt évolue, cette date fait partie de la référence. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
+Le numérateur est essentiel : &#92;(2^&#123;-46&#125;&#92;) seul vaut environ &#92;(1&#123;,&#125;42&#92;times10^&#123;-14&#125;&#92;), et ne représente donc pas cette constante. La valeur indiquée ici est celle du README au commit `94b7e77`, daté du **24 novembre 2026**. Dans ce dépôt, la taille `n` est la longueur totale de l'entrée encodée ; le résultat établi porte sur `FinTM2`. Le README distingue explicitement cette preuve achevée d'une cible historique sur machine à rubans unidimensionnelle, qui reste une proposition à prouver. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
 
 
 ### 24 novembre 2026 — un exposant logarithmique de &#92;(1/2+o(1)&#92;)
 
-Le papier [*The logarithmic exponent of integer multiplication on tapes*](https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf) franchit une étape asymptotique supplémentaire. Il construit une machine multitape déterministe fixe qui calcule exactement le produit de deux entiers de &#92;(n&#92;) bits en :
+Le papier [*The logarithmic exponent of integer multiplication on tapes*](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf) franchit une étape asymptotique supplémentaire. Il construit une machine multitape déterministe fixe qui calcule exactement le produit de deux entiers de &#92;(n&#92;) bits en :
 
 &#92;[
 T(n)=n(1+&#92;log n)^&#123;1/2+o(1)&#125;,
@@ -135,7 +137,7 @@ Le même travail établit, **sous l'hypothèse variable-count Weak ETH pour 3-SA
 
 Il faut séparer les deux statuts : la borne supérieure &#92;(n(1+&#92;log n)^&#123;1/2+o(1)&#125;&#92;) est annoncée sans hypothèse, tandis que la borne inférieure et l'optimalité de l'infimum dépendent de Weak ETH. Cette nouvelle borne est beaucoup plus forte que les gains constants &#92;(&#92;kappa&#92;) des étapes précédentes ; ces dernières restent des jalons de construction et de formalisation, pas la meilleure borne supérieure actuelle.
 
-Le dépôt OpenAI publie également une formalisation Lean associée. Sa [note de périmètre dédiée à la multiplication](https://github.com/openai/math/blob/main/lean/docs/109.md) indique que Lean vérifie la borne supérieure uniforme, la borne inférieure conditionnelle et l'infimum des exposants ; elle précise que le théorème laisse ouverte l'atteinte de &#92;(r=1/2&#92;). La [note de périmètre de la famille de résultats](https://github.com/openai/math/blob/main/lean/docs/379.md) confirme que les bornes correspondantes pour la division exacte et la racine carrée restent hors de la formalisation. Une formalisation vérifiée par Lean n'est ni une évaluation par les pairs ni une revue indépendante de toutes les hypothèses du modèle.
+Le dépôt OpenAI publie une formalisation Lean associée au papier du 24 novembre. Les notes [109](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/docs/109.md) et [379](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/docs/379.md) ont été ajoutées dans le même commit du 25 novembre (`92b516e`), puis intégrées à `main` ; elles ne constituent donc pas deux formalisations indépendantes. La note 109 donne le périmètre propre à la multiplication : machine multitape déterministe fixe, produit complet de 2n bits, temps uniforme &#92;(n(\log n)^&#123;1/2+o(1)&#125;&#92;), espace visité &#92;(O(n)&#92;), borne inférieure sous Weak ETH et infimum des exposants. Elle précise aussi des variantes randomisées et non déterministes. La note 379 reprend le résultat dans le panorama de la famille 379 et rend explicite que les bornes du papier pour la division exacte et la racine carrée restent hors formalisation. Une formalisation vérifiée par Lean n'est ni une évaluation par les pairs ni une revue indépendante de toutes les hypothèses du modèle.
 
 ## 2. Comment lire ces résultats
 
