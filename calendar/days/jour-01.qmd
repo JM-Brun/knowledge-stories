@@ -361,9 +361,9 @@ Si les capteurs ne peuvent pas être déplacés, un dispositif de transfert ou u
 
 ## Ce que cela change dans le travail d'un data scientist
 
-Dans cet exemple, le modèle reçoit une variable de température dont le processus de production dépend du bâtiment : chaque site est associé à un capteur différent. La signature instrumentale devient alors un proxy du site. Le modèle peut exploiter cette association sans que les données permettent de déterminer quelle part correspond au bâtiment et quelle part vient du capteur.
+Dans cet exemple, chaque bâtiment est associé à un capteur différent. Le modèle peut alors utiliser le décalage propre au capteur comme indice indirect du bâtiment. Mais les données ne permettent pas de savoir si la prédiction repose sur une différence entre bâtiments ou sur le système de mesure.
 
-Une bonne performance prédictive dans ce plan ne suffit donc pas à valider l'interprétation de la variable ni sa transportabilité vers une situation où les associations site–capteur seraient différentes.
+Une bonne performance prédictive dans ce plan ne suffit donc pas à valider l'interprétation de la variable ni sa capacité à rester valable dans un autre contexte — sa **transportabilité** — notamment si les associations site–capteur changent.
 
 Trois stratégies ne sont pas équivalentes :
 
