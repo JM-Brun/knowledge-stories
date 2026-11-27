@@ -914,7 +914,7 @@ main.content, #quarto-content main { max-width: 76rem; }
   border-radius:5px;
   background:#fffefa;
   color:#315d49;
-  font:600 .73rem/1.3 inherit;
+  font-family:inherit;\n  font-size:.73rem;\n  font-weight:600;\n  line-height:1.3;
   cursor:pointer;
 }
 #quarto-content .measurement-presets button:hover,
