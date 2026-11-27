@@ -5,9 +5,13 @@ import { readFileSync } from "node:fs";
 const day = readFileSync(new URL("../calendar/days/jour-01.qmd", import.meta.url), "utf8");
 
 test("Jour 1 uses Pandoc-native math delimiters", () => {
-  assert.doesNotMatch(day, /\\\\[()[\\]]/, "single-backslash TeX delimiters are consumed by Pandoc");
-  assert.equal((day.match(/\\$\\$/g) ?? []).length % 2, 0, "display math delimiters must be paired");
-  assert.equal((day.match(/(?<!\\$)\\$(?!\\$)/g) ?? []).length % 2, 0, "inline math delimiters must be paired");
+  assert.equal(day.includes("\\("), false, "single-backslash inline TeX delimiters are consumed by Pandoc");
+  assert.equal(day.includes("\\["), false, "single-backslash display TeX delimiters are consumed by Pandoc");
+  const displayDelimiters = day.match(/^\\$\\$$/gm) ?? [];
+  assert.ok(displayDelimiters.length > 0, "display equations must use $$ blocks");
+  assert.equal(displayDelimiters.length % 2, 0, "display math delimiters must be paired");
+  const dollarCount = (day.match(/\\$/g) ?? []).length;
+  assert.equal((dollarCount - displayDelimiters.length * 2) % 2, 0, "inline math delimiters must be paired");
 });
 
 test("nested HTML fragments are not indented into Markdown code blocks", () => {
