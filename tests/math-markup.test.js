@@ -137,7 +137,7 @@ test("the final two series articles retain the Karatsuba semantic palette", () =
 test("the five multiplication articles expose a consistent method progression map", () => {
   const articles = [
     ["karatsuba-multiplication.mdx", "karatsuba"],
-    ["complexite-multiplication-karatsuba.mdx", "karatsuba"],
+    ["complexite-multiplication-karatsuba.mdx", "karatsuba-analysis"],
     ["multiplication-rapide-et-preuves-2026.mdx", "toom"],
     ["multiplication-fft-convolution-2026.mdx", "fft"],
     ["frontiere-theorique-multiplication-entiere-2026.mdx", "frontier"],
@@ -158,7 +158,7 @@ test("algorithm-family colors remain separate from Karatsuba's algebraic-role co
   const ss = readFileSync(new URL("../src/components/SchonhageStrassenExplorer.astro", import.meta.url), "utf8");
   const butterfly = readFileSync(new URL("../src/components/FFTButterflyDiagram.astro", import.meta.url), "utf8");
 
-  for (const token of ["method-karatsuba", "method-toom", "method-fft", "method-ss", "method-frontier"]) {
+  for (const token of ["method-karatsuba", "method-karatsuba-analysis", "method-toom", "method-fft", "method-ss", "method-frontier"]) {
     assert.ok(map.includes(token), `Missing progression step: ${token}`);
   }
   assert.ok(map.includes("distinctes du vert, brun et violet"));
