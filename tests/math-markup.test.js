@@ -99,3 +99,17 @@ test("complexity article colors method-comparison tables and proves bounded term
   assert.ok(lesson.includes("1 098 (par exemple 999 + 99)"));
   assert.ok(lesson.includes("puis 108, puis 18, puis 9"));
 });
+
+
+test("the Toom–Cook article preserves the Karatsuba palette in its historical bridge", () => {
+  const article = readFileSync(new URL("../src/content/articles/multiplication-rapide-et-preuves-2026.mdx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const comparison = readFileSync(new URL("../src/components/MultiplicationRecurrenceComparison.astro", import.meta.url), "utf8");
+  assert.ok(article.includes('className="karatsuba-color-scope"'));
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(u=12&#92;times56&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-aux">&#92;(w=(12+34)(56+78)&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-cross">&#92;(w-u-v&#92;)</span>`));
+  assert.ok(styles.includes(":has(.karatsuba-hero, .complexity-lesson, .karatsuba-color-scope)"));
+  assert.ok(comparison.includes("var(--term-common,#287a4b)"));
+  assert.ok(comparison.includes("var(--term-aux,#7651a6)"));
+});
