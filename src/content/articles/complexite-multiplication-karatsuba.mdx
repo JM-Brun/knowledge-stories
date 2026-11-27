@@ -2,7 +2,7 @@
 title: "Calculer la complexité de la multiplication de Karatsuba"
 description: "Établissez la récurrence de Karatsuba, démontrez sa complexité dans le modèle équilibré et analysez le coût des opérations auxiliaires ainsi que les écarts de taille de l’implémentation."
 date: 2026-11-24
-updated: 2026-11-25
+updated: 2026-11-27
 category: "Mathématiques"
 discipline: "Mathématiques"
 domain: "mathematics"
@@ -34,10 +34,10 @@ sources:
     url: "https://gmplib.org/manual/Karatsuba-Multiplication"
     kind: "documentation"
     accessed: 2026-11-24
-  - title: "CS4102 Algorithms — Karatsuba Algorithm and Asymptotic Notation, SlideServe"
+  - title: "CS4102 Algorithms — Karatsuba Algorithm and Asymptotic Notation, SlideServe (publication affichée : 2019-11-06)"
     url: "https://www.slideserve.com/thompkins/cs4102-algorithms-powerpoint-ppt-presentation"
     kind: "secondary"
-    accessed: 2026-11-26
+    accessed: 2026-11-27
 series: "multiplication-karatsuba"
 seriesOrder: 2
 relatedArticles: ["karatsuba-multiplication", "multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "frontiere-theorique-multiplication-entiere-2026", "arbres-recursion-guide"]
@@ -434,18 +434,20 @@ La différence ne vient pas de la disparition des additions : Karatsuba doit tou
 
 ### 6. Le lien avec le théorème maître
 
-Le théorème maître permet de retrouver le résultat sans redessiner l’arbre. Il s’applique ici à une récurrence de la forme :
+Le théorème maître permet de retrouver le résultat sans redessiner l’arbre. Il s’applique ici au modèle équilibré suivant :
 
 &#92;[
-T(n)=aT(n/2)+O(n),
+T(n)=aT(n/2)+O(n),\qquad T(1)=&#92;Theta(1),
 &#92;]
 
-où &#92;(a&#92;) est le nombre de sous-multiplications créées par un appel.
+avec &#92;(n=2^k&#92;), un nombre constant &#92;(a&#92;) de sous-problèmes de taille exactement &#92;(n/2&#92;), et un travail local linéaire au plus. Pour les deux algorithmes comparés, &#92;(a&#92;) vaut 3 ou 4. Dans ces deux cas, &#92;(p=&#92;log_2 a>1&#92;) ; on peut donc choisir &#92;(&#92;varepsilon=p-1>0&#92;) et constater que &#92;(O(n)=O(n^&#123;p-&#92;varepsilon&#125;)&#92;). Le premier cas du théorème maître donne alors la borne supérieure &#92;(O(n^p)&#92;).
 
-- Pour Karatsuba, &#92;(a=3&#92;), donc &#92;(T(n)=&#92;Theta(n^&#123;&#92;log_2 3&#125;)&#92;).
-- Pour la méthode classique, &#92;(a=4&#92;), donc &#92;(T(n)=&#92;Theta(n^&#123;&#92;log_2 4&#125;)=&#92;Theta(n^2)&#92;).
+- Pour Karatsuba, &#92;(a=3&#92;), donc &#92;(p=&#92;log_2 3&#92;) et &#92;(T(n)=O(n^&#123;&#92;log_2 3&#125;)&#92;).
+- Pour la méthode classique, &#92;(a=4&#92;), donc &#92;(p=2&#92;) et &#92;(T(n)=O(n^2)&#92;).
 
-La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;).
+Dans ce modèle, l’arbre possède exactement &#92;(a^k=n^p&#92;) feuilles. Si chaque feuille effectue un travail constant positif, elles donnent la borne inférieure &#92;(\Omega(n^p)&#92;). On obtient donc bien &#92;(Theta(n^p)&#92;) pour ces deux modèles. La distinction est importante : le théorème maître fournit ici la borne supérieure à partir du coût local ; la borne inférieure repose sur le nombre de feuilles et le coût de base. La section suivante donne une vérification par induction d’une borne précise pour le modèle Karatsuba.
+
+La preuve par l’arbre permet de comprendre d’où vient le résultat ; le théorème maître fournit une méthode plus directe pour le retrouver, sous les hypothèses qui viennent d’être explicitées. Les [notes de cours de H. Zantema (Radboud University)](https://www.cs.ru.nl/~herman/onderwijs/complexity2024/complexity_lecture_notes.pdf) présentent ces récurrences. Le [cours CS 173 de l’Université de l’Illinois](https://courses.grainger.illinois.edu/cs173/sp2026/AB/lecture-notes/karatsuba-recursion-tree.html) illustre le comptage des feuilles et le changement de base &#92;(3^k=n^&#123;&#92;log_2 3&#125;&#92;).
 
 ### Vérifier une borne par induction : de l'intuition à la preuve
 
