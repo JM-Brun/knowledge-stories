@@ -282,32 +282,32 @@ Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 �
 
 <section class="measurement-lab" data-measurement-lab aria-labelledby="measurement-lab-title">
 <div class="measurement-lab-heading">
-  <span class="eyebrow">EXPÉRIENCE INTERACTIVE · MODÈLE ADDITIF</span>
+<span class="eyebrow">EXPÉRIENCE INTERACTIVE · MODÈLE ADDITIF</span>
   <h3 id="measurement-lab-title">Un même écart peut cacher plusieurs histoires</h3>
-  <p>Faites varier séparément l'écart réel entre bâtiments et le décalage du capteur S2 par rapport à S1. Le signal initial est la somme des deux.</p>
+<p>Faites varier séparément l'écart réel entre bâtiments et le décalage du capteur S2 par rapport à S1. Le signal initial est la somme des deux.</p>
 </div>
 <div class="measurement-controls">
   <label class="measurement-control">
-    <span><strong>Effet du bâtiment</strong><output data-building-value>+0,5 °C</output></span>
+<span><strong>Effet du bâtiment</strong><output data-building-value>+0,5 °C</output></span>
     <small>Température de B − température de A</small>
     <input type="range" min="-2" max="2" step="0.1" value="0.5" data-building-effect aria-label="Effet du bâtiment, de moins 2 à plus 2 degrés">
   </label>
   <label class="measurement-control">
-    <span><strong>Décalage du capteur</strong><output data-sensor-value>−1,0 °C</output></span>
+<span><strong>Décalage du capteur</strong><output data-sensor-value>−1,0 °C</output></span>
     <small>Indication de S2 − indication de S1 à température égale</small>
     <input type="range" min="-2" max="2" step="0.1" value="-1" data-sensor-effect aria-label="Décalage du capteur, de moins 2 à plus 2 degrés">
   </label>
 </div>
 <div class="measurement-equation" aria-live="polite">
-  <div><span>Effet bâtiment</span><strong data-building-value>+0,5 °C</strong></div>
-  <span class="measurement-operator">+</span>
-  <div><span>Effet capteur</span><strong data-sensor-value>−1,0 °C</strong></div>
-  <span class="measurement-operator">=</span>
-  <div class="measurement-result"><span>Écart observé</span><strong data-observed-value>−0,5 °C</strong></div>
+<div><span>Effet bâtiment</span><strong data-building-value>+0,5 °C</strong></div>
+<span class="measurement-operator">+</span>
+<div><span>Effet capteur</span><strong data-sensor-value>−1,0 °C</strong></div>
+<span class="measurement-operator">=</span>
+<div class="measurement-result"><span>Écart observé</span><strong data-observed-value>−0,5 °C</strong></div>
 </div>
 <p class="measurement-status" data-lab-status role="status">Même signal observé que dans l'enquête.</p>
 <div class="measurement-presets">
-  <span>Comparer deux explications du même signal :</span>
+<span>Comparer deux explications du même signal :</span>
   <button type="button" data-preset="0.5,-1">Scénario de l'enquête</button>
   <button type="button" data-preset="-0.5,0">Autre explication</button>
 </div>
