@@ -111,7 +111,7 @@ La formalisation établit un théorème dans le modèle de machine multi-piles d
 
 ### Une formalisation Mathlib distincte (dépôt consulté le 24 novembre 2026)
 
-Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean) présente une autre formalisation, fondée elle aussi sur les machines finies de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
+Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean/tree/94b7e77e6710fe394b1a603a8f940f2f08928f45) présente une autre formalisation, fondée sur le modèle `Turing.FinTM2` de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
 
 &#92;[
 &#92;kappa=
@@ -120,7 +120,7 @@ Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integ
 &#92;approx 2^&#123;-14&#123;,&#125;02&#125;.
 &#92;]
 
-Le numérateur est essentiel : &#92;(2^&#123;-46&#125;&#92;) seul vaut environ &#92;(1&#123;,&#125;42&#92;times10^&#123;-14&#125;&#92;), et ne représente donc pas cette constante. La valeur indiquée ici est celle du README consulté le **24 novembre 2026** ; comme le dépôt évolue, cette date fait partie de la référence. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
+Le numérateur est essentiel : &#92;(2^&#123;-46&#125;&#92;) seul vaut environ &#92;(1&#123;,&#125;42&#92;times10^&#123;-14&#125;&#92;), et ne représente donc pas cette constante. La valeur indiquée ici est celle du README au commit `94b7e77`, daté du **24 novembre 2026**. Dans ce dépôt, la taille `n` est la longueur totale de l'entrée encodée ; le résultat établi porte sur `FinTM2`. Le README distingue explicitement cette preuve achevée d'une cible historique sur machine à rubans unidimensionnelle, qui reste une proposition à prouver. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
 
 
 ### 24 novembre 2026 — un exposant logarithmique de &#92;(1/2+o(1)&#92;)
