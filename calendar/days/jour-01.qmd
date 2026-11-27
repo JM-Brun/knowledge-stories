@@ -256,11 +256,6 @@ Pour séparer les effets, il faut que chaque capteur mesure chaque bâtiment dan
 <figcaption>Les quatre cases sont maintenant observées. Les contrastes par ligne et par colonne apportent les comparaisons qui manquaient au plan initial ; leur interprétation comme effets principaux suppose l'additivité du modèle.</figcaption>
 </figure>
 
-Les comparaisons peuvent maintenant être faites à bâtiment constant ou à capteur constant :
-
-- **À bâtiment constant** : S2 indique 1,0 °C de moins que S1, dans les deux bâtiments.
-- **À capteur constant** : B est 0,5 °C plus chaud que A, avec chacun des capteurs.
-
 <div class="contrast-board" role="group" aria-label="Contrastes calculés à partir des quatre mesures croisées">
 <div class="contrast-heading"><span class="eyebrow">LES QUATRE COMPARAISONS QUI DÉBLOQUENT L'ANALYSE</span><p>Chaque contraste maintient une dimension constante pendant que l'autre varie.</p></div>
 <div class="contrast-grid">
