@@ -57,7 +57,7 @@ import MultiplicationMethodMap from "../../components/MultiplicationMethodMap.as
   <span><i className="legend-aux" /><span className="legend-copy">Produit auxiliaire de <b className="term-aux">Karatsuba</b> : <b className="term-aux">(a + b)(c + d)</b> (r)</span></span>
 </div>
 
-<MultiplicationMethodMap active="karatsuba" />
+<MultiplicationMethodMap active="karatsuba-analysis" />
 
 > **Portée du résultat.** La borne **T(n) = Θ(n^log₂ 3)** démontrée dans le modèle équilibré concerne des sous-problèmes de tailles comparables jusqu’au cas de base ; elle ne décrit pas uniformément toute paire dont le plus long opérande a *n* chiffres. Dans l’implémentation pédagogique, un opérande peut atteindre le cas de base avant l’autre. La **section 7, « Une précision sur les tailles réelles des blocs »**, revient sur cet arrêt anticipé et établit la borne supérieure correspondante, sans confondre celle-ci avec la borne inférieure du modèle équilibré. [Aller directement à cette analyse](#une-precision-sur-les-tailles-reelles-des-blocs).
 
