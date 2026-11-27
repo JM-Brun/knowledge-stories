@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 const day = readFileSync(new URL("../calendar/days/jour-01.qmd", import.meta.url), "utf8");
 const exercise = readFileSync(new URL("../calendar/exercices/jour-01.qmd", import.meta.url), "utf8");
 const calendarIndex = readFileSync(new URL("../calendar/index.qmd", import.meta.url), "utf8");
+const englishCalendarIndex = readFileSync(new URL("../calendar/en/index.qmd", import.meta.url), "utf8");
 
 test("Jour 1 uses Pandoc-native math delimiters", () => {
   assert.equal(day.includes("\\("), false, "single-backslash inline TeX delimiters are consumed by Pandoc");
@@ -46,4 +47,7 @@ test("the exercise crossed plan preserves the initial diagonal observations", ()
 test("the calendar entry title matches the current Day 1 article title", () => {
   assert.match(day, /title: "Le modèle voit-il le bâtiment ou le capteur \?"/);
   assert.match(calendarIndex, /Le modèle voit-il le bâtiment ou le capteur \?/);
+  assert.doesNotMatch(calendarIndex, /Une mesure précise peut-elle être fausse/);
+  assert.match(englishCalendarIndex, /Does the model see the building or the sensor/);
+  assert.doesNotMatch(englishCalendarIndex, /Can a precise measurement be wrong/);
 });
