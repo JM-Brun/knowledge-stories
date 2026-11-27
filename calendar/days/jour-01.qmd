@@ -373,9 +373,7 @@ Trois stratégies ne sont pas équivalentes :
 
 Avant d'interpréter l'effet d'un site, demandez-vous donc :
 
-<div class="transfer-question"><span class="eyebrow">LA QUESTION À EMPORTER DANS VOS PROPRES DONNÉES</span><strong>Existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?</strong><p>Si la réponse est non, la limite est dans le plan d'observation. Il faut chercher du recouvrement, une référence commune ou une expérience complémentaire avant de demander davantage au modèle.</p></div>
-
-Si la réponse est non, le problème doit être traité au niveau de la collecte ou de la conception de l'étude. Un découpage train/test ou une nouvelle architecture de modèle ne réparera pas une non-identifiabilité présente dans les données.
+<div class="transfer-question"><span class="eyebrow">LA QUESTION À EMPORTER DANS VOS PROPRES DONNÉES</span><strong>Existe-t-il des observations qui permettent de comparer les groupes sans changer simultanément de système de mesure ?</strong><p>Si la réponse est non, la limite se situe dans le plan d'observation : cherchez du recouvrement, une référence commune ou une expérience complémentaire. Un découpage train/test ou une nouvelle architecture ne réparera pas une non-identifiabilité déjà présente dans les données.</p></div>
 
 ## La leçon de l'enquête
 
