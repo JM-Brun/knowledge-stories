@@ -10,8 +10,16 @@ const steps = [
     href: "/knowledge-stories/atelier/karatsuba-multiplication/",
   },
   {
-    id: "toom",
+    id: "karatsuba-analysis",
     number: "02",
+    name: "Complexité",
+    idea: "Récurrence · arbre",
+    detail: "Établir la croissance du coût",
+    href: "/knowledge-stories/atelier/complexite-multiplication-karatsuba/",
+  },
+  {
+    id: "toom",
+    number: "03",
     name: "Toom–Cook",
     idea: "Évaluation · interpolation",
     detail: "Généraliser à plusieurs blocs",
@@ -19,7 +27,7 @@ const steps = [
   },
   {
     id: "fft",
-    number: "03",
+    number: "04",
     name: "FFT",
     idea: "Convolution rapide",
     detail: "Exploiter les racines de l’unité",
@@ -27,7 +35,7 @@ const steps = [
   },
   {
     id: "ss",
-    number: "04",
+    number: "05",
     name: "Schönhage–Strassen",
     idea: "FFT exacte et récursive",
     detail: "Choisir un anneau adapté",
@@ -35,7 +43,7 @@ const steps = [
   },
   {
     id: "frontier",
-    number: "05",
+    number: "06",
     name: "Frontière théorique",
     idea: "Bornes · modèles · preuves",
     detail: "Comparer ce qui est démontré",
@@ -54,7 +62,7 @@ const steps = [
         <a
           class={`method-step method-${step.id}${active === step.id ? " is-active" : ""}`}
           href={step.href}
-          aria-current={active === step.id ? "page" : undefined}
+          aria-current={active === step.id ? "step" : undefined}
         >
           <span class="method-step-number">{step.number}</span>
           <strong>{step.name}</strong>
@@ -71,7 +79,7 @@ const steps = [
   .method-map-heading{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.8rem}
   .method-map-heading>span{font:600 .62rem/1.4 "DM Mono",monospace;letter-spacing:.09em;color:#777166}
   .method-map-heading p{margin:0;font:500 .88rem/1.4 "DM Sans",sans-serif;color:#666258}
-  .multiplication-method-map ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.45rem;list-style:none;margin:0;padding:0}
+  .multiplication-method-map ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;list-style:none;margin:0;padding:0}
   .method-step{display:flex;min-width:0;min-height:116px;flex-direction:column;align-items:flex-start;gap:.28rem;padding:.7rem .65rem;border:1px solid var(--method-border);border-top:3px solid var(--method-color);border-radius:.55rem;background:var(--method-soft);color:#292a25;text-decoration:none;transition:transform .15s ease,border-color .15s ease}
   .method-step:hover{transform:translateY(-2px);border-color:var(--method-color)}
   .method-step:focus-visible{outline:3px solid var(--method-color);outline-offset:3px}
@@ -80,7 +88,7 @@ const steps = [
   .method-step strong{font:650 .78rem/1.25 "DM Sans",sans-serif;color:var(--method-color)}
   .method-step-idea{font:600 .66rem/1.35 "DM Sans",sans-serif;color:#45463f}
   .method-step-detail{font: .62rem/1.4 "DM Sans",sans-serif;color:#777166}
-  .method-karatsuba{--method-color:#52627a;--method-soft:#edf0f4;--method-border:#9aa5b4}
+  .method-karatsuba,.method-karatsuba-analysis{--method-color:#52627a;--method-soft:#edf0f4;--method-border:#9aa5b4}
   .method-toom{--method-color:#006f6b;--method-soft:#e5f2f0;--method-border:#70a5a0}
   .method-fft{--method-color:#3568a8;--method-soft:#eaf0f8;--method-border:#8da8cc}
   .method-ss{--method-color:#925400;--method-soft:#f7eee1;--method-border:#c09a70}
