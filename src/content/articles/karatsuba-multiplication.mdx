@@ -221,13 +221,13 @@ def karatsuba(x: int, y: int) -> int:
     return ac * base**2 + cross * base + bd
 ```
 
-**Contrôle de cohérence du pseudo-code.** Les deux produits diagonaux doivent être &#92;(ac&#92;) et &#92;(bd&#92;), puis le produit auxiliaire doit être &#92;((a+b)(c+d)&#92;). Si l'on remplaçait par erreur le second produit &#92;(bd&#92;) par &#92;(ad&#92;), la soustraction donnerait :
+**Contrôle de cohérence du pseudo-code.** Les deux produits diagonaux doivent être <span class="term-common">&#92;(ac&#92;)</span> et <span class="term-common">&#92;(bd&#92;)</span>, puis le produit auxiliaire doit être <span class="term-aux">&#92;((a+b)(c+d)&#92;)</span>. Si l'on remplaçait par erreur le second produit <span class="term-common">&#92;(bd&#92;)</span> par <span class="term-cross">&#92;(ad&#92;)</span>, la soustraction donnerait :
 
 &#92;[
 (a+b)(c+d)-ac-ad=bc+bd,
 &#92;]
 
-et non le terme croisé recherché &#92;(ad+bc&#92;). Une diapositive de la présentation CS4102 consultée pour cet article présente précisément cette incohérence entre son pseudo-code et sa formule. Le code ci-dessus utilise bien &#92;(bd&#92;) ; cette vérification rappelle qu'un pseudo-code doit être contrôlé contre l'identité qu'il prétend implémenter.
+et non le terme croisé recherché <span class="term-cross">&#92;(ad+bc&#92;)</span>. Une diapositive de la présentation CS4102 consultée pour cet article présente précisément cette incohérence entre son pseudo-code et sa formule. Le code ci-dessus utilise bien &#92;(bd&#92;) ; cette vérification rappelle qu'un pseudo-code doit être contrôlé contre l'identité qu'il prétend implémenter.
 
 Cette version privilégie la lisibilité. Le même `m` est utilisé pour les deux opérandes : avec deux bases différentes, les décalages de recomposition ne seraient plus cohérents. Le cas de base est atteint dès que l’un des deux opérandes tient sur un chiffre ; ce seuil est volontairement minuscule pour l’exemple, pas réaliste pour une bibliothèque, qui bascule généralement vers la multiplication scolaire bien avant une telle profondeur. Enfin, `len(str(x))` convertit l’entier en chaîne : cette approche pédagogique rencontre la limite de conversion décimale de Python pour les très grands entiers, ainsi que sa limite de profondeur de récursion. `sys.setrecursionlimit` permet de modifier cette dernière avec prudence, mais ne transforme pas cet exemple en multiplicateur industriel ; pour les très grandes tailles, il faut utiliser une bibliothèque optimisée.
 
@@ -238,7 +238,7 @@ Cette version privilégie la lisibilité. Le même `m` est utilisé pour les deu
 <details>
 <summary>Correction</summary>
 
-On pose &#92;(a=4&#92;), &#92;(b=7&#92;), &#92;(c=8&#92;) et &#92;(d=3&#92;). Les trois produits sont &#92;(ac=32&#92;), &#92;(bd=21&#92;) et &#92;((a+b)(c+d)=11\times11=121&#92;). Le terme croisé vaut donc &#92;(121-32-21=68&#92;). Enfin, &#92;(47\times83=32\times100+68\times10+21=3&#92;,901&#92;).
+On pose &#92;(a=4&#92;), &#92;(b=7&#92;), &#92;(c=8&#92;) et &#92;(d=3&#92;). Les trois produits sont <span class="term-common">&#92;(ac=32&#92;)</span>, <span class="term-common">&#92;(bd=21&#92;)</span> et <span class="term-aux">&#92;((a+b)(c+d)=11\times11=121&#92;)</span>. Le terme croisé vaut donc <span class="term-cross">&#92;(121-32-21=68&#92;)</span>. Enfin, &#92;(47\times83=&#92;) <span class="term-common">&#92;(32\times100&#92;)</span> + <span class="term-cross">&#92;(68\times10&#92;)</span> + <span class="term-common">&#92;(21&#92;)</span> = &#92;(3&#92;,901&#92;).
 
 </details>
 
