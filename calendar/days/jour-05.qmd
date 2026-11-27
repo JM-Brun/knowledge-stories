@@ -10,6 +10,13 @@ description: "Pourquoi une distribution prédictive diffuse ne suffit pas à dia
 >
 > **À la fin** — Vous saurez calculer une entropie binaire, lire une entropie prédictive et comprendre comment l'information mutuelle entre prédiction et modèle aide à distinguer ambiguïté et manque de connaissance.
 
+<nav class="story-route" aria-label="Les quatre étapes de l'enquête">
+<a href="#trois-distributions"><span>01</span><strong>Trois distributions</strong></a>
+<a href="#deux-diagnostics"><span>02</span><strong>Deux diagnostics</strong></a>
+<a href="#information-mutuelle"><span>03</span><strong>Le désaccord mesuré</strong></a>
+<a href="#limites-decomposition"><span>04</span><strong>Les limites</strong></a>
+</nav>
+
 ## Pourquoi cette question compte en Data Science
 
 Un classifieur peut attribuer 50 % à chacune de deux classes. Cette sortie peut correspondre à deux situations très différentes : les données disponibles ne permettent réellement pas de trancher, ou bien les modèles plausibles tirent des conclusions opposées.
@@ -18,7 +25,7 @@ La distinction change la suite du travail. Dans le premier cas, il peut être ut
 
 **Une mesure de l'incertitude de la prédiction n'est donc pas automatiquement une mesure de ce que le modèle ignore.**
 
-## Une distribution concentrée est-elle une distribution sûre ?
+## Une distribution concentrée est-elle une distribution sûre ? {#trois-distributions}
 
 Pour une variable binaire, comparons trois distributions :
 
@@ -69,7 +76,7 @@ Dans le cas binaire, l'entropie est maximale lorsque les deux issues sont équip
 
 L'entropie décrit donc la dispersion d'une distribution. Elle ne dit pas si cette distribution est correcte, ni pourquoi elle est diffuse ou concentrée.
 
-## Même entropie prédictive, deux diagnostics opposés
+## Même entropie prédictive, deux diagnostics opposés {#deux-diagnostics}
 
 Considérons un classifieur qui doit choisir entre les classes A et B. On dispose de deux modèles plausibles, entraînés différemment. Pour simplifier, attribuons-leur le même poids.
 
@@ -78,13 +85,21 @@ Considérons un classifieur qui doit choisir entre les classes A et B. On dispos
 | Désaccord | (0,99 ; 0,01) | (0,01 ; 0,99) | (0,50 ; 0,50) |
 | Ambiguïté partagée | (0,50 ; 0,50) | (0,50 ; 0,50) | (0,50 ; 0,50) |
 
+<details class="story-pause">
+<summary>Les deux prédictions moyennes sont identiques : suffit-elle à diagnostiquer le problème ?</summary>
+<div class="pause-content">
+<p>Non. La même sortie (0,50 ; 0,50) peut venir d'un désaccord franc entre modèles très affirmatifs, ou d'un consensus de modèles qui jugent les deux classes plausibles.</p>
+<p>Il faut regarder ce que produit chaque modèle, pas seulement la moyenne de leurs sorties.</p>
+</div>
+</details>
+
 Dans les deux situations, la prédiction moyenne a une entropie de 1 bit. Si l'on ne regarde que cette distribution, les cas semblent identiques.
 
 Mais, dans la première situation, chaque modèle est très affirmatif et ils s'opposent. Dans la seconde, ils s'accordent sur le fait que les deux classes restent plausibles.
 
 Le premier cas révèle que la prédiction moyenne dépend fortement du modèle retenu ; le second montre que les modèles partagent la même distribution diffuse. Cela distingue un désaccord de modèles d'une ambiguïté commune dans leurs sorties, sans prouver que cette dernière est irréductible ni que l'ensemble couvre correctement les modèles plausibles.
 
-## Mesurer le désaccord avec l'information mutuelle
+## Mesurer le désaccord avec l'information mutuelle {#information-mutuelle}
 
 Notons $M$ l'identité du modèle choisi et $Y$ la classe prédite, tirée selon la distribution de ce modèle. On suppose ici que les deux modèles sont choisis avec la même probabilité. L'entropie conditionnelle $H(Y\mid M)$ mesure l'incertitude moyenne restante lorsqu'on connaît le modèle :
 
@@ -132,7 +147,7 @@ Connaître le modèle ne change rien à la distribution prédite : les modèles 
 
 Cette expérience montre pourquoi deux sorties de même entropie peuvent conduire à des investigations différentes. L'information mutuelle apporte une information que l'entropie prédictive seule ne contient pas.
 
-## Ce que cette décomposition permet — et ne permet pas — de conclure
+## Ce que cette décomposition permet — et ne permet pas — de conclure {#limites-decomposition}
 
 Dans un cadre bayésien, la même idée s'écrit en conditionnant sur les paramètres $\theta$ et les données d'entraînement $D$ :
 
