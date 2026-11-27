@@ -211,17 +211,16 @@ Une seule différence mélange donc deux effets inconnus : celui du bâtiment et
 
 Ce n'est pas un manque de puissance statistique. C'est un problème d'**identifiabilité** : le plan de collecte ne fournit pas les comparaisons nécessaires pour séparer les paramètres.
 
-On peut le voir dans la matrice du modèle. En prenant A et S1 comme références, les colonnes représentent l'intercept, l'indicateur « bâtiment B » et l'indicateur « capteur S2 ». Le plan initial ne fournit que :
-
-$$
-X_{\text{initial}} =
-\begin{bmatrix}
-1 & 0 & 0 \\
-1 & 1 & 1
-\end{bmatrix}.
-$$
-
-Le rang de cette matrice vaut 2 : elle ne fournit que deux colonnes indépendantes pour trois paramètres. Le rang est le nombre de colonnes linéairement indépendantes de la matrice ; il indique combien de directions de variation le plan permet de distinguer. Ici, les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. C'est une **colinéarité parfaite** créée par le plan de collecte ; le terme « confusion » désigne ici cette impossibilité structurelle de séparer les contributions, pas une conclusion causale sur le bâtiment. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
+<details class="story-pause">
+<summary>Pour aller plus loin : la même lecture en termes de rang de matrice</summary>
+<div class="pause-content">
+<p>En prenant A et S1 comme références, les colonnes représentent l'intercept, l'indicateur « bâtiment B » et l'indicateur « capteur S2 ». Le plan initial ne fournit que :</p>
+<pre>X_initial =
+[ 1  0  0 ]
+[ 1  1  1 ]</pre>
+<p>Le rang de cette matrice vaut 2 : elle ne fournit que deux colonnes indépendantes pour trois paramètres. Le rang est le nombre de colonnes linéairement indépendantes de la matrice ; il indique combien de directions de variation le plan permet de distinguer. Ici, les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. C'est une <strong>colinéarité parfaite</strong> créée par le plan de collecte ; le terme « confusion » désigne ici cette impossibilité structurelle de séparer les contributions, pas une conclusion causale sur le bâtiment. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.</p>
+</div>
+</details>
 
 On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de $\delta$ et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
 
@@ -273,19 +272,18 @@ Les comparaisons peuvent maintenant être faites à bâtiment constant ou à cap
 <div class="contrast-interpretation"><strong>Les deux contrastes se reproduisent.</strong> C'est la signature attendue d'un modèle additif dans cet exemple construit ; ce n'est pas encore une preuve générale d'absence d'interaction.</div>
 </div>
 
-Avec le même codage que précédemment, la matrice du plan croisé devient :
-
-$$
-X_{\text{croisé}} =
-\begin{bmatrix}
-1 & 0 & 0 \\
-1 & 0 & 1 \\
-1 & 1 & 0 \\
-1 & 1 & 1
-\end{bmatrix}.
-$$
-
-Son rang vaut 3 : les trois colonnes sont indépendantes. Le plan fournit ainsi trois contributions indépendantes pour distinguer les trois paramètres du modèle additif. Les deux effets principaux deviennent estimables. **L'identifiabilité ne garantit ni l'exactitude des mesures ni une faible incertitude sur les estimations** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes de biais résiduel ou de défaut de protocole.
+<details class="story-pause">
+<summary>Pour aller plus loin : le rang du plan croisé</summary>
+<div class="pause-content">
+<p>Avec le même codage que précédemment, la matrice du plan croisé devient :</p>
+<pre>X_croisé =
+[ 1  0  0 ]
+[ 1  0  1 ]
+[ 1  1  0 ]
+[ 1  1  1 ]</pre>
+<p>Son rang vaut 3 : les trois colonnes sont indépendantes. Le plan fournit ainsi trois contributions indépendantes pour distinguer les trois paramètres du modèle additif. Les deux effets principaux deviennent estimables. <strong>L'identifiabilité ne garantit ni l'exactitude des mesures ni une faible incertitude sur les estimations</strong> : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes de biais résiduel ou de défaut de protocole.</p>
+</div>
+</details>
 
 Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
 
@@ -326,9 +324,11 @@ Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 �
 </div>
 <p class="measurement-status" data-lab-status role="status">Même signal observé que dans l'enquête.</p>
 <div class="measurement-presets">
-<span>Comparer deux explications du même signal :</span>
+<span>Comparer plusieurs explications du même signal :</span>
   <button type="button" data-preset="0.5,-1">Scénario de l'enquête</button>
   <button type="button" data-preset="-0.5,0">Autre explication</button>
+  <button type="button" data-preset="0,-0.5">Effets décalés</button>
+  <button type="button" data-preset="1.5,-2">Encore une autre</button>
 </div>
 <p class="measurement-footnote">Cette expérience illustre l'identifiabilité dans un modèle additif simplifié. Elle ne remplace pas le plan croisé : celui-ci apporte les observations nécessaires pour estimer séparément les deux effets.</p>
 </section>
@@ -419,10 +419,17 @@ Et le chauffage ? L'équipe a suspendu la modification. Dans le plan initial, la
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html).
 
+<aside class="editorial-note">Rappel : les nombres de cette enquête sont illustratifs ; ils ne proviennent pas d'une campagne de mesure réelle.</aside>
+
 ## Connexions
 
 - [Jour 2 — 50 000 réponses valent-elles mieux que 1 000 ?](jour-02.html) : une mesure peut être correcte, mais la population observée peut rester biaisée.
 - [Jour 4 — Quand la covariance change-t-elle la variance d'une somme ?](jour-04.html) : les dépendances entre observations modifient l'information apportée par les répétitions.
 
+
+<nav class="day-nav" aria-label="Navigation du calendrier">
+<a href="../index.html">← Le calendrier complet</a>
+<a href="jour-02.html">Jour 2 · 50 000 réponses valent-elles mieux que 1 000 ? →</a>
+</nav>
 
 <script type="module" src="../scripts/jour-01-interactive.js"></script>
