@@ -1,0 +1,92 @@
+---
+const { active = "karatsuba" } = Astro.props;
+const steps = [
+  {
+    id: "karatsuba",
+    number: "01",
+    name: "Karatsuba",
+    idea: "Trois produits récursifs",
+    detail: "Remplacer quatre produits par trois",
+    href: "/knowledge-stories/atelier/karatsuba-multiplication/",
+  },
+  {
+    id: "toom",
+    number: "02",
+    name: "Toom–Cook",
+    idea: "Évaluation · interpolation",
+    detail: "Généraliser à plusieurs blocs",
+    href: "/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/",
+  },
+  {
+    id: "fft",
+    number: "03",
+    name: "FFT",
+    idea: "Convolution rapide",
+    detail: "Exploiter les racines de l’unité",
+    href: "/knowledge-stories/atelier/multiplication-fft-convolution-2026/",
+  },
+  {
+    id: "ss",
+    number: "04",
+    name: "Schönhage–Strassen",
+    idea: "FFT exacte et récursive",
+    detail: "Choisir un anneau adapté",
+    href: "/knowledge-stories/atelier/multiplication-fft-convolution-2026/",
+  },
+  {
+    id: "frontier",
+    number: "05",
+    name: "Frontière théorique",
+    idea: "Bornes · modèles · preuves",
+    detail: "Comparer ce qui est démontré",
+    href: "/knowledge-stories/atelier/frontiere-theorique-multiplication-entiere-2026/",
+  },
+];
+---
+<nav class="multiplication-method-map" aria-label="Progression de la série sur la multiplication entière">
+  <div class="method-map-heading">
+    <span>FIL CONDUCTEUR</span>
+    <p>De la réduction des produits à la frontière théorique</p>
+  </div>
+  <ol>
+    {steps.map((step) => (
+      <li>
+        <a
+          class={`method-step method-${step.id}${active === step.id ? " is-active" : ""}`}
+          href={step.href}
+          aria-current={active === step.id ? "page" : undefined}
+        >
+          <span class="method-step-number">{step.number}</span>
+          <strong>{step.name}</strong>
+          <span class="method-step-idea">{step.idea}</span>
+          <span class="method-step-detail">{step.detail}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+  <p class="method-map-note">Les couleurs identifient les familles de méthodes ; elles ne codent ni leur statut de preuve ni leur performance pratique.</p>
+</nav>
+<style>
+  .multiplication-method-map{margin:1.5rem 0 2.3rem;padding:1rem 1.1rem;border:1px solid #ded9cc;border-radius:.8rem;background:#fffefa;color:#292a25}
+  .method-map-heading{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.8rem}
+  .method-map-heading>span{font:600 .62rem/1.4 "DM Mono",monospace;letter-spacing:.09em;color:#777166}
+  .method-map-heading p{margin:0;font:500 .88rem/1.4 "DM Sans",sans-serif;color:#666258}
+  .multiplication-method-map ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.45rem;list-style:none;margin:0;padding:0}
+  .method-step{display:flex;min-width:0;min-height:116px;flex-direction:column;align-items:flex-start;gap:.28rem;padding:.7rem .65rem;border:1px solid var(--method-border);border-top:3px solid var(--method-color);border-radius:.55rem;background:var(--method-soft);color:#292a25;text-decoration:none;transition:transform .15s ease,border-color .15s ease}
+  .method-step:hover{transform:translateY(-2px);border-color:var(--method-color)}
+  .method-step:focus-visible{outline:3px solid var(--method-color);outline-offset:3px}
+  .method-step.is-active{box-shadow:inset 0 0 0 1px var(--method-color);background:var(--method-soft)}
+  .method-step-number{font:600 .58rem/1 "DM Mono",monospace;letter-spacing:.08em;color:var(--method-color)}
+  .method-step strong{font:650 .78rem/1.25 "DM Sans",sans-serif;color:var(--method-color)}
+  .method-step-idea{font:600 .66rem/1.35 "DM Sans",sans-serif;color:#45463f}
+  .method-step-detail{font: .62rem/1.4 "DM Sans",sans-serif;color:#777166}
+  .method-karatsuba{--method-color:#52627a;--method-soft:#edf0f4;--method-border:#9aa5b4}
+  .method-toom{--method-color:#007c78;--method-soft:#e5f2f0;--method-border:#78aaa5}
+  .method-fft{--method-color:#3568a8;--method-soft:#eaf0f8;--method-border:#8da8cc}
+  .method-ss{--method-color:#a65e00;--method-soft:#f7eee1;--method-border:#c49a68}
+  .method-frontier{--method-color:#55564f;--method-soft:#efeee9;--method-border:#aaa79c}
+  .method-map-note{margin:.7rem 0 0;color:#777166;font: .65rem/1.5 "DM Sans",sans-serif}
+  @media(max-width:760px){.multiplication-method-map ol{grid-template-columns:repeat(2,minmax(0,1fr))}.method-step{min-height:98px}.method-map-heading{display:block}.method-map-heading p{margin-top:.25rem}}
+  @media(max-width:420px){.multiplication-method-map ol{grid-template-columns:1fr 1fr}.method-step{padding:.6rem}.method-step strong{font-size:.72rem}}
+  @media(prefers-reduced-motion:reduce){.method-step{transition:none}.method-step:hover{transform:none}}
+</style>
