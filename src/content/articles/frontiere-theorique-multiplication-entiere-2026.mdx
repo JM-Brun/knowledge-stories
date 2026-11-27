@@ -39,7 +39,7 @@ sources:
     kind: "primary"
     accessed: 2026-11-24
   - title: "Integer multiplication in Lean — formalisation Mathlib TM2, dépôt platypii"
-    url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
+    url: "https://github.com/platypii/integer-mult-bounds-lean/blob/94b7e77e6710fe394b1a603a8f940f2f08928f45/README.md"
     kind: "primary"
     accessed: 2026-11-24
   - title: "The logarithmic exponent of integer multiplication on tapes — OpenAI (24 novembre 2026)"
@@ -48,6 +48,10 @@ sources:
     accessed: 2026-11-27
   - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, résultat 109"
     url: "https://github.com/openai/math/blob/main/lean/docs/109.md"
+    kind: "documentation"
+    accessed: 2026-11-27
+  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, famille 379"
+    url: "https://github.com/openai/math/blob/main/lean/docs/379.md"
     kind: "documentation"
     accessed: 2026-11-27
 series: "multiplication-karatsuba"
@@ -123,7 +127,7 @@ Le même travail établit, **sous l'hypothèse variable-count Weak ETH pour 3-SA
 
 Il faut séparer les deux statuts : la borne supérieure &#92;(n(1+&#92;log n)^&#123;1/2+o(1)&#125;&#92;) est annoncée sans hypothèse, tandis que la borne inférieure et l'optimalité de l'infimum dépendent de Weak ETH. Cette nouvelle borne est beaucoup plus forte que les gains constants &#92;(&#92;kappa&#92;) des étapes précédentes ; ces dernières restent des jalons de construction et de formalisation, pas la meilleure borne supérieure actuelle.
 
-Le dépôt OpenAI publie également une formalisation Lean associée. Sa [note de périmètre](https://github.com/openai/math/blob/main/lean/docs/109.md) indique que Lean vérifie la borne supérieure uniforme, la borne inférieure conditionnelle et l'infimum des exposants. Elle précise aussi que le théorème laisse ouverte l'atteinte de &#92;(r=1/2&#92;), et que les résultats correspondants pour la division exacte et la racine carrée ne sont pas formalisés dans ce périmètre. Une formalisation vérifiée par Lean n'est ni une évaluation par les pairs ni une revue indépendante de toutes les hypothèses du modèle.
+Le dépôt OpenAI publie également une formalisation Lean associée. Sa [note de périmètre dédiée à la multiplication](https://github.com/openai/math/blob/main/lean/docs/109.md) indique que Lean vérifie la borne supérieure uniforme, la borne inférieure conditionnelle et l'infimum des exposants ; elle précise que le théorème laisse ouverte l'atteinte de &#92;(r=1/2&#92;). La [note de périmètre de la famille de résultats](https://github.com/openai/math/blob/main/lean/docs/379.md) confirme que les bornes correspondantes pour la division exacte et la racine carrée restent hors de la formalisation. Une formalisation vérifiée par Lean n'est ni une évaluation par les pairs ni une revue indépendante de toutes les hypothèses du modèle.
 
 ## 2. Comment lire ces résultats
 
