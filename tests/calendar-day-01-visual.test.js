@@ -8,7 +8,7 @@ const styles = readFileSync(new URL("../calendar/styles.css", import.meta.url), 
 const scene = readFileSync(new URL("../calendar/images/jour-01-scene.svg", import.meta.url), "utf8");
 const initial = readFileSync(new URL("../calendar/images/jour-01-plan-initial.svg", import.meta.url), "utf8");
 const crossed = readFileSync(new URL("../calendar/images/jour-01-plan-croise.svg", import.meta.url), "utf8");
-const calibration = readFileSync(new URL("../calendar/images/jour-01-calibration.svg", import.meta.url), "utf8");
+const comparison = readFileSync(new URL("../calendar/images/jour-01-comparaison-reference.svg", import.meta.url), "utf8");
 
 test("two different attributions can produce the same observed contrast", () => {
   assert.equal(calculateObservedContrast(0.5, -1), -0.5);
@@ -31,18 +31,18 @@ test("the story route and its four destinations are present", () => {
 });
 
 test("editorial SVGs keep explicit, accessible viewBoxes and titles", () => {
-  for (const svg of [scene, initial, crossed, calibration]) {
+  for (const svg of [scene, initial, crossed, comparison]) {
     assert.match(svg, /viewBox="0 0 /);
     assert.match(svg, /<title/);
     assert.match(svg, /<desc/);
   }
 });
 
-test("the calibration plot shows the shared reference and six readings", () => {
-  assert.match(article, /jour-01-calibration\.svg/);
-  assert.match(calibration, /RÉF\. 20,00 °C/);
-  assert.match(calibration, /19,9/);
-  assert.match(calibration, /18,9/);
+test("the reference-comparison plot shows the shared reference and six readings", () => {
+  assert.match(article, /jour-01-comparaison-reference\.svg/);
+  assert.match(comparison, /RÉF\. 20,00 °C/);
+  assert.match(comparison, /19,9/);
+  assert.match(comparison, /18,9/);
 });
 
 test("the contrast grid remains two columns at tablet and mobile widths", () => {
