@@ -115,3 +115,14 @@ test("the Toom–Cook article preserves the Karatsuba palette in its historical 
   assert.ok(comparison.includes("var(--term-common,#287a4b)"));
   assert.ok(comparison.includes("var(--term-aux,#7651a6)"));
 });
+
+
+test("the final two series articles retain the Karatsuba semantic palette", () => {
+  const fft = readFileSync(new URL("../src/content/articles/multiplication-fft-convolution-2026.mdx", import.meta.url), "utf8");
+  const frontier = readFileSync(new URL("../src/content/articles/frontiere-theorique-multiplication-entiere-2026.mdx", import.meta.url), "utf8");
+  assert.ok(fft.includes('className="karatsuba-color-scope"'));
+  assert.ok(fft.includes('<span className="term-aux">trois produits</span>'));
+  assert.ok(fft.includes('<span className="term-common">quatre</span>'));
+  assert.ok(frontier.includes('className="karatsuba-color-scope"'));
+  assert.ok(frontier.includes(String.raw`<span className="term-aux">&#92;((a+b)(c+d)&#92;)</span>`));
+});
