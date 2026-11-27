@@ -395,7 +395,7 @@ Le modèle n'avait pas « mal calculé ». Il avait répondu à une question que
 ## Références et approfondissements
 
 - **[Vocabulaire international de métrologie — JCGM 200:2012](https://doi.org/10.59161/JCGM200-2012)** — définitions normatives ; consulter directement [2.13 — Exactitude](https://jcgm.bipm.org/vim/fr/2.13.html), [2.14 — Justesse](https://jcgm.bipm.org/vim/fr/2.14.html), [2.15 — Fidélité](https://jcgm.bipm.org/vim/fr/2.15.html), [2.18 — Biais de mesure](https://jcgm.bipm.org/vim/fr/2.18.html), [2.21 — Répétabilité](https://jcgm.bipm.org/vim/fr/2.21.html), [2.26 — Incertitude](https://jcgm.bipm.org/vim/fr/2.26.html), [2.39 — Étalonnage](https://jcgm.bipm.org/vim/fr/2.39.html) et [2.41 — Traçabilité métrologique](https://jcgm.bipm.org/vim/fr/2.41.html).
-- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude.
+- **[Guide pour l'expression de l'incertitude de mesure — JCGM 100:2008](https://doi.org/10.59161/JCGM100-2008F)** — pour approfondir l'évaluation et la combinaison des composantes d'incertitude. Le BIPM signale aussi l'[amendement 1:2026 sur la non-linéarité des modèles de mesure](https://doi.org/10.59161/PPDI3267), qui dépasse le cas additif illustré ici.
 - **[NIST Technical Note 1297](https://www.nist.gov/pml/nist-technical-note-1297)** — introduction opérationnelle à l'évaluation et à l'expression de l'incertitude.
 
 Les questions de réflexion et les exercices corrigés sont regroupés dans un [atelier séparé](../exercices/jour-01.html).
