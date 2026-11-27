@@ -171,11 +171,14 @@ test("algorithm-family colors remain separate from Karatsuba's algebraic-role co
   assert.ok(styles.includes("--term-aux: #7651a6"));
 
   assert.ok(toom.includes("var(--method-toom,#006f6b)"));
+  assert.ok(toom.includes(".toom-lab .equation{border-left:3px solid var(--method-toom"));
   assert.ok(recurrence.includes("cost-row--karatsuba"));
   assert.ok(recurrence.includes("cost-row--toom"));
   assert.ok(recurrence.includes("var(--method-toom,#006f6b)"));
   assert.ok(fft.includes("var(--method-fft,#3568a8)"));
+  assert.ok(fft.includes(".fft-lab .eval-grid b{color:var(--method-fft"));
   assert.ok(ss.includes("var(--method-ss,#925400)"));
+  assert.ok(ss.includes(".ss-lab .ss-equation{border-left:3px solid var(--method-ss"));
   assert.ok(butterfly.includes("#3568a8"));
   assert.doesNotMatch(butterfly, /#bd4b32/);
 });
