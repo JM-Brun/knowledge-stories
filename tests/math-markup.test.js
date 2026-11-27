@@ -67,3 +67,66 @@ test("the proper-time integral keeps TeX bounds escaped for MDX", () => {
   assert.ok(source.includes(String.raw`&#92;int_&#123;t_i&#125;^&#123;t_f&#125;`));
   assert.doesNotMatch(source, /&#92;int_\{/);
 });
+
+
+test("Karatsuba components use the canonical semantic palette, including fallbacks", () => {
+  const growth = readFileSync(new URL("../src/components/KaratsubaGrowth.astro", import.meta.url), "utf8");
+  const comparison = readFileSync(new URL("../src/components/KaratsubaComparison.astro", import.meta.url), "utf8");
+  const explorer = readFileSync(new URL("../src/components/KaratsubaExplorer.astro", import.meta.url), "utf8");
+  for (const [source, color] of [
+    [growth, "#287a4b"], [growth, "#e8f2e9"], [growth, "#7651a6"], [growth, "#f0eaf7"],
+    [comparison, "#287a4b"], [comparison, "#7651a6"],
+    [explorer, "#287a4b"], [explorer, "#8b5a2b"], [explorer, "#7651a6"],
+  ]) {
+    assert.ok(source.includes(color), `Missing canonical color ${color}`);
+  }
+  assert.ok(explorer.includes('maxlength="18"'));
+  assert.ok(explorer.includes('class={index === 2 ? "subproblem-aux" : "subproblem-common"}'));
+  assert.ok(explorer.includes(".subproblem-common [data-call]"));
+  assert.ok(explorer.includes(".subproblem-aux [data-call]"));
+});
+
+test("Karatsuba exercise corrections preserve the semantic product colors", () => {
+  const article = readFileSync(new URL("../src/content/articles/karatsuba-multiplication.mdx", import.meta.url), "utf8");
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(ac=32&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(bd=21&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-aux">&#92;((a+b)(c+d)=11\times11=121&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-cross">&#92;(121-32-21=68&#92;)</span>`));
+});
+
+test("complexity article colors method-comparison tables and proves bounded termination explicitly", () => {
+  const lesson = readFileSync(new URL("../src/content/articles/complexite-multiplication-karatsuba.mdx", import.meta.url), "utf8");
+  assert.ok(lesson.includes('<span class="term-common">Appels classiques</span>'));
+  assert.ok(lesson.includes('<span class="term-aux">Appels Karatsuba</span>'));
+  assert.ok(lesson.includes("1 098 (par exemple 999 + 99)"));
+  assert.ok(lesson.includes("donne 108, puis 18, puis 9"));
+});
+
+
+test("the Toom–Cook article preserves the Karatsuba palette in its historical bridge", () => {
+  const article = readFileSync(new URL("../src/content/articles/multiplication-rapide-et-preuves-2026.mdx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const comparison = readFileSync(new URL("../src/components/MultiplicationRecurrenceComparison.astro", import.meta.url), "utf8");
+  assert.ok(article.includes('className="karatsuba-color-scope"'));
+  assert.ok(article.includes(String.raw`<span class="term-common">&#92;(u=12&#92;times56&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-aux">&#92;(w=(12+34)(56+78)&#92;)</span>`));
+  assert.ok(article.includes(String.raw`<span class="term-cross">&#92;(w-u-v&#92;)</span>`));
+  assert.ok(styles.includes(":has(.karatsuba-color-scope) .karatsuba-color-scope .term-common"));
+  assert.ok(comparison.includes("var(--term-common,#287a4b)"));
+  assert.ok(comparison.includes("var(--term-aux,#7651a6)"));
+});
+
+
+test("the final two series articles retain the Karatsuba semantic palette", () => {
+  const fft = readFileSync(new URL("../src/content/articles/multiplication-fft-convolution-2026.mdx", import.meta.url), "utf8");
+  const frontier = readFileSync(new URL("../src/content/articles/frontiere-theorique-multiplication-entiere-2026.mdx", import.meta.url), "utf8");
+  assert.ok(fft.includes('className="karatsuba-color-scope"'));
+  assert.ok(fft.includes('<span className="term-aux">trois produits</span>'));
+  assert.ok(fft.includes('<span className="term-common">quatre</span>'));
+  assert.ok(frontier.includes('className="karatsuba-color-scope"'));
+  assert.ok(frontier.includes(String.raw`<span className="term-aux">&#92;((a+b)(c+d)&#92;)</span>`));
+  assert.ok(frontier.includes(String.raw`T(n)=n(1+&#92;log n)^&#123;1/2+o(1)&#125;`));
+  assert.ok(frontier.includes("variable-count Weak ETH"));
+  assert.ok(frontier.includes("lean/docs/109.md"));
+  assert.ok(frontier.includes("readingTime: 11"));
+});

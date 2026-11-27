@@ -2,6 +2,7 @@
 title: "La frontière théorique de la multiplication entière : résultats et preuves en 2026"
 description: "Comparer les bornes sous n log n, les modèles de calcul et les niveaux de vérification des résultats récents sur la multiplication entière."
 date: 2026-11-24
+updated: 2026-11-27
 category: "Mathématiques"
 discipline: "Mathématiques"
 domain: "mathematics"
@@ -9,7 +10,7 @@ themes: ["Algorithmique et complexité", "Mathématiques discrètes et calcul"]
 tags: ["multiplication-entière", "complexité", "théorie-de-la-complexité", "preuve-formelle", "Lean", "modèles-de-calcul"]
 labels: ["Frontière théorique","Preuves formelles"]
 difficulty: "advanced"
-readingTime: 9
+readingTime: 11
 status: "review"
 featured: false
 sources:
@@ -41,6 +42,14 @@ sources:
     url: "https://github.com/platypii/integer-mult-bounds-lean/blob/master/README.md"
     kind: "primary"
     accessed: 2026-11-24
+  - title: "The logarithmic exponent of integer multiplication on tapes — OpenAI (24 novembre 2026)"
+    url: "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf"
+    kind: "primary"
+    accessed: 2026-11-27
+  - title: "Formalisation Lean et périmètre de vérification — OpenAI Math, résultat 109"
+    url: "https://github.com/openai/math/blob/main/lean/docs/109.md"
+    kind: "documentation"
+    accessed: 2026-11-27
 series: "multiplication-karatsuba"
 seriesOrder: 5
 relatedArticles: ["multiplication-rapide-et-preuves-2026", "multiplication-fft-convolution-2026", "complexite-multiplication-karatsuba", "karatsuba-multiplication"]
@@ -50,7 +59,7 @@ Cette étape prolonge l'étude des algorithmes de multiplication rapide. Après 
 
 Il faut alors distinguer les bornes démontrées, le modèle de calcul, le statut de la preuve et les performances d'une implémentation. Ces dimensions ne se confondent pas.
 
-## 1. La frontière théorique : trois travaux à ne pas confondre
+## 1. Les résultats et leurs statuts de preuve
 
 Les résultats ci-dessous portent sur des bornes asymptotiques de complexité en bits. Ils ne disent pas qu’un programme donné est plus rapide sur une machine courante. Dans une borne de la forme &#92;(O(n(&#92;log n)^&#123;1-&#92;kappa&#125;)&#92;), une valeur de &#92;(&#92;kappa&#92;) plus grande donne un exposant logarithmique plus favorable, mais les modèles de machines, les hypothèses et les constructions doivent être comparés avant d’en tirer un classement.
 
@@ -69,7 +78,7 @@ O&#92;!&#92;left(n(&#92;log n)^&#123;1-&#92;kappa&#125;&#92;right),
 
 sur une machine de Turing à alphabet fini et à nombre fixe de rubans unidimensionnels. Le gain sur le facteur logarithmique est extrêmement faible ; les auteurs précisent que les constantes et les seuils sont immenses et que le résultat vise une borne de complexité, pas une amélioration pratique.
 
-Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf), co-auteur du résultat de 2021, juge la construction centrale plausible, tout en indiquant ne pas avoir vérifié la plupart des détails. Il signale notamment des points techniques à contrôler dans le coût des réorganisations de données sur machine multitape. Il s’agit d’un examen critique partiel, pas d’une validation complète ni d’un rejet du résultat.
+Dans sa note du 20 octobre 2026, [David Harvey](https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf), co-auteur du résultat de 2021, juge la construction centrale plausible, tout en indiquant ne pas avoir vérifié la plupart des détails. Il signale notamment des points techniques à contrôler dans le coût des réorganisations de données sur machine multitape. Il s’agit d’un examen critique partiel, pas d’une validation complète ni d’un rejet du résultat. Depuis le 24 novembre, le dépôt OpenAI publie aussi une note de périmètre Lean qui référence un comparateur pour cette première borne ; cela ne remplace ni une revue par les pairs ni un examen indépendant du manuscrit.
 
 ### 2026 — Cui, Liu et Woodruff : preuve écrite et preuve formalisée
 
@@ -82,7 +91,7 @@ Cette distinction n’est pas une contradiction : les deux preuves exploitent de
 
 La formalisation établit un théorème dans le modèle de machine multi-piles de Mathlib (TM2). Elle vérifie une preuve dans un cadre formel donné ; elle ne signifie ni que le papier a été évalué par les pairs, ni que chaque choix de modélisation a fait l’objet d’une validation indépendante par la communauté.
 
-### 24 novembre 2026 — une formalisation Mathlib distincte
+### Une formalisation Mathlib distincte (dépôt consulté le 24 novembre 2026)
 
 Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integer-mult-bounds-lean) présente une autre formalisation, fondée elle aussi sur les machines finies de Mathlib. Son README indique actuellement un théorème inconditionnel avec :
 
@@ -94,6 +103,23 @@ Le dépôt [platypii/integer-mult-bounds-lean](https://github.com/platypii/integ
 &#92;]
 
 Le numérateur est essentiel : &#92;(2^&#123;-46&#125;&#92;) seul vaut environ &#92;(1&#123;,&#125;42&#92;times10^&#123;-14&#125;&#92;), et ne représente donc pas cette constante. La valeur indiquée ici est celle du README consulté le **24 novembre 2026** ; comme le dépôt évolue, cette date fait partie de la référence. Il s’agit d’un dépôt distinct de celui de Cui, Liu et Woodruff : ne pas attribuer cette valeur à leur papier.
+
+
+### 24 novembre 2026 — un exposant logarithmique de &#92;(1/2+o(1)&#92;)
+
+Le papier [*The logarithmic exponent of integer multiplication on tapes*](https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-integer-multiplication-on-tapes-November-24-2026/paper.pdf) franchit une étape asymptotique supplémentaire. Il construit une machine multitape déterministe fixe qui calcule exactement le produit de deux entiers de &#92;(n&#92;) bits en :
+
+&#92;[
+T(n)=n(1+&#92;log n)^&#123;1/2+o(1)&#125;,
+&#92;]
+
+tout en ne visitant que &#92;(O(n)&#92;) cellules de ruban. Cette borne supérieure est inconditionnelle dans le modèle décrit par le papier.
+
+Le même travail établit, **sous l'hypothèse variable-count Weak ETH pour 3-SAT**, une borne inférieure &#92;(&#92;Omega(n&#92;sqrt&#123;&#92;log n&#125;)&#92;) pour tout multiplicateur déterministe exact : à chaque longueur suffisamment grande, il existe une entrée sur laquelle ce coût est nécessaire. Dans la formulation du papier, Weak ETH exclut, pour tout &#92;(0&#92;lt&#92;eta&#92;lt1&#92;) fixé, un algorithme déterministe de 3-SAT en temps &#92;(2^&#123;O(v^&#123;1-&#92;eta&#125;)&#125;L^&#123;O(1)&#125;&#92;), où &#92;(v&#92;) est le nombre de variables et &#92;(L&#92;) la longueur de l'entrée. Sous cette hypothèse, l'infimum des exposants &#92;(r&#92;) permettant une borne &#92;(O(n(&#92;log n)^r)&#92;) est donc &#92;(1/2&#92;). Le papier ne démontre toutefois pas l'atteinte exacte de &#92;(r=1/2&#92;) : sa borne supérieure conserve le terme &#92;(o(1)&#92;).
+
+Il faut séparer les deux statuts : la borne supérieure &#92;(n(1+&#92;log n)^&#123;1/2+o(1)&#125;&#92;) est annoncée sans hypothèse, tandis que la borne inférieure et l'optimalité de l'infimum dépendent de Weak ETH. Cette nouvelle borne est beaucoup plus forte que les gains constants &#92;(&#92;kappa&#92;) des étapes précédentes ; ces dernières restent des jalons de construction et de formalisation, pas la meilleure borne supérieure actuelle.
+
+Le dépôt OpenAI publie également une formalisation Lean associée. Sa [note de périmètre](https://github.com/openai/math/blob/main/lean/docs/109.md) indique que Lean vérifie la borne supérieure uniforme, la borne inférieure conditionnelle et l'infimum des exposants. Elle précise aussi que le théorème laisse ouverte l'atteinte de &#92;(r=1/2&#92;), et que les résultats correspondants pour la division exacte et la racine carrée ne sont pas formalisés dans ce périmètre. Une formalisation vérifiée par Lean n'est ni une évaluation par les pairs ni une revue indépendante de toutes les hypothèses du modèle.
 
 ## 2. Comment lire ces résultats
 
@@ -108,7 +134,9 @@ Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comp
 
 ## 3. Pour vérifier que l'on a compris
 
-1. **Karatsuba.** Pourquoi le calcul de &#92;((a+b)(c+d)&#92;) permet-il de retrouver les deux termes croisés sans les calculer séparément ?
+<div className="karatsuba-color-scope">
+
+1. **Karatsuba.** Pourquoi le calcul de <span className="term-aux">&#92;((a+b)(c+d)&#92;)</span> permet-il de retrouver les deux termes croisés sans les calculer séparément ?
 2. **Toom–3.** Pourquoi le produit de deux polynômes de degré 2 nécessite-t-il cinq évaluations, et non trois ?
 3. **Interpolation.** À quoi servent les évaluations en &#92;(1&#92;) et &#92;(-1&#92;) dans la reconstruction des coefficients ?
 4. **FFT.** Pourquoi faut-il compléter les suites par des zéros avant d'appliquer une DFT pour multiplier deux polynômes ?
@@ -117,13 +145,16 @@ Les valeurs de &#92;(&#92;kappa&#92;) ne suffisent pas à elles seules pour comp
 7. **Transformée inverse.** Quelle propriété des racines de l'unité permet-elle d'annuler les termes correspondant à &#92;(&#92;ell&#92;ne j&#92;) ? Pourquoi faut-il que la longueur de transformée soit inversible dans l'anneau ?
 8. **Toom–3.** Pourquoi les divisions par 2 et par 3 de l'interpolation donnent-elles des entiers, même si l'on travaille sur des coefficients quelconques dans &#92;(\mathbb Z&#92;) ?
 
+
+</div>
+
 Une bonne réponse ne consiste pas seulement à réciter les formules : elle doit identifier la représentation utilisée, le coût dominant et les hypothèses nécessaires.
 
 ---
 
 ## Pour poursuivre
 
-Revenir à [Après Karatsuba : Toom–Cook et interpolation](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/) pour revoir l'évaluation-interpolation, ou à [De Toom–Cook à la FFT](/knowledge-stories/atelier/multiplication-fft-convolution-2026/) pour retrouver les mécanismes de convolution et de multiplication exacte. La [présentation de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/) permet de reprendre le parcours depuis le début.
+Revenir à [Après Karatsuba : Toom–Cook et interpolation](/knowledge-stories/atelier/multiplication-rapide-et-preuves-2026/) pour revoir l'évaluation-interpolation, ou à [De Toom–Cook à la FFT](/knowledge-stories/atelier/multiplication-fft-convolution-2026/) pour retrouver les mécanismes de convolution et de multiplication exacte. L'[analyse de la complexité de Karatsuba](/knowledge-stories/atelier/complexite-multiplication-karatsuba/) reprend les récurrences et leur preuve ; la [présentation de Karatsuba](/knowledge-stories/atelier/karatsuba-multiplication/) permet de reprendre le parcours depuis le début.
 
 ## Dans Wiki Knowledge
 

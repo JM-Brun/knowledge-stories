@@ -469,3 +469,24 @@
 :is(.story-page, .review-page):has(.karatsuba-hero, .complexity-lesson) .math-display--karatsuba .math-caption {
   color: #625a6d;
 }
+
+/* Karatsuba palette in the short algebraic bridge embedded in the Toom–Cook article. */
+:is(.story-page, .review-page):has(.karatsuba-color-scope) {
+  --term-common: #287a4b;
+  --term-common-soft: #e8f2e9;
+  --term-common-border: #5c9569;
+  --term-cross: #8b5a2b;
+  --term-cross-soft: #f5ede3;
+  --term-cross-border: #a8794e;
+  --term-aux: #7651a6;
+  --term-aux-soft: #f0eaf7;
+  --term-aux-border: #8a70b4;
+}
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-common,
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-cross,
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-aux {
+  font-weight: 650;
+}
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-common { color: var(--term-common); }
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-cross { color: var(--term-cross); }
+:is(.story-page, .review-page):has(.karatsuba-color-scope) .karatsuba-color-scope .term-aux { color: var(--term-aux); }

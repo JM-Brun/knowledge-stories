@@ -87,15 +87,22 @@ L'analyse ne demande pas de refaire les multiplications : ce qui nous intéresse
 
 | Appel récursif | Opération | Tailles des opérandes |
 |---|---|---:|
-| &#92;(p=ac&#92;) | &#92;(1&#92;,234&#92;times8&#92;,765&#92;) | 4 × 4 chiffres |
-| &#92;(q=bd&#92;) | &#92;(5&#92;,678&#92;times4&#92;,321&#92;) | 4 × 4 chiffres |
-| &#92;(r=(a+b)(c+d)&#92;) | &#92;(6&#92;,912&#92;times13&#92;,086&#92;) | 4 × 5 chiffres |
+| <span className="term-common">&#92;(p=ac&#92;)</span> | <span className="term-common">&#92;(1&#92;,234&#92;times8&#92;,765&#92;)</span> | 4 × 4 chiffres |
+| <span className="term-common">&#92;(q=bd&#92;)</span> | <span className="term-common">&#92;(5&#92;,678&#92;times4&#92;,321&#92;)</span> | 4 × 4 chiffres |
+| <span className="term-aux">&#92;(r=(a+b)(c+d)&#92;)</span> | <span className="term-aux">&#92;(6&#92;,912&#92;times13&#92;,086&#92;)</span> | 4 × 5 chiffres |
 
 Le troisième appel est légèrement plus grand : &#92;(c+d=13&#92;,086&#92;) a cinq chiffres à cause d'une retenue. Si &#92;(T(m)&#92;) désigne le coût d'un appel dont le plus long opérande comporte &#92;(m&#92;) chiffres, la trace concrète s'écrit donc :
 
-&#92;[
-T(8)=T(4)+T(4)+T(5)+O(8).
-&#92;]
+<div className="math-display math-display--key call-trace-recurrence" role="math" aria-label="T de 8 égale le coût du produit p plus le coût du produit q plus le coût du produit auxiliaire r plus le travail local">
+  <div className="math-line">
+    &#92;(T(8)=&#92;)
+    <span className="term-common">&#92;(T_p(4)&#92;)</span>
+    + <span className="term-common">&#92;(T_q(4)&#92;)</span>
+    + <span className="term-aux">&#92;(T_r(5)&#92;)</span>
+    + &#92;(O(8)&#92;)
+  </div>
+  <p className="call-trace-note">Deux produits diagonaux en vert, le produit auxiliaire en violet ; le travail local reste neutre.</p>
+</div>
 
 Les trois tailles 4, 4 et 5 sont toutes égales à &#92;(8/2+O(1)&#92;). À l'échelle asymptotique, cette différence d'un chiffre conduit au modèle équilibré &#92;(T(n)=3T(n/2)+O(n)&#92;), que nous allons justifier puis résoudre.
 
@@ -205,12 +212,12 @@ Reprenons la taille de huit chiffres de l’exemple précédent : &#92;(n=8=2^3&
 
 <div className="complexity-table-scroll">
 
-| Niveau | Taille des blocs | Appels classiques | Appels Karatsuba | Travail local classique | Travail local Karatsuba |
+| Niveau | Taille des blocs | <span class="term-common">Appels classiques</span> | <span class="term-aux">Appels Karatsuba</span> | <span class="term-common">Travail local classique</span> | <span class="term-aux">Travail local Karatsuba</span> |
 |---:|---:|---:|---:|---:|---:|
-| 0 | 8 | 1 | 1 | 8 unités | 8 unités |
-| 1 | 4 | 4 | 3 | 16 unités | 12 unités |
-| 2 | 2 | 16 | 9 | 32 unités | 18 unités |
-| 3 · feuilles | 1 | 64 | 27 | 64 produits | 27 produits |
+| 0 | 8 | <span class="term-common">1</span> | <span class="term-aux">1</span> | <span class="term-common">8 unités</span> | <span class="term-aux">8 unités</span> |
+| 1 | 4 | <span class="term-common">4</span> | <span class="term-aux">3</span> | <span class="term-common">16 unités</span> | <span class="term-aux">12 unités</span> |
+| 2 | 2 | <span class="term-common">16</span> | <span class="term-aux">9</span> | <span class="term-common">32 unités</span> | <span class="term-aux">18 unités</span> |
+| 3 · feuilles | 1 | <span class="term-common">64</span> | <span class="term-aux">27</span> | <span class="term-common">64 produits</span> | <span class="term-aux">27 produits</span> |
 
 </div>
 
@@ -413,9 +420,9 @@ Les feuilles donnent par ailleurs une borne inférieure <span class="term-common
 
 | Ce que l’on compte | <span class="term-common">Méthode classique</span> | <span class="term-aux">Karatsuba</span> |
 |---|---:|---:|
-| Sous-multiplications créées par appel | 4 | 3 |
-| Appels au niveau &#92;(j&#92;) | &#92;(4^j&#92;) | &#92;(3^j&#92;) |
-| Multiplications aux feuilles | &#92;(n^2&#92;) | &#92;(n^&#123;&#92;log_2 3&#125;&#92;) |
+| Sous-multiplications créées par appel | <span class="term-common">4</span> | <span class="term-aux">3</span> |
+| Appels au niveau &#92;(j&#92;) | <span class="term-common">&#92;(4^j&#92;)</span> | <span class="term-aux">&#92;(3^j&#92;)</span> |
+| Multiplications aux feuilles | <span class="term-common">&#92;(n^2&#92;)</span> | <span class="term-aux">&#92;(n^&#123;&#92;log_2 3&#125;&#92;)</span> |
 | Coût total | <span class="term-common">&#92;(&#92;Theta(n^2)&#92;)</span> | <span class="term-aux">&#92;(&#92;Theta(n^&#123;1&#123;,&#125;585&#125;)&#92;)</span> |
 
 </div>
@@ -536,7 +543,7 @@ Si &#92;(m_j&#92;) désigne la taille maximale d’un sous-problème au niveau &
 m_&#123;j+1&#125;&#92;leq m_j/2+2.
 &#92;]
 
-En déroulant cette inégalité, on obtient &#92;(m_j&#92;leq n/2^j+4&#92;). La taille devient donc constante après &#92;(&#92;log_2(n)+O(1)&#92;) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Il reste à justifier que cette taille bornée implique bien une profondeur supplémentaire bornée. Avec le découpage décimal considéré, un bloc de cinq chiffres produit des sous-problèmes d’au plus quatre chiffres ; un bloc de quatre chiffres, d’au plus trois. Pour trois chiffres, une somme auxiliaire qui conserve trois chiffres est au plus égale à 108 ; au découpage suivant, la somme des deux blocs est alors au plus égale à 9. De même, pour deux chiffres, une somme qui conserve deux chiffres est au plus égale à 18 ; au découpage suivant, elle est au plus égale à 9. Les produits diagonaux portent directement sur les moitiés, plus courtes. Ainsi, une fois la taille maximale devenue constante, il ne reste qu’un nombre constant de découpages avant le cas de base. Le nombre d’appels à la profondeur j est donc **au plus** égal à 3^j ; l’égalité correspond au modèle où tous les appels engendrent effectivement trois sous-problèmes.
+En déroulant cette inégalité, on obtient &#92;(m_j&#92;leq n/2^j+4&#92;). La taille devient donc constante après &#92;(&#92;log_2(n)+O(1)&#92;) niveaux : l’ajout éventuel d’un chiffre ne change pas la profondeur de l’arbre à une constante près. Il reste à justifier que cette taille bornée implique bien une profondeur supplémentaire bornée. Avec le découpage décimal considéré, on peut expliciter la descente des sommes auxiliaires dans le pire cas. Un bloc de cinq chiffres donne au plus 1 098 (par exemple 999 + 99) ; au découpage suivant, 1 098 donne 108, puis 18, puis 9. Un bloc de quatre chiffres donne au plus 198 (99 + 99), puis 27, puis 9. Un bloc de trois chiffres donne au plus 108 (99 + 9), puis 18, puis 9. Enfin, un bloc de deux chiffres donne au plus 18, puis 9. Ces chaînes montrent qu’à partir d’une taille maximale de cinq chiffres, un nombre constant de découpages suffit pour atteindre un opérande d’un chiffre. Les produits diagonaux portent directement sur les moitiés, plus courtes. Ainsi, une fois la taille maximale devenue constante, il ne reste qu’un nombre constant de découpages avant le cas de base. Le nombre d’appels à la profondeur j est donc **au plus** égal à 3^j ; l’égalité correspond au modèle où tous les appels engendrent effectivement trois sous-problèmes.
 
 Au niveau &#92;(j&#92;), le travail interne est alors borné par :
 
