@@ -10,11 +10,18 @@ description: "Une enquête fictive montre pourquoi un échantillon massif peut d
 >
 > **À la fin** — Vous saurez distinguer taille, couverture et sélection, expliquer pourquoi un grand échantillon peut viser la mauvaise population et reconnaître les limites d'une pondération.
 
+<nav class="story-route" aria-label="Les quatre étapes de l'enquête">
+<a href="#deux-sondages"><span>01</span><strong>Deux sondages</strong></a>
+<a href="#population-representee"><span>02</span><strong>Le piège</strong></a>
+<a href="#selection-relations"><span>03</span><strong>La déformation</strong></a>
+<a href="#corriger-echantillon"><span>04</span><strong>La correction</strong></a>
+</nav>
+
 ## Pourquoi cette question compte en Data Science
 
 Un score calculé sur un jeu de données n'a de sens qu'au regard de la population et de la décision auxquelles on veut le rapporter. Un très grand jeu de test peut mesurer avec précision la performance sur les mauvais cas. La question décisive n'est pas « combien de lignes ? », mais « quelles unités ont eu une chance d'entrer dans les données, lesquelles y sont effectivement entrées, et à quelle population veut-on généraliser ? ».
 
-## Deux sondages, deux réponses
+## Deux sondages, deux réponses {#deux-sondages}
 
 Une entreprise veut connaître le score de satisfaction de ses utilisateurs. Elle dispose de deux enquêtes.
 
@@ -27,9 +34,17 @@ La première enquête semble imbattable par sa taille. Pourtant, elle annonce un
 
 La direction demande : laquelle croire ?
 
+<details class="story-pause">
+<summary>Faites une hypothèse : que décrit chaque enquête, et pour qui ?</summary>
+<div class="pause-content">
+<p>Chaque enquête décrit la population des personnes qui ont eu une chance d'y répondre. La grande enquête ne touche presque que des utilisateurs réguliers ; la petite couvre les deux groupes par tirage au sort.</p>
+<p>La taille ne dit encore rien : tout dépend du groupe auquel les chiffres seront rapportés.</p>
+</div>
+</details>
+
 Avant de comparer les chiffres, il faut poser une question plus fondamentale : **à qui veut-on faire dire quelque chose à ces réponses ?**
 
-## Le piège : confondre nombre de réponses et population représentée
+## Le piège : confondre nombre de réponses et population représentée {#population-representee}
 
 Imaginons une population de 100 000 utilisateurs, répartis en deux groupes de même taille :
 
@@ -149,7 +164,7 @@ C'est une différence essentielle :
 
 Un grand nombre de réponses réduit souvent l'incertitude d'échantillonnage, mais ne corrige pas automatiquement un défaut de couverture ou de sélection.
 
-## Quand la sélection déforme aussi les relations
+## Quand la sélection déforme aussi les relations {#selection-relations}
 
 Le problème ne concerne pas seulement les moyennes. Sélectionner les personnes observées peut créer des associations qui n'existent pas dans la population.
 
@@ -182,7 +197,7 @@ En ne gardant que les utilisateurs actifs à six mois, on conditionne sur une co
 
 Ce phénomène est appelé **biais de collisionneur** (*collider bias*). Il montre pourquoi il faut comprendre la règle qui fait entrer une unité dans les données, et pas seulement décrire les variables qui y figurent.
 
-## Peut-on corriger un échantillon biaisé ?
+## Peut-on corriger un échantillon biaisé ? {#corriger-echantillon}
 
 Parfois, à condition de connaître suffisamment le mécanisme de sélection.
 
