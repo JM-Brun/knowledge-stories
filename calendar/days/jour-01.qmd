@@ -107,9 +107,9 @@ Il faut aussi distinguer une **comparaison ponctuelle** d'un **étalonnage**. La
 
 Un modèle minimal permet de séparer les deux contributions :
 
-$
+$$
 X_i = \theta + b + \varepsilon_i
-$
+$$
 
 - $\theta$ est la température recherchée ;
 - $b$ est le décalage propre au système de mesure, supposé constant pendant la série ;
@@ -117,11 +117,11 @@ $
 
 Supposons que $\theta$ et $b$ restent constants et que les erreurs aléatoires soient indépendantes, centrées et de variance $\sigma^2$. La moyenne de $n$ mesures vérifie alors :
 
-$
+$$
 \mathbb{E}[\overline X_n] = \theta+b,
 \qquad
 \operatorname{Var}(\overline X_n)=\frac{\sigma^2}{n}.
-$
+$$
 
 Augmenter $n$ réduit la variabilité de la moyenne sous ces hypothèses. Mais son espérance reste $\theta+b$ : **la répétition ne retire pas le décalage systématique**.
 
@@ -149,9 +149,9 @@ Mais le problème du réseau de capteurs est plus profond encore : même si chaq
 
 Notons $Y_{s,c}$ la température indiquée dans le bâtiment $s$ par le capteur $c$. Un modèle additif simple serait :
 
-$
+$$
 Y_{s,c} = \mu + \alpha_s + \beta_c + \varepsilon_{s,c},
-$
+$$
 
 où :
 
@@ -176,10 +176,10 @@ Or, dans le réseau initial, on n'observe que deux associations :
 
 La différence observée vaut −0,5 °C pour B par rapport à A. Mais, dans le modèle, elle correspond à :
 
-$
+$$
 Y_{B,S2}-Y_{A,S1}
 = (\alpha_B-\alpha_A)+(\beta_{S2}-\beta_{S1})+\text{résidu}.
-$
+$$
 
 Une seule différence mélange donc deux effets inconnus : celui du bâtiment et celui du capteur. Les données ne disent pas quelle part revient à chacun.
 
@@ -187,22 +187,22 @@ Ce n'est pas un manque de puissance statistique. C'est un problème d'**identifi
 
 On peut le voir dans la matrice du modèle. En prenant A et S1 comme références, les colonnes représentent l'intercept, l'indicateur « bâtiment B » et l'indicateur « capteur S2 ». Le plan initial ne fournit que :
 
-$
+$$
 X_{\text{initial}} =
 \begin{bmatrix}
 1 & 0 & 0 \\
 1 & 1 & 1
 \end{bmatrix}.
-$
+$$
 
 Les deux dernières colonnes sont identiques : chaque fois que l'on observe le bâtiment B, on observe aussi S2. Leurs effets ne peuvent donc pas être estimés séparément. Répéter les mêmes associations ajoute des lignes de même structure ; cela n'augmente pas le rang de la matrice et ne résout pas la confusion.
 
 On peut exprimer la même impossibilité sans calculer de rang. Si l'on augmente l'effet attribué au bâtiment B de $\delta$ et que l'on diminue d'autant l'effet attribué au capteur S2, les deux valeurs prédites restent inchangées :
 
-$
+$$
 (\alpha_B+\delta)+(\beta_{S2}-\delta)
 =\alpha_B+\beta_{S2}.
-$
+$$
 
 Une infinité de couples d'effets explique donc exactement les mêmes observations. Ce n'est pas que l'estimation serait simplement imprécise : les paramètres ne sont pas séparément déterminés par ces données.
 
@@ -249,7 +249,7 @@ Les comparaisons peuvent maintenant être faites à bâtiment constant ou à cap
 
 Avec le même codage que précédemment, la matrice du plan croisé devient :
 
-$
+$$
 X_{\text{croisé}} =
 \begin{bmatrix}
 1 & 0 & 0 \\
@@ -257,19 +257,19 @@ X_{\text{croisé}} =
 1 & 1 & 0 \\
 1 & 1 & 1
 \end{bmatrix}.
-$
+$$
 
 Elle est de rang 3 : les colonnes « bâtiment B » et « capteur S2 » ne sont plus identiques. Les deux effets principaux deviennent estimables dans le modèle additif. **Identifiable ne signifie toutefois ni exact ni précis** : le rang garantit ici que les paramètres sont séparables dans le modèle, pas que les mesures sont exemptes d'incertitude, de biais résiduel ou de défaut de protocole.
 
 Le renversement peut se lire directement dans les nombres. La différence initialement observée mélange les deux effets :
 
-$
+$$
 \underbrace{19{,}5-20{,}0}_{-0{,}5\;\text{°C observé}}
 =
 \underbrace{(20{,}5-20{,}0)}_{+0{,}5\;\text{°C bâtiment}}
 +
 \underbrace{(19{,}5-20{,}5)}_{-1{,}0\;\text{°C capteur}}.
-$
+$$
 
 Autrement dit, $-0{,}5 = +0{,}5 - 1{,}0$. Le bâtiment B est plus chaud de 0,5 °C dans cet exemple, mais son capteur indique 1 °C de moins. C'est cette contribution instrumentale qui inverse le signe de la comparaison naïve.
 
@@ -289,12 +289,12 @@ Le croisement rend les effets principaux identifiables sous une hypothèse : le 
 
 Une manière de rendre cette hypothèse visible consiste à comparer les écarts entre capteurs dans chaque bâtiment. Ici :
 
-$
+$$
 \begin{aligned}
 \Delta_{A} &= 19{,}0-20{,}0=-1{,}0\;^\circ\mathrm C,\\
 \Delta_{B} &= 19{,}5-20{,}5=-1{,}0\;^\circ\mathrm C.
 \end{aligned}
-$
+$$
 
 L'écart entre ces deux écarts — une différence de différences — vaut zéro dans le tableau construit. C'est ce que prédit le modèle sans interaction. Si les deux écarts différaient, cela pourrait signaler une interaction capteur × bâtiment, mais aussi du bruit de mesure ou une variation des conditions entre les relevés.
 
