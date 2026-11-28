@@ -72,7 +72,7 @@ L'article ne doit pas s'arrêter à la morale « corrélation n'est pas causalit
 **Frontières à préserver :**
 - J02 traite du mécanisme de sélection des unités et de la population représentée ; J06 traite de la composition des groupes comparés et de l'inversion sous agrégation.
 - J17 traite du choix et de l'interprétation des métriques de classification ; J06 traite du raisonnement causal derrière une comparaison.
-- Ne pas transformer J06 en catalogue de tous les biais causaux (collider, médiation, sélection, causalité inverse). Les signaler seulement si l'exemple l'exige.
+- Ne pas transformer J06 en catalogue de biais causaux. En revanche, la question « contrôler davantage peut-il empirer l'analyse ? » exige trois rôles distincts illustrés par des graphes minimaux : confondeur (ajustement utile sous hypothèses), médiateur (ajustement qui change l'effet visé) et collider (ajustement qui ouvre un chemin non causal).
 
 ## 4. Expérience centrale : reconstruire l'inversion
 
@@ -103,17 +103,29 @@ La comparaison s'inverse à nouveau : A est meilleur sous cette composition comm
 
 Ne pas présenter les taux construits comme des preuves de l'efficacité réelle d'un traitement. Leur rôle est de révéler le mécanisme arithmétique de l'inversion.
 
-## 5. Graphe causal et interprétation
+## 5. Graphe causal : quand ajuster aide, change la question ou nuit
 
-Construire un DAG minimal dans lequel le niveau de risque ($Z$ influence à la fois le choix du traitement $X$ et le résultat $Y$, tandis que le traitement peut lui aussi influencer $Y$ :
+Le premier graphe représente un **confondeur** : le niveau de risque ($Z$) influence à la fois le choix du traitement ($X$) et le résultat ($Y$), tandis que le traitement peut lui aussi influencer le résultat.
 
 $
 Z \rightarrow X,\qquad Z \rightarrow Y,\qquad X \rightarrow Y.
 $
 
-Expliquer que comparer les taux bruts mélange l'association entre traitement et résultat avec les différences de pronostic. Une comparaison conditionnelle sur (Z) peut réduire ce biais **si** (Z) suffit à rendre les groupes échangeables, si chaque traitement est possible dans chaque strate (positivité), et si le traitement et le résultat sont correctement définis et mesurés.
+Le chemin arrière $X \leftarrow Z \rightarrow Y$ crée une association entre traitement et résultat qui ne passe pas par le traitement. Comparer les taux bruts mélange donc l'association recherchée et les différences de pronostic. Ajuster sur $Z$ peut fermer ce chemin et rendre la comparaison plus pertinente **si** $Z$ suffit à contrôler les causes communes pertinentes, si chaque traitement est possible dans chaque strate (positivité), et si traitement, résultat et population cible sont correctement définis.
 
-**Point critique :** le paradoxe de Simpson est une propriété de l'agrégation, pas une méthode permettant de découvrir automatiquement le bon effet causal. La stratification peut aussi être trompeuse si l'on ajuste sur un collider, un médiateur ou une variable mesurée après le traitement. Ne pas suggérer « contrôler toutes les variables » comme règle universelle.
+Mais toutes les variables associées au traitement ne doivent pas être ajustées. Deux graphes courts doivent faire apparaître pourquoi :
+
+- **Médiateur :** $X \rightarrow M \rightarrow Y$. Si l'on cherche l'effet total de $X$ sur $Y$, ajuster sur $M$ bloque le chemin qui transmet une partie de cet effet. On ne répond plus à la même question : on cherche au mieux un effet direct, sous des hypothèses supplémentaires. Le médiateur est une conséquence du traitement, pas un confondeur préexistant.
+- **Collider :** $X \rightarrow C \leftarrow Y$. Si $C$ est un effet commun de $X$ et de $Y$, conditionner sur $C$ peut ouvrir une association entre ses deux causes, même lorsque celles-ci sont indépendantes dans la population.
+
+Un contre-exemple calculable rend ce second piège concret : supposons que $X$ et $Y$ soient deux variables binaires indépendantes, chacune de probabilité $1/2$, et que $C=1$ dès que $X=1$ **ou** $Y=1$. Dans la population, $P(Y=1\mid X=1)=P(Y=1\mid X=0)=1/2$. Parmi les seuls individus tels que $C=1$, en revanche,
+$
+P(Y=1\mid X=1,C=1)=1/2,\qquad
+P(Y=1\mid X=0,C=1)=1.
+$
+Conditionner sur le collider a donc créé une association négative entre deux variables qui étaient indépendantes.
+
+**Point critique :** le paradoxe de Simpson décrit une inversion sous agrégation ; il ne révèle pas automatiquement la bonne variable d'ajustement. La stratification est une opération descriptive. Son interprétation causale dépend du graphe, de l'ordre temporel et des hypothèses d'identification. Ne jamais transformer « contrôler toutes les variables disponibles » en règle universelle.
 
 ## 6. Contribution pour un data scientist
 
