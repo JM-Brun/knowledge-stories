@@ -1,0 +1,198 @@
+---
+title: "Quand le résultat s'inverse en regardant les groupes"
+description: "Deux traitements sont comparés : A réussit mieux dans chaque groupe de risque, mais B semble meilleur au total. Reconstituons l'inversion et ce qu'elle permet — ou non — de conclure."
+date: 2026-11-28
+category: "Statistiques et inférence"
+discipline: "Mathématiques"
+domain: "mathematics"
+themes: ["Statistiques et inférence", "Raisonnement causal"]
+tags: ["paradoxe-de-simpson", "agrégation", "stratification", "standardisation", "causalité"]
+labels: ["Paradoxe de Simpson", "Causalité"]
+difficulty: "intermediate"
+readingTime: 12
+articleType: "conceptual"
+learningObjectives:
+  - "Calculer des taux conditionnels et des taux marginaux à partir de numérateurs et de dénominateurs."
+  - "Expliquer une inversion par les poids différents des groupes agrégés."
+  - "Calculer des taux standardisés pour une population de référence explicite."
+  - "Distinguer une comparaison descriptive d'une estimation d'effet causal."
+concepts: ["correlation-and-causation"]
+recommendedPrerequisites: []
+status: "review"
+featured: false
+sources:
+  - title: "Simpson, E. H. (1951), The Interpretation of Interaction in Contingency Tables"
+    url: "https://doi.org/10.1111/j.2517-6161.1951.tb00088.x"
+    kind: "primary"
+    accessed: 2026-11-28
+  - title: "Hernán, M. A. & Robins, J. M. (2020), Causal Inference: What If"
+    url: "https://miguelhernan.org/whatifbook"
+    kind: "secondary"
+    accessed: 2026-11-28
+---
+
+> **Question de départ** — Comment un traitement peut-il afficher un meilleur taux de réussite dans chacun de deux groupes, mais un moins bon taux lorsqu'on rassemble tout le monde ?
+>
+> **Prérequis** — Savoir lire une fraction et calculer un pourcentage. Les notions de taux conditionnel, de pondération et de comparaison causale sont introduites ci-dessous.
+>
+> **À la fin** — Vous saurez reconstruire une inversion de Simpson, expliquer le rôle des dénominateurs et choisir les questions à poser avant d'interpréter une comparaison agrégée.
+
+## Deux traitements, trois conclusions apparemment incompatibles
+
+Une équipe compare deux traitements, A et B. Le résultat observé est binaire : le patient guérit ou ne guérit pas. Les patients sont répartis en deux groupes de pronostic, définis avant le traitement : risque faible et risque élevé.
+
+Le tableau global donne :
+
+| Traitement | Guérisons | Patients | Taux |
+|---|---:|---:|---:|
+| A | 10 | 110 | 9,1 % |
+| B | 80 | 110 | 72,7 % |
+
+À première vue, B semble très supérieur à A. Mais ce tableau mélange deux populations dont le pronostic n'est pas le même. Regardons les résultats séparément.
+
+## Décomposer avant d'interpréter
+
+| Niveau de risque | Traitement A | Traitement B |
+|---|---:|---:|
+| Faible | 9 / 10 = **90 %** | 80 / 100 = **80 %** |
+| Élevé | 1 / 100 = **1 %** | 0 / 10 = **0 %** |
+| **Tous niveaux** | **10 / 110 = 9,1 %** | **80 / 110 = 72,7 %** |
+
+Dans le groupe à faible risque, A obtient 90 % contre 80 % pour B. Dans le groupe à risque élevé, A obtient 1 % contre 0 %. **A présente un taux supérieur dans chacune des deux strates**, mais B présente un taux global beaucoup plus élevé.
+
+Ce n'est pas une erreur de calcul. C'est une conséquence de la composition des groupes :
+
+- parmi les patients recevant A, 100 sur 110 (90,9 %) sont à haut risque ;
+- parmi les patients recevant B, 100 sur 110 (90,9 %) sont à faible risque.
+
+Le traitement A est donc beaucoup plus souvent administré aux patients dont le pronostic initial est défavorable. Le taux global compare des groupes qui n'ont pas la même composition.
+
+Les nombres de cet exemple sont construits pour illustrer le mécanisme. Ils ne proviennent pas d'une étude médicale et ne permettent aucune conclusion sur l'efficacité réelle d'un traitement.
+
+## Où se cache l'inversion ? Dans les poids
+
+Un taux global n'est pas la moyenne simple des pourcentages des strates. C'est une moyenne pondérée par les effectifs de chaque strate.
+
+Pour A :
+
+$$
+R_A=\frac{9+1}{10+100}
+=\frac{10}{110}
+\approx 9{,}1\%.
+$$
+
+En écrivant les poids explicitement :
+
+$$
+R_A=\frac{10}{110}\times90\%
++\frac{100}{110}\times1\%
+\approx9{,}1\%.
+$$
+
+Pour B, les poids sont inversés :
+
+$$
+R_B=\frac{100}{110}\times80\%
++\frac{10}{110}\times0\%
+\approx72{,}7\%.
+$$
+
+Les taux conditionnels comparent les traitements à niveau de risque fixé. Les taux marginaux répondent à une autre question : quel taux observe-t-on dans chacun des groupes tels qu'ils ont effectivement été constitués ?
+
+Les deux calculs sont corrects. L'inversion apparaît parce que les poids attribués aux strates diffèrent fortement entre A et B.
+
+## Comparer à composition constante : la standardisation
+
+Pour isoler l'effet arithmétique de la composition, construisons une population de référence contenant autant de patients à faible risque que de patients à risque élevé. On attribue donc un poids de 50 % à chaque strate, pour les deux traitements.
+
+Les taux standardisés deviennent :
+
+$$
+R_A^{*}=0{,}5\times90\%+0{,}5\times1\%=45{,}5\%,
+$$
+
+$$
+R_B^{*}=0{,}5\times80\%+0{,}5\times0\%=40\%.
+$$
+
+Dans cette population de référence, A retrouve un taux supérieur à B : 45,5 % contre 40 %.
+
+La standardisation applique **les mêmes poids de strates aux deux traitements**. Elle neutralise la différence de composition selon le niveau de risque, pour la population de référence choisie.
+
+Le choix des poids n'est pas un détail technique. Il définit la population à laquelle la comparaison se rapporte. Une population composée à 50/50 est commode pour l'explication, mais elle n'est pas nécessairement représentative de la population réelle ni pertinente pour une décision. On pourrait choisir les proportions d'une population cible connue, à condition de les justifier.
+
+## De la comparaison descriptive à la question causale
+
+Jusqu'ici, nous avons décrit des données observées. Mais si l'équipe veut répondre à la question « quel traitement ferait mieux guérir un même type de patient ? », elle pose une question causale.
+
+Un graphe causal minimal peut représenter le mécanisme envisagé :
+
+- le niveau de risque Z influence le traitement reçu X ;
+- le niveau de risque Z influence aussi la guérison Y ;
+- le traitement X peut lui-même influencer Y.
+
+On représente ces relations par :
+
+$$
+Z\rightarrow X,\qquad Z\rightarrow Y,\qquad X\rightarrow Y.
+$$
+
+Le chemin passant par Z crée une association entre traitement et guérison qui ne vient pas nécessairement du traitement lui-même. Dans cet exemple, le niveau de risque est un facteur de confusion potentiel : il est lié à l'affectation du traitement et au pronostic.
+
+Comparer les taux bruts mélange donc les différences de pronostic entre les groupes et un éventuel effet du traitement.
+
+Stratifier sur Z peut corriger cette confusion **si Z suffit à rendre comparables les patients recevant A et B**, au sens des hypothèses causales pertinentes. La standardisation est alors une manière d'agréger les comparaisons conditionnelles dans une population cible définie.
+
+Mais la stratification ne transforme pas automatiquement une association en effet causal.
+
+## Quelles hypothèses faudrait-il défendre ?
+
+Dans le cadre des résultats potentiels, notons Y(1) le résultat qu'aurait un patient sous A et Y(0) celui qu'il aurait sous B. Pour estimer un effet causal à partir de données observationnelles en ajustant sur Z, plusieurs conditions doivent notamment être défendues.
+
+- **Cohérence.** Le traitement reçu correspond au traitement défini dans la question. Si A ou B recouvre plusieurs versions cliniquement différentes, il faut préciser ce que signifie l'intervention.
+- **Échangeabilité conditionnelle.** À niveau de risque Z donné, l'affectation du traitement ne doit plus dépendre des résultats potentiels. Il ne doit pas subsister de facteur de confusion pertinent non contrôlé.
+- **Positivité.** Dans chaque strate pertinente de Z, les deux traitements doivent pouvoir être observés avec une probabilité non nulle. Si tous les patients à haut risque reçoivent A, les données ne permettent pas d'estimer directement leur résultat sous B.
+- **Mesure et définition adéquates.** Le niveau de risque, le traitement et le résultat doivent être définis et mesurés de façon suffisamment fiable pour l'estimand visé.
+
+Ces hypothèses portent sur le mécanisme qui a produit les données. Elles ne sont pas prouvées par une régression ajustée, par une valeur de p ou par le fait que les taux deviennent cohérents après stratification.
+
+Éviter aussi la règle simpliste « contrôler toutes les variables disponibles ». Ajuster sur une variable postérieure au traitement ou sur un collider peut introduire un biais au lieu de le réduire. Le choix des variables d'ajustement doit être justifié par la question causale et le mécanisme supposé.
+
+## Ce que l'exemple ne démontre pas
+
+L'inversion de Simpson est un phénomène d'agrégation : le sens d'une comparaison peut changer lorsque l'on passe des groupes conditionnels à leur regroupement. Elle ne fournit pas, à elle seule, une méthode pour déterminer quel niveau d'analyse est le bon.
+
+1. **Une inversion n'est pas systématique.** Elle dépend des taux propres à chaque strate et des poids utilisés.
+2. **La strate pertinente doit être justifiée.** Une variable associée au traitement et au résultat n'est pas automatiquement la bonne variable d'ajustement dans tous les graphes causaux.
+3. **Les effectifs comptent.** Certaines cellules sont petites, notamment 0 guérison sur 10. Les taux observés sont incertains ; nous n'avons calculé ni intervalle de confiance ni test statistique.
+4. **La standardisation dépend de la cible.** Changer les poids change la quantité descriptive ou causale que l'on cherche à résumer.
+5. **Les facteurs non observés restent un problème.** Standardiser sur le seul niveau de risque ne corrige pas une confusion qui dépendrait d'autres variables non mesurées.
+
+Le paradoxe ne signifie donc ni que les taux globaux sont toujours trompeurs, ni que les taux stratifiés révèlent toujours la vérité. Il oblige à expliciter la population, la composition et la question à laquelle le calcul répond.
+
+## Un réflexe utile en Data Science
+
+Le même diagnostic s'applique lorsqu'on compare des modèles, des produits ou des populations. Un score global peut changer parce que la composition des cas évalués a changé, même si les performances par sous-groupe évoluent peu.
+
+Avant de conclure qu'une méthode est meilleure, vérifiez :
+
+1. **L'unité d'analyse et les dénominateurs.** Que compte exactement chaque ligne et chaque taux ?
+2. **La composition des groupes.** Les proportions de cas faciles, difficiles ou rares sont-elles comparables ?
+3. **Les résultats conditionnels.** Les écarts persistent-ils dans des strates pertinentes définies avant l'analyse ?
+4. **La population de référence.** À quelles proportions de groupes la comparaison doit-elle s'appliquer ?
+5. **La question visée.** Cherchez-vous à décrire les performances observées, à prédire sur une population cible ou à estimer l'effet d'une intervention ?
+
+Une comparaison de modèles peut nécessiter une standardisation des métriques par sous-groupe ; une comparaison causale exige en plus un estimand et des hypothèses d'identification. Ces deux problèmes sont liés, mais ne sont pas interchangeables.
+
+## À retenir
+
+- Un taux agrégé est une moyenne pondérée, pas une moyenne simple des taux de chaque groupe.
+- Des poids différents peuvent inverser le sens d'une comparaison.
+- La standardisation applique des poids communs et explicites à une population de référence.
+- Une comparaison standardisée reste descriptive tant que les hypothèses d'identification causale ne sont pas défendues.
+- Le choix des variables d'ajustement relève d'un raisonnement causal, pas d'une règle consistant à contrôler toutes les colonnes.
+
+## Pour aller plus loin
+
+- E. H. Simpson (1951), [*The Interpretation of Interaction in Contingency Tables*](https://doi.org/10.1111/j.2517-6161.1951.tb00088.x), *Journal of the Royal Statistical Society: Series B*, 13(2), 238–241. Cet article historique examine l'interprétation des interactions dans les tableaux de contingence et les limites d'un regroupement mécanique.
+- M. A. Hernán et J. M. Robins (2020), [*Causal Inference: What If*](https://miguelhernan.org/whatifbook), notamment les chapitres 1 à 3 pour les résultats potentiels, la standardisation et les hypothèses d'identification.
