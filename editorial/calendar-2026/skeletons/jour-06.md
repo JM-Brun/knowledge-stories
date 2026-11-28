@@ -116,7 +116,7 @@ Le chemin arrière $X \leftarrow Z \rightarrow Y$ crée une association entre tr
 Mais toutes les variables associées au traitement ne doivent pas être ajustées. Deux graphes courts doivent faire apparaître pourquoi :
 
 - **Médiateur :** $X \rightarrow M \rightarrow Y$. Si l'on cherche l'effet total de $X$ sur $Y$, ajuster sur $M$ bloque le chemin qui transmet une partie de cet effet. On ne répond plus à la même question : on cherche au mieux un effet direct, sous des hypothèses supplémentaires. Le médiateur est une conséquence du traitement, pas un confondeur préexistant.
-- **Collider :** $X \rightarrow C \leftarrow U \rightarrow Y$. Si $C$ est un effet commun de $X$ et d'une variable $U$ qui influence $Y$, conditionner sur $C$ ouvre le chemin non causal entre $X$ et $Y$. Une variable qui semblait utile parce qu'elle prédit le traitement ou le résultat peut ainsi créer une association artificielle lorsqu'on la contrôle.
+- **Collider :** $X \rightarrow C \leftarrow Y$. Si $C$ est un effet commun de $X$ et d'une variable $U$ qui influence $Y$, conditionner sur $C$ ouvre le chemin non causal entre $X$ et $Y$. Une variable qui semblait utile parce qu'elle prédit le traitement ou le résultat peut ainsi créer une association artificielle lorsqu'on la contrôle.
 
 Un contre-exemple calculable rend ce second piège concret : supposons que $X$ et $Y$ soient deux variables binaires indépendantes, chacune de probabilité $1/2$, et que $C=1$ dès que $X=1$ **ou** $Y=1$. Dans la population, $P(Y=1\mid X=1)=P(Y=1\mid X=0)=1/2$. Parmi les seuls individus tels que $C=1$, en revanche,
 $
