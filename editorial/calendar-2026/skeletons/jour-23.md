@@ -44,7 +44,7 @@ Ce document est un **dossier de conception évolutif**, pas un article destiné 
 
 ## 2. Situation d'entrée et fil narratif
 
-**Scène d'ouverture :** Prévoir la demande de demain à partir d'observations quotidiennes semble être une régression ordinaire. Pourquoi mélanger aléatoirement les lignes fausse-t-il l'expérience ?
+**Scène d'ouverture :** Prévoir la demande de demain à partir d'observations quotidiennes semble être une régression ordinaire. Pourquoi un split aléatoire peut-il évaluer autre chose que la prévision du lendemain ?
 
 **Tension à maintenir :** faire évoluer une question concrète vers une explication conceptuelle. Ne pas commencer par une définition encyclopédique. Le récit doit apporter une situation, une décision ou une surprise ; il ne remplace pas l'explication.
 
@@ -68,7 +68,7 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 ## 4. Expérience, démonstration ou preuve
 
-**Dispositif proposé :** Comparer validation aléatoire et chronologique sur une série synthétique avec tendance, puis examiner les informations futures qui contaminent le premier protocole.
+**Dispositif proposé :** Comparer un split aléatoire et une séparation chronologique sur une série synthétique avec tendance et dépendance temporelle. Pour chaque observation évaluée, identifier quelles dates sont présentes dans l'entraînement et ce que chaque protocole estime réellement. Ne parler de fuite que si une information indisponible à l'origine de prévision est effectivement utilisée.
 
 **Matériel à préparer :**
 - données ou paramètres explicitement documentés ;
@@ -80,7 +80,7 @@ Le futur article devra définir chaque notion centrale, expliquer son mécanisme
 
 ## 5. Angle distinctif — contribution de cette journée
 
-**Piège central à désamorcer :** Mélanger passé et futur produit une estimation optimiste ; stationnaire ne signifie pas simplement « sans tendance visible ».
+**Piège central à désamorcer :** Un split aléatoire ne reproduit généralement pas le scénario de prévision à origine temporelle croissante. En présence de dépendance, de tendance, de dérive ou de variables construites avec le futur, il peut conduire à une estimation optimiste. Il n'est toutefois pas universellement invalide : sa pertinence dépend de la cible d'évaluation et des hypothèses sur le processus générateur. Stationnaire ne signifie pas simplement « sans tendance visible ».
 
 **Question éditoriale à résoudre avant rédaction :**
 1. Comment les ressources de référence expliquent-elles généralement le sujet ?
