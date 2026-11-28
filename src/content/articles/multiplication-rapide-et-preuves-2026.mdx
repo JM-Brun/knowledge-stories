@@ -37,7 +37,11 @@ sources:
     url: "https://gmplib.org/manual/Multiplication-Algorithms"
     kind: "documentation"
     accessed: 2026-11-27
-  - title: "The complexity of a scheme of functional elements realizing the multiplication of integers — A. L. Toom (English translation, 1963; original: Doklady AN SSSR 150(3), 496–498)"
+  - title: "The complexity of a scheme of functional elements simulating the multiplication of integers — A. L. Toom (original Russian publication, 1963)"
+    url: "https://www.mathnet.ru/eng/dan27978"
+    kind: "primary"
+    accessed: 2026-11-28
+  - title: "The complexity of a scheme of functional elements realizing the multiplication of integers — A. L. Toom (English translation, Soviet Mathematics–Doklady 3, 714–716, 1963)"
     url: "https://cs-web.bu.edu/faculty/gacs/toomandre-com-backup/my-articles/engmat/MULT-E.PDF"
     kind: "primary"
     accessed: 2026-11-28
@@ -241,7 +245,7 @@ Posons &#92;(a=2k-1&#92;) et &#92;(b=k&#92;). Comme &#92;(a&#92;gt b&#92;), l'ex
 
 ### Repère historique : l'article de Toom (1963)
 
-L'article de Toom, publié en russe dans *Doklady Akademii Nauk SSSR*, 150(3), 496–498 (1963), est disponible ici dans sa traduction anglaise, *Soviet Mathematics — Doklady*, 3 (1963), 714–716. Il étudie la complexité de schémas de fonctions booléennes pour la multiplication d'entiers binaires. Après avoir ramené la multiplication à des calculs de carrés, il représente un entier par un polynôme, évalue ce polynôme en plusieurs points entiers, élève les valeurs obtenues au carré, puis reconstruit les coefficients par interpolation avant de recomposer le résultat.
+L'article de Toom, publié en russe dans *Doklady Akademii Nauk SSSR*, 150(3), 496–498 (1963), est référencé dans [le catalogue Math-Net](https://www.mathnet.ru/eng/dan27978). Le texte est consultable ici dans sa traduction anglaise, *Soviet Mathematics — Doklady*, 3 (1963), 714–716, conservée dans l'archive universitaire de la page de l'auteur. Il étudie la complexité de schémas de fonctions booléennes pour la multiplication d'entiers binaires. Après avoir ramené la multiplication à des calculs de carrés, il représente un entier par un polynôme, évalue ce polynôme en plusieurs points entiers, élève les valeurs obtenues au carré, puis reconstruit les coefficients par interpolation avant de recomposer le résultat.
 
 Ce texte constitue une source historique primaire pour l'approche par évaluation et interpolation. Il ne faut toutefois pas confondre son schéma général et son modèle de calcul avec la variante Toom–3 concrète présentée plus haut : les cinq points d'évaluation et les détails de l'interpolation exposés ici sont ceux de la variante documentée par GNU MP 6.3.0, et non une transcription de la construction de Toom.
 
